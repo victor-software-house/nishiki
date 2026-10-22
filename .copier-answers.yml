@@ -33,7 +33,7 @@ pieces_extra:
 - doc_tests
 - rustdoc
 project: rust-crate
-published: false
+published: true
 rust_nightly: nightly-2026-09-29
 rust_version: 1.99.0
 tokio: false

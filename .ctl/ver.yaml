@@ -1,0 +1,15 @@
+# A bump leaves Cargo.lock stale, and ci.yml runs `cargo package --locked`.
+prepare:
+  after: [cargo, update, --workspace]
+  stage: [Cargo.lock]
+
+packages:
+  - name: nishiki
+    path: Cargo.toml
+
+# Maintainers and Apps a changelog never credits.
+changelog:
+  internal_authors:
+    - any-victor
+    - "github-actions[bot]"
+    - "vsh-changeset-version[bot]"
