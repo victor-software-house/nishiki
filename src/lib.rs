@@ -40,6 +40,11 @@
 
 pub mod rust;
 
+/// The README's examples, compiled and run as doctests.
+#[cfg(doctest)]
+#[doc = include_str!("../README.md")]
+struct ReadmeDoctests;
+
 /// A run of bytes in one line that shares one scope stack.
 ///
 /// A token starts where the previous token of its line ended, or at byte 0,
