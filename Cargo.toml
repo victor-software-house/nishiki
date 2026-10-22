@@ -11,9 +11,16 @@ keywords = ["syntax", "highlighting", "lexer", "textmate"]
 categories = ["text-processing", "parser-implementations"]
 # The published source holds only what builds and documents the crate.
 include = ["src/**", "Cargo.toml", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
-publish = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cap-lints", "warn"]
 
 [dependencies]
+memchr = "2.8.3"
+
+[dev-dependencies]
+indoc = "2.0.8"
 
 [lints.rust]
 unsafe_code = "forbid"
