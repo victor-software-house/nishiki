@@ -34,6 +34,23 @@ checksum = "sha256:fe67d82a10d8597a3549364cb733a3f9cc1bfff9031b7ae46384a9f2a7209
 url = "https://github.com/EmbarkStudios/cargo-deny/releases/download/0.20.2/cargo-deny-0.20.2-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/EmbarkStudios/cargo-deny/releases/assets/471597689"
 
+[[tools."github:Fission-AI/OpenSpec"]]
+version = "1.15.0"
+backend = "github:Fission-AI/OpenSpec"
+specifiers = ["1.15.0"]
+
+[tools."github:Fission-AI/OpenSpec"."platforms.linux-x64"]
+checksum = "sha256:15dbc91d6c0c8bedda936043f2fc0ea6ce6ca8011e6a40273cb9f5c586cff564"
+url = "https://github.com/Fission-AI/OpenSpec/releases/download/v1.15.0/openspec-linux-x64"
+url_api = "https://api.github.com/repos/Fission-AI/OpenSpec/releases/assets/670873135"
+provenance = "github-attestations"
+
+[tools."github:Fission-AI/OpenSpec"."platforms.macos-arm64"]
+checksum = "sha256:16f669ab589174f08f1595f1c13197b4ed9106cd78b31ab941b99e0c3cde8309"
+url = "https://github.com/Fission-AI/OpenSpec/releases/download/v1.15.0/openspec-darwin-arm64"
+url_api = "https://api.github.com/repos/Fission-AI/OpenSpec/releases/assets/670873134"
+provenance = "github-attestations"
+
 [[tools."github:bnjbvr/cargo-machete"]]
 version = "0.9.2"
 backend = "github:bnjbvr/cargo-machete"
@@ -110,25 +127,6 @@ signer = "sigstore-oidc:https://github.com/jdx/mr-boxington/.github/workflows/re
 checksum = "sha256:60c646b7ce5ae9cfdb67b1565a4ec81ec3a07290f1e7000a026a6db7fa247440"
 url = "https://github.com/jdx/mr-boxington/releases/download/v1.24.0/mbx-aarch64-apple-darwin.tar.gz"
 signer = "sigstore-oidc:https://github.com/jdx/mr-boxington/.github/workflows/release.yml"
-
-[[tools.node]]
-version = "24.21.0"
-backend = "core:node"
-specifiers = ["24.21.0"]
-
-[tools.node."platforms.linux-x64"]
-checksum = "sha256:6e1db87ef58b8819e5d5402eff1536491b18edd8eb7bee5ef7897876e88dc5ff"
-url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.gz"
-
-[tools.node."platforms.macos-arm64"]
-checksum = "sha256:bed7eea5325e1108f32ce5228ddd6a5f0f08a499ee42aa7442aea583702f6057"
-url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-darwin-arm64.tar.gz"
-
-[[tools."npm:@fission-ai/openspec"]]
-version = "1.14.1"
-aube = { path = ".mise/locks/npm-fission-ai-openspec/1.14.1", digest = "sha256:12c741fbdbaaf62e0d2cf93aa39aa062100261fe57680db8a72a5475c9c03b44" }
-backend = "npm:@fission-ai/openspec"
-specifiers = ["1.14.1"]
 
 [[tools.python]]
 version = "3.14.8"
