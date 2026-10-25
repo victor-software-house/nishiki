@@ -21,6 +21,9 @@ jobs:
     with:
       mise-version: 2026.10.17
       mise-env: ci,release
+      # A private repository: the plan, publish, docs and propose jobs run on
+      # Namespace, as its CI does.
+      runner: '["nscloud-ubuntu-24.04-amd64-4x8"]'
       # The Version PR merges itself once the required checks pass.
       auto-merge: true
       crates-io-trusted-publishing: true
