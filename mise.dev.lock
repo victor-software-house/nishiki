@@ -17,6 +17,21 @@ checksum = "sha256:98eae08e1b0715ef6446c4bd08352f21f3a3ce21535a35687a1e132bcb4fc
 url = "https://github.com/crate-ci/committed/releases/download/v1.1.11/committed-v1.1.11-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/crate-ci/committed/releases/assets/362199688"
 
+[[tools."github:victor-software-house/verctl"]]
+version = "0.5.4"
+backend = "github:victor-software-house/verctl"
+specifiers = ["0.5.4"]
+
+[tools."github:victor-software-house/verctl"."platforms.linux-x64"]
+checksum = "sha256:7c9a7bd0ebe7e2f4ce79be59cf9cda96faea250a579019be84d65cc68361570f"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.5.4/verctl_0.5.4_linux_x64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/664882388"
+
+[tools."github:victor-software-house/verctl"."platforms.macos-arm64"]
+checksum = "sha256:cd302a3caa757ada62d638e7d6e1dde143729cebc5d04df5b3961abb24868453"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.5.4/verctl_0.5.4_macos_arm64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/664886825"
+
 [[tools.gitleaks]]
 version = "8.30.1"
 backend = "aqua:gitleaks/gitleaks"
@@ -80,3 +95,20 @@ checksum = "sha256:cfe454573412ff7380d15fc7dae5997ab53ffce72fce0a78e91ddbc84001a
 url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639312976"
 provenance = "github-attestations"
+
+[[tools.yq]]
+version = "4.54.1"
+backend = "aqua:mikefarah/yq"
+specifiers = ["4.54.1"]
+
+[tools.yq."platforms.linux-x64"]
+checksum = "sha256:8e34fc298390875de416e6a4afcb8cabeceb25d9aa8506c1a2f9353cf702ea5f"
+url = "https://github.com/mikefarah/yq/releases/download/v4.54.1/yq_linux_amd64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/597222595"
+provenance = "cosign"
+
+[tools.yq."platforms.macos-arm64"]
+checksum = "sha256:fee511a181bd8b3e6b7da98842b41973bfac8cd3bcd341ed29a584620b5b2844"
+url = "https://github.com/mikefarah/yq/releases/download/v4.54.1/yq_darwin_arm64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/597222609"
+provenance = "cosign"
