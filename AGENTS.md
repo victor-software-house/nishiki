@@ -31,7 +31,7 @@ The decisions that created it live in a private planning repository: `openspec/d
 ## Working here
 
 1. The pull request's CI is the verifier: `mise run verify` runs format, lint, tests, doctests, docs as docs.rs builds them, `cargo deny`, and the repository checks.
-   Format with `mise run format`, which runs rustfmt on the pinned nightly; the pre-commit hook checks it.
+   `mise run format` checks formatting with rustfmt on the pinned nightly, as the pre-commit hook does; `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it (the nightly is pinned in `mise.toml`).
 2. The README's Rust examples run as doctests (`ReadmeDoctests` in `src/lib.rs`).
    Its links to files use docs.rs source URLs, because the repository is private.
 3. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
