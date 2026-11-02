@@ -25,7 +25,7 @@ Equal states then have equal ids, which is what lets an editor stop re-lexing as
 ### 1.3 Scope names are tables
 
 Each language lists its scope names once, as an enum whose discriminant indexes a `NAMES` table, in Shiki's spelling.
-`src/scope.rs` numbers every table in one space, and each table's base is computed from the previous table's end (`after`), never written by hand, so adding a language cannot make two tables overlap.
+`src/scope.rs` numbers every table in one space, and each table's base is computed from the previous table's end (`after`), never written by hand, so adding a language cannot make two tables overlap; a compile-time check fails the build when a table does not start where the one before it ends, as a merge that keeps both sides can leave it.
 A name the grammar misspells keeps the grammar's spelling, written with one byte escape in the literal so the stock spelling check passes.
 
 ### 1.4 Every limit comes from `Limits`

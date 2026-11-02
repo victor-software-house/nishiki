@@ -21,6 +21,27 @@ const TABLES: &[(u16, &[&str])] = &[
     (DIFF, crate::diff::NAMES),
 ];
 
+// Each table starts where the one before it ends, and the last ends below the
+// run-time scopes, so no two tables share a number. A base chained to the
+// wrong predecessor, as a merge that keeps both sides can leave it, fails the
+// build here.
+const _: () = {
+    let mut next = RUST;
+    let mut i = 0;
+    while i < TABLES.len() {
+        assert!(
+            TABLES[i].0 == next,
+            "a scope table does not start where the one before it ends"
+        );
+        next = after(next, TABLES[i].1);
+        i += 1;
+    }
+    assert!(
+        next <= DYNAMIC,
+        "the scope tables run into the run-time scopes"
+    );
+};
+
 /// The base of the Rust lexer's scope names.
 pub(crate) const RUST: u16 = 1;
 
@@ -65,9 +86,6 @@ pub(crate) const MAKE: u16 = after(TOML, crate::toml::NAMES);
 
 /// The base of the diff lexer's scope names: where the Makefile lexer's end.
 pub(crate) const DIFF: u16 = after(MAKE, crate::make::NAMES);
-
-// The tables end below the run-time scopes.
-const _: () = assert!(after(DIFF, crate::diff::NAMES) <= DYNAMIC);
 
 impl Scope {
     /// The placeholder scope of the empty stack.
