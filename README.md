@@ -96,6 +96,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Dockerfile | `Language::Dockerfile` | `docker`, `dockerfile` |
 | Java | `Language::Java` | `java` |
 | C | `Language::C` | `c` |
+| SQL | `Language::Sql` | `sql` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -183,6 +184,11 @@ A declaration is found by a lookahead over the rest of the line, as in the gramm
 A comment is read only at the start of a line and never inside a string, and a string runs across lines until its quote, so an apostrophe in a `RUN` line opens a string that swallows the instructions after it.
 A line that continues another still reads its first word as an instruction.
 A Markdown fence names the language `dockerfile`; the `docker` fence is plain text, as in Shiki.
+
+### SQL
+
+`#` starts no comment, a string that closes on its line ignores a backslash before its quote, and a name after a `.` is a table name even when it is a number.
+A keyword is matched without regard to case as Shiki's engine does, so `ſelect` is `select`.
 
 ## Licence
 

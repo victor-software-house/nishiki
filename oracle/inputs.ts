@@ -172,6 +172,21 @@ const lua =
 const unity =
   "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
 
+const postgres =
+  "https://raw.githubusercontent.com/postgres/postgres/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3";
+
+const sqlServerSamples =
+  "https://raw.githubusercontent.com/microsoft/sql-server-samples/3c71696a3942879f0481f3bd65fe112a40023f18";
+
+const pgvector =
+  "https://raw.githubusercontent.com/pgvector/pgvector/1d5ef0a160cadec08f754528669ce17e20eab38c";
+
+const typeorm =
+  "https://raw.githubusercontent.com/typeorm/typeorm/5bdc67882dee5a02d975d5ed140c9c3f91661116";
+
+const knex =
+  "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -436,4 +451,25 @@ export const inputs: Input[] = [
     name: "unity-getting-started",
     url: `${unity}/docs/UnityGettingStartedGuide.md`,
   },
+  { lang: "sql", name: "sample", url: `${samples}/sql.sample` },
+  { lang: "sql", name: "postgres-select", url: `${postgres}/src/test/regress/sql/select.sql` },
+  {
+    lang: "sql",
+    name: "postgres-create-table",
+    url: `${postgres}/src/test/regress/sql/create_table.sql`,
+  },
+  {
+    lang: "sql",
+    name: "ssms-create-table",
+    url: `${sqlServerSamples}/samples/features/ssms-templates/Sql/Table/Create%20Table.sql`,
+  },
+  { lang: "sql", name: "postgres-with", url: `${postgres}/src/test/regress/sql/with.sql` },
+  {
+    lang: "sql",
+    name: "northwind-pubs",
+    url: `${sqlServerSamples}/samples/databases/northwind-pubs/instpubs.sql`,
+  },
+  { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
+  { lang: "markdown", name: "typeorm-indexes", url: `${typeorm}/docs/docs/indexes.md` },
+  { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
 ];

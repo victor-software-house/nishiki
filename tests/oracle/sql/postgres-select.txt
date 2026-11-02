@@ -1,0 +1,1865 @@
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- SELECT
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 9 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L 
+L -- btree index
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 14 source.sql comment.line.double-dash.sql
+L -- awk '{if($1<10){print;}else{next;}}' onek.data | sort +0n -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 63 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT * FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+L    WHERE onek.unique1 < 10
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 26 source.sql constant.numeric.sql
+L    ORDER BY onek.unique1;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 12 source.sql
+T 16 source.sql constant.other.database-name.sql
+T 17 source.sql
+T 24 source.sql constant.other.table-name.sql
+T 25 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1<20){print $1,$14;}else{next;}}' onek.data | sort +0nr -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 71 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.stringu1 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 34 source.sql constant.other.table-name.sql
+T 35 source.sql
+T 39 source.sql keyword.other.DML.sql
+T 44 source.sql
+L    WHERE onek.unique1 < 20
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 26 source.sql constant.numeric.sql
+L    ORDER BY unique1 using >;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.sql
+T 26 source.sql
+T 27 source.sql keyword.operator.comparison.sql
+T 28 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1>980){print $1,$14;}else{next;}}' onek.data | sort +1d -2
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 71 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.stringu1 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 34 source.sql constant.other.table-name.sql
+T 35 source.sql
+T 39 source.sql keyword.other.DML.sql
+T 44 source.sql
+L    WHERE onek.unique1 > 980
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 27 source.sql constant.numeric.sql
+L    ORDER BY stringu1 using <;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 21 source.sql
+T 26 source.sql keyword.other.sql
+T 27 source.sql
+T 28 source.sql keyword.operator.comparison.sql
+T 29 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1>980){print $1,$16;}else{next;}}' onek.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 59 source.sql comment.line.double-dash.sql
+L -- sort +1d -2 +0nr -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 22 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.string4 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 33 source.sql constant.other.table-name.sql
+T 34 source.sql
+T 38 source.sql keyword.other.DML.sql
+T 43 source.sql
+L    WHERE onek.unique1 > 980
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 27 source.sql constant.numeric.sql
+L    ORDER BY string4 using <, unique1 using >;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.sql
+T 26 source.sql
+T 27 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 42 source.sql keyword.other.sql
+T 43 source.sql
+T 44 source.sql keyword.operator.comparison.sql
+T 45 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1>980){print $1,$16;}else{next;}}' onek.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 59 source.sql comment.line.double-dash.sql
+L -- sort +1dr -2 +0n -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 22 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.string4 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 33 source.sql constant.other.table-name.sql
+T 34 source.sql
+T 38 source.sql keyword.other.DML.sql
+T 43 source.sql
+L    WHERE onek.unique1 > 980
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 27 source.sql constant.numeric.sql
+L    ORDER BY string4 using >, unique1 using <;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.sql
+T 26 source.sql
+T 27 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 42 source.sql keyword.other.sql
+T 43 source.sql
+T 44 source.sql keyword.operator.comparison.sql
+T 45 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1<20){print $1,$16;}else{next;}}' onek.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 58 source.sql comment.line.double-dash.sql
+L -- sort +0nr -1 +1d -2
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 22 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.string4 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 33 source.sql constant.other.table-name.sql
+T 34 source.sql
+T 38 source.sql keyword.other.DML.sql
+T 43 source.sql
+L    WHERE onek.unique1 < 20
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 26 source.sql constant.numeric.sql
+L    ORDER BY unique1 using >, string4 using <;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.sql
+T 26 source.sql
+T 27 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 42 source.sql keyword.other.sql
+T 43 source.sql
+T 44 source.sql keyword.operator.comparison.sql
+T 45 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1<20){print $1,$16;}else{next;}}' onek.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 58 source.sql comment.line.double-dash.sql
+L -- sort +0n -1 +1dr -2
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 22 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek.unique1, onek.string4 FROM onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 11 source.sql constant.other.database-name.sql
+T 12 source.sql
+T 19 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql constant.other.database-name.sql
+T 26 source.sql
+T 33 source.sql constant.other.table-name.sql
+T 34 source.sql
+T 38 source.sql keyword.other.DML.sql
+T 43 source.sql
+L    WHERE onek.unique1 < 20
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 13 source.sql constant.other.database-name.sql
+T 14 source.sql
+T 21 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 23 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+T 26 source.sql constant.numeric.sql
+L    ORDER BY unique1 using <, string4 using >;
+T 3 source.sql
+T 11 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.sql
+T 26 source.sql
+T 27 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 42 source.sql keyword.other.sql
+T 43 source.sql
+T 44 source.sql keyword.operator.comparison.sql
+T 45 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- test partial btree indexes
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 29 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- As of 7.2, planner probably won't pick an indexscan without stats,
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 69 source.sql comment.line.double-dash.sql
+L -- so ANALYZE first.  Also, we want to prevent it from picking a bitmapscan
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 75 source.sql comment.line.double-dash.sql
+L -- followed by sort, because that could hide index ordering problems.
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 69 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L ANALYZE onek2;
+T 14 source.sql
+L 
+L SET enable_seqscan TO off;
+T 3 source.sql keyword.other.DML.sql
+T 19 source.sql
+T 21 source.sql keyword.other.sql
+T 22 source.sql
+T 25 source.sql keyword.other.DDL.create.II.sql
+T 26 source.sql
+L SET enable_bitmapscan TO off;
+T 3 source.sql keyword.other.DML.sql
+T 22 source.sql
+T 24 source.sql keyword.other.sql
+T 25 source.sql
+T 28 source.sql keyword.other.DDL.create.II.sql
+T 29 source.sql
+L SET enable_sort TO off;
+T 3 source.sql keyword.other.DML.sql
+T 16 source.sql
+T 18 source.sql keyword.other.sql
+T 19 source.sql
+T 22 source.sql keyword.other.DDL.create.II.sql
+T 23 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1<10){print $0;}else{next;}}' onek.data | sort +0n -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 66 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek2.* FROM onek2 WHERE onek2.unique1 < 10;
+T 6 source.sql keyword.other.DML.sql
+T 13 source.sql
+T 14 source.sql keyword.operator.star.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 32 source.sql
+T 37 source.sql constant.other.database-name.sql
+T 38 source.sql
+T 45 source.sql constant.other.table-name.sql
+T 46 source.sql
+T 47 source.sql keyword.operator.comparison.sql
+T 48 source.sql
+T 50 source.sql constant.numeric.sql
+T 51 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1<20){print $1,$14;}else{next;}}' onek.data | sort +0nr -1
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 71 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek2.unique1, onek2.stringu1 FROM onek2
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 12 source.sql constant.other.database-name.sql
+T 13 source.sql
+T 20 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 27 source.sql constant.other.database-name.sql
+T 28 source.sql
+T 36 source.sql constant.other.table-name.sql
+T 37 source.sql
+T 41 source.sql keyword.other.DML.sql
+T 47 source.sql
+L     WHERE onek2.unique1 < 20
+T 4 source.sql
+T 9 source.sql keyword.other.DML.sql
+T 10 source.sql
+T 15 source.sql constant.other.database-name.sql
+T 16 source.sql
+T 23 source.sql constant.other.table-name.sql
+T 24 source.sql
+T 25 source.sql keyword.operator.comparison.sql
+T 26 source.sql
+T 28 source.sql constant.numeric.sql
+L     ORDER BY unique1 using >;
+T 4 source.sql
+T 12 source.sql keyword.other.DML.sql
+T 21 source.sql
+T 26 source.sql keyword.other.sql
+T 27 source.sql
+T 28 source.sql keyword.operator.comparison.sql
+T 29 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{if($1>980){print $1,$14;}else{next;}}' onek.data | sort +1d -2
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 71 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT onek2.unique1, onek2.stringu1 FROM onek2
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 12 source.sql constant.other.database-name.sql
+T 13 source.sql
+T 20 source.sql constant.other.table-name.sql
+T 22 source.sql
+T 27 source.sql constant.other.database-name.sql
+T 28 source.sql
+T 36 source.sql constant.other.table-name.sql
+T 37 source.sql
+T 41 source.sql keyword.other.DML.sql
+T 47 source.sql
+L    WHERE onek2.unique1 > 980;
+T 3 source.sql
+T 8 source.sql keyword.other.DML.sql
+T 9 source.sql
+T 14 source.sql constant.other.database-name.sql
+T 15 source.sql
+T 22 source.sql constant.other.table-name.sql
+T 23 source.sql
+T 24 source.sql keyword.operator.comparison.sql
+T 25 source.sql
+T 28 source.sql constant.numeric.sql
+T 29 source.sql
+L 
+L RESET enable_seqscan;
+T 5 source.sql keyword.other.sql
+T 21 source.sql
+L RESET enable_bitmapscan;
+T 5 source.sql keyword.other.sql
+T 24 source.sql
+L RESET enable_sort;
+T 5 source.sql keyword.other.sql
+T 18 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{print $1,$2;}' person.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 37 source.sql comment.line.double-dash.sql
+L -- awk '{if(NF!=2){print $3,$2;}else{print;}}' - emp.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 59 source.sql comment.line.double-dash.sql
+L -- awk '{if(NF!=2){print $3,$2;}else{print;}}' - student.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 63 source.sql comment.line.double-dash.sql
+L -- awk 'BEGIN{FS="      ";}{if(NF!=2){print $4,$5;}else{print;}}' - stud_emp.data
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 81 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- SELECT name, age FROM person*; ??? check if different
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 56 source.sql comment.line.double-dash.sql
+L SELECT p.name, p.age FROM person* p;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.other.database-name.sql
+T 9 source.sql
+T 13 source.sql constant.other.table-name.sql
+T 15 source.sql
+T 16 source.sql constant.other.database-name.sql
+T 17 source.sql
+T 20 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 32 source.sql
+T 33 source.sql keyword.operator.star.sql
+T 36 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- awk '{print $1,$2;}' person.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 37 source.sql comment.line.double-dash.sql
+L -- awk '{if(NF!=2){print $3,$2;}else{print;}}' - emp.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 59 source.sql comment.line.double-dash.sql
+L -- awk '{if(NF!=2){print $3,$2;}else{print;}}' - student.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 63 source.sql comment.line.double-dash.sql
+L -- awk 'BEGIN{FS="      ";}{if(NF!=1){print $4,$5;}else{print;}}' - stud_emp.data |
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 83 source.sql comment.line.double-dash.sql
+L -- sort +1nr -2
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 15 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L SELECT p.name, p.age FROM person* p ORDER BY age using >, name;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.other.database-name.sql
+T 9 source.sql
+T 13 source.sql constant.other.table-name.sql
+T 15 source.sql
+T 16 source.sql constant.other.database-name.sql
+T 17 source.sql
+T 20 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 32 source.sql
+T 33 source.sql keyword.operator.star.sql
+T 36 source.sql
+T 44 source.sql keyword.other.DML.sql
+T 49 source.sql
+T 54 source.sql keyword.other.sql
+T 55 source.sql
+T 56 source.sql keyword.operator.comparison.sql
+T 58 source.sql
+T 62 source.sql keyword.other.sql
+T 63 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- Test some cases involving whole-row Var referencing a subquery
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 65 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L select foo from (select 1 offset 0) as foo;
+T 6 source.sql keyword.other.DML.sql
+T 11 source.sql
+T 15 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 23 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 25 source.sql constant.numeric.sql
+T 33 source.sql
+T 34 source.sql constant.numeric.sql
+T 36 source.sql
+T 38 source.sql keyword.other.alias.sql
+T 43 source.sql
+L select foo from (select null offset 0) as foo;
+T 6 source.sql keyword.other.DML.sql
+T 11 source.sql
+T 15 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 23 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DDL.create.II.sql
+T 36 source.sql
+T 37 source.sql constant.numeric.sql
+T 39 source.sql
+T 41 source.sql keyword.other.alias.sql
+T 46 source.sql
+L select foo from (select 'xyzzy',1,null offset 0) as foo;
+T 6 source.sql keyword.other.DML.sql
+T 11 source.sql
+T 15 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 23 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 25 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 30 source.sql string.quoted.single.sql
+T 31 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 32 source.sql
+T 33 source.sql constant.numeric.sql
+T 34 source.sql
+T 38 source.sql keyword.other.DDL.create.II.sql
+T 46 source.sql
+T 47 source.sql constant.numeric.sql
+T 49 source.sql
+T 51 source.sql keyword.other.alias.sql
+T 56 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- Test VALUES lists
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 20 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L select * from onek, (values(147, 'RFAAAA'), (931, 'VJAAAA')) as v (i, j)
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 21 source.sql
+T 27 source.sql keyword.other.DML.II.sql
+T 28 source.sql
+T 31 source.sql constant.numeric.sql
+T 33 source.sql
+T 34 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 40 source.sql string.quoted.single.sql
+T 41 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 45 source.sql
+T 48 source.sql constant.numeric.sql
+T 50 source.sql
+T 51 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 57 source.sql string.quoted.single.sql
+T 58 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 61 source.sql
+T 63 source.sql keyword.other.alias.sql
+T 72 source.sql
+L     WHERE onek.unique1 = v.i and onek.stringu1 = v.j;
+T 4 source.sql
+T 9 source.sql keyword.other.DML.sql
+T 10 source.sql
+T 14 source.sql constant.other.database-name.sql
+T 15 source.sql
+T 22 source.sql constant.other.table-name.sql
+T 23 source.sql
+T 24 source.sql keyword.operator.comparison.sql
+T 25 source.sql
+T 26 source.sql constant.other.database-name.sql
+T 27 source.sql
+T 28 source.sql constant.other.table-name.sql
+T 29 source.sql
+T 32 source.sql keyword.other.DML.sql
+T 33 source.sql
+T 37 source.sql constant.other.database-name.sql
+T 38 source.sql
+T 46 source.sql constant.other.table-name.sql
+T 47 source.sql
+T 48 source.sql keyword.operator.comparison.sql
+T 49 source.sql
+T 50 source.sql constant.other.database-name.sql
+T 51 source.sql
+T 52 source.sql constant.other.table-name.sql
+T 53 source.sql
+L 
+L -- a more complex case
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 22 source.sql comment.line.double-dash.sql
+L -- looks like we're coding lisp :-)
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 35 source.sql comment.line.double-dash.sql
+L select * from onek,
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 19 source.sql
+L   (values ((select i from
+T 3 source.sql
+T 9 source.sql keyword.other.DML.II.sql
+T 12 source.sql
+T 18 source.sql keyword.other.DML.sql
+T 21 source.sql
+T 25 source.sql keyword.other.DML.sql
+L     (values(10000), (2), (389), (1000), (2000), ((select 10029))) as foo(i)
+T 5 source.sql
+T 11 source.sql keyword.other.DML.II.sql
+T 12 source.sql
+T 17 source.sql constant.numeric.sql
+T 21 source.sql
+T 22 source.sql constant.numeric.sql
+T 26 source.sql
+T 29 source.sql constant.numeric.sql
+T 33 source.sql
+T 37 source.sql constant.numeric.sql
+T 41 source.sql
+T 45 source.sql constant.numeric.sql
+T 50 source.sql
+T 56 source.sql keyword.other.DML.sql
+T 57 source.sql
+T 62 source.sql constant.numeric.sql
+T 66 source.sql
+T 68 source.sql keyword.other.alias.sql
+T 75 source.sql
+L     order by i asc limit 1))) bar (i)
+T 4 source.sql
+T 12 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 18 source.sql keyword.other.order.sql
+T 19 source.sql
+T 24 source.sql keyword.other.DML.sql
+T 25 source.sql
+T 26 source.sql constant.numeric.sql
+T 37 source.sql
+L   where onek.unique1 = bar.i;
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 8 source.sql
+T 12 source.sql constant.other.database-name.sql
+T 13 source.sql
+T 20 source.sql constant.other.table-name.sql
+T 21 source.sql
+T 22 source.sql keyword.operator.comparison.sql
+T 23 source.sql
+T 26 source.sql constant.other.database-name.sql
+T 27 source.sql
+T 28 source.sql constant.other.table-name.sql
+T 29 source.sql
+L 
+L -- try VALUES in a subquery
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 27 source.sql comment.line.double-dash.sql
+L select * from onek
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+L     where (unique1,ten) in (values (1,1), (20,0), (99,9), (17,99))
+T 4 source.sql
+T 9 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 26 source.sql keyword.other.data-integrity.sql
+T 28 source.sql
+T 34 source.sql keyword.other.DML.II.sql
+T 36 source.sql
+T 37 source.sql constant.numeric.sql
+T 38 source.sql
+T 39 source.sql constant.numeric.sql
+T 43 source.sql
+T 45 source.sql constant.numeric.sql
+T 46 source.sql
+T 47 source.sql constant.numeric.sql
+T 51 source.sql
+T 53 source.sql constant.numeric.sql
+T 54 source.sql
+T 55 source.sql constant.numeric.sql
+T 59 source.sql
+T 61 source.sql constant.numeric.sql
+T 62 source.sql
+T 64 source.sql constant.numeric.sql
+T 66 source.sql
+L     order by unique1;
+T 4 source.sql
+T 12 source.sql keyword.other.DML.sql
+T 21 source.sql
+L 
+L -- VALUES is also legal as a standalone query or a set-operation member
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 71 source.sql comment.line.double-dash.sql
+L VALUES (1,2), (3,4+4), (7,77.7);
+T 6 source.sql keyword.other.DML.II.sql
+T 8 source.sql
+T 9 source.sql constant.numeric.sql
+T 10 source.sql
+T 11 source.sql constant.numeric.sql
+T 15 source.sql
+T 16 source.sql constant.numeric.sql
+T 17 source.sql
+T 18 source.sql constant.numeric.sql
+T 19 source.sql keyword.operator.math.sql
+T 20 source.sql constant.numeric.sql
+T 24 source.sql
+T 25 source.sql constant.numeric.sql
+T 26 source.sql
+T 28 source.sql constant.numeric.sql
+T 29 source.sql
+T 30 source.sql constant.numeric.sql
+T 32 source.sql
+L 
+L VALUES (1,2), (3,4+4), (7,77.7)
+T 6 source.sql keyword.other.DML.II.sql
+T 8 source.sql
+T 9 source.sql constant.numeric.sql
+T 10 source.sql
+T 11 source.sql constant.numeric.sql
+T 15 source.sql
+T 16 source.sql constant.numeric.sql
+T 17 source.sql
+T 18 source.sql constant.numeric.sql
+T 19 source.sql keyword.operator.math.sql
+T 20 source.sql constant.numeric.sql
+T 24 source.sql
+T 25 source.sql constant.numeric.sql
+T 26 source.sql
+T 28 source.sql constant.numeric.sql
+T 29 source.sql
+T 30 source.sql constant.numeric.sql
+T 31 source.sql
+L UNION ALL
+T 9 source.sql keyword.other.DML.sql
+L SELECT 2+2, 57
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.numeric.sql
+T 9 source.sql keyword.operator.math.sql
+T 10 source.sql constant.numeric.sql
+T 12 source.sql
+T 14 source.sql constant.numeric.sql
+L UNION ALL
+T 9 source.sql keyword.other.DML.sql
+L TABLE int8_tbl;
+T 5 source.sql keyword.other.sql
+T 15 source.sql
+L 
+L -- corner case: VALUES with no columns
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 38 source.sql comment.line.double-dash.sql
+L CREATE TEMP TABLE nocols();
+T 6 source.sql keyword.other.sql
+T 12 source.sql
+T 17 source.sql keyword.other.sql
+T 24 source.sql
+T 25 source.sql meta.block.sql punctuation.section.scope.begin.sql
+T 26 source.sql meta.block.sql punctuation.section.scope.end.sql
+T 27 source.sql
+L INSERT INTO nocols DEFAULT VALUES;
+T 11 source.sql keyword.other.DML.sql
+T 19 source.sql
+T 26 source.sql storage.modifier.sql
+T 27 source.sql
+T 33 source.sql keyword.other.DML.II.sql
+T 34 source.sql
+L SELECT * FROM nocols n, LATERAL (VALUES(n.*)) v;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 33 source.sql
+T 39 source.sql keyword.other.DML.II.sql
+T 42 source.sql
+T 43 source.sql keyword.operator.star.sql
+T 48 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- Test ORDER BY options
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 24 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L 
+L CREATE TEMP TABLE foo (f1 int);
+T 6 source.sql keyword.other.sql
+T 12 source.sql
+T 17 source.sql keyword.other.sql
+T 26 source.sql
+T 29 source.sql storage.type.sql
+T 31 source.sql
+L 
+L INSERT INTO foo VALUES (42),(3),(10),(7),(null),(null),(1);
+T 11 source.sql keyword.other.DML.sql
+T 16 source.sql
+T 22 source.sql keyword.other.DML.II.sql
+T 24 source.sql
+T 26 source.sql constant.numeric.sql
+T 29 source.sql
+T 30 source.sql constant.numeric.sql
+T 33 source.sql
+T 35 source.sql constant.numeric.sql
+T 38 source.sql
+T 39 source.sql constant.numeric.sql
+T 42 source.sql
+T 46 source.sql keyword.other.DDL.create.II.sql
+T 49 source.sql
+T 53 source.sql keyword.other.DDL.create.II.sql
+T 56 source.sql
+T 57 source.sql constant.numeric.sql
+T 59 source.sql
+L 
+L SELECT * FROM foo ORDER BY f1;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+L SELECT * FROM foo ORDER BY f1 ASC;	-- same thing
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 33 source.sql keyword.other.order.sql
+T 35 source.sql
+T 37 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 48 source.sql comment.line.double-dash.sql
+L SELECT * FROM foo ORDER BY f1 NULLS FIRST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 35 source.sql keyword.other.sql
+T 36 source.sql
+T 41 source.sql keyword.other.sql
+T 42 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC NULLS LAST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+T 40 source.sql keyword.other.sql
+T 41 source.sql
+T 45 source.sql keyword.other.sql
+T 46 source.sql
+L 
+L -- check if indexscans do the right things
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 42 source.sql comment.line.double-dash.sql
+L CREATE INDEX fooi ON foo (f1);
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 17 source.sql meta.create.sql entity.name.function.sql
+T 18 source.sql
+T 20 source.sql keyword.other.DDL.create.II.sql
+T 30 source.sql
+L SET enable_sort = false;
+T 3 source.sql keyword.other.DML.sql
+T 16 source.sql
+T 17 source.sql keyword.operator.comparison.sql
+T 24 source.sql
+L 
+L SELECT * FROM foo ORDER BY f1;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+L SELECT * FROM foo ORDER BY f1 NULLS FIRST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 35 source.sql keyword.other.sql
+T 36 source.sql
+T 41 source.sql keyword.other.sql
+T 42 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC NULLS LAST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+T 40 source.sql keyword.other.sql
+T 41 source.sql
+T 45 source.sql keyword.other.sql
+T 46 source.sql
+L 
+L DROP INDEX fooi;
+T 4 source.sql meta.drop.sql keyword.other.create.sql
+T 5 source.sql meta.drop.sql
+T 10 source.sql meta.drop.sql keyword.other.sql
+T 16 source.sql
+L CREATE INDEX fooi ON foo (f1 DESC);
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 17 source.sql meta.create.sql entity.name.function.sql
+T 18 source.sql
+T 20 source.sql keyword.other.DDL.create.II.sql
+T 29 source.sql
+T 33 source.sql keyword.other.order.sql
+T 35 source.sql
+L 
+L SELECT * FROM foo ORDER BY f1;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+L SELECT * FROM foo ORDER BY f1 NULLS FIRST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 35 source.sql keyword.other.sql
+T 36 source.sql
+T 41 source.sql keyword.other.sql
+T 42 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC NULLS LAST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+T 40 source.sql keyword.other.sql
+T 41 source.sql
+T 45 source.sql keyword.other.sql
+T 46 source.sql
+L 
+L DROP INDEX fooi;
+T 4 source.sql meta.drop.sql keyword.other.create.sql
+T 5 source.sql meta.drop.sql
+T 10 source.sql meta.drop.sql keyword.other.sql
+T 16 source.sql
+L CREATE INDEX fooi ON foo (f1 DESC NULLS LAST);
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 17 source.sql meta.create.sql entity.name.function.sql
+T 18 source.sql
+T 20 source.sql keyword.other.DDL.create.II.sql
+T 29 source.sql
+T 33 source.sql keyword.other.order.sql
+T 34 source.sql
+T 39 source.sql keyword.other.sql
+T 40 source.sql
+T 44 source.sql keyword.other.sql
+T 46 source.sql
+L 
+L SELECT * FROM foo ORDER BY f1;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+L SELECT * FROM foo ORDER BY f1 NULLS FIRST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 35 source.sql keyword.other.sql
+T 36 source.sql
+T 41 source.sql keyword.other.sql
+T 42 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+L SELECT * FROM foo ORDER BY f1 DESC NULLS LAST;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 18 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 30 source.sql
+T 34 source.sql keyword.other.order.sql
+T 35 source.sql
+T 40 source.sql keyword.other.sql
+T 41 source.sql
+T 45 source.sql keyword.other.sql
+T 46 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- Test planning of some cases with partial indexes
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 51 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L 
+L -- partial index is usable
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 26 source.sql comment.line.double-dash.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select * from onek2 where unique2 = 11 and stringu1 = 'ATAAAA';
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 34 source.sql
+T 35 source.sql keyword.operator.comparison.sql
+T 36 source.sql
+T 38 source.sql constant.numeric.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DML.sql
+T 52 source.sql
+T 53 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 55 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 61 source.sql string.quoted.single.sql
+T 62 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 63 source.sql
+L select * from onek2 where unique2 = 11 and stringu1 = 'ATAAAA';
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 34 source.sql
+T 35 source.sql keyword.operator.comparison.sql
+T 36 source.sql
+T 38 source.sql constant.numeric.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DML.sql
+T 52 source.sql
+T 53 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 55 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 61 source.sql string.quoted.single.sql
+T 62 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 63 source.sql
+L -- actually run the query with an analyze to use the partial index
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 66 source.sql comment.line.double-dash.sql
+L explain (costs off, analyze on, timing off, summary off, buffers off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 28 source.sql
+T 30 source.sql keyword.other.DDL.create.II.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DDL.create.II.sql
+T 52 source.sql
+T 55 source.sql keyword.other.DDL.create.II.sql
+T 65 source.sql
+T 68 source.sql keyword.other.DDL.create.II.sql
+T 69 source.sql
+L select * from onek2 where unique2 = 11 and stringu1 = 'ATAAAA';
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 34 source.sql
+T 35 source.sql keyword.operator.comparison.sql
+T 36 source.sql
+T 38 source.sql constant.numeric.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DML.sql
+T 52 source.sql
+T 53 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 55 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 61 source.sql string.quoted.single.sql
+T 62 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 63 source.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 = 'ATAAAA';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 67 source.sql string.quoted.single.sql
+T 68 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 69 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 = 'ATAAAA';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 67 source.sql string.quoted.single.sql
+T 68 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 69 source.sql
+L -- partial index predicate implies clause, so no need for retest
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 64 source.sql comment.line.double-dash.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select * from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 34 source.sql
+T 35 source.sql keyword.operator.comparison.sql
+T 36 source.sql
+T 38 source.sql constant.numeric.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DML.sql
+T 52 source.sql
+T 53 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 55 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 56 source.sql string.quoted.single.sql
+T 57 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 58 source.sql
+L select * from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 20 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 34 source.sql
+T 35 source.sql keyword.operator.comparison.sql
+T 36 source.sql
+T 38 source.sql constant.numeric.sql
+T 39 source.sql
+T 42 source.sql keyword.other.DML.sql
+T 52 source.sql
+T 53 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 55 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 56 source.sql string.quoted.single.sql
+T 57 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 58 source.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L -- but if it's an update target, must retest anyway
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 51 source.sql comment.line.double-dash.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B' for update;
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+T 67 source.sql keyword.other.sql
+T 68 source.sql
+T 74 source.sql keyword.other.DML.sql
+T 75 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B' for update;
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+T 67 source.sql keyword.other.sql
+T 68 source.sql
+T 74 source.sql keyword.other.DML.sql
+T 75 source.sql
+L -- partial index is not applicable
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 34 source.sql comment.line.double-dash.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'C';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'C';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L -- partial index implies clause, but bitmap scan must recheck predicate anyway
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 78 source.sql comment.line.double-dash.sql
+L SET enable_indexscan TO off;
+T 3 source.sql keyword.other.DML.sql
+T 21 source.sql
+T 23 source.sql keyword.other.sql
+T 24 source.sql
+T 27 source.sql keyword.other.DDL.create.II.sql
+T 28 source.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L select unique2 from onek2 where unique2 = 11 and stringu1 < 'B';
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 26 source.sql
+T 31 source.sql keyword.other.DML.sql
+T 40 source.sql
+T 41 source.sql keyword.operator.comparison.sql
+T 42 source.sql
+T 44 source.sql constant.numeric.sql
+T 45 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 62 source.sql string.quoted.single.sql
+T 63 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 64 source.sql
+L -- check multi-index cases too
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 30 source.sql comment.line.double-dash.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique1, unique2 from onek2
+T 6 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 34 source.sql
+L   where (unique2 = 11 or unique1 = 0) and stringu1 < 'B';
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 18 source.sql keyword.operator.comparison.sql
+T 19 source.sql
+T 21 source.sql constant.numeric.sql
+T 22 source.sql
+T 24 source.sql keyword.other.DML.sql
+T 33 source.sql
+T 34 source.sql keyword.operator.comparison.sql
+T 35 source.sql
+T 36 source.sql constant.numeric.sql
+T 38 source.sql
+T 41 source.sql keyword.other.DML.sql
+T 51 source.sql
+T 52 source.sql keyword.operator.comparison.sql
+T 53 source.sql
+T 54 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 55 source.sql string.quoted.single.sql
+T 56 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 57 source.sql
+L select unique1, unique2 from onek2
+T 6 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 34 source.sql
+L   where (unique2 = 11 or unique1 = 0) and stringu1 < 'B';
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 18 source.sql keyword.operator.comparison.sql
+T 19 source.sql
+T 21 source.sql constant.numeric.sql
+T 22 source.sql
+T 24 source.sql keyword.other.DML.sql
+T 33 source.sql
+T 34 source.sql keyword.operator.comparison.sql
+T 35 source.sql
+T 36 source.sql constant.numeric.sql
+T 38 source.sql
+T 41 source.sql keyword.other.DML.sql
+T 51 source.sql
+T 52 source.sql keyword.operator.comparison.sql
+T 53 source.sql
+T 54 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 55 source.sql string.quoted.single.sql
+T 56 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 57 source.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique1, unique2 from onek2
+T 6 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 34 source.sql
+L   where (unique2 = 11 and stringu1 < 'B') or unique1 = 0;
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 18 source.sql keyword.operator.comparison.sql
+T 19 source.sql
+T 21 source.sql constant.numeric.sql
+T 22 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 35 source.sql
+T 36 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 38 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 39 source.sql string.quoted.single.sql
+T 40 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 42 source.sql
+T 44 source.sql keyword.other.DML.sql
+T 53 source.sql
+T 54 source.sql keyword.operator.comparison.sql
+T 55 source.sql
+T 56 source.sql constant.numeric.sql
+T 57 source.sql
+L select unique1, unique2 from onek2
+T 6 source.sql keyword.other.DML.sql
+T 24 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 34 source.sql
+L   where (unique2 = 11 and stringu1 < 'B') or unique1 = 0;
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 18 source.sql keyword.operator.comparison.sql
+T 19 source.sql
+T 21 source.sql constant.numeric.sql
+T 22 source.sql
+T 25 source.sql keyword.other.DML.sql
+T 35 source.sql
+T 36 source.sql keyword.operator.comparison.sql
+T 37 source.sql
+T 38 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 39 source.sql string.quoted.single.sql
+T 40 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 42 source.sql
+T 44 source.sql keyword.other.DML.sql
+T 53 source.sql
+T 54 source.sql keyword.operator.comparison.sql
+T 55 source.sql
+T 56 source.sql constant.numeric.sql
+T 57 source.sql
+L RESET enable_indexscan;
+T 5 source.sql keyword.other.sql
+T 23 source.sql
+L 
+L -- onek2_u2_prtl should be preferred over this index, but we have to
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 68 source.sql comment.line.double-dash.sql
+L -- discount the metapage to arrive at that answer
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 49 source.sql comment.line.double-dash.sql
+L begin;
+T 5 source.sql keyword.other.LUW.sql
+T 6 source.sql
+L create index onek2_index_full on onek2 (stringu1, unique2);
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 29 source.sql meta.create.sql entity.name.function.sql
+T 30 source.sql
+T 32 source.sql keyword.other.DDL.create.II.sql
+T 59 source.sql
+L explain (costs off)
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 19 source.sql
+L select unique2 from onek2
+T 6 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 19 source.sql keyword.other.DML.sql
+T 25 source.sql
+L   where stringu1 < 'B'::name;
+T 2 source.sql
+T 7 source.sql keyword.other.DML.sql
+T 17 source.sql
+T 18 source.sql keyword.operator.comparison.sql
+T 19 source.sql
+T 20 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 21 source.sql string.quoted.single.sql
+T 22 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 24 source.sql
+T 28 source.sql keyword.other.sql
+T 29 source.sql
+L rollback;
+T 8 source.sql keyword.other.LUW.sql
+T 9 source.sql
+L 
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L -- Test some corner cases that have been known to confuse the planner
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 69 source.sql comment.line.double-dash.sql
+L --
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+L 
+L -- ORDER BY on a constant doesn't really need any sorting
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 57 source.sql comment.line.double-dash.sql
+L SELECT 1 AS x ORDER BY x;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql constant.numeric.sql
+T 9 source.sql
+T 11 source.sql keyword.other.alias.sql
+T 14 source.sql
+T 22 source.sql keyword.other.DML.sql
+T 25 source.sql
+L 
+L -- But ORDER BY on a set-valued expression does
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 47 source.sql comment.line.double-dash.sql
+L create function sillysrf(int) returns setof int as
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 15 source.sql meta.create.sql keyword.other.sql
+T 16 source.sql meta.create.sql
+T 24 source.sql meta.create.sql entity.name.function.sql
+T 25 source.sql
+T 28 source.sql storage.type.sql
+T 30 source.sql
+T 37 source.sql keyword.other.sql
+T 44 source.sql
+T 47 source.sql storage.type.sql
+T 48 source.sql
+T 50 source.sql keyword.other.alias.sql
+L   'values (1),(10),(2),($1)' language sql immutable;
+T 2 source.sql
+T 3 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 27 source.sql string.quoted.single.sql
+T 28 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 29 source.sql
+T 37 source.sql keyword.other.sql
+T 38 source.sql
+T 41 source.sql keyword.other.sql
+T 52 source.sql
+L 
+L select sillysrf(42);
+T 6 source.sql keyword.other.DML.sql
+T 16 source.sql
+T 18 source.sql constant.numeric.sql
+T 20 source.sql
+L select sillysrf(-1) order by 1;
+T 6 source.sql keyword.other.DML.sql
+T 16 source.sql
+T 17 source.sql keyword.operator.math.sql
+T 18 source.sql constant.numeric.sql
+T 20 source.sql
+T 28 source.sql keyword.other.DML.sql
+T 29 source.sql
+T 30 source.sql constant.numeric.sql
+T 31 source.sql
+L 
+L drop function sillysrf(int);
+T 4 source.sql meta.drop.sql keyword.other.create.sql
+T 5 source.sql meta.drop.sql
+T 13 source.sql meta.drop.sql keyword.other.sql
+T 23 source.sql
+T 26 source.sql storage.type.sql
+T 28 source.sql
+L 
+L -- X = X isn't a no-op, it's effectively X IS NOT NULL assuming = is strict
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 75 source.sql comment.line.double-dash.sql
+L -- (see bug #5084)
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 18 source.sql comment.line.double-dash.sql
+L select * from (values (2),(null),(1)) v(k) where k = k order by k;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 21 source.sql keyword.other.DML.II.sql
+T 23 source.sql
+T 24 source.sql constant.numeric.sql
+T 27 source.sql
+T 31 source.sql keyword.other.DDL.create.II.sql
+T 34 source.sql
+T 35 source.sql constant.numeric.sql
+T 43 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 51 source.sql
+T 52 source.sql keyword.operator.comparison.sql
+T 55 source.sql
+T 63 source.sql keyword.other.DML.sql
+T 66 source.sql
+L select * from (values (2),(null),(1)) v(k) where k = k;
+T 6 source.sql keyword.other.DML.sql
+T 7 source.sql
+T 8 source.sql keyword.operator.star.sql
+T 9 source.sql
+T 13 source.sql keyword.other.DML.sql
+T 15 source.sql
+T 21 source.sql keyword.other.DML.II.sql
+T 23 source.sql
+T 24 source.sql constant.numeric.sql
+T 27 source.sql
+T 31 source.sql keyword.other.DDL.create.II.sql
+T 34 source.sql
+T 35 source.sql constant.numeric.sql
+T 43 source.sql
+T 48 source.sql keyword.other.DML.sql
+T 51 source.sql
+T 52 source.sql keyword.operator.comparison.sql
+T 55 source.sql
+L 
+L -- Test partitioned tables with no partitions, which should be handled the
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 74 source.sql comment.line.double-dash.sql
+L -- same as the non-inheritance case when expanding its RTE.
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 59 source.sql comment.line.double-dash.sql
+L create table list_parted_tbl (a int,b int) partition by list (a);
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 28 source.sql meta.create.sql entity.name.function.sql
+T 32 source.sql
+T 35 source.sql storage.type.sql
+T 38 source.sql
+T 41 source.sql storage.type.sql
+T 43 source.sql
+T 52 source.sql keyword.other.sql
+T 53 source.sql
+T 55 source.sql keyword.other.sql
+T 65 source.sql
+L create table list_parted_tbl1 partition of list_parted_tbl
+T 6 source.sql meta.create.sql keyword.other.create.sql
+T 7 source.sql meta.create.sql
+T 12 source.sql meta.create.sql keyword.other.sql
+T 13 source.sql meta.create.sql
+T 29 source.sql meta.create.sql entity.name.function.sql
+T 30 source.sql
+T 39 source.sql keyword.other.sql
+T 58 source.sql
+L   for values in (1) partition by list(b);
+T 2 source.sql
+T 5 source.sql keyword.other.sql
+T 6 source.sql
+T 12 source.sql keyword.other.DML.II.sql
+T 13 source.sql
+T 15 source.sql keyword.other.data-integrity.sql
+T 17 source.sql
+T 18 source.sql constant.numeric.sql
+T 20 source.sql
+T 29 source.sql keyword.other.sql
+T 30 source.sql
+T 32 source.sql keyword.other.sql
+T 41 source.sql
+L explain (costs off) select * from list_parted_tbl;
+T 15 source.sql
+T 18 source.sql keyword.other.DDL.create.II.sql
+T 20 source.sql
+T 26 source.sql keyword.other.DML.sql
+T 27 source.sql
+T 28 source.sql keyword.operator.star.sql
+T 29 source.sql
+T 33 source.sql keyword.other.DML.sql
+T 50 source.sql
+L drop table list_parted_tbl;
+T 4 source.sql meta.drop.sql keyword.other.create.sql
+T 5 source.sql meta.drop.sql
+T 10 source.sql meta.drop.sql keyword.other.sql
+T 27 source.sql
+L 

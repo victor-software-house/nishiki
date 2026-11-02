@@ -7,8 +7,8 @@ use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
 use crate::{
-    Token, c, diff, dockerfile, java, json, make, markdown, python, rust, shell, toml, typescript,
-    yaml,
+    Token, c, diff, dockerfile, java, json, make, markdown, python, rust, shell, sql, toml,
+    typescript, yaml,
 };
 
 /// A language nishiki highlights, named as Shiki names it.
@@ -52,6 +52,8 @@ pub enum Language {
     Java,
     /// C, with the scopes of Shiki's `c` grammar.
     C,
+    /// SQL, with the scopes of Shiki's `sql` grammar.
+    Sql,
 }
 
 impl Language {
@@ -75,6 +77,7 @@ impl Language {
         Language::Dockerfile,
         Language::Java,
         Language::C,
+        Language::Sql,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -99,6 +102,7 @@ impl Language {
             Language::Dockerfile => "docker",
             Language::Java => "java",
             Language::C => "c",
+            Language::Sql => "sql",
         }
     }
 
@@ -143,6 +147,7 @@ impl Language {
             Language::Dockerfile => &["docker", "dockerfile"],
             Language::Java => &["java"],
             Language::C => &["c"],
+            Language::Sql => &["sql"],
         }
     }
 }
@@ -201,6 +206,7 @@ impl Language {
             Language::Dockerfile => dockerfile::start(arena, base),
             Language::Java => java::start(arena, base),
             Language::C => c::start(arena, base),
+            Language::Sql => sql::start(arena, base),
         }
     }
 
@@ -223,6 +229,7 @@ impl Language {
             Language::Dockerfile => dockerfile::start_embedded(arena, base),
             Language::Java => java::start_embedded(arena, base),
             Language::C => c::start_embedded(arena, base),
+            Language::Sql => sql::start_embedded(arena, base),
         }
     }
 
@@ -250,6 +257,7 @@ impl Language {
             Language::Dockerfile => dockerfile::lex(cx, line, state),
             Language::Java => java::lex(cx, line, state),
             Language::C => c::lex(cx, line, state),
+            Language::Sql => sql::lex(cx, line, state),
         }
     }
 }

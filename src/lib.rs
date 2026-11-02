@@ -69,6 +69,7 @@ mod scope;
 mod scratch;
 mod shell;
 mod space;
+mod sql;
 mod tag;
 mod theme;
 mod toml;

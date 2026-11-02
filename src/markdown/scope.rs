@@ -65,6 +65,7 @@ scopes! {
     EmbeddedDockerfile "meta.embedded.block.dockerfile"
     EmbeddedJava "meta.embedded.block.java"
     EmbeddedC "meta.embedded.block.c"
+    EmbeddedSql "meta.embedded.block.sql"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

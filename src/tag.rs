@@ -52,6 +52,8 @@ pub(crate) const MAKE: u16 = 0x0b00;
 pub(crate) const DOCKERFILE: u16 = 0x2000;
 /// C, with the next byte for its end-of-line flag.
 pub(crate) const C: u16 = 0x0c00;
+/// SQL.
+pub(crate) const SQL: u16 = 0x0f00;
 
 /// Every claimed range. A new lexer adds its constant and its entry here.
 const CLAIMED: &[Tag] = &[
@@ -71,6 +73,7 @@ const CLAIMED: &[Tag] = &[
         value: C,
         mask: 0xfe00,
     },
+    Tag::byte(SQL),
 ];
 
 /// Two ranges overlap when some code lies in both: when their values agree on

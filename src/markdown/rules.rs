@@ -393,6 +393,7 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Language::Dockerfile) => Some(S::EmbeddedDockerfile),
         Kind::Body(Language::Java) => Some(S::EmbeddedJava),
         Kind::Body(Language::C) => Some(S::EmbeddedC),
+        Kind::Body(Language::Sql) => Some(S::EmbeddedSql),
         Kind::FrontMatterBody => Some(S::EmbeddedFrontMatter),
         // Shiki's Markdown grammar has no rule that embeds TOML.
         Kind::Body(Language::Toml)

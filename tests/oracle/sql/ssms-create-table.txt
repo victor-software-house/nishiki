@@ -1,0 +1,149 @@
+L -- =========================================
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 44 source.sql comment.line.double-dash.sql
+L -- Create table template
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 24 source.sql comment.line.double-dash.sql
+L -- =========================================
+T 2 source.sql comment.line.double-dash.sql punctuation.definition.comment.sql
+T 44 source.sql comment.line.double-dash.sql
+L USE <database, sysname, AdventureWorks>
+T 3 source.sql keyword.other.sql
+T 4 source.sql
+T 5 source.sql keyword.operator.comparison.sql
+T 13 source.sql keyword.other.sql
+T 15 source.sql
+T 22 source.sql keyword.other.sql
+T 38 source.sql
+T 39 source.sql keyword.operator.comparison.sql
+L GO
+T 2 source.sql keyword.other.sql
+L 
+L IF OBJECT_ID('<schema_name, sysname, dbo>.<table_name, sysname, sample_table>', 'U') IS NOT NULL
+T 2 source.sql keyword.other.sql
+T 3 source.sql
+T 12 source.sql support.function.metadata.sql
+T 13 source.sql
+T 14 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 77 source.sql string.quoted.single.sql
+T 78 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 80 source.sql
+T 81 source.sql string.quoted.single.sql punctuation.definition.string.begin.sql
+T 82 source.sql string.quoted.single.sql
+T 83 source.sql string.quoted.single.sql punctuation.definition.string.end.sql
+T 85 source.sql
+T 96 source.sql keyword.other.DDL.create.II.sql
+L   DROP TABLE <schema_name, sysname, dbo>.<table_name, sysname, sample_table>
+T 2 source.sql meta.drop.sql
+T 6 source.sql meta.drop.sql keyword.other.create.sql
+T 7 source.sql meta.drop.sql
+T 12 source.sql meta.drop.sql keyword.other.sql
+T 13 source.sql
+T 14 source.sql keyword.operator.comparison.sql
+T 27 source.sql
+T 34 source.sql keyword.other.sql
+T 39 source.sql
+T 40 source.sql keyword.operator.comparison.sql
+T 41 source.sql
+T 42 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 61 source.sql keyword.other.sql
+T 75 source.sql
+T 76 source.sql keyword.operator.comparison.sql
+L GO
+T 2 source.sql keyword.other.sql
+L 
+L CREATE TABLE <schema_name, sysname, dbo>.<table_name, sysname, sample_table>
+T 6 source.sql keyword.other.sql
+T 7 source.sql
+T 12 source.sql keyword.other.sql
+T 13 source.sql
+T 14 source.sql keyword.operator.comparison.sql
+T 27 source.sql
+T 34 source.sql keyword.other.sql
+T 39 source.sql
+T 40 source.sql keyword.operator.comparison.sql
+T 41 source.sql
+T 42 source.sql keyword.operator.comparison.sql
+T 54 source.sql
+T 61 source.sql keyword.other.sql
+T 75 source.sql
+T 76 source.sql keyword.operator.comparison.sql
+L (
+T 1 source.sql
+L 	<columns_in_primary_key, , c1> <column1_datatype, , int> <column1_nullability,, NOT NULL>,
+T 1 source.sql
+T 2 source.sql keyword.operator.comparison.sql
+T 30 source.sql
+T 31 source.sql keyword.operator.comparison.sql
+T 32 source.sql
+T 33 source.sql keyword.operator.comparison.sql
+T 53 source.sql
+T 56 source.sql storage.type.sql
+T 57 source.sql keyword.operator.comparison.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 81 source.sql
+T 89 source.sql keyword.other.DDL.create.II.sql
+T 90 source.sql keyword.operator.comparison.sql
+T 91 source.sql
+L 	<column2_name, sysname, c2> <column2_datatype, , char(10)> <column2_nullability,, NULL>,
+T 1 source.sql
+T 2 source.sql keyword.operator.comparison.sql
+T 16 source.sql
+T 23 source.sql keyword.other.sql
+T 27 source.sql
+T 28 source.sql keyword.operator.comparison.sql
+T 29 source.sql
+T 30 source.sql keyword.operator.comparison.sql
+T 50 source.sql
+T 54 source.sql storage.type.sql
+T 55 source.sql
+T 57 source.sql constant.numeric.sql
+T 58 source.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql keyword.operator.comparison.sql
+T 83 source.sql
+T 87 source.sql keyword.other.DDL.create.II.sql
+T 88 source.sql keyword.operator.comparison.sql
+T 89 source.sql
+L 	<column3_name, sysname, c3> <column3_datatype, , datetime> <column3_nullability,, NULL>,
+T 1 source.sql
+T 2 source.sql keyword.operator.comparison.sql
+T 16 source.sql
+T 23 source.sql keyword.other.sql
+T 27 source.sql
+T 28 source.sql keyword.operator.comparison.sql
+T 29 source.sql
+T 30 source.sql keyword.operator.comparison.sql
+T 50 source.sql
+T 58 source.sql keyword.other.sql
+T 59 source.sql keyword.operator.comparison.sql
+T 60 source.sql
+T 61 source.sql keyword.operator.comparison.sql
+T 83 source.sql
+T 87 source.sql keyword.other.DDL.create.II.sql
+T 88 source.sql keyword.operator.comparison.sql
+T 89 source.sql
+L     CONSTRAINT <contraint_name, sysname, PK_sample_table> PRIMARY KEY (<columns_in_primary_key, , c1>)
+T 4 source.sql
+T 14 source.sql storage.modifier.sql
+T 15 source.sql
+T 16 source.sql keyword.operator.comparison.sql
+T 32 source.sql
+T 39 source.sql keyword.other.sql
+T 56 source.sql
+T 57 source.sql keyword.operator.comparison.sql
+T 58 source.sql
+T 69 source.sql storage.modifier.sql
+T 71 source.sql
+T 72 source.sql keyword.operator.comparison.sql
+T 100 source.sql
+T 101 source.sql keyword.operator.comparison.sql
+T 102 source.sql
+L )
+T 1 source.sql
+L GO
+T 2 source.sql keyword.other.sql
+L 
