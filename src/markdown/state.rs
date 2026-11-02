@@ -21,6 +21,8 @@ pub(crate) enum Lang {
     Jsonc,
     /// JSON Lines: the `jsonl` spelling.
     Jsonl,
+    /// Python, lexed by the Python lexer.
+    Python,
 }
 
 impl Lang {
@@ -30,7 +32,7 @@ impl Lang {
             Lang::Json => Some(crate::json::Dialect::Json),
             Lang::Jsonc => Some(crate::json::Dialect::Jsonc),
             Lang::Jsonl => Some(crate::json::Dialect::Jsonl),
-            Lang::Rust | Lang::TypeScript | Lang::Markdown | Lang::Shell => None,
+            Lang::Rust | Lang::TypeScript | Lang::Markdown | Lang::Shell | Lang::Python => None,
         }
     }
 }
@@ -78,7 +80,7 @@ pub(crate) enum Kind {
 impl Kind {
     /// The kinds in code order, which [`Kind::code`] numbers; a test checks
     /// that the two agree.
-    pub(crate) const ALL: [Kind; 27] = [
+    pub(crate) const ALL: [Kind; 29] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -90,6 +92,7 @@ impl Kind {
         Kind::Fence(Lang::Json),
         Kind::Fence(Lang::Jsonc),
         Kind::Fence(Lang::Jsonl),
+        Kind::Fence(Lang::Python),
         Kind::FencePlain,
         Kind::Body(Lang::Rust),
         Kind::Body(Lang::TypeScript),
@@ -98,6 +101,7 @@ impl Kind {
         Kind::Body(Lang::Json),
         Kind::Body(Lang::Jsonc),
         Kind::Body(Lang::Jsonl),
+        Kind::Body(Lang::Python),
         Kind::RawBlock,
         Kind::Table,
         Kind::Paragraph,
@@ -123,22 +127,24 @@ impl Kind {
             Kind::Fence(Lang::Json) => 8,
             Kind::Fence(Lang::Jsonc) => 9,
             Kind::Fence(Lang::Jsonl) => 10,
-            Kind::FencePlain => 11,
-            Kind::Body(Lang::Rust) => 12,
-            Kind::Body(Lang::TypeScript) => 13,
-            Kind::Body(Lang::Markdown) => 14,
-            Kind::Body(Lang::Shell) => 15,
-            Kind::Body(Lang::Json) => 16,
-            Kind::Body(Lang::Jsonc) => 17,
-            Kind::Body(Lang::Jsonl) => 18,
-            Kind::RawBlock => 19,
-            Kind::Table => 20,
-            Kind::Paragraph => 21,
-            Kind::Comment => 22,
-            Kind::BoldStar => 23,
-            Kind::BoldUnder => 24,
-            Kind::ItalicStar => 25,
-            Kind::ItalicUnder => 26,
+            Kind::Fence(Lang::Python) => 11,
+            Kind::FencePlain => 12,
+            Kind::Body(Lang::Rust) => 13,
+            Kind::Body(Lang::TypeScript) => 14,
+            Kind::Body(Lang::Markdown) => 15,
+            Kind::Body(Lang::Shell) => 16,
+            Kind::Body(Lang::Json) => 17,
+            Kind::Body(Lang::Jsonc) => 18,
+            Kind::Body(Lang::Jsonl) => 19,
+            Kind::Body(Lang::Python) => 20,
+            Kind::RawBlock => 21,
+            Kind::Table => 22,
+            Kind::Paragraph => 23,
+            Kind::Comment => 24,
+            Kind::BoldStar => 25,
+            Kind::BoldUnder => 26,
+            Kind::ItalicStar => 27,
+            Kind::ItalicUnder => 28,
         }
     }
 

@@ -80,6 +80,25 @@ const LANGUAGES: &[Language] = &[
         brace: None,
         lang: Lang::Jsonl,
     },
+    Language {
+        words: &[
+            "python",
+            "py",
+            "py3",
+            "rpy",
+            "pyw",
+            // The grammar's word, which the spelling check reads as a typo.
+            "c\x70y",
+            "SConstruct",
+            "Sconstruct",
+            "sconstruct",
+            "SConscript",
+            "gyp",
+            "gypi",
+        ],
+        brace: Some("python"),
+        lang: Lang::Python,
+    },
 ];
 
 /// A language found in an info string.

@@ -200,6 +200,11 @@ fn jsonl_matches_shiki() {
     check("jsonl", || lexer(Language::Jsonl));
 }
 
+#[test]
+fn python_matches_shiki() {
+    check("python", || lexer(Language::Python));
+}
+
 /// Shiki's colours for one fixture under one theme: the fixture's lines,
 /// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
 #[cfg(feature = "json")]
@@ -341,4 +346,10 @@ fn jsonc_colours_match_shiki() {
 #[test]
 fn jsonl_colours_match_shiki() {
     check_colours(Language::Jsonl, "jsonl");
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn python_colours_match_shiki() {
+    check_colours(Language::Python, "python");
 }

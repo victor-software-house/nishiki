@@ -299,6 +299,24 @@ fn json_fences_embed_the_json_lexer_in_their_own_spelling() {
 }
 
 #[test]
+fn python_fences_embed_the_python_lexer_without_its_root() {
+    for info in ["python", "py", "PY3", "SConstruct", "gypi", "{.python .x}"] {
+        let text = format!("```{info}\ndef f(): pass\n```\n");
+        assert_eq!(
+            stack_of(&text, "def"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.python",
+                "meta.function.python",
+                "storage.type.function.python",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
 fn a_json_value_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```json
@@ -307,6 +325,36 @@ fn a_json_value_continues_across_the_lines_of_a_fence() {
         ```
     "};
     assert_eq!(stack_of(text, "2")[3], "meta.structure.dictionary.json");
+}
+
+#[test]
+fn a_python_decorator_after_a_containers_indent_is_not_at_the_start_of_the_line() {
+    let text = indoc! {"
+        - a
+
+          ```python
+          @property
+          ```
+    "};
+    let decorated = lex(text)
+        .iter()
+        .flatten()
+        .any(|(_, scopes)| scopes.iter().any(|s| s == "meta.function.decorator.python"));
+    assert!(
+        !decorated,
+        "Shiki matches `^` only at the start of the line"
+    );
+}
+
+#[test]
+fn python_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```py
+        f(1,
+        2)
+        ```
+    "};
+    assert_eq!(stack_of(text, "2")[3], "meta.function-call.python");
 }
 
 #[test]
@@ -326,11 +374,11 @@ fn a_shebang_is_not_special_inside_a_fence() {
 #[test]
 fn another_language_is_plain_text_with_its_info_string() {
     let text = indoc! {"
-        ```python
+        ```ruby
         # not a heading
         ```
     "};
-    assert_eq!(scope_of(text, "python"), "fenced_code.block.language");
+    assert_eq!(scope_of(text, "ruby"), "fenced_code.block.language");
     assert_eq!(
         stack_of(text, "# not a heading"),
         ["text.html.markdown", "markup.fenced_code.block.markdown"]

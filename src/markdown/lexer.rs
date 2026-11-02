@@ -20,7 +20,7 @@ use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, json, rust, shell, typescript};
+use crate::{Stack, Token, json, python, rust, shell, typescript};
 
 /// The window on the line that the rules see, built from the fields it needs
 /// so that a rule can fill in `self.caps` while it is held.
@@ -100,7 +100,8 @@ impl Starts {
                 | Lang::Shell
                 | Lang::Json
                 | Lang::Jsonc
-                | Lang::Jsonl,
+                | Lang::Jsonl
+                | Lang::Python,
             )
             | Kind::RawBlock => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
@@ -400,7 +401,8 @@ impl<'a> Lexer<'a> {
                     | Lang::Shell
                     | Lang::Json
                     | Lang::Jsonc
-                    | Lang::Jsonl,
+                    | Lang::Jsonl
+                    | Lang::Python,
                 )),
             ..
         }) = self.frames.last()
@@ -710,6 +712,7 @@ impl<'a> Lexer<'a> {
                 Kind::Body(Lang::Json | Lang::Jsonc | Lang::Jsonl) => {
                     json::start_embedded(self.arena, content)
                 }
+                Kind::Body(Lang::Python) => python::start_embedded(self.arena, content),
                 Kind::Base
                 | Kind::Quote
                 | Kind::ListBullet
@@ -918,6 +921,18 @@ impl<'a> Lexer<'a> {
                 self.out,
                 self.report,
             ),
+            Lang::Python => python::line(
+                self.scratch,
+                self.arena,
+                self.limits,
+                python::Text {
+                    bytes: self.line.as_bytes(),
+                    start,
+                },
+                frame.payload,
+                self.out,
+                self.report,
+            ),
             Lang::Rust | Lang::Markdown => rust::line(
                 self.arena,
                 self.limits,
@@ -927,8 +942,9 @@ impl<'a> Lexer<'a> {
                 self.report,
             ),
         };
-        if lang != Lang::Shell {
-            // The shell lexer saw the whole line and made its tokens absolute.
+        if !matches!(lang, Lang::Shell | Lang::Python) {
+            // The shell and Python lexers saw the whole line and made their
+            // tokens absolute.
             for token in &mut self.out[first..] {
                 token.end += start;
             }

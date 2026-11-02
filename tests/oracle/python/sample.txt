@@ -1,0 +1,85 @@
+L def fib(n):    # write Fibonacci series up to n
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 7 source.python meta.function.python entity.name.function.python
+T 8 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 10 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 11 source.python meta.function.python punctuation.section.function.begin.python
+T 15 source.python
+T 16 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 47 source.python comment.line.number-sign.python
+L     """Print a Fibonacci series up to n."""
+T 4 source.python
+T 7 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 40 source.python string.quoted.docstring.multi.python
+T 43 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L     a, b = 0, 1
+T 4 source.python
+T 5 source.python
+T 6 source.python punctuation.separator.element.python
+T 7 source.python
+T 8 source.python
+T 9 source.python
+T 10 source.python keyword.operator.assignment.python
+T 11 source.python
+T 12 source.python constant.numeric.dec.python
+T 13 source.python punctuation.separator.element.python
+T 14 source.python
+T 15 source.python constant.numeric.dec.python
+L     while a < n:
+T 4 source.python
+T 9 source.python keyword.control.flow.python
+T 10 source.python
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.comparison.python
+T 14 source.python
+T 15 source.python
+T 16 source.python punctuation.separator.colon.python
+L         print(a, end=' ')
+T 8 source.python
+T 13 source.python meta.function-call.python support.function.builtin.python
+T 14 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 15 source.python meta.function-call.python meta.function-call.arguments.python
+T 16 source.python meta.function-call.python meta.function-call.arguments.python punctuation.separator.arguments.python
+T 17 source.python meta.function-call.python meta.function-call.arguments.python
+T 20 source.python meta.function-call.python meta.function-call.arguments.python variable.parameter.function-call.python
+T 21 source.python meta.function-call.python meta.function-call.arguments.python keyword.operator.assignment.python
+T 22 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python
+T 24 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 25 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L         a, b = b, a+b
+T 8 source.python
+T 9 source.python
+T 10 source.python punctuation.separator.element.python
+T 11 source.python
+T 12 source.python
+T 13 source.python
+T 14 source.python keyword.operator.assignment.python
+T 15 source.python
+T 16 source.python
+T 17 source.python punctuation.separator.element.python
+T 18 source.python
+T 19 source.python
+T 20 source.python keyword.operator.arithmetic.python
+T 21 source.python
+L     print()
+T 4 source.python
+T 9 source.python meta.function-call.python support.function.builtin.python
+T 10 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 11 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L # Now call the function we just defined:
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 40 source.python comment.line.number-sign.python
+L fib(2000)
+T 3 source.python meta.function-call.python meta.function-call.generic.python
+T 4 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 8 source.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 9 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L # From https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 77 source.python comment.line.number-sign.python

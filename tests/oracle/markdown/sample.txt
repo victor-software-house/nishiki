@@ -133,19 +133,44 @@ T 50 text.html.markdown meta.paragraph.markdown
 L 
 L ~~~python
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L import time
-T 11 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.import.python
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
 L # Quick, count to ten!
-T 22 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python comment.line.number-sign.python punctuation.definition.comment.python
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python comment.line.number-sign.python
 L for i in range(10):
-T 19 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.flow.python
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.flow.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python support.function.builtin.python
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python punctuation.definition.arguments.end.python
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.colon.python
 L     # (but not *too* quick)
-T 27 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python comment.line.number-sign.python punctuation.definition.comment.python
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python comment.line.number-sign.python
 L     time.sleep(0.5)
-T 19 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.member.access.python punctuation.separator.period.python
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.float.python
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
 L     print(i)
-T 12 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python support.function.builtin.python
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python meta.function-call.arguments.python
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python meta.function-call.python punctuation.definition.arguments.end.python
 L ~~~
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

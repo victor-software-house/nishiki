@@ -14,6 +14,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (TYPESCRIPT, crate::typescript::NAMES),
     (SHELL, crate::shell::NAMES),
     (JSON, crate::json::NAMES),
+    (PYTHON, crate::python::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
@@ -46,8 +47,11 @@ pub(crate) const DYNAMIC: u16 = 0x8000;
 /// The base of the JSON lexer's scope names: where the shell's end.
 pub(crate) const JSON: u16 = after(SHELL, crate::shell::NAMES);
 
+/// The base of the Python lexer's scope names: where the JSON lexer's end.
+pub(crate) const PYTHON: u16 = after(JSON, crate::json::NAMES);
+
 // The tables end below the run-time scopes.
-const _: () = assert!(after(JSON, crate::json::NAMES) <= DYNAMIC);
+const _: () = assert!(after(PYTHON, crate::python::NAMES) <= DYNAMIC);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

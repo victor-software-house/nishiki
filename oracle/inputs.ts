@@ -50,6 +50,18 @@ const eslint =
 
 const rag =
   "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
+const requests =
+  "https://raw.githubusercontent.com/psf/requests/3c7baaa05ab4aa49cc819ce3a819d260de19c157";
+const black =
+  "https://raw.githubusercontent.com/psf/black/945d902bef347d2e7e1d26897aa89a9c177fb535";
+const flask =
+  "https://raw.githubusercontent.com/pallets/flask/49943b5a94413a530761350f04e896f76e8d620e";
+const rich =
+  "https://raw.githubusercontent.com/Textualize/rich/9d8f9a372cc5916fd4781fec207ced7ddac2f08f";
+const fastapi =
+  "https://raw.githubusercontent.com/tiangolo/fastapi/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0";
+const pytest =
+  "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -131,4 +143,13 @@ export const inputs: Input[] = [
   { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },
   { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
   { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
+  { lang: "python", name: "sample", url: `${samples}/python.sample` },
+  { lang: "python", name: "requests-models", url: `${requests}/src/requests/models.py` },
+  { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
+  { lang: "python", name: "flask-helpers", url: `${flask}/src/flask/helpers.py` },
+  { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
+  { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
+  { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
+  { lang: "markdown", name: "fastapi-readme", url: `${fastapi}/README.md` },
+  { lang: "markdown", name: "rich-readme", url: `${rich}/README.md` },
 ];

@@ -76,8 +76,8 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`) and JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`) are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc` or `jsonl` is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
+1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`) JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`) and Python (`Language::Python`, also `py`) are the languages.
+   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, or `python` (or `py`) is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
    In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
@@ -91,6 +91,8 @@ assert_eq!(highlighter.limits().depth, None);
    A non-ASCII character is a word character when it is alphanumeric, so combining marks are not, and it is white space when Unicode says so.
 8. JSON reads every dialect's comments, and a stray character in an array or object gets the grammar's `invalid.illegal` scope.
    `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`), so a later Unicode version in Shiki's engine would need the table regenerated.
+9. The Python scopes keep the grammar's quirks: `def` opens a function after the end of any word, as in `x def f(): pass`, and an empty line leaves the state as it is.
+   `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/python-classes.ts`), so a later Unicode version in Shiki's engine would need them regenerated.
 
 The API is unstable while the version is `0.x`.
 

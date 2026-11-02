@@ -56,6 +56,7 @@ scopes! {
     EmbeddedJson "meta.embedded.block.json"
     EmbeddedJsonc "meta.embedded.block.jsonc"
     EmbeddedJsonl "meta.embedded.block.jsonl"
+    EmbeddedPython "meta.embedded.block.python"
     Raw "markup.raw.block.markdown"
     Table "markup.table.markdown"
     TablePunct "punctuation.definition.table.markdown"

@@ -304,7 +304,13 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
         | Kind::Body(Lang::Markdown) => BLOCK,
         Kind::FencePlain
         | Kind::Body(
-            Lang::Rust | Lang::TypeScript | Lang::Shell | Lang::Json | Lang::Jsonc | Lang::Jsonl,
+            Lang::Rust
+            | Lang::TypeScript
+            | Lang::Shell
+            | Lang::Json
+            | Lang::Jsonc
+            | Lang::Jsonl
+            | Lang::Python,
         )
         | Kind::RawBlock
         | Kind::Comment => &[],
@@ -371,6 +377,7 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Lang::Json) => Some(S::EmbeddedJson),
         Kind::Body(Lang::Jsonc) => Some(S::EmbeddedJsonc),
         Kind::Body(Lang::Jsonl) => Some(S::EmbeddedJsonl),
+        Kind::Body(Lang::Python) => Some(S::EmbeddedPython),
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet

@@ -9,8 +9,8 @@
 //! This release highlights Rust ([`Language::Rust`]), Markdown
 //! ([`Language::Markdown`]), which hands the code in its fences to the other
 //! lexers, `TypeScript` ([`Language::TypeScript`]), shell
-//! ([`Language::Shell`]) and JSON ([`Language::Json`], [`Language::Jsonc`] and
-//! [`Language::Jsonl`]).
+//! ([`Language::Shell`]), JSON ([`Language::Json`], [`Language::Jsonc`] and
+//! [`Language::Jsonl`]) and Python ([`Language::Python`]).
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -60,6 +60,7 @@ mod json;
 mod language;
 mod limits;
 mod markdown;
+mod python;
 mod rust;
 mod scope;
 mod scratch;

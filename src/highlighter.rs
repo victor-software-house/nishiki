@@ -5,7 +5,7 @@ use crate::arena::{Arena, ROOT, Scopes};
 use crate::json::Dialect;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Language, Stack, State, Token, json, markdown, rust, shell, typescript};
+use crate::{Language, Stack, State, Token, json, markdown, python, rust, shell, typescript};
 
 /// Highlights one language, a line at a time.
 ///
@@ -45,6 +45,7 @@ impl Highlighter {
             Language::Json => json::start(&mut arena, ROOT, Dialect::Json),
             Language::Jsonc => json::start(&mut arena, ROOT, Dialect::Jsonc),
             Language::Jsonl => json::start(&mut arena, ROOT, Dialect::Jsonl),
+            Language::Python => python::start(&mut arena, ROOT),
         };
         Highlighter {
             language,
@@ -121,6 +122,18 @@ impl Highlighter {
             Language::Json => self.json_line(Dialect::Json, line, from, out, &mut report),
             Language::Jsonc => self.json_line(Dialect::Jsonc, line, from, out, &mut report),
             Language::Jsonl => self.json_line(Dialect::Jsonl, line, from, out, &mut report),
+            Language::Python => python::line(
+                &mut self.scratch,
+                &mut self.arena,
+                &self.limits,
+                python::Text {
+                    bytes: line.as_bytes(),
+                    start: 0,
+                },
+                from,
+                out,
+                &mut report,
+            ),
         };
         *state = State(if to == self.start { ROOT } else { to });
         report

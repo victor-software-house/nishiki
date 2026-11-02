@@ -5,7 +5,7 @@
 //! of the languages it embeds, so a Markdown line can lex a shell fence
 //! without a parameter per embedded language.
 
-use crate::{markdown, shell};
+use crate::{markdown, python, shell};
 
 /// Buffers and caches of every lexer that keeps any.
 #[derive(Debug, Default)]
@@ -14,4 +14,6 @@ pub(crate) struct Scratch {
     pub(crate) markdown: markdown::Scratch,
     /// The shell lexer's, for shell documents and Markdown shell fences.
     pub(crate) shell: shell::Scratch,
+    /// The Python lexer's, for Python documents and Markdown Python fences.
+    pub(crate) python: python::Scratch,
 }
