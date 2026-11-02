@@ -104,7 +104,7 @@ impl Kind {
             Kind::Fence(lang) => Kind::FIXED.len() + 2 * language(lang),
             Kind::Body(lang) => Kind::FIXED.len() + 2 * language(lang) + 1,
         };
-        TAG | u16::try_from(low).unwrap_or(0)
+        TAG | low_byte(low)
     }
 
     /// The kind a frame's code names; [`Kind::Base`] for a code that is not
@@ -124,6 +124,24 @@ impl Kind {
             None => Kind::Base,
         }
     }
+}
+
+/// The fixed kinds and a fence and a body per language must fit the low byte of
+/// a code. A language past the limit would otherwise share a code with another
+/// kind, so adding one that does not fit fails the build.
+const _: () = assert!(
+    Kind::FIXED.len() + 2 * Language::ALL.len() <= 0x100,
+    "the Markdown kind codes no longer fit one byte"
+);
+
+/// The low byte of a kind code, which the assertion above keeps below 0x100.
+#[expect(
+    clippy::as_conversions,
+    clippy::cast_possible_truncation,
+    reason = "`u16::try_from` is not infallible here; the assert bounds the value"
+)]
+const fn low_byte(low: usize) -> u16 {
+    (low & 0xff) as u16
 }
 
 /// What the closing fence must match: the open fence.
@@ -173,6 +191,5 @@ mod tests {
             assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
             assert_eq!(Kind::from_code(kind.code()), *kind);
         }
-        assert!(kinds.len() <= 0x100, "the codes fit the low byte");
     }
 }
