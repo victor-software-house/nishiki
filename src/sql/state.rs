@@ -36,7 +36,7 @@ pub(crate) enum Rule {
 
 impl Rule {
     /// The rules in code order, which [`Rule::code`] numbers.
-    const ALL: [Rule; 11] = [
+    pub(super) const ALL: [Rule; 11] = [
         Rule::Root,
         Rule::Bracket,
         Rule::CommentDash,

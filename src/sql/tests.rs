@@ -334,3 +334,20 @@ fn running_out_of_work_leaves_the_rest_of_the_line_in_the_open_rules() {
     assert!(report.reached(Limit::Work));
     assert_eq!(tokens[tokens.len() - 1].end(), line.len());
 }
+
+/// The matchers binary-search the word tables, which only works while each
+/// is sorted and holds no word twice.
+#[test]
+fn word_tables_are_sorted() {
+    use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
+    let functions: Vec<&str> = FUNCTIONS.iter().map(|&(name, _)| name).collect();
+    for (name, table) in [
+        ("KEYWORDS", KEYWORDS),
+        ("FUNCTIONS", functions.as_slice()),
+        ("GLOBALS", GLOBALS),
+    ] {
+        for pair in table.windows(2) {
+            assert!(pair[0] < pair[1], "{name}: {pair:?} is out of order");
+        }
+    }
+}

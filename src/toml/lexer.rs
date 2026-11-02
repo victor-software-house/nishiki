@@ -1,7 +1,7 @@
 //! The per-line lexer: cursor, token emission, the context stack and the
 //! rules that read a table's lines.
 
-use std::cell::Cell;
+use std::cell::{Cell, OnceCell};
 
 use memchr::{memchr2, memrchr};
 
@@ -31,6 +31,9 @@ pub(crate) struct Lexer<'a> {
     /// The first byte that is not white space: a table header, or a comment
     /// that gets the leading-space scope, starts here at the earliest.
     first: usize,
+    /// Where the table header at `first` ends and whether it is `[[…]]`,
+    /// scanned once: the white space before it and the header ask in turn.
+    header: OnceCell<Option<(usize, bool)>>,
     /// The last `=` of the line, which a key must precede.
     pub(super) last_eq: Option<usize>,
     /// The last answer of a search for the first `"` that `\s*=` follows
@@ -69,6 +72,7 @@ impl<'a> Lexer<'a> {
             steps: Cell::new(0),
             budget,
             first: 0,
+            header: OnceCell::new(),
             last_eq: memrchr(b'=', s),
             quote_eq: Cell::new((0, 0)),
             no_key_before: 0,
@@ -313,7 +317,7 @@ impl<'a> Lexer<'a> {
             match self.s[end] {
                 b'#' if self.blanks(end) => self.tok(end, &[S::CommentLeading]),
                 b'[' => {
-                    if let Some((_, double)) = self.header_end(end) {
+                    if let Some((_, double)) = self.header_end() {
                         let group = if double {
                             S::MetaGroupDouble
                         } else {
@@ -358,28 +362,32 @@ impl<'a> Lexer<'a> {
         end
     }
 
-    /// Where the table header at `p` ends, and whether it is `[[…]]`.
+    /// Where the table header at the line's first character ends, and
+    /// whether it is `[[…]]`.
     ///
     /// `[` or `[[`, text without brackets, then `]` or `]]`.
-    fn header_end(&self, p: usize) -> Option<(usize, bool)> {
-        let double = self.at(p + 1) == b'[';
-        let start = p + if double { 2 } else { 1 };
-        let rest = self.s.get(start..)?;
-        let offset = memchr2(b'[', b']', rest)?;
-        self.spend(offset);
-        if rest[offset] != b']' {
-            return None;
-        }
-        let close = start + offset;
-        if !double {
-            return Some((close + 1, false));
-        }
-        (self.at(close + 1) == b']').then_some((close + 2, true))
+    fn header_end(&self) -> Option<(usize, bool)> {
+        *self.header.get_or_init(|| {
+            let p = self.first;
+            let double = self.at(p + 1) == b'[';
+            let start = p + if double { 2 } else { 1 };
+            let rest = self.s.get(start..)?;
+            let offset = memchr2(b'[', b']', rest)?;
+            self.spend(offset);
+            if rest[offset] != b']' {
+                return None;
+            }
+            let close = start + offset;
+            if !double {
+                return Some((close + 1, false));
+            }
+            (self.at(close + 1) == b']').then_some((close + 2, true))
+        })
     }
 
-    /// A table header at `p`, where the line's first character is `[`.
+    /// A table header at `p`, the line's first character, which is `[`.
     fn header(&mut self, p: usize) -> Option<usize> {
-        let (end, double) = self.header_end(p)?;
+        let (end, double) = self.header_end()?;
         let group = if double {
             S::MetaGroupDouble
         } else {

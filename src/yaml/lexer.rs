@@ -596,16 +596,13 @@ impl<'a> Lexer<'a> {
             end = i;
         }
         self.spend(i - p);
-        let key = self
-            .s
-            .get(self.skip_blanks_noop(end))
-            .is_some_and(|&b| b == b':')
-            && self.blank_or_end(self.skip_blanks_noop(end) + 1);
+        let colon = self.skip_blanks_unspent(end);
+        let key = self.s.get(colon) == Some(&b':') && self.blank_or_end(colon + 1);
         (end, key)
     }
 
     /// `skip_ascii_blanks` without counting work.
-    fn skip_ascii_blanks_noop(&self, mut p: usize) -> usize {
+    fn skip_ascii_blanks_unspent(&self, mut p: usize) -> usize {
         while self.s.get(p).is_some_and(|&b| is_blank(b)) {
             p += 1;
         }
@@ -613,7 +610,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// `skip_blanks` without counting work: the scan has counted the bytes.
-    fn skip_blanks_noop(&self, mut p: usize) -> usize {
+    fn skip_blanks_unspent(&self, mut p: usize) -> usize {
         loop {
             let n = self.blank_at(p);
             if n == 0 {
@@ -711,7 +708,7 @@ impl<'a> Lexer<'a> {
         let word_chars = |b: u8| b.is_ascii_alphanumeric() || b == b'_' || b >= 0x80;
         let name_end = self.run_end(at, word_chars);
         let name = self.s[at..name_end].to_vec();
-        let version = self.version_len(self.skip_ascii_blanks_noop(name_end));
+        let version = self.version_len(self.skip_ascii_blanks_unspent(name_end));
         let kind = match name.as_slice() {
             b"YAML" if version > 0 => Directive::Yaml,
             b"TAG" => Directive::Tag,

@@ -255,7 +255,17 @@ impl<'a> Lexer<'a> {
     /// Takes matches until nothing matches at or after the position, as
     /// `TextMate` does, or a guard against a loop that does not advance stops
     /// the line.
+    ///
+    /// A step that does not advance opens a rule that is not yet open at the
+    /// byte or closes one, because a rule that opens again where it opened, or
+    /// closes where it opened, ends the line. A run of such steps is then at
+    /// most one open and one close per rule of the grammar, plus one close per
+    /// rule that was open when the run began; the debug assertion holds the
+    /// loop to that bound.
     fn tokenize(&mut self) {
+        let mut from = self.pos;
+        let mut open = self.frames.len();
+        let mut stalled = 0;
         loop {
             self.spend(1);
             if self.over_budget() {
@@ -281,6 +291,17 @@ impl<'a> Lexer<'a> {
             };
             if stopped {
                 return;
+            }
+            if self.pos > from {
+                from = self.pos;
+                open = self.frames.len();
+                stalled = 0;
+            } else {
+                stalled += 1;
+                debug_assert!(
+                    stalled <= open + 2 * Rule::ALL.len(),
+                    "the GraphQL lexer made no progress at byte {from}"
+                );
             }
         }
     }

@@ -3,12 +3,11 @@
 //!
 //! At each position the engine tries the end pattern of the innermost rule and
 //! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule, an end match closes it, and
-//! The corner cases of
-//! `TextMate` engines are kept because Shiki's output depends on them: `\G`
-//! matches only where the enclosing begin ended, the search goes on past the
-//! line feed to the end of the text, and a rule that opens or closes without
-//! advancing stops the line.
+//! earliest position. A begin match opens a rule and an end match closes it.
+//! The corner cases of `TextMate` engines are kept because Shiki's output
+//! depends on them: `\G` matches only where the enclosing begin ended, the
+//! search goes on past the line feed to the end of the text, and a rule that
+//! opens or closes without advancing stops the line.
 
 use std::cell::Cell;
 
@@ -265,7 +264,17 @@ impl<'a> Lexer<'a> {
     /// Takes matches until nothing matches at or after the position, as
     /// `TextMate` does, or a guard against a loop that does not advance stops
     /// the line.
+    ///
+    /// A step that does not advance opens a rule that is not yet open at the
+    /// byte or closes one, because a rule that opens again where it opened, or
+    /// closes where it opened, ends the line. A run of such steps is then at
+    /// most one open and one close per rule of the grammar, plus one close per
+    /// rule that was open when the run began; the debug assertion holds the
+    /// loop to that bound.
     fn tokenize(&mut self) {
+        let mut from = self.pos;
+        let mut open = self.frames.len();
+        let mut stalled = 0;
         loop {
             self.spend(1);
             if self.over_budget() {
@@ -287,6 +296,17 @@ impl<'a> Lexer<'a> {
             };
             if stopped {
                 return;
+            }
+            if self.pos > from {
+                from = self.pos;
+                open = self.frames.len();
+                stalled = 0;
+            } else {
+                stalled += 1;
+                debug_assert!(
+                    stalled <= open + 2 * Rule::ALL.len(),
+                    "the SQL lexer made no progress at byte {from}"
+                );
             }
         }
     }

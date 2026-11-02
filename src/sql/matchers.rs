@@ -26,8 +26,36 @@ fn fold(c: char) -> Option<u8> {
     }
 }
 
-/// The longest word of the keyword and function tables.
-pub(super) const LONGEST: usize = 48;
+/// The length of the longest word of the keyword, function and global
+/// tables: a word longer than it is in none of them.
+pub(super) const LONGEST: usize = longest();
+
+/// [`LONGEST`], computed from the tables so that a regenerated table cannot
+/// outgrow it.
+const fn longest() -> usize {
+    let mut max = 0;
+    let mut i = 0;
+    while i < KEYWORDS.len() {
+        max = max_len(max, KEYWORDS[i]);
+        i += 1;
+    }
+    i = 0;
+    while i < FUNCTIONS.len() {
+        max = max_len(max, FUNCTIONS[i].0);
+        i += 1;
+    }
+    i = 0;
+    while i < GLOBALS.len() {
+        max = max_len(max, GLOBALS[i]);
+        i += 1;
+    }
+    max
+}
+
+/// The greater of `max` and the length of `word`.
+const fn max_len(max: usize, word: &str) -> usize {
+    if word.len() > max { word.len() } else { max }
+}
 
 impl Lexer<'_> {
     // Characters.
@@ -673,11 +701,6 @@ impl Lexer<'_> {
 
     // The words of the other statements.
 
-    /// The text of the word run at `p` in lowercase, for the tables.
-    fn lowered<'b>(&self, p: usize, end: usize, buf: &'b mut [u8; LONGEST]) -> Option<&'b [u8]> {
-        self.lower(p, end, buf)
-    }
-
     /// `\b(name)\b\s*\(` for a function, or `(?<!@)@@\b(name)\b\s*\(`.
     fn function(&self, p: usize) -> Option<Hit> {
         let global = self.at(p) == b'@' && p < self.lim;
@@ -696,7 +719,7 @@ impl Lexer<'_> {
         }
         let end = self.word_run(start);
         let mut buf = [0; LONGEST];
-        let word = self.lowered(start, end, &mut buf)?;
+        let word = self.lower(start, end, &mut buf)?;
         let scope = if global {
             GLOBALS
                 .binary_search_by(|name| name.as_bytes().cmp(word))
@@ -739,7 +762,7 @@ impl Lexer<'_> {
         }
         let end = self.word_run(p);
         let mut buf = [0; LONGEST];
-        if let Some(word) = self.lowered(p, end, &mut buf) {
+        if let Some(word) = self.lower(p, end, &mut buf) {
             if KEYWORDS
                 .binary_search_by(|name| name.as_bytes().cmp(word))
                 .is_ok()

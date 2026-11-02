@@ -247,7 +247,7 @@ impl Lexer<'_> {
             let mut ends = Ends::new();
             ends.push(action.and_then(|end| self.spaces_then(end, "cascade")));
             ends.push(action);
-            ends.all().iter().copied().find(|&end| self.bnd(end))
+            self.first_bounded(&ends)
         } else if [
             "references",
             "nocheck",

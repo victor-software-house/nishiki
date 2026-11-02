@@ -155,11 +155,12 @@ impl<'a> Line<'a> {
         let len = self.s.len();
         let mut i = from;
         loop {
+            let gap = i;
             while i < len && !is_key_byte(self.s[i]) {
                 i += 1;
             }
+            self.spend(i - gap);
             if i >= len {
-                self.spend(i.saturating_sub(from));
                 return None;
             }
             let run = i;

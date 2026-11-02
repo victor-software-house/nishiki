@@ -153,10 +153,15 @@ impl Lexer<'_> {
                 self.report.record(Limit::Work);
                 break;
             }
+            let from = pos;
             pos = match Kind::from_code(self.frame.kind).string() {
                 None => self.top(pos),
                 Some(quote) => self.string(pos, quote),
             };
+            debug_assert!(
+                pos > from,
+                "the Dockerfile lexer made no progress at byte {from}"
+            );
         }
         self.tok(len, &[]);
     }

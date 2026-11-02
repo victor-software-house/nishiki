@@ -86,6 +86,10 @@ pub(crate) fn line(
             break;
         };
         emit.hit(&found);
+        debug_assert!(
+            found.end > pos,
+            "the diff lexer made no progress at byte {pos}"
+        );
         pos = found.end;
     }
     emit.tok(bytes.len(), &[]);

@@ -334,13 +334,17 @@ impl<'a> Lexer<'a> {
             b'1'..=b'9' => i = self.digits(i),
             _ => return None,
         }
-        if self.at(i) == b'.' && self.digits(i + 1) > i + 1 {
-            i = self.digits(i + 1);
+        if self.at(i) == b'.' {
+            let end = self.digits(i + 1);
+            if end > i + 1 {
+                i = end;
+            }
         }
         if matches!(self.at(i), b'E' | b'e') {
-            let sign = usize::from(matches!(self.at(i + 1), b'-' | b'+'));
-            if self.digits(i + 1 + sign) > i + 1 + sign {
-                i = self.digits(i + 1 + sign);
+            let from = i + 1 + usize::from(matches!(self.at(i + 1), b'-' | b'+'));
+            let end = self.digits(from);
+            if end > from {
+                i = end;
             }
         }
         self.spend(i - p);

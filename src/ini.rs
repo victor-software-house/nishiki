@@ -165,11 +165,13 @@ impl Lexer<'_> {
                 self.report.record(Limit::Work);
                 break;
             }
+            let from = pos;
             pos = match Kind::from_code(self.frame.kind) {
                 Kind::Top => self.top(&mut text, &mut slots, pos),
                 Kind::Single => self.string(pos, b'\'', true),
                 Kind::Double => self.string(pos, b'"', false),
             };
+            debug_assert!(pos > from, "the INI lexer made no progress at byte {from}");
         }
         self.tok(len, &[]);
     }
