@@ -1,0 +1,1143 @@
+L ---
+T 3 text.html.markdown meta.separator.markdown
+L title: MCP Server Setup
+T 23 text.html.markdown meta.paragraph.markdown
+L eleventyNavigation:
+T 19 text.html.markdown meta.paragraph.markdown
+L     key: mcp server
+T 4 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown
+L     parent: use eslint
+T 4 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown
+L     title: MCP Server Setup
+T 4 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+L     order: 5
+T 4 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown
+L ---
+T 3 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L {%- from 'components/npm_tabs.macro.html' import npm_tabs with context %}
+T 73 text.html.markdown meta.paragraph.markdown
+L 
+L [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard that enables AI models to interact with external tools and services through a unified interface. The ESLint CLI contains an MCP server that you can register with your code editor to allow LLMs to use ESLint directly.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 300 text.html.markdown meta.paragraph.markdown
+L 
+L ## Set Up ESLint MCP Server in VS Code
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 38 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L To use MCP servers in VS Code, you must have the [Copilot Chat](https://code.visualstudio.com/docs/copilot/copilot-chat) extension installed. After that, follow these steps so add the ESLint MCP server:
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 119 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 120 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 202 text.html.markdown meta.paragraph.markdown
+L 
+L ### 1. Create MCP Configuration File
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 36 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Create a `.vscode/mcp.json` file in your project with the following configuration:
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 82 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"servers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"ESLint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"type": "stdio",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp@latest"]
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Alternatively, you can use the Command Palette:
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 9 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 10 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 23 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 44 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 55 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 56 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. Type and select `MCP: Add Server`
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 20 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 3. Select `Command (stdio)` from the dropdown
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 10 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 11 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 4. Enter `npx @eslint/mcp@latest` as the command
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 9 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 10 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 33 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 5. Type `ESLint` as the server ID
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 9 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 6. Choose `Workspace Settings` to create the configuration in `.vscode/mcp.json`
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 10 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 11 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 63 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 79 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 80 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L ### 2. Enable MCP Server in User Settings (Optional)
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 52 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L If you want to use the ESLint MCP server across all workspaces, you can follow the previous steps and choose `User Settings` instead of `Workspace Settings` to add the MCP server to your `settings.json` file.
+T 109 text.html.markdown meta.paragraph.markdown
+T 110 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 123 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 124 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 136 text.html.markdown meta.paragraph.markdown
+T 137 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 155 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 156 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 187 text.html.markdown meta.paragraph.markdown
+T 188 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 201 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 202 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 208 text.html.markdown meta.paragraph.markdown
+L 
+L ### Use the ESLint MCP Server with GitHub Copilot
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 49 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Once your MCP server is configured, you can use it with [GitHub Copilot's agent mode](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode):
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 86 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 149 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 150 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 151 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Open the Copilot Chat view in VS Code
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 40 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. Ensure agent mode is enabled (look for the agent icon in the chat input)
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 75 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 3. Toggle on the ESLint MCP server tools using the "Tools" button in the chat view
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 82 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 4. Ask Copilot to perform ESLint tasks, such as:
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L     - "Check this file for linting errors"
+T 4 text.html.markdown markup.list.numbered.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 42 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L     - "Fix all ESLint issues in the current file"
+T 4 text.html.markdown markup.list.numbered.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 49 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L     - "Show me what ESLint rules are being violated"
+T 4 text.html.markdown markup.list.numbered.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 52 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ## Troubleshooting
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If you encounter issues with the ESLint MCP server:
+T 51 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Check the MCP server status by running `MCP: List Servers` from the Command Palette
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 42 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 43 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 86 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. Select the ESLint server and choose `Show Output` to view server logs
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 39 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 40 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 3. Ensure that ESLint is installed in your project or globally
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 62 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 4. Verify that your MCP configuration is correct
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L ## Set Up ESLint MCP Server in Cursor
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L To configure the ESLint MCP server in [Cursor](https://cursor.com), follow these steps:
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L 
+L ### 1. Create MCP Configuration File
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 36 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Create a `.cursor/mcp.json` file in your project directory with the following configuration:
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 92 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"mcpServers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"eslint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp@latest"],
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"env": {}
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ### 2. Global Configuration (Optional)
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 38 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L If you want to use the ESLint MCP server across all your Cursor workspaces, create a `~/.cursor/mcp.json` file in your home directory with the same configuration.
+T 85 text.html.markdown meta.paragraph.markdown
+T 86 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 104 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 105 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 162 text.html.markdown meta.paragraph.markdown
+L 
+L ### 3. Verify Tool Availability
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 31 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Once configured, the ESLint MCP server should appear in the "Available Tools" section on the MCP settings page in Cursor.
+T 121 text.html.markdown meta.paragraph.markdown
+L 
+L ## Set Up ESLint MCP Server in Windsurf
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 39 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L To configure the ESLint MCP server in [Windsurf](https://docs.windsurf.com/), follow these steps:
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 75 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 97 text.html.markdown meta.paragraph.markdown
+L 
+L ### 1. Access Windsurf Settings
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 31 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Navigate to Windsurf - Settings > Advanced Settings, or open the Command Palette and select "Open Windsurf Settings Page".
+T 122 text.html.markdown meta.paragraph.markdown
+L 
+L ### 2. Add ESLint MCP Server
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 28 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Scroll down to the Cascade section and click the "Add Server" button. Then select "Add custom server +".
+T 104 text.html.markdown meta.paragraph.markdown
+L 
+L ### 3. Configure MCP Server
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Add the following configuration to your `~/.codeium/windsurf/mcp_config.json` file:
+T 40 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"mcpServers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"eslint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp@latest"],
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"env": {}
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ### 4. Refresh Server List
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 26 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L After adding the configuration, press the refresh button to update the list of available MCP servers.
+T 101 text.html.markdown meta.paragraph.markdown
+L 
+L ### 5. Use ESLint with Cascade
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 30 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Once configured, you can use ESLint tools with Cascade by asking it to:
+T 71 text.html.markdown meta.paragraph.markdown
+L 
+L - Check files for linting errors
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 32 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Explain ESLint rule violations
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 32 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L Note: MCP tool calls in Windsurf will consume credits regardless of success or failure.
+T 87 text.html.markdown meta.paragraph.markdown
+L 
+L ## Use TypeScript Configuration Files
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 37 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If your project uses a TypeScript configuration file (`eslint.config.ts`, `eslint.config.mts`, or `eslint.config.cts`), additional setup is required for the MCP server to load it. There are two approaches depending on your environment. For more details, see [TypeScript Configuration Files](configure/configuration-files#typescript-configuration-files).
+T 54 text.html.markdown meta.paragraph.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 92 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown meta.paragraph.markdown
+T 99 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 116 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 117 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 258 text.html.markdown meta.paragraph.markdown
+T 259 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 289 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 290 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 291 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 351 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 352 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 353 text.html.markdown meta.paragraph.markdown
+L 
+L ### Option A: Local Installation with jiti (Node.js)
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 52 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L When you run the MCP server with `npx @eslint/mcp@latest`, ESLint is installed into a temporary directory and cannot resolve `jiti` from your project's `node_modules`. To use `jiti` for TypeScript config loading, install both `@eslint/mcp` and `jiti` locally:
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 125 text.html.markdown meta.paragraph.markdown
+T 126 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 130 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 131 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 152 text.html.markdown meta.paragraph.markdown
+T 153 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 165 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 166 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 175 text.html.markdown meta.paragraph.markdown
+T 176 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 180 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 181 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 226 text.html.markdown meta.paragraph.markdown
+T 227 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 238 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 239 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 244 text.html.markdown meta.paragraph.markdown
+T 245 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 249 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 250 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 259 text.html.markdown meta.paragraph.markdown
+L 
+L {{ npm_tabs({
+T 13 text.html.markdown meta.paragraph.markdown
+L     command: "install",
+T 4 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown
+L     packages: ["@eslint/mcp", "jiti"],
+T 4 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L     args: ["--save-dev"]
+T 4 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+L }) }}
+T 5 text.html.markdown meta.paragraph.markdown
+L 
+L Then update your MCP configuration to use the locally installed server (without `@latest`, so `npx` resolves the local binary):
+T 80 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 89 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 94 text.html.markdown meta.paragraph.markdown
+T 95 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 99 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 127 text.html.markdown meta.paragraph.markdown
+L 
+L **VS Code** (`.vscode/mcp.json`):
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 9 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"servers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"ESLint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"type": "stdio",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp"]
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L **Cursor / Windsurf** (`.cursor/mcp.json` or `~/.codeium/windsurf/mcp_config.json`):
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"mcpServers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"eslint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp"]
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L When `@eslint/mcp` is installed locally, its bundled ESLint resolves `jiti` from the shared `node_modules` directory via standard Node.js module resolution.
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 92 text.html.markdown meta.paragraph.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 105 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 106 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 156 text.html.markdown meta.paragraph.markdown
+L 
+L #### Yarn Plug'n'Play (PnP)
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 27 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Yarn 2+ uses Plug'n'Play by default and does not create a `node_modules` directory. To run `npx @eslint/mcp` in a Yarn project, set `nodeLinker` to `node-modules` in your `.yarnrc.yml` and run `yarn install` again:
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 91 text.html.markdown meta.paragraph.markdown
+T 92 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 107 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 108 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 132 text.html.markdown meta.paragraph.markdown
+T 133 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 143 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 144 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 148 text.html.markdown meta.paragraph.markdown
+T 149 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 161 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 162 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 171 text.html.markdown meta.paragraph.markdown
+T 172 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 183 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 184 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 193 text.html.markdown meta.paragraph.markdown
+T 194 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 206 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 207 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 214 text.html.markdown meta.paragraph.markdown
+L 
+L ```yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L nodeLinker: node-modules
+T 24 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L With a `node_modules` directory present, the `npx` configuration shown above works as expected. The `nodeLinker: pnpm` setting also works. Only the default Plug'n'Play (`nodeLinker: pnp`) mode is not supported with `npx @eslint/mcp`.
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 100 text.html.markdown meta.paragraph.markdown
+T 101 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 117 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 118 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 169 text.html.markdown meta.paragraph.markdown
+T 170 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 185 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 186 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 215 text.html.markdown meta.paragraph.markdown
+T 216 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 231 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 232 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 233 text.html.markdown meta.paragraph.markdown
+L 
+L ### Option B: Native Node.js TypeScript Support
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 47 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L If you're using **Node.js >= 22.13.0**, you can load TypeScript configuration files without `jiti` by enabling Node.js type stripping and the ESLint `unstable_native_nodejs_ts_config` flag. Set these as environment variables in your MCP configuration.
+T 16 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 92 text.html.markdown meta.paragraph.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 98 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 149 text.html.markdown meta.paragraph.markdown
+T 150 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 182 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 183 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 251 text.html.markdown meta.paragraph.markdown
+L 
+L **VS Code** (`.vscode/mcp.json`):
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 9 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"servers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"ESLint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"type": "stdio",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp@latest"],
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"env": {
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 				"ESLINT_FLAGS": "unstable_native_nodejs_ts_config",
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 				"NODE_OPTIONS": "--experimental-transform-types"
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+L 			}
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L **Cursor / Windsurf** (`.cursor/mcp.json` or `~/.codeium/windsurf/mcp_config.json`):
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L 
+L ```json
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 	"mcpServers": {
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 		"eslint": {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 			"command": "npx",
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"args": ["@eslint/mcp@latest"],
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.begin.json
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json string.quoted.double.json punctuation.definition.string.end.json
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 			"env": {
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+L 				"ESLINT_FLAGS": "unstable_native_nodejs_ts_config",
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+L 				"NODE_OPTIONS": "--experimental-transform-types"
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+L 			}
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 		}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L 	}
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Example Prompts
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Here are some example prompts to an LLM for running ESLint and addressing its findings:
+T 87 text.html.markdown meta.paragraph.markdown
+L 
+L ```text
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L Lint the current file and explain any issues found
+T 50 text.html.markdown markup.fenced_code.block.markdown
+L 
+L Lint and fix #file:index.js
+T 27 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Additional Resources
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L - [Model Context Protocol Documentation](https://modelcontextprotocol.io/introduction)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 40 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 41 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 85 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [VS Code MCP Servers Documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 36 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 37 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 38 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 97 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 98 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [GitHub Copilot in VS Code Documentation](https://code.visualstudio.com/docs/copilot/copilot-chat)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 42 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 43 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 44 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 99 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 100 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [Model Context Protocol in Cursor documentation](https://docs.cursor.com/context/model-context-protocol)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 49 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 50 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 51 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 105 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 106 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [Model Context Protocol in Windsurf documentation](https://docs.windsurf.com/)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 51 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 52 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 53 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 79 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 80 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L 

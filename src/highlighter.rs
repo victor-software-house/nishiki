@@ -2,9 +2,10 @@
 //! limits.
 
 use crate::arena::{Arena, ROOT, Scopes};
+use crate::json::Dialect;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Language, Stack, State, Token, markdown, rust, shell, typescript};
+use crate::{Language, Stack, State, Token, json, markdown, rust, shell, typescript};
 
 /// Highlights one language, a line at a time.
 ///
@@ -41,6 +42,9 @@ impl Highlighter {
             Language::Markdown => markdown::start(&mut arena, ROOT),
             Language::TypeScript => typescript::start(&mut arena, ROOT),
             Language::Shell => shell::start(&mut arena, ROOT),
+            Language::Json => json::start(&mut arena, ROOT, Dialect::Json),
+            Language::Jsonc => json::start(&mut arena, ROOT, Dialect::Jsonc),
+            Language::Jsonl => json::start(&mut arena, ROOT, Dialect::Jsonl),
         };
         Highlighter {
             language,
@@ -114,9 +118,31 @@ impl Highlighter {
                 out,
                 &mut report,
             ),
+            Language::Json => self.json_line(Dialect::Json, line, from, out, &mut report),
+            Language::Jsonc => self.json_line(Dialect::Jsonc, line, from, out, &mut report),
+            Language::Jsonl => self.json_line(Dialect::Jsonl, line, from, out, &mut report),
         };
         *state = State(if to == self.start { ROOT } else { to });
         report
+    }
+
+    fn json_line(
+        &mut self,
+        dialect: Dialect,
+        line: &str,
+        from: u32,
+        out: &mut Vec<Token>,
+        report: &mut LineReport,
+    ) -> u32 {
+        json::line(
+            &mut self.arena,
+            &self.limits,
+            dialect,
+            line.as_bytes(),
+            from,
+            out,
+            report,
+        )
     }
 
     /// The scope names of `stack`, innermost first, such as

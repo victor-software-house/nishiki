@@ -8,8 +8,9 @@
 //!
 //! This release highlights Rust ([`Language::Rust`]), Markdown
 //! ([`Language::Markdown`]), which hands the code in its fences to the other
-//! lexers, `TypeScript` ([`Language::TypeScript`]) and shell
-//! ([`Language::Shell`]).
+//! lexers, `TypeScript` ([`Language::TypeScript`]), shell
+//! ([`Language::Shell`]) and JSON ([`Language::Json`], [`Language::Jsonc`] and
+//! [`Language::Jsonl`]).
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -55,6 +56,7 @@
 
 mod arena;
 mod highlighter;
+mod json;
 mod language;
 mod limits;
 mod markdown;

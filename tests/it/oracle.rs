@@ -185,6 +185,21 @@ fn shell_matches_shiki() {
     check("shellscript", || lexer(Language::Shell));
 }
 
+#[test]
+fn json_matches_shiki() {
+    check("json", || lexer(Language::Json));
+}
+
+#[test]
+fn jsonc_matches_shiki() {
+    check("jsonc", || lexer(Language::Jsonc));
+}
+
+#[test]
+fn jsonl_matches_shiki() {
+    check("jsonl", || lexer(Language::Jsonl));
+}
+
 /// Shiki's colours for one fixture under one theme: the fixture's lines,
 /// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
 #[cfg(feature = "json")]
@@ -308,4 +323,22 @@ fn typescript_colours_match_shiki() {
 #[test]
 fn shell_colours_match_shiki() {
     check_colours(Language::Shell, "shellscript");
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn json_colours_match_shiki() {
+    check_colours(Language::Json, "json");
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn jsonc_colours_match_shiki() {
+    check_colours(Language::Jsonc, "jsonc");
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn jsonl_colours_match_shiki() {
+    check_colours(Language::Jsonl, "jsonl");
 }

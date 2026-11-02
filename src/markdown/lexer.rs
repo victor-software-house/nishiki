@@ -20,7 +20,7 @@ use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, rust, shell, typescript};
+use crate::{Stack, Token, json, rust, shell, typescript};
 
 /// The window on the line that the rules see, built from the fields it needs
 /// so that a rule can fill in `self.caps` while it is held.
@@ -94,9 +94,15 @@ impl Starts {
             | Kind::ListOrdered
             | Kind::Body(Lang::Markdown) => Starts::Block,
             Kind::Fence(_) | Kind::FencePlain => Starts::Anchored,
-            Kind::Body(Lang::Rust | Lang::TypeScript | Lang::Shell) | Kind::RawBlock => {
-                Starts::Nowhere
-            }
+            Kind::Body(
+                Lang::Rust
+                | Lang::TypeScript
+                | Lang::Shell
+                | Lang::Json
+                | Lang::Jsonc
+                | Lang::Jsonl,
+            )
+            | Kind::RawBlock => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
             Kind::Table => Starts::Anywhere,
             Kind::Paragraph
@@ -387,7 +393,15 @@ impl<'a> Lexer<'a> {
         }
         let from = (self.pos, self.frames.len());
         if let Some(Frame {
-            rule: Rule::Open(Kind::Body(Lang::Rust | Lang::TypeScript | Lang::Shell)),
+            rule:
+                Rule::Open(Kind::Body(
+                    Lang::Rust
+                    | Lang::TypeScript
+                    | Lang::Shell
+                    | Lang::Json
+                    | Lang::Jsonc
+                    | Lang::Jsonl,
+                )),
             ..
         }) = self.frames.last()
         {
@@ -693,6 +707,9 @@ impl<'a> Lexer<'a> {
                 Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
                 Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
                 Kind::Body(Lang::Shell) => shell::start_embedded(self.arena, content),
+                Kind::Body(Lang::Json | Lang::Jsonc | Lang::Jsonl) => {
+                    json::start_embedded(self.arena, content)
+                }
                 Kind::Base
                 | Kind::Quote
                 | Kind::ListBullet
@@ -888,6 +905,15 @@ impl<'a> Lexer<'a> {
                     start,
                     anchored: true,
                 },
+                frame.payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Json | Lang::Jsonc | Lang::Jsonl => json::line(
+                self.arena,
+                self.limits,
+                lang.dialect().unwrap_or(json::Dialect::Json),
+                &self.line.as_bytes()[start..],
                 frame.payload,
                 self.out,
                 self.report,

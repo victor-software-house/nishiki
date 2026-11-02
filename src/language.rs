@@ -13,6 +13,12 @@ pub enum Language {
     TypeScript,
     /// Shell, with the scopes of Shiki's `shellscript` grammar.
     Shell,
+    /// JSON, with the scopes of Shiki's `json` grammar.
+    Json,
+    /// JSON with comments, with the scopes of Shiki's `jsonc` grammar.
+    Jsonc,
+    /// JSON Lines, with the scopes of Shiki's `jsonl` grammar.
+    Jsonl,
 }
 
 impl Language {
@@ -22,6 +28,9 @@ impl Language {
         Language::Markdown,
         Language::TypeScript,
         Language::Shell,
+        Language::Json,
+        Language::Jsonc,
+        Language::Jsonl,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -32,6 +41,9 @@ impl Language {
             Language::Markdown => "markdown",
             Language::TypeScript => "typescript",
             Language::Shell => "shellscript",
+            Language::Json => "json",
+            Language::Jsonc => "jsonc",
+            Language::Jsonl => "jsonl",
         }
     }
 
@@ -62,6 +74,9 @@ impl Language {
             Language::Markdown => &["markdown", "md"],
             Language::TypeScript => &["typescript", "ts", "cts", "mts"],
             Language::Shell => &["shellscript", "bash", "sh", "shell", "zsh"],
+            Language::Json => &["json"],
+            Language::Jsonc => &["jsonc"],
+            Language::Jsonl => &["jsonl"],
         }
     }
 }

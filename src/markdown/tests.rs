@@ -274,6 +274,42 @@ fn the_line_after_a_continuation_in_a_fence_is_anchored_at_its_start() {
 }
 
 #[test]
+fn json_fences_embed_the_json_lexer_in_their_own_spelling() {
+    for (info, embedded, suffix) in [
+        ("json", "meta.embedded.block.json", ".json"),
+        ("JSON5", "meta.embedded.block.json", ".json"),
+        ("sublime-settings", "meta.embedded.block.json", ".json"),
+        ("jsonc", "meta.embedded.block.jsonc", ".json.comments"),
+        ("jsonl", "meta.embedded.block.jsonl", ".json.lines"),
+        ("jsonlines", "meta.embedded.block.jsonl", ".json.lines"),
+    ] {
+        let text = format!("```{info}\n[null]\n```\n");
+        assert_eq!(
+            stack_of(&text, "null"),
+            [
+                "text.html.markdown".to_owned(),
+                "markup.fenced_code.block.markdown".to_owned(),
+                embedded.to_owned(),
+                format!("meta.structure.array{suffix}"),
+                format!("constant.language{suffix}"),
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn a_json_value_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```json
+        {\"a\": [1,
+        2]}
+        ```
+    "};
+    assert_eq!(stack_of(text, "2")[3], "meta.structure.dictionary.json");
+}
+
+#[test]
 fn a_shebang_is_not_special_inside_a_fence() {
     let text = indoc! {"
         ```ts

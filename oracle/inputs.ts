@@ -42,6 +42,15 @@ const rubyBuild =
 const pyenv =
   "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
 
+const vscode =
+  "https://raw.githubusercontent.com/microsoft/vscode/a4e689ae13ef7a1fe9b515656b51c9be7c274294";
+
+const eslint =
+  "https://raw.githubusercontent.com/eslint/eslint/11c66ba08381cb7cff7679d662c9f6654b6fe712";
+
+const rag =
+  "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -82,6 +91,12 @@ export const inputs: Input[] = [
     name: "cargo-release",
     url: `${cargo}/doc/contrib/src/process/release.md`,
   },
+  {
+    lang: "markdown",
+    name: "eslint-no-restricted-imports",
+    url: `${eslint}/docs/src/rules/no-restricted-imports.md`,
+  },
+  { lang: "markdown", name: "eslint-mcp", url: `${eslint}/docs/src/use/mcp.md` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",
@@ -103,4 +118,17 @@ export const inputs: Input[] = [
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
+  { lang: "json", name: "sample", url: `${samples}/json.sample` },
+  { lang: "json", name: "vue-package", url: `${vue}/package.json` },
+  { lang: "json", name: "zod-package", url: `${zod}/packages/zod/package.json` },
+  {
+    lang: "json",
+    name: "vscode-typescript-grammar",
+    url: `${vscode}/extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`,
+  },
+  { lang: "jsonc", name: "sample", url: `${samples}/jsonc.sample` },
+  { lang: "jsonc", name: "vscode-launch", url: `${vscode}/.vscode/launch.json` },
+  { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },
+  { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
+  { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
 ];

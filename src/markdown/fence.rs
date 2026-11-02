@@ -54,6 +54,32 @@ const LANGUAGES: &[Language] = &[
         brace: Some("bash"),
         lang: Lang::Shell,
     },
+    Language {
+        words: &[
+            "json",
+            "json5",
+            "sublime-settings",
+            "sublime-menu",
+            "sublime-keymap",
+            "sublime-mousemap",
+            "sublime-theme",
+            "sublime-build",
+            "sublime-project",
+            "sublime-completions",
+        ],
+        brace: None,
+        lang: Lang::Json,
+    },
+    Language {
+        words: &["jsonc"],
+        brace: None,
+        lang: Lang::Jsonc,
+    },
+    Language {
+        words: &["jsonl", "jsonlines"],
+        brace: None,
+        lang: Lang::Jsonl,
+    },
 ];
 
 /// A language found in an info string.

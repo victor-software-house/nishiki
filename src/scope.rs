@@ -13,6 +13,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (MARKDOWN, crate::markdown::NAMES),
     (TYPESCRIPT, crate::typescript::NAMES),
     (SHELL, crate::shell::NAMES),
+    (JSON, crate::json::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
@@ -42,8 +43,11 @@ pub(crate) const SHELL: u16 = after(TYPESCRIPT, crate::typescript::NAMES);
 /// delimiter of a here-document; the arena resolves them.
 pub(crate) const DYNAMIC: u16 = 0x8000;
 
+/// The base of the JSON lexer's scope names: where the shell's end.
+pub(crate) const JSON: u16 = after(SHELL, crate::shell::NAMES);
+
 // The tables end below the run-time scopes.
-const _: () = assert!(after(SHELL, crate::shell::NAMES) <= DYNAMIC);
+const _: () = assert!(after(JSON, crate::json::NAMES) <= DYNAMIC);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

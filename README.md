@@ -76,8 +76,8 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust, Markdown, TypeScript and shell (`Language::Shell`, also `bash`, `sh` and `zsh`) are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, or `shell`, `sh`, `bash` or `zsh` is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
+1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`) and JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`) are the languages.
+   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc` or `jsonl` is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
    In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
@@ -89,6 +89,8 @@ assert_eq!(highlighter.limits().depth, None);
 7. In shell, an unterminated string or here-document keeps every later line, `||` outside a statement is two `|` operators, and an argument such as `ab>c` is split as `a` and `b>c`.
    An empty line leaves the state as it is, because Shiki does not tokenize empty lines.
    A non-ASCII character is a word character when it is alphanumeric, so combining marks are not, and it is white space when Unicode says so.
+8. JSON reads every dialect's comments, and a stray character in an array or object gets the grammar's `invalid.illegal` scope.
+   `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`), so a later Unicode version in Shiki's engine would need the table regenerated.
 
 The API is unstable while the version is `0.x`.
 

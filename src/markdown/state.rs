@@ -15,6 +15,24 @@ pub(crate) enum Lang {
     Markdown,
     /// Shell, lexed by the shell lexer.
     Shell,
+    /// JSON, lexed by the JSON lexer in the `json` spelling.
+    Json,
+    /// JSON with comments: the `jsonc` spelling.
+    Jsonc,
+    /// JSON Lines: the `jsonl` spelling.
+    Jsonl,
+}
+
+impl Lang {
+    /// The JSON spelling a fence of this language embeds, for JSON's.
+    pub(crate) fn dialect(self) -> Option<crate::json::Dialect> {
+        match self {
+            Lang::Json => Some(crate::json::Dialect::Json),
+            Lang::Jsonc => Some(crate::json::Dialect::Jsonc),
+            Lang::Jsonl => Some(crate::json::Dialect::Jsonl),
+            Lang::Rust | Lang::TypeScript | Lang::Markdown | Lang::Shell => None,
+        }
+    }
 }
 
 /// A container left open at the end of a line: a begin/end or begin/while rule
@@ -60,7 +78,7 @@ pub(crate) enum Kind {
 impl Kind {
     /// The kinds in code order, which [`Kind::code`] numbers; a test checks
     /// that the two agree.
-    pub(crate) const ALL: [Kind; 21] = [
+    pub(crate) const ALL: [Kind; 27] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -69,11 +87,17 @@ impl Kind {
         Kind::Fence(Lang::TypeScript),
         Kind::Fence(Lang::Markdown),
         Kind::Fence(Lang::Shell),
+        Kind::Fence(Lang::Json),
+        Kind::Fence(Lang::Jsonc),
+        Kind::Fence(Lang::Jsonl),
         Kind::FencePlain,
         Kind::Body(Lang::Rust),
         Kind::Body(Lang::TypeScript),
         Kind::Body(Lang::Markdown),
         Kind::Body(Lang::Shell),
+        Kind::Body(Lang::Json),
+        Kind::Body(Lang::Jsonc),
+        Kind::Body(Lang::Jsonl),
         Kind::RawBlock,
         Kind::Table,
         Kind::Paragraph,
@@ -96,19 +120,25 @@ impl Kind {
             Kind::Fence(Lang::TypeScript) => 5,
             Kind::Fence(Lang::Markdown) => 6,
             Kind::Fence(Lang::Shell) => 7,
-            Kind::FencePlain => 8,
-            Kind::Body(Lang::Rust) => 9,
-            Kind::Body(Lang::TypeScript) => 10,
-            Kind::Body(Lang::Markdown) => 11,
-            Kind::Body(Lang::Shell) => 12,
-            Kind::RawBlock => 13,
-            Kind::Table => 14,
-            Kind::Paragraph => 15,
-            Kind::Comment => 16,
-            Kind::BoldStar => 17,
-            Kind::BoldUnder => 18,
-            Kind::ItalicStar => 19,
-            Kind::ItalicUnder => 20,
+            Kind::Fence(Lang::Json) => 8,
+            Kind::Fence(Lang::Jsonc) => 9,
+            Kind::Fence(Lang::Jsonl) => 10,
+            Kind::FencePlain => 11,
+            Kind::Body(Lang::Rust) => 12,
+            Kind::Body(Lang::TypeScript) => 13,
+            Kind::Body(Lang::Markdown) => 14,
+            Kind::Body(Lang::Shell) => 15,
+            Kind::Body(Lang::Json) => 16,
+            Kind::Body(Lang::Jsonc) => 17,
+            Kind::Body(Lang::Jsonl) => 18,
+            Kind::RawBlock => 19,
+            Kind::Table => 20,
+            Kind::Paragraph => 21,
+            Kind::Comment => 22,
+            Kind::BoldStar => 23,
+            Kind::BoldUnder => 24,
+            Kind::ItalicStar => 25,
+            Kind::ItalicUnder => 26,
         }
     }
 
