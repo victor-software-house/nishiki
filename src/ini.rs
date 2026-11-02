@@ -26,6 +26,7 @@ use scope::S;
 
 use crate::arena::{Arena, Frame, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// The high byte that marks a frame as one of the INI lexer's.
@@ -246,7 +247,7 @@ impl Lexer<'_> {
         let Some(&next) = self.bytes.get(at + 1) else {
             return at + 1;
         };
-        let end = at + 1 + rules::char_len(next);
+        let end = at + 1 + char_len(next);
         self.tok(at, &[]);
         self.tok(end, &[S::Escape]);
         end

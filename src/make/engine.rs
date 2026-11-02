@@ -17,6 +17,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// The scope a capture group adds.
@@ -103,16 +104,6 @@ struct Frame {
     /// The interned state with this rule on top. A rule that a limit kept
     /// out of the arena has its parent's.
     state: u32,
-}
-
-/// How many bytes the character that starts with `lead` takes.
-pub(super) fn char_len(lead: u8) -> usize {
-    match lead {
-        0xf0.. => 4,
-        0xe0.. => 3,
-        0xc0.. => 2,
-        _ => 1,
-    }
 }
 
 /// What the search found.

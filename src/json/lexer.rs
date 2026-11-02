@@ -8,8 +8,9 @@ use super::Dialect;
 use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
-use crate::classes::{self, is_word};
+use crate::classes::{self, is_ascii_space, is_word};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
@@ -29,21 +30,6 @@ pub(crate) struct Lexer<'a> {
     steps: Cell<u64>,
     /// Steps this line may spend; `u64::MAX` for no limit.
     budget: u64,
-}
-
-/// The regex `\s` for an ASCII byte.
-fn is_ascii_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
-}
-
-/// How many bytes the character that starts with `lead` takes.
-fn char_len(lead: u8) -> usize {
-    match lead {
-        0xf0.. => 4,
-        0xe0.. => 3,
-        0xc0.. => 2,
-        _ => 1,
-    }
 }
 
 impl<'a> Lexer<'a> {

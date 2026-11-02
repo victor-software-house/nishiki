@@ -9,6 +9,7 @@ use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
@@ -51,16 +52,6 @@ enum Directive {
     Yaml,
     Tag,
     Reserved,
-}
-
-/// How many bytes the character that starts with `lead` takes.
-fn char_len(lead: u8) -> usize {
-    match lead {
-        0xf0.. => 4,
-        0xe0.. => 3,
-        0xc0.. => 2,
-        _ => 1,
-    }
 }
 
 /// Whether `text` is made of URI characters and `%` escapes, and the extra

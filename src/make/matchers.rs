@@ -6,16 +6,13 @@
 
 use memchr::memchr;
 
-use super::engine::{CapName, Hit, Lexer, char_len};
+use super::engine::{CapName, Hit, Lexer};
 use super::rules::Pat;
 use super::scope::{BUILTINS, FUNCTIONS, S, SPECIAL_TARGETS};
 use super::state::Rule;
 use crate::classes;
-
-/// The regex `\s` for an ASCII byte.
-fn is_ascii_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
-}
+use crate::classes::is_ascii_space;
+use crate::utf8::char_len;
 
 /// The text a `(` or `{` opens: the byte that closes it.
 fn closer(open: u8) -> u8 {

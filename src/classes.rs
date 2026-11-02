@@ -32,3 +32,12 @@ pub(crate) fn is_digit(c: char) -> bool {
         table::is_digit(c)
     }
 }
+
+/// The regex `\s` for an ASCII byte.
+///
+/// Unlike [`u8::is_ascii_whitespace`] it includes the vertical tab, 0x0b, as
+/// Oniguruma does.
+#[inline]
+pub(crate) fn is_ascii_space(b: u8) -> bool {
+    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
+}

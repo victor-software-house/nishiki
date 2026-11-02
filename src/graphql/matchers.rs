@@ -10,11 +10,8 @@ use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use crate::classes;
-
-/// The regex `\s` for an ASCII byte.
-fn is_ascii_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
-}
+use crate::classes::is_ascii_space;
+use crate::utf8::char_len;
 
 /// A byte of `[0-9A-Z_a-z]`.
 fn is_name_byte(b: u8) -> bool {
@@ -33,7 +30,7 @@ impl Lexer<'_> {
         if i == self.lim {
             return Some(('\n', 1));
         }
-        let width = super::engine::char_len(*self.s.get(i)?);
+        let width = char_len(*self.s.get(i)?);
         let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
         Some((text.chars().next()?, width))
     }

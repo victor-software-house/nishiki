@@ -12,6 +12,8 @@
 
 use super::scope::S;
 use crate::classes;
+use crate::classes::is_ascii_space;
+use crate::utf8::char_len;
 
 /// The most pieces a rule's match splits into.
 const MAX_SEGS: usize = 5;
@@ -62,21 +64,6 @@ const INSTRUCTIONS: &[&[u8]] = &[
     b"VOLUME",
     b"WORKDIR",
 ];
-
-/// How many bytes the character that starts with `lead` takes.
-pub(super) fn char_len(lead: u8) -> usize {
-    match lead {
-        0xf0.. => 4,
-        0xe0.. => 3,
-        0xc0.. => 2,
-        _ => 1,
-    }
-}
-
-/// The regex `\s` for an ASCII byte.
-fn is_ascii_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
-}
 
 /// A line and the bytes its scans have read.
 pub(super) struct Line<'a> {

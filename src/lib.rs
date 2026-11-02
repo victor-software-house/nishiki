@@ -78,6 +78,7 @@ mod tag;
 mod theme;
 mod toml;
 mod typescript;
+mod utf8;
 mod yaml;
 
 pub use arena::Scopes;

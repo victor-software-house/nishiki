@@ -7,12 +7,14 @@
 
 use memchr::memchr2;
 
-use super::engine::{Hit, Lexer, char_len};
+use super::engine::{Hit, Lexer};
 use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
 use crate::classes;
+use crate::classes::is_ascii_space;
+use crate::utf8::char_len;
 
 /// The ASCII lowercase letter that `c` matches without regard to case: itself,
 /// or `s` for `ſ` and `k` for the Kelvin sign, which `Onig` folds to them.
@@ -22,11 +24,6 @@ fn fold(c: char) -> Option<u8> {
         '\u{212a}' => Some(b'k'),
         _ => u8::try_from(c).ok().map(|b| b.to_ascii_lowercase()),
     }
-}
-
-/// The regex `\s` for an ASCII byte.
-fn is_ascii_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
 }
 
 /// The longest word of the keyword and function tables.
