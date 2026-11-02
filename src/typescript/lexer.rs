@@ -245,8 +245,15 @@ impl<'a> Lexer<'a> {
     /// and the last character of the line, which the end rules that test
     /// `[^\\\n]$` match. The oracle fixtures and the differential tests hold
     /// that nothing else matches in what is skipped.
-    fn skip_unmatched(&self, p: usize) -> usize {
+    fn skip_unmatched(&mut self, p: usize) -> usize {
         let step = p + self.char_len(p);
+        if p < self.len
+            && let Some(target) = self.body_end(step)
+        {
+            #[cfg(debug_assertions)]
+            self.check_skipped(step, target);
+            return target;
+        }
         let next = if p >= self.len || p == 0 {
             return step;
         } else if is_ws(self.b(p)) {
@@ -265,6 +272,54 @@ impl<'a> Lexer<'a> {
         };
         let last = self.src.char_indices().next_back().map_or(0, |(i, _)| i);
         if p < last { next.min(last) } else { step }
+    }
+
+    /// Where the plain text of a comment or string that holds `p` ends: the
+    /// next position a rule of that context can match at, after `step`.
+    ///
+    /// A line comment has no rule before the line's end. A block comment
+    /// ends at `*/`, and a doc comment also reads `@`, `[` and `{`. A string
+    /// ends at its quote or the line's last character, and reads `\`; a
+    /// template ends at its backtick and reads `\` and `${`.
+    fn body_end(&self, step: usize) -> Option<usize> {
+        let rest = self.s.get(step..)?;
+        let kind = self.top();
+        let end = rest.len();
+        let found = if matches!(kind, Kind::CommentLine | Kind::CommentLineNl) {
+            end
+        } else if kind == Kind::CommentBlock {
+            memchr::memchr(b'*', rest).unwrap_or(end)
+        } else if kind == Kind::CommentDoc {
+            let first = memchr::memchr3(b'*', b'@', b'[', rest).unwrap_or(end);
+            memchr::memchr(b'{', &rest[..first]).unwrap_or(first)
+        } else if kind == Kind::StrSingle {
+            memchr::memchr2(b'\'', b'\\', rest).unwrap_or(end)
+        } else if kind == Kind::StrDouble {
+            memchr::memchr2(b'"', b'\\', rest).unwrap_or(end)
+        } else if matches!(kind, Kind::Template | Kind::TemplateType) {
+            memchr::memchr3(b'`', b'$', b'\\', rest).unwrap_or(end)
+        } else {
+            return None;
+        };
+        let mut target = step + found;
+        if matches!(kind, Kind::StrSingle | Kind::StrDouble) {
+            let last = self.src.char_indices().next_back().map_or(0, |(i, _)| i);
+            target = target.min(last);
+        }
+        (target > step).then_some(target)
+    }
+
+    /// Debug builds confirm that no rule matches at a skipped position.
+    #[cfg(debug_assertions)]
+    fn check_skipped(&mut self, from: usize, to: usize) {
+        let mut q = from;
+        while q < to {
+            debug_assert!(
+                self.step(q).is_none(),
+                "a rule matched at byte {q}, which the skip passed over"
+            );
+            q += self.char_len(q);
+        }
     }
 
     /// Whether the character before `p` is the first of a name that starts
