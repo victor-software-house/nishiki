@@ -68,14 +68,18 @@ The decisions that created nishiki live in a private planning repository:
    - docs, as docs.rs builds them;
    - `cargo deny`;
    - the repository checks.
-2. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
+2. Nobody runs the full suite before a push; CI does.
+   - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
+   - Before a push, run only the cheap checks: `typos`, `mise run lint:md` and rustfmt.
+   - When CI fails, fix forward.
+3. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
 
    | Command | Does |
    |:--|:--|
    | `mise run format` | Checks formatting, as the pre-commit hook does. |
    | `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` | Applies it. |
 
-3. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
 
 ### Documentation
 
