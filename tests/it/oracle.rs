@@ -180,6 +180,11 @@ fn rust_matches_shiki() {
     check("rust", || lexer(Language::Rust));
 }
 
+#[test]
+fn shell_matches_shiki() {
+    check("shellscript", || lexer(Language::Shell));
+}
+
 /// Shiki's colours for one fixture under one theme: the fixture's lines,
 /// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
 #[cfg(feature = "json")]
@@ -297,4 +302,10 @@ fn typescript_matches_shiki() {
 #[test]
 fn typescript_colours_match_shiki() {
     check_colours(Language::TypeScript, "typescript");
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn shell_colours_match_shiki() {
+    check_colours(Language::Shell, "shellscript");
 }

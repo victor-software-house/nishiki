@@ -36,6 +36,24 @@ const LANGUAGES: &[Language] = &[
         brace: None,
         lang: Lang::Markdown,
     },
+    // The grammar's `.textmate_init` has an unescaped dot, which matches any
+    // character; it is matched here as a literal dot.
+    Language {
+        words: &[
+            "shell",
+            "sh",
+            "bash",
+            "zsh",
+            "bashrc",
+            "bash_profile",
+            "bash_login",
+            "profile",
+            "bash_logout",
+            ".textmate_init",
+        ],
+        brace: Some("bash"),
+        lang: Lang::Shell,
+    },
 ];
 
 /// A language found in an info string.

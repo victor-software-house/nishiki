@@ -260,9 +260,13 @@ T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.s
 L 
 L ```sh
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L npm install zod
-T 15 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

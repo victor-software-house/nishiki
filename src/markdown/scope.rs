@@ -52,6 +52,7 @@ scopes! {
     EmbeddedRust "meta.embedded.block.rust"
     EmbeddedTypeScript "meta.embedded.block.typescript"
     EmbeddedMarkdown "meta.embedded.block.markdown"
+    EmbeddedShell "meta.embedded.block.shellscript"
     Raw "markup.raw.block.markdown"
     Table "markup.table.markdown"
     TablePunct "punctuation.definition.table.markdown"

@@ -13,6 +13,8 @@ pub(crate) enum Lang {
     /// Markdown itself: the grammar includes its own rules in a `markdown`
     /// fence.
     Markdown,
+    /// Shell, lexed by the shell lexer.
+    Shell,
 }
 
 /// A container left open at the end of a line: a begin/end or begin/while rule
@@ -56,8 +58,9 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
-    /// The kinds in code order, which [`Kind::code`] numbers.
-    const ALL: [Kind; 19] = [
+    /// The kinds in code order, which [`Kind::code`] numbers; a test checks
+    /// that the two agree.
+    pub(crate) const ALL: [Kind; 21] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -65,10 +68,12 @@ impl Kind {
         Kind::Fence(Lang::Rust),
         Kind::Fence(Lang::TypeScript),
         Kind::Fence(Lang::Markdown),
+        Kind::Fence(Lang::Shell),
         Kind::FencePlain,
         Kind::Body(Lang::Rust),
         Kind::Body(Lang::TypeScript),
         Kind::Body(Lang::Markdown),
+        Kind::Body(Lang::Shell),
         Kind::RawBlock,
         Kind::Table,
         Kind::Paragraph,
@@ -90,18 +95,20 @@ impl Kind {
             Kind::Fence(Lang::Rust) => 4,
             Kind::Fence(Lang::TypeScript) => 5,
             Kind::Fence(Lang::Markdown) => 6,
-            Kind::FencePlain => 7,
-            Kind::Body(Lang::Rust) => 8,
-            Kind::Body(Lang::TypeScript) => 9,
-            Kind::Body(Lang::Markdown) => 10,
-            Kind::RawBlock => 11,
-            Kind::Table => 12,
-            Kind::Paragraph => 13,
-            Kind::Comment => 14,
-            Kind::BoldStar => 15,
-            Kind::BoldUnder => 16,
-            Kind::ItalicStar => 17,
-            Kind::ItalicUnder => 18,
+            Kind::Fence(Lang::Shell) => 7,
+            Kind::FencePlain => 8,
+            Kind::Body(Lang::Rust) => 9,
+            Kind::Body(Lang::TypeScript) => 10,
+            Kind::Body(Lang::Markdown) => 11,
+            Kind::Body(Lang::Shell) => 12,
+            Kind::RawBlock => 13,
+            Kind::Table => 14,
+            Kind::Paragraph => 15,
+            Kind::Comment => 16,
+            Kind::BoldStar => 17,
+            Kind::BoldUnder => 18,
+            Kind::ItalicStar => 19,
+            Kind::ItalicUnder => 20,
         }
     }
 
@@ -147,6 +154,19 @@ impl Fence {
             delim: byte(16),
             len: byte(8),
             indent: byte(0),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_kind_codes_to_its_place_in_all() {
+        for (index, kind) in Kind::ALL.iter().enumerate() {
+            assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
+            assert_eq!(Kind::from_code(kind.code()), *kind);
         }
     }
 }

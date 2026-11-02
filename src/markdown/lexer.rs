@@ -20,7 +20,7 @@ use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, rust, typescript};
+use crate::{Stack, Token, rust, shell, typescript};
 
 /// The window on the line that the rules see, built from the fields it needs
 /// so that a rule can fill in `self.caps` while it is held.
@@ -94,7 +94,9 @@ impl Starts {
             | Kind::ListOrdered
             | Kind::Body(Lang::Markdown) => Starts::Block,
             Kind::Fence(_) | Kind::FencePlain => Starts::Anchored,
-            Kind::Body(Lang::Rust | Lang::TypeScript) | Kind::RawBlock => Starts::Nowhere,
+            Kind::Body(Lang::Rust | Lang::TypeScript | Lang::Shell) | Kind::RawBlock => {
+                Starts::Nowhere
+            }
             Kind::Comment => Starts::Dash,
             Kind::Table => Starts::Anywhere,
             Kind::Paragraph
@@ -161,6 +163,8 @@ struct Hit {
 /// Lexes one line.
 pub(crate) struct Lexer<'a> {
     arena: &'a mut Arena,
+    /// The shell lexer's buffers and caches, for the shell lines of fences.
+    shell: &'a mut shell::Scratch,
     limits: &'a Limits,
     report: &'a mut LineReport,
     line: &'a str,
@@ -191,6 +195,7 @@ pub(crate) struct Lexer<'a> {
 impl<'a> Lexer<'a> {
     pub(crate) fn new(
         arena: &'a mut Arena,
+        shell: &'a mut shell::Scratch,
         limits: &'a Limits,
         line: &'a str,
         out: &'a mut Vec<Token>,
@@ -222,6 +227,7 @@ impl<'a> Lexer<'a> {
         frames.reverse();
         Lexer {
             arena,
+            shell,
             limits,
             report,
             line,
@@ -357,7 +363,7 @@ impl<'a> Lexer<'a> {
         }
         let from = (self.pos, self.frames.len());
         if let Some(Frame {
-            rule: Rule::Open(Kind::Body(Lang::Rust | Lang::TypeScript)),
+            rule: Rule::Open(Kind::Body(Lang::Rust | Lang::TypeScript | Lang::Shell)),
             ..
         }) = self.frames.last()
         {
@@ -622,6 +628,7 @@ impl<'a> Lexer<'a> {
             Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
             Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
             Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
+            Kind::Body(Lang::Shell) => shell::start_embedded(self.arena, content),
             Kind::Base
             | Kind::Quote
             | Kind::ListBullet
@@ -810,6 +817,18 @@ impl<'a> Lexer<'a> {
                 self.out,
                 self.report,
             ),
+            Lang::Shell => shell::line(
+                self.shell,
+                self.arena,
+                self.limits,
+                shell::Text {
+                    bytes: self.line.as_bytes(),
+                    start,
+                },
+                frame.payload,
+                self.out,
+                self.report,
+            ),
             Lang::Rust | Lang::Markdown => rust::line(
                 self.arena,
                 self.limits,
@@ -819,8 +838,11 @@ impl<'a> Lexer<'a> {
                 self.report,
             ),
         };
-        for token in &mut self.out[first..] {
-            token.end += start;
+        if lang != Lang::Shell {
+            // The shell lexer saw the whole line and made its tokens absolute.
+            for token in &mut self.out[first..] {
+                token.end += start;
+            }
         }
         self.last = self.line.len();
         self.pos = self.limit;

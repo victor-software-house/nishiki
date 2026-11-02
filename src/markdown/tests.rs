@@ -193,6 +193,67 @@ fn typescript_state_continues_across_the_lines_of_a_fence() {
 }
 
 #[test]
+fn a_shell_fence_embeds_the_shell_lexer_without_its_root() {
+    for info in [
+        "sh",
+        "bash",
+        "shell",
+        "zsh",
+        "BASH",
+        "bash_profile",
+        "{.bash .x}",
+    ] {
+        let text = format!("```{info}\nls -l\n```\n");
+        assert_eq!(
+            stack_of(&text, "ls"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.shellscript",
+                "meta.statement.shell",
+                "meta.statement.command.shell",
+                "meta.statement.command.name.shell",
+                "entity.name.function.call.shell",
+                "entity.name.command.shell",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn shell_text_after_a_containers_indent_is_not_at_the_start_of_the_line() {
+    let text = indoc! {"
+        - a
+
+          ```sh
+          brew update
+          ```
+    "};
+    let plain = lex(text)
+        .iter()
+        .flatten()
+        .filter(|(text, _)| text.contains("brew"))
+        .all(|(_, scopes)| {
+            scopes
+                .last()
+                .is_some_and(|s| s == "meta.embedded.block.shellscript")
+        });
+    assert!(plain, "Shiki leaves the command unscoped here");
+}
+
+#[test]
+fn shell_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```sh
+        echo 'a
+        b'
+        ```
+    "};
+    assert_eq!(stack_of(text, "b")[3], "meta.statement.shell");
+}
+
+#[test]
 fn a_shebang_is_not_special_inside_a_fence() {
     let text = indoc! {"
         ```ts

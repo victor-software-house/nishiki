@@ -162,9 +162,13 @@ T 10 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.s
 L 
 L ```sh
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L npm install ky
-T 14 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -6116,9 +6120,47 @@ T 145 text.html.markdown meta.paragraph.markdown
 L 
 L ```sh
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L NODE_USE_ENV_PROXY=1 HTTP_PROXY=http://proxy.example.com:8080 node app.js
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell variable.other.assignment.shell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell keyword.operator.assignment.shell
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell string.unquoted.shell
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell variable.other.assignment.shell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell keyword.operator.assignment.shell
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell string.unquoted.shell
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell meta.statement.command.env.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell meta.statement.command.env.shell meta.argument.shell
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.expression.assignment.shell meta.expression.assignment.shell meta.statement.command.env.shell meta.argument.shell string.unquoted.argument.shell
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -6127,9 +6169,14 @@ T 3 text.html.markdown meta.paragraph.markdown
 L 
 L ```sh
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L node --use-env-proxy app.js
-T 27 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

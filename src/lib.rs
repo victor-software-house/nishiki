@@ -7,8 +7,9 @@
 //! streamed reply can be highlighted as it arrives.
 //!
 //! This release highlights Rust ([`Language::Rust`]), Markdown
-//! ([`Language::Markdown`]), which hands the code in its fences to the Rust
-//! lexer, and `TypeScript` ([`Language::TypeScript`]).
+//! ([`Language::Markdown`]), which hands the code in its fences to the other
+//! lexers, `TypeScript` ([`Language::TypeScript`]) and shell
+//! ([`Language::Shell`]).
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -59,6 +60,7 @@ mod limits;
 mod markdown;
 mod rust;
 mod scope;
+mod shell;
 mod theme;
 mod typescript;
 

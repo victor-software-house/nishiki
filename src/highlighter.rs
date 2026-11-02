@@ -3,7 +3,7 @@
 
 use crate::arena::{Arena, ROOT, Scopes};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Language, Stack, State, Token, markdown, rust, typescript};
+use crate::{Language, Stack, State, Token, markdown, rust, shell, typescript};
 
 /// Highlights one language, a line at a time.
 ///
@@ -17,6 +17,8 @@ pub struct Highlighter {
     language: Language,
     limits: Limits,
     arena: Arena,
+    /// Buffers and caches of the shell lexer.
+    shell: shell::Scratch,
     /// The state at the start of a document; [`State::default`] stands for
     /// it.
     start: u32,
@@ -37,11 +39,13 @@ impl Highlighter {
             Language::Rust => rust::start(&mut arena, ROOT),
             Language::Markdown => markdown::start(&mut arena, ROOT),
             Language::TypeScript => typescript::start(&mut arena, ROOT),
+            Language::Shell => shell::start(&mut arena, ROOT),
         };
         Highlighter {
             language,
             limits,
             arena,
+            shell: shell::Scratch::default(),
             start,
         }
     }
@@ -84,12 +88,30 @@ impl Highlighter {
                 out,
                 &mut report,
             ),
-            Language::Markdown => {
-                markdown::line(&mut self.arena, &self.limits, line, from, out, &mut report)
-            }
+            Language::Markdown => markdown::line(
+                &mut self.shell,
+                &mut self.arena,
+                &self.limits,
+                line,
+                from,
+                out,
+                &mut report,
+            ),
             Language::TypeScript => {
                 typescript::line(&mut self.arena, &self.limits, line, from, out, &mut report)
             }
+            Language::Shell => shell::line(
+                &mut self.shell,
+                &mut self.arena,
+                &self.limits,
+                shell::Text {
+                    bytes: line.as_bytes(),
+                    start: 0,
+                },
+                from,
+                out,
+                &mut report,
+            ),
         };
         *state = State(if to == self.start { ROOT } else { to });
         report

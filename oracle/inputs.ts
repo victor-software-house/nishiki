@@ -30,6 +30,15 @@ const book =
 const clap =
   "https://raw.githubusercontent.com/clap-rs/clap/db30b39a55c188763666268447050a0dacba3bf0";
 
+const nvm =
+  "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
+
+const rubyBuild =
+  "https://raw.githubusercontent.com/rbenv/ruby-build/4ef3159f94dd66c8325efb42db2faeb7d5732db0";
+
+const pyenv =
+  "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -63,6 +72,8 @@ export const inputs: Input[] = [
     name: "zod-api",
     url: `${zod}/packages/docs/content/api.mdx`,
   },
+  { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
+  { lang: "markdown", name: "pyenv-readme", url: `${pyenv}/README.md` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",
@@ -80,4 +91,8 @@ export const inputs: Input[] = [
     url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
   },
   { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
+  { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
+  { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
+  { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
+  { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
 ];

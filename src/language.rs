@@ -11,11 +11,18 @@ pub enum Language {
     Markdown,
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     TypeScript,
+    /// Shell, with the scopes of Shiki's `shellscript` grammar.
+    Shell,
 }
 
 impl Language {
     /// Every supported language.
-    pub const ALL: &[Language] = &[Language::Rust, Language::Markdown, Language::TypeScript];
+    pub const ALL: &[Language] = &[
+        Language::Rust,
+        Language::Markdown,
+        Language::TypeScript,
+        Language::Shell,
+    ];
 
     /// Shiki's id for the language, such as `"rust"`.
     #[must_use]
@@ -24,6 +31,7 @@ impl Language {
             Language::Rust => "rust",
             Language::Markdown => "markdown",
             Language::TypeScript => "typescript",
+            Language::Shell => "shellscript",
         }
     }
 
@@ -53,6 +61,7 @@ impl Language {
             Language::Rust => &["rust", "rs"],
             Language::Markdown => &["markdown", "md"],
             Language::TypeScript => &["typescript", "ts", "cts", "mts"],
+            Language::Shell => &["shellscript", "bash", "sh", "shell", "zsh"],
         }
     }
 }

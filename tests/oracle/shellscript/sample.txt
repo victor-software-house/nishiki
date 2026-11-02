@@ -1,0 +1,174 @@
+L #!/bin/bash
+T 2 source.shell comment.line.number-sign.shell meta.shebang.shell punctuation.definition.comment.shebang.shell
+T 11 source.shell comment.line.number-sign.shell meta.shebang.shell
+L # weather.sh
+T 1 source.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 12 source.shell comment.line.number-sign.shell
+L # Copyright 2018 computer-geek64. All rights reserved.
+T 1 source.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 54 source.shell comment.line.number-sign.shell
+L 
+L program=Weather
+T 7 source.shell meta.expression.assignment.shell variable.other.assignment.shell
+T 8 source.shell meta.expression.assignment.shell keyword.operator.assignment.shell
+T 9 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 10 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 11 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 12 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 13 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 14 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 15 source.shell meta.expression.assignment.shell string.unquoted.shell
+L version=1.1
+T 7 source.shell meta.expression.assignment.shell variable.other.assignment.shell
+T 8 source.shell meta.expression.assignment.shell keyword.operator.assignment.shell
+T 9 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 10 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 11 source.shell meta.expression.assignment.shell string.unquoted.shell
+L year=2018
+T 4 source.shell meta.expression.assignment.shell variable.other.assignment.shell
+T 5 source.shell meta.expression.assignment.shell keyword.operator.assignment.shell
+T 6 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 7 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 8 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 9 source.shell meta.expression.assignment.shell string.unquoted.shell
+L developer=computer-geek64
+T 9 source.shell meta.expression.assignment.shell variable.other.assignment.shell
+T 10 source.shell meta.expression.assignment.shell keyword.operator.assignment.shell
+T 11 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 12 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 13 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 14 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 15 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 16 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 17 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 18 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 19 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 20 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 21 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 22 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 23 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 24 source.shell meta.expression.assignment.shell string.unquoted.shell
+T 25 source.shell meta.expression.assignment.shell string.unquoted.shell
+L 
+L case $1 in
+T 4 source.shell meta.case.shell keyword.control.case.shell
+T 5 source.shell meta.case.shell
+T 6 source.shell meta.case.shell punctuation.definition.variable.shell variable.parameter.positional.shell
+T 7 source.shell meta.case.shell variable.parameter.positional.shell
+T 8 source.shell meta.case.shell
+T 10 source.shell meta.case.shell keyword.control.in.shell
+L -h | --help)
+T 1 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 2 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 3 source.shell meta.case.shell meta.case.entry.pattern.shell
+T 4 source.shell meta.case.shell meta.case.entry.pattern.shell keyword.operator.orvariable.language.special.or.shell keyword.operator.alternation.ruby.shell punctuation.definition.regex.alternation.shell punctuation.separator.regex.alternation.shell
+T 5 source.shell meta.case.shell meta.case.entry.pattern.shell
+T 6 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 7 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 8 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 9 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 10 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 11 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 12 source.shell meta.case.shell meta.case.entry.pattern.shell keyword.operator.pattern.case.shell
+L 	echo "$program $version"
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 8 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 15 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 16 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 17 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 24 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 25 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	echo "Copyright $year $developer. All rights reserved."
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 17 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 18 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 22 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 23 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 24 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.variable.shell variable.other.normal.shell
+T 33 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell variable.other.normal.shell
+T 55 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 56 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	echo
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+L 	echo "Usage: weather [options]"
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 31 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 32 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	echo "Option          Long Option             Description"
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 58 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 59 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	echo "-h              --help                  Show the help screen"
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 67 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 68 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	echo "-l [location]   --location [location]   Specifies the location"
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 7 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.begin.shell
+T 69 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell
+T 70 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.quoted.double.shell punctuation.definition.string.end.shell
+L 	;;
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.shell
+T 3 source.shell meta.case.shell meta.case.entry.body.shell punctuation.terminator.statement.case.shell
+L -l | --location)
+T 1 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 2 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 3 source.shell meta.case.shell meta.case.entry.pattern.shell
+T 4 source.shell meta.case.shell meta.case.entry.pattern.shell keyword.operator.orvariable.language.special.or.shell keyword.operator.alternation.ruby.shell punctuation.definition.regex.alternation.shell punctuation.separator.regex.alternation.shell
+T 5 source.shell meta.case.shell meta.case.entry.pattern.shell
+T 6 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 7 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 8 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 9 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 10 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 11 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 12 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 13 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 14 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 15 source.shell meta.case.shell meta.case.entry.pattern.shell string.unquoted.pattern.shell string.regexp.unquoted.shell
+T 16 source.shell meta.case.shell meta.case.entry.pattern.shell keyword.operator.pattern.case.shell
+L 	curl https://wttr.in/$2
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 22 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 23 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell punctuation.definition.variable.shell variable.parameter.positional.shell
+T 24 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell variable.parameter.positional.shell
+L 	;;
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.shell
+T 3 source.shell meta.case.shell meta.case.entry.body.shell punctuation.terminator.statement.case.shell
+L *)
+T 2 source.shell meta.case.shell keyword.operator.pattern.case.default.shell
+L 	curl https://wttr.in
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell
+T 5 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell
+T 21 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L 	;;
+T 1 source.shell meta.case.shell meta.case.entry.body.shell meta.statement.shell
+T 3 source.shell meta.case.shell meta.case.entry.body.shell punctuation.terminator.statement.case.shell
+L esac
+T 4 source.shell meta.case.shell keyword.control.esac.shell
+L 
+L # From https://github.com/ruanyf/simple-bash-scripts/blob/master/scripts/weather.sh
+T 1 source.shell comment.line.number-sign.shell punctuation.definition.comment.shell
+T 83 source.shell comment.line.number-sign.shell
+L 

@@ -206,7 +206,7 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
         | Kind::ListOrdered
         | Kind::Body(Lang::Markdown) => BLOCK,
         Kind::FencePlain
-        | Kind::Body(Lang::Rust | Lang::TypeScript)
+        | Kind::Body(Lang::Rust | Lang::TypeScript | Lang::Shell)
         | Kind::RawBlock
         | Kind::Comment => &[],
         Kind::Table => TABLE,
@@ -268,6 +268,7 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Lang::Rust) => Some(S::EmbeddedRust),
         Kind::Body(Lang::TypeScript) => Some(S::EmbeddedTypeScript),
         Kind::Body(Lang::Markdown) => Some(S::EmbeddedMarkdown),
+        Kind::Body(Lang::Shell) => Some(S::EmbeddedShell),
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet

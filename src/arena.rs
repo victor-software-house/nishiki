@@ -86,6 +86,10 @@ pub(crate) struct Arena {
     scope_ids: IdMap<ScopeKey>,
     frames: Vec<Frame>,
     frame_ids: IdMap<FrameKey>,
+    /// Strings lexers intern: payloads such as a here-document's delimiter,
+    /// and the names of scopes made from source text. Number 0 is empty.
+    strings: Vec<Box<str>>,
+    string_ids: HashMap<Box<str>, u32>,
     /// Most nodes each list may hold; `None` for no limit.
     limit: Option<usize>,
 }
@@ -107,6 +111,8 @@ impl Arena {
             scope_ids: IdMap::default(),
             frames: vec![root],
             frame_ids: IdMap::default(),
+            strings: vec![Box::from("")],
+            string_ids: HashMap::new(),
             limit,
         }
     }
@@ -129,6 +135,36 @@ impl Arena {
         self.scopes.push(ScopeNode { parent, scope });
         self.scope_ids.insert(key, id);
         Some(id)
+    }
+
+    /// The number of `text`, which stays the same for equal text, or `None`
+    /// when the node limit keeps a new string from being made.
+    pub(crate) fn intern(&mut self, text: &str) -> Option<u32> {
+        if let Some(&id) = self.string_ids.get(text) {
+            return Some(id);
+        }
+        if !self.has_room(self.strings.len()) {
+            return None;
+        }
+        let id = u32::try_from(self.strings.len()).ok()?;
+        self.strings.push(Box::from(text));
+        self.string_ids.insert(Box::from(text), id);
+        Some(id)
+    }
+
+    /// The text of string `id`; empty for a number this arena never made.
+    pub(crate) fn string(&self, id: u32) -> &str {
+        usize::try_from(id)
+            .ok()
+            .and_then(|index| self.strings.get(index))
+            .map_or("", |text| text)
+    }
+
+    /// The scope named `name`, made at run time, or `None` when a limit keeps
+    /// it from being made.
+    pub(crate) fn named_scope(&mut self, name: &str) -> Option<Scope> {
+        let index = u16::try_from(self.intern(name)?).ok()?;
+        (index < u16::MAX - crate::scope::DYNAMIC).then(|| Scope::dynamic(index))
     }
 
     /// The scopes of `stack`, innermost first; empty for an id this arena
@@ -182,16 +218,19 @@ pub struct Scopes<'a> {
     node: u32,
 }
 
-impl Iterator for Scopes<'_> {
-    type Item = &'static str;
+impl<'a> Iterator for Scopes<'a> {
+    type Item = &'a str;
 
-    fn next(&mut self) -> Option<&'static str> {
+    fn next(&mut self) -> Option<&'a str> {
         if self.node == ROOT {
             return None;
         }
         let node = self.arena.scopes[usize::try_from(self.node).ok()?];
         self.node = node.parent;
-        Some(node.scope.name())
+        Some(match node.scope.dynamic_index() {
+            Some(index) => self.arena.strings.get(index).map_or("", |text| text),
+            None => node.scope.name(),
+        })
     }
 }
 
@@ -219,6 +258,20 @@ mod tests {
         assert_ne!(arena.push(ROOT, 3, 8, ROOT).unwrap(), a);
         assert_eq!(arena.frame(a).depth, 1);
         assert_eq!(arena.frame(a).parent, ROOT);
+    }
+
+    #[test]
+    fn strings_and_dynamic_scopes_are_interned() {
+        let mut arena = Arena::new(None);
+        let a = arena.intern("EOF").unwrap();
+        assert_eq!(arena.intern("EOF"), Some(a));
+        assert_eq!(arena.string(a), "EOF");
+        let scope = arena.named_scope("string.quoted.heredoc.EOF").unwrap();
+        let stack = arena.child(ROOT, scope).unwrap();
+        assert_eq!(
+            arena.scopes(stack).collect::<Vec<_>>(),
+            ["string.quoted.heredoc.EOF"]
+        );
     }
 
     #[test]

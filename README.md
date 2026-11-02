@@ -76,8 +76,8 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust, Markdown and TypeScript are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), or `markdown` is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
+1. Rust, Markdown, TypeScript and shell (`Language::Shell`, also `bash`, `sh` and `zsh`) are the languages.
+   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, or `shell`, `sh`, `bash` or `zsh` is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
    In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
@@ -86,6 +86,9 @@ assert_eq!(highlighter.limits().depth, None);
    The grammar's backtracking is followed where it matters in practice, not everywhere: a code span gives back backticks, but an escaped `>` does not end an angle-bracket destination.
    A fence of more than 255 characters is never closed.
 6. The TypeScript scopes keep the grammar's own quirks: `Number.MAX_VALUE` gets no scope, and an empty line leaves the state as it is.
+7. In shell, an unterminated string or here-document keeps every later line, `||` outside a statement is two `|` operators, and an argument such as `ab>c` is split as `a` and `b>c`.
+   An empty line leaves the state as it is, because Shiki does not tokenize empty lines.
+   A non-ASCII character is a word character when it is alphanumeric, so combining marks are not, and it is white space when Unicode says so.
 
 The API is unstable while the version is `0.x`.
 

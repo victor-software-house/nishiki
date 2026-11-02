@@ -12,6 +12,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (RUST, crate::rust::NAMES),
     (MARKDOWN, crate::markdown::NAMES),
     (TYPESCRIPT, crate::typescript::NAMES),
+    (SHELL, crate::shell::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
@@ -34,6 +35,16 @@ const fn after(base: u16, names: &[&str]) -> u16 {
     base + names.len() as u16
 }
 
+/// The base of the shell lexer's scope names: where TypeScript's end.
+pub(crate) const SHELL: u16 = after(TYPESCRIPT, crate::typescript::NAMES);
+
+/// Scope numbers from here up name scopes made at run time, such as the
+/// delimiter of a here-document; the arena resolves them.
+pub(crate) const DYNAMIC: u16 = 0x8000;
+
+// The tables end below the run-time scopes.
+const _: () = assert!(after(SHELL, crate::shell::NAMES) <= DYNAMIC);
+
 impl Scope {
     /// The placeholder scope of the empty stack.
     pub(crate) const NONE: Scope = Scope(0);
@@ -43,8 +54,19 @@ impl Scope {
         Scope(base + index)
     }
 
+    /// The scope made at run time from the arena's string number `index`.
+    pub(crate) const fn dynamic(index: u16) -> Scope {
+        Scope(DYNAMIC + index)
+    }
+
     pub(crate) fn id(self) -> u16 {
         self.0
+    }
+
+    /// The index of the arena string that names the scope, when it was made
+    /// at run time.
+    pub(crate) fn dynamic_index(self) -> Option<usize> {
+        self.0.checked_sub(DYNAMIC).map(usize::from)
     }
 
     /// The scope's name, such as `"string.quoted.double.rust"`.
@@ -52,7 +74,7 @@ impl Scope {
         TABLES
             .iter()
             .rev()
-            .find(|&&(base, _)| self.0 >= base)
+            .find(|&&(base, _)| self.0 >= base && self.0 < DYNAMIC)
             .and_then(|&(base, names)| names.get(usize::from(self.0 - base)))
             .copied()
             .unwrap_or("")
