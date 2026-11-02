@@ -8,10 +8,11 @@ Reviews cite the number.
 
 ### 1.1 One contract per language
 
-A language is a module `src/<language>.rs` beside `src/<language>/`, with two crate-private functions: `start(arena, base) -> u32`, the state at the start of a document whose scopes sit on `base`, and `line(...) -> u32`, which lexes one line from a state, appends its tokens, records the limits it reached, and returns the next state.
-`line` takes the shared arena, the limits, the crate-level `Scratch` (`src/scratch.rs`: one field per language, buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated; a language uses its own field and those of the languages it embeds), and the line with the byte where its text starts, so an embedding language can pass a fence line whole and `^` still matches only at column 0.
-`src/language.rs` is the one place they are called: `Language::start`, `Language::start_embedded` and `Language::lex`, which takes a `Context` (arena, limits, scratch, tokens, report) and a `Line` (the whole line, where the language's text starts, and whether a fence embeds it) and returns tokens counted from the start of the whole line.
-The `Highlighter` and the Markdown fences both call `Language::lex`, so a new language is wired in by appending its arms there, its scope table, and its fence names; a language has no highlighter, interner or state type of its own.
+A language is a module `src/<language>.rs` beside `src/<language>/`, with three crate-private functions: `start(arena, base) -> u32`, the state at the start of a document whose scopes sit on `base`; `start_embedded(arena, base) -> u32`, the same inside a Markdown fence, with no root scope of its own; and `lex(cx, line, state) -> u32`, which lexes one line from a state, appends its tokens, records the limits it reached, and returns the next state.
+`lex` takes a `Context` (`src/language.rs`: the shared arena, the limits, the crate-level `Scratch`, the token buffer and the report) and a `Line` (the whole line, the byte where the language's text starts, and whether a fence embeds it), so an embedding language can pass a fence line whole and `^` still matches only at column 0; token ends count from the start of the whole line, and `Context::lex_from_start` moves them there for a lexer that counts from its own start.
+`Scratch` (`src/scratch.rs`) holds one field per language: buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated; a language uses its own field and those of the languages it embeds.
+`src/language.rs` is the one place they are called: `Language::start`, `Language::start_embedded` and `Language::lex` each have one arm per language that calls the module's function.
+The `Highlighter` and the Markdown fences both call `Language::lex`, so a new language is wired in by appending its arms there, its scope table, its frame tag and its fence names; a language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API, and lets one language embed another on the same arena.
 
 ### 1.2 State lives in the arena

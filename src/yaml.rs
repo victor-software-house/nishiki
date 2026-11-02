@@ -58,3 +58,26 @@ pub(crate) fn line(
 
 #[cfg(test)]
 mod tests;
+
+/// Lexes `line` from `state` under the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)), with token ends counted from the
+/// start of the whole line, and returns the state after it.
+#[inline]
+pub(crate) fn lex(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    state: u32,
+) -> u32 {
+    let line_start = line.start == 0;
+    cx.lex_from_start(line, |cx, rest| {
+        self::line(
+            cx.arena,
+            cx.limits,
+            rest.as_bytes(),
+            line_start,
+            state,
+            cx.out,
+            cx.report,
+        )
+    })
+}

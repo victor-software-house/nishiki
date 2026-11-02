@@ -224,116 +224,45 @@ impl Language {
     /// after it.
     #[inline]
     pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
-        let first = cx.out.len();
-        let rest = &line.text[line.start..];
-        let next = match self {
-            Language::Rust => rust::line(
-                cx.arena,
-                cx.limits,
-                rest.as_bytes(),
-                state,
-                cx.out,
-                cx.report,
-            ),
-            Language::Markdown => markdown::line(
-                cx.scratch, cx.arena, cx.limits, rest, state, cx.out, cx.report,
-            ),
-            Language::TypeScript => ts_line(cx, ScriptDialect::TypeScript, rest, state),
-            Language::JavaScript => ts_line(cx, ScriptDialect::JavaScript, rest, state),
-            Language::Jsx => ts_line(cx, ScriptDialect::Jsx, rest, state),
-            Language::Tsx => ts_line(cx, ScriptDialect::Tsx, rest, state),
-            Language::Json => json_line(cx, Dialect::Json, rest, state),
-            Language::Jsonc => json_line(cx, Dialect::Jsonc, rest, state),
-            Language::Jsonl => json_line(cx, Dialect::Jsonl, rest, state),
-            Language::Yaml => yaml::line(
-                cx.arena,
-                cx.limits,
-                rest.as_bytes(),
-                line.start == 0,
-                state,
-                cx.out,
-                cx.report,
-            ),
-            Language::Toml => toml::line(
-                cx.arena,
-                cx.limits,
-                rest.as_bytes(),
-                state,
-                cx.out,
-                cx.report,
-            ),
-            Language::Shell => {
-                let text = shell::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                    anchored: line.embedded,
-                };
-                return shell::line(
-                    cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
-                );
-            }
-            Language::Diff => {
-                let text = diff::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                };
-                return diff::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
-            }
-            Language::Dockerfile => {
-                let text = dockerfile::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                };
-                return dockerfile::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
-            }
-            Language::Make => {
-                let text = make::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                    anchored: line.embedded,
-                };
-                return make::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
-            }
-            Language::Java => {
-                let text = java::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                };
-                return java::line(
-                    cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
-                );
-            }
-            Language::Python => {
-                let text = python::Text {
-                    bytes: line.text.as_bytes(),
-                    start: line.start,
-                };
-                return python::line(
-                    cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
-                );
-            }
-        };
+        match self {
+            Language::Rust => rust::lex(cx, line, state),
+            Language::Markdown => markdown::lex(cx, line, state),
+            Language::TypeScript => typescript::lex(cx, ScriptDialect::TypeScript, line, state),
+            Language::JavaScript => typescript::lex(cx, ScriptDialect::JavaScript, line, state),
+            Language::Jsx => typescript::lex(cx, ScriptDialect::Jsx, line, state),
+            Language::Tsx => typescript::lex(cx, ScriptDialect::Tsx, line, state),
+            Language::Shell => shell::lex(cx, line, state),
+            Language::Json => json::lex(cx, Dialect::Json, line, state),
+            Language::Jsonc => json::lex(cx, Dialect::Jsonc, line, state),
+            Language::Jsonl => json::lex(cx, Dialect::Jsonl, line, state),
+            Language::Python => python::lex(cx, line, state),
+            Language::Yaml => yaml::lex(cx, line, state),
+            Language::Toml => toml::lex(cx, line, state),
+            Language::Make => make::lex(cx, line, state),
+            Language::Diff => diff::lex(cx, line, state),
+            Language::Dockerfile => dockerfile::lex(cx, line, state),
+            Language::Java => java::lex(cx, line, state),
+        }
+    }
+}
+
+impl Context<'_> {
+    /// Runs `lex` on the line's text from its start, for a lexer that counts
+    /// token ends from there, then moves the new tokens' ends to count from
+    /// the start of the whole line, as [`Language::lex`] promises.
+    #[inline]
+    pub(crate) fn lex_from_start(
+        &mut self,
+        line: Line<'_>,
+        lex: impl FnOnce(&mut Self, &str) -> u32,
+    ) -> u32 {
+        let first = self.out.len();
+        let next = lex(self, &line.text[line.start..]);
         if line.start > 0 {
-            for token in &mut cx.out[first..] {
+            for token in &mut self.out[first..] {
                 token.end += line.start;
             }
         }
         next
     }
-}
-
-fn json_line(cx: &mut Context<'_>, dialect: Dialect, line: &str, state: u32) -> u32 {
-    json::line(
-        cx.arena,
-        cx.limits,
-        dialect,
-        line.as_bytes(),
-        state,
-        cx.out,
-        cx.report,
-    )
-}
-
-fn ts_line(cx: &mut Context<'_>, dialect: ScriptDialect, line: &str, state: u32) -> u32 {
-    typescript::line(cx.arena, cx.limits, dialect, line, state, cx.out, cx.report)
 }
