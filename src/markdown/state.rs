@@ -56,6 +56,7 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
+    /// The kinds in code order, which [`Kind::code`] numbers.
     const ALL: [Kind; 19] = [
         Kind::Base,
         Kind::Quote,
@@ -79,13 +80,29 @@ impl Kind {
     ];
 
     /// The kind as a frame stores it: the Markdown tag in the high byte, the
-    /// index in the low one.
+    /// position in [`Kind::ALL`] in the low one.
     pub(crate) fn code(self) -> u16 {
-        let index = Kind::ALL
-            .iter()
-            .position(|&kind| kind == self)
-            .unwrap_or(Kind::ALL.len());
-        TAG | u16::try_from(index).unwrap_or(0)
+        TAG | match self {
+            Kind::Base => 0,
+            Kind::Quote => 1,
+            Kind::ListBullet => 2,
+            Kind::ListOrdered => 3,
+            Kind::Fence(Lang::Rust) => 4,
+            Kind::Fence(Lang::TypeScript) => 5,
+            Kind::Fence(Lang::Markdown) => 6,
+            Kind::FencePlain => 7,
+            Kind::Body(Lang::Rust) => 8,
+            Kind::Body(Lang::TypeScript) => 9,
+            Kind::Body(Lang::Markdown) => 10,
+            Kind::RawBlock => 11,
+            Kind::Table => 12,
+            Kind::Paragraph => 13,
+            Kind::Comment => 14,
+            Kind::BoldStar => 15,
+            Kind::BoldUnder => 16,
+            Kind::ItalicStar => 17,
+            Kind::ItalicUnder => 18,
+        }
     }
 
     /// The kind a frame's code names; [`Kind::Base`] for a code that is not

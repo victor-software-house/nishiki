@@ -485,6 +485,11 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
         word_end += cx.char_len(word_end);
     }
     for end in url + 1..=word_end {
+        // Only the end of the word, or a title opener, can be followed by
+        // what the rest of the rule accepts.
+        if end != word_end && !matches!(cx.get(end), Some(b'(' | b'"' | b'\'')) {
+            continue;
+        }
         let mut plain = *caps;
         plain.set(8, url, end);
         if link_def_tail(cx, end, &mut plain, 9) {
@@ -499,6 +504,11 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
 /// the title's groups numbered from `first`.
 fn link_def_tail(cx: &Cx<'_>, p: usize, caps: &mut Caps, first: usize) -> bool {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
+    let opener = matches!(cx.get(at), Some(b'(' | b'"' | b'\''));
+    // A byte that is neither blank nor a title opener ends the rule at once.
+    if !opener && cx.get(at).is_some_and(|b| b.is_ascii_graphic()) {
+        return false;
+    }
     if cx.only_space_after(at) {
         return true;
     }

@@ -4,25 +4,55 @@
 /// The most groups any rule has (the link rules have 21).
 const GROUPS: usize = 22;
 
-/// The byte range of each capture group that took part in a match.
+/// The byte range of each capture group that took part in a match, in group
+/// order.
+///
+/// Clearing is one store, so a lexer keeps one table and clears it before
+/// each rule it tries instead of building a table per attempt.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct Caps([Option<(usize, usize)>; GROUPS]);
+pub(crate) struct Caps {
+    len: usize,
+    groups: [(u8, u32, u32); GROUPS],
+}
 
 impl Caps {
     pub(crate) fn new() -> Self {
-        Caps([None; GROUPS])
+        Caps {
+            len: 0,
+            groups: [(0, 0, 0); GROUPS],
+        }
+    }
+
+    pub(crate) fn clear(&mut self) {
+        self.len = 0;
     }
 
     /// Records group `index` as the bytes from `start` to `end`.
     pub(crate) fn set(&mut self, index: usize, start: usize, end: usize) {
-        self.0[index] = Some((start, end));
+        let (group, start, end) = (
+            u8::try_from(index).unwrap_or(u8::MAX),
+            u32::try_from(start).unwrap_or(u32::MAX),
+            u32::try_from(end).unwrap_or(u32::MAX),
+        );
+        let mut at = self.len;
+        while at > 0 && self.groups[at - 1].0 > group {
+            self.groups[at] = self.groups[at - 1];
+            at -= 1;
+        }
+        self.groups[at] = (group, start, end);
+        self.len += 1;
     }
 
     /// The numbered groups that took part, in order.
     pub(crate) fn iter(&self) -> impl Iterator<Item = (usize, (usize, usize))> + '_ {
-        self.0
-            .iter()
-            .enumerate()
-            .filter_map(|(index, span)| span.map(|span| (index, span)))
+        self.groups[..self.len].iter().map(|&(index, start, end)| {
+            (
+                usize::from(index),
+                (
+                    usize::try_from(start).unwrap_or(usize::MAX),
+                    usize::try_from(end).unwrap_or(usize::MAX),
+                ),
+            )
+        })
     }
 }

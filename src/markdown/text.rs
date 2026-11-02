@@ -55,6 +55,7 @@ fn is_word_char(c: char) -> bool {
 impl Cx<'_> {
     /// The byte at `p`: the line's, the newline just past it, or nothing at
     /// or after `end`.
+    #[inline]
     pub(crate) fn get(&self, p: usize) -> Option<u8> {
         if p >= self.end {
             None
@@ -64,6 +65,7 @@ impl Cx<'_> {
     }
 
     /// The byte before `p`.
+    #[inline]
     pub(crate) fn before(&self, p: usize) -> Option<u8> {
         p.checked_sub(1).and_then(|q| self.get(q))
     }
@@ -77,11 +79,13 @@ impl Cx<'_> {
     }
 
     /// `^` or `\G`: the start of the line, or where the last rule ended.
+    #[inline]
     pub(crate) fn at_start(&self, p: usize) -> bool {
         p == 0 || self.anchor == Some(p)
     }
 
     /// `$`: the end of the text, or the newline before it.
+    #[inline]
     pub(crate) fn at_eol(&self, p: usize) -> bool {
         matches!(self.get(p), None | Some(b'\n'))
     }
@@ -98,11 +102,13 @@ impl Cx<'_> {
     }
 
     /// `\s*$` at `p`.
+    #[inline]
     pub(crate) fn only_space_after(&self, p: usize) -> bool {
         self.get(self.skip_space(p)).is_none()
     }
 
     /// The character at `p`: the line's, or the newline just past it.
+    #[inline]
     fn char_at(&self, p: usize) -> Option<char> {
         let first = self.get(p)?;
         if first < 0x80 {
@@ -118,6 +124,7 @@ impl Cx<'_> {
     }
 
     /// The character that ends at `p`.
+    #[inline]
     fn char_before(&self, p: usize) -> Option<char> {
         let last = self.before(p)?;
         if last < 0x80 {
@@ -134,13 +141,18 @@ impl Cx<'_> {
 
     /// The byte length of the whitespace character at `p`, or 0 when there is
     /// none.
+    #[inline]
     pub(crate) fn space_at(&self, p: usize) -> usize {
+        if let Some(b) = self.get(p).filter(u8::is_ascii) {
+            return usize::from(matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r'));
+        }
         self.char_at(p)
             .filter(|&c| is_space_char(c))
             .map_or(0, char::len_utf8)
     }
 
     /// The byte length of the whitespace character that ends at `p`, or 0.
+    #[inline]
     pub(crate) fn space_before(&self, p: usize) -> usize {
         self.char_before(p)
             .filter(|&c| is_space_char(c))
@@ -148,16 +160,19 @@ impl Cx<'_> {
     }
 
     /// `\S` at `p`: a character that is not whitespace.
+    #[inline]
     pub(crate) fn non_space_at(&self, p: usize) -> bool {
         self.char_at(p).is_some_and(|c| !is_space_char(c))
     }
 
     /// `(?<=\S)` at `p`.
+    #[inline]
     pub(crate) fn non_space_before(&self, p: usize) -> bool {
         self.char_before(p).is_some_and(|c| !is_space_char(c))
     }
 
     /// The offset after the whitespace that starts at `p`.
+    #[inline]
     pub(crate) fn skip_space(&self, mut p: usize) -> usize {
         loop {
             let len = self.space_at(p);
@@ -169,11 +184,13 @@ impl Cx<'_> {
     }
 
     /// `\w` at `p`.
+    #[inline]
     pub(crate) fn word_at(&self, p: usize) -> bool {
         self.char_at(p).is_some_and(is_word_char)
     }
 
     /// `(?<=\w)` at `p`.
+    #[inline]
     pub(crate) fn word_before(&self, p: usize) -> bool {
         self.char_before(p).is_some_and(is_word_char)
     }
