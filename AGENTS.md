@@ -36,11 +36,14 @@ The decisions that created it live in a private planning repository: `openspec/d
 4. A change users see adds a `.changeset/*.md` fragment (`nishiki: patch`).
    verctl turns fragments into a Version PR that bumps `Cargo.toml` and writes `CHANGELOG.md`; never edit either by hand.
    Publishing to crates.io waits for the operator's approval: the Version PR has no auto-merge, and only the operator merges it, because merging it publishes.
+   A change that builds on an unmerged one goes up as a stacked pull request with `gh stack`, one idea per pull request (operator, 2026-11-02).
 5. A language lives in `src/<language>/`.
    Hand-written lexers cover the languages where speed matters; nishiki's own TextMate engine, not yet written, will cover the rest, with every grammar bundled (the 2026-10-24 decision).
 6. Shiki is the oracle.
    `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` fails when a non-whitespace byte gets a different scope stack.
    A new language adds its inputs and fixtures, and `tests/oracle/SOURCES.md` records each input's source and licence.
    `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures, which keep their sources' spelling; search them with `rg -u`.
-7. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
+7. `mise run bench` measures throughput, streaming latency per line, cold start and theme styling on the oracle fixtures, in release mode.
+   It is not part of `verify`, because timings depend on the machine; compare runs on one quiet machine.
+8. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
    Defaults may follow the resources the caller has, such as memory or a time budget, but a caller that pins the limits gets the same output on every machine.
