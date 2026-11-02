@@ -82,19 +82,21 @@ url = "https://github.com/obi1kenobi/cargo-semver-checks/releases/download/v0.51
 url_api = "https://api.github.com/repos/obi1kenobi/cargo-semver-checks/releases/assets/608677274"
 
 [[tools."github:victor-software-house/verctl"]]
-version = "0.7.0"
+version = "0.7.1"
 backend = "github:victor-software-house/verctl"
-specifiers = ["0.7.0"]
+specifiers = ["0.7.1"]
 
 [tools."github:victor-software-house/verctl"."platforms.linux-x64"]
-checksum = "sha256:4e253223a972e0064f2accc8893c2f4be54e43fa81fae5a26ba0760a094597f2"
-url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.0/verctl_0.7.0_linux_x64.tar.gz"
-url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673754808"
+checksum = "sha256:5a744979411cec04bcba0561e71f22dd02b3547553faf87787d8bf7ca158de3c"
+checksum_source = "mise-versions"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.1/verctl_0.7.1_linux_x64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673936434"
 
 [tools."github:victor-software-house/verctl"."platforms.macos-arm64"]
-checksum = "sha256:ceaf3a6fda9ff47e4c97021dc96bbde3770b7c5273584bd60dde4b268d2a94d6"
-url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.0/verctl_0.7.0_macos_arm64.tar.gz"
-url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673755699"
+checksum = "sha256:02ee5f0ebb8bc8c9f05454676326079b27d06c28a70022ab24cd82924893e1bb"
+checksum_source = "mise-versions"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.1/verctl_0.7.1_macos_arm64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673939154"
 
 [[tools.jq]]
 version = "1.8.2"
