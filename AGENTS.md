@@ -18,7 +18,10 @@ The decisions that created it live in a private planning repository: `openspec/d
    Themes are TextMate themes in Shiki's format.
 4. Nothing is downloaded at run time; every supported language is built in.
 5. The repository is private; the crate's published source is public on crates.io, so nothing private goes into a packaged file.
-6. Conventional Commits; first release `0.0.1`, patch bumps after that, except that a change that breaks the public API bumps the minor (`0.0.z` to `0.1.0`); `cargo semver-checks` in CI enforces it, and `1.0.0` is the operator's call.
+6. Conventional Commits; first release `0.0.1`.
+   Versions follow semver but never take a major, and a release is a patch by default (operator, 2026-11-02).
+   A change that breaks the public API is a minor only when the previous release was not itself a minor shortly before: two minors within hours or days make no sense, so later breaks ride on the pending or recent minor as patches.
+   `0.1.0` (2026-11-02) was the one exception, published by an automation slip after an almost empty `0.0.1`.
    No AI attribution in commits, pull requests or comments.
 7. `AGENTS.md` is the only guide file; add no `CLAUDE.md`.
 8. Nothing is published to npm or PyPI until nishiki ships something real for them.
@@ -32,7 +35,7 @@ The decisions that created it live in a private planning repository: `openspec/d
 3. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
 4. A change users see adds a `.changeset/*.md` fragment (`nishiki: patch`).
    verctl turns fragments into a Version PR that bumps `Cargo.toml` and writes `CHANGELOG.md`; never edit either by hand.
-   Publishing to crates.io waits for the operator's approval.
+   Publishing to crates.io waits for the operator's approval: the Version PR has no auto-merge, and only the operator merges it, because merging it publishes.
 5. A language lives in `src/<language>/`.
    Hand-written lexers cover the languages where speed matters; nishiki's own TextMate engine, not yet written, will cover the rest, with every grammar bundled (the 2026-10-24 decision).
 6. Shiki is the oracle.
