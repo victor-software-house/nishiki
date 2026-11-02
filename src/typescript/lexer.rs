@@ -417,8 +417,18 @@ impl<'a, const D: u8> Lexer<'a, D> {
             return end;
         }
         let mut j = i;
-        while is_ws(self.b(j)) {
-            j += 1;
+        loop {
+            let b = self.b(j);
+            if is_ws(b) {
+                j += 1;
+            } else if b >= 0xc2
+                && let Some(c) = self.src.get(j..).and_then(|rest| rest.chars().next())
+                && c.is_whitespace()
+            {
+                j += c.len_utf8();
+            } else {
+                break;
+            }
         }
         self.spend(j - i + 1);
         self.blanks.set((i, j));

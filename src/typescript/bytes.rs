@@ -66,8 +66,10 @@ pub(crate) const DIGIT: Bytes = Bytes::range(b'0', b'9');
 /// The bytes of a character at or past U+0080, which may be a letter.
 pub(crate) const HIGH: Bytes = Bytes::range(0x80, 0xff);
 
-/// What `\s` reads, with the line's newline.
-pub(crate) const BLANK: Bytes = Bytes::of(b" \t\n\r\x0b\x0c");
+/// What `\s` reads, with the line's newline, and the first bytes of the
+/// Unicode spaces it also reads: U+0085 and U+00A0, U+1680, U+2000 to U+200A,
+/// U+2028, U+2029, U+202F and U+205F, and U+3000.
+pub(crate) const BLANK: Bytes = Bytes::of(b" \t\n\r\x0b\x0c\xc2\xe1\xe2\xe3");
 
 /// Where a name can start: a letter, `$`, `_` or a non-ASCII character.
 pub(crate) const NAME_START: Bytes = LOWER.or(UPPER).or(HIGH).or(Bytes::of(b"$_"));

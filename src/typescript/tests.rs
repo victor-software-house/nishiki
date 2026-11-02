@@ -551,3 +551,27 @@ fn a_type_annotation_takes_the_blanks_before_a_brace() {
         "{stack:?}"
     );
 }
+
+#[test]
+fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
+    // `\s` reads the Unicode White_Space characters, so a keyword followed by
+    // one is still a keyword and a literal after one still starts.
+    for space in [
+        "\u{a0}", "\u{85}", "\u{1680}", "\u{2003}", "\u{202f}", "\u{3000}",
+    ] {
+        let text = format!("type{space}A = {{a: string}}");
+        assert_eq!(scope_of(&text, "type"), "storage.type.type.ts", "{space:?}");
+        let text = format!("x ={space}[1];");
+        assert!(
+            stack_of(&text, "[")
+                .iter()
+                .any(|s| s == "meta.array.literal.ts"),
+            "{space:?}"
+        );
+    }
+    // U+FEFF and U+200B are not White_Space.
+    assert_ne!(
+        scope_of("type\u{feff}A = {a: string}", "type"),
+        "storage.type.type.ts"
+    );
+}
