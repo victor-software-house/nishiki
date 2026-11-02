@@ -83,13 +83,13 @@ impl Lexer<'_> {
 
     /// `(?=\w?[-\w\s]*\b(?:class|(?<!@)interface|enum)\s+[$\w]+)`.
     pub(super) fn class_ahead(&self, p: usize) -> Option<usize> {
-        self.keyword_ahead(p, true, &self.memo.keyword, true)
+        self.keyword_ahead(p, true, &self.x.memo.keyword, true)
             .then_some(p)
     }
 
     /// `(?=\w?[\w\s]*\brecord\s+[$\w]+)`.
     pub(super) fn record_ahead(&self, p: usize) -> Option<usize> {
-        self.keyword_ahead(p, false, &self.memo.record, false)
+        self.keyword_ahead(p, false, &self.x.memo.record, false)
             .then_some(p)
     }
 
@@ -233,9 +233,9 @@ impl Lexer<'_> {
             return None;
         }
         let (target, memo) = if constructor {
-            (b'{', &self.memo.constructor)
+            (b'{', &self.x.memo.constructor)
         } else {
-            (b'(', &self.memo.method)
+            (b'(', &self.x.memo.method)
         };
         let (start, end, last) = memo.get();
         if start <= p && p < end {
@@ -263,12 +263,12 @@ impl Lexer<'_> {
     /// `(?=\w.*\s+\w+\s*\()`: a word, then later a blank, a word and a `(`.
     pub(super) fn signature_ahead(&self, p: usize) -> Option<usize> {
         self.word_at(p)?;
-        let (known, last) = self.memo.signature.get();
+        let (known, last) = self.x.memo.signature.get();
         let last = if known {
             last
         } else {
             let last = self.last_signature();
-            self.memo.signature.set((true, last));
+            self.x.memo.signature.set((true, last));
             last
         };
         last.filter(|&e| e >= p + 2).map(|_| p)

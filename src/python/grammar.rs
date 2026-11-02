@@ -6,42 +6,14 @@
 //! its `include`s flattened, so the first that matches at the earliest
 //! position wins as in a `TextMate` engine.
 
+use super::engine::Python;
 use super::scope::S;
+use crate::rules;
 
-/// What a matching pattern does.
-#[derive(Clone, Copy, Debug)]
-pub(crate) enum Act {
-    /// Names the text and opens nothing.
-    Match(&'static [S]),
-    /// Opens a rule.
-    Begin(Rule),
-    /// Closes the innermost rule.
-    End,
-}
-
-/// The data of one pattern.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct PatData {
-    pub(crate) act: Act,
-    /// The scopes of the match's capture groups, by group number; group 0 is
-    /// the whole match.
-    pub(crate) captures: &'static [(u8, &'static [S])],
-}
-
-/// The data of one rule.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct RuleData {
-    /// The scopes of its begin and end text and everything between.
-    pub(crate) name: &'static [S],
-    /// The scopes of what lies between its begin and end text.
-    pub(crate) content: &'static [S],
-    /// The pattern that closes it.
-    pub(crate) end: Option<Pat>,
-    /// The begin capture group that the end pattern repeats, when it does.
-    pub(crate) backref: Option<u8>,
-    /// The patterns it tries, in order, after its end pattern.
-    pub(crate) patterns: &'static [Pat],
-}
+pub(crate) type Act = rules::Act<Python>;
+pub(crate) type PatData = rules::PatData<Python>;
+pub(crate) type RuleData = rules::RuleData<Python>;
+pub(crate) use crate::rules::Start;
 
 /// The quote style a regular-expression rule of the grammar is written for.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -4273,6 +4245,7 @@ impl Pat {
             Pat::ImportAt0 => PatData {
                 act: Act::Begin(Rule::ImportAt0),
                 captures: &[(1, &[S::KwControlImport])],
+                nested: &[],
             },
             Pat::ImportAt0End
             | Pat::CommentsAt0End
@@ -4300,10 +4273,12 @@ impl Pat {
             | Pat::DocstringStatementEnd => PatData {
                 act: Act::End,
                 captures: &[],
+                nested: &[],
             },
             Pat::ImportAt0At0 => PatData {
                 act: Act::Match(&[S::PSeparatorPeriod]),
                 captures: &[],
+                nested: &[],
             },
             Pat::CommentsAt0 => PatData {
                 act: Act::Begin(Rule::CommentsAt0),
@@ -4311,70 +4286,87 @@ impl Pat {
                     (0, &[S::MetaTypehintComment]),
                     (1, &[S::CmtTypehintDirectiveNotation]),
                 ],
+                nested: &[],
             },
             Pat::CommentsAt0At0 => PatData {
                 act: Act::Match(&[S::CmtTypehintIgnoreNotation]),
                 captures: &[],
+                nested: &[],
             },
             Pat::CommentsAt0At1 => PatData {
                 act: Act::Match(&[S::CmtTypehintTypeNotation]),
                 captures: &[],
+                nested: &[],
             },
             Pat::CommentsAt0At2 => PatData {
                 act: Act::Match(&[S::CmtTypehintPunctuationNotation]),
                 captures: &[],
+                nested: &[],
             },
             Pat::CommentsAt0At3 => PatData {
                 act: Act::Match(&[S::CmtTypehintVariableNotation]),
                 captures: &[],
+                nested: &[],
             },
             Pat::CommentsBase => PatData {
                 act: Act::Begin(Rule::CommentsBase),
                 captures: &[(1, &[S::PDefinitionComment])],
+                nested: &[],
             },
             Pat::Codetags => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::KwCodetagNotation])],
+                nested: &[],
             },
             Pat::Backticks => PatData {
                 act: Act::Begin(Rule::Backticks),
                 captures: &[],
+                nested: &[],
             },
             Pat::IllegalAnno => PatData {
                 act: Act::Match(&[S::InvIllegalAnnotation]),
                 captures: &[],
+                nested: &[],
             },
             Pat::LiteralAt0 | Pat::StringLineContinuation => PatData {
                 act: Act::Match(&[S::ConstLanguage]),
                 captures: &[],
+                nested: &[],
             },
             Pat::NumberFloat => PatData {
                 act: Act::Match(&[S::ConstNumericFloat]),
                 captures: &[(1, &[S::StorTypeImaginaryNumber])],
+                nested: &[],
             },
             Pat::NumberDec => PatData {
                 act: Act::Match(&[S::ConstNumericDec]),
                 captures: &[(1, &[S::StorTypeImaginaryNumber]), (2, &[S::InvIllegalDec])],
+                nested: &[],
             },
             Pat::NumberHex => PatData {
                 act: Act::Match(&[S::ConstNumericHex]),
                 captures: &[(1, &[S::StorTypeNumber])],
+                nested: &[],
             },
             Pat::NumberOct => PatData {
                 act: Act::Match(&[S::ConstNumericOct]),
                 captures: &[(1, &[S::StorTypeNumber])],
+                nested: &[],
             },
             Pat::NumberBin => PatData {
                 act: Act::Match(&[S::ConstNumericBin]),
                 captures: &[(1, &[S::StorTypeNumber])],
+                nested: &[],
             },
             Pat::NumberLong => PatData {
                 act: Act::Match(&[S::ConstNumericBin]),
                 captures: &[(2, &[S::StorTypeNumber])],
+                nested: &[],
             },
             Pat::NumberAt6 => PatData {
                 act: Act::Match(&[S::InvIllegalName]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpSingleThreeLine => PatData {
                 act: Act::Begin(Rule::RegexpSingleThreeLine),
@@ -4384,6 +4376,7 @@ impl Pat {
                     (4, &[S::StorTypeString]),
                     (5, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::RegexpSingleThreeLineEnd
             | Pat::RegexpDoubleThreeLineEnd
@@ -4404,30 +4397,37 @@ impl Pat {
                     (1, &[S::PDefinitionStringEnd]),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::RegexpQuantifier | Pat::RegexpBaseCommonAt3 => PatData {
                 act: Act::Match(&[S::KwOperatorQuantifierRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpBaseCommonAt0 => PatData {
                 act: Act::Match(&[S::SuppOtherMatchAnyRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpBaseCommonAt1 => PatData {
                 act: Act::Match(&[S::SuppOtherMatchBeginRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpBaseCommonAt2 => PatData {
                 act: Act::Match(&[S::SuppOtherMatchEndRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpBaseCommonAt4 => PatData {
                 act: Act::Match(&[S::KwOperatorDisjunctionRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpEscapeSpecial => PatData {
                 act: Act::Match(&[S::SuppOtherEscapeSpecialRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpEscapeCharacter
             | Pat::RegexpEscapeCatchall
@@ -4435,14 +4435,17 @@ impl Pat {
             | Pat::RegexpCharacterSetEscapesAt2 => PatData {
                 act: Act::Match(&[S::ConstCharacterEscapeRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpEscapeUnicode => PatData {
                 act: Act::Match(&[S::ConstCharacterUnicodeRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RegexpBackreferenceNumber => PatData {
                 act: Act::Match(&[S::MetaBackreferenceRe]),
                 captures: &[(1, &[S::EntNameTagBackreferenceRe])],
+                nested: &[],
             },
             Pat::SingleThreeRegexpCharacterSetAt0
             | Pat::DoubleThreeRegexpCharacterSetAt0
@@ -4454,6 +4457,7 @@ impl Pat {
             | Pat::FExpressionAt2 => PatData {
                 act: Act::Match(&[]),
                 captures: &[],
+                nested: &[],
             },
             Pat::SingleThreeRegexpCharacterSetAt1 => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpCharacterSetAt1),
@@ -4462,6 +4466,7 @@ impl Pat {
                     (2, &[S::KwOperatorNegationRe]),
                     (3, &[S::ConstCharacterSetRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpCharacterSetAt1End
             | Pat::DoubleThreeRegexpCharacterSetAt1End
@@ -4472,6 +4477,7 @@ impl Pat {
                     (1, &[S::PCharacterSetEndRe, S::ConstOtherSetRe]),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpCharacterSetAt1At1
             | Pat::DoubleThreeRegexpCharacterSetAt1At1
@@ -4479,10 +4485,12 @@ impl Pat {
             | Pat::DoubleOneRegexpCharacterSetAt1At1 => PatData {
                 act: Act::Match(&[S::ConstCharacterSetRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::SingleThreeRegexpComments => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpComments),
                 captures: &[(0, &[S::PCommentBeginRe])],
+                nested: &[],
             },
             Pat::SingleThreeRegexpCommentsEnd
             | Pat::DoubleThreeRegexpCommentsEnd
@@ -4490,10 +4498,12 @@ impl Pat {
             | Pat::DoubleOneRegexpCommentsEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PCommentEndRe]), (2, &[S::InvIllegalNewline])],
+                nested: &[],
             },
             Pat::RegexpFlags => PatData {
                 act: Act::Match(&[S::StorModifierFlagRe]),
                 captures: &[],
+                nested: &[],
             },
             Pat::SingleThreeRegexpNamedGroup => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpNamedGroup),
@@ -4501,6 +4511,7 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisNamedBeginRe]),
                     (2, &[S::EntNameTagNamedGroupRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpNamedGroupEnd
             | Pat::DoubleThreeRegexpNamedGroupEnd
@@ -4511,6 +4522,7 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisNamedEndRe]),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::RegexpBackreference => PatData {
                 act: Act::Match(&[S::MetaBackreferenceNamedRe]),
@@ -4531,6 +4543,7 @@ impl Pat {
                         ],
                     ),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookahead => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpLookahead),
@@ -4538,6 +4551,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookaheadEnd
             | Pat::DoubleThreeRegexpLookaheadEnd
@@ -4551,6 +4565,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookaheadNegative => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpLookaheadNegative),
@@ -4558,6 +4573,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadNegativeRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookaheadNegativeEnd
             | Pat::DoubleThreeRegexpLookaheadNegativeEnd
@@ -4574,6 +4590,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookbehind => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpLookbehind),
@@ -4581,6 +4598,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookbehindEnd
             | Pat::DoubleThreeRegexpLookbehindEnd
@@ -4594,6 +4612,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookbehindNegative => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpLookbehindNegative),
@@ -4601,6 +4620,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindNegativeRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpLookbehindNegativeEnd
             | Pat::DoubleThreeRegexpLookbehindNegativeEnd
@@ -4617,6 +4637,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpConditional => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpConditional),
@@ -4624,6 +4645,7 @@ impl Pat {
                     (0, &[S::KwOperatorConditionalRe]),
                     (1, &[S::PParenthesisConditionalBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpConditionalEnd
             | Pat::DoubleThreeRegexpConditionalEnd
@@ -4640,6 +4662,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpParenthesesNonCapturing => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpParenthesesNonCapturing),
@@ -4650,6 +4673,7 @@ impl Pat {
                         S::PParenthesisNonCapturingBeginRe,
                     ],
                 )],
+                nested: &[],
             },
             Pat::SingleThreeRegexpParenthesesNonCapturingEnd
             | Pat::DoubleThreeRegexpParenthesesNonCapturingEnd
@@ -4663,10 +4687,12 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::SingleThreeRegexpParentheses => PatData {
                 act: Act::Begin(Rule::SingleThreeRegexpParentheses),
                 captures: &[(0, &[S::SuppOtherParenthesisRe, S::PParenthesisBeginRe])],
+                nested: &[],
             },
             Pat::SingleThreeRegexpParenthesesEnd
             | Pat::DoubleThreeRegexpParenthesesEnd
@@ -4677,10 +4703,12 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisEndRe]),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::CommentsStringSingleThree => PatData {
                 act: Act::Begin(Rule::CommentsStringSingleThree),
                 captures: &[(1, &[S::PDefinitionComment])],
+                nested: &[],
             },
             Pat::RegexpDoubleThreeLine => PatData {
                 act: Act::Begin(Rule::RegexpDoubleThreeLine),
@@ -4690,6 +4718,7 @@ impl Pat {
                     (4, &[S::StorTypeString]),
                     (5, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpCharacterSetAt1 => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpCharacterSetAt1),
@@ -4698,10 +4727,12 @@ impl Pat {
                     (2, &[S::KwOperatorNegationRe]),
                     (3, &[S::ConstCharacterSetRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpComments => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpComments),
                 captures: &[(0, &[S::PCommentBeginRe])],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpNamedGroup => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpNamedGroup),
@@ -4709,6 +4740,7 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisNamedBeginRe]),
                     (2, &[S::EntNameTagNamedGroupRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpLookahead => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpLookahead),
@@ -4716,6 +4748,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpLookaheadNegative => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpLookaheadNegative),
@@ -4723,6 +4756,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadNegativeRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpLookbehind => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpLookbehind),
@@ -4730,6 +4764,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpLookbehindNegative => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpLookbehindNegative),
@@ -4737,6 +4772,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindNegativeRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpConditional => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpConditional),
@@ -4744,6 +4780,7 @@ impl Pat {
                     (0, &[S::KwOperatorConditionalRe]),
                     (1, &[S::PParenthesisConditionalBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpParenthesesNonCapturing => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpParenthesesNonCapturing),
@@ -4754,14 +4791,17 @@ impl Pat {
                         S::PParenthesisNonCapturingBeginRe,
                     ],
                 )],
+                nested: &[],
             },
             Pat::DoubleThreeRegexpParentheses => PatData {
                 act: Act::Begin(Rule::DoubleThreeRegexpParentheses),
                 captures: &[(0, &[S::SuppOtherParenthesisRe, S::PParenthesisBeginRe])],
+                nested: &[],
             },
             Pat::CommentsStringDoubleThree => PatData {
                 act: Act::Begin(Rule::CommentsStringDoubleThree),
                 captures: &[(1, &[S::PDefinitionComment])],
+                nested: &[],
             },
             Pat::RegexpSingleOneLine => PatData {
                 act: Act::Begin(Rule::RegexpSingleOneLine),
@@ -4771,6 +4811,7 @@ impl Pat {
                     (4, &[S::StorTypeString]),
                     (5, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpCharacterSetAt1 => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpCharacterSetAt1),
@@ -4779,10 +4820,12 @@ impl Pat {
                     (2, &[S::KwOperatorNegationRe]),
                     (3, &[S::ConstCharacterSetRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpComments => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpComments),
                 captures: &[(0, &[S::PCommentBeginRe])],
+                nested: &[],
             },
             Pat::SingleOneRegexpNamedGroup => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpNamedGroup),
@@ -4790,6 +4833,7 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisNamedBeginRe]),
                     (2, &[S::EntNameTagNamedGroupRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpLookahead => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpLookahead),
@@ -4797,6 +4841,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpLookaheadNegative => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpLookaheadNegative),
@@ -4804,6 +4849,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadNegativeRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpLookbehind => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpLookbehind),
@@ -4811,6 +4857,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpLookbehindNegative => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpLookbehindNegative),
@@ -4818,6 +4865,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindNegativeRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpConditional => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpConditional),
@@ -4825,6 +4873,7 @@ impl Pat {
                     (0, &[S::KwOperatorConditionalRe]),
                     (1, &[S::PParenthesisConditionalBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::SingleOneRegexpParenthesesNonCapturing => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpParenthesesNonCapturing),
@@ -4835,10 +4884,12 @@ impl Pat {
                         S::PParenthesisNonCapturingBeginRe,
                     ],
                 )],
+                nested: &[],
             },
             Pat::SingleOneRegexpParentheses => PatData {
                 act: Act::Begin(Rule::SingleOneRegexpParentheses),
                 captures: &[(0, &[S::SuppOtherParenthesisRe, S::PParenthesisBeginRe])],
+                nested: &[],
             },
             Pat::RegexpDoubleOneLine => PatData {
                 act: Act::Begin(Rule::RegexpDoubleOneLine),
@@ -4848,6 +4899,7 @@ impl Pat {
                     (4, &[S::StorTypeString]),
                     (5, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpCharacterSetAt1 => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpCharacterSetAt1),
@@ -4856,10 +4908,12 @@ impl Pat {
                     (2, &[S::KwOperatorNegationRe]),
                     (3, &[S::ConstCharacterSetRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpComments => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpComments),
                 captures: &[(0, &[S::PCommentBeginRe])],
+                nested: &[],
             },
             Pat::DoubleOneRegexpNamedGroup => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpNamedGroup),
@@ -4867,6 +4921,7 @@ impl Pat {
                     (1, &[S::SuppOtherParenthesisRe, S::PParenthesisNamedBeginRe]),
                     (2, &[S::EntNameTagNamedGroupRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpLookahead => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpLookahead),
@@ -4874,6 +4929,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpLookaheadNegative => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpLookaheadNegative),
@@ -4881,6 +4937,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookaheadNegativeRe]),
                     (1, &[S::PParenthesisLookaheadBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpLookbehind => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpLookbehind),
@@ -4888,6 +4945,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpLookbehindNegative => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpLookbehindNegative),
@@ -4895,6 +4953,7 @@ impl Pat {
                     (0, &[S::KwOperatorLookbehindNegativeRe]),
                     (1, &[S::PParenthesisLookbehindBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpConditional => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpConditional),
@@ -4902,6 +4961,7 @@ impl Pat {
                     (0, &[S::KwOperatorConditionalRe]),
                     (1, &[S::PParenthesisConditionalBeginRe]),
                 ],
+                nested: &[],
             },
             Pat::DoubleOneRegexpParenthesesNonCapturing => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpParenthesesNonCapturing),
@@ -4912,10 +4972,12 @@ impl Pat {
                         S::PParenthesisNonCapturingBeginRe,
                     ],
                 )],
+                nested: &[],
             },
             Pat::DoubleOneRegexpParentheses => PatData {
                 act: Act::Begin(Rule::DoubleOneRegexpParentheses),
                 captures: &[(0, &[S::SuppOtherParenthesisRe, S::PParenthesisBeginRe])],
+                nested: &[],
             },
             Pat::StringQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::StringQuotedMultiLine),
@@ -4924,24 +4986,29 @@ impl Pat {
                     (2, &[S::StorTypeString]),
                     (3, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::StringMultiBadBrace1FormattingUnicode => PatData {
                 act: Act::Begin(Rule::StringMultiBadBrace1FormattingUnicode),
                 captures: &[],
+                nested: &[],
             },
             Pat::EscapeSequenceUnicodeAt0
             | Pat::EscapeSequence
             | Pat::FstringFormattingBracesAt1 => PatData {
                 act: Act::Match(&[S::ConstCharacterEscape]),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringMultiBadBrace2FormattingUnicode => PatData {
                 act: Act::Begin(Rule::StringMultiBadBrace2FormattingUnicode),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringFormatting => PatData {
                 act: Act::Match(&[S::MetaFormatPercent]),
                 captures: &[(1, &[S::ConstCharacterFormatPlaceholderOther])],
+                nested: &[],
             },
             Pat::StringBraceFormattingAt0 | Pat::StringBraceFormattingAt1 => PatData {
                 act: Act::Match(&[S::MetaFormatBrace]),
@@ -4950,6 +5017,7 @@ impl Pat {
                     (3, &[S::StorTypeFormat]),
                     (4, &[S::StorTypeFormat]),
                 ],
+                nested: &[],
             },
             Pat::StringQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::StringQuotedSingleLine),
@@ -4958,22 +5026,27 @@ impl Pat {
                     (2, &[S::StorTypeString]),
                     (3, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::StringSingleBadBrace1FormattingUnicode => PatData {
                 act: Act::Begin(Rule::StringSingleBadBrace1FormattingUnicode),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringSingleBadBrace2FormattingUnicode => PatData {
                 act: Act::Begin(Rule::StringSingleBadBrace2FormattingUnicode),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringBinQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::StringBinQuotedMultiLine),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::StringBinQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::StringBinQuotedSingleLine),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::StringRawQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::StringRawQuotedMultiLine),
@@ -4982,14 +5055,17 @@ impl Pat {
                     (3, &[S::StorTypeString]),
                     (4, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::StringMultiBadBrace1FormattingRaw => PatData {
                 act: Act::Begin(Rule::StringMultiBadBrace1FormattingRaw),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringMultiBadBrace2FormattingRaw => PatData {
                 act: Act::Begin(Rule::StringMultiBadBrace2FormattingRaw),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringRawQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::StringRawQuotedSingleLine),
@@ -4998,22 +5074,27 @@ impl Pat {
                     (3, &[S::StorTypeString]),
                     (4, &[S::PDefinitionStringBegin]),
                 ],
+                nested: &[],
             },
             Pat::StringSingleBadBrace1FormattingRaw => PatData {
                 act: Act::Begin(Rule::StringSingleBadBrace1FormattingRaw),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringSingleBadBrace2FormattingRaw => PatData {
                 act: Act::Begin(Rule::StringSingleBadBrace2FormattingRaw),
                 captures: &[],
+                nested: &[],
             },
             Pat::StringRawBinQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::StringRawBinQuotedMultiLine),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::StringRawBinQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::StringRawBinQuotedSingleLine),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::FstringFnormQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::FstringFnormQuotedMultiLine),
@@ -5032,6 +5113,7 @@ impl Pat {
                         ],
                     ),
                 ],
+                nested: &[],
             },
             Pat::FstringFnormQuotedMultiLineEnd | Pat::FstringNormfQuotedMultiLineEnd => PatData {
                 act: Act::End,
@@ -5046,6 +5128,7 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::FstringFormattingBracesAt0 => PatData {
                 act: Act::Match(&[]),
@@ -5054,20 +5137,24 @@ impl Pat {
                     (2, &[S::InvIllegalBrace]),
                     (3, &[S::ConstCharacterFormatPlaceholderOther]),
                 ],
+                nested: &[],
             },
             Pat::FstringFormattingSingeBrace => PatData {
                 act: Act::Match(&[S::InvIllegalBrace]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FstringMultiBrace => PatData {
                 act: Act::Begin(Rule::FstringMultiBrace),
                 captures: &[(1, &[S::ConstCharacterFormatPlaceholderOther])],
+                nested: &[],
             },
             Pat::FstringMultiBraceEnd
             | Pat::FstringIllegalSingleBraceEnd
             | Pat::FstringSingleBraceEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::ConstCharacterFormatPlaceholderOther])],
+                nested: &[],
             },
             Pat::FstringTerminatorMultiAt0
             | Pat::FstringTerminatorMultiAt1
@@ -5091,14 +5178,17 @@ impl Pat {
             | Pat::FstringTerminatorSingleTailAt9 => PatData {
                 act: Act::Match(&[S::StorTypeFormat]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FstringTerminatorMultiAt2 | Pat::FstringTerminatorSingleAt2 => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::StorTypeFormat]), (2, &[S::StorTypeFormat])],
+                nested: &[],
             },
             Pat::FstringTerminatorMultiTail => PatData {
                 act: Act::Begin(Rule::FstringTerminatorMultiTail),
                 captures: &[(1, &[S::StorTypeFormat]), (2, &[S::StorTypeFormat])],
+                nested: &[],
             },
             Pat::FstringFnormQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::FstringFnormQuotedSingleLine),
@@ -5117,6 +5207,7 @@ impl Pat {
                         ],
                     ),
                 ],
+                nested: &[],
             },
             Pat::FstringFnormQuotedSingleLineEnd | Pat::FstringNormfQuotedSingleLineEnd => {
                 PatData {
@@ -5132,19 +5223,23 @@ impl Pat {
                         ),
                         (2, &[S::InvIllegalNewline]),
                     ],
+                    nested: &[],
                 }
             }
             Pat::FstringIllegalSingleBrace => PatData {
                 act: Act::Begin(Rule::FstringIllegalSingleBrace),
                 captures: &[(1, &[S::ConstCharacterFormatPlaceholderOther])],
+                nested: &[],
             },
             Pat::FstringTerminatorSingleTail => PatData {
                 act: Act::Begin(Rule::FstringTerminatorSingleTail),
                 captures: &[(1, &[S::StorTypeFormat]), (2, &[S::StorTypeFormat])],
+                nested: &[],
             },
             Pat::FstringSingleBrace => PatData {
                 act: Act::Begin(Rule::FstringSingleBrace),
                 captures: &[(1, &[S::ConstCharacterFormatPlaceholderOther])],
+                nested: &[],
             },
             Pat::FstringNormfQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::FstringNormfQuotedMultiLine),
@@ -5156,10 +5251,12 @@ impl Pat {
                     ),
                     (3, &[S::PDefinitionStringBegin, S::StrQuotedMulti]),
                 ],
+                nested: &[],
             },
             Pat::FstringMultiCore => PatData {
                 act: Act::Match(&[S::StrInterpolated, S::StrQuotedMulti]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FstringNormfQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::FstringNormfQuotedSingleLine),
@@ -5171,10 +5268,12 @@ impl Pat {
                     ),
                     (3, &[S::PDefinitionStringBegin, S::StrQuotedSingle]),
                 ],
+                nested: &[],
             },
             Pat::FstringSingleCore => PatData {
                 act: Act::Match(&[S::StrInterpolated, S::StrQuotedSingle]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FstringRawQuotedMultiLine => PatData {
                 act: Act::Begin(Rule::FstringRawQuotedMultiLine),
@@ -5185,6 +5284,7 @@ impl Pat {
                     ),
                     (2, &[S::PDefinitionStringBegin, S::StrQuotedRawMulti]),
                 ],
+                nested: &[],
             },
             Pat::FstringRawQuotedMultiLineEnd => PatData {
                 act: Act::End,
@@ -5199,10 +5299,12 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::FstringRawMultiCore => PatData {
                 act: Act::Match(&[S::StrInterpolated, S::StrQuotedRawMulti]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FstringRawQuotedSingleLine => PatData {
                 act: Act::Begin(Rule::FstringRawQuotedSingleLine),
@@ -5213,6 +5315,7 @@ impl Pat {
                     ),
                     (2, &[S::PDefinitionStringBegin, S::StrQuotedRawSingle]),
                 ],
+                nested: &[],
             },
             Pat::FstringRawQuotedSingleLineEnd => PatData {
                 act: Act::End,
@@ -5227,42 +5330,52 @@ impl Pat {
                     ),
                     (2, &[S::InvIllegalNewline]),
                 ],
+                nested: &[],
             },
             Pat::FstringRawSingleCore => PatData {
                 act: Act::Match(&[S::StrInterpolated, S::StrQuotedRawSingle]),
                 captures: &[],
+                nested: &[],
             },
             Pat::LambdaAt0 | Pat::StatementKeywordAt6 | Pat::DocstringPrompt => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::KwControlFlow])],
+                nested: &[],
             },
             Pat::LambdaAt1 => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::StorTypeFunctionLambda])],
+                nested: &[],
             },
             Pat::LambdaAt2 => PatData {
                 act: Act::Begin(Rule::LambdaAt2),
                 captures: &[(1, &[S::StorTypeFunctionLambda])],
+                nested: &[],
             },
             Pat::LambdaAt2End => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PSectionFunctionLambdaBegin])],
+                nested: &[],
             },
             Pat::LambdaAt2At0 | Pat::ParametersAt0 => PatData {
                 act: Act::Match(&[S::KwOperatorPositionalParameter]),
                 captures: &[],
+                nested: &[],
             },
             Pat::LambdaAt2At1 | Pat::ParametersAt1 => PatData {
                 act: Act::Match(&[S::KwOperatorUnpackingParameter]),
                 captures: &[],
+                nested: &[],
             },
             Pat::LambdaNestedIncomplete | Pat::LambdaIncomplete => PatData {
                 act: Act::Match(&[S::StorTypeFunctionLambda]),
                 captures: &[],
+                nested: &[],
             },
             Pat::IllegalNames => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::KwControlFlow]), (2, &[S::KwControlImport])],
+                nested: &[],
             },
             Pat::LambdaAt2At4 | Pat::ParametersAt6 => PatData {
                 act: Act::Match(&[]),
@@ -5270,6 +5383,7 @@ impl Pat {
                     (1, &[S::VarParameterFunctionLanguage]),
                     (2, &[S::PSeparatorParameters]),
                 ],
+                nested: &[],
             },
             Pat::LambdaParameterWithDefault => PatData {
                 act: Act::Begin(Rule::LambdaParameterWithDefault),
@@ -5277,25 +5391,30 @@ impl Pat {
                     (1, &[S::VarParameterFunctionLanguage]),
                     (2, &[S::KwOperator]),
                 ],
+                nested: &[],
             },
             Pat::LambdaParameterWithDefaultEnd
             | Pat::LooseDefaultEnd
             | Pat::AnnotatedParameterEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PSeparatorParameters])],
+                nested: &[],
             },
             Pat::Generator => PatData {
                 act: Act::Begin(Rule::Generator),
                 captures: &[(0, &[S::KwControlFlow])],
+                nested: &[],
             },
             Pat::GeneratorEnd => PatData {
                 act: Act::End,
                 captures: &[(0, &[S::KwControlFlow])],
+                nested: &[],
             },
             Pat::IllegalOperatorAt0 | Pat::IllegalOperatorAt1 | Pat::IllegalOperatorAt2 => {
                 PatData {
                     act: Act::Match(&[S::InvIllegalOperator]),
                     captures: &[],
+                    nested: &[],
                 }
             }
             Pat::Operator => PatData {
@@ -5308,22 +5427,27 @@ impl Pat {
                     (5, &[S::KwOperatorComparison]),
                     (6, &[S::KwOperatorAssignment]),
                 ],
+                nested: &[],
             },
             Pat::CurlyBraces => PatData {
                 act: Act::Begin(Rule::CurlyBraces),
                 captures: &[(0, &[S::PDefinitionDictBegin])],
+                nested: &[],
             },
             Pat::CurlyBracesEnd => PatData {
                 act: Act::End,
                 captures: &[(0, &[S::PDefinitionDictEnd])],
+                nested: &[],
             },
             Pat::CurlyBracesAt0 => PatData {
                 act: Act::Match(&[S::PSeparatorDict]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ItemAccessAt0 => PatData {
                 act: Act::Begin(Rule::ItemAccessAt0),
                 captures: &[],
+                nested: &[],
             },
             Pat::ItemAccessAt0End
             | Pat::OddFunctionCallEnd
@@ -5331,6 +5455,7 @@ impl Pat {
             | Pat::CallWrapperInheritanceEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PDefinitionArgumentsEnd])],
+                nested: &[],
             },
             Pat::SpecialVariables => PatData {
                 act: Act::Match(&[]),
@@ -5338,54 +5463,67 @@ impl Pat {
                     (1, &[S::VarLanguageSpecialSelf]),
                     (2, &[S::VarLanguageSpecialCls]),
                 ],
+                nested: &[],
             },
             Pat::BuiltinFunctionsAt0 => PatData {
                 act: Act::Match(&[S::SuppFunctionBuiltin]),
                 captures: &[],
+                nested: &[],
             },
             Pat::BuiltinFunctionsAt1 => PatData {
                 act: Act::Match(&[S::VarLegacyBuiltin]),
                 captures: &[],
+                nested: &[],
             },
             Pat::SpecialNames => PatData {
                 act: Act::Match(&[S::ConstOtherCaps]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ItemNameAt3 => PatData {
                 act: Act::Match(&[S::MetaIndexedName]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ItemIndex => PatData {
                 act: Act::Begin(Rule::ItemIndex),
                 captures: &[(1, &[S::PDefinitionArgumentsBegin])],
+                nested: &[],
             },
             Pat::ItemIndexAt0 => PatData {
                 act: Act::Match(&[S::PSeparatorSlice]),
                 captures: &[],
+                nested: &[],
             },
             Pat::List => PatData {
                 act: Act::Begin(Rule::List),
                 captures: &[(0, &[S::PDefinitionListBegin])],
+                nested: &[],
             },
             Pat::ListEnd => PatData {
                 act: Act::End,
                 captures: &[(0, &[S::PDefinitionListEnd])],
+                nested: &[],
             },
             Pat::OddFunctionCall => PatData {
                 act: Act::Begin(Rule::OddFunctionCall),
                 captures: &[],
+                nested: &[],
             },
             Pat::FunctionArguments => PatData {
                 act: Act::Begin(Rule::FunctionArguments),
                 captures: &[(1, &[S::PDefinitionArgumentsBegin])],
+                nested: &[],
             },
             Pat::FunctionArgumentsAt0 => PatData {
                 act: Act::Match(&[S::PSeparatorArguments]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FunctionArgumentsAt1 => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::KwOperatorUnpackingArguments])],
+                nested: &[],
             },
             Pat::FunctionArgumentsAt4 => PatData {
                 act: Act::Match(&[]),
@@ -5393,6 +5531,7 @@ impl Pat {
                     (1, &[S::VarParameterFunctionCall]),
                     (2, &[S::KwOperatorAssignment]),
                 ],
+                nested: &[],
             },
             Pat::FunctionArgumentsAt5
             | Pat::ClassInheritanceAt2
@@ -5400,54 +5539,67 @@ impl Pat {
             | Pat::AssignmentOperator => PatData {
                 act: Act::Match(&[S::KwOperatorAssignment]),
                 captures: &[],
+                nested: &[],
             },
             Pat::RoundBraces => PatData {
                 act: Act::Begin(Rule::RoundBraces),
                 captures: &[(0, &[S::PParenthesisBegin])],
+                nested: &[],
             },
             Pat::RoundBracesEnd => PatData {
                 act: Act::End,
                 captures: &[(0, &[S::PParenthesisEnd])],
+                nested: &[],
             },
             Pat::FunctionCall => PatData {
                 act: Act::Begin(Rule::FunctionCall),
                 captures: &[],
+                nested: &[],
             },
             Pat::IllegalObjectName => PatData {
                 act: Act::Match(&[S::KwIllegalName]),
                 captures: &[],
+                nested: &[],
             },
             Pat::BuiltinExceptions => PatData {
                 act: Act::Match(&[S::SuppTypeException]),
                 captures: &[],
+                nested: &[],
             },
             Pat::BuiltinTypes => PatData {
                 act: Act::Match(&[S::SuppType]),
                 captures: &[],
+                nested: &[],
             },
             Pat::MagicFunctionNames => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::SuppFunctionMagic])],
+                nested: &[],
             },
             Pat::MagicVariableNames => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::SuppVariableMagic])],
+                nested: &[],
             },
             Pat::FunctionNameAt1 => PatData {
                 act: Act::Match(&[S::MetaFunctionCallGeneric]),
                 captures: &[],
+                nested: &[],
             },
             Pat::Ellipsis => PatData {
                 act: Act::Match(&[S::ConstOtherEllipsis]),
                 captures: &[],
+                nested: &[],
             },
             Pat::PunctuationAt0 => PatData {
                 act: Act::Match(&[S::PSeparatorColon]),
                 captures: &[],
+                nested: &[],
             },
             Pat::PunctuationAt1 => PatData {
                 act: Act::Match(&[S::PSeparatorElement]),
                 captures: &[],
+                nested: &[],
             },
             Pat::LineContinuationAt0 => PatData {
                 act: Act::Match(&[]),
@@ -5455,18 +5607,22 @@ impl Pat {
                     (1, &[S::PSeparatorContinuationLine]),
                     (2, &[S::InvIllegalLineContinuation]),
                 ],
+                nested: &[],
             },
             Pat::LineContinuationAt1 => PatData {
                 act: Act::Begin(Rule::LineContinuationAt1),
                 captures: &[(1, &[S::PSeparatorContinuationLine])],
+                nested: &[],
             },
             Pat::MemberAccess => PatData {
                 act: Act::Begin(Rule::MemberAccess),
                 captures: &[(1, &[S::PSeparatorPeriod])],
+                nested: &[],
             },
             Pat::MemberAccessAttribute => PatData {
                 act: Act::Match(&[S::MetaAttribute]),
                 captures: &[],
+                nested: &[],
             },
             Pat::FunctionArgumentsAt7 => PatData {
                 act: Act::Match(&[]),
@@ -5474,46 +5630,57 @@ impl Pat {
                     (1, &[S::PDefinitionArgumentsEnd]),
                     (2, &[S::PDefinitionArgumentsBegin]),
                 ],
+                nested: &[],
             },
             Pat::ImportAt1 => PatData {
                 act: Act::Begin(Rule::ImportAt1),
                 captures: &[(1, &[S::KwControlImport])],
+                nested: &[],
             },
             Pat::ImportAt1At0 | Pat::StatementKeywordAt2 => PatData {
                 act: Act::Match(&[S::KwControlImport]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ClassDeclarationAt0 => PatData {
                 act: Act::Begin(Rule::ClassDeclarationAt0),
                 captures: &[(1, &[S::StorTypeClass])],
+                nested: &[],
             },
             Pat::ClassDeclarationAt0End => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PSectionClassBegin])],
+                nested: &[],
             },
             Pat::ClassNameAt2 => PatData {
                 act: Act::Match(&[S::EntNameTypeClass]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ClassInheritance => PatData {
                 act: Act::Begin(Rule::ClassInheritance),
                 captures: &[(1, &[S::PDefinitionInheritanceBegin])],
+                nested: &[],
             },
             Pat::ClassInheritanceEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PDefinitionInheritanceEnd])],
+                nested: &[],
             },
             Pat::ClassInheritanceAt0 => PatData {
                 act: Act::Match(&[S::KwOperatorUnpackingArguments]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ClassInheritanceAt1 => PatData {
                 act: Act::Match(&[S::PSeparatorInheritance]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ClassInheritanceAt3 => PatData {
                 act: Act::Match(&[S::SuppTypeMetaclass]),
                 captures: &[],
+                nested: &[],
             },
             Pat::ClassKwarg => PatData {
                 act: Act::Match(&[]),
@@ -5521,18 +5688,22 @@ impl Pat {
                     (1, &[S::EntOtherInheritedClass, S::VarParameterClass]),
                     (2, &[S::KwOperatorAssignment]),
                 ],
+                nested: &[],
             },
             Pat::CallWrapperInheritance => PatData {
                 act: Act::Begin(Rule::CallWrapperInheritance),
                 captures: &[],
+                nested: &[],
             },
             Pat::InheritanceIdentifier => PatData {
                 act: Act::Match(&[]),
                 captures: &[(1, &[S::EntOtherInheritedClass])],
+                nested: &[],
             },
             Pat::MemberAccessClass => PatData {
                 act: Act::Begin(Rule::MemberAccessClass),
                 captures: &[(1, &[S::PSeparatorPeriod])],
+                nested: &[],
             },
             Pat::FunctionDeclaration => PatData {
                 act: Act::Begin(Rule::FunctionDeclaration),
@@ -5540,22 +5711,27 @@ impl Pat {
                     (1, &[S::StorTypeFunctionAsync]),
                     (2, &[S::StorTypeFunction]),
                 ],
+                nested: &[],
             },
             Pat::FunctionDeclarationEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PSectionFunctionBegin])],
+                nested: &[],
             },
             Pat::FunctionDefNameAt2 => PatData {
                 act: Act::Match(&[S::EntNameFunction]),
                 captures: &[],
+                nested: &[],
             },
             Pat::Parameters => PatData {
                 act: Act::Begin(Rule::Parameters),
                 captures: &[(1, &[S::PDefinitionParametersBegin])],
+                nested: &[],
             },
             Pat::ParametersEnd => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PDefinitionParametersEnd])],
+                nested: &[],
             },
             Pat::ParameterSpecial => PatData {
                 act: Act::Match(&[]),
@@ -5565,10 +5741,12 @@ impl Pat {
                     (3, &[S::VarParameterFunctionLanguageSpecialCls]),
                     (4, &[S::PSeparatorParameters]),
                 ],
+                nested: &[],
             },
             Pat::LooseDefault => PatData {
                 act: Act::Begin(Rule::LooseDefault),
                 captures: &[(1, &[S::KwOperator])],
+                nested: &[],
             },
             Pat::AnnotatedParameter => PatData {
                 act: Act::Begin(Rule::AnnotatedParameter),
@@ -5576,26 +5754,32 @@ impl Pat {
                     (1, &[S::VarParameterFunctionLanguage]),
                     (2, &[S::PSeparatorAnnotation]),
                 ],
+                nested: &[],
             },
             Pat::ReturnAnnotation => PatData {
                 act: Act::Begin(Rule::ReturnAnnotation),
                 captures: &[(1, &[S::PSeparatorAnnotationResult])],
+                nested: &[],
             },
             Pat::StatementKeywordAt0 => PatData {
                 act: Act::Match(&[S::StorTypeFunction]),
                 captures: &[],
+                nested: &[],
             },
             Pat::StatementKeywordAt1 | Pat::StatementKeywordAt3 => PatData {
                 act: Act::Match(&[S::KwControlFlow]),
                 captures: &[],
+                nested: &[],
             },
             Pat::StatementKeywordAt4 => PatData {
                 act: Act::Match(&[S::StorModifierDeclaration]),
                 captures: &[],
+                nested: &[],
             },
             Pat::StatementKeywordAt5 => PatData {
                 act: Act::Match(&[S::StorTypeClass]),
                 captures: &[],
+                nested: &[],
             },
             Pat::Decorator => PatData {
                 act: Act::Begin(Rule::Decorator),
@@ -5603,6 +5787,7 @@ impl Pat {
                     (1, &[S::EntNameFunctionDecorator]),
                     (2, &[S::PDefinitionDecorator]),
                 ],
+                nested: &[],
             },
             Pat::DecoratorEnd => PatData {
                 act: Act::End,
@@ -5610,42 +5795,52 @@ impl Pat {
                     (1, &[S::PDefinitionArgumentsEnd]),
                     (2, &[S::InvIllegalDecorator]),
                 ],
+                nested: &[],
             },
             Pat::DecoratorNameAt2 => PatData {
                 act: Act::Match(&[S::EntNameFunctionDecorator]),
                 captures: &[(2, &[S::PSeparatorPeriod])],
+                nested: &[],
             },
             Pat::DecoratorNameAt4 => PatData {
                 act: Act::Match(&[S::InvIllegalDecorator]),
                 captures: &[(1, &[S::InvIllegalDecorator])],
+                nested: &[],
             },
             Pat::DocstringStatement => PatData {
                 act: Act::Begin(Rule::DocstringStatement),
                 captures: &[],
+                nested: &[],
             },
             Pat::DocstringAt0 => PatData {
                 act: Act::Begin(Rule::DocstringAt0),
                 captures: &[(1, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::DocstringAt0End | Pat::DocstringAt1End => PatData {
                 act: Act::End,
                 captures: &[(1, &[S::PDefinitionStringEnd])],
+                nested: &[],
             },
             Pat::DocstringAt1 => PatData {
                 act: Act::Begin(Rule::DocstringAt1),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::DocstringAt2 => PatData {
                 act: Act::Begin(Rule::DocstringAt2),
                 captures: &[(1, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::DocstringAt3 => PatData {
                 act: Act::Begin(Rule::DocstringAt3),
                 captures: &[(1, &[S::StorTypeString]), (2, &[S::PDefinitionStringBegin])],
+                nested: &[],
             },
             Pat::SemicolonAt0 => PatData {
                 act: Act::Match(&[S::InvDeprecatedSemicolon]),
                 captures: &[],
+                nested: &[],
             },
         }
     }
@@ -6096,18 +6291,6 @@ pub(crate) enum Re {
     ParenthesesNonCapturingEnd,
     Parentheses,
     ParenthesesEnd,
-}
-
-/// The bytes a pattern can start at.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Start {
-    /// Bit `b` of word `b / 64` says that a match can start before byte `b`.
-    pub(crate) bytes: [u64; 4],
-    /// The pattern matches only at the start of the line.
-    pub(crate) bol: bool,
-    /// A `\b` or a lookbehind for a non-word character comes before its first
-    /// character, so it cannot match inside a word.
-    pub(crate) wb: bool,
 }
 
 impl Pat {

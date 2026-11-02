@@ -33,7 +33,7 @@ impl Lexer<'_> {
     /// The end of the run of `\w` characters from `i`. Patterns ask about
     /// the same word one after another, so the last run is kept.
     pub(in crate::java) fn word_end(&self, i: usize) -> usize {
-        let (start, end) = self.word_run.get();
+        let (start, end) = self.x.word_run.get();
         if start <= i && i < end {
             return end;
         }
@@ -42,14 +42,14 @@ impl Lexer<'_> {
             e += width;
         }
         if e > i {
-            self.word_run.set((i, e));
+            self.x.word_run.set((i, e));
         }
         e
     }
 
     /// The end of the run of `[$\w]` characters from `i`, kept the same way.
     pub(in crate::java) fn name_end(&self, i: usize) -> usize {
-        let (start, end) = self.name_run.get();
+        let (start, end) = self.x.name_run.get();
         if start <= i && i < end {
             return end;
         }
@@ -64,7 +64,7 @@ impl Lexer<'_> {
             }
         }
         if e > i {
-            self.name_run.set((i, e));
+            self.x.name_run.set((i, e));
         }
         e
     }

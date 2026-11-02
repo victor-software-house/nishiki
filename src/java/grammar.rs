@@ -6,30 +6,14 @@
 //! its `include`s flattened, so the first that matches at the earliest
 //! position wins as in a `TextMate` engine.
 
+use super::engine::Java;
 use super::scope::S;
+use crate::rules;
 
-/// What a matching pattern does.
-#[derive(Clone, Copy, Debug)]
-pub(crate) enum Act {
-    /// Names the text and opens nothing.
-    Match(&'static [S]),
-    /// Opens a rule.
-    Begin(Rule),
-    /// Closes the innermost rule.
-    End,
-}
-
-/// The data of one pattern.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct PatData {
-    pub(crate) act: Act,
-    /// The scopes of the match's capture groups, by group number; group 0 is
-    /// the whole match.
-    pub(crate) captures: &'static [(u8, &'static [S])],
-    /// The capture groups whose text the grammar tokenizes with patterns of
-    /// their own, by group number.
-    pub(crate) nested: &'static [(u8, Nested)],
-}
+pub(crate) type Act = rules::Act<Java>;
+pub(crate) type PatData = rules::PatData<Java>;
+pub(crate) type RuleData = rules::RuleData<Java>;
+pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -40,19 +24,6 @@ pub(crate) enum Nested {
     Modifiers,
     /// A generic's angle brackets and the names between them.
     Generics,
-}
-
-/// The data of one rule.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct RuleData {
-    /// The scopes of its begin and end text and everything between.
-    pub(crate) name: &'static [S],
-    /// The scopes of what lies between its begin and end text.
-    pub(crate) content: &'static [S],
-    /// The pattern that closes it.
-    pub(crate) end: Option<Pat>,
-    /// The patterns it tries, in order, after its end pattern.
-    pub(crate) patterns: &'static [Pat],
 }
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -205,6 +176,7 @@ impl Rule {
                 name: &[S::MetaPackage],
                 content: &[S::StorModifierPackage],
                 end: Some(Pat::RootAt0End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -220,24 +192,28 @@ impl Rule {
                 name: &[S::CmtBlock],
                 content: &[],
                 end: Some(Pat::CommentsInlineAt0End),
+                backref: None,
                 patterns: &[],
             },
             Rule::CommentsInlineAt1 => RuleData {
                 name: &[],
                 content: &[],
                 end: Some(Pat::CommentsInlineAt1End),
+                backref: None,
                 patterns: &[Pat::CommentsInlineAt1At0],
             },
             Rule::CommentsInlineAt1At0 => RuleData {
                 name: &[S::CmtLineDoubleSlash],
                 content: &[],
                 end: Some(Pat::CommentsInlineAt1At0End),
+                backref: None,
                 patterns: &[],
             },
             Rule::RootAt1 => RuleData {
                 name: &[S::MetaImport],
                 content: &[S::StorModifierImport],
                 end: Some(Pat::RootAt1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -254,6 +230,7 @@ impl Rule {
                 name: &[S::CmtBlockJavadoc],
                 content: &[],
                 end: Some(Pat::CommentsJavadocAt0End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0At0,
                     Pat::CommentsJavadocAt0At1,
@@ -265,6 +242,7 @@ impl Rule {
                 name: &[S::MetaDeclarationAnnotation],
                 content: &[],
                 end: Some(Pat::AnnotationsAt0End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0At0,
                     Pat::AnnotationsAt0,
@@ -334,12 +312,14 @@ impl Rule {
                 name: &[S::MetaEnum],
                 content: &[],
                 end: Some(Pat::EnumsEnd),
+                backref: None,
                 patterns: &[Pat::EnumsAt0, Pat::EnumsAt1, Pat::EnumsAt2],
             },
             Rule::EnumsAt0 => RuleData {
                 name: &[S::MetaDefinitionClassInheritedClasses],
                 content: &[],
                 end: Some(Pat::EnumsAt0End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -353,6 +333,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::GenericsEnd),
+                backref: None,
                 patterns: &[
                     Pat::GenericsAt0,
                     Pat::GenericsAt1,
@@ -376,6 +357,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::PrimitiveArraysAt0End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -389,6 +371,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::ParensAt0End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -457,6 +440,7 @@ impl Rule {
                 name: &[S::MetaClass],
                 content: &[],
                 end: Some(Pat::ClassEnd),
+                backref: None,
                 patterns: &[
                     Pat::StorageModifiers,
                     Pat::Generics,
@@ -474,6 +458,7 @@ impl Rule {
                 name: &[S::MetaDefinitionClassInheritedClasses],
                 content: &[],
                 end: Some(Pat::ClassAt4End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -487,6 +472,7 @@ impl Rule {
                 name: &[S::MetaDefinitionClassImplementedInterfaces],
                 content: &[],
                 end: Some(Pat::ClassAt5End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -500,6 +486,7 @@ impl Rule {
                 name: &[S::MetaDefinitionClassPermitsClasses],
                 content: &[],
                 end: Some(Pat::ClassAt6End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -513,6 +500,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaClassBody],
                 end: Some(Pat::ClassAt7End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0,
                     Pat::CommentsAt0,
@@ -596,6 +584,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::AnonymousBlockAndInstanceInitializerEnd),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -664,6 +653,7 @@ impl Rule {
                 name: &[S::MetaRecord],
                 content: &[],
                 end: Some(Pat::RecordEnd),
+                backref: None,
                 patterns: &[
                     Pat::StorageModifiers,
                     Pat::Generics,
@@ -679,6 +669,7 @@ impl Rule {
                 name: &[S::MetaRecordIdentifier],
                 content: &[],
                 end: Some(Pat::RecordAt3End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -747,12 +738,14 @@ impl Rule {
                 name: &[S::MetaTry],
                 content: &[],
                 end: Some(Pat::TryCatchFinallyAt0End),
+                backref: None,
                 patterns: &[Pat::TryCatchFinallyAt0At0, Pat::TryCatchFinallyAt0At1],
             },
             Rule::TryCatchFinallyAt0At0 => RuleData {
                 name: &[S::MetaTryResources],
                 content: &[],
                 end: Some(Pat::TryCatchFinallyAt0At0End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -821,6 +814,7 @@ impl Rule {
                 name: &[S::MetaCatch],
                 content: &[],
                 end: Some(Pat::TryCatchFinallyAt1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -833,6 +827,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaCatchParameters],
                 end: Some(Pat::TryCatchFinallyAt1At1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -845,6 +840,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::TryCatchFinallyAt1At1At2End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -856,6 +852,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaCatchBody],
                 end: Some(Pat::TryCatchFinallyAt1At2End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -924,12 +921,14 @@ impl Rule {
                 name: &[S::MetaFinally],
                 content: &[],
                 end: Some(Pat::TryCatchFinallyAt2End),
+                backref: None,
                 patterns: &[Pat::TryCatchFinallyAt2At0],
             },
             Rule::TryCatchFinallyAt2At0 => RuleData {
                 name: &[],
                 content: &[S::MetaFinallyBody],
                 end: Some(Pat::TryCatchFinallyAt2At0End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -998,6 +997,7 @@ impl Rule {
                 name: &[S::MetaDeclarationAssertion],
                 content: &[],
                 end: Some(Pat::AssertionsAt0End),
+                backref: None,
                 patterns: &[
                     Pat::AssertionsAt0At0,
                     Pat::AnnotationsAt0,
@@ -1067,6 +1067,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::ParensAt1End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1135,6 +1136,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::ParensAt2End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1203,6 +1205,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::AnonymousClassesAndNewEnd),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -1225,6 +1228,7 @@ impl Rule {
                 name: &[S::MetaFunctionCall],
                 content: &[],
                 end: Some(Pat::FunctionCallEnd),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1293,6 +1297,7 @@ impl Rule {
                 name: &[S::MetaMethodCall],
                 content: &[],
                 end: Some(Pat::MethodCallEnd),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1361,6 +1366,7 @@ impl Rule {
                 name: &[S::MetaDefinitionVariable],
                 content: &[],
                 end: Some(Pat::VariablesEnd),
+                backref: None,
                 patterns: &[
                     Pat::VariablesAt0,
                     Pat::PrimitiveArraysAt0,
@@ -1436,6 +1442,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::ObjectTypesAt1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -1449,6 +1456,7 @@ impl Rule {
                 name: &[S::MetaDefinitionVariableLocal],
                 content: &[],
                 end: Some(Pat::VariablesLocalEnd),
+                backref: None,
                 patterns: &[
                     Pat::VariablesLocalAt0,
                     Pat::VariablesLocalAt1,
@@ -1519,24 +1527,28 @@ impl Rule {
                 name: &[S::StrQuotedTriple],
                 content: &[],
                 end: Some(Pat::StringsAt0End),
+                backref: None,
                 patterns: &[Pat::StringsAt0At0],
             },
             Rule::StringsAt1 => RuleData {
                 name: &[S::StrQuotedDouble],
                 content: &[],
                 end: Some(Pat::StringsAt1End),
+                backref: None,
                 patterns: &[Pat::StringsAt1At0],
             },
             Rule::StringsAt2 => RuleData {
                 name: &[S::StrQuotedSingle],
                 content: &[],
                 end: Some(Pat::StringsAt2End),
+                backref: None,
                 patterns: &[Pat::StringsAt2At0],
             },
             Rule::AnonymousClassesAndNewAt3 => RuleData {
                 name: &[],
                 content: &[],
                 end: Some(Pat::AnonymousClassesAndNewAt3End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -1548,6 +1560,7 @@ impl Rule {
                 name: &[S::MetaInnerClass],
                 content: &[],
                 end: Some(Pat::AnonymousClassesAndNewAt3At1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0,
                     Pat::CommentsAt0,
@@ -1631,6 +1644,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::ClassFieldsAndMethodsAt0End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1699,6 +1713,7 @@ impl Rule {
                 name: &[S::MetaMethod],
                 content: &[],
                 end: Some(Pat::MethodsEnd),
+                backref: None,
                 patterns: &[
                     Pat::StorageModifiers,
                     Pat::MethodsAt1,
@@ -1715,6 +1730,7 @@ impl Rule {
                 name: &[S::MetaMethodIdentifier],
                 content: &[],
                 end: Some(Pat::MethodsAt1End),
+                backref: None,
                 patterns: &[
                     Pat::ParametersAt0,
                     Pat::AnnotationsAt0,
@@ -1743,6 +1759,7 @@ impl Rule {
                 name: &[S::MetaMethodReturnType],
                 content: &[],
                 end: Some(Pat::MethodsAt3End),
+                backref: None,
                 patterns: &[
                     Pat::PrimitiveArraysAt0,
                     Pat::PrimitiveTypes,
@@ -1762,6 +1779,7 @@ impl Rule {
                 name: &[S::MetaThrowables],
                 content: &[],
                 end: Some(Pat::ThrowsEnd),
+                backref: None,
                 patterns: &[
                     Pat::ThrowsAt0,
                     Pat::ThrowsAt1,
@@ -1774,6 +1792,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaMethodBody],
                 end: Some(Pat::MethodsAt5End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1842,6 +1861,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::MemberVariablesEnd),
+                backref: None,
                 patterns: &[
                     Pat::StorageModifiers,
                     Pat::Variables,
@@ -1856,6 +1876,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::AnonymousClassesAndNewAt4End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -1867,6 +1888,7 @@ impl Rule {
                 name: &[S::MetaArrayInitializer],
                 content: &[],
                 end: Some(Pat::AnonymousClassesAndNewAt4At1End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -1935,6 +1957,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaTryBody],
                 end: Some(Pat::TryCatchFinallyAt0At1End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -2003,6 +2026,7 @@ impl Rule {
                 name: &[S::MetaDefinitionClassImplementedInterfaces],
                 content: &[],
                 end: Some(Pat::RecordAt4End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -2016,6 +2040,7 @@ impl Rule {
                 name: &[S::MetaRecordBody],
                 content: &[],
                 end: Some(Pat::RecordBodyEnd),
+                backref: None,
                 patterns: &[
                     Pat::RecordConstructor,
                     Pat::CommentsJavadocAt0,
@@ -2100,6 +2125,7 @@ impl Rule {
                 name: &[S::MetaMethod],
                 content: &[],
                 end: Some(Pat::RecordConstructorEnd),
+                backref: None,
                 patterns: &[
                     Pat::StorageModifiers,
                     Pat::RecordConstructorAt1,
@@ -2113,6 +2139,7 @@ impl Rule {
                 name: &[S::MetaMethodIdentifier],
                 content: &[],
                 end: Some(Pat::RecordConstructorAt1End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -2123,6 +2150,7 @@ impl Rule {
                 name: &[],
                 content: &[S::MetaMethodBody],
                 end: Some(Pat::RecordConstructorAt3End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -2191,6 +2219,7 @@ impl Rule {
                 name: &[S::MetaDefinitionClassImplementedInterfaces],
                 content: &[],
                 end: Some(Pat::EnumsAt1End),
+                backref: None,
                 patterns: &[
                     Pat::Generics,
                     Pat::ObjectTypesInheritedAt1,
@@ -2204,6 +2233,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::EnumsAt2End),
+                backref: None,
                 patterns: &[
                     Pat::EnumsAt2At0,
                     Pat::CommentsJavadocAt0,
@@ -2288,6 +2318,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::EnumsAt2At0End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0,
                     Pat::CommentsAt0,
@@ -2300,6 +2331,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::EnumsAt2At0At2End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0,
                     Pat::CommentsAt0,
@@ -2313,6 +2345,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::EnumsAt2At0At2At2End),
+                backref: None,
                 patterns: &[
                     Pat::AnnotationsAt0,
                     Pat::AnnotationsAt1,
@@ -2381,6 +2414,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: Some(Pat::EnumsAt2At0At2At3End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsJavadocAt0,
                     Pat::CommentsAt0,
@@ -2464,12 +2498,14 @@ impl Rule {
                 name: &[S::MetaModule],
                 content: &[],
                 end: Some(Pat::ModuleEnd),
+                backref: None,
                 patterns: &[Pat::ModuleAt0],
             },
             Rule::ModuleAt0 => RuleData {
                 name: &[],
                 content: &[S::MetaModuleBody],
                 end: Some(Pat::ModuleAt0End),
+                backref: None,
                 patterns: &[
                     Pat::CommentsAt0,
                     Pat::CommentsInlineAt0,
@@ -2482,6 +2518,7 @@ impl Rule {
                 name: &[],
                 content: &[],
                 end: None,
+                backref: None,
                 patterns: &[
                     Pat::RootAt0,
                     Pat::RootAt1,
@@ -3804,18 +3841,6 @@ impl Pat {
             },
         }
     }
-}
-
-/// The bytes a pattern can start at.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Start {
-    /// Bit `b` of word `b / 64` says that a match can start before byte `b`.
-    pub(crate) bytes: [u64; 4],
-    /// The pattern matches only at the start of the line.
-    pub(crate) bol: bool,
-    /// A `\b` or a lookbehind for a non-word character comes before its first
-    /// character, so it cannot match inside a word.
-    pub(crate) wb: bool,
 }
 
 impl Pat {

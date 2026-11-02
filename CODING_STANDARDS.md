@@ -97,6 +97,12 @@ A dependency is pure Rust; one that builds C or carries unsafe code needs a reco
 The API follows the Rust API guidelines: `new` and `new_with_*` constructors, getters by value only for `Copy` types, enums rather than `bool` parameters, `#[non_exhaustive]` where variants will grow.
 A change that breaks it is called out in its changeset; the release rules in `AGENTS.md` decide its version.
 
+### 3.7 A language written from a TextMate grammar uses `src/rules.rs`
+
+The per-line loop, `\G`, capture groups, frames, budget checks and the candidate tables for each byte exist once, in `src/rules.rs`.
+A language supplies a `Grammar` implementation (its generated tables, its scope type and its hand-written matchers) and an `Extra` for what its matchers remember about a line, as `src/python/engine.rs` and `src/java/engine.rs` do.
+A language does not copy the loop.
+
 ## 4. Tests
 
 ### 4.1 Shiki is the test

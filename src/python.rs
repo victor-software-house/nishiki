@@ -14,7 +14,6 @@ mod grammar;
 mod matchers;
 mod scope;
 mod state;
-mod tables;
 mod words;
 
 pub(crate) use engine::Scratch;
@@ -25,6 +24,7 @@ use scope::S;
 use crate::Token;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limits, LineReport};
+use crate::rules::Text;
 
 /// The state at the start of a Python document whose scopes sit on the stack
 /// `base`: one rule with `source.python` on top of it.
@@ -61,17 +61,6 @@ pub(crate) fn line(
     }
     let lexer = engine::Lexer::new(arena, limits, line, out, state, report, &mut scratch.python);
     lexer.run(&mut scratch.python)
-}
-
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because the grammar looks at them: `^` matches
-/// only at 0, so a decorator that follows indentation is not at the start of
-/// the line.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
 }
 
 #[cfg(test)]

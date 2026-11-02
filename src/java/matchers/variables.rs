@@ -64,7 +64,7 @@ impl Lexer<'_> {
             // `>` can be any of the closing characters in the run, the last
             // first; the run is the same for every `<` in it, and so is the
             // last `>` that works.
-            let (start, run_end, best) = self.memo.generics.get();
+            let (start, run_end, best) = self.x.memo.generics.get();
             let best = if start <= angle && angle < run_end {
                 best
             } else {
@@ -86,7 +86,7 @@ impl Lexer<'_> {
                         break;
                     }
                 }
-                self.memo.generics.set((angle, run_end, best));
+                self.x.memo.generics.set((angle, run_end, best));
                 best
             };
             if best.is_some_and(|close| close > angle) {
@@ -126,7 +126,7 @@ impl Lexer<'_> {
         }
         // The run of characters that the name and the group after it can
         // be made of, with the last `$` in it.
-        let (start, end, dollar) = self.memo.names.get();
+        let (start, end, dollar) = self.x.memo.names.get();
         let (end, dollar) = if start <= name && name < end {
             (end, dollar)
         } else {
@@ -150,7 +150,7 @@ impl Lexer<'_> {
                 }
             }
             self.spend(e - name);
-            self.memo.names.set((name, e, last_dollar));
+            self.x.memo.names.set((name, e, last_dollar));
             (e, last_dollar)
         };
         if !matches!(self.at(end), b':' | b';' | b'=') || end >= self.lim() {

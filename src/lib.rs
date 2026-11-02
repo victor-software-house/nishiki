@@ -63,6 +63,7 @@ mod limits;
 mod make;
 mod markdown;
 mod python;
+mod rules;
 mod rust;
 mod scope;
 mod scratch;

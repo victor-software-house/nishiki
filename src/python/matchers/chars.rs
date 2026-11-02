@@ -86,7 +86,7 @@ impl Lexer<'_> {
     /// The end of the run of `\w` characters from `i`. Patterns ask about
     /// the same word one after another, so the last run is kept.
     pub(in crate::python) fn word_end(&self, i: usize) -> usize {
-        let (start, end) = self.word_run.get();
+        let (start, end) = self.x.word_run.get();
         if start <= i && i < end {
             return end;
         }
@@ -95,7 +95,7 @@ impl Lexer<'_> {
             e += width;
         }
         if e > i {
-            self.word_run.set((i, e));
+            self.x.word_run.set((i, e));
         }
         e
     }
@@ -164,12 +164,12 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_end(i);
-        let (at, mask) = self.word_mask.get();
+        let (at, mask) = self.x.word_mask.get();
         let mask = if at == i {
             mask
         } else {
             let mask = word_masks().get(self.text(i, end)).copied().unwrap_or(0);
-            self.word_mask.set((i, mask));
+            self.x.word_mask.set((i, mask));
             mask
         };
         (mask & bits != 0).then_some(end)

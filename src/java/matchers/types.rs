@@ -9,7 +9,7 @@ impl Lexer<'_> {
         if !(b.is_ascii_alphabetic() || b == b'_' || b == b'$') {
             return None;
         }
-        let (start, end) = self.ascii_run.get();
+        let (start, end) = self.x.ascii_run.get();
         if start <= i && i < end {
             return Some(end);
         }
@@ -21,7 +21,7 @@ impl Lexer<'_> {
         {
             e += 1;
         }
-        self.ascii_run.set((i, e));
+        self.x.ascii_run.set((i, e));
         Some(e)
     }
 

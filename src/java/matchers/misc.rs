@@ -104,7 +104,7 @@ impl Lexer<'_> {
     /// The end of the run of `[^(\s]` characters from `i`, kept for the
     /// searches that start inside it.
     fn annotation_name_end(&self, i: usize) -> usize {
-        let (start, end) = self.memo.annotation.get();
+        let (start, end) = self.x.memo.annotation.get();
         if start <= i && i < end {
             return end;
         }
@@ -114,7 +114,7 @@ impl Lexer<'_> {
         }
         self.spend(e - i);
         if e > i {
-            self.memo.annotation.set((i, e));
+            self.x.memo.annotation.set((i, e));
         }
         e
     }
