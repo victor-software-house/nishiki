@@ -371,7 +371,7 @@ impl Lexer<'_> {
         }
         let end = end.or_else(|| {
             let e = self.skip(p, lower);
-            self.boundary(e).then_some(e)
+            (e > p && self.boundary(e)).then_some(e)
         })?;
         self.gap(p);
         self.tok(end, &[S::VarOther]);

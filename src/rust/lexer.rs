@@ -90,6 +90,7 @@ impl<'a> Lexer<'a> {
                 self.report.record(Limit::Work);
                 break;
             }
+            let from = p;
             p = match self.top() {
                 Kind::Str => self.in_string(p),
                 Kind::Raw => self.in_raw_string(p),
@@ -104,6 +105,7 @@ impl<'a> Lexer<'a> {
                 | Kind::Use
                 | Kind::Import => self.in_code(p),
             };
+            debug_assert!(p > from, "the Rust lexer made no progress at byte {from}");
         }
         self.gap(len);
     }

@@ -318,3 +318,14 @@ fn state_after_a_balanced_document_is_initial() {
     let (_, states) = lex_with_states("fn f() { /* a */ \"b\" }\n");
     assert_eq!(*states.last().unwrap(), State::default());
 }
+
+#[test]
+fn an_uppercase_word_before_non_ascii_text_advances() {
+    for line in ["R日", "Ra日", "a日x", "_日x", "Self日"] {
+        let mut h = highlighter();
+        let mut out = Vec::new();
+        let report = h.line(line, &mut State::default(), &mut out);
+        assert!(report.is_complete(), "{line:?}");
+        assert_eq!(out.last().map(|t| t.end()), Some(line.len()));
+    }
+}
