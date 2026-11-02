@@ -5,6 +5,12 @@ Reviews cite the number.
 
 - `AGENTS.md` holds the invariants these rules serve.
 - The lints in `Cargo.toml` and `clippy.toml` enforce what a machine can check, each with its reason.
+- This file states only what nishiki adds or decides.
+  The general rules come from:
+  - the `rust-projects` skill's code rules;
+  - the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/);
+  - [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html), its general rules, not the Chrome, Fuchsia or Android ones;
+  - [BeautifulRust's rust-best-practices](https://github.com/morganlinton/BeautifulRust).
 
 ## 1. Lexers
 
@@ -174,13 +180,24 @@ The API follows the Rust API guidelines:
 A change that breaks the API is called out in its changeset.
 The release rules in `AGENTS.md` decide its version.
 
-### 3.7 A language written from a TextMate grammar uses `src/rules.rs`
+### 3.7 Two kinds of lexer, two kinds of loop
 
-- The per-line loop, `\G`, capture groups, frames, budget checks and the candidate tables for each byte exist once, in `src/rules.rs`.
-- A language supplies a `Grammar` implementation: its generated tables, its scope type and its hand-written matchers.
-- It also supplies an `Extra`, for what its matchers remember about a line.
-- `src/python/engine.rs` and `src/java/engine.rs` show both.
-- A language does not copy the loop.
+- A hand-written lexer keeps its own loop, budget and state.
+  It follows the contract in 1.1 to 1.6 and needs nothing from `src/rules.rs`.
+- A language lexed from a TextMate grammar's generated tables uses `src/rules.rs`.
+  - The per-line loop, `\G`, capture groups, frames, budget checks and the candidate tables for each byte exist once there.
+  - The language supplies a `Grammar` implementation: its generated tables, its scope type and its hand-written matchers.
+  - It also supplies an `Extra`, for what its matchers remember about a line.
+  - `src/python/engine.rs`, `src/java/engine.rs` and `src/css/engine.rs` show both.
+  - Such a language does not copy the loop.
+
+### 3.8 Shared primitives
+
+- Before writing a helper, a lexer checks the shared modules and uses them:
+  `src/classes.rs`, `src/utf8.rs`, `src/space.rs`, `src/rules.rs`, and the arena and scope helpers.
+- A helper a second lexer needs moves to a shared module named for its concern.
+  It moves in the pull request that needs it, and is never copied.
+- Lexers are written in parallel, so this is how duplication stays out.
 
 ## 4. Tests
 

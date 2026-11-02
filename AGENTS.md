@@ -110,6 +110,7 @@ The decisions that created nishiki live in a private planning repository:
    - Its one approved dependency beyond `memchr` is `regex-automata`.
    - It covers every bundled language not yet hand-written.
    - It checks the hand lexers as a second oracle.
+4. Several lexers are written in parallel, each by its own agent, and land one at a time.
 
 ### The Shiki oracle
 

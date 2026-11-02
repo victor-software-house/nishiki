@@ -19,3 +19,6 @@ Rules for measuring nishiki, beside the root guide's invariants.
 8. Every comparison with another engine (syntect, Pierre's lexers, a TextMate interpreter) runs in a separate program under `research/`, never as a dependency of the crate.
 9. A speed change never changes output: the oracle, colour, fuzz and limit tests stay green, and the run's report says so.
 10. Termination on hostile input is a test (`tests/it/limits.rs`), not a benchmark: each language's generated hostile lines must finish within the default limits.
+11. `mise run bench` builds with Cargo's default release profile on purpose.
+    A downstream binary builds nishiki that way, so the figures are what it sees.
+    Do not add LTO or `codegen-units` to the root profile to improve them.
