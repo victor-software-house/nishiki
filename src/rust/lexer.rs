@@ -44,7 +44,9 @@ pub(crate) fn is_ident(b: u8) -> bool {
     b.is_ascii_alphanumeric() || b == b'_'
 }
 
-/// The regex `\w`, with non-ASCII bytes counted as word characters.
+/// The regex `\w`, with non-ASCII bytes counted as word characters. A
+/// Unicode space is not one: [`Lexer::word_at`] and [`Lexer::word_before`]
+/// tell it apart.
 pub(crate) fn is_word(b: u8) -> bool {
     is_ident(b) || b >= 0x80
 }
@@ -121,6 +123,23 @@ impl<'a> Lexer<'a> {
         self.s.get(i..).is_some_and(|rest| rest.starts_with(prefix))
     }
 
+    /// The end of the blanks at `i`: the ASCII ones and the Unicode spaces that
+    /// the grammar's `\s` reads.
+    pub(crate) fn blanks(&self, mut i: usize) -> usize {
+        let from = i;
+        while i < self.s.len() {
+            if is_ws(self.s[i]) {
+                i += 1;
+            } else if self.s[i] >= 0xc2 && crate::space::len(&self.s[i..]) > 0 {
+                i += crate::space::len(&self.s[i..]);
+            } else {
+                break;
+            }
+        }
+        self.spend(i - from);
+        i
+    }
+
     pub(crate) fn skip(&self, mut i: usize, class: impl Fn(u8) -> bool) -> usize {
         let from = i;
         while i < self.s.len() && class(self.s[i]) {
@@ -148,22 +167,57 @@ impl<'a> Lexer<'a> {
     }
 
     /// The regex `\b` at `i`.
+    #[inline]
     pub(crate) fn boundary(&self, i: usize) -> bool {
-        let before = i > 0 && is_word(self.s[i - 1]);
-        let after = i < self.s.len() && is_word(self.s[i]);
-        before != after
+        self.word_before(i) != self.word_at(i)
+    }
+
+    /// Whether the character at `i` is a word character.
+    #[inline]
+    pub(crate) fn word_at(&self, i: usize) -> bool {
+        match self.s.get(i) {
+            None => false,
+            Some(&b) if b < 0xc2 => is_word(b),
+            Some(_) => crate::space::len(&self.s[i..]) == 0,
+        }
+    }
+
+    /// Whether the character that ends at `i` is a word character.
+    #[inline]
+    pub(crate) fn word_before(&self, i: usize) -> bool {
+        match i.checked_sub(1).map(|j| self.s[j]) {
+            None => false,
+            Some(b) if b < 0x80 => is_ident(b),
+            Some(_) => !self.space_before(i),
+        }
+    }
+
+    /// Whether a Unicode space ends at `i`.
+    fn space_before(&self, i: usize) -> bool {
+        (i >= 2 && crate::space::len(&self.s[i - 2..i]) == 2)
+            || (i >= 3 && crate::space::len(&self.s[i - 3..i]) == 3)
+    }
+
+    /// The end of the word characters at `i`.
+    pub(crate) fn word_run(&self, mut i: usize) -> usize {
+        let from = i;
+        while self.word_at(i) {
+            i += 1;
+        }
+        self.spend(i - from);
+        i
     }
 
     /// Whether a word starts at `i`, given that the byte there is a word byte.
     pub(crate) fn word_start(&self, i: usize) -> bool {
-        i == 0 || !is_word(self.s[i - 1])
+        !self.word_before(i)
     }
 
     /// Records the identifier and word runs starting at `p`.
     pub(crate) fn scan_word(&mut self, p: usize) {
         self.ident_end = self.skip(p, is_ident);
         self.word_end = if self.at(self.ident_end) >= 0x80 {
-            self.skip(self.ident_end, is_word)
+            self.word_run(self.ident_end)
         } else {
             self.ident_end
         };
@@ -267,7 +321,7 @@ impl<'a> Lexer<'a> {
 
     fn in_code(&mut self, p: usize) -> usize {
         let b = self.s[p];
-        if is_ws(b) {
+        if is_ws(b) || (b >= 0xc2 && crate::space::len(&self.s[p..]) > 0) {
             return self.whitespace(p);
         }
         if let Some(end) = self.end_of_context(p, b) {
@@ -296,13 +350,13 @@ impl<'a> Lexer<'a> {
     /// Skips blanks. A blank run after a word may start the comparison rule.
     fn whitespace(&mut self, p: usize) -> usize {
         if p > 0
-            && is_word(self.s[p - 1])
+            && self.word_before(p)
             && super::code::groups(self.top()).contains(&super::code::Group::Keywords)
             && let Some(end) = self.comparison(p)
         {
             return end;
         }
-        self.skip(p, is_ws)
+        self.blanks(p)
     }
 
     /// Closes the innermost code context when its end rule matches at `p`.

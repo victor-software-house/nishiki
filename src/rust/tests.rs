@@ -329,3 +329,26 @@ fn an_uppercase_word_before_non_ascii_text_advances() {
         assert_eq!(out.last().map(|t| t.end()), Some(line.len()));
     }
 }
+
+#[test]
+fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
+    // `\s` reads the Unicode White_Space characters, and `\w` does not read
+    // them, so a keyword before one is still a keyword.
+    for space in [
+        "\u{a0}", "\u{85}", "\u{1680}", "\u{2003}", "\u{202f}", "\u{3000}",
+    ] {
+        let text = format!("fn{space}main() {{}}");
+        assert_eq!(scope_of(&text, "fn"), "keyword.other.fn.rust", "{space:?}");
+        assert_eq!(
+            scope_of(&text, "main"),
+            "entity.name.function.rust",
+            "{space:?}"
+        );
+        let text = format!("pub{space}struct{space}S;");
+        assert_eq!(
+            scope_of(&text, "pub"),
+            "storage.modifier.visibility.rust",
+            "{space:?}"
+        );
+    }
+}

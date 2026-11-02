@@ -68,6 +68,7 @@ mod rust;
 mod scope;
 mod scratch;
 mod shell;
+mod space;
 mod tag;
 mod theme;
 mod toml;

@@ -1,6 +1,6 @@
 //! Keywords and operators: the grammar's `keywords` group.
 
-use super::lexer::{Lexer, is_ident, is_word};
+use super::lexer::{Lexer, is_ident};
 use super::scope::S;
 
 /// The scopes of a word keyword, or none when the word is not one.
@@ -90,7 +90,7 @@ impl Lexer<'_> {
         // Math.
         let math = match b {
             b'%' | b'+' => not_eq(c1),
-            b'*' => !is_word(c1) && not_eq(c1),
+            b'*' => !self.word_at(p + 1) && not_eq(c1),
             b'-' => c1 != b'>',
             b'/' => c1 != b'/',
             _ => false,
@@ -104,7 +104,7 @@ impl Lexer<'_> {
         }
         match (b, c1) {
             (b':', b':') => Some((2, S::OpNamespace)),
-            (b'*', c) if is_word(c) => Some((1, S::OpDeref)),
+            (b'*', _) if self.word_at(p + 1) => Some((1, S::OpDeref)),
             (b'@', _) => Some((1, S::OpSubpattern)),
             (b'.', c) if c != b'.' => Some((1, S::OpDot)),
             (b'.', b'.') => {
@@ -142,7 +142,7 @@ impl Lexer<'_> {
         }
         let next = self.at(right_start);
         let right = bracket(next).filter(|_| matches!(next, b'(' | b'[' | b'{'));
-        if right.is_none() && !(is_word(next) && right_start < self.s.len()) {
+        if right.is_none() && !(self.word_at(right_start) && right_start < self.s.len()) {
             return None;
         }
         self.gap(p);

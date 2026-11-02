@@ -1,6 +1,6 @@
 //! The rule groups of the grammar, and which contexts use which, in order.
 
-use super::lexer::{Lexer, is_ident, is_word, is_ws};
+use super::lexer::{Lexer, is_ident};
 use super::numbers::NUMERIC;
 use super::scope::S;
 use super::state::Kind;
@@ -211,20 +211,16 @@ impl Lexer<'_> {
         let (rule, name_scope, name_end) = if self.starts_with(p + 1, b"crate") {
             (S::MetaMetavarType, S::KwCrate, p + 6)
         } else if c.is_ascii_uppercase() {
-            (
-                S::MetaMetavarType,
-                S::EntTypeMetavar,
-                self.skip(p + 2, is_word),
-            )
+            (S::MetaMetavarType, S::EntTypeMetavar, self.word_run(p + 2))
         } else if c.is_ascii_lowercase() {
-            (S::MetaMetavar, S::VarMetaName, self.skip(p + 2, is_word))
+            (S::MetaMetavar, S::VarMetaName, self.word_run(p + 2))
         } else {
             return None;
         };
-        let colon = self.skip(name_end, is_ws);
+        let colon = self.blanks(name_end);
         let spec = (self.at(colon) == b':').then(|| {
-            let start = self.skip(colon + 1, is_ws);
-            (start, self.skip(start, is_word))
+            let start = self.blanks(colon + 1);
+            (start, self.word_run(start))
         });
         let spec = spec.filter(|&(start, end)| SPECIFIERS.contains(&&self.s[start..end]));
         self.gap(p);
@@ -246,7 +242,7 @@ impl Lexer<'_> {
         if !self.word_start(p) || !self.starts_with(p, b"macro_rules!") {
             return None;
         }
-        let name = self.skip(p + 12, is_ws);
+        let name = self.blanks(p + 12);
         if name == p + 12 {
             return None;
         }
@@ -258,7 +254,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        let brace = self.skip(name_end, is_ws);
+        let brace = self.blanks(name_end);
         if brace == name_end || self.at(brace) != b'{' {
             return None;
         }
@@ -276,7 +272,7 @@ impl Lexer<'_> {
         if !self.starts_with(p, b"mod") {
             return None;
         }
-        let name = self.skip(p + 3, is_ws);
+        let name = self.blanks(p + 3);
         if name == p + 3 {
             return None;
         }
@@ -300,7 +296,7 @@ impl Lexer<'_> {
         if !self.word_start(p) || !self.starts_with(p, b"extern") {
             return None;
         }
-        let krate = self.skip(p + 6, is_ws);
+        let krate = self.blanks(p + 6);
         if krate == p + 6 || !self.starts_with(krate, b"crate") {
             return None;
         }
@@ -316,7 +312,7 @@ impl Lexer<'_> {
         if !self.word_start(p) || !self.starts_with(p, b"use") {
             return None;
         }
-        if p + 3 < self.s.len() && !is_ws(self.s[p + 3]) {
+        if p + 3 < self.s.len() && self.blanks(p + 3) == p + 3 {
             return None;
         }
         self.gap(p);
@@ -507,7 +503,7 @@ impl Lexer<'_> {
             }
         }
         if self.word_is(p, b"const") {
-            let name = self.skip(p + 5, is_ws);
+            let name = self.blanks(p + 5);
             if name > p + 5 && self.at(name).is_ascii_uppercase() {
                 let end = self.skip(name, is_ident);
                 if self.boundary(end) {
@@ -542,7 +538,7 @@ impl Lexer<'_> {
             return Some(p + 3);
         }
         if self.word_start(p) && self.word_is(p, b"fn") {
-            let name = self.skip(p + 2, is_ws);
+            let name = self.blanks(p + 2);
             if name > p + 2
                 && let Some(end) = self.ident_at(name)
                 && matches!(self.at(end), b'(' | b'<')
@@ -625,7 +621,7 @@ impl Lexer<'_> {
             _ => None,
         };
         if let Some((kw, name_scope)) = declaration {
-            let name = self.skip(self.word_end, is_ws);
+            let name = self.blanks(self.word_end);
             let n = name + usize::from(self.at(name) == b'_');
             if name > self.word_end && self.at(n).is_ascii_uppercase() {
                 let end = self.skip(n, is_ident);
