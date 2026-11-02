@@ -156,6 +156,21 @@ fn an_interpolation_is_javascript_up_to_its_closing_brace() {
 }
 
 #[test]
+fn an_interpolation_goes_on_across_lines_until_its_closing_brace() {
+    let mut highlighter = Highlighter::new(Language::GraphQl);
+    let mut state = State::default();
+    lex_in(&mut highlighter, &mut state, "{ ${ f(");
+    let middle = lex_in(&mut highlighter, &mut state, "  1) + {");
+    assert!(
+        middle.iter().all(|(_, scope)| scope != SELECTION),
+        "{middle:?}"
+    );
+    let last = lex_in(&mut highlighter, &mut state, "  a: 2 }.a } c }");
+    assert!(last.contains(&("}".to_owned(), "keyword.other.substitution.end".to_owned())));
+    assert!(last.contains(&("c".to_owned(), "variable.graphql".to_owned())));
+}
+
+#[test]
 fn a_depth_limit_keeps_a_rule_closed() {
     let limits = Limits {
         depth: Some(2),

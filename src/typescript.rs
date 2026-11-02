@@ -132,10 +132,6 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// The state at the start of the JavaScript inside an interpolation such as
 /// `${...}`, whose text sits on `base`: like [`start_embedded`], with an end at
 /// the first `}` that no context the code opened is waiting for.
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "the GraphQL lexer's interpolation will call it")
-)]
 pub(crate) fn start_interpolation(arena: &mut Arena, base: u32) -> u32 {
     arena
         .push(ROOT, Kind::Interpolation.code(), 0, base)
@@ -206,7 +202,6 @@ pub(crate) fn lex(
 /// line. The tokens stop before the `}` that ends it, and the returned offset
 /// is where that `}` is: the embedding lexer reads it, and the state returned
 /// is of no use after it. Without one, the state resumes on the next line.
-#[expect(dead_code, reason = "the GraphQL lexer's interpolation will call it")]
 pub(crate) fn lex_interpolation(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,

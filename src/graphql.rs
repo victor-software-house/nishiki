@@ -52,6 +52,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// grammar looks at them.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Text<'a> {
+    pub(crate) whole: &'a str,
     pub(crate) bytes: &'a [u8],
     pub(crate) start: usize,
 }
@@ -87,6 +88,7 @@ pub(crate) fn lex(
     state: u32,
 ) -> u32 {
     let text = Text {
+        whole: line.text,
         bytes: line.text.as_bytes(),
         start: line.start,
     };

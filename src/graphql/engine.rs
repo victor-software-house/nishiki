@@ -20,7 +20,7 @@ use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Language, Stack, Token};
+use crate::{Stack, Token, typescript};
 
 /// A capture group that carries a scope; `inner` is a second group over the
 /// same bytes, nested in it.
@@ -108,6 +108,8 @@ enum Found {
 /// Lexes one line.
 pub(super) struct Lexer<'a> {
     pub(super) s: &'a [u8],
+    /// The same text, for the JavaScript lexer.
+    text: &'a str,
     scratch: &'a mut Scratch,
     /// The text ends here; the line feed after it is one more character.
     pub(super) lim: usize,
@@ -146,6 +148,7 @@ impl<'a> Lexer<'a> {
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut lexer = Lexer {
             s,
+            text: text.whole,
             scratch,
             lim: s.len(),
             out,
@@ -329,49 +332,48 @@ impl<'a> Lexer<'a> {
     }
 
     /// The rest of an interpolation on this line: the JavaScript up to the `}`
-    /// that closes it, which the JavaScript lexer reads as a line of its own,
-    /// and then the end.
-    ///
-    /// The `}` is the first one that no `{` of the interpolation opened;
-    /// braces inside strings and comments are not told apart.
+    /// that no context of the code is waiting for, and then the end. The
+    /// JavaScript lexer reads the code, and its state is the payload of the
+    /// rule's frame, so an interpolation that goes on across lines resumes
+    /// where it stopped.
     fn interpolation(&mut self) -> Option<Found> {
-        let base = self.top().content;
-        let mut depth = 0_usize;
-        let mut close = None;
-        for (at, &b) in self.s.iter().enumerate().skip(self.pos) {
-            match b {
-                b'{' => depth += 1,
-                b'}' if depth == 0 => {
-                    close = Some(at);
-                    break;
-                }
-                b'}' => depth -= 1,
-                _ => {}
-            }
+        let top = self.top();
+        let mut js = self.arena.frame(top.state).payload;
+        if js == 0 {
+            js = typescript::start_interpolation(self.arena, top.content);
         }
+        self.spend(self.lim.saturating_sub(self.pos) + 1);
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: self.limits,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        let line = Line {
+            text: self.text,
+            start: self.pos,
+            embedded: false,
+        };
+        let (next, close) = typescript::lex_interpolation(&mut cx, line, js);
         let to = close.unwrap_or(self.lim);
-        self.spend(to.saturating_sub(self.pos) + 1);
-        if to > self.pos
-            && let Ok(text) = std::str::from_utf8(&self.s[..to])
-        {
-            let state = Language::JavaScript.start_embedded(self.arena, base);
-            let mut cx = Context {
-                scratch: &mut *self.scratch,
-                arena: &mut *self.arena,
-                limits: self.limits,
-                out: &mut *self.out,
-                report: &mut *self.report,
-            };
-            let line = Line {
-                text,
-                start: self.pos,
-                embedded: false,
-            };
-            Language::JavaScript.lex(&mut cx, line, state);
+        if to > self.pos {
             self.last = to;
             self.pos = to;
         }
-        let at = close?;
+        let Some(at) = close else {
+            let parent = self.frames[self.frames.len() - 2].state;
+            let state = self
+                .arena
+                .push(parent, Rule::Interpolation.code(), next, top.content)
+                .unwrap_or_else(|| {
+                    self.report.record(Limit::Nodes);
+                    top.state
+                });
+            let last = self.frames.len() - 1;
+            self.frames[last].state = state;
+            return None;
+        };
         Some(Found::End(Hit::new(at, at + 1).cap(
             0,
             at,
