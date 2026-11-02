@@ -43,7 +43,7 @@ The decisions that created it live in a private planning repository: `openspec/d
    Every language gets a hand-written lexer, in order of use, several in parallel: with the oracle and a Shiki differential, Python took under an hour, not the days its line count suggested (operator, 2026-11-02, revising the 2026-10-24 decision).
    nishiki's own TextMate engine is built in parallel, as fast as it can be made, with `regex-automata` as its one approved dependency beyond `memchr`; it covers every bundled language not yet hand-written and checks the hand lexers as a second oracle.
 6. Shiki is the oracle.
-   `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` fails when a non-whitespace byte gets a different scope stack.
+   `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` checks every language in `Language::ALL`, in parallel, and fails when a non-whitespace byte gets a different scope stack or colour, so a new language needs only its fixtures there.
    A new language adds its inputs and fixtures, and `tests/oracle/SOURCES.md` records each input's source and licence.
    `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures, which keep their sources' spelling; search them with `rg -u`.
 7. `mise run bench` measures throughput, streaming latency per line, cold start and theme styling on the oracle fixtures, in release mode.

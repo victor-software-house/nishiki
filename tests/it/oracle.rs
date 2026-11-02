@@ -114,15 +114,16 @@ fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<M
 
 /// Checks every fixture of `language`, with a fresh lexer from `new_lexer`
 /// for each, and fails with every fixture that differs from Shiki.
-fn check<L: FnMut(&str) -> Tokens>(language: &str, new_lexer: impl Fn() -> L) {
+/// The fixtures of `language` whose scopes differ from Shiki's, as reports.
+fn scope_failures(language: Language) -> Vec<String> {
     let mut failures = Vec::new();
-    for path in fixtures(language) {
-        let (checked, misses) = compare(&parse(&path), new_lexer());
+    for path in fixtures(language.id()) {
+        let (checked, misses) = compare(&parse(&path), lexer(language));
         if !misses.is_empty() {
             failures.push(report(&path, checked, &misses));
         }
     }
-    assert!(failures.is_empty(), "{}", failures.join("\n\n"));
+    failures
 }
 
 /// The failure message: the share that matched, then the first mismatches,
@@ -175,46 +176,6 @@ fn lexer(language: Language) -> impl FnMut(&str) -> Tokens {
     }
 }
 
-#[test]
-fn rust_matches_shiki() {
-    check("rust", || lexer(Language::Rust));
-}
-
-#[test]
-fn shell_matches_shiki() {
-    check("shellscript", || lexer(Language::Shell));
-}
-
-#[test]
-fn json_matches_shiki() {
-    check("json", || lexer(Language::Json));
-}
-
-#[test]
-fn jsonc_matches_shiki() {
-    check("jsonc", || lexer(Language::Jsonc));
-}
-
-#[test]
-fn jsonl_matches_shiki() {
-    check("jsonl", || lexer(Language::Jsonl));
-}
-
-#[test]
-fn python_matches_shiki() {
-    check("python", || lexer(Language::Python));
-}
-
-#[test]
-fn yaml_matches_shiki() {
-    check("yaml", || lexer(Language::Yaml));
-}
-
-#[test]
-fn toml_matches_shiki() {
-    check("toml", || lexer(Language::Toml));
-}
-
 /// Shiki's colours for one fixture under one theme: the fixture's lines,
 /// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
 #[cfg(feature = "json")]
@@ -263,10 +224,12 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
     clippy::expect_used,
     reason = "a test helper; a bad fixture fails the test"
 )]
-fn check_colours(language: Language, dir: &str) {
+/// The fixture and theme pairs of `language` whose colours differ from
+/// Shiki's, as reports.
+fn colour_failures(language: Language) -> Vec<String> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
     let mut failures = Vec::new();
-    for fixture in fixtures(dir) {
+    for fixture in fixtures(language.id()) {
         let stem = fixture
             .file_stem()
             .and_then(|stem| stem.to_str())
@@ -303,86 +266,34 @@ fn check_colours(language: Language, dir: &str) {
             }
         }
     }
-    assert!(failures.is_empty(), "{}", failures.join("\n\n"));
+    failures
+}
+
+/// Runs `failures` for every language at once and fails with every report.
+#[expect(
+    clippy::expect_used,
+    reason = "a test helper; a panicking language fails the test"
+)]
+fn every_language(failures: fn(Language) -> Vec<String>) {
+    let reports: Vec<String> = std::thread::scope(|scope| {
+        let runs: Vec<_> = Language::ALL
+            .iter()
+            .map(|&language| scope.spawn(move || failures(language)))
+            .collect();
+        runs.into_iter()
+            .flat_map(|run| run.join().expect("a language's check does not panic"))
+            .collect()
+    });
+    assert!(reports.is_empty(), "{}", reports.join("\n\n"));
 }
 
 #[test]
-fn make_matches_shiki() {
-    check("make", || lexer(Language::Make));
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn make_colours_match_shiki() {
-    check_colours(Language::Make, "make");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn rust_colours_match_shiki() {
-    check_colours(Language::Rust, "rust");
-}
-
-#[test]
-fn markdown_matches_shiki() {
-    check("markdown", || lexer(Language::Markdown));
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn markdown_colours_match_shiki() {
-    check_colours(Language::Markdown, "markdown");
-}
-
-#[test]
-fn typescript_matches_shiki() {
-    check("typescript", || lexer(Language::TypeScript));
+fn every_language_matches_shiki() {
+    every_language(scope_failures);
 }
 
 #[cfg(feature = "json")]
 #[test]
-fn typescript_colours_match_shiki() {
-    check_colours(Language::TypeScript, "typescript");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn shell_colours_match_shiki() {
-    check_colours(Language::Shell, "shellscript");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn json_colours_match_shiki() {
-    check_colours(Language::Json, "json");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn jsonc_colours_match_shiki() {
-    check_colours(Language::Jsonc, "jsonc");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn jsonl_colours_match_shiki() {
-    check_colours(Language::Jsonl, "jsonl");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn python_colours_match_shiki() {
-    check_colours(Language::Python, "python");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn yaml_colours_match_shiki() {
-    check_colours(Language::Yaml, "yaml");
-}
-
-#[cfg(feature = "json")]
-#[test]
-fn toml_colours_match_shiki() {
-    check_colours(Language::Toml, "toml");
+fn every_language_colours_match_shiki() {
+    every_language(colour_failures);
 }

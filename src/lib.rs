@@ -6,12 +6,8 @@
 //! input of the next, so an editor can re-highlight from any line, and a
 //! streamed reply can be highlighted as it arrives.
 //!
-//! This release highlights Rust ([`Language::Rust`]), Markdown
-//! ([`Language::Markdown`]), which hands the code in its fences to the other
-//! lexers, `TypeScript` ([`Language::TypeScript`]), shell
-//! ([`Language::Shell`]), JSON ([`Language::Json`], [`Language::Jsonc`] and
-//! [`Language::Jsonl`]), Python ([`Language::Python`]), YAML
-//! ([`Language::Yaml`]) and TOML ([`Language::Toml`]).
+//! [`Language::ALL`] lists the languages. Markdown ([`Language::Markdown`])
+//! hands the code in its fences to the other lexers.
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};

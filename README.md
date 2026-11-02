@@ -74,38 +74,83 @@ let highlighter = Highlighter::new_with_limits(Language::Rust, limits);
 assert_eq!(highlighter.limits().depth, None);
 ```
 
+## Languages
+
+| Language | Variant | Names `Language::from_name` takes |
+|:--|:--|:--|
+| Rust | `Language::Rust` | `rust`, `rs` |
+| Markdown | `Language::Markdown` | `markdown`, `md` |
+| TypeScript | `Language::TypeScript` | `typescript`, `ts`, `cts`, `mts` |
+| Shell | `Language::Shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
+| JSON | `Language::Json` | `json` |
+| JSON with comments | `Language::Jsonc` | `jsonc` |
+| JSON Lines | `Language::Jsonl` | `jsonl` |
+| Python | `Language::Python` | `python`, `py` |
+| YAML | `Language::Yaml` | `yaml`, `yml` |
+| TOML | `Language::Toml` | `toml` |
+| Makefile | `Language::Make` | `make`, `makefile` |
+
+A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
+That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
+
 ## Scope and limits
 
-1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`), JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`), Python (`Language::Python`, also `py`), YAML (`Language::Yaml`, also `yml`), TOML (`Language::Toml`) and Makefile (`Language::Make`, also `makefile`) are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, `python` (or `py`), `yaml` or `yml`, or `makefile` (also `Makefile`, `GNUmakefile` and `OCamlMakefile`) is lexed as that language, and so is YAML front matter; any other fence is plain text, as in Shiki when only these languages are loaded.
-   That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
-2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
-3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
-   In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
-4. In Rust, every non-ASCII byte counts as a word character.
-5. In Markdown, a label or link destination nested deeper than 32 brackets ends there.
-   The grammar's backtracking is followed where it matters in practice, not everywhere: a code span gives back backticks, but an escaped `>` does not end an angle-bracket destination.
-   A fence of more than 255 characters is never closed.
-6. The TypeScript scopes keep the grammar's own quirks: `Number.MAX_VALUE` gets no scope, and an empty line leaves the state as it is.
-7. In shell, an unterminated string or here-document keeps every later line, `||` outside a statement is two `|` operators, and an argument such as `ab>c` is split as `a` and `b>c`.
-   An empty line leaves the state as it is, because Shiki does not tokenize empty lines.
-   A non-ASCII character is a word character when it is alphanumeric, so combining marks are not, and it is white space when Unicode says so.
-8. JSON reads every dialect's comments, and a stray character in an array or object gets the grammar's `invalid.illegal` scope.
-   `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`), so a later Unicode version in Shiki's engine would need the table regenerated.
-9. The Python scopes keep the grammar's quirks: `def` opens a function after the end of any word, as in `x def f(): pass`, and an empty line leaves the state as it is.
-   `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/python-classes.ts`), so a later Unicode version in Shiki's engine would need them regenerated.
-10. The YAML lexer follows the YAML 1.1 type patterns that Shiki's grammar uses: `0o17` is plain text, an exponent needs its sign, and `y` and `n` are booleans, as keys too.
-   Each line is read on its own, so a plain scalar on several lines is scoped line by line, and a comment whose text holds a tab is not a comment.
-   Front matter starts only on the first line of a Markdown document, so the state of a document's first line differs from the states after it.
-   A line of a block scalar is text up to the first line indented less than the scalar's first line.
-11. TOML keeps the grammar's quirks.
-   A value that follows another in an array without a comma, text that is neither a key, a value nor a table header, and a stray character after a value are `invalid.illegal`; `01` is the number `0` and then an invalid `1`; a table header is read only at the start of a line; and a key that begins with a `"` ends at the first later `"` that an `=` follows.
-   The grammar has no licence, so the lexer is written from the TOML specification and from Shiki's output alone.
-   `\s` for non-ASCII characters is JSON's table, which a pass over every character confirmed for this grammar too.
-12. In a Makefile, `$` at the end of a recipe line is not a variable, a `:` in any line that is not an assignment makes it a target, and the `endef` of a definition has the scope of `override`, as in Shiki.
-    A Markdown fence's Makefile lines see the line feed of a line that a quote or list took whole, so they close the references that line left open.
+1. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
+2. The scopes match Shiki's, quirks included, as the sections below list per language.
 
 The API is unstable while the version is `0.x`.
+
+## Behaviour kept from Shiki
+
+### Rust
+
+`||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
+Every non-ASCII byte counts as a word character.
+
+### Markdown
+
+An empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
+A label or link destination nested deeper than 32 brackets ends there.
+The grammar's backtracking is followed where it matters in practice, not everywhere: a code span gives back backticks, but an escaped `>` does not end an angle-bracket destination.
+A fence of more than 255 characters is never closed.
+
+### TypeScript
+
+`Number.MAX_VALUE` gets no scope, and an empty line leaves the state as it is.
+
+### Shell
+
+An unterminated string or here-document keeps every later line, `||` outside a statement is two `|` operators, and an argument such as `ab>c` is split as `a` and `b>c`.
+An empty line leaves the state as it is, because Shiki does not tokenize empty lines.
+A non-ASCII character is a word character when it is alphanumeric, so combining marks are not, and it is white space when Unicode says so.
+
+### JSON
+
+Every dialect's comments are read, and a stray character in an array or object gets the grammar's `invalid.illegal` scope.
+`\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`), so a later Unicode version in Shiki's engine would need the table regenerated.
+
+### Python
+
+`def` opens a function after the end of any word, as in `x def f(): pass`, and an empty line leaves the state as it is.
+`\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/python-classes.ts`), so a later Unicode version in Shiki's engine would need them regenerated.
+
+### YAML
+
+The lexer follows the YAML 1.1 type patterns that Shiki's grammar uses: `0o17` is plain text, an exponent needs its sign, and `y` and `n` are booleans, as keys too.
+Each line is read on its own, so a plain scalar on several lines is scoped line by line, and a comment whose text holds a tab is not a comment.
+Front matter starts only on the first line of a Markdown document, so the state of a document's first line differs from the states after it.
+A line of a block scalar is text up to the first line indented less than the scalar's first line.
+
+### TOML
+
+A value that follows another in an array without a comma, text that is neither a key, a value nor a table header, and a stray character after a value are `invalid.illegal`; `01` is the number `0` and then an invalid `1`; a table header is read only at the start of a line; and a key that begins with a `"` ends at the first later `"` that an `=` follows.
+The grammar has no licence, so the lexer is written from the TOML specification and from Shiki's output alone.
+`\s` for non-ASCII characters is JSON's table, which a pass over every character confirmed for this grammar too.
+
+### Makefile
+
+`$` at the end of a recipe line is not a variable, a `:` in any line that is not an assignment makes it a target, and the `endef` of a definition has the scope of `override`.
+A Markdown fence's Makefile lines see the line feed of a line that a quote or list took whole, so they close the references that line left open.
 
 ## Licence
 
