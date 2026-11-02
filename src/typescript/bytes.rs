@@ -102,3 +102,10 @@ pub(crate) const LITERAL_START: Bytes = DIGIT.or(LETTER).or(BLANK).or(Bytes::of(
 pub(crate) const OPERATOR_START: Bytes = Bytes::of(b"aydionstv")
     .or(BLANK)
     .or(Bytes::of(b".*-/%+&^|<>!=?~"));
+
+/// Where a class member can start: a modifier or a name, a `*`, a computed or
+/// quoted key, a `#` private name, a number, or the blanks before them.
+pub(crate) const MEMBER_START: Bytes = NAME_START
+    .or(BLANK)
+    .or(DIGIT)
+    .or(Bytes::of(b"*[#\"'`(<.-+"));

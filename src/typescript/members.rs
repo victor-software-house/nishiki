@@ -1,5 +1,6 @@
 //! Members of classes, interfaces, type literals and object literals.
 
+use super::bytes::{ANY, BLANK, Bytes, MEMBER_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -60,20 +61,88 @@ impl Lexer<'_> {
             self.push(Kind::ClassColon);
             return Some(j);
         }
-        self.method_declaration(p)
-            .or_else(|| self.indexer_declaration(p))
-            .or_else(|| self.field_declaration(p))
-            .or_else(|| self.string(p))
-            .or_else(|| self.type_annotation(p))
-            .or_else(|| self.variable_initializer(p))
-            .or_else(|| self.access_modifier(p))
-            .or_else(|| self.property_accessor(p))
-            .or_else(|| self.async_modifier(p))
-            .or_else(|| self.after_operator_block_as_object_literal(p))
-            .or_else(|| self.decl_block(p))
-            .or_else(|| self.expression(p))
-            .or_else(|| self.punctuation_comma(p))
-            .or_else(|| self.punctuation_semicolon(p))
+        self.only(
+            "c.method_declaration",
+            MEMBER_START,
+            p,
+            Self::method_declaration,
+        )
+        .or_else(|| {
+            self.only(
+                "c.indexer_declaration",
+                BLANK.with(b'r').with(b'['),
+                p,
+                Self::indexer_declaration,
+            )
+        })
+        .or_else(|| {
+            self.only(
+                "c.field_declaration",
+                MEMBER_START,
+                p,
+                Self::field_declaration,
+            )
+        })
+        .or_else(|| self.only("c.string", STRING_START, p, Self::string))
+        .or_else(|| {
+            self.only(
+                "c.type_annotation",
+                Bytes::of(b":"),
+                p,
+                Self::type_annotation,
+            )
+        })
+        .or_else(|| {
+            self.only(
+                "c.variable_initializer",
+                Bytes::of(b"="),
+                p,
+                Self::variable_initializer,
+            )
+        })
+        .or_else(|| {
+            self.only(
+                "c.access_modifier",
+                Bytes::of(b"adoprs"),
+                p,
+                Self::access_modifier,
+            )
+        })
+        .or_else(|| {
+            self.only(
+                "c.property_accessor",
+                Bytes::of(b"a\x67s"),
+                p,
+                Self::property_accessor,
+            )
+        })
+        .or_else(|| self.only("c.async_modifier", Bytes::of(b"a"), p, Self::async_modifier))
+        .or_else(|| {
+            self.only(
+                "c.after_operator_block_as_object_literal",
+                BLANK.with(b'{'),
+                p,
+                Self::after_operator_block_as_object_literal,
+            )
+        })
+        .or_else(|| self.only("c.decl_block", Bytes::of(b"{"), p, Self::decl_block))
+        .or_else(|| self.only("c.expression", ANY, p, Self::expression))
+        .or_else(|| {
+            self.only(
+                "c.punctuation_comma",
+                Bytes::of(b","),
+                p,
+                Self::punctuation_comma,
+            )
+        })
+        .or_else(|| {
+            self.only(
+                "c.punctuation_semicolon",
+                Bytes::of(b";"),
+                p,
+                Self::punctuation_semicolon,
+            )
+        })
     }
 
     fn access_modifier(&mut self, p: usize) -> Option<usize> {

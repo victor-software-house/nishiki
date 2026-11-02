@@ -1,5 +1,6 @@
 //! Types: annotations, generics, object and function types.
 
+use super::bytes::{Bytes, COMMENT_START, DIGIT, NAME_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -7,21 +8,84 @@ use super::scope::S;
 impl Lexer<'_> {
     /// The `type` rule group.
     pub(crate) fn type_(&mut self, p: usize) -> Option<usize> {
-        self.comment(p)
-            .or_else(|| self.type_string(p))
-            .or_else(|| self.numeric_literal(p))
-            .or_else(|| self.type_primitive(p))
-            .or_else(|| self.type_builtin_literals(p))
-            .or_else(|| self.type_parameters(p))
-            .or_else(|| self.type_tuple(p))
-            .or_else(|| self.type_object(p))
-            .or_else(|| self.type_operators(p))
-            .or_else(|| self.type_conditional(p))
-            .or_else(|| self.type_fn_type_parameters(p))
-            .or_else(|| self.type_paren_or_function_parameters(p))
-            .or_else(|| self.type_function_return_type(p))
-            .or_else(|| self.type_readonly(p))
-            .or_else(|| self.type_name(p))
+        self.only("t.comment", COMMENT_START, p, Self::comment)
+            .or_else(|| self.only("t.type_string", STRING_START, p, Self::type_string))
+            .or_else(|| {
+                self.only(
+                    "t.numeric_literal",
+                    DIGIT.with(b'.'),
+                    p,
+                    Self::numeric_literal,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_primitive",
+                    Bytes::of(b"snbavu"),
+                    p,
+                    Self::type_primitive,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_builtin_literals",
+                    Bytes::of(b"tfuno"),
+                    p,
+                    Self::type_builtin_literals,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_parameters",
+                    Bytes::of(b"<"),
+                    p,
+                    Self::type_parameters,
+                )
+            })
+            .or_else(|| self.only("t.type_tuple", Bytes::of(b"["), p, Self::type_tuple))
+            .or_else(|| self.only("t.type_object", Bytes::of(b"{"), p, Self::type_object))
+            .or_else(|| {
+                self.only(
+                    "t.type_operators",
+                    Bytes::of(b"tik&|:?"),
+                    p,
+                    Self::type_operators,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_conditional",
+                    Bytes::of(b"e"),
+                    p,
+                    Self::type_conditional,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_fn_type_parameters",
+                    Bytes::of(b"an("),
+                    p,
+                    Self::type_fn_type_parameters,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_paren_or_function_parameters",
+                    Bytes::of(b"("),
+                    p,
+                    Self::type_paren_or_function_parameters,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "t.type_function_return_type",
+                    Bytes::of(b"="),
+                    p,
+                    Self::type_function_return_type,
+                )
+            })
+            .or_else(|| self.only("t.type_readonly", Bytes::of(b"r"), p, Self::type_readonly))
+            .or_else(|| self.only("t.type_name", NAME_START, p, Self::type_name))
     }
 
     fn type_string(&mut self, p: usize) -> Option<usize> {

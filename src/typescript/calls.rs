@@ -1,5 +1,6 @@
 //! Calls, arrow functions, casts and the expression forms that open a context.
 
+use super::bytes::{Bytes, LITERAL_START, NAME_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -85,16 +86,39 @@ impl Lexer<'_> {
     }
 
     pub(crate) fn support_function_call_identifiers(&mut self, p: usize) -> Option<usize> {
-        self.literal(p)
-            .or_else(|| self.support_objects(p))
-            .or_else(|| self.object_identifiers(p))
-            .or_else(|| self.punctuation_accessor(p))
+        self.only("f.literal", LITERAL_START, p, Self::literal)
             .or_else(|| {
-                let e = self.kw(p, "import")?;
-                let j = self.ws(e);
-                let quoted = matches!(self.b(self.ws(j + 1)), b'"' | b'\'' | b'`');
-                (self.b(j) == b'(' && quoted)
-                    .then(|| self.tok(p, e, S::KeywordOperatorExpressionImport))?
+                self.only(
+                    "f.support_objects",
+                    Bytes::of(b"aPinem.?"),
+                    p,
+                    Self::support_objects,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "f.object_identifiers",
+                    NAME_START.or(Bytes::of(b".?")),
+                    p,
+                    Self::object_identifiers,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "f.accessor",
+                    Bytes::of(b".?"),
+                    p,
+                    Self::punctuation_accessor,
+                )
+            })
+            .or_else(|| {
+                self.only("f.import", Bytes::of(b"i"), p, |s, p| {
+                    let e = s.kw(p, "import")?;
+                    let j = s.ws(e);
+                    let quoted = matches!(s.b(s.ws(j + 1)), b'"' | b'\'' | b'`');
+                    (s.b(j) == b'(' && quoted)
+                        .then(|| s.tok(p, e, S::KeywordOperatorExpressionImport))?
+                })
             })
     }
 

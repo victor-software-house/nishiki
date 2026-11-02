@@ -1,5 +1,6 @@
 //! Function declarations and expressions, their parameters and return types.
 
+use super::bytes::{BLANK, Bytes, NAME_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -150,12 +151,33 @@ impl Lexer<'_> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
-        self.string(p)
-            .or_else(|| self.decorator(p))
-            .or_else(|| self.destructuring_parameter(p))
-            .or_else(|| self.parameter_name(p))
-            .or_else(|| self.parameter_type_annotation(p))
-            .or_else(|| self.variable_initializer(p))
+        self.only("p.string", STRING_START, p, Self::string)
+            .or_else(|| self.only("p.decorator", Bytes::of(b"@"), p, Self::decorator))
+            .or_else(|| {
+                self.only(
+                    "p.destructuring",
+                    BLANK.or(Bytes::of(b".[{")),
+                    p,
+                    Self::destructuring_parameter,
+                )
+            })
+            .or_else(|| self.only("p.name", NAME_START.with(b'.'), p, Self::parameter_name))
+            .or_else(|| {
+                self.only(
+                    "p.type_annotation",
+                    Bytes::of(b":"),
+                    p,
+                    Self::parameter_type_annotation,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "p.initializer",
+                    Bytes::of(b"="),
+                    p,
+                    Self::variable_initializer,
+                )
+            })
             .or_else(|| {
                 (self.b(p) == b',').then(|| self.tok(p, p + 1, S::PunctuationSeparatorParameter))?
             })
