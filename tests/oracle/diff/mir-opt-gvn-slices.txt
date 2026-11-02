@@ -1,0 +1,709 @@
+L - // MIR for `slices` before GVN
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 32 source.diff markup.deleted.diff
+L + // MIR for `slices` after GVN
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 31 source.diff markup.inserted.diff
+L   
+T 2 source.diff
+L   fn slices() -> () {
+T 21 source.diff
+L       let mut _0: ();
+T 21 source.diff
+L       let _1: &str;
+T 19 source.diff
+L       let _2: ();
+T 17 source.diff
+L       let mut _3: &str;
+T 23 source.diff
+L       let _5: ();
+T 17 source.diff
+L       let mut _6: &str;
+T 23 source.diff
+L       let _7: ();
+T 17 source.diff
+L       let mut _8: (&*const u8, &*const u8);
+T 43 source.diff
+L       let mut _9: &*const u8;
+T 29 source.diff
+L       let _10: *const u8;
+T 25 source.diff
+L       let mut _11: &str;
+T 24 source.diff
+L       let mut _12: &*const u8;
+T 30 source.diff
+L       let _13: *const u8;
+T 25 source.diff
+L       let mut _14: &str;
+T 24 source.diff
+L       let mut _17: bool;
+T 24 source.diff
+L       let mut _18: *const u8;
+T 29 source.diff
+L       let mut _19: *const u8;
+T 29 source.diff
+L       let mut _20: !;
+T 21 source.diff
+L       let _22: !;
+T 17 source.diff
+L       let mut _23: core::panicking::AssertKind;
+T 47 source.diff
+L       let mut _24: &*const u8;
+T 30 source.diff
+L       let _25: &*const u8;
+T 26 source.diff
+L       let mut _26: &*const u8;
+T 30 source.diff
+L       let _27: &*const u8;
+T 26 source.diff
+L       let mut _28: std::option::Option<std::fmt::Arguments<'_>>;
+T 64 source.diff
+L       let mut _30: &str;
+T 24 source.diff
+L       let _31: ();
+T 18 source.diff
+L       let mut _32: &[u8];
+T 25 source.diff
+L       let _33: ();
+T 18 source.diff
+L       let mut _34: (&*const u8, &*const u8);
+T 44 source.diff
+L       let mut _35: &*const u8;
+T 30 source.diff
+L       let _36: *const u8;
+T 25 source.diff
+L       let mut _37: &str;
+T 24 source.diff
+L       let mut _38: &*const u8;
+T 30 source.diff
+L       let _39: *const u8;
+T 25 source.diff
+L       let mut _40: &[u8];
+T 25 source.diff
+L       let mut _43: bool;
+T 24 source.diff
+L       let mut _44: *const u8;
+T 29 source.diff
+L       let mut _45: *const u8;
+T 29 source.diff
+L       let mut _46: !;
+T 21 source.diff
+L       let _48: !;
+T 17 source.diff
+L       let mut _49: core::panicking::AssertKind;
+T 47 source.diff
+L       let mut _50: &*const u8;
+T 30 source.diff
+L       let _51: &*const u8;
+T 26 source.diff
+L       let mut _52: &*const u8;
+T 30 source.diff
+L       let _53: &*const u8;
+T 26 source.diff
+L       let mut _54: std::option::Option<std::fmt::Arguments<'_>>;
+T 64 source.diff
+L       scope 1 {
+T 15 source.diff
+L           debug s => _1;
+T 24 source.diff
+L           let _4: &str;
+T 23 source.diff
+L           scope 2 {
+T 19 source.diff
+L               debug t => _4;
+T 28 source.diff
+L               let _15: &*const u8;
+T 34 source.diff
+L               let _16: &*const u8;
+T 34 source.diff
+L               let _29: &[u8];
+T 29 source.diff
+L               scope 3 {
+T 23 source.diff
+L                   debug left_val => _15;
+T 40 source.diff
+L                   debug right_val => _16;
+T 41 source.diff
+L                   let _21: core::panicking::AssertKind;
+T 55 source.diff
+L                   scope 4 {
+T 27 source.diff
+L                       debug kind => _21;
+T 40 source.diff
+L                   }
+T 19 source.diff
+L               }
+T 15 source.diff
+L               scope 5 {
+T 23 source.diff
+L                   debug u => _29;
+T 33 source.diff
+L                   let _41: &*const u8;
+T 38 source.diff
+L                   let _42: &*const u8;
+T 38 source.diff
+L                   scope 6 {
+T 27 source.diff
+L                       debug left_val => _41;
+T 44 source.diff
+L                       debug right_val => _42;
+T 45 source.diff
+L                       let _47: core::panicking::AssertKind;
+T 59 source.diff
+L                       scope 7 {
+T 31 source.diff
+L                           debug kind => _47;
+T 44 source.diff
+L                       }
+T 23 source.diff
+L                   }
+T 19 source.diff
+L               }
+T 15 source.diff
+L           }
+T 11 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb0: {
+T 12 source.diff
+L           StorageLive(_1);
+T 26 source.diff
+L           _1 = const "my favourite slice";
+T 42 source.diff
+L           StorageLive(_2);
+T 26 source.diff
+L           StorageLive(_3);
+T 26 source.diff
+L -         _3 = copy _1;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 23 source.diff markup.deleted.diff
+L -         _2 = opaque::<&str>(move _3) -> [return: bb1, unwind unreachable];
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 76 source.diff markup.deleted.diff
+L +         _3 = const "my favourite slice";
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 42 source.diff markup.inserted.diff
+L +         _2 = opaque::<&str>(const "my favourite slice") -> [return: bb1, unwind unreachable];
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 95 source.diff markup.inserted.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb1: {
+T 12 source.diff
+L           StorageDead(_3);
+T 26 source.diff
+L           StorageDead(_2);
+T 26 source.diff
+L           StorageLive(_4);
+T 26 source.diff
+L -         _4 = copy _1;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 23 source.diff markup.deleted.diff
+L +         _4 = const "my favourite slice";
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 42 source.diff markup.inserted.diff
+L           StorageLive(_5);
+T 26 source.diff
+L           StorageLive(_6);
+T 26 source.diff
+L -         _6 = copy _4;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 23 source.diff markup.deleted.diff
+L -         _5 = opaque::<&str>(move _6) -> [return: bb2, unwind unreachable];
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 76 source.diff markup.deleted.diff
+L +         _6 = const "my favourite slice";
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 42 source.diff markup.inserted.diff
+L +         _5 = opaque::<&str>(const "my favourite slice") -> [return: bb2, unwind unreachable];
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 95 source.diff markup.inserted.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb2: {
+T 12 source.diff
+L           StorageDead(_6);
+T 26 source.diff
+L           StorageDead(_5);
+T 26 source.diff
+L           StorageLive(_7);
+T 26 source.diff
+L           StorageLive(_8);
+T 26 source.diff
+L -         StorageLive(_9);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 26 source.diff markup.deleted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_10);
+T 27 source.diff
+L           StorageLive(_11);
+T 27 source.diff
+L           _11 = &(*_1);
+T 23 source.diff
+L           _10 = core::str::<impl str>::as_ptr(move _11) -> [return: bb3, unwind unreachable];
+T 93 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb3: {
+T 12 source.diff
+L           StorageDead(_11);
+T 27 source.diff
+L           _9 = &_10;
+T 20 source.diff
+L -         StorageLive(_12);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_13);
+T 27 source.diff
+L           StorageLive(_14);
+T 27 source.diff
+L -         _14 = &(*_4);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 23 source.diff markup.deleted.diff
+L +         _14 = &(*_1);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 23 source.diff markup.inserted.diff
+L           _13 = core::str::<impl str>::as_ptr(move _14) -> [return: bb4, unwind unreachable];
+T 93 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb4: {
+T 12 source.diff
+L           StorageDead(_14);
+T 27 source.diff
+L           _12 = &_13;
+T 21 source.diff
+L -         _8 = (move _9, move _12);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 35 source.diff markup.deleted.diff
+L -         StorageDead(_12);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L -         StorageDead(_9);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 26 source.diff markup.deleted.diff
+L +         _8 = (copy _9, copy _12);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 35 source.diff markup.inserted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_15);
+T 27 source.diff
+L -         _15 = copy (_8.0: &*const u8);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 40 source.diff markup.deleted.diff
+L +         _15 = copy _9;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 24 source.diff markup.inserted.diff
+L           StorageLive(_16);
+T 27 source.diff
+L -         _16 = copy (_8.1: &*const u8);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 40 source.diff markup.deleted.diff
+L +         _16 = copy _12;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L           StorageLive(_17);
+T 27 source.diff
+L           StorageLive(_18);
+T 27 source.diff
+L -         _18 = copy (*_15);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 28 source.diff markup.deleted.diff
+L +         _18 = copy _10;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L           StorageLive(_19);
+T 27 source.diff
+L -         _19 = copy (*_16);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 28 source.diff markup.deleted.diff
+L -         _17 = Eq(move _18, move _19);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 39 source.diff markup.deleted.diff
+L +         _19 = copy _13;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L +         _17 = Eq(copy _10, copy _13);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 39 source.diff markup.inserted.diff
+L           switchInt(move _17) -> [0: bb6, otherwise: bb5];
+T 58 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb5: {
+T 12 source.diff
+L           StorageDead(_19);
+T 27 source.diff
+L           StorageDead(_18);
+T 27 source.diff
+L           _7 = const ();
+T 24 source.diff
+L           StorageDead(_17);
+T 27 source.diff
+L           StorageDead(_16);
+T 27 source.diff
+L           StorageDead(_15);
+T 27 source.diff
+L           StorageDead(_13);
+T 27 source.diff
+L           StorageDead(_10);
+T 27 source.diff
+L           StorageDead(_8);
+T 26 source.diff
+L           StorageDead(_7);
+T 26 source.diff
+L           StorageLive(_29);
+T 27 source.diff
+L           StorageLive(_30);
+T 27 source.diff
+L           _30 = &(*_1);
+T 23 source.diff
+L           _29 = move _30 as &[u8] (Transmute);
+T 46 source.diff
+L           StorageDead(_30);
+T 27 source.diff
+L           StorageLive(_31);
+T 27 source.diff
+L           StorageLive(_32);
+T 27 source.diff
+L           _32 = copy _29;
+T 25 source.diff
+L -         _31 = opaque::<&[u8]>(move _32) -> [return: bb7, unwind unreachable];
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 79 source.diff markup.deleted.diff
+L +         _31 = opaque::<&[u8]>(copy _29) -> [return: bb7, unwind unreachable];
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 79 source.diff markup.inserted.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb6: {
+T 12 source.diff
+L           StorageDead(_19);
+T 27 source.diff
+L           StorageDead(_18);
+T 27 source.diff
+L           StorageLive(_21);
+T 27 source.diff
+L -         _21 = core::panicking::AssertKind::Eq;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 48 source.diff markup.deleted.diff
+L +         _21 = const core::panicking::AssertKind::Eq;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 54 source.diff markup.inserted.diff
+L           StorageLive(_22);
+T 27 source.diff
+L           StorageLive(_23);
+T 27 source.diff
+L -         _23 = move _21;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 25 source.diff markup.deleted.diff
+L +         _23 = const core::panicking::AssertKind::Eq;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 54 source.diff markup.inserted.diff
+L           StorageLive(_24);
+T 27 source.diff
+L           StorageLive(_25);
+T 27 source.diff
+L -         _25 = &(*_15);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 24 source.diff markup.deleted.diff
+L +         _25 = &(*_9);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 23 source.diff markup.inserted.diff
+L           _24 = &(*_25);
+T 24 source.diff
+L           StorageLive(_26);
+T 27 source.diff
+L           StorageLive(_27);
+T 27 source.diff
+L -         _27 = &(*_16);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 24 source.diff markup.deleted.diff
+L +         _27 = &(*_12);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 24 source.diff markup.inserted.diff
+L           _26 = &(*_27);
+T 24 source.diff
+L           StorageLive(_28);
+T 27 source.diff
+L -         _28 = Option::<Arguments<'_>>::None;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 46 source.diff markup.deleted.diff
+L -         _22 = core::panicking::assert_failed::<*const u8, *const u8>(move _23, move _24, move _26, move _28) -> unwind unreachable;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 133 source.diff markup.deleted.diff
+L +         _28 = const Option::<Arguments<'_>>::None;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 52 source.diff markup.inserted.diff
+L +         _22 = core::panicking::assert_failed::<*const u8, *const u8>(const core::panicking::AssertKind::Eq, move _24, move _26, const Option::<Arguments<'_>>::None) -> unwind unreachable;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 189 source.diff markup.inserted.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb7: {
+T 12 source.diff
+L           StorageDead(_32);
+T 27 source.diff
+L           StorageDead(_31);
+T 27 source.diff
+L           StorageLive(_33);
+T 27 source.diff
+L           StorageLive(_34);
+T 27 source.diff
+L -         StorageLive(_35);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_36);
+T 27 source.diff
+L           StorageLive(_37);
+T 27 source.diff
+L           _37 = &(*_1);
+T 23 source.diff
+L           _36 = core::str::<impl str>::as_ptr(move _37) -> [return: bb8, unwind unreachable];
+T 93 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb8: {
+T 12 source.diff
+L           StorageDead(_37);
+T 27 source.diff
+L           _35 = &_36;
+T 21 source.diff
+L -         StorageLive(_38);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_39);
+T 27 source.diff
+L           StorageLive(_40);
+T 27 source.diff
+L           _40 = &(*_29);
+T 24 source.diff
+L           _39 = core::slice::<impl [u8]>::as_ptr(move _40) -> [return: bb9, unwind unreachable];
+T 96 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb9: {
+T 12 source.diff
+L           StorageDead(_40);
+T 27 source.diff
+L           _38 = &_39;
+T 21 source.diff
+L -         _34 = (move _35, move _38);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 37 source.diff markup.deleted.diff
+L -         StorageDead(_38);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L -         StorageDead(_35);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 27 source.diff markup.deleted.diff
+L +         _34 = (copy _35, copy _38);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 37 source.diff markup.inserted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L +         nop;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L           StorageLive(_41);
+T 27 source.diff
+L -         _41 = copy (_34.0: &*const u8);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 41 source.diff markup.deleted.diff
+L +         _41 = copy _35;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L           StorageLive(_42);
+T 27 source.diff
+L -         _42 = copy (_34.1: &*const u8);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 41 source.diff markup.deleted.diff
+L +         _42 = copy _38;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L           StorageLive(_43);
+T 27 source.diff
+L           StorageLive(_44);
+T 27 source.diff
+L -         _44 = copy (*_41);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 28 source.diff markup.deleted.diff
+L +         _44 = copy _36;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L           StorageLive(_45);
+T 27 source.diff
+L -         _45 = copy (*_42);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 28 source.diff markup.deleted.diff
+L -         _43 = Eq(move _44, move _45);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 39 source.diff markup.deleted.diff
+L +         _45 = copy _39;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 source.diff markup.inserted.diff
+L +         _43 = Eq(copy _36, copy _39);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 39 source.diff markup.inserted.diff
+L           switchInt(move _43) -> [0: bb11, otherwise: bb10];
+T 60 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb10: {
+T 13 source.diff
+L           StorageDead(_45);
+T 27 source.diff
+L           StorageDead(_44);
+T 27 source.diff
+L           _33 = const ();
+T 25 source.diff
+L           StorageDead(_43);
+T 27 source.diff
+L           StorageDead(_42);
+T 27 source.diff
+L           StorageDead(_41);
+T 27 source.diff
+L           StorageDead(_39);
+T 27 source.diff
+L           StorageDead(_36);
+T 27 source.diff
+L           StorageDead(_34);
+T 27 source.diff
+L           StorageDead(_33);
+T 27 source.diff
+L           _0 = const ();
+T 24 source.diff
+L           StorageDead(_29);
+T 27 source.diff
+L           StorageDead(_4);
+T 26 source.diff
+L           StorageDead(_1);
+T 26 source.diff
+L           return;
+T 17 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb11: {
+T 13 source.diff
+L           StorageDead(_45);
+T 27 source.diff
+L           StorageDead(_44);
+T 27 source.diff
+L           StorageLive(_47);
+T 27 source.diff
+L -         _47 = core::panicking::AssertKind::Eq;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 48 source.diff markup.deleted.diff
+L +         _47 = const core::panicking::AssertKind::Eq;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 54 source.diff markup.inserted.diff
+L           StorageLive(_48);
+T 27 source.diff
+L           StorageLive(_49);
+T 27 source.diff
+L -         _49 = move _47;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 25 source.diff markup.deleted.diff
+L +         _49 = const core::panicking::AssertKind::Eq;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 54 source.diff markup.inserted.diff
+L           StorageLive(_50);
+T 27 source.diff
+L           StorageLive(_51);
+T 27 source.diff
+L -         _51 = &(*_41);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 24 source.diff markup.deleted.diff
+L +         _51 = &(*_35);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 24 source.diff markup.inserted.diff
+L           _50 = &(*_51);
+T 24 source.diff
+L           StorageLive(_52);
+T 27 source.diff
+L           StorageLive(_53);
+T 27 source.diff
+L -         _53 = &(*_42);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 24 source.diff markup.deleted.diff
+L +         _53 = &(*_38);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 24 source.diff markup.inserted.diff
+L           _52 = &(*_53);
+T 24 source.diff
+L           StorageLive(_54);
+T 27 source.diff
+L -         _54 = Option::<Arguments<'_>>::None;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 46 source.diff markup.deleted.diff
+L -         _48 = core::panicking::assert_failed::<*const u8, *const u8>(move _49, move _50, move _52, move _54) -> unwind unreachable;
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 133 source.diff markup.deleted.diff
+L +         _54 = const Option::<Arguments<'_>>::None;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 52 source.diff markup.inserted.diff
+L +         _48 = core::panicking::assert_failed::<*const u8, *const u8>(const core::panicking::AssertKind::Eq, move _50, move _52, const Option::<Arguments<'_>>::None) -> unwind unreachable;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 189 source.diff markup.inserted.diff
+L       }
+T 7 source.diff
+L   }
+T 3 source.diff
+L   
+T 2 source.diff
+L - ALLOC0 (size: 18, align: 1) { .. }
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 36 source.diff markup.deleted.diff
+L + ALLOC0 (size: 16, align: 8) { .. }
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 36 source.diff markup.inserted.diff
+L + 
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 2 source.diff markup.inserted.diff
+L + ALLOC1 (size: 18, align: 1) { .. }
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 36 source.diff markup.inserted.diff
+L   
+T 2 source.diff
+L 

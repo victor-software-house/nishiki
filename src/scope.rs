@@ -18,6 +18,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (YAML, crate::yaml::NAMES),
     (TOML, crate::toml::NAMES),
     (MAKE, crate::make::NAMES),
+    (DIFF, crate::diff::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
@@ -62,8 +63,11 @@ pub(crate) const TOML: u16 = after(YAML, crate::yaml::NAMES);
 /// The base of the Makefile lexer's scope names: where TOML's end.
 pub(crate) const MAKE: u16 = after(TOML, crate::toml::NAMES);
 
+/// The base of the diff lexer's scope names: where the Makefile lexer's end.
+pub(crate) const DIFF: u16 = after(MAKE, crate::make::NAMES);
+
 // The tables end below the run-time scopes.
-const _: () = assert!(after(MAKE, crate::make::NAMES) <= DYNAMIC);
+const _: () = assert!(after(DIFF, crate::diff::NAMES) <= DYNAMIC);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

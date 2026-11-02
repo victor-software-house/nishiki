@@ -52,6 +52,7 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod arena;
+mod diff;
 mod highlighter;
 mod json;
 mod language;

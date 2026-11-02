@@ -119,6 +119,11 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Make,
     },
+    Name {
+        words: &["patch", "diff", "rej"],
+        brace: None,
+        lang: Language::Diff,
+    },
 ];
 
 /// A language found in an info string.

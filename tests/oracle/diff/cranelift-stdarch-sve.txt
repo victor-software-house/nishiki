@@ -1,0 +1,124 @@
+L From e90274ba5bc4bee03a24e8c134ea223497c3a46b Mon Sep 17 00:00:00 2001
+T 70 source.diff
+L From: Cathal Mullan <contact@cathal.dev>
+T 40 source.diff
+L Date: Sat, 13 Jun 2026 20:32:02 +0100
+T 37 source.diff
+L Subject: [PATCH] Disable SVE
+T 28 source.diff
+L 
+L Cranelift doesn't support scalable vectors.
+T 43 source.diff
+L ---
+T 3 source.diff meta.separator.diff punctuation.definition.separator.diff
+L  crates/core_arch/src/aarch64/mod.rs  | 8 ++++----
+T 50 source.diff
+L  crates/intrinsic-test/src/arm/mod.rs | 1 +
+T 43 source.diff
+L  2 files changed, 5 insertions(+), 4 deletions(-)
+T 49 source.diff
+L 
+L diff --git a/crates/core_arch/src/aarch64/mod.rs b/crates/core_arch/src/aarch64/mod.rs
+T 86 source.diff meta.diff.header.git
+L index 34fa5c8..a870e31 100644
+T 29 source.diff meta.diff.index.git
+L --- a/crates/core_arch/src/aarch64/mod.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 41 source.diff meta.diff.header.from-file
+L +++ b/crates/core_arch/src/aarch64/mod.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 41 source.diff meta.diff.header.to-file
+L @@ -19,16 +19,16 @@ mod neon;
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 16 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 17 source.diff meta.diff.range.unified
+T 19 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 29 source.diff
+L  pub use self::neon::*;
+T 23 source.diff
+L  
+T 1 source.diff
+L  // The rest of `core_arch::aarch64` is available on `arm64ec` but SVE is not supported on `arm64ec`.
+T 101 source.diff
+L -#[cfg(any(all(target_arch = "aarch64", target_endian = "little"), doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 73 source.diff markup.deleted.diff
+L +#[cfg(all(not(test), any(all(target_arch = "aarch64", target_endian = "little"), doc)))]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 89 source.diff markup.inserted.diff
+L  mod sve;
+T 9 source.diff
+L -#[cfg(any(all(target_arch = "aarch64", target_endian = "little"), doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 73 source.diff markup.deleted.diff
+L +#[cfg(all(not(test), any(all(target_arch = "aarch64", target_endian = "little"), doc)))]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 89 source.diff markup.inserted.diff
+L  #[unstable(feature = "stdarch_aarch64_sve", issue = "145052")]
+T 63 source.diff
+L  pub use self::sve::*;
+T 22 source.diff
+L  
+T 1 source.diff
+L  // The rest of `core_arch::aarch64` is available on `arm64ec` but SVE is not supported on `arm64ec`.
+T 101 source.diff
+L -#[cfg(any(all(target_arch = "aarch64", target_endian = "little"), doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 73 source.diff markup.deleted.diff
+L +#[cfg(all(not(test), any(all(target_arch = "aarch64", target_endian = "little"), doc)))]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 89 source.diff markup.inserted.diff
+L  mod sve2;
+T 10 source.diff
+L -#[cfg(any(all(target_arch = "aarch64", target_endian = "little"), doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 73 source.diff markup.deleted.diff
+L +#[cfg(all(not(test), any(all(target_arch = "aarch64", target_endian = "little"), doc)))]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 89 source.diff markup.inserted.diff
+L  #[unstable(feature = "stdarch_aarch64_sve", issue = "145052")]
+T 63 source.diff
+L  pub use self::sve2::*;
+T 23 source.diff
+L  
+T 1 source.diff
+L diff --git a/crates/intrinsic-test/src/arm/mod.rs b/crates/intrinsic-test/src/arm/mod.rs
+T 88 source.diff meta.diff.header.git
+L index 9c2d0f3..3825f41 100644
+T 29 source.diff meta.diff.index.git
+L --- a/crates/intrinsic-test/src/arm/mod.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 42 source.diff meta.diff.header.from-file
+L +++ b/crates/intrinsic-test/src/arm/mod.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 42 source.diff meta.diff.header.to-file
+L @@ -66,6 +66,7 @@ impl SupportedArchitecture for Arm {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 14 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 15 source.diff meta.diff.range.unified
+T 17 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 54 source.diff
+L  
+T 1 source.diff
+L          let intrinsics = intrinsics
+T 36 source.diff
+L              .into_iter()
+T 25 source.diff
+L +            .filter(|i| i.extension != "SVE" && i.extension != "SVE2")
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 71 source.diff markup.inserted.diff
+L              // Skip intrinsics that don't return a value.
+T 58 source.diff
+L              .filter(|i| i.results.kind() != TypeKind::Void)
+T 60 source.diff
+L              // Skip bfloat intrinsics - not currently supported
+T 64 source.diff
+L -- 
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 3 source.diff markup.deleted.diff
+L 2.54.0
+T 6 source.diff
+L 
+L 

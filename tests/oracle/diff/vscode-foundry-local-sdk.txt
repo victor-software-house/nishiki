@@ -1,0 +1,85 @@
+L diff --git a/dist/detail/native.js b/dist/detail/native.js
+T 58 source.diff meta.diff.header.git
+L index a9f1ef5b27744854f2108c0084db54a9d997f181..951f22144f15725fd6f0b43af4013fc18fe1b1ab 100644
+T 95 source.diff meta.diff.index.git
+L --- a/dist/detail/native.js
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 27 source.diff meta.diff.header.from-file
+L +++ b/dist/detail/native.js
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 27 source.diff meta.diff.header.to-file
+L @@ -10,8 +10,9 @@ const here = fileURLToPath(new URL(".", import.meta.url));
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 14 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 15 source.diff meta.diff.range.unified
+T 17 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 76 source.diff
+L  // dist/detail/native.js -> dist/ -> package root
+T 50 source.diff
+L  const pkgRoot = resolve(here, "..", "..");
+T 43 source.diff
+L  const prebuildDir = resolve(pkgRoot, "prebuilds", `${process.platform}-${process.arch}`);
+T 90 source.diff
+L -const addonPath = resolve(prebuildDir, "foundry_local_node.node");
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 67 source.diff markup.deleted.diff
+L -const preloadAddonPath = resolve(prebuildDir, "foundry_local_preload.node");
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 77 source.diff markup.deleted.diff
+L +// VSCODE_PATCH:foundry-addons-from-library-path
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 49 source.diff markup.inserted.diff
+L +let addonPath = resolve(prebuildDir, "foundry_local_node.node");
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 65 source.diff markup.inserted.diff
+L +let preloadAddonPath = resolve(prebuildDir, "foundry_local_preload.node");
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 75 source.diff markup.inserted.diff
+L  let preloadAddon;
+T 18 source.diff
+L  /**
+T 4 source.diff
+L   * Lazily load the tiny `foundry_local_preload` Node-API addon. It exists solely to expose a native
+T 100 source.diff
+L @@ -161,6 +162,13 @@ export function configureNativeLoader(opts) {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 17 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 18 source.diff meta.diff.range.unified
+T 20 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 66 source.diff
+L      if (!existsSync(fullPath)) {
+T 33 source.diff
+L          throw new Error(`libraryPath does not contain ${expected}: ${libraryPath}`);
+T 85 source.diff
+L      }
+T 6 source.diff
+L +    const configuredAddonPath = resolve(libraryPath, "foundry_local_node.node");
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 81 source.diff markup.inserted.diff
+L +    const configuredPreloadAddonPath = resolve(libraryPath, "foundry_local_preload.node");
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 91 source.diff markup.inserted.diff
+L +    if (!existsSync(configuredAddonPath) || !existsSync(configuredPreloadAddonPath)) {
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 87 source.diff markup.inserted.diff
+L +        throw new Error(`libraryPath does not contain both Foundry Local addons: ${libraryPath}`);
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 99 source.diff markup.inserted.diff
+L +    }
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 6 source.diff markup.inserted.diff
+L +    addonPath = configuredAddonPath;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 37 source.diff markup.inserted.diff
+L +    preloadAddonPath = configuredPreloadAddonPath;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 51 source.diff markup.inserted.diff
+L      // On Windows, prepending to PATH biases LoadLibraryEx's default search so transitive DLL dependencies in
+T 110 source.diff
+L      // `libraryPath` resolve as well (belt-and-suspenders for deps we didn't explicitly preload). On POSIX,
+T 108 source.diff
+L      // the preload addon uses RTLD_GLOBAL so the library's symbols go in the global namespace and the addon's
+T 110 source.diff
+L 

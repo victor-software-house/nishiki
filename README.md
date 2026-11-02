@@ -92,6 +92,7 @@ assert_eq!(highlighter.limits().depth, None);
 | YAML | `Language::Yaml` | `yaml`, `yml` |
 | TOML | `Language::Toml` | `toml` |
 | Makefile | `Language::Make` | `make`, `makefile` |
+| Diff | `Language::Diff` | `diff` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -155,6 +156,11 @@ The grammar has no licence, so the lexer is written from the TOML specification 
 
 `$` at the end of a recipe line is not a variable, a `:` in any line that is not an assignment makes it a target, and the `endef` of a definition has the scope of `override`.
 A Markdown fence's Makefile lines see the line feed of a line that a quote or list took whole, so they close the references that line left open.
+
+### Diff
+
+Diff lines are lexed on their own, as the grammar has no state.
+A Markdown fence's diff lines lose their `^` anchors when a quote or list indents the fence.
 
 ## Licence
 

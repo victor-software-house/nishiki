@@ -1,0 +1,63 @@
+L - // MIR for `main` before GVN
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 30 source.diff markup.deleted.diff
+L + // MIR for `main` after GVN
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 29 source.diff markup.inserted.diff
+L   
+T 2 source.diff
+L   fn main() -> () {
+T 19 source.diff
+L       let mut _0: ();
+T 21 source.diff
+L       let _1: u32;
+T 18 source.diff
+L       scope 1 {
+T 15 source.diff
+L           debug x => _1;
+T 24 source.diff
+L           let _2: u8;
+T 21 source.diff
+L           scope 2 {
+T 19 source.diff
+L               debug y => _2;
+T 28 source.diff
+L           }
+T 11 source.diff
+L       }
+T 7 source.diff
+L   
+T 2 source.diff
+L       bb0: {
+T 12 source.diff
+L           StorageLive(_1);
+T 26 source.diff
+L -         _1 = const 42_u8 as u32 (IntToInt);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 45 source.diff markup.deleted.diff
+L +         _1 = const 42_u32;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 28 source.diff markup.inserted.diff
+L           StorageLive(_2);
+T 26 source.diff
+L -         _2 = const 42_u32 as u8 (IntToInt);
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 45 source.diff markup.deleted.diff
+L +         _2 = const 42_u8;
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 27 source.diff markup.inserted.diff
+L           _0 = const ();
+T 24 source.diff
+L           StorageDead(_2);
+T 26 source.diff
+L           StorageDead(_1);
+T 26 source.diff
+L           return;
+T 17 source.diff
+L       }
+T 7 source.diff
+L   }
+T 3 source.diff
+L   
+T 2 source.diff
+L 

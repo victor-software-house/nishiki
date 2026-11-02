@@ -130,6 +130,17 @@ const poetry =
   "https://raw.githubusercontent.com/python-poetry/poetry/6ecadf5b71309b1da4f00949cc349a79884cff8f";
 const ruff =
   "https://raw.githubusercontent.com/astral-sh/ruff/f10755306e3e932fd127960acb2c892fafb87410";
+const vitest =
+  "https://raw.githubusercontent.com/vitest-dev/vitest/7a3844954d8753fc0d5bed76a96ffd3a21716c22";
+
+const vite =
+  "https://raw.githubusercontent.com/vitejs/vite/b3cb0575aff63004a71301a1ec798aeea2aa05d7";
+
+const prettier =
+  "https://raw.githubusercontent.com/prettier/prettier/a02e92be26ec8963a07aa9500a6c20e24599e95b";
+
+const rustc =
+  "https://raw.githubusercontent.com/rust-lang/rust/ae36fe22c7e590df40ffd53ac25fea35597c3f3d";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -291,4 +302,42 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "shadcn-data-table", url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx` },
   { lang: "markdown", name: "shadcn-message-scroller", url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx` },
   { lang: "markdown", name: "preact-readme", url: `${preact}/README.md` },
+  { lang: "diff", name: "sample", url: `${samples}/diff.sample` },
+  {
+    lang: "diff",
+    name: "cranelift-stdarch-sve",
+    url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0001-stdarch-Disable-SVE.patch`,
+  },
+  {
+    lang: "diff",
+    name: "cranelift-stdlib-atomics",
+    url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0027-stdlib-128bit-atomic-operations.patch`,
+  },
+  {
+    lang: "diff",
+    name: "mir-opt-gvn-cast",
+    url: `${rustc}/tests/mir-opt/const_prop/cast.main.GVN.diff`,
+  },
+  {
+    lang: "diff",
+    name: "cranelift-sysroot-tests",
+    url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch`,
+  },
+  {
+    lang: "diff",
+    name: "mir-opt-gvn-slices",
+    url: `${rustc}/tests/mir-opt/gvn.slices.GVN.panic-abort.diff`,
+  },
+  {
+    lang: "diff",
+    name: "vscode-foundry-local-sdk",
+    url: `${vscode}/build/npm/patches/foundry-local-sdk.patch`,
+  },
+  {
+    lang: "markdown",
+    name: "vitest-migration-jest",
+    url: `${vitest}/docs/guide/migration/jest.md`,
+  },
+  { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
+  { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
 ];

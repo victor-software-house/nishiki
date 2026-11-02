@@ -1,0 +1,63 @@
+L $ cat file1.txt                                                                                                                            
+T 139 source.diff
+L cat                                                                                                                                              
+T 145 source.diff
+L mv                                                                                                                                               
+T 145 source.diff
+L comm                                                                                                                                             
+T 145 source.diff
+L cp 
+T 3 source.diff
+L 
+L $ cat file2.txt
+T 15 source.diff
+L cat                                                                                                                                              
+T 145 source.diff
+L cp                                                                                                                                               
+T 145 source.diff
+L diff                                                                                                                                             
+T 145 source.diff
+L comm
+T 4 source.diff
+L                                                                                                    
+T 99 source.diff
+L $ diff -c file1.txt file2.txt                                                                                                              
+T 139 source.diff
+L *** file1.txt   Thu Jan 11 08:52:37 2018                                                                                                         
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 145 source.diff meta.diff.header.from-file
+L --- file2.txt   Thu Jan 11 08:53:01 2018                                                                                                         
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 145 source.diff meta.diff.header.from-file
+L ***************                                                                                                                                  
+T 145 source.diff
+L *** 1,4 ****                                                                                                                                     
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 145 source.diff meta.diff.header.from-file
+L   cat                                                                                                                                            
+T 145 source.diff
+L - mv                                                                                                                                             
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 145 source.diff markup.deleted.diff
+L - comm                                                                                                                                           
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 145 source.diff markup.deleted.diff
+L   cp                                                                                                                                             
+T 145 source.diff
+L --- 1,4 ----                                                                                                                                     
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 145 source.diff meta.diff.header.from-file
+L   cat                                                                                                                                            
+T 145 source.diff
+L   cp                                                                                                                                             
+T 145 source.diff
+L + diff                                                                                                                                           
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 145 source.diff markup.inserted.diff
+L + comm
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 6 source.diff markup.inserted.diff
+L 
+L # From https://www.geeksforgeeks.org/diff-command-linux-examples/
+T 1 source.diff comment.line.number-sign.diff punctuation.definition.comment.diff
+T 65 source.diff comment.line.number-sign.diff

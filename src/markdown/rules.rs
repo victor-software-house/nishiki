@@ -389,6 +389,7 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Language::Python) => Some(S::EmbeddedPython),
         Kind::Body(Language::Yaml) => Some(S::EmbeddedYaml),
         Kind::Body(Language::Make) => Some(S::EmbeddedMake),
+        Kind::Body(Language::Diff) => Some(S::EmbeddedDiff),
         Kind::FrontMatterBody => Some(S::EmbeddedFrontMatter),
         // Shiki's Markdown grammar has no rule that embeds TOML.
         Kind::Body(Language::Toml)

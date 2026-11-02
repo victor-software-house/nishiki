@@ -6,7 +6,7 @@ use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
-use crate::{Token, json, make, markdown, python, rust, shell, toml, typescript, yaml};
+use crate::{Token, diff, json, make, markdown, python, rust, shell, toml, typescript, yaml};
 
 /// A language nishiki highlights, named as Shiki names it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -41,6 +41,8 @@ pub enum Language {
     Toml,
     /// Makefile, with the scopes of Shiki's `make` grammar.
     Make,
+    /// Diff, with the scopes of Shiki's `diff` grammar.
+    Diff,
 }
 
 impl Language {
@@ -60,6 +62,7 @@ impl Language {
         Language::Yaml,
         Language::Toml,
         Language::Make,
+        Language::Diff,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -80,6 +83,7 @@ impl Language {
             Language::Yaml => "yaml",
             Language::Toml => "toml",
             Language::Make => "make",
+            Language::Diff => "diff",
         }
     }
 
@@ -120,6 +124,7 @@ impl Language {
             Language::Yaml => &["yaml", "yml"],
             Language::Toml => &["toml"],
             Language::Make => &["make", "makefile"],
+            Language::Diff => &["diff"],
         }
     }
 }
@@ -174,6 +179,7 @@ impl Language {
             Language::Yaml => yaml::start(arena, base),
             Language::Toml => toml::start(arena, base),
             Language::Make => make::start(arena, base),
+            Language::Diff => diff::start(arena, base),
         }
     }
 
@@ -192,6 +198,7 @@ impl Language {
             Language::Yaml => yaml::start_embedded(arena, base),
             Language::Toml => toml::start_embedded(arena, base),
             Language::Make => make::start_embedded(arena, base),
+            Language::Diff => diff::start_embedded(arena, base),
         }
     }
 
@@ -247,6 +254,13 @@ impl Language {
                 return shell::line(
                     cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
                 );
+            }
+            Language::Diff => {
+                let text = diff::Text {
+                    bytes: line.text.as_bytes(),
+                    start: line.start,
+                };
+                return diff::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
             }
             Language::Make => {
                 let text = make::Text {

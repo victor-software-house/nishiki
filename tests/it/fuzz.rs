@@ -98,6 +98,19 @@ const PIECES: &[&str] = &[
     ".PHONY",
     "$(shell ",
     ":=",
+    "@@",
+    "---",
+    "+++",
+    "***",
+    "====",
+    " - ",
+    " ====",
+    "diff --git a/",
+    "index ",
+    "Index: ",
+    "Only in ",
+    "\u{a0}",
+    "\u{663}",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

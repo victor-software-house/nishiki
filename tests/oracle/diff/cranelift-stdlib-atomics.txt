@@ -1,0 +1,147 @@
+L From 5d7c709608b01301d4628d2159265936d4440b67 Mon Sep 17 00:00:00 2001
+T 70 source.diff
+L From: bjorn3 <bjorn3@users.noreply.github.com>
+T 46 source.diff
+L Date: Thu, 18 Feb 2021 18:45:28 +0100
+T 37 source.diff
+L Subject: [PATCH] Disable 128bit atomic operations
+T 49 source.diff
+L 
+L Cranelift doesn't support them yet
+T 34 source.diff
+L ---
+T 3 source.diff meta.separator.diff punctuation.definition.separator.diff
+L  library/core/src/panic/unwind_safe.rs | 4 ++--
+T 47 source.diff
+L  library/core/src/sync/atomic.rs       | 4 ++--
+T 47 source.diff
+L  2 files changed, 4 insertions(+), 4 deletions(-)
+T 49 source.diff
+L 
+L diff --git a/library/core/src/panic/unwind_safe.rs b/library/core/src/panic/unwind_safe.rs
+T 90 source.diff meta.diff.header.git
+L index bf2e61d..cb82b07 100644
+T 29 source.diff meta.diff.index.git
+L --- a/library/core/src/panic/unwind_safe.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 43 source.diff meta.diff.header.from-file
+L +++ b/library/core/src/panic/unwind_safe.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 43 source.diff meta.diff.header.to-file
+L @@ -217,7 +217,7 @@ impl RefUnwindSafe for crate::sync::atomic::AtomicI32 {}
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 16 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 17 source.diff meta.diff.range.unified
+T 19 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 76 source.diff
+L  #[cfg(target_has_atomic_load_store = "64")]
+T 44 source.diff
+L  #[stable(feature = "integer_atomics_stable", since = "1.34.0")]
+T 64 source.diff
+L  impl RefUnwindSafe for crate::sync::atomic::AtomicI64 {}
+T 57 source.diff
+L -#[cfg(target_has_atomic_load_store = "128")]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 45 source.diff markup.deleted.diff
+L +#[cfg(false)]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L  #[unstable(feature = "integer_atomics", issue = "99069")]
+T 58 source.diff
+L  impl RefUnwindSafe for crate::sync::atomic::AtomicI128 {}
+T 58 source.diff
+L  
+T 1 source.diff
+L @@ -236,7 +236,7 @@ impl RefUnwindSafe for crate::sync::atomic::AtomicU32 {}
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 16 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 17 source.diff meta.diff.range.unified
+T 19 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 76 source.diff
+L  #[cfg(target_has_atomic_load_store = "64")]
+T 44 source.diff
+L  #[stable(feature = "integer_atomics_stable", since = "1.34.0")]
+T 64 source.diff
+L  impl RefUnwindSafe for crate::sync::atomic::AtomicU64 {}
+T 57 source.diff
+L -#[cfg(target_has_atomic_load_store = "128")]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 45 source.diff markup.deleted.diff
+L +#[cfg(false)]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L  #[unstable(feature = "integer_atomics", issue = "99069")]
+T 58 source.diff
+L  impl RefUnwindSafe for crate::sync::atomic::AtomicU128 {}
+T 58 source.diff
+L  
+T 1 source.diff
+L diff --git a/library/core/src/sync/atomic.rs b/library/core/src/sync/atomic.rs
+T 78 source.diff meta.diff.header.git
+L index e676a38..b6a9a3c 100644
+T 29 source.diff meta.diff.index.git
+L --- a/library/core/src/sync/atomic.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 37 source.diff meta.diff.header.from-file
+L +++ b/library/core/src/sync/atomic.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 37 source.diff meta.diff.header.to-file
+L @@ -3850,7 +3850,7 @@ atomic_int! {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 18 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 19 source.diff meta.diff.range.unified
+T 21 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 35 source.diff
+L      8,
+T 7 source.diff
+L      u64 AtomicU64
+T 18 source.diff
+L  }
+T 2 source.diff
+L -#[cfg(any(target_has_atomic_load_store = "128", doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 55 source.diff markup.deleted.diff
+L +#[cfg(false)]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L  atomic_int! {
+T 14 source.diff
+L      target_has_atomic_load_store = "128",
+T 42 source.diff
+L      target_has_atomic = "128",
+T 31 source.diff
+L @@ -3869,7 +3869,7 @@ atomic_int! {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 18 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 19 source.diff meta.diff.range.unified
+T 21 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 35 source.diff
+L      16,
+T 8 source.diff
+L      i128 AtomicI128
+T 20 source.diff
+L  }
+T 2 source.diff
+L -#[cfg(any(target_has_atomic_load_store = "128", doc))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 55 source.diff markup.deleted.diff
+L +#[cfg(false)]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 14 source.diff markup.inserted.diff
+L  atomic_int! {
+T 14 source.diff
+L      target_has_atomic_load_store = "128",
+T 42 source.diff
+L      target_has_atomic = "128",
+T 31 source.diff
+L -- 
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 3 source.diff markup.deleted.diff
+L 2.48.1
+T 6 source.diff
+L 
+L 

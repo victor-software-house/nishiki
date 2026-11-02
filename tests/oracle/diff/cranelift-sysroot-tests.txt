@@ -1,0 +1,253 @@
+L From eb703e627e7a84f1cd8d0d87f0f69da1f0acf765 Mon Sep 17 00:00:00 2001
+T 70 source.diff
+L From: bjorn3 <bjorn3@users.noreply.github.com>
+T 46 source.diff
+L Date: Fri, 3 Dec 2021 12:16:30 +0100
+T 36 source.diff
+L Subject: [PATCH] Disable long running tests
+T 43 source.diff
+L 
+L ---
+T 3 source.diff meta.separator.diff punctuation.definition.separator.diff
+L  library/coretests/tests/slice.rs | 2 ++
+T 40 source.diff
+L  1 file changed, 2 insertions(+)
+T 32 source.diff
+L 
+L diff --git a/coretests/tests/slice.rs b/coretests/tests/slice.rs
+T 64 source.diff meta.diff.header.git
+L index 8402833..84592e0 100644
+T 29 source.diff meta.diff.index.git
+L --- a/coretests/tests/slice.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 30 source.diff meta.diff.header.from-file
+L +++ b/coretests/tests/slice.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 30 source.diff meta.diff.header.to-file
+L @@ -1619,7 +1619,7 @@ fn brute_force_rotate_test_1() {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 18 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 19 source.diff meta.diff.range.unified
+T 21 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 54 source.diff
+L  
+T 1 source.diff
+L  #[test]
+T 8 source.diff
+L  #[cfg(not(all(target_family = "wasm", target_os = "unknown")))]
+T 64 source.diff
+L -#[cfg_attr(miri, ignore)] // Miri is too slow
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 46 source.diff markup.deleted.diff
+L +#[ignore] // Miri is too slow
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 30 source.diff markup.inserted.diff
+L  fn select_nth_unstable() {
+T 27 source.diff
+L      use core::cmp::Ordering::{Equal, Greater, Less};
+T 53 source.diff
+L  
+T 1 source.diff
+L @@ -2303,14 +2303,14 @@ split_off_tests! {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 20 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 21 source.diff meta.diff.range.unified
+T 23 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 42 source.diff
+L  const EMPTY_MAX: &'static [()] = &[(); usize::MAX];
+T 52 source.diff
+L  
+T 1 source.diff
+L  // can't be a constant due to const mutability rules
+T 53 source.diff
+L -#[cfg(not(miri))] // unused in Miri
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 36 source.diff markup.deleted.diff
+L +#[cfg(any())] // unused in Miri
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 32 source.diff markup.inserted.diff
+L  macro_rules! empty_max_mut {
+T 29 source.diff
+L      () => {
+T 12 source.diff
+L          &mut [(); usize::MAX] as _
+T 35 source.diff
+L      };
+T 7 source.diff
+L  }
+T 2 source.diff
+L  
+T 1 source.diff
+L -#[cfg(not(miri))] // Comparing usize::MAX many elements takes forever in Miri (and in rustc without optimizations)
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 115 source.diff markup.deleted.diff
+L +#[cfg(any())] // Comparing usize::MAX many elements takes forever in Miri (and in rustc without optimizations)
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 111 source.diff markup.inserted.diff
+L  split_off_tests! {
+T 19 source.diff
+L      slice: &[(); usize::MAX], method: split_off,
+T 49 source.diff
+L      (split_off_in_bounds_max_range_to, (..usize::MAX), Some(EMPTY_MAX), &[(); 0]),
+T 83 source.diff
+L @@ -2318,7 +2318,7 @@ split_off_tests! {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 18 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 19 source.diff meta.diff.range.unified
+T 21 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 40 source.diff
+L      (split_off_in_bounds_max_range_from, (usize::MAX..), Some(&[] as _), EMPTY_MAX),
+T 85 source.diff
+L  }
+T 2 source.diff
+L  
+T 1 source.diff
+L -#[cfg(not(miri))] // Comparing usize::MAX many elements takes forever in Miri (and in rustc without optimizations)
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 115 source.diff markup.deleted.diff
+L +#[cfg(any())] // Comparing usize::MAX many elements takes forever in Miri (and in rustc without optimizations)
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 111 source.diff markup.inserted.diff
+L  split_off_tests! {
+T 19 source.diff
+L      slice: &mut [(); usize::MAX], method: split_off_mut,
+T 57 source.diff
+L      (split_off_mut_in_bounds_max_range_to, (..usize::MAX), Some(empty_max_mut!()), &mut [(); 0]),
+T 98 source.diff
+L diff --git a/alloctests/tests/str.rs b/alloctests/tests/str.rs
+T 62 source.diff meta.diff.header.git
+L index 906fa2d..b82fa99 100644
+T 29 source.diff meta.diff.index.git
+L --- a/alloctests/tests/str.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 29 source.diff meta.diff.header.from-file
+L +++ b/alloctests/tests/str.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 29 source.diff meta.diff.header.to-file
+L @@ -2234,7 +2234,7 @@ fn const_str_ptr() {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 18 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 19 source.diff meta.diff.range.unified
+T 21 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 42 source.diff
+L      const C: *const u8 = B as *const u8;
+T 41 source.diff
+L  
+T 1 source.diff
+L      // Miri does not deduplicate consts (https://github.com/rust-lang/miri/issues/131)
+T 87 source.diff
+L -    #[cfg(not(miri))]
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 22 source.diff markup.deleted.diff
+L +    #[cfg(any())]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 18 source.diff markup.inserted.diff
+L      {
+T 6 source.diff
+L          let foo = &A as *const u8;
+T 35 source.diff
+L          assert_eq!(foo, C);
+T 28 source.diff
+L diff --git a/alloctests/tests/task.rs b/alloctests/tests/task.rs
+T 64 source.diff meta.diff.header.git
+L index 390dec1..87df6e6 100644
+T 29 source.diff meta.diff.index.git
+L --- a/alloctests/tests/task.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 30 source.diff meta.diff.header.from-file
+L +++ b/alloctests/tests/task.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 30 source.diff meta.diff.header.to-file
+L @@ -4,7 +4,7 @@ use alloc::task::{LocalWake, Wake};
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 12 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 13 source.diff meta.diff.range.unified
+T 15 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 51 source.diff
+L  use core::task::{LocalWaker, Waker};
+T 37 source.diff
+L  
+T 1 source.diff
+L  #[test]
+T 8 source.diff
+L -#[cfg_attr(miri, ignore)] // `will_wake` doesn't guarantee that this test will work, and indeed on Miri it can fail
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 116 source.diff markup.deleted.diff
+L +#[ignore] // `will_wake` doesn't guarantee that this test will work, and indeed on Miri it can fail
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 100 source.diff markup.inserted.diff
+L  fn test_waker_will_wake_clone() {
+T 34 source.diff
+L      struct NoopWaker;
+T 22 source.diff
+L  
+T 1 source.diff
+L @@ -20,7 +20,7 @@ fn test_waker_will_wake_clone() {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 14 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 15 source.diff meta.diff.range.unified
+T 17 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 51 source.diff
+L  }
+T 2 source.diff
+L  
+T 1 source.diff
+L  #[test]
+T 8 source.diff
+L -#[cfg_attr(miri, ignore)] // `will_wake` doesn't guarantee that this test will work, and indeed on Miri it can fail
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 116 source.diff markup.deleted.diff
+L +#[ignore] // `will_wake` doesn't guarantee that this test will work, and indeed on Miri it can fail
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 100 source.diff markup.inserted.diff
+L  fn test_local_waker_will_wake_clone() {
+T 40 source.diff
+L      struct NoopWaker;
+T 22 source.diff
+L  
+T 1 source.diff
+L diff --git a/alloctests/tests/vec.rs b/alloctests/tests/vec.rs
+T 62 source.diff meta.diff.header.git
+L index f430d97..cfbd3cb 100644
+T 29 source.diff meta.diff.index.git
+L --- a/alloctests/tests/vec.rs
+T 3 source.diff meta.diff.header.from-file punctuation.definition.from-file.diff
+T 29 source.diff meta.diff.header.from-file
+L +++ b/alloctests/tests/vec.rs
+T 3 source.diff meta.diff.header.to-file punctuation.definition.to-file.diff
+T 29 source.diff meta.diff.header.to-file
+L @@ -762,6 +762,7 @@ fn test_drain_inclusive_range() {
+T 2 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 3 source.diff meta.diff.range.unified
+T 16 source.diff meta.diff.range.unified meta.toc-list.line-number.diff
+T 17 source.diff meta.diff.range.unified
+T 19 source.diff meta.diff.range.unified punctuation.definition.range.diff
+T 53 source.diff
+L  }
+T 2 source.diff
+L  
+T 1 source.diff
+L  #[test]
+T 8 source.diff
+L +#[ignore]
+T 1 source.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 10 source.diff markup.inserted.diff
+L  fn test_drain_max_vec_size() {
+T 31 source.diff
+L      let mut v = Vec::<()>::with_capacity(usize::MAX);
+T 54 source.diff
+L      unsafe {
+T 13 source.diff
+L -- 
+T 1 source.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 3 source.diff markup.deleted.diff
+L 2.26.2.7.g19db9cfb68
+T 20 source.diff
+L 
+L 

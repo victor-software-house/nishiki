@@ -1,0 +1,1184 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L title: Migrating from Jest | Guide
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 34 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L outline: deep
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter
+T 10 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 13 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L # Migrating from Jest {#jest}
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 29 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Vitest has been designed with a Jest compatible API, in order to make the migration from Jest as simple as possible. Despite those efforts, you may still run into the following differences:
+T 189 text.html.markdown meta.paragraph.markdown
+L 
+L ## Globals as a Default
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Jest has their [globals API](https://jestjs.io/docs/api) enabled by default. Vitest does not. You can either enable globals via [the `globals` configuration setting](/config/globals) or update your code to use imports from the `vitest` module instead.
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 128 text.html.markdown meta.paragraph.markdown
+T 129 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 133 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 134 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 141 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 142 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 164 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 165 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 166 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 181 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 182 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 227 text.html.markdown meta.paragraph.markdown
+T 228 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 234 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 235 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 251 text.html.markdown meta.paragraph.markdown
+L 
+L If you decide to keep globals disabled, be aware that common libraries like [`testing-library`](https://testing-library.com/) will not run auto DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup).
+T 76 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 93 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 94 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 95 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 96 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 124 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 125 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 148 text.html.markdown meta.paragraph.markdown
+T 149 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 156 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 157 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 158 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 226 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 227 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 228 text.html.markdown meta.paragraph.markdown
+L 
+L ## `mock.mockReset`
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L Jest's [`mockReset`](https://jestjs.io/docs/mock-function-api#mockfnmockreset) replaces the mock implementation with an
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 119 text.html.markdown meta.paragraph.markdown
+L empty function that returns `undefined`.
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L Vitest's [`mockReset`](/api/mock#mockreset) resets the mock implementation to its original.
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown meta.paragraph.markdown
+L That is, resetting a mock created by `vi.fn(impl)` will reset the mock implementation to `impl`.
+T 37 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 89 text.html.markdown meta.paragraph.markdown
+T 90 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 94 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 95 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 96 text.html.markdown meta.paragraph.markdown
+L 
+L ## `mock.mock` is Persistent
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 4 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Jest will recreate the mock state when `.mockClear` is called, meaning you always need to access it as a getter. Vitest, on the other hand, holds a persistent reference to the state, meaning you can reuse it:
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 208 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const mock = vi.fn()
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts variable.other.object.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts punctuation.accessor.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+L const state = mock.mock
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts variable.other.object.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts punctuation.accessor.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts variable.other.property.ts
+L mock.mockClear()
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+L 
+L expect(state).toBe(mock.mock) // fails in Jest
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript variable.other.readwrite.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript variable.other.object.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript punctuation.accessor.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript variable.other.property.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Module Mocks
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 15 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L When mocking a module in Jest, the factory argument's return value is the default export. In Vitest, the factory argument has to return an object with each export explicitly defined. For example, the following `jest.mock` would have to be updated as follows:
+T 210 text.html.markdown meta.paragraph.markdown
+T 211 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 220 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 221 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 258 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L jest.mock('./some-path', () => 'hello') // [!code --]
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.begin.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.end.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript punctuation.separator.comma.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts storage.type.function.arrow.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.begin.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.end.ts
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L vi.mock('./some-path', () => ({ // [!code ++]
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.begin.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript string.quoted.single.ts punctuation.definition.string.end.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript punctuation.separator.comma.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts storage.type.function.arrow.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts comment.line.double-slash.ts
+L   default: 'hello', // [!code ++]
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.separator.comma.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts comment.line.double-slash.ts
+L })) // [!code ++]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For more details please refer to the [`vi.mock` api section](/api/vi#vi-mock).
+T 37 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L 
+L ## Auto-Mocking Behaviour
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Unlike Jest, mocked modules in `<root>/__mocks__` are not loaded unless `vi.mock()` is called. If you need them to be mocked in every test, like in Jest, you can mock them inside [`setupFiles`](/config/setupfiles).
+T 31 text.html.markdown meta.paragraph.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 83 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 179 text.html.markdown meta.paragraph.markdown
+T 180 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 181 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 191 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 192 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 193 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 194 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 212 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 213 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 214 text.html.markdown meta.paragraph.markdown
+L 
+L ## Importing the Original of a Mocked Package
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 45 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If you are only partially mocking a package, you might have previously used Jest's function `requireActual`. In Vitest, you should replace these calls with `vi.importActual`.
+T 92 text.html.markdown meta.paragraph.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 106 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 107 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 156 text.html.markdown meta.paragraph.markdown
+T 157 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 172 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 173 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 174 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts variable.other.object.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts punctuation.accessor.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.control.flow.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts variable.other.object.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts punctuation.accessor.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Extends mocking to external libraries
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 40 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Where Jest does it by default, when mocking a module and wanting this mocking to be extended to other external libraries that use the same module, you should explicitly tell which 3rd-party library you want to be mocked, so the external library would be part of your source code, by using [server.deps.inline](/config/server#inline).
+T 289 text.html.markdown meta.paragraph.markdown
+T 290 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 308 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 309 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 310 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 331 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 332 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 333 text.html.markdown meta.paragraph.markdown
+L 
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L server.deps.inline: ["lib-name"]
+T 32 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## expect.getState().currentTestName
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 36 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Vitest's `test` names are joined with a `>` symbol to make it easier to distinguish tests from suites, while Jest uses an empty space (` `).
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 135 text.html.markdown meta.paragraph.markdown
+T 136 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 137 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 138 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 140 text.html.markdown meta.paragraph.markdown
+L 
+L ```diff
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L - `${describeTitle} ${testTitle}`
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff
+L + `${describeTitle} > ${testTitle}`
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag): Vitest matches against the `>`-joined full name, while Jest matches the space-joined name. Update patterns that span a suite and a test accordingly, or match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 37 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 70 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+T 110 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 111 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 112 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 258 text.html.markdown meta.paragraph.markdown
+T 259 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 266 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 267 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 305 text.html.markdown meta.paragraph.markdown
+T 306 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 321 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 322 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 324 text.html.markdown meta.paragraph.markdown
+L 
+L ```diff
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L - vitest -t 'math adds'
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff
+L + vitest -t 'math > adds'
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Envs
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 7 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+T 110 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 124 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 125 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 133 text.html.markdown meta.paragraph.markdown
+T 134 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 148 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 149 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 180 text.html.markdown meta.paragraph.markdown
+T 181 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 191 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 192 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 264 text.html.markdown meta.paragraph.markdown
+T 265 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 281 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 282 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 357 text.html.markdown meta.paragraph.markdown
+T 358 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 368 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 369 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 414 text.html.markdown meta.paragraph.markdown
+L 
+L ## Replace property
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If you want to modify the object, you will use [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value) in Jest, you can use [`vi.stubEnv`](/api/vi#vi-stubenv) or [`vi.spyOn`](/api/vi#vi-spyon) to do the same also in Vitest.
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 68 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 69 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 147 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 148 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 170 text.html.markdown meta.paragraph.markdown
+T 171 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 172 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 182 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 183 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 184 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 185 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 203 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 204 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 208 text.html.markdown meta.paragraph.markdown
+T 209 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 210 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 218 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 219 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 220 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 221 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 237 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 238 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 269 text.html.markdown meta.paragraph.markdown
+L 
+L ## Done Callback
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Vitest does not support the callback style of declaring tests. You can rewrite them to use `async`/`await` functions, or use Promise to mimic the callback style.
+T 91 text.html.markdown meta.paragraph.markdown
+T 92 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 98 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 99 text.html.markdown meta.paragraph.markdown
+T 100 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 105 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 106 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 161 text.html.markdown meta.paragraph.markdown
+L 
+L <!--@include: ../examples/promise-done.md-->
+T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 41 text.html.markdown comment.block.html
+T 44 text.html.markdown comment.block.html punctuation.definition.comment.html
+L 
+L ## Hooks
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 8 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L `beforeAll`/`beforeEach` hooks may return [teardown function](/api/hooks#beforeach) in Vitest. Because of that you may need to rewrite your hooks declarations, if they return something other than `undefined` or `null`:
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 82 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 83 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 196 text.html.markdown meta.paragraph.markdown
+T 197 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 206 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 207 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 211 text.html.markdown meta.paragraph.markdown
+T 212 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 216 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 217 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 218 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts storage.type.function.arrow.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts storage.type.function.arrow.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts meta.brace.round.ts
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L In Jest hooks are called sequentially (one after another). By default, Vitest runs hooks in a stack. To use Jest's behavior, update [`sequence.hooks`](/config/sequence#sequence-hooks) option:
+T 132 text.html.markdown meta.paragraph.markdown
+T 133 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 134 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 148 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 149 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 150 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 151 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 182 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 183 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 191 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L export default defineConfig({
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts keyword.control.export.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts keyword.control.default.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.function-call.ts entity.name.function.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.brace.round.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts punctuation.definition.block.ts
+L   test: {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts punctuation.definition.block.ts
+L     sequence: { // [!code ++]
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts comment.line.double-slash.ts
+L       hooks: 'list', // [!code ++]
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts punctuation.separator.comma.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts comment.line.double-slash.ts
+L     } // [!code ++]
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts comment.line.double-slash.ts
+L   }
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts meta.object.member.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts meta.object.member.ts meta.objectliteral.ts punctuation.definition.block.ts
+L })
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.export.default.ts meta.brace.round.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Types
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 8 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Vitest doesn't have an equivalent to `jest` namespace, so you will need to import types directly from `vitest`:
+T 37 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 102 text.html.markdown meta.paragraph.markdown
+T 103 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 109 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 110 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 111 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L let fn: jest.Mock<(name: string) => number> // [!code --]
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts entity.name.type.module.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts punctuation.accessor.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts entity.name.type.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts support.type.primitive.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts comment.line.double-slash.ts
+L import type { Mock } from 'vitest' // [!code ++]
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.import.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.type.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts variable.other.readwrite.alias.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.from.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts
+L let fn: Mock<(name: string) => number> // [!code ++]
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts entity.name.type.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts variable.parameter.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts storage.type.function.arrow.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts meta.type.function.return.ts support.type.primitive.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.var-single-variable.expr.ts comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Timers
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 9 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Vitest doesn't support Jest's legacy timers.
+T 44 text.html.markdown meta.paragraph.markdown
+L 
+L ## Timeout
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 10 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If you used `jest.setTimeout`, you would need to migrate to `vi.setConfig`:
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L jest.setTimeout(5_000) // [!code --]
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript constant.numeric.decimal.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts meta.object-literal.key.ts punctuation.separator.key-value.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts constant.numeric.decimal.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.object.member.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts punctuation.definition.comment.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript comment.line.double-slash.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Vue Snapshots
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L This is not a Jest-specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and specify it in [`snapshotSerializers`](/config/snapshotserializers):
+T 121 text.html.markdown meta.paragraph.markdown
+T 122 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 123 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 142 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 143 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 144 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 145 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 195 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 196 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 224 text.html.markdown meta.paragraph.markdown
+T 225 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 226 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 245 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 246 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 247 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 248 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 275 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 276 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 277 text.html.markdown meta.paragraph.markdown
+L 
+L ```js [vitest.config.js]
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 24 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L import { defineConfig } from 'vitest/config'
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+L 
+L export default defineConfig({
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js keyword.control.export.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js keyword.control.default.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.function-call.js entity.name.function.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.brace.round.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js punctuation.definition.block.js
+L   test: {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L     snapshotSerializers: ['jest-serializer-vue']
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+L   }
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L })
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.objectliteral.js punctuation.definition.block.js
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.default.js meta.brace.round.js
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Otherwise your snapshots will have a lot of escaped `"` characters.
+T 52 text.html.markdown meta.paragraph.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L 
+L ## Custom Snapshot Matchers <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matcher}
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 96 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Jest imports snapshot composables from `jest-snapshot`. In Vitest, use `Snapshots` from `vitest` instead:
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+T 89 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 95 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 96 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 105 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const { toMatchSnapshot } = require('jest-snapshot') // [!code --]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L import { Snapshots } from 'vitest' // [!code ++]
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.import.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts variable.other.readwrite.alias.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.from.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts
+L const { toMatchSnapshot } = Snapshots // [!code ++]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts variable.other.readwrite.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L 
+L expect.extend({
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+L   toMatchTrimmedSnapshot(received: string, length: number) {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.definition.method.ts entity.name.function.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.separator.parameter.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     return toMatchSnapshot.call(this, received.slice(0, length))
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts keyword.control.flow.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts variable.other.object.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts punctuation.accessor.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts variable.language.this.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.separator.comma.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts variable.other.object.ts
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts punctuation.accessor.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts constant.numeric.decimal.ts
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.separator.comma.ts
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts variable.other.readwrite.ts
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+L   },
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.separator.comma.ts
+L })
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For inline snapshots, the same applies:
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L ```ts
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const { toMatchInlineSnapshot } = require('jest-snapshot') // [!code --]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.brace.round.ts
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L import { Snapshots } from 'vitest' // [!code ++]
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.import.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts variable.other.readwrite.alias.ts
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts meta.block.ts punctuation.definition.block.ts
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts keyword.control.from.ts
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.import.ts comment.line.double-slash.ts
+L const { toMatchInlineSnapshot } = Snapshots // [!code ++]
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts keyword.operator.assignment.ts
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts variable.other.readwrite.ts
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.var.expr.ts comment.line.double-slash.ts
+L 
+L expect.extend({
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts variable.other.object.ts
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts punctuation.accessor.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.function-call.ts entity.name.function.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+L   toMatchTrimmedInlineSnapshot(received: string, inlineSnapshot?: string) {
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.definition.method.ts entity.name.function.ts
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.separator.parameter.ts
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts variable.parameter.ts
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts keyword.operator.optional.ts
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+L     return toMatchInlineSnapshot.call(this, received.slice(0, 10), inlineSnapshot)
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts keyword.control.flow.ts
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts variable.other.object.ts
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts punctuation.accessor.ts
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts variable.language.this.ts
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.separator.comma.ts
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts variable.other.object.ts
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts punctuation.accessor.ts
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.function-call.ts entity.name.function.ts
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts constant.numeric.decimal.ts
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.separator.comma.ts
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts constant.numeric.decimal.ts
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.separator.comma.ts
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts variable.other.readwrite.ts
+T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts meta.brace.round.ts
+L   },
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts meta.method.declaration.ts meta.block.ts punctuation.definition.block.ts
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.separator.comma.ts
+L })
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.objectliteral.ts punctuation.definition.block.ts
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.typescript meta.brace.round.ts
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers) for the full guide.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 71 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 72 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 92 text.html.markdown meta.paragraph.markdown
+L 

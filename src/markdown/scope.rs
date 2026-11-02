@@ -61,6 +61,7 @@ scopes! {
     EmbeddedPython "meta.embedded.block.python"
     EmbeddedYaml "meta.embedded.block.yaml"
     EmbeddedMake "meta.embedded.block.makefile"
+    EmbeddedDiff "meta.embedded.block.diff"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

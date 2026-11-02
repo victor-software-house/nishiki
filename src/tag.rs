@@ -41,6 +41,8 @@ pub(crate) const PYTHON: u16 = 0x0600;
 pub(crate) const YAML: u16 = 0x0800;
 /// TOML.
 pub(crate) const TOML: u16 = 0x0900;
+/// Diff.
+pub(crate) const DIFF: u16 = 0x0e00;
 /// Makefiles.
 pub(crate) const MAKE: u16 = 0x0b00;
 
@@ -54,6 +56,7 @@ const CLAIMED: &[Tag] = &[
     Tag::byte(PYTHON),
     Tag::byte(YAML),
     Tag::byte(TOML),
+    Tag::byte(DIFF),
     Tag::byte(MAKE),
 ];
 
