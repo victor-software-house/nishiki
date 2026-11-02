@@ -195,6 +195,13 @@ const kafka =
 const tomcat =
   "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
 
+const graphqlJs =
+  "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
+const graphiql =
+  "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
+const codegen =
+  "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -490,4 +497,11 @@ export const inputs: Input[] = [
   { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
   { lang: "markdown", name: "black-other-tools", url: `${black}/docs/guides/using_black_with_other_tools.md` },
   { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
+  { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
+  { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
+  { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },
+  { lang: "graphql", name: "codegen-apollo-tooling", url: `${codegen}/dev-test/apollo-tooling/schema.graphql` },
+  { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
+  { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
+  { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
 ];

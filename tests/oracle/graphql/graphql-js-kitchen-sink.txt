@@ -1,0 +1,335 @@
+L query queryName($foo: ComplexType, $site: Site = MOBILE) @onQuery {
+T 5 source.graphql keyword.operation.graphql
+T 6 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql meta.brace.round.graphql
+T 20 source.graphql meta.variables.graphql variable.parameter.graphql
+T 21 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 22 source.graphql meta.variables.graphql
+T 33 source.graphql meta.variables.graphql support.type.graphql
+T 34 source.graphql meta.variables.graphql punctuation.comma.graphql
+T 35 source.graphql meta.variables.graphql
+T 40 source.graphql meta.variables.graphql variable.parameter.graphql
+T 41 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 42 source.graphql meta.variables.graphql
+T 46 source.graphql meta.variables.graphql support.type.graphql
+T 47 source.graphql meta.variables.graphql
+T 48 source.graphql meta.variables.graphql punctuation.assignment.graphql
+T 55 source.graphql meta.variables.graphql constant.character.enum.graphql
+T 56 source.graphql meta.brace.round.graphql
+T 57 source.graphql
+T 65 source.graphql entity.name.function.directive.graphql
+T 66 source.graphql meta.selectionset.graphql
+T 67 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   whoever123is: node(id: [123, 456]) {
+T 2 source.graphql meta.selectionset.graphql
+T 14 source.graphql meta.selectionset.graphql string.unquoted.alias.graphql
+T 15 source.graphql meta.selectionset.graphql punctuation.colon.graphql
+T 16 source.graphql meta.selectionset.graphql
+T 20 source.graphql meta.selectionset.graphql variable.graphql
+T 21 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 23 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 24 source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 25 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql
+T 26 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql meta.brace.square.graphql
+T 29 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql constant.numeric.float.graphql
+T 30 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql
+T 31 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql
+T 34 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql constant.numeric.float.graphql
+T 35 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.listvalues.graphql meta.brace.square.graphql
+T 36 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 37 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 38 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     id
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L     ... on User @onInlineFragment {
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql keyword.operator.spread.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql keyword.on.graphql
+T 11 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 15 source.graphql meta.selectionset.graphql meta.selectionset.graphql support.type.graphql
+T 16 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 33 source.graphql meta.selectionset.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+T 34 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 35 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       field2 {
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 14 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L         id
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L         alias: field1(first: 10, after: $foo) @include(if: $foo) {
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql string.unquoted.alias.graphql
+T 14 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.colon.graphql
+T 15 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 21 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 22 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 27 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 28 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 29 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 31 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql constant.numeric.float.graphql
+T 32 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.comma.graphql
+T 33 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 38 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 39 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 40 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 44 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 45 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 46 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 54 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+T 55 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 57 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 58 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 59 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 63 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 64 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 65 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 66 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L           id
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L           ...frag @onFragmentSpread
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql keyword.operator.spread.graphql
+T 17 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.fragment.graphql
+T 18 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 35 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+L         }
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       }
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     }
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     ... @skip(unless: $foo) {
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql keyword.operator.spread.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 20 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 21 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 22 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 26 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 27 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 28 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 29 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       id
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L     }
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     ... {
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql keyword.operator.spread.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       id
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L     }
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   }
+T 2 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 3 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 
+L mutation likeStory @onMutation {
+T 8 source.graphql keyword.operation.graphql
+T 9 source.graphql
+T 18 source.graphql entity.name.function.graphql
+T 19 source.graphql
+T 30 source.graphql entity.name.function.directive.graphql
+T 31 source.graphql meta.selectionset.graphql
+T 32 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   like(story: 123) @onField {
+T 2 source.graphql meta.selectionset.graphql
+T 6 source.graphql meta.selectionset.graphql variable.graphql
+T 7 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 12 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 13 source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 14 source.graphql meta.selectionset.graphql meta.arguments.graphql
+T 17 source.graphql meta.selectionset.graphql meta.arguments.graphql constant.numeric.float.graphql
+T 18 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.selectionset.graphql
+T 27 source.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+T 28 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 29 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     story {
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 11 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       id @onField
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 17 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+L     }
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   }
+T 2 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 3 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 
+L subscription StoryLikeSubscription(
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 34 source.graphql entity.name.function.graphql
+T 35 source.graphql meta.brace.round.graphql
+L   $input: StoryLikeSubscribeInput @onVariableDefinition
+T 2 source.graphql meta.variables.graphql
+T 8 source.graphql meta.variables.graphql variable.parameter.graphql
+T 9 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 10 source.graphql meta.variables.graphql
+T 33 source.graphql meta.variables.graphql support.type.graphql
+T 34 source.graphql meta.variables.graphql
+T 55 source.graphql meta.variables.graphql entity.name.function.directive.graphql
+L ) @onSubscription {
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 17 source.graphql entity.name.function.directive.graphql
+T 18 source.graphql meta.selectionset.graphql
+T 19 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   storyLikeSubscribe(input: $input) {
+T 2 source.graphql meta.selectionset.graphql
+T 20 source.graphql meta.selectionset.graphql variable.graphql
+T 21 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 28 source.graphql meta.selectionset.graphql meta.arguments.graphql
+T 34 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 35 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 36 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 37 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     story {
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 11 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       likers {
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 14 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L         count
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L       }
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L       likeSentence {
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 18 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 19 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 20 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L         text
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L       }
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     }
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   }
+T 2 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 3 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 
+L fragment frag on Friend @onFragmentDefinition {
+T 8 source.graphql meta.fragment.graphql keyword.fragment.graphql
+T 9 source.graphql meta.fragment.graphql
+T 13 source.graphql meta.fragment.graphql entity.name.fragment.graphql
+T 14 source.graphql meta.fragment.graphql
+T 16 source.graphql meta.fragment.graphql keyword.on.graphql
+T 17 source.graphql meta.fragment.graphql
+T 23 source.graphql meta.fragment.graphql support.type.graphql
+T 24 source.graphql meta.fragment.graphql
+T 45 source.graphql meta.fragment.graphql entity.name.function.directive.graphql
+T 46 source.graphql meta.fragment.graphql meta.selectionset.graphql
+T 47 source.graphql meta.fragment.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   foo(
+T 2 source.graphql meta.fragment.graphql meta.selectionset.graphql
+T 5 source.graphql meta.fragment.graphql meta.selectionset.graphql variable.graphql
+T 6 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     size: $size
+T 4 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql
+T 8 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 9 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 10 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql
+T 15 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+L     bar: $b
+T 4 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql
+T 7 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 8 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 9 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql
+T 11 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+L     obj: {
+T 4 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql
+T 7 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 8 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 9 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 10 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql meta.brace.curly.graphql
+L       key: "value"
+T 6 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 9 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql constant.object.key.graphql string.unquoted.graphql
+T 10 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql punctuation.graphql
+T 11 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 12 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 17 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql
+T 18 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+L       block: """
+T 6 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 11 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql constant.object.key.graphql string.unquoted.graphql
+T 12 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql punctuation.graphql
+T 13 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 14 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 15 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 16 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js punctuation.whitespace.comment.leading.graphql
+L       block string uses \"""
+T 25 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+T 26 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+T 27 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js punctuation.whitespace.comment.leading.graphql
+T 28 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L       """
+T 6 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql
+T 7 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 8 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 9 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js punctuation.whitespace.comment.leading.graphql
+L     }
+T 5 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L   )
+T 3 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L }
+T 1 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L 
+L {
+T 1 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L   unnamed(truthy: true, falsy: false, nullish: null)
+T 52 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L   query
+T 7 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L }
+T 1 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L 
+L query {
+T 7 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L   __typename
+T 12 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L }
+T 1 source.graphql meta.fragment.graphql meta.selectionset.graphql meta.arguments.graphql meta.objectvalues.graphql comment.line.graphql.js
+L 

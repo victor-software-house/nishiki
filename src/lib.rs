@@ -55,6 +55,7 @@ mod arena;
 mod c;
 mod diff;
 mod dockerfile;
+mod graphql;
 mod highlighter;
 mod ini;
 mod java;

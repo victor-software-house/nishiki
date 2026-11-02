@@ -150,6 +150,20 @@ const PIECES: &[&str] = &[
     "a-",
     "\u{e9}",
     "; ",
+    "query ",
+    "fragment ",
+    " on ",
+    "type ",
+    "enum ",
+    "union ",
+    "schema ",
+    "directive ",
+    "implements ",
+    "...",
+    "${",
+    "\"\"\"",
+    "@",
+    "!",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

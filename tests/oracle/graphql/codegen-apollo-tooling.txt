@@ -1,0 +1,2401 @@
+L schema
+T 6 source.graphql keyword.schema.graphql
+L   @link(url: "https://specs.apollo.dev/link/v1.0")
+T 2 source.graphql
+T 7 source.graphql entity.name.function.directive.graphql
+T 8 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 11 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 12 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 13 source.graphql meta.arguments.graphql
+T 14 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 48 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 49 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 50 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @link(url: "https://specs.apollo.dev/join/v0.4", for: EXECUTION)
+T 2 source.graphql
+T 7 source.graphql entity.name.function.directive.graphql
+T 8 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 11 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 12 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 13 source.graphql meta.arguments.graphql
+T 14 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 48 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 49 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 50 source.graphql meta.arguments.graphql punctuation.comma.graphql
+T 51 source.graphql meta.arguments.graphql
+T 54 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 55 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @link(url: "https://specs.apollo.dev/tag/v0.3") {
+T 2 source.graphql
+T 7 source.graphql entity.name.function.directive.graphql
+T 8 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 11 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 12 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 13 source.graphql meta.arguments.graphql
+T 14 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 47 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 48 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 49 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 50 source.graphql
+T 51 source.graphql punctuation.operation.graphql
+L   query: Query
+T 2 source.graphql
+T 7 source.graphql variable.arguments.graphql
+T 8 source.graphql punctuation.colon.graphql
+T 9 source.graphql
+T 14 source.graphql support.type.graphql
+L }
+T 1 source.graphql punctuation.operation.graphql
+L 
+L directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 22 source.graphql entity.name.function.directive.graphql
+T 23 source.graphql meta.brace.round.graphql
+T 27 source.graphql meta.variables.graphql variable.parameter.graphql
+T 28 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 29 source.graphql meta.variables.graphql
+T 35 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 36 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 37 source.graphql meta.variables.graphql punctuation.comma.graphql
+T 38 source.graphql meta.variables.graphql
+T 41 source.graphql meta.variables.graphql variable.parameter.graphql
+T 42 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 43 source.graphql meta.variables.graphql
+T 49 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 50 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 51 source.graphql meta.brace.round.graphql
+T 52 source.graphql
+T 54 source.graphql keyword.on.graphql
+T 55 source.graphql
+T 65 source.graphql support.type.location.graphql
+L 
+L directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 26 source.graphql entity.name.function.directive.graphql
+T 27 source.graphql meta.brace.round.graphql
+T 32 source.graphql meta.variables.graphql variable.parameter.graphql
+T 33 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 34 source.graphql meta.variables.graphql
+T 45 source.graphql meta.variables.graphql support.type.graphql
+T 46 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 47 source.graphql meta.brace.round.graphql
+T 48 source.graphql
+T 58 source.graphql entity.name.function.graphql
+T 59 source.graphql
+T 61 source.graphql entity.name.function.graphql
+T 62 source.graphql
+T 72 source.graphql entity.name.function.graphql
+L 
+L directive @join__field(
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 22 source.graphql entity.name.function.directive.graphql
+T 23 source.graphql meta.brace.round.graphql
+L   graph: join__Graph
+T 2 source.graphql meta.variables.graphql
+T 7 source.graphql meta.variables.graphql variable.parameter.graphql
+T 8 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 9 source.graphql meta.variables.graphql
+T 20 source.graphql meta.variables.graphql support.type.graphql
+L   requires: join__FieldSet
+T 2 source.graphql meta.variables.graphql
+T 10 source.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.variables.graphql
+T 26 source.graphql meta.variables.graphql support.type.graphql
+L   provides: join__FieldSet
+T 2 source.graphql meta.variables.graphql
+T 10 source.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.variables.graphql
+T 26 source.graphql meta.variables.graphql support.type.graphql
+L   type: String
+T 2 source.graphql meta.variables.graphql
+T 6 source.graphql meta.variables.graphql variable.parameter.graphql
+T 7 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 8 source.graphql meta.variables.graphql
+T 14 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   external: Boolean
+T 2 source.graphql meta.variables.graphql
+T 10 source.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.variables.graphql
+T 19 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   override: String
+T 2 source.graphql meta.variables.graphql
+T 10 source.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.variables.graphql
+T 18 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   usedOverridden: Boolean
+T 2 source.graphql meta.variables.graphql
+T 16 source.graphql meta.variables.graphql variable.parameter.graphql
+T 17 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 18 source.graphql meta.variables.graphql
+T 25 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   overrideLabel: String
+T 2 source.graphql meta.variables.graphql
+T 15 source.graphql meta.variables.graphql variable.parameter.graphql
+T 16 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 17 source.graphql meta.variables.graphql
+T 23 source.graphql meta.variables.graphql support.type.builtin.graphql
+L ) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql
+T 32 source.graphql entity.name.function.graphql
+T 34 source.graphql
+T 35 source.graphql
+T 57 source.graphql entity.name.function.graphql
+L 
+L directive @join__implements(
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 27 source.graphql entity.name.function.directive.graphql
+T 28 source.graphql meta.brace.round.graphql
+L   graph: join__Graph!
+T 2 source.graphql meta.variables.graphql
+T 7 source.graphql meta.variables.graphql variable.parameter.graphql
+T 8 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 9 source.graphql meta.variables.graphql
+T 20 source.graphql meta.variables.graphql support.type.graphql
+T 21 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+L   interface: String!
+T 2 source.graphql meta.variables.graphql
+T 11 source.graphql meta.variables.graphql variable.parameter.graphql
+T 12 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 13 source.graphql meta.variables.graphql
+T 19 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 20 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+L ) repeatable on OBJECT | INTERFACE
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql
+T 22 source.graphql entity.name.function.graphql
+T 24 source.graphql
+T 25 source.graphql
+T 34 source.graphql entity.name.function.graphql
+L 
+L directive @join__type(
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 21 source.graphql entity.name.function.directive.graphql
+T 22 source.graphql meta.brace.round.graphql
+L   graph: join__Graph!
+T 2 source.graphql meta.variables.graphql
+T 7 source.graphql meta.variables.graphql variable.parameter.graphql
+T 8 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 9 source.graphql meta.variables.graphql
+T 20 source.graphql meta.variables.graphql support.type.graphql
+T 21 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+L   key: join__FieldSet
+T 2 source.graphql meta.variables.graphql
+T 5 source.graphql meta.variables.graphql variable.parameter.graphql
+T 6 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 7 source.graphql meta.variables.graphql
+T 21 source.graphql meta.variables.graphql support.type.graphql
+L   extension: Boolean! = false
+T 2 source.graphql meta.variables.graphql
+T 11 source.graphql meta.variables.graphql variable.parameter.graphql
+T 12 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 13 source.graphql meta.variables.graphql
+T 20 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 21 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 22 source.graphql meta.variables.graphql
+T 23 source.graphql meta.variables.graphql punctuation.assignment.graphql
+T 24 source.graphql meta.variables.graphql
+T 29 source.graphql meta.variables.graphql constant.language.boolean.graphql
+L   resolvable: Boolean! = true
+T 2 source.graphql meta.variables.graphql
+T 12 source.graphql meta.variables.graphql variable.parameter.graphql
+T 13 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 14 source.graphql meta.variables.graphql
+T 21 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 22 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 23 source.graphql meta.variables.graphql
+T 24 source.graphql meta.variables.graphql punctuation.assignment.graphql
+T 25 source.graphql meta.variables.graphql
+T 29 source.graphql meta.variables.graphql constant.language.boolean.graphql
+L   isInterfaceObject: Boolean! = false
+T 2 source.graphql meta.variables.graphql
+T 19 source.graphql meta.variables.graphql variable.parameter.graphql
+T 20 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 21 source.graphql meta.variables.graphql
+T 28 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 29 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 30 source.graphql meta.variables.graphql
+T 31 source.graphql meta.variables.graphql punctuation.assignment.graphql
+T 32 source.graphql meta.variables.graphql
+T 37 source.graphql meta.variables.graphql constant.language.boolean.graphql
+L ) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql
+T 22 source.graphql entity.name.function.graphql
+T 24 source.graphql
+T 25 source.graphql
+T 34 source.graphql entity.name.function.graphql
+T 36 source.graphql
+T 37 source.graphql
+T 42 source.graphql entity.name.function.graphql
+T 44 source.graphql
+T 45 source.graphql
+T 49 source.graphql entity.name.function.graphql
+T 51 source.graphql
+T 52 source.graphql
+T 64 source.graphql entity.name.function.graphql
+T 66 source.graphql
+T 67 source.graphql
+T 73 source.graphql entity.name.function.graphql
+L 
+L directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 28 source.graphql entity.name.function.directive.graphql
+T 29 source.graphql meta.brace.round.graphql
+T 34 source.graphql meta.variables.graphql variable.parameter.graphql
+T 35 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 36 source.graphql meta.variables.graphql
+T 47 source.graphql meta.variables.graphql support.type.graphql
+T 48 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 49 source.graphql meta.variables.graphql punctuation.comma.graphql
+T 50 source.graphql meta.variables.graphql
+T 56 source.graphql meta.variables.graphql variable.parameter.graphql
+T 57 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 58 source.graphql meta.variables.graphql
+T 64 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 65 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 66 source.graphql meta.brace.round.graphql
+T 67 source.graphql
+T 77 source.graphql entity.name.function.graphql
+T 78 source.graphql
+T 80 source.graphql entity.name.function.graphql
+T 81 source.graphql
+T 86 source.graphql entity.name.function.graphql
+L 
+L directive @link(
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 15 source.graphql entity.name.function.directive.graphql
+T 16 source.graphql meta.brace.round.graphql
+L   url: String
+T 2 source.graphql meta.variables.graphql
+T 5 source.graphql meta.variables.graphql variable.parameter.graphql
+T 6 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 7 source.graphql meta.variables.graphql
+T 13 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   as: String
+T 2 source.graphql meta.variables.graphql
+T 4 source.graphql meta.variables.graphql variable.parameter.graphql
+T 5 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 6 source.graphql meta.variables.graphql
+T 12 source.graphql meta.variables.graphql support.type.builtin.graphql
+L   for: link__Purpose
+T 2 source.graphql meta.variables.graphql
+T 5 source.graphql meta.variables.graphql variable.parameter.graphql
+T 6 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 7 source.graphql meta.variables.graphql
+T 20 source.graphql meta.variables.graphql support.type.graphql
+L   import: [link__Import]
+T 2 source.graphql meta.variables.graphql
+T 8 source.graphql meta.variables.graphql variable.parameter.graphql
+T 9 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 10 source.graphql meta.variables.graphql meta.type.list.graphql
+T 11 source.graphql meta.variables.graphql meta.type.list.graphql meta.brace.square.graphql
+T 23 source.graphql meta.variables.graphql meta.type.list.graphql support.type.graphql
+T 24 source.graphql meta.variables.graphql meta.type.list.graphql meta.brace.square.graphql
+L ) repeatable on SCHEMA
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql
+T 22 source.graphql entity.name.function.graphql
+L 
+L directive @tag(
+T 9 source.graphql keyword.directive.graphql
+T 10 source.graphql
+T 14 source.graphql entity.name.function.directive.graphql
+T 15 source.graphql meta.brace.round.graphql
+L   name: String!
+T 2 source.graphql meta.variables.graphql
+T 6 source.graphql meta.variables.graphql variable.parameter.graphql
+T 7 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 8 source.graphql meta.variables.graphql
+T 14 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 15 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+L ) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION | SCHEMA
+T 1 source.graphql meta.brace.round.graphql
+T 2 source.graphql
+T 12 source.graphql entity.name.function.graphql
+T 13 source.graphql
+T 15 source.graphql entity.name.function.graphql
+T 16 source.graphql
+T 32 source.graphql entity.name.function.graphql
+T 34 source.graphql
+T 35 source.graphql
+T 41 source.graphql entity.name.function.graphql
+T 43 source.graphql
+T 44 source.graphql
+T 53 source.graphql entity.name.function.graphql
+T 55 source.graphql
+T 56 source.graphql
+T 61 source.graphql entity.name.function.graphql
+T 63 source.graphql
+T 64 source.graphql
+T 83 source.graphql entity.name.function.graphql
+T 85 source.graphql
+T 86 source.graphql
+T 92 source.graphql entity.name.function.graphql
+T 94 source.graphql
+T 95 source.graphql
+T 99 source.graphql entity.name.function.graphql
+T 101 source.graphql
+T 102 source.graphql
+T 112 source.graphql entity.name.function.graphql
+T 114 source.graphql
+T 115 source.graphql
+T 127 source.graphql entity.name.function.graphql
+T 129 source.graphql
+T 130 source.graphql
+T 152 source.graphql entity.name.function.graphql
+T 154 source.graphql
+T 155 source.graphql
+T 161 source.graphql entity.name.function.graphql
+L 
+L scalar join__FieldSet
+T 6 source.graphql keyword.scalar.graphql
+T 7 source.graphql
+T 21 source.graphql entity.scalar.graphql
+L 
+L scalar link__Import
+T 6 source.graphql keyword.scalar.graphql
+T 7 source.graphql
+T 19 source.graphql entity.scalar.graphql
+L 
+L enum link__Purpose {
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 18 source.graphql meta.enum.graphql support.type.enum.graphql
+T 19 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   EXECUTION
+T 11 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum join__Graph {
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 16 source.graphql meta.enum.graphql support.type.enum.graphql
+T 17 source.graphql meta.enum.graphql meta.type.object.graphql
+T 18 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   SUPER_USER_MANAGER
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__graph(name: "super_user_management", url: "http://i.am.not.used.example.com")
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 16 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 17 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 22 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 23 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 24 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 45 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 46 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 47 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.comma.graphql
+T 48 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 51 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   GRAPHQL_MAIN__SHARD__BASE
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__graph(name: "graphql_main__shard__base", url: "http://i.am.not.used.example.com")
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 16 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 17 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 22 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 23 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 24 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 49 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 50 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 51 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.comma.graphql
+T 52 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 55 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 56 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 57 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 58 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 90 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 91 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 92 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   GRAPHQL_MAIN__SHARD__INTERNAL_TESTING
+T 39 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__graph(
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 16 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 17 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L       name: "graphql_main__shard__internal_testing"
+T 6 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 11 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 12 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 13 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 50 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 51 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+L       url: "http://i.am.not.used.example.com"
+T 6 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 9 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 11 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 12 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 44 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql
+T 45 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+L     )
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql
+T 5 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type Query {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 10 source.graphql meta.type.interface.graphql support.type.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   superUser: SuperUser! @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+T 24 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 36 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 37 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 69 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 70 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   organization(id: String!): Organization @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 25 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+T 26 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 27 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 41 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 54 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 55 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 61 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 87 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 88 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum UserManagerRoleType @join__type(graph: SUPER_USER_MANAGER) {
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 24 source.graphql meta.enum.graphql support.type.enum.graphql
+T 25 source.graphql meta.enum.graphql
+T 36 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 37 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 42 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 43 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 62 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 63 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 64 source.graphql meta.enum.graphql meta.type.object.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   ROLE_TYPE_1 @join__enumValue(graph: SUPER_USER_MANAGER)
+T 13 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+T 14 source.graphql meta.enum.graphql meta.type.object.graphql
+T 30 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 31 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 36 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 37 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 56 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 57 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L 
+L   ROLE_TYPE_2 @join__enumValue(graph: SUPER_USER_MANAGER)
+T 13 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+T 14 source.graphql meta.enum.graphql meta.type.object.graphql
+T 30 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 31 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 36 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 37 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 56 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 57 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L 
+L   ROLE_TYPE_3 @join__enumValue(graph: SUPER_USER_MANAGER)
+T 13 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+T 14 source.graphql meta.enum.graphql meta.type.object.graphql
+T 30 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 31 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 36 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 37 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 56 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 57 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type UserManager @join__type(graph: SUPER_USER_MANAGER) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 16 source.graphql meta.type.interface.graphql support.type.graphql
+T 17 source.graphql meta.type.interface.graphql
+T 28 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 29 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 34 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 35 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 55 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 56 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 57 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   fooUser: User!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L 
+L   roleType: UserManagerRoleType!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 31 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type User {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 9 source.graphql meta.type.interface.graphql support.type.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   profilePhoto: UserProfilePhoto @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 33 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 45 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 46 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 51 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 78 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 79 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type AdminUser {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 14 source.graphql meta.type.interface.graphql support.type.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   profilePhoto: UserProfilePhoto @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 33 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 45 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 46 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 51 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 78 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 79 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type UserProfilePhoto @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 21 source.graphql meta.type.interface.graphql support.type.graphql
+T 22 source.graphql meta.type.interface.graphql
+T 33 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 34 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 39 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 40 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 67 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 68 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 69 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   photoUrl: UserPhotoUrl
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 24 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type UserPhotoUrl @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 17 source.graphql meta.type.interface.graphql support.type.graphql
+T 18 source.graphql meta.type.interface.graphql
+T 29 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 30 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 35 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 36 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 62 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 64 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 65 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   url(size: UserPhotoSize!): String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 25 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.graphql
+T 26 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 27 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 35 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum UserPhotoSize
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 18 source.graphql meta.enum.graphql support.type.enum.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING) {
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 58 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 59 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.enum.graphql meta.type.object.graphql
+T 61 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   SQUARE_300
+T 12 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type SuperUser @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 14 source.graphql meta.type.interface.graphql support.type.graphql
+T 15 source.graphql meta.type.interface.graphql
+T 26 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 27 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 32 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 33 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 59 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 60 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 61 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 62 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   groupFromAlias(alias: String!): SuperUserGroup!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 24 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 30 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+T 31 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 33 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 34 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 48 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type SuperUserGroup
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__type(graph: SUPER_USER_MANAGER, key: "id")
+T 2 source.graphql
+T 13 source.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 39 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 40 source.graphql meta.arguments.graphql punctuation.comma.graphql
+T 41 source.graphql meta.arguments.graphql
+T 44 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 45 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.arguments.graphql
+T 47 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 49 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 50 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 51 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE, key: "id") {
+T 2 source.graphql
+T 13 source.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.arguments.graphql punctuation.comma.graphql
+T 48 source.graphql meta.arguments.graphql
+T 51 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.arguments.graphql
+T 54 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 56 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 57 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 58 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 59 source.graphql meta.selectionset.graphql
+T 60 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.selectionset.graphql
+T 4 source.graphql meta.selectionset.graphql string.unquoted.alias.graphql
+T 5 source.graphql meta.selectionset.graphql punctuation.colon.graphql
+T 6 source.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql variable.graphql
+T 9 source.graphql meta.selectionset.graphql
+L 
+L   managers(onlyPublic: Boolean! = false): [UserManager!] @join__field(graph: SUPER_USER_MANAGER)
+T 2 source.graphql meta.selectionset.graphql
+T 10 source.graphql meta.selectionset.graphql variable.graphql
+T 11 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 21 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 22 source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 30 source.graphql meta.selectionset.graphql meta.arguments.graphql constant.character.enum.graphql
+T 33 source.graphql meta.selectionset.graphql meta.arguments.graphql
+T 34 source.graphql meta.selectionset.graphql meta.arguments.graphql
+T 39 source.graphql meta.selectionset.graphql meta.arguments.graphql constant.language.boolean.graphql
+T 40 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 43 source.graphql meta.selectionset.graphql
+T 54 source.graphql meta.selectionset.graphql variable.graphql
+T 56 source.graphql meta.selectionset.graphql
+T 57 source.graphql meta.selectionset.graphql
+T 69 source.graphql meta.selectionset.graphql entity.name.function.directive.graphql
+T 70 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 75 source.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 76 source.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 95 source.graphql meta.selectionset.graphql meta.arguments.graphql constant.character.enum.graphql
+T 96 source.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 
+L # Schema definitions for Duplicates.ts examples
+T 47 source.graphql comment.line.graphql.js
+L 
+L interface ConfigTypeDefinition @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 9 source.graphql meta.type.interface.graphql keyword.interface.graphql
+T 10 source.graphql meta.type.interface.graphql
+T 30 source.graphql meta.type.interface.graphql support.type.graphql
+T 31 source.graphql meta.type.interface.graphql
+T 42 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 43 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 49 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 75 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 76 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 77 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 78 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigActionId implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql support.type.graphql
+T 20 source.graphql meta.type.interface.graphql
+T 30 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 31 source.graphql meta.type.interface.graphql
+T 51 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigString implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 17 source.graphql meta.type.interface.graphql support.type.graphql
+T 18 source.graphql meta.type.interface.graphql
+T 28 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 29 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   supportedHtmlTags: [String!]
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.builtin.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+T 30 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigEnum implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 15 source.graphql meta.type.interface.graphql support.type.graphql
+T 16 source.graphql meta.type.interface.graphql
+T 26 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 27 source.graphql meta.type.interface.graphql
+T 47 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   values: [String!]!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.builtin.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigIconResource implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 23 source.graphql meta.type.interface.graphql support.type.graphql
+T 24 source.graphql meta.type.interface.graphql
+T 34 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 35 source.graphql meta.type.interface.graphql
+T 55 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   parameters: [ConfigParameterDefinition!]!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 40 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.graphql
+T 41 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigIllustrationResource implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 31 source.graphql meta.type.interface.graphql support.type.graphql
+T 32 source.graphql meta.type.interface.graphql
+T 42 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 43 source.graphql meta.type.interface.graphql
+T 63 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   parameters: [ConfigParameterDefinition!]!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 40 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.graphql
+T 41 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigStruct implements ConfigTypeDefinition
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 17 source.graphql meta.type.interface.graphql support.type.graphql
+T 18 source.graphql meta.type.interface.graphql
+T 28 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 29 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "ConfigTypeDefinition")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 86 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 87 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 88 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   identifier: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   parameters: [ConfigParameterDefinition!]!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 40 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.graphql
+T 41 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ConfigParameterDefinition @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 30 source.graphql meta.type.interface.graphql support.type.graphql
+T 31 source.graphql meta.type.interface.graphql
+T 42 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 43 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 49 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 75 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 76 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 77 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 78 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   name: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   typeId: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   isRequired: Boolean!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   defaultValue: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type Organization implements Node
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 17 source.graphql meta.type.interface.graphql support.type.graphql
+T 18 source.graphql meta.type.interface.graphql
+T 28 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 29 source.graphql meta.type.interface.graphql
+T 33 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Node")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE, key: "id") {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 48 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 51 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 56 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 57 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 58 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 59 source.graphql meta.type.interface.graphql
+T 60 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   internalOrgData: InternalOrgData @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 34 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 35 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 47 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 48 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 53 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 54 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 80 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 81 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type InternalOrgData @join__type(graph: GRAPHQL_MAIN__SHARD__BASE, key: "id") {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 20 source.graphql meta.type.interface.graphql support.type.graphql
+T 21 source.graphql meta.type.interface.graphql
+T 32 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 33 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 38 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 39 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 67 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 73 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 75 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 76 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 77 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 78 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 79 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   processableFeedback(
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+L     first: Int
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+L     after: String
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+L     sortBy: ProcessableFeedbackSortBy
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 37 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.graphql
+L     sortOrder: ProcessableFeedbackSortOrder
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.graphql
+L     scoreFilter: [Int]
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql meta.type.list.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql meta.type.list.graphql meta.brace.square.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql meta.type.list.graphql support.type.builtin.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql meta.type.list.graphql meta.brace.square.graphql
+L   ): FeedbackConnection @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 3 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 24 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 36 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 37 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 42 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 43 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 69 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 70 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum ProcessableFeedbackSortBy
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 30 source.graphql meta.enum.graphql support.type.enum.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING) {
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 58 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 59 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.enum.graphql meta.type.object.graphql
+T 61 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   OPTION_1
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   OPTION_2
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   OPTION_3
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   OPTION_4
+T 10 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum ProcessableFeedbackSortOrder
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 33 source.graphql meta.enum.graphql support.type.enum.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING) {
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 58 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 59 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.enum.graphql meta.type.object.graphql
+T 61 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   ASC
+T 5 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   DESC
+T 6 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type FeedbackConnection @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 23 source.graphql meta.type.interface.graphql support.type.graphql
+T 24 source.graphql meta.type.interface.graphql
+T 35 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 36 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 41 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 42 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 68 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 69 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 70 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 71 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   edges: [FeedbackEdge]
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+L   pageInfo: PageInfo!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   totalCount: Int
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type FeedbackEdge @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 17 source.graphql meta.type.interface.graphql support.type.graphql
+T 18 source.graphql meta.type.interface.graphql
+T 29 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 30 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 35 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 36 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 62 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 64 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 65 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   cursor: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   node: Feedback
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type Feedback implements Node
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql support.type.graphql
+T 14 source.graphql meta.type.interface.graphql
+T 24 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 25 source.graphql meta.type.interface.graphql
+T 29 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Node")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE, key: "id") {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 48 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 51 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 56 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 57 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 58 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 59 source.graphql meta.type.interface.graphql
+T 60 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   orgMemberThread: Thread @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 25 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 26 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 38 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 39 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 44 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 45 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 71 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 72 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type Thread implements Node
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 11 source.graphql meta.type.interface.graphql support.type.graphql
+T 12 source.graphql meta.type.interface.graphql
+T 22 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 23 source.graphql meta.type.interface.graphql
+T 27 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Node")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   posts(after: String, first: Int): ThreadPostConnection
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.comma.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 30 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 33 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.builtin.graphql
+T 34 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 35 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 36 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 56 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L     @join__field(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 50 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ThreadPostConnection @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 25 source.graphql meta.type.interface.graphql support.type.graphql
+T 26 source.graphql meta.type.interface.graphql
+T 37 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 38 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 43 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 44 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 72 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 73 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   edges: [ThreadPostEdge]
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+T 24 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql support.type.graphql
+T 25 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.type.list.graphql meta.brace.square.graphql
+L   pageInfo: PageInfo!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 20 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ThreadPostEdge @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql support.type.graphql
+T 20 source.graphql meta.type.interface.graphql
+T 31 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 32 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 37 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 38 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 66 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 67 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   cursor: String!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   node: ThreadPost
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type ThreadPost @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 15 source.graphql meta.type.interface.graphql support.type.graphql
+T 16 source.graphql meta.type.interface.graphql
+T 27 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 28 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 33 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 34 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 60 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 61 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 62 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 63 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   creator: ThreadPostCreator
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L   text: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 7 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L   createdAt: DateTime
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L union ThreadPostCreator
+T 5 source.graphql keyword.union.graphql
+T 6 source.graphql
+T 23 source.graphql support.type.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql
+T 13 source.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__unionMember(graph: GRAPHQL_MAIN__SHARD__BASE, member: "OrgMember")
+T 2 source.graphql
+T 20 source.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.arguments.graphql punctuation.comma.graphql
+T 55 source.graphql meta.arguments.graphql
+T 61 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 62 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 63 source.graphql meta.arguments.graphql
+T 64 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 73 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 74 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 75 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__unionMember(graph: GRAPHQL_MAIN__SHARD__BASE, member: "EndUser") =
+T 2 source.graphql
+T 20 source.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.arguments.graphql punctuation.comma.graphql
+T 55 source.graphql meta.arguments.graphql
+T 61 source.graphql meta.arguments.graphql variable.parameter.graphql
+T 62 source.graphql meta.arguments.graphql punctuation.colon.graphql
+T 63 source.graphql meta.arguments.graphql
+T 64 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 71 source.graphql meta.arguments.graphql string.quoted.double.graphql
+T 72 source.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 73 source.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 75 source.graphql
+L   | OrgMember
+T 3 source.graphql
+T 4 source.graphql
+T 13 source.graphql entity.name.function.graphql
+L   | EndUser
+T 3 source.graphql
+T 4 source.graphql
+T 11 source.graphql entity.name.function.graphql
+L 
+L type OrgMember @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 14 source.graphql meta.type.interface.graphql support.type.graphql
+T 15 source.graphql meta.type.interface.graphql
+T 26 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 27 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 32 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 33 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 59 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 60 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 61 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 62 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   fullName: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L   avatar: OrgMemberAvatar
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 25 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type EndUser @join__type(graph: GRAPHQL_MAIN__SHARD__BASE, key: "id") {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 12 source.graphql meta.type.interface.graphql support.type.graphql
+T 13 source.graphql meta.type.interface.graphql
+T 24 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 30 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 31 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 57 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 58 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 59 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 62 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 67 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 68 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 69 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 70 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 71 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   fullName: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L   avatar: EndUserAvatar
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type OrgMemberAvatar implements Photo & Node
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 20 source.graphql meta.type.interface.graphql support.type.graphql
+T 21 source.graphql meta.type.interface.graphql
+T 31 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 32 source.graphql meta.type.interface.graphql
+T 37 source.graphql meta.type.interface.graphql support.type.graphql
+T 38 source.graphql meta.type.interface.graphql
+T 39 source.graphql meta.type.interface.graphql keyword.operator.logical.graphql
+T 40 source.graphql meta.type.interface.graphql
+T 44 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Photo")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 73 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Node")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   imageUrl: OrgMemberImageUrl
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type OrgMemberImageUrl @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 22 source.graphql meta.type.interface.graphql support.type.graphql
+T 23 source.graphql meta.type.interface.graphql
+T 34 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 35 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 40 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 41 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 67 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 68 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 69 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 70 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   url(size: OrgMemberImageSize!): String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 30 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.graphql
+T 31 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 33 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 34 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 40 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum OrgMemberImageSize
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 23 source.graphql meta.enum.graphql support.type.enum.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING) {
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 58 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 59 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.enum.graphql meta.type.object.graphql
+T 61 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   LARGE
+T 7 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   MEDIUM
+T 8 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   SMALL
+T 7 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type EndUserAvatar implements Photo & Node
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 18 source.graphql meta.type.interface.graphql support.type.graphql
+T 19 source.graphql meta.type.interface.graphql
+T 29 source.graphql meta.type.interface.graphql keyword.implements.graphql
+T 30 source.graphql meta.type.interface.graphql
+T 35 source.graphql meta.type.interface.graphql support.type.graphql
+T 36 source.graphql meta.type.interface.graphql
+T 37 source.graphql meta.type.interface.graphql keyword.operator.logical.graphql
+T 38 source.graphql meta.type.interface.graphql
+T 42 source.graphql meta.type.interface.graphql support.type.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Photo")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 73 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__implements(graph: GRAPHQL_MAIN__SHARD__BASE, interface: "Node")
+T 2 source.graphql meta.type.interface.graphql
+T 19 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 25 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 26 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 52 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 53 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.comma.graphql
+T 54 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 63 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 64 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.begin.graphql
+T 70 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql
+T 71 source.graphql meta.type.interface.graphql meta.arguments.graphql string.quoted.double.graphql punctuation.definition.string.end.graphql
+T 72 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 2 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 48 source.graphql meta.type.interface.graphql
+T 49 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   imageUrl: EndUserImageUrl
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 27 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type EndUserImageUrl @join__type(graph: GRAPHQL_MAIN__SHARD__BASE) {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 20 source.graphql meta.type.interface.graphql support.type.graphql
+T 21 source.graphql meta.type.interface.graphql
+T 32 source.graphql meta.type.interface.graphql entity.name.function.directive.graphql
+T 33 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 38 source.graphql meta.type.interface.graphql meta.arguments.graphql variable.parameter.graphql
+T 39 source.graphql meta.type.interface.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.type.interface.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.type.interface.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 67 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 68 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   url(size: EndUserImageSize!): String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 10 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql variable.parameter.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql punctuation.colon.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql
+T 28 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql support.type.graphql
+T 29 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 30 source.graphql meta.type.interface.graphql meta.type.object.graphql meta.brace.round.graphql
+T 31 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 32 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 38 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L enum EndUserImageSize
+T 4 source.graphql meta.enum.graphql keyword.enum.graphql
+T 5 source.graphql meta.enum.graphql
+T 21 source.graphql meta.enum.graphql support.type.enum.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 46 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 47 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   @join__type(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING) {
+T 2 source.graphql meta.enum.graphql
+T 13 source.graphql meta.enum.graphql entity.name.function.directive.graphql
+T 14 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 19 source.graphql meta.enum.graphql meta.arguments.graphql variable.parameter.graphql
+T 20 source.graphql meta.enum.graphql meta.arguments.graphql punctuation.colon.graphql
+T 58 source.graphql meta.enum.graphql meta.arguments.graphql constant.character.enum.graphql
+T 59 source.graphql meta.enum.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 60 source.graphql meta.enum.graphql meta.type.object.graphql
+T 61 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L   LARGE
+T 7 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   MEDIUM
+T 8 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L   SMALL
+T 7 source.graphql meta.enum.graphql meta.type.object.graphql constant.character.enum.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__BASE)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 53 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 54 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L     @join__enumValue(graph: GRAPHQL_MAIN__SHARD__INTERNAL_TESTING)
+T 4 source.graphql meta.enum.graphql meta.type.object.graphql
+T 20 source.graphql meta.enum.graphql meta.type.object.graphql entity.name.function.directive.graphql
+T 21 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 26 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql variable.parameter.graphql
+T 27 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql punctuation.colon.graphql
+T 65 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql constant.character.enum.graphql
+T 66 source.graphql meta.enum.graphql meta.type.object.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+L }
+T 1 source.graphql meta.enum.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L interface Photo {
+T 9 source.graphql meta.type.interface.graphql keyword.interface.graphql
+T 10 source.graphql meta.type.interface.graphql
+T 15 source.graphql meta.type.interface.graphql support.type.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L interface Node {
+T 9 source.graphql meta.type.interface.graphql keyword.interface.graphql
+T 10 source.graphql meta.type.interface.graphql
+T 14 source.graphql meta.type.interface.graphql support.type.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 16 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   id: ID!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 4 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 5 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 6 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 8 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 9 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L type PageInfo {
+T 4 source.graphql meta.type.interface.graphql keyword.type.graphql
+T 5 source.graphql meta.type.interface.graphql
+T 13 source.graphql meta.type.interface.graphql support.type.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L   hasNextPage: Boolean!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 22 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 23 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   hasPreviousPage: Boolean!
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 17 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 18 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 26 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+T 27 source.graphql meta.type.interface.graphql meta.type.object.graphql keyword.operator.nulltype.graphql
+L   startCursor: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 14 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 15 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 21 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L   endCursor: String
+T 2 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 11 source.graphql meta.type.interface.graphql meta.type.object.graphql variable.graphql
+T 12 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.colon.graphql
+T 13 source.graphql meta.type.interface.graphql meta.type.object.graphql
+T 19 source.graphql meta.type.interface.graphql meta.type.object.graphql support.type.builtin.graphql
+L }
+T 1 source.graphql meta.type.interface.graphql meta.type.object.graphql punctuation.operation.graphql
+L 
+L scalar DateTime
+T 6 source.graphql keyword.scalar.graphql
+T 7 source.graphql
+T 15 source.graphql entity.scalar.graphql
+L 

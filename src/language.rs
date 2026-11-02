@@ -7,8 +7,8 @@ use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
 use crate::{
-    Token, c, diff, dockerfile, ini, java, json, make, markdown, python, rust, shell, sql, toml,
-    typescript, yaml,
+    Token, c, diff, dockerfile, graphql, ini, java, json, make, markdown, python, rust, shell, sql,
+    toml, typescript, yaml,
 };
 
 /// A language nishiki highlights, named as Shiki names it.
@@ -56,6 +56,8 @@ pub enum Language {
     Sql,
     /// INI, with the scopes of Shiki's `ini` grammar.
     Ini,
+    /// GraphQL, with the scopes of Shiki's `graphql` grammar.
+    GraphQl,
 }
 
 impl Language {
@@ -81,6 +83,7 @@ impl Language {
         Language::C,
         Language::Sql,
         Language::Ini,
+        Language::GraphQl,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -107,6 +110,7 @@ impl Language {
             Language::C => "c",
             Language::Sql => "sql",
             Language::Ini => "ini",
+            Language::GraphQl => "graphql",
         }
     }
 
@@ -153,6 +157,7 @@ impl Language {
             Language::C => &["c"],
             Language::Sql => &["sql"],
             Language::Ini => &["ini", "properties"],
+            Language::GraphQl => &["graphql", "gql"],
         }
     }
 }
@@ -213,6 +218,7 @@ impl Language {
             Language::C => c::start(arena, base),
             Language::Sql => sql::start(arena, base),
             Language::Ini => ini::start(arena, base),
+            Language::GraphQl => graphql::start(arena, base),
         }
     }
 
@@ -237,6 +243,7 @@ impl Language {
             Language::C => c::start_embedded(arena, base),
             Language::Sql => sql::start_embedded(arena, base),
             Language::Ini => ini::start_embedded(arena, base),
+            Language::GraphQl => graphql::start_embedded(arena, base),
         }
     }
 
@@ -266,6 +273,7 @@ impl Language {
             Language::C => c::lex(cx, line, state),
             Language::Sql => sql::lex(cx, line, state),
             Language::Ini => ini::lex(cx, line, state),
+            Language::GraphQl => graphql::lex(cx, line, state),
         }
     }
 }

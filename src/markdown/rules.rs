@@ -396,8 +396,8 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Language::Sql) => Some(S::EmbeddedSql),
         Kind::Body(Language::Ini) => Some(S::EmbeddedIni),
         Kind::FrontMatterBody => Some(S::EmbeddedFrontMatter),
-        // Shiki's Markdown grammar has no rule that embeds TOML.
-        Kind::Body(Language::Toml)
+        // Shiki's Markdown grammar has no rule that embeds TOML or GraphQL.
+        Kind::Body(Language::Toml | Language::GraphQl)
         | Kind::Base
         | Kind::Quote
         | Kind::ListBullet

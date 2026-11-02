@@ -24,6 +24,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (C, crate::c::NAMES),
     (SQL, crate::sql::NAMES),
     (INI, crate::ini::NAMES),
+    (GRAPHQL, crate::graphql::NAMES),
 ];
 
 // Each table starts where the one before it ends, and the last ends below the
@@ -106,6 +107,9 @@ pub(crate) const SQL: u16 = after(C, crate::c::NAMES);
 
 /// The base of the INI lexer's scope names: where the SQL lexer's end.
 pub(crate) const INI: u16 = after(SQL, crate::sql::NAMES);
+
+/// The base of the GraphQL lexer's scope names: where the INI lexer's end.
+pub(crate) const GRAPHQL: u16 = after(INI, crate::ini::NAMES);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

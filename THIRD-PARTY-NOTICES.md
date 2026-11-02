@@ -500,6 +500,8 @@ That grammar is licensed under the Apache License, Version 2.0, which is moby's 
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
 Its C lexer emits the scope names of the C TextMate grammar in [jeff-hykin/better-c-syntax](https://github.com/jeff-hykin/better-c-syntax), which VS Code ships in its C and C++ extension and Shiki bundles as `c`, and tries that grammar's rules in its order.
+
+Its GraphQL lexer emits the scope names of the GraphQL TextMate grammar in [prisma-labs/vscode-graphql](https://github.com/prisma-labs/vscode-graphql) (`grammars/graphql.json`), which Shiki bundles, and tries that grammar's rules in its order.
 That grammar is licensed under the MIT License:
 
 ```text
@@ -563,3 +565,26 @@ suitability for any purpose.
 ```
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
+Copyright (c) 2018 Prisma Data Services <support@prisma.io>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+```text
+```

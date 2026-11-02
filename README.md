@@ -98,6 +98,7 @@ assert_eq!(highlighter.limits().depth, None);
 | C | `Language::C` | `c` |
 | SQL | `Language::Sql` | `sql` |
 | INI | `Language::Ini` | `ini`, `properties` |
+| GraphQL | `Language::GraphQl` | `graphql`, `gql` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -197,6 +198,13 @@ A `#` or `;` starts a comment anywhere outside a string, so `a = b # c` has one,
 A double-quoted string has no escapes, and a string runs across lines until its quote.
 A section header is read only at the start of a line, and a Markdown fence's INI lines lose that anchor when a quote or list indents the fence.
 A Markdown fence names the language `ini` or `conf`; a `properties` fence is plain text, as in Shiki.
+
+### GraphQL
+
+The grammar's comment rule comes first everywhere and reads every `"..."` and `"""..."""` as a comment that runs across lines, except a string that follows white space where a value is expected, which is a string.
+An enum value's scope includes the white space before it, and a rule that matches nothing closes the rule it sits in, so `type A x` ends the type at `x`.
+A Markdown fence is plain text, as Shiki's Markdown grammar has no rule that embeds GraphQL.
+A `${...}` in a selection set is lexed as JavaScript up to its first unmatched `}`, on one line at a time with the JavaScript lexer alone; Shiki's union of four JavaScript and TypeScript grammars carries its state across lines and may close the interpolation elsewhere, so a `${...}` that spans lines, or holds an unbalanced bracket, string or comment, can differ.
 
 ## Licence
 

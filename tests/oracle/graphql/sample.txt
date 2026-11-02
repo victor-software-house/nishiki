@@ -1,0 +1,64 @@
+L query($number_of_repos:Int!) {
+T 5 source.graphql keyword.operation.graphql
+T 6 source.graphql meta.brace.round.graphql
+T 22 source.graphql meta.variables.graphql variable.parameter.graphql
+T 23 source.graphql meta.variables.graphql punctuation.colon.graphql
+T 26 source.graphql meta.variables.graphql support.type.builtin.graphql
+T 27 source.graphql meta.variables.graphql keyword.operator.nulltype.graphql
+T 28 source.graphql meta.brace.round.graphql
+T 29 source.graphql meta.selectionset.graphql
+T 30 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   viewer {
+T 2 source.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql variable.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     name
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L      repositories(last: $number_of_repos) {
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 17 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 18 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 22 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.parameter.graphql
+T 23 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql punctuation.colon.graphql
+T 24 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql
+T 40 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql variable.graphql
+T 41 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.arguments.graphql meta.brace.round.directive.graphql
+T 42 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 43 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L        nodes {
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 14 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L          name
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L        }
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L      }
+T 5 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L    }
+T 3 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L variables {
+T 9 source.graphql entity.name.function.graphql
+T 10 source.graphql meta.selectionset.graphql
+T 11 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L    "number_of_repos": 3
+T 3 source.graphql meta.selectionset.graphql
+T 4 source.graphql meta.selectionset.graphql comment.line.graphql.js punctuation.whitespace.comment.leading.graphql
+T 19 source.graphql meta.selectionset.graphql comment.line.graphql.js
+T 20 source.graphql meta.selectionset.graphql comment.line.graphql.js
+T 23 source.graphql meta.selectionset.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 
+L # From https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
+T 75 source.graphql comment.line.graphql.js
+L 

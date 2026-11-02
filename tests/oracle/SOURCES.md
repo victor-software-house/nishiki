@@ -160,6 +160,13 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `ini/kafka-consumer` | [`config/consumer.properties`][kafka-consumer] in apache/kafka | [Apache-2.0][kafka-licence] |
 | `markdown/black-other-tools` | [`docs/guides/using_black_with_other_tools.md`][black-other-tools] in psf/black | [MIT][black-licence] |
 | `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
+| `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `graphql/graphql-js-kitchen-sink` | [`benchmark/kitchen-sink.graphql`][graphql-js-kitchen-sink] in graphql/graphql-js | [MIT][graphql-js-licence] |
+| `graphql/graphiql-schema-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql`][graphiql-schema-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/codegen-apollo-tooling` | [`dev-test/apollo-tooling/schema.graphql`][codegen-apollo] in dotansimha/graphql-code-generator | [MIT][codegen-licence] |
+| `graphql/graphiql-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`][graphiql-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
+| `graphql/graphiql-merged-query` | [`packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`][graphiql-merged-query] in graphql/graphiql | [MIT][graphiql-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -187,6 +194,9 @@ Their first scores, before any fix, were 100% for the three YAML files and 64 of
 `diff/sample`, `diff/cranelift-stdarch-sve`, `diff/cranelift-stdlib-atomics` and `diff/mir-opt-gvn-cast` are the development inputs for diff.
 `diff/cranelift-sysroot-tests`, `diff/mir-opt-gvn-slices` and `diff/vscode-foundry-local-sdk` are held out.
 `markdown/vitest-migration-jest` is the development input for diff fences, and `markdown/vite-ssr` and `markdown/prettier-plugins` are held out.
+`graphql/sample`, `graphql/graphql-js-kitchen-sink`, `graphql/graphiql-schema-kitchen-sink` and `graphql/codegen-apollo-tooling` are the development inputs for GraphQL.
+`graphql/graphiql-kitchen-sink`, `graphql/graphiql-star-wars` and `graphql/graphiql-merged-query` are held out.
+Their first scores, before any fix, were 351 of 709, 6,316 of 6,338 and 12 of 708 bytes different, all from one cause, a `\s*\n` rule that matched nothing at the end of the text and so closed the rule it sat in.
 `docker/sample`, `docker/python-slim-bookworm`, `docker/next-with-docker` and `docker/prometheus` are the development inputs for Dockerfiles.
 `docker/moby`, `docker/postgres-bookworm` and `docker/buildx` are held out.
 `markdown/fastapi-docker` is the development input for `dockerfile` fences, and `markdown/next-with-docker-readme` and `markdown/next-with-docker-export-readme` are held out.
@@ -426,3 +436,13 @@ The lexer matched every input on its first run, held-out ones included.
 [tomcat-licence]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/LICENSE
 [black-other-tools]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/docs/guides/using_black_with_other_tools.md
 [poetry-faq]: https://github.com/python-poetry/poetry/blob/6ecadf5b71309b1da4f00949cc349a79884cff8f/docs/faq.md
+[graphql-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/graphql.sample
+[graphql-js-kitchen-sink]: https://github.com/graphql/graphql-js/blob/eb0bd0801ea5f9f7680e91ae575ed74397f051cb/benchmark/kitchen-sink.graphql
+[graphql-js-licence]: https://github.com/graphql/graphql-js/blob/eb0bd0801ea5f9f7680e91ae575ed74397f051cb/LICENSE
+[graphiql-schema-kitchen-sink]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql
+[graphiql-kitchen-sink]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql
+[graphiql-star-wars]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql
+[graphiql-merged-query]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql
+[graphiql-licence]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/LICENSE
+[codegen-apollo]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/dev-test/apollo-tooling/schema.graphql
+[codegen-licence]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/LICENSE
