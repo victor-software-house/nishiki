@@ -170,41 +170,72 @@ pub(crate) struct Found {
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
     for lang in NAMES {
         for word in lang.words {
-            if starts_ignore_case(cx, i, word.as_bytes()) && attributes_ok(cx, i + word.len()) {
+            if let Some(end) = fold_end(cx, i, word.as_bytes())
+                && attributes_ok(cx, end)
+            {
                 return Some(Found {
                     lang: lang.lang,
-                    name_end: i + word.len(),
+                    name_end: end,
                 });
             }
         }
-        if let Some(name) = lang.brace {
-            let open = 2 + name.len();
-            if cx.starts(i, b"{.") && starts_ignore_case(cx, i + 2, name.as_bytes()) {
-                // `.+?}`: at least one character, then the first `}` that the
-                // attributes can follow.
-                let mut close = i + open + 1;
-                while let Some(b) = cx.get(close) {
-                    if b == b'\n' {
-                        break;
-                    }
-                    if b == b'}' && attributes_ok(cx, close + 1) {
-                        return Some(Found {
-                            lang: lang.lang,
-                            name_end: close + 1,
-                        });
-                    }
-                    close += 1;
+        if let Some(name) = lang.brace
+            && cx.starts(i, b"{.")
+            && let Some(end) = fold_end(cx, i + 2, name.as_bytes())
+        {
+            // `.+?}`: at least one character, then the first `}` that the
+            // attributes can follow.
+            let mut close = end + 1;
+            while let Some(b) = cx.get(close) {
+                if b == b'\n' {
+                    break;
                 }
+                if b == b'}' && attributes_ok(cx, close + 1) {
+                    return Some(Found {
+                        lang: lang.lang,
+                        name_end: close + 1,
+                    });
+                }
+                close += 1;
             }
         }
     }
     None
 }
 
-fn starts_ignore_case(cx: &Cx<'_>, i: usize, word: &[u8]) -> bool {
-    word.iter()
-        .enumerate()
-        .all(|(k, &w)| cx.get(i + k).is_some_and(|b| b.eq_ignore_ascii_case(&w)))
+/// The end of `word` matched at `i` the way a case-insensitive Oniguruma
+/// pattern matches it, which folds more than ASCII case: the Kelvin sign
+/// U+212A reads as `k`, the long s U+017F as `s`, and the ligatures U+FB00 to
+/// U+FB06 as the letters they stand for (`ff`, `fi`, `fl`, `ffi`, `ffl`,
+/// `st`). Checked against Shiki's Markdown grammar for each of them.
+fn fold_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
+    let (mut at, mut k) = (i, 0);
+    while k < word.len() {
+        let b = cx.get(at)?;
+        if b.eq_ignore_ascii_case(&word[k]) {
+            at += 1;
+            k += 1;
+            continue;
+        }
+        let (len, folded): (usize, &[u8]) = match (b, cx.get(at + 1), cx.get(at + 2)) {
+            (0xe2, Some(0x84), Some(0xaa)) => (3, b"k"),
+            (0xc5, Some(0xbf), _) => (2, b"s"),
+            (0xef, Some(0xac), Some(0x80)) => (3, b"ff"),
+            (0xef, Some(0xac), Some(0x81)) => (3, b"fi"),
+            (0xef, Some(0xac), Some(0x82)) => (3, b"fl"),
+            (0xef, Some(0xac), Some(0x83)) => (3, b"ffi"),
+            (0xef, Some(0xac), Some(0x84)) => (3, b"ffl"),
+            (0xef, Some(0xac), Some(0x85 | 0x86)) => (3, b"st"),
+            _ => return None,
+        };
+        let rest = word.get(k..k + folded.len())?;
+        if !rest.eq_ignore_ascii_case(folded) {
+            return None;
+        }
+        at += len;
+        k += folded.len();
+    }
+    Some(at)
 }
 
 /// The attributes that may follow a language name at `i`: nothing, or a space

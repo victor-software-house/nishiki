@@ -823,3 +823,32 @@ fn a_yaml_fence_in_a_list_has_no_line_starts_for_yaml() {
     assert_eq!(scope_of(text, "#"), "meta.embedded.block.yaml");
     assert_eq!(scope_of(text, "e"), "meta.embedded.block.yaml");
 }
+
+/// Whether the second line of `text` is embedded code.
+fn second_line_is_embedded(text: &str) -> bool {
+    lex(text)[1].iter().any(|(_, scopes)| {
+        scopes
+            .iter()
+            .any(|scope| scope.starts_with("meta.embedded.block."))
+    })
+}
+
+#[test]
+fn a_fence_name_matches_with_oracles_case_folding() {
+    // Shiki matches the names without regard to case under Oniguruma's
+    // folding: the Kelvin sign is `k`, the long s is `s`, and a ligature is
+    // the letters it stands for.
+    for name in [
+        "ma\u{212a}efile",
+        "GNUmake\u{fb01}le",
+        "\u{17f}h",
+        "ru\u{fb05}",
+        "di\u{fb00}",
+        "{.ru\u{17f}t .x}",
+    ] {
+        let text = format!("```{name}\nlet x = 1; + 1\n```");
+        assert!(second_line_is_embedded(&text), "{name:?}");
+    }
+    // Other letters do not fold.
+    assert!(!second_line_is_embedded("```ru\u{df}t\nlet x = 1;\n```"));
+}
