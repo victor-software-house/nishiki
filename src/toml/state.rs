@@ -3,7 +3,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of TOML's.
-const TAG: u16 = 0x0600;
+const TAG: u16 = crate::tag::TOML;
 
 /// An open context.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

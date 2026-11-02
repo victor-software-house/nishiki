@@ -3,7 +3,7 @@
 use super::grammar::Rule;
 
 /// The high byte that marks a frame as one of Python's.
-const TAG: u16 = 0x0600;
+const TAG: u16 = crate::tag::PYTHON;
 
 impl Rule {
     /// The rule as a frame stores it: the Python tag in the high byte, the

@@ -4,7 +4,7 @@
 use crate::Language;
 
 /// The high byte that marks a frame as one of Markdown's.
-const TAG: u16 = 0x0200;
+const TAG: u16 = crate::tag::MARKDOWN;
 
 /// A container left open at the end of a line: a begin/end or begin/while rule
 /// of the Markdown grammar.

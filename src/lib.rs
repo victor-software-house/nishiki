@@ -63,6 +63,7 @@ mod rust;
 mod scope;
 mod scratch;
 mod shell;
+mod tag;
 mod theme;
 mod toml;
 mod typescript;

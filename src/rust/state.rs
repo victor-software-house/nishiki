@@ -3,7 +3,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of Rust's.
-const TAG: u16 = 0x0100;
+const TAG: u16 = crate::tag::RUST;
 
 /// An open context. Each one is a TextMate-style begin/end rule of the Rust
 /// grammar: it adds a scope (some add none) and limits which rules apply.

@@ -17,7 +17,8 @@ One contract keeps every language reachable through one public API, and lets one
 ### 1.2 State lives in the arena
 
 A lexer's open contexts are frames of the shared arena (`src/arena.rs`), pushed and popped through the lexer's `push`, `push_with`, `pop`, `set_payload` and `payload`.
-A frame's kind is the language's context enum, tagged with the language's own high byte (`0x01` Rust, `0x02` Markdown, `0x03` TypeScript, `0x04` shell, the next language the next byte).
+A frame's kind is the language's context enum, tagged with the language's own high byte.
+Every tag is a constant in `src/tag.rs`, with a compile-time check that no two ranges overlap, including a lexer that claims a wider range for flag bits; a lexer takes its constant there and never the next free byte, because lexers are written in parallel.
 Data a context carries, such as a raw string's `#` count, a fence's delimiter or an embedded language's state, is the frame's payload; text is interned first, so the payload is an id.
 Equal states then have equal ids, which is what lets an editor stop re-lexing as soon as a line's state matches the old one.
 

@@ -3,7 +3,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of the Makefile lexer's.
-const TAG: u16 = 0x0b00;
+const TAG: u16 = crate::tag::MAKE;
 
 /// A rule of the grammar: a begin/end rule that can stay open at the end of a
 /// line, or a pseudo rule that only lists the patterns a capture is lexed

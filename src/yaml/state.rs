@@ -3,7 +3,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of YAML's.
-const TAG: u16 = 0x0800;
+const TAG: u16 = crate::tag::YAML;
 
 /// An open context.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

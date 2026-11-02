@@ -3,7 +3,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of JSON's.
-const TAG: u16 = 0x0500;
+const TAG: u16 = crate::tag::JSON;
 
 /// An open context: a begin/end rule of the JSON grammar.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

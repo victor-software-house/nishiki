@@ -5,7 +5,7 @@
 use super::scope::S;
 
 /// The high byte that marks a frame as one of TypeScript's.
-const TAG: u16 = 0x0300;
+const TAG: u16 = crate::tag::TYPESCRIPT;
 
 macro_rules! kinds {
     ($($id:ident [$($name:expr),*] [$($content:expr),*];)*) => {
