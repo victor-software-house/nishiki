@@ -154,7 +154,7 @@ impl Language {
     /// it after them. The other lexers leave their state alone for such a
     /// line.
     pub(crate) fn reads_line_feed(self) -> bool {
-        self == Language::Make
+        matches!(self, Language::Make | Language::Shell)
     }
 
     /// The state at the start of a document whose scopes sit on `base`.

@@ -280,6 +280,20 @@ fn shell_text_after_a_containers_indent_is_not_at_the_start_of_the_line() {
 }
 
 #[test]
+fn a_shell_function_body_survives_a_line_of_only_container_indent() {
+    // The line holding only the list item's indent is read whole by the
+    // containers; Shiki's shell rules still see its line feed there, and
+    // the function's `{ ... }` stays open across it.
+    let text = "- a\n\n  ```sh\n  f() {\n  \n  echo hi\n  }\n  ```\n";
+    // Shiki leaves the body's text unsplit, as one token under the body.
+    let stack = stack_of(text, "echo hi");
+    assert_eq!(
+        stack.last().map(String::as_str),
+        Some("meta.function.body.shell")
+    );
+}
+
+#[test]
 fn shell_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```sh
