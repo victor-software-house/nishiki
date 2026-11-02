@@ -1,0 +1,606 @@
+L /*
+T 2 source.java comment.block.java punctuation.definition.comment.java
+L  * Copyright 2025 the original author or authors.
+T 49 source.java comment.block.java
+L  * <p>
+T 6 source.java comment.block.java
+L  * Licensed under the Apache License, Version 2.0 (the "License");
+T 66 source.java comment.block.java
+L  * you may not use this file except in compliance with the License.
+T 67 source.java comment.block.java
+L  * You may obtain a copy of the License at
+T 42 source.java comment.block.java
+L  * <p>
+T 6 source.java comment.block.java
+L  * https://www.apache.org/licenses/LICENSE-2.0
+T 46 source.java comment.block.java
+L  * <p>
+T 6 source.java comment.block.java
+L  * Unless required by applicable law or agreed to in writing, software
+T 70 source.java comment.block.java
+L  * distributed under the License is distributed on an "AS IS" BASIS,
+T 68 source.java comment.block.java
+L  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 75 source.java comment.block.java
+L  * See the License for the specific language governing permissions and
+T 70 source.java comment.block.java
+L  * limitations under the License.
+T 33 source.java comment.block.java
+L  */
+T 1 source.java comment.block.java
+T 3 source.java comment.block.java punctuation.definition.comment.java
+L package org.openrewrite.java.tree;
+T 7 source.java meta.package.java keyword.other.package.java
+T 8 source.java meta.package.java
+T 11 source.java meta.package.java storage.modifier.package.java
+T 12 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 23 source.java meta.package.java storage.modifier.package.java
+T 24 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 28 source.java meta.package.java storage.modifier.package.java
+T 29 source.java meta.package.java storage.modifier.package.java punctuation.separator.java
+T 33 source.java meta.package.java storage.modifier.package.java
+T 34 source.java meta.package.java punctuation.terminator.java
+L 
+L import org.junit.jupiter.api.Test;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 16 source.java meta.import.java storage.modifier.import.java
+T 17 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 24 source.java meta.import.java storage.modifier.import.java
+T 25 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 28 source.java meta.import.java storage.modifier.import.java
+T 29 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 33 source.java meta.import.java storage.modifier.import.java
+T 34 source.java meta.import.java punctuation.terminator.java
+L import org.openrewrite.java.MinimumJava21;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 22 source.java meta.import.java storage.modifier.import.java
+T 23 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 27 source.java meta.import.java storage.modifier.import.java
+T 28 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 41 source.java meta.import.java storage.modifier.import.java
+T 42 source.java meta.import.java punctuation.terminator.java
+L import org.openrewrite.test.RewriteTest;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 10 source.java meta.import.java storage.modifier.import.java
+T 11 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 22 source.java meta.import.java storage.modifier.import.java
+T 23 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 27 source.java meta.import.java storage.modifier.import.java
+T 28 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 39 source.java meta.import.java storage.modifier.import.java
+T 40 source.java meta.import.java punctuation.terminator.java
+L 
+L import static org.openrewrite.java.Assertions.java;
+T 6 source.java meta.import.java keyword.other.import.java
+T 7 source.java meta.import.java
+T 13 source.java meta.import.java storage.modifier.java
+T 14 source.java meta.import.java
+T 17 source.java meta.import.java storage.modifier.import.java
+T 18 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 29 source.java meta.import.java storage.modifier.import.java
+T 30 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 34 source.java meta.import.java storage.modifier.import.java
+T 35 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 45 source.java meta.import.java storage.modifier.import.java
+T 46 source.java meta.import.java storage.modifier.import.java punctuation.separator.java
+T 50 source.java meta.import.java storage.modifier.import.java
+T 51 source.java meta.import.java punctuation.terminator.java
+L 
+L @MinimumJava21
+T 1 source.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 14 source.java meta.declaration.annotation.java storage.type.annotation.java
+L class SwitchPatternMatchingTest implements RewriteTest {
+T 5 source.java meta.class.java meta.class.identifier.java storage.modifier.java
+T 6 source.java meta.class.java meta.class.identifier.java
+T 31 source.java meta.class.java meta.class.identifier.java entity.name.type.class.java
+T 32 source.java meta.class.java
+T 42 source.java meta.class.java meta.definition.class.implemented.interfaces.java storage.modifier.implements.java
+T 43 source.java meta.class.java meta.definition.class.implemented.interfaces.java
+T 54 source.java meta.class.java meta.definition.class.implemented.interfaces.java entity.other.inherited-class.java
+T 55 source.java meta.class.java meta.definition.class.implemented.interfaces.java
+T 56 source.java meta.class.java punctuation.section.class.begin.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseJava21PatternSwitch() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 39 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 40 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 41 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 42 source.java meta.class.java meta.class.body.java meta.method.java
+T 43 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   String formatterPatternSwitch(Object obj) {
+T 61 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       return switch (obj) {
+T 43 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Integer i -> String.format("int %d", i);
+T 71 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Long l    -> String.format("long %d", l);
+T 72 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Double d  -> String.format("double %f", d);
+T 74 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case String s  -> String.format("String %s", s);
+T 74 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           default        -> obj.toString();
+T 59 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       };
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldSupportParsingNullSwitch() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 39 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 40 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 41 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 42 source.java meta.class.java meta.class.body.java meta.method.java
+T 43 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                 void fooBarWithNull(String s) {
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                     switch (s) {
+T 32 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                         case null -> System.out.println("Oops");
+T 64 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                         case "Foo", "Bar" -> System.out.println("Great");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                         default -> System.out.println("Ok");
+T 60 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                     }
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                 }
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldSupportParsingNullSwitchCombined() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 50 source.java meta.class.java meta.class.body.java meta.method.java
+T 51 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                 void fooBarWithNull(String s) {
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                     switch (s) {
+T 32 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                         case "Foo", "Bar" -> System.out.println("Great");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                         case null, default -> System.out.println("Ok");
+T 71 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                     }
+T 21 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                 }
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseJava21EnumSupportInSwitch() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 45 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 46 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               enum Coin  { HEADS, TAILS }
+T 41 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L 
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   void switchEnum(Coin c) {
+T 43 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       switch (c) {
+T 34 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case HEADS -> System.out.println("Heads");
+T 68 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Coin.TAILS -> System.out.println("Tails");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       }
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           )
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+L         );
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseJava21ImprovedEnumSupportInSwitch() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 53 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 54 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 55 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 56 source.java meta.class.java meta.class.body.java meta.method.java
+T 57 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               sealed interface I permits Foo, Bar {}
+T 52 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               public enum Foo implements I { A, B }
+T 51 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               final class Bar implements I {}
+T 45 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L 
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   void switchEnumExtendedType(I c) {
+T 52 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       switch (c) {
+T 34 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Foo.A -> System.out.println("It's Foo A");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Foo.B -> System.out.println("It's Foo B");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case Bar b -> System.out.println("It's Bar");
+T 71 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       }
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseJava21SwitchWithRelaxedTypeRestrictions() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 59 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 60 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 61 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 62 source.java meta.class.java meta.class.body.java meta.method.java
+T 63 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               record Point(int i, int j) {}
+T 43 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               enum Color { RED, GREEN, BLUE; }
+T 46 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L 
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   void typeTester(Object obj) {
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                        switch (obj) {
+T 37 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case null     -> System.out.println("null");
+T 71 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case String s -> System.out.println("String");
+T 73 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case Color c  -> System.out.println("Color: " + c.toString());
+T 89 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case Point p  -> System.out.println("Record class: " + p.toString());
+T 96 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case int[] ia -> System.out.println("Array of ints of length" + ia.length);
+T 102 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            default       -> System.out.println("Something else");
+T 81 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                        }
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseJava21SwitchWithSpecialCases() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 48 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 50 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 51 source.java meta.class.java meta.class.body.java meta.method.java
+T 52 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   void integerTester(Integer i) {
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                        switch (i) {
+T 35 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case -1, 1 -> System.out.println("special");
+T 71 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case Integer j when (j - 1) > -1 -> System.out.println("pos");
+T 89 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                            case Integer j -> System.out.println("others");
+T 74 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                        }
+T 24 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L     @Test
+T 4 source.java meta.class.java meta.class.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java punctuation.definition.annotation.java
+T 9 source.java meta.class.java meta.class.body.java meta.declaration.annotation.java storage.type.annotation.java
+L     void shouldParseRecordPatternMatchingInSwitch() {
+T 4 source.java meta.class.java meta.class.body.java
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 9 source.java meta.class.java meta.class.body.java meta.method.java
+T 49 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 50 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 51 source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 52 source.java meta.class.java meta.class.body.java meta.method.java
+T 53 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         rewriteRun(
+T 8 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 18 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java entity.name.function.java
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L           java(
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java entity.name.function.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.begin.bracket.round.java
+L             //language=java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.whitespace.comment.leading.java
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java punctuation.definition.comment.java
+T 27 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java comment.line.double-slash.java
+L             """
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.begin.java
+L               class Test {
+T 26 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   public interface Printable {}
+T 47 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   record A(String A) implements Printable {}
+T 60 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   record B(Integer B) implements Printable {}
+T 61 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L 
+L                   void integerTester(Printable prt) {
+T 53 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       switch (prt) {
+T 36 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case A(String a) -> System.out.println(a);
+T 68 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           case B(Integer b) -> System.out.println(b);
+T 69 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                           default -> throw new IllegalStateException("Unexpected value: " + prt);
+T 97 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                       }
+T 23 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L                   }
+T 19 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               }
+T 15 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+L               """
+T 14 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java
+T 17 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java string.quoted.triple.java punctuation.definition.string.end.java
+L           ));
+T 10 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java
+T 11 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 12 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.function-call.java punctuation.definition.parameters.end.bracket.round.java
+T 13 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L 
+L }
+T 1 source.java meta.class.java punctuation.section.class.end.bracket.curly.java
+L 

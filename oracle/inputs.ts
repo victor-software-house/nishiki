@@ -50,6 +50,17 @@ const eslint =
 
 const rag =
   "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
+
+const guava =
+  "https://raw.githubusercontent.com/google/guava/e98ea2340f6acc94ed9e2cca08976ccae68c3412";
+const gson =
+  "https://raw.githubusercontent.com/google/gson/57731049da3e415be3d5d34db1ca3b80f3c73810";
+const commonsLang =
+  "https://raw.githubusercontent.com/apache/commons-lang/d8470d57fda340864acf5194bb56305a133fba0e";
+const rewrite =
+  "https://raw.githubusercontent.com/openrewrite/rewrite/03d32965a3cdbf06f2717eb3ca706a162039703c";
+const javapoet =
+  "https://raw.githubusercontent.com/square/javapoet/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0";
 const requests =
   "https://raw.githubusercontent.com/psf/requests/3c7baaa05ab4aa49cc819ce3a819d260de19c157";
 const black =
@@ -215,6 +226,44 @@ export const inputs: Input[] = [
   { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
   { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
   { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
+  { lang: "java", name: "sample", url: `${samples}/java.sample` },
+  {
+    lang: "java",
+    name: "guava-preconditions",
+    url: `${guava}/guava/src/com/google/common/base/Preconditions.java`,
+  },
+  {
+    lang: "java",
+    name: "gson-gson",
+    url: `${gson}/gson/src/main/java/com/google/gson/Gson.java`,
+  },
+  {
+    lang: "java",
+    name: "commons-lang-validate",
+    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Validate.java`,
+  },
+  {
+    lang: "java",
+    name: "guava-immutable-list",
+    url: `${guava}/guava/src/com/google/common/collect/ImmutableList.java`,
+  },
+  {
+    lang: "java",
+    name: "gson-json-reader",
+    url: `${gson}/gson/src/main/java/com/google/gson/stream/JsonReader.java`,
+  },
+  {
+    lang: "java",
+    name: "commons-lang-range",
+    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Range.java`,
+  },
+  {
+    lang: "java",
+    name: "rewrite-switch-patterns",
+    url: `${rewrite}/rewrite-java-tck/src/main/java/org/openrewrite/java/tree/SwitchPatternMatchingTest.java`,
+  },
+  { lang: "markdown", name: "gson-user-guide", url: `${gson}/UserGuide.md` },
+  { lang: "markdown", name: "javapoet-readme", url: `${javapoet}/README.md` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",

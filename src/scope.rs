@@ -20,6 +20,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (MAKE, crate::make::NAMES),
     (DIFF, crate::diff::NAMES),
     (DOCKERFILE, crate::dockerfile::NAMES),
+    (JAVA, crate::java::NAMES),
 ];
 
 // Each table starts where the one before it ends, and the last ends below the
@@ -90,6 +91,9 @@ pub(crate) const DIFF: u16 = after(MAKE, crate::make::NAMES);
 
 /// The base of the Dockerfile lexer's scope names: where the diff lexer's end.
 pub(crate) const DOCKERFILE: u16 = after(DIFF, crate::diff::NAMES);
+
+/// The base of the Java lexer's scope names: where the Dockerfile lexer's end.
+pub(crate) const JAVA: u16 = after(DOCKERFILE, crate::dockerfile::NAMES);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

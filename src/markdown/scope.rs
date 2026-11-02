@@ -63,6 +63,7 @@ scopes! {
     EmbeddedMake "meta.embedded.block.makefile"
     EmbeddedDiff "meta.embedded.block.diff"
     EmbeddedDockerfile "meta.embedded.block.dockerfile"
+    EmbeddedJava "meta.embedded.block.java"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

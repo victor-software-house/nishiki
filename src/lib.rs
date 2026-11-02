@@ -55,6 +55,7 @@ mod arena;
 mod diff;
 mod dockerfile;
 mod highlighter;
+mod java;
 mod json;
 mod language;
 mod limits;

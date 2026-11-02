@@ -49,12 +49,30 @@ impl Dialect {
 }
 
 /// The regex `\s` for a character: the table measured on Shiki, which the
-/// TOML lexer shares because both grammars read the same engine.
+/// lexers of other grammars share because they read the same engine.
 pub(crate) fn is_space(c: char) -> bool {
     if c.is_ascii() {
         matches!(c, ' ' | '\t' | '\n' | '\u{b}' | '\u{c}' | '\r')
     } else {
         classes::is_space(c)
+    }
+}
+
+/// The regex `\w` for a character, from the same measured table.
+pub(crate) fn is_word(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_alphanumeric() || c == '_'
+    } else {
+        classes::is_word(c)
+    }
+}
+
+/// The regex `\d` for a character, from the same measured table.
+pub(crate) fn is_digit(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_digit()
+    } else {
+        classes::is_digit(c)
     }
 }
 

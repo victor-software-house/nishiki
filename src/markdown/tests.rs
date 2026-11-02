@@ -409,6 +409,51 @@ fn python_state_continues_across_the_lines_of_a_fence() {
 }
 
 #[test]
+fn java_fences_embed_the_java_lexer_without_its_root() {
+    for info in ["java", "JAVA", "java title=x"] {
+        let text = format!("```{info}\nint x;\n```\n");
+        assert_eq!(
+            stack_of(&text, "int"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.java",
+                "meta.definition.variable.java",
+                "storage.type.primitive.java",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn java_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```java
+        /* a
+        b */ int x;
+        ```
+    "};
+    assert_eq!(stack_of(text, "b ")[3], "comment.block.java");
+}
+
+#[test]
+fn a_javadoc_after_a_containers_indent_is_not_at_the_start_of_the_line() {
+    let text = indoc! {"
+        - a
+
+          ```java
+          /** @param x */
+          ```
+    "};
+    let javadoc = lex(text)
+        .iter()
+        .flatten()
+        .any(|(_, scopes)| scopes.iter().any(|s| s == "comment.block.javadoc.java"));
+    assert!(!javadoc, "Shiki matches `^` only at the start of the line");
+}
+
+#[test]
 fn a_shebang_is_not_special_inside_a_fence() {
     let text = indoc! {"
         ```ts

@@ -238,6 +238,36 @@ That grammar is licensed under the TextMate bundle licence, which is the one in 
 
 ```text
 Copyright (c) textmate-diff.tmbundle project authors
+Its Java lexer emits the scope names of the Java TextMate grammar that Shiki bundles through VS Code as `java`, which VS Code took from [redhat-developer/vscode-java](https://github.com/redhat-developer/vscode-java), and tries that grammar's rules in its order.
+VS Code records the grammar's licence as follows, and the grammar derives from a TextMate bundle that carries its own, which the second paragraph below quotes.
+
+```text
+Copyright (c) 2014 GitHub Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------
+
+This package was derived from a TextMate bundle located at
+https://github.com/textmate/java.tmbundle and distributed under the following
+license, located in `README.mdown`:
 
 Permission to copy, use, modify, sell and distribute this
 software is granted. This software is provided "as is" without

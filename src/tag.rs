@@ -43,6 +43,9 @@ pub(crate) const YAML: u16 = 0x0800;
 pub(crate) const TOML: u16 = 0x0900;
 /// Diff.
 pub(crate) const DIFF: u16 = 0x0e00;
+
+/// Java.
+pub(crate) const JAVA: u16 = 0x0a00;
 /// Makefiles.
 pub(crate) const MAKE: u16 = 0x0b00;
 /// Dockerfiles.
@@ -59,6 +62,7 @@ const CLAIMED: &[Tag] = &[
     Tag::byte(YAML),
     Tag::byte(TOML),
     Tag::byte(DIFF),
+    Tag::byte(JAVA),
     Tag::byte(MAKE),
     Tag::byte(DOCKERFILE),
 ];

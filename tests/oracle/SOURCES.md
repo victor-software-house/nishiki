@@ -35,6 +35,16 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `toml/clap-manifest` | [`Cargo.toml`][clap-manifest] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
 | `toml/poetry-pyproject` | [`pyproject.toml`][poetry-pyproject] in python-poetry/poetry | [MIT][poetry-licence] |
 | `toml/ruff-pyproject` | [`pyproject.toml`][ruff-pyproject] in astral-sh/ruff | [MIT][ruff-licence] |
+| `java/sample` | [`samples/java.sample`][java-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `java/guava-preconditions` | [`Preconditions.java`][guava-preconditions] in google/guava | [Apache-2.0][guava-licence] |
+| `java/gson-gson` | [`Gson.java`][gson-gson] in google/gson | [Apache-2.0][gson-licence] |
+| `java/commons-lang-validate` | [`Validate.java`][commons-lang-validate] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
+| `java/guava-immutable-list` | [`ImmutableList.java`][guava-immutable-list] in google/guava | [Apache-2.0][guava-licence] |
+| `java/gson-json-reader` | [`JsonReader.java`][gson-json-reader] in google/gson | [Apache-2.0][gson-licence] |
+| `java/commons-lang-range` | [`Range.java`][commons-lang-range] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
+| `java/rewrite-switch-patterns` | [`SwitchPatternMatchingTest.java`][rewrite-switch-patterns] in openrewrite/rewrite | [Apache-2.0][rewrite-licence] |
+| `markdown/gson-user-guide` | [`UserGuide.md`][gson-user-guide] in google/gson | [Apache-2.0][gson-licence] |
+| `markdown/javapoet-readme` | [`README.md`][javapoet-readme] in square/javapoet | [Apache-2.0][javapoet-licence] |
 | `typescript/sample` | [`samples/typescript.sample`][ts-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
@@ -318,3 +328,18 @@ The lexer matched every input on its first run, held-out ones included.
 [fastapi-docker]: https://github.com/tiangolo/fastapi/blob/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0/docs/en/docs/deployment/docker.md
 [next-docker-readme]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/examples/with-docker/README.md
 [next-docker-export-readme]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/examples/with-docker-export-output/README.md
+[java-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/java.sample
+[guava-preconditions]: https://github.com/google/guava/blob/e98ea2340f6acc94ed9e2cca08976ccae68c3412/guava/src/com/google/common/base/Preconditions.java
+[guava-immutable-list]: https://github.com/google/guava/blob/e98ea2340f6acc94ed9e2cca08976ccae68c3412/guava/src/com/google/common/collect/ImmutableList.java
+[guava-licence]: https://github.com/google/guava/blob/e98ea2340f6acc94ed9e2cca08976ccae68c3412/LICENSE
+[gson-gson]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/gson/src/main/java/com/google/gson/Gson.java
+[gson-json-reader]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/gson/src/main/java/com/google/gson/stream/JsonReader.java
+[gson-user-guide]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/UserGuide.md
+[gson-licence]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/LICENSE
+[commons-lang-validate]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/src/main/java/org/apache/commons/lang3/Validate.java
+[commons-lang-range]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/src/main/java/org/apache/commons/lang3/Range.java
+[commons-lang-licence]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/LICENSE.txt
+[rewrite-switch-patterns]: https://github.com/openrewrite/rewrite/blob/03d32965a3cdbf06f2717eb3ca706a162039703c/rewrite-java-tck/src/main/java/org/openrewrite/java/tree/SwitchPatternMatchingTest.java
+[rewrite-licence]: https://github.com/openrewrite/rewrite/blob/03d32965a3cdbf06f2717eb3ca706a162039703c/LICENSE
+[javapoet-readme]: https://github.com/square/javapoet/blob/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0/README.md
+[javapoet-licence]: https://github.com/square/javapoet/blob/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0/LICENSE.txt

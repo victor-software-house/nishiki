@@ -7,7 +7,8 @@ use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
 use crate::{
-    Token, diff, dockerfile, json, make, markdown, python, rust, shell, toml, typescript, yaml,
+    Token, diff, dockerfile, java, json, make, markdown, python, rust, shell, toml, typescript,
+    yaml,
 };
 
 /// A language nishiki highlights, named as Shiki names it.
@@ -47,6 +48,8 @@ pub enum Language {
     Diff,
     /// Dockerfile, with the scopes of Shiki's `docker` grammar.
     Dockerfile,
+    /// Java, with the scopes of Shiki's `java` grammar.
+    Java,
 }
 
 impl Language {
@@ -68,6 +71,7 @@ impl Language {
         Language::Make,
         Language::Diff,
         Language::Dockerfile,
+        Language::Java,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -90,6 +94,7 @@ impl Language {
             Language::Make => "make",
             Language::Diff => "diff",
             Language::Dockerfile => "docker",
+            Language::Java => "java",
         }
     }
 
@@ -132,6 +137,7 @@ impl Language {
             Language::Make => &["make", "makefile"],
             Language::Diff => &["diff"],
             Language::Dockerfile => &["docker", "dockerfile"],
+            Language::Java => &["java"],
         }
     }
 }
@@ -188,6 +194,7 @@ impl Language {
             Language::Make => make::start(arena, base),
             Language::Diff => diff::start(arena, base),
             Language::Dockerfile => dockerfile::start(arena, base),
+            Language::Java => java::start(arena, base),
         }
     }
 
@@ -208,6 +215,7 @@ impl Language {
             Language::Make => make::start_embedded(arena, base),
             Language::Diff => diff::start_embedded(arena, base),
             Language::Dockerfile => dockerfile::start_embedded(arena, base),
+            Language::Java => java::start_embedded(arena, base),
         }
     }
 
@@ -285,6 +293,15 @@ impl Language {
                     anchored: line.embedded,
                 };
                 return make::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
+            }
+            Language::Java => {
+                let text = java::Text {
+                    bytes: line.text.as_bytes(),
+                    start: line.start,
+                };
+                return java::line(
+                    cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
+                );
             }
             Language::Python => {
                 let text = python::Text {
