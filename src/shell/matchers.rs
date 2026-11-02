@@ -34,9 +34,27 @@ pub(super) fn is_word_char(c: char) -> bool {
 }
 
 /// The class `[-0-9A-Z_a-z]` the grammar spells out for names.
+#[inline]
 pub(super) fn is_name(b: u8) -> bool {
-    b.is_ascii_alphanumeric() || b == b'_' || b == b'-'
+    NAME_BYTES[usize::from(b)]
 }
+
+/// [`is_name`] for every byte, so a scan is one load a byte.
+#[expect(
+    clippy::as_conversions,
+    reason = "b < 256 and the table is built in a const"
+)]
+static NAME_BYTES: [bool; 256] = {
+    let mut table = [false; 256];
+    let mut b = 0_u8;
+    loop {
+        table[b as usize] = b.is_ascii_alphanumeric() || b == b'_' || b == b'-';
+        if b == u8::MAX {
+            break table;
+        }
+        b += 1;
+    }
+};
 
 /// The class `` [^\t\n "$\&-);<>\\`|] `` of unquoted text, as a byte test.
 pub(super) fn is_unquoted(b: u8) -> bool {
@@ -335,6 +353,16 @@ impl Lexer<'_> {
 
     /// The regex `(?<!\w)[-0-9A-Z_a-z]+(?!\w)` at `p`: where the name ends.
     pub(super) fn name_run(&self, p: usize) -> Option<usize> {
+        let (at, lim, answer) = self.names.get();
+        if at == p && lim == self.lim {
+            return answer;
+        }
+        let answer = self.scan_name_run(p);
+        self.names.set((p, self.lim, answer));
+        answer
+    }
+
+    fn scan_name_run(&self, p: usize) -> Option<usize> {
         if p >= self.lim || !is_name(self.s[p]) {
             return None;
         }

@@ -30,7 +30,7 @@ impl Lexer<'_> {
         let hash = if p == 0 && self.at(0) == b'#' && self.avail(0) {
             0
         } else {
-            let j = self.skip(p, is_blank);
+            let j = self.blanks(p);
             if j == p || !self.avail(j) || self.at(j) != b'#' {
                 return None;
             }
@@ -179,7 +179,7 @@ impl Lexer<'_> {
         if self.at(p) != b'$' || self.at(p + 1) != b'{' {
             return None;
         }
-        let j = self.skip(p + 2, is_blank);
+        let j = self.blanks(p + 2);
         if !self.avail(j) || !self.at(j).is_ascii_digit() {
             return None;
         }
@@ -759,7 +759,7 @@ impl Lexer<'_> {
             if op == 2 && self.at(p + 1) != b'>' {
                 continue;
             }
-            let w = self.skip(p + op, is_blank);
+            let w = self.blanks(p + op);
             let e = self.skip(w, is_unquoted);
             if e > w {
                 self.span(p, p + op, &[S::KeywordOperatorRedirect]);

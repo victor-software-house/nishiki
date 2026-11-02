@@ -131,9 +131,9 @@ impl Lexer<'_> {
         if !self.not_after_word(p) || !self.starts(p, b"for") || self.word_at(p + 3) {
             return None;
         }
-        let n = self.skip(p + 3, is_blank);
+        let n = self.blanks(p + 3);
         let ne = self.name_run(n)?;
-        let i = self.skip(ne, is_blank);
+        let i = self.blanks(ne);
         if !self.starts(i, b"in") || !self.boundary(i) || self.word_at(i + 2) {
             return None;
         }
@@ -159,7 +159,7 @@ impl Lexer<'_> {
         if !self.not_after_word(p) || !self.starts(p, b"case") || self.word_at(p + 4) {
             return None;
         }
-        let w = self.skip(p + 4, is_blank);
+        let w = self.blanks(p + 4);
         if w >= self.lim {
             return None;
         }
@@ -168,7 +168,7 @@ impl Lexer<'_> {
             let i = lexer.skip(e, is_blank);
             lexer.starts(i, b"in") && lexer.boundary(i) && !lexer.word_at(i + 2)
         })?;
-        let i = self.skip(e, is_blank);
+        let i = self.blanks(e);
         self.span(p, p + 4, &[S::KeywordControlCase]);
         self.span_retok(w, e, &[], Rule::RetokInitial);
         self.span(i, i + 2, &[S::KeywordControlIn]);
@@ -177,7 +177,7 @@ impl Lexer<'_> {
 
     /// `[\t ]*+(\* *\))`
     pub(in crate::shell) fn m_case_default(&mut self, p: usize) -> Option<usize> {
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if self.at(j) != b'*' || !self.avail(j) {
             return None;
         }
@@ -199,7 +199,7 @@ impl Lexer<'_> {
         if self.prev(p) == Some(b')') {
             return None;
         }
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if self.esac_ahead(j) || self.at_eol(j) {
             return None;
         }
@@ -289,15 +289,15 @@ impl Lexer<'_> {
 
     /// `function_definition`'s begin.
     pub(in crate::shell) fn m_function(&mut self, p: usize) -> Option<usize> {
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if self.starts(j, b"function") && self.not_after_word(j) && !self.word_at(j + 8) {
-            let n0 = self.skip(j + 8, is_blank);
+            let n0 = self.blanks(j + 8);
             let n1 = self.run_end(n0, Self::is_function_name);
             if n1 > n0 {
                 self.span(j, j + 8, &[S::StorageTypeFunction]);
                 self.span(n0, n1, &[S::EntityNameFunction]);
                 if self.at(n1) == b'(' && self.avail(n1) {
-                    let c = self.skip(n1 + 1, is_blank);
+                    let c = self.blanks(n1 + 1);
                     if self.at(c) == b')' && self.avail(c) {
                         self.span(n1, n1 + 1, &[S::PunctuationDefinitionArguments]);
                         self.span(c, c + 1, &[S::PunctuationDefinitionArguments]);
@@ -312,11 +312,11 @@ impl Lexer<'_> {
         if n1 == j {
             return None;
         }
-        let o = self.skip(n1, is_blank);
+        let o = self.blanks(n1);
         if self.at(o) != b'(' || !self.avail(o) {
             return None;
         }
-        let c = self.skip(o + 1, is_blank);
+        let c = self.blanks(o + 1);
         if self.at(c) != b')' || !self.avail(c) {
             return None;
         }
@@ -410,12 +410,12 @@ impl Lexer<'_> {
     /// `<<`, a quote, the delimiter and the quote again.
     pub(in crate::shell) fn m_heredoc_quoted(&mut self, p: usize, indent: bool) -> Option<usize> {
         let a = self.heredoc_operator(p, indent)?;
-        let b = self.skip(a, is_blank);
+        let b = self.blanks(a);
         let quote = self.at(b);
         if !self.avail(b) || !matches!(quote, b'"' | b'\'') {
             return None;
         }
-        let d0 = self.skip(b + 1, is_blank);
+        let d0 = self.blanks(b + 1);
         let mut e = d0;
         while e < self.lim && !matches!(self.s[e], b'"' | b'\'') {
             self.spend(1);
@@ -436,7 +436,7 @@ impl Lexer<'_> {
     /// `<<` and an unquoted delimiter.
     pub(in crate::shell) fn m_heredoc_plain(&mut self, p: usize, indent: bool) -> Option<usize> {
         let a = self.heredoc_operator(p, indent)?;
-        let d0 = self.skip(a, is_blank);
+        let d0 = self.blanks(a);
         let mut e = self.skip(d0, |b| !matches!(b, b'\t' | b' ' | b'"' | b'\''));
         if e == d0 {
             return None;

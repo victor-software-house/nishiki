@@ -201,6 +201,9 @@ pub(crate) struct Lexer<'a> {
     /// ends, and the end of the text. A search from inside it ends where it
     /// does.
     name_run: Cell<(usize, usize, usize)>,
+    /// The last [`Lexer::name_run`] answer: where it was asked, the end of
+    /// the text, and the answer. Several rules ask about the same word.
+    pub(crate) names: Cell<(usize, usize, Option<usize>)>,
 }
 
 /// The kinds of search that scan ahead; see [`Lexer::find_from`].
@@ -259,6 +262,7 @@ impl<'a> Lexer<'a> {
                 })
             }; FINDS],
             name_run: Cell::new((0, 0, 0)),
+            names: Cell::new((usize::MAX, 0, None)),
         };
         if resume {
             lexer.frames.extend_from_slice(&scratch.resume_frames);
@@ -388,6 +392,17 @@ impl<'a> Lexer<'a> {
         }
         self.spend(i - from);
         i
+    }
+
+    /// The end of the blanks from `i`. Most positions are not blank, and a
+    /// matcher asks at every candidate position, so that case returns first.
+    #[inline]
+    pub(crate) fn blanks(&self, i: usize) -> usize {
+        if i < self.lim && matches!(self.s[i], b' ' | b'\t') {
+            self.skip(i, crate::shell::matchers::is_blank)
+        } else {
+            i
+        }
     }
 
     /// Counts `steps` of work against the line's budget.
@@ -926,11 +941,20 @@ impl<'a> Lexer<'a> {
     /// The first match at the earliest position from `pos`: its start, pattern
     /// and end, with the match's spans in `self.spans`.
     fn scan(&mut self) -> Option<(usize, Pat, usize)> {
+        let mut visited = 0;
+        let found = self.scan_positions(&mut visited);
+        self.spend(visited);
+        found
+    }
+
+    /// The positions of [`Lexer::scan`] one by one, counting how many it
+    /// visits in `visited` so that the work is spent once, not per position.
+    fn scan_positions(&mut self, visited: &mut usize) -> Option<(usize, Pat, usize)> {
         let info = rule_info(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
-            self.spend(1);
+            *visited += 1;
             // Only the patterns that can start here are tried; where the
             // text ends without a line feed, all of them.
             let list: &[Pat] = if p < self.lim || self.nl {

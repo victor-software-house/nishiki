@@ -134,7 +134,7 @@ const MODIFIERS: [(&[u8], &[S]); 5] = [
 impl Lexer<'_> {
     /// `normal_statement`'s begin: an empty match where a statement may start.
     pub(in crate::shell) fn m_normal_statement(&mut self, p: usize) -> Option<usize> {
-        if p == 0 && self.at_eol(self.skip(0, is_blank)) {
+        if p == 0 && self.at_eol(self.blanks(0)) {
             return None;
         }
         let after_keyword = BLOCK_KEYWORDS.iter().any(|kw| {
@@ -150,7 +150,7 @@ impl Lexer<'_> {
         if !after_keyword && !after_mark {
             return None;
         }
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         let blocked = STATEMENT_KEYWORDS.iter().any(|kw| {
             self.starts(j, kw) && self.avail(j + kw.len()) && !self.word_at(j + kw.len())
         });
@@ -159,7 +159,7 @@ impl Lexer<'_> {
 
     /// `command_statement`'s begin.
     pub(in crate::shell) fn m_command_statement(&mut self, p: usize) -> Option<usize> {
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if !self.avail(j) {
             return None;
         }
@@ -196,7 +196,7 @@ impl Lexer<'_> {
 
     /// `[\t ]++(?![\n#\&(\[|]|$|;)`
     pub(in crate::shell) fn m_argument_begin(&mut self, p: usize) -> Option<usize> {
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if j == p || !self.avail(j) {
             return None;
         }
@@ -208,7 +208,7 @@ impl Lexer<'_> {
 
     /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``
     pub(in crate::shell) fn m_argument_word(&mut self, p: usize) -> Option<usize> {
-        let w = self.skip(p, is_blank);
+        let w = self.blanks(p);
         let mut e = self.skip(w, is_unquoted);
         if e == w {
             return None;
@@ -230,7 +230,7 @@ impl Lexer<'_> {
 
     /// `[\t ]++(-)((?![\n!#\&()<>\[{|]|$|[\t ;]))`
     pub(in crate::shell) fn m_option_begin(&mut self, p: usize) -> Option<usize> {
-        let j = self.skip(p, is_blank);
+        let j = self.blanks(p);
         if j == p || self.at(j) != b'-' || !self.avail(j) || !self.avail(j + 1) {
             return None;
         }
@@ -434,7 +434,7 @@ impl Lexer<'_> {
                 b'\n' | b'&' | b')' | b';' | b'`' | b'{' | b'|' | b'}' | b']'
             ))
             || {
-                let j = self.skip(p, is_blank);
+                let j = self.blanks(p);
                 self.avail(j) && self.at(j) == b'#'
             };
         if ahead && self.prev(p) != Some(b'\\') {
@@ -544,15 +544,15 @@ impl Lexer<'_> {
 
     /// `normal_assignment_statement`'s begin.
     pub(in crate::shell) fn m_normal_assign(&mut self, p: usize) -> Option<usize> {
-        let w = self.skip(p, is_blank);
+        let w = self.blanks(p);
         self.assignment_head(w, true)
     }
 
     /// `array_value`'s begin: an assignment whose value opens a parenthesis.
     pub(in crate::shell) fn m_array_value(&mut self, p: usize) -> Option<usize> {
-        let w = self.skip(p, is_blank);
+        let w = self.blanks(p);
         let e = self.assignment_head(w, true)?;
-        let open = self.skip(e, is_blank);
+        let open = self.blanks(e);
         if self.at(open) != b'(' || !self.avail(open) {
             return None;
         }
@@ -562,11 +562,11 @@ impl Lexer<'_> {
 
     /// `alias_statement`'s begin.
     pub(in crate::shell) fn m_alias(&mut self, p: usize) -> Option<usize> {
-        let a = self.skip(p, is_blank);
+        let a = self.blanks(p);
         if !self.starts(a, b"alias") {
             return None;
         }
-        let options_start = self.skip(a + 5, is_blank);
+        let options_start = self.blanks(a + 5);
         // The options, each `-\w+` and its blanks, greedy; fewer when the
         // rest then fails.
         let mut ends = std::mem::take(&mut self.ends);
@@ -578,7 +578,7 @@ impl Lexer<'_> {
             if e == q + 1 {
                 break;
             }
-            q = self.skip(e, is_blank);
+            q = self.blanks(e);
             self.spend(1);
             ends.push(q);
         }
