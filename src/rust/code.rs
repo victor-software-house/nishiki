@@ -29,6 +29,29 @@ use Group::{
     Lvariables, Macros, Namespaces, Punctuation, Strings, Types, Variables,
 };
 
+impl Group {
+    /// Whether the rules of the group can match at a byte `b`, so that the
+    /// lexer asks only those that can. Every rule begins by testing this
+    /// byte, so a group that answers false would have declined anyway.
+    pub(crate) fn can_start(self, b: u8) -> bool {
+        match self {
+            BlockComments | Comments => b == b'/',
+            Attributes => b == b'#',
+            Lvariables | Constants | Gtypes | Functions | Types | Namespaces | Variables => {
+                is_ident(b)
+            }
+            Macros => b.is_ascii_alphabetic() || b == b'_',
+            Lifetimes => matches!(b, b'\'' | b'&'),
+            Strings => matches!(b, b'"' | b'\'' | b'b' | b'r'),
+            Punctuation => matches!(
+                b,
+                b',' | b'{' | b'}' | b'(' | b')' | b';' | b'[' | b']' | b'<' | b'>'
+            ),
+            Keywords => true,
+        }
+    }
+}
+
 /// The rules active in a context, in the grammar's priority order.
 pub(crate) fn groups(kind: Kind) -> &'static [Group] {
     match kind {
@@ -328,6 +351,9 @@ impl Lexer<'_> {
         if !is_ident(self.s[p]) || !self.word_start(p) {
             return None;
         }
+        if !matches!(self.word_end - p, 4 | 5) || !matches!(self.s[p], b's' | b'S') {
+            return None;
+        }
         let scope = if self.word_is(p, b"self") || self.word_is(p, b"Self") {
             S::VarSelf
         } else if self.word_is(p, b"super") {
@@ -342,6 +368,9 @@ impl Lexer<'_> {
 
     fn gtypes(&mut self, p: usize) -> Option<usize> {
         if !is_ident(self.s[p]) || !self.word_start(p) {
+            return None;
+        }
+        if !matches!(self.s[p], b'S' | b'N' | b'O' | b'E') || self.word_end - p > 4 {
             return None;
         }
         let scope = match &self.s[p..self.word_end] {
@@ -555,7 +584,8 @@ impl Lexer<'_> {
         if !is_ident(b) {
             return None;
         }
-        if (p == 0 || !self.s[p - 1].is_ascii_alphabetic())
+        if matches!(b, b'f' | b'i' | b'u')
+            && (p == 0 || !self.s[p - 1].is_ascii_alphabetic())
             && NUMERIC
                 .iter()
                 .any(|n| self.starts_with(p, n) && self.boundary(p + n.len()))
@@ -578,7 +608,11 @@ impl Lexer<'_> {
                 return Some(end + 1);
             }
         }
-        if matches!(&self.s[p..self.word_end], b"bool" | b"char" | b"str") {
+        let word = &self.s[p..self.word_end];
+        if word.len() > 6 {
+            return self.type_name(p, start);
+        }
+        if matches!(word, b"bool" | b"char" | b"str") {
             self.gap(p);
             self.tok(self.word_end, &[S::EntTypePrimitive]);
             return Some(self.word_end);
@@ -605,6 +639,11 @@ impl Lexer<'_> {
             }
             return None;
         }
+        self.type_name(p, start)
+    }
+
+    /// A capitalised name that is not a macro call.
+    fn type_name(&mut self, p: usize, start: usize) -> Option<usize> {
         if self.at(start).is_ascii_uppercase() {
             let end = self.skip(start, is_ident);
             if self.boundary(end) && self.at(end) != b'!' {

@@ -5,6 +5,10 @@ use super::scope::S;
 
 /// The scopes of a word keyword, or none when the word is not one.
 fn keyword(word: &[u8]) -> Option<&'static [S]> {
+    // Every keyword is two to eight lowercase letters.
+    if !(2..=8).contains(&word.len()) || !word[0].is_ascii_lowercase() {
+        return None;
+    }
     Some(match word {
         b"await" | b"break" | b"continue" | b"do" | b"else" | b"for" | b"if" | b"loop"
         | b"match" | b"return" | b"try" | b"while" | b"yield" => &[S::KwControl],

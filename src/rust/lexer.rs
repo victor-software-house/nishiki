@@ -283,6 +283,9 @@ impl<'a> Lexer<'a> {
             return end;
         }
         for &group in super::code::groups(kind) {
+            if !group.can_start(b) {
+                continue;
+            }
             if let Some(end) = self.group(group, p, b) {
                 return end;
             }
@@ -304,6 +307,9 @@ impl<'a> Lexer<'a> {
 
     /// Closes the innermost code context when its end rule matches at `p`.
     fn end_of_context(&mut self, p: usize, b: u8) -> Option<usize> {
+        if !matches!(b, b'{' | b';' | b')' | b'>' | b']') {
+            return None;
+        }
         let leaf = match (self.top(), b) {
             (Kind::FnDef, b'{') => S::Curly,
             (Kind::FnDef | Kind::Use | Kind::Import, b';') => S::Semi,
