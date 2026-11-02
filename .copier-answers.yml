@@ -1,7 +1,8 @@
 # Changes here will be overwritten by Copier; edit with `copier update --data`.
 _commit: v0.0.64
 _src_path: https://github.com/victor-software-house/templates.git
-ci_runner: github-hosted
+ci_cache_size: 50
+ci_runner: namespace-4x8
 clippy_disallowed_methods: []
 clippy_disallowed_types: []
 default_branch: main
@@ -37,7 +38,8 @@ pieces_extra:
 - rustdoc
 project: rust-crate
 published: true
-repository_visibility: public
+repository: victor-software-house/nishiki
+repository_visibility: private
 rust_nightly: nightly-2026-11-01
 rust_version: 1.99.1
 tokio: false

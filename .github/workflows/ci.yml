@@ -21,7 +21,7 @@ jobs:
   refresh:
     if: github.event_name == 'schedule'
     # One API call on the runner chosen when this repository was rendered.
-    runs-on: ubuntu-latest
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
     timeout-minutes: 2
     permissions:
       actions: write
@@ -43,7 +43,10 @@ jobs:
       advisories: true
       semver: true
       timeout-minutes: 8
-      build-runner: '["ubuntu-latest"]'
-      read-only-runner: '["ubuntu-latest"]'
-      light-runner: ubuntu-latest
-      cache-volume: false
+      build-runner: '["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb"]'
+      read-only-runner: '["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]'
+      light-runner: nscloud-ubuntu-24.04-amd64-2x4
+      cache-volume: true
+      cache-size: 50
+      cache-size-label: nscloud-cache-size-50gb
+      read-only-label: nscloud-cache-exp-do-not-commit
