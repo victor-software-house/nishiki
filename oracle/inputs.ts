@@ -30,6 +30,9 @@ const book =
 const clap =
   "https://raw.githubusercontent.com/clap-rs/clap/db30b39a55c188763666268447050a0dacba3bf0";
 
+const cargo =
+  "https://raw.githubusercontent.com/rust-lang/cargo/6238f6fd61bffc158aabeb77b779fc16d6e7b5fc";
+
 const nvm =
   "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
 
@@ -74,6 +77,11 @@ export const inputs: Input[] = [
   },
   { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
   { lang: "markdown", name: "pyenv-readme", url: `${pyenv}/README.md` },
+  {
+    lang: "markdown",
+    name: "cargo-release",
+    url: `${cargo}/doc/contrib/src/process/release.md`,
+  },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",

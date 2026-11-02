@@ -220,6 +220,7 @@ impl<'a> Lexer<'a> {
         scratch: &mut Scratch,
     ) -> Self {
         let (s, start) = (text.bytes, text.start);
+        let anchor = text.anchored.then_some(start);
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         let mut frames = std::mem::take(&mut scratch.frames);
         frames.clear();
@@ -239,7 +240,7 @@ impl<'a> Lexer<'a> {
             budget,
             last: start,
             pos: start,
-            anchor: None,
+            anchor,
             g: false,
             frames,
             spans,

@@ -254,6 +254,26 @@ fn shell_state_continues_across_the_lines_of_a_fence() {
 }
 
 #[test]
+fn the_line_after_a_continuation_in_a_fence_is_anchored_at_its_start() {
+    // The fence's `while` rule matches the line's start, so `\G` is there and
+    // the shell grammar reads the whole line as a command name. A shell
+    // document does not do this.
+    let text = indoc! {"
+        ```sh
+        a \\
+          b
+        ```
+    "};
+    let lines = lex(text);
+    assert_eq!(lines[2].len(), 1, "one token: {:?}", lines[2]);
+    assert_eq!(lines[2][0].0, "  b");
+    assert_eq!(
+        lines[2][0].1.last().map(String::as_str),
+        Some("meta.statement.command.name.shell")
+    );
+}
+
+#[test]
 fn a_shebang_is_not_special_inside_a_fence() {
     let text = indoc! {"
         ```ts

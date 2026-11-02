@@ -1,0 +1,705 @@
+L # Release process
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 17 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Cargo is released with `rustc` using a ["train model"][choochoo]. After a
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L change lands in Cargo's master branch, it will be synced with the
+T 65 text.html.markdown meta.paragraph.markdown
+L [rust-lang/rust] repository by a Cargo team member, which happens about once a
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L week. If there are complications, it can take longer. After it is synced and
+T 76 text.html.markdown meta.paragraph.markdown
+L merged, the changes will appear in the next nightly release, which is usually
+T 77 text.html.markdown meta.paragraph.markdown
+L published around 00:30 UTC.
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L After changes are in the nightly release, they will make their way to the
+T 73 text.html.markdown meta.paragraph.markdown
+L stable release anywhere from 6 to 12 weeks later, depending on when during the
+T 78 text.html.markdown meta.paragraph.markdown
+L cycle it landed.
+T 16 text.html.markdown meta.paragraph.markdown
+L 
+L The current release schedule is posted on the [Rust Forge]. See the [release
+T 76 text.html.markdown meta.paragraph.markdown
+L process] for more details on how Rust's releases are created. Rust releases
+T 75 text.html.markdown meta.paragraph.markdown
+L are managed by the [Release team].
+T 34 text.html.markdown meta.paragraph.markdown
+L 
+L [Rust Forge]: https://forge.rust-lang.org/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown
+T 42 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Build process
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L The build process for Cargo is handled as part of building Rust. Every PR on
+T 76 text.html.markdown meta.paragraph.markdown
+L the [rust-lang/rust] repository creates a full collection of release artifacts
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L for every platform. The code for this is in the [`dist` bootstrap module].
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown
+L Every night at 00:00 UTC, the artifacts from the most recently merged PR are
+T 76 text.html.markdown meta.paragraph.markdown
+L promoted to the nightly release channel. A similar process happens for beta
+T 75 text.html.markdown meta.paragraph.markdown
+L and stable releases.
+T 20 text.html.markdown meta.paragraph.markdown
+L 
+L [`dist` bootstrap module]: https://github.com/rust-lang/rust/blob/master/src/bootstrap/src/core/build_steps/dist.rs
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 24 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 25 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 26 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 27 text.html.markdown meta.link.reference.def.markdown
+T 115 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Submodule updates
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Cargo is tracked in the [rust-lang/rust] repository using a [git submodule].
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L It is updated manually about once a week by a Cargo team member.
+T 64 text.html.markdown meta.paragraph.markdown
+L However, anyone is welcome to update it as needed.
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L [@ehuss] has a tool called [subup](https://github.com/ehuss/subup) to automate the process of updating the submodule, updating the lockfile, running tests, and creating a PR.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 174 text.html.markdown meta.paragraph.markdown
+L Running the tests ahead-of-time helps avoid long cycle times waiting for bors if there are any errors.
+T 102 text.html.markdown meta.paragraph.markdown
+L Subup will also provide a message to include in the PR with a list of all PRs it covers.
+T 88 text.html.markdown meta.paragraph.markdown
+L Posting this in the PR message also helps create reference links on each Cargo PR to the submodule update PR to help track when it gets merged.
+T 143 text.html.markdown meta.paragraph.markdown
+L 
+L The following is an example of the command to run in a local clone of rust-lang/rust to run a certain set of tests of things that are likely to get broken by a Cargo update:
+T 173 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L subup --up-branch update-cargo \
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L     --commit-message "Update cargo" \
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L     --test="src/tools/linkchecker tidy \
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell punctuation.definition.string.begin.shell
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell constant.character.escape.shell
+L         src/tools/cargo \
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell constant.character.escape.shell
+L         src/tools/rustfmt" \
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell punctuation.definition.string.end.shell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L     src/tools/cargo
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If doing a [beta backport](#beta-backports), the command is similar, but needs to point to the correct branches:
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 112 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L subup --up-branch update-beta-cargo \
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L     --rust-branch beta \
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L     --set-config rust.channel=beta \
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L     --commit-message "[beta] Update cargo" \
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L     --test="src/tools/linkchecker tidy \
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell punctuation.definition.string.begin.shell
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell constant.character.escape.shell
+L         src/tools/cargo \
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell constant.character.escape.shell
+L         src/tools/rustfmt" \
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option string.quoted.double.shell punctuation.definition.string.end.shell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L     rust-1.66.0:src/tools/cargo
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L [@ehuss]: https://github.com/ehuss/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown
+T 35 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [git submodule]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 15 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown
+T 68 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Version updates
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Shortly after each major release, a Cargo team member will post a PR to update
+T 78 text.html.markdown meta.paragraph.markdown
+L Cargo's version in `Cargo.toml`. Cargo's library is permanently unstable, so
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L its version number starts with a `0`. The minor version is always 1 greater
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L than the Rust release it is a part of, so cargo 0.49.0 is part of the 1.48
+T 74 text.html.markdown meta.paragraph.markdown
+L Rust release. The [CHANGELOG] is also usually updated at this time.
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L 
+L Also, any version-specific checks that are no longer needed can be removed.
+T 75 text.html.markdown meta.paragraph.markdown
+L For example, some tests are disabled on stable if they require some nightly
+T 75 text.html.markdown meta.paragraph.markdown
+L behavior. Once that behavior is available on the new stable release, the
+T 72 text.html.markdown meta.paragraph.markdown
+L checks are no longer necessary. (I usually search for the word "nightly" in
+T 75 text.html.markdown meta.paragraph.markdown
+L the testsuite directory, and read the comments to see if any of those nightly
+T 77 text.html.markdown meta.paragraph.markdown
+L checks can be removed.)
+T 23 text.html.markdown meta.paragraph.markdown
+L 
+L Sometimes Cargo will have a runtime check to probe `rustc` if it supports a
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L specific feature. This is usually stored in the [`TargetInfo`] struct. If this
+T 48 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L behavior is now stable, those checks should be removed.
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L Cargo has several other packages in the [`crates/` directory]. If any of these
+T 41 text.html.markdown meta.paragraph.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L packages have changed, the version should be bumped **before the beta
+T 69 text.html.markdown meta.paragraph.markdown
+L release**. It is rare that these get updated. Bumping these as-needed helps
+T 75 text.html.markdown meta.paragraph.markdown
+L avoid churning incompatible version numbers. This process should be improved
+T 76 text.html.markdown meta.paragraph.markdown
+L in the future!
+T 14 text.html.markdown meta.paragraph.markdown
+L 
+L [@ehuss] has a tool called [cargo-new-release] to automate the process of doing a version bump.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 95 text.html.markdown meta.paragraph.markdown
+L It runs through several steps:
+T 30 text.html.markdown meta.paragraph.markdown
+L 1. Creates a branch
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. Updates the version numbers
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 30 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 3. Creates a changelog for anything on the master branch that is not part of beta
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 81 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 4. Creates a changelog for anything on the beta branch
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 54 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L It opens a browser tab for every PR in order to review each change.
+T 67 text.html.markdown meta.paragraph.markdown
+L It places each PR in the changelog with its title, but usually every PR should be rewritten to explain the change from the user's perspective.
+T 142 text.html.markdown meta.paragraph.markdown
+L Each PR should also be categorized as an Addition, Change, Fix, or Nightly-only change.
+T 87 text.html.markdown meta.paragraph.markdown
+L Most PRs are deleted, since they are not relevant to users of Cargo.
+T 68 text.html.markdown meta.paragraph.markdown
+L For example, remove all PRs related to Cargo internals, infrastructure, documentation, error changes, refactorings, etc.
+T 120 text.html.markdown meta.paragraph.markdown
+L Usually about half of the PRs get removed.
+T 42 text.html.markdown meta.paragraph.markdown
+L This process usually takes @ehuss about an hour to finish.
+T 58 text.html.markdown meta.paragraph.markdown
+L 
+L [@ehuss]: https://github.com/ehuss/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown
+T 35 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [cargo-new-release]: https://github.com/ehuss/cargo-new-release
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown
+T 63 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [`crates/` directory]: https://github.com/rust-lang/cargo/tree/master/crates
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 22 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 23 text.html.markdown meta.link.reference.def.markdown
+T 76 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Docs publishing
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Docs are automatically published during the Rust release process. The nightly
+T 77 text.html.markdown meta.paragraph.markdown
+L channel's docs appear at <https://doc.rust-lang.org/nightly/cargo/>. Once
+T 25 text.html.markdown meta.paragraph.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L nightly is promoted to beta, those docs will appear at
+T 54 text.html.markdown meta.paragraph.markdown
+L <https://doc.rust-lang.org/beta/cargo/>. Once the stable release is made, it
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L will appear on <https://doc.rust-lang.org/cargo/> (which is the "current"
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L stable) and the release-specific URL such as
+T 44 text.html.markdown meta.paragraph.markdown
+L <https://doc.rust-lang.org/1.46.0/cargo/>.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L The code that builds the documentation is located in the [`doc` bootstrap
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L module].
+T 8 text.html.markdown meta.paragraph.markdown
+L 
+L [`doc` bootstrap module]: https://github.com/rust-lang/rust/blob/master/src/bootstrap/src/core/build_steps/doc.rs
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 23 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 24 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 25 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 26 text.html.markdown meta.link.reference.def.markdown
+T 113 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## crates.io publishing
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Cargo's library and its related dependencies (like `cargo-util`) are published
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L to [crates.io] as part of the 6-week stable release process by the [Release
+T 3 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L team]. The release process involves a series of steps:
+T 54 text.html.markdown meta.paragraph.markdown
+L 
+L 1. The Release team's automation scripts (see <https://github.com/rust-lang/simpleinfra/>) will run [`promote-release`] which will create a tag in the `rust-lang/cargo` repository associated with the version of the cargo submodule for that release.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 46 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 47 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 88 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 89 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 100 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 101 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 118 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 119 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 151 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 152 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 167 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 168 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 248 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. The creation of a tag will trigger the [release workflow] in `rust-lang/cargo`.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 64 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 65 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 81 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 82 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 3. The release workflow will run the [`publish.py` script] on the commit associated with the tag.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 38 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 39 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 50 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 4. The `publish.py` script will run `cargo publish` on any crates that are not already published.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 7 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 37 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 51 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L [`promote-release`]: https://github.com/rust-lang/promote-release
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown
+T 65 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [release workflow]: https://github.com/rust-lang/cargo/blob/master/.github/workflows/release.yml
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown
+T 96 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L On very rare cases, the Cargo team may decide to manually publish a new
+T 71 text.html.markdown meta.paragraph.markdown
+L release to [crates.io]. For example, this may be necessary if there is a
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+L problem with the current version that only affects API users, and does not
+T 74 text.html.markdown meta.paragraph.markdown
+L affect the `cargo` binary shipped in the stable release. In this situation,
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L PRs should be merged to the associated stable release branch in the cargo repo
+T 78 text.html.markdown meta.paragraph.markdown
+L (like `rust-1.70.0`) that fix the issue and bump the patch version of the
+T 6 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L affected package. Then you need to work with the Release Team to get a release
+T 78 text.html.markdown meta.paragraph.markdown
+L published to crates.io.[^release-problem]
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+L 
+L Some packages are not published automatically because they are not part of the
+T 78 text.html.markdown meta.paragraph.markdown
+L Rust release train. This currently only includes the [`home`] package. These
+T 53 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L are published manually on an as-needed or as-requested basis by whoever has
+T 75 text.html.markdown meta.paragraph.markdown
+L permissions (currently [@ehuss] or the Release/Infra team)[^fix-manual-release].
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 79 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 80 text.html.markdown meta.paragraph.markdown
+L 
+L [^release-problem]: Unfortunately there are some complications with this process. See <https://github.com/rust-lang/cargo/issues/14538> for more detail, and thoughts on how to improve this.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 134 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 135 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 189 text.html.markdown meta.paragraph.markdown
+L 
+L [^fix-manual-release]: This should be fixed, see [crate ownership policy](https://forge.rust-lang.org/policies/crate-ownership.html) about removing ownership. Also see <https://github.com/rust-lang/cargo/issues/14538> for problems with tagging. In general, these should be published from GitHub Actions, but we don't have the infrastructure set up for that, yet.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 72 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 73 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 74 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 131 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 132 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 168 text.html.markdown meta.paragraph.markdown
+T 169 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 216 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown markup.underline.link.markdown
+T 217 text.html.markdown meta.paragraph.markdown meta.link.inet.markdown punctuation.definition.link.markdown
+T 362 text.html.markdown meta.paragraph.markdown
+L 
+L [`home`]: https://github.com/rust-lang/cargo/tree/master/crates/home
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown
+T 68 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [`publish.py` script]: https://github.com/rust-lang/cargo/blob/master/publish.py
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 22 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 23 text.html.markdown meta.link.reference.def.markdown
+T 80 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Beta backports
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If there is a regression or major problem detected during the beta phase, it
+T 76 text.html.markdown meta.paragraph.markdown
+L may be necessary to backport a fix to beta. The process is documented in the
+T 76 text.html.markdown meta.paragraph.markdown
+L [Beta Backporting] page.
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L [Beta Backporting]: https://forge.rust-lang.org/release/beta-backporting.html
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown
+T 77 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Stable backports
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L In (hopefully!) very rare cases, a major regression or problem may be reported
+T 78 text.html.markdown meta.paragraph.markdown
+L after the stable release. Decisions about this are usually coordinated between
+T 78 text.html.markdown meta.paragraph.markdown
+L the [Release team] and the Cargo team. There is usually a high bar for making
+T 77 text.html.markdown meta.paragraph.markdown
+L a stable patch release, and the decision may be influenced by whether or not
+T 76 text.html.markdown meta.paragraph.markdown
+L there are other changes that need a new stable release.
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L The process here is similar to the beta-backporting process. The
+T 64 text.html.markdown meta.paragraph.markdown
+L [rust-lang/cargo] branch is the same as beta (`rust-1.XX.0`). The
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown
+L [rust-lang/rust] branch is called `stable`.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 34 text.html.markdown meta.paragraph.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+L 
+L [choochoo]: https://doc.rust-lang.org/book/appendix-07-nightly-rust.html
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown
+T 72 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [rust-lang/rust]: https://github.com/rust-lang/rust/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 15 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown
+T 52 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [rust-lang/cargo]: https://github.com/rust-lang/cargo/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown
+T 54 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [CHANGELOG]: https://github.com/rust-lang/cargo/blob/master/doc/book/src/CHANGELOG.md
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown
+T 85 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [release process]: https://forge.rust-lang.org/release/process.html
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 17 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 18 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown
+T 67 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [`TargetInfo`]: https://github.com/rust-lang/cargo/blob/master/src/compiler/build_context/target_info.rs
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 15 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown
+T 104 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [crates.io]: https://crates.io/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown
+T 31 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [release team]: https://www.rust-lang.org/governance/teams/operations#release
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 15 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown
+T 77 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 

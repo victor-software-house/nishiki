@@ -886,6 +886,7 @@ impl<'a> Lexer<'a> {
                 shell::Text {
                     bytes: self.line.as_bytes(),
                     start,
+                    anchored: true,
                 },
                 frame.payload,
                 self.out,

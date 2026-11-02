@@ -55,10 +55,16 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// before it stay in the line, because the grammar looks at them: `^` matches
 /// only at 0, so a command that follows indentation is not at the start of the
 /// line.
+///
+/// `anchored` is set for a Markdown fence line: the fence's `while` rule has
+/// matched the container prefix just before `start`, which is where `\G`
+/// stays for the line, as it does in Shiki. A shell document has no such
+/// rule, so `\G` matches nowhere at the start of its lines.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Text<'a> {
     pub(crate) bytes: &'a [u8],
     pub(crate) start: usize,
+    pub(crate) anchored: bool,
 }
 
 /// Lexes one line from `state`, appending its tokens, and returns the state

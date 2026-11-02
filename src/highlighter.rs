@@ -108,6 +108,7 @@ impl Highlighter {
                 shell::Text {
                     bytes: line.as_bytes(),
                     start: 0,
+                    anchored: false,
                 },
                 from,
                 out,
