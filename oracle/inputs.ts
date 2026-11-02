@@ -142,6 +142,15 @@ const prettier =
 const rustc =
   "https://raw.githubusercontent.com/rust-lang/rust/ae36fe22c7e590df40ffd53ac25fea35597c3f3d";
 
+const dockerPython =
+  "https://raw.githubusercontent.com/docker-library/python/f4c67ece208dead594e43628d22e3c6027dd97ab";
+const dockerPostgres =
+  "https://raw.githubusercontent.com/docker-library/postgres/dfc76bb299b057785026eb2eea39556b6fe52983";
+const nextjs =
+  "https://raw.githubusercontent.com/vercel/next.js/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378";
+const buildx =
+  "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -340,4 +349,14 @@ export const inputs: Input[] = [
   },
   { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
   { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
+  { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
+  { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
+  { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
+  { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
+  { lang: "docker", name: "moby", url: `${moby}/Dockerfile` },
+  { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
+  { lang: "docker", name: "buildx", url: `${buildx}/Dockerfile` },
+  { lang: "markdown", name: "fastapi-docker", url: `${fastapi}/docs/en/docs/deployment/docker.md` },
+  { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
+  { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
 ];

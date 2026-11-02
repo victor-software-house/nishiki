@@ -1,0 +1,164 @@
+L ARG ARCH="amd64"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+L ARG OS="linux"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+L FROM quay.io/prometheus/busybox-${OS}-${ARCH}:latest
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 52 source.dockerfile
+L LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
+T 5 source.dockerfile keyword.other.special-method.dockerfile
+T 6 source.dockerfile
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 81 source.dockerfile string.quoted.double.dockerfile
+T 82 source.dockerfile string.quoted.double.dockerfile
+L LABEL org.opencontainers.image.authors="The Prometheus Authors" \
+T 5 source.dockerfile keyword.other.special-method.dockerfile
+T 6 source.dockerfile
+T 39 source.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 62 source.dockerfile string.quoted.double.dockerfile
+T 63 source.dockerfile string.quoted.double.dockerfile
+T 65 source.dockerfile
+L       org.opencontainers.image.vendor="Prometheus" \
+T 38 source.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile string.quoted.double.dockerfile
+T 50 source.dockerfile string.quoted.double.dockerfile
+T 52 source.dockerfile
+L       org.opencontainers.image.title="Prometheus" \
+T 37 source.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile
+L       org.opencontainers.image.description="The Prometheus monitoring system and time series database" \
+T 43 source.dockerfile
+T 44 source.dockerfile string.quoted.double.dockerfile
+T 101 source.dockerfile string.quoted.double.dockerfile
+T 102 source.dockerfile string.quoted.double.dockerfile
+T 104 source.dockerfile
+L       org.opencontainers.image.source="https://github.com/prometheus/prometheus" \
+T 38 source.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+T 79 source.dockerfile string.quoted.double.dockerfile
+T 80 source.dockerfile string.quoted.double.dockerfile
+T 82 source.dockerfile
+L       org.opencontainers.image.url="https://github.com/prometheus/prometheus" \
+T 35 source.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 76 source.dockerfile string.quoted.double.dockerfile
+T 77 source.dockerfile string.quoted.double.dockerfile
+T 79 source.dockerfile
+L       org.opencontainers.image.documentation="https://prometheus.io/docs" \
+T 45 source.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 72 source.dockerfile string.quoted.double.dockerfile
+T 73 source.dockerfile string.quoted.double.dockerfile
+T 75 source.dockerfile
+L       org.opencontainers.image.licenses="Apache License 2.0" \
+T 40 source.dockerfile
+T 41 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 60 source.dockerfile string.quoted.double.dockerfile
+T 62 source.dockerfile
+L       io.prometheus.image.variant="busybox"
+T 34 source.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile string.quoted.double.dockerfile
+L 
+L ARG ARCH="amd64"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+L ARG OS="linux"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+L COPY .build/${OS}-${ARCH}/prometheus        /bin/prometheus
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 59 source.dockerfile
+L COPY .build/${OS}-${ARCH}/promtool          /bin/promtool
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L COPY documentation/examples/prometheus.yml  /etc/prometheus/prometheus.yml
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 74 source.dockerfile
+L COPY LICENSE                                /LICENSE
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 52 source.dockerfile
+L COPY NOTICE                                 /NOTICE
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 51 source.dockerfile
+L 
+L WORKDIR /prometheus
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 19 source.dockerfile
+L RUN chown -R nobody:nobody /etc/prometheus /prometheus && chmod g+w /prometheus
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L 
+L USER       nobody
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 17 source.dockerfile
+L EXPOSE     9090
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 15 source.dockerfile
+L VOLUME     [ "/prometheus" ]
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile
+L ENTRYPOINT [ "/bin/prometheus" ]
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile
+L CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 62 source.dockerfile
+L              "--storage.tsdb.path=/prometheus" ]
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 45 source.dockerfile string.quoted.double.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile
+L 

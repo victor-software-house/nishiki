@@ -93,6 +93,7 @@ assert_eq!(highlighter.limits().depth, None);
 | TOML | `Language::Toml` | `toml` |
 | Makefile | `Language::Make` | `make`, `makefile` |
 | Diff | `Language::Diff` | `diff` |
+| Dockerfile | `Language::Dockerfile` | `docker`, `dockerfile` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -161,6 +162,12 @@ A Markdown fence's Makefile lines see the line feed of a line that a quote or li
 
 Diff lines are lexed on their own, as the grammar has no state.
 A Markdown fence's diff lines lose their `^` anchors when a quote or list indents the fence.
+
+### Dockerfile
+
+A comment is read only at the start of a line and never inside a string, and a string runs across lines until its quote, so an apostrophe in a `RUN` line opens a string that swallows the instructions after it.
+A line that continues another still reads its first word as an instruction.
+A Markdown fence names the language `dockerfile`; the `docker` fence is plain text, as in Shiki.
 
 ## Licence
 

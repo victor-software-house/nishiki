@@ -1,0 +1,688 @@
+L # syntax=docker/dockerfile:1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 28 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L ARG GO_VERSION=1.26
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 19 source.dockerfile
+L ARG ALPINE_VERSION=3.23
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L ARG XX_VERSION=1.10.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L 
+L # for testing
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 13 source.dockerfile comment.line.number-sign.dockerfile
+L ARG DOCKER_VERSION=29.9
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L ARG DOCKER_VERSION_ALT_28=28.5
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 30 source.dockerfile
+L ARG DOCKER_VERSION_ALT_27=27.5.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 32 source.dockerfile
+L ARG DOCKER_CLI_VERSION=${DOCKER_VERSION}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 40 source.dockerfile
+L ARG GOTESTSUM_VERSION=v1.13.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ARG REGISTRY_VERSION=3.1.2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+L ARG BUILDKIT_VERSION=v0.34.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 28 source.dockerfile
+L ARG COMPOSE_VERSION=v5.6.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+L ARG UNDOCK_VERSION=0.14.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L 
+L FROM --platform=$BUILDPLATFORM tonistiigi/xx:${XX_VERSION} AS xx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 59 source.dockerfile
+T 61 source.dockerfile keyword.other.special-method.dockerfile
+T 64 source.dockerfile
+L FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS golatest
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 76 source.dockerfile
+T 78 source.dockerfile keyword.other.special-method.dockerfile
+T 87 source.dockerfile
+L FROM moby/moby-bin:$DOCKER_VERSION AS docker-engine
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 35 source.dockerfile
+T 37 source.dockerfile keyword.other.special-method.dockerfile
+T 51 source.dockerfile
+L FROM dockereng/cli-bin:$DOCKER_CLI_VERSION AS docker-cli
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+T 45 source.dockerfile keyword.other.special-method.dockerfile
+T 56 source.dockerfile
+L FROM moby/moby-bin:$DOCKER_VERSION_ALT_28 AS docker-engine-alt28
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 42 source.dockerfile
+T 44 source.dockerfile keyword.other.special-method.dockerfile
+T 64 source.dockerfile
+L FROM moby/moby-bin:$DOCKER_VERSION_ALT_27 AS docker-engine-alt27
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 42 source.dockerfile
+T 44 source.dockerfile keyword.other.special-method.dockerfile
+T 64 source.dockerfile
+L FROM dockereng/cli-bin:$DOCKER_VERSION_ALT_28 AS docker-cli-alt28
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 46 source.dockerfile
+T 48 source.dockerfile keyword.other.special-method.dockerfile
+T 65 source.dockerfile
+L FROM dockereng/cli-bin:$DOCKER_VERSION_ALT_27 AS docker-cli-alt27
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 46 source.dockerfile
+T 48 source.dockerfile keyword.other.special-method.dockerfile
+T 65 source.dockerfile
+L FROM registry:$REGISTRY_VERSION AS registry
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 32 source.dockerfile
+T 34 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L FROM moby/buildkit:$BUILDKIT_VERSION AS buildkit
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 37 source.dockerfile
+T 39 source.dockerfile keyword.other.special-method.dockerfile
+T 48 source.dockerfile
+L FROM docker/compose-bin:$COMPOSE_VERSION AS compose
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+T 43 source.dockerfile keyword.other.special-method.dockerfile
+T 51 source.dockerfile
+L FROM crazymax/undock:$UNDOCK_VERSION AS undock
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 37 source.dockerfile
+T 39 source.dockerfile keyword.other.special-method.dockerfile
+T 46 source.dockerfile
+L 
+L FROM golatest AS gobase
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 14 source.dockerfile
+T 16 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+L COPY --from=xx / /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 18 source.dockerfile
+L RUN apk add --no-cache file git
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 31 source.dockerfile
+L ENV GOFLAGS=-mod=vendor
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L ENV CGO_ENABLED=0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L WORKDIR /src
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 12 source.dockerfile
+L 
+L FROM gobase AS gotestsum
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 14 source.dockerfile keyword.other.special-method.dockerfile
+T 24 source.dockerfile
+L ARG GOTESTSUM_VERSION
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L ENV GOFLAGS=""
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+L RUN --mount=target=/root/.cache,type=cache <<EOT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 48 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   go install "gotest.tools/gotestsum@${GOTESTSUM_VERSION}"
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+L   go install "github.com/wadey/gocovmerge@latest"
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile string.quoted.double.dockerfile
+L   mkdir /out
+T 12 source.dockerfile
+L   /go/bin/gotestsum --version
+T 29 source.dockerfile
+L   mv /go/bin/gotestsum /out
+T 27 source.dockerfile
+L   mv /go/bin/gocovmerge /out
+T 28 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L COPY --chmod=755 <<"EOF" /out/gotestsumandcover
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 19 source.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile
+L #!/bin/sh
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 9 source.dockerfile comment.line.number-sign.dockerfile
+L set -x
+T 6 source.dockerfile
+L if [ -z "$GO_TEST_COVERPROFILE" ]; then
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile
+L   exec gotestsum "$@"
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+L fi
+T 2 source.dockerfile
+L coverdir="$(dirname "$GO_TEST_COVERPROFILE")"
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+T 43 source.dockerfile string.quoted.double.dockerfile
+T 44 source.dockerfile string.quoted.double.dockerfile
+T 45 source.dockerfile string.quoted.double.dockerfile
+L mkdir -p "$coverdir/helpers"
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+L gotestsum "$@" "-coverprofile=$GO_TEST_COVERPROFILE"
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile string.quoted.double.dockerfile
+T 52 source.dockerfile string.quoted.double.dockerfile
+L ecode=$?
+T 8 source.dockerfile
+L go tool covdata textfmt -i=$coverdir/helpers -o=$coverdir/helpers-report.txt
+T 76 source.dockerfile
+L gocovmerge "$coverdir/helpers-report.txt" "$GO_TEST_COVERPROFILE" > "$coverdir/merged-report.txt"
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+T 43 source.dockerfile string.quoted.double.dockerfile
+T 64 source.dockerfile string.quoted.double.dockerfile
+T 65 source.dockerfile string.quoted.double.dockerfile
+T 68 source.dockerfile
+T 69 source.dockerfile string.quoted.double.dockerfile
+T 96 source.dockerfile string.quoted.double.dockerfile
+T 97 source.dockerfile string.quoted.double.dockerfile
+L mv "$coverdir/merged-report.txt" "$GO_TEST_COVERPROFILE"
+T 3 source.dockerfile
+T 4 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 55 source.dockerfile string.quoted.double.dockerfile
+T 56 source.dockerfile string.quoted.double.dockerfile
+L rm "$coverdir/helpers-report.txt"
+T 3 source.dockerfile
+T 4 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+L for f in "$coverdir/helpers"/*; do
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile
+L   rm "$f"
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+L done
+T 4 source.dockerfile
+L rmdir "$coverdir/helpers"
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+L exit $ecode
+T 11 source.dockerfile
+L EOF
+T 3 source.dockerfile
+L 
+L FROM gobase AS buildx-version
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 14 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L RUN --mount=type=bind,target=. <<EOT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 36 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L   PKG=github.com/docker/buildx
+T 30 source.dockerfile
+L   if [ -f .git ] && head -n 1 .git | grep -q "^gitdir:"; then
+T 45 source.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 54 source.dockerfile string.quoted.double.dockerfile
+T 55 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile
+L     VERSION=dev
+T 15 source.dockerfile
+L     REVISION=dev
+T 16 source.dockerfile
+L   else
+T 6 source.dockerfile
+L     VERSION=$(git describe --match 'v[0-9]*' --dirty='.m' --always --tags)
+T 35 source.dockerfile
+T 36 source.dockerfile string.quoted.single.dockerfile
+T 43 source.dockerfile string.quoted.single.dockerfile
+T 44 source.dockerfile string.quoted.single.dockerfile
+T 53 source.dockerfile
+T 54 source.dockerfile string.quoted.single.dockerfile
+T 56 source.dockerfile string.quoted.single.dockerfile
+T 57 source.dockerfile string.quoted.single.dockerfile
+T 74 source.dockerfile
+L     REVISION=$(git rev-parse HEAD)$(if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
+T 102 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L   echo "-X ${PKG}/version.Version=${VERSION} -X ${PKG}/version.Revision=${REVISION} -X ${PKG}/version.Package=${PKG}" | tee /tmp/.ldflags
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 116 source.dockerfile string.quoted.double.dockerfile
+T 117 source.dockerfile string.quoted.double.dockerfile
+T 137 source.dockerfile
+L   echo -n "${VERSION}" | tee /tmp/.version
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM gobase AS buildx-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 14 source.dockerfile keyword.other.special-method.dockerfile
+T 27 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L ARG GO_EXTRA_FLAGS
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=bind,target=. \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 32 source.dockerfile
+L   --mount=type=cache,target=/root/.cache \
+T 42 source.dockerfile
+L   --mount=type=cache,target=/go/pkg/mod \
+T 41 source.dockerfile
+L   --mount=type=bind,from=buildx-version,source=/tmp/.ldflags,target=/tmp/.ldflags <<EOT
+T 87 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   xx-go build -trimpath ${GO_EXTRA_FLAGS} -ldflags "-s -w $(cat /tmp/.ldflags)" -o /usr/bin/docker-buildx ./cmd/buildx
+T 51 source.dockerfile
+T 52 source.dockerfile string.quoted.double.dockerfile
+T 78 source.dockerfile string.quoted.double.dockerfile
+T 79 source.dockerfile string.quoted.double.dockerfile
+T 118 source.dockerfile
+L   file /usr/bin/docker-buildx
+T 29 source.dockerfile
+L   xx-verify --static /usr/bin/docker-buildx
+T 43 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM gobase AS test
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 14 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+L ENV SKIP_INTEGRATION_TESTS=1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 28 source.dockerfile
+L RUN --mount=type=bind,target=. \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 32 source.dockerfile
+L   --mount=type=cache,target=/root/.cache \
+T 42 source.dockerfile
+L   --mount=type=cache,target=/go/pkg/mod \
+T 41 source.dockerfile
+L   go test -v -coverprofile=/tmp/coverage.txt -covermode=atomic ./... && \
+T 73 source.dockerfile
+L   go tool cover -func=/tmp/coverage.txt
+T 39 source.dockerfile
+L 
+L FROM scratch AS test-coverage
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L COPY --from=test /tmp/coverage.txt /coverage.txt
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 48 source.dockerfile
+L 
+L FROM scratch AS binaries-unix
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L COPY --link --from=buildx-build /usr/bin/docker-buildx /buildx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 62 source.dockerfile
+L 
+L FROM binaries-unix AS binaries-darwin
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 21 source.dockerfile keyword.other.special-method.dockerfile
+T 37 source.dockerfile
+L FROM binaries-unix AS binaries-freebsd
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 21 source.dockerfile keyword.other.special-method.dockerfile
+T 38 source.dockerfile
+L FROM binaries-unix AS binaries-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 21 source.dockerfile keyword.other.special-method.dockerfile
+T 36 source.dockerfile
+L FROM binaries-unix AS binaries-netbsd
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 21 source.dockerfile keyword.other.special-method.dockerfile
+T 37 source.dockerfile
+L FROM binaries-unix AS binaries-openbsd
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+T 21 source.dockerfile keyword.other.special-method.dockerfile
+T 38 source.dockerfile
+L 
+L FROM scratch AS binaries-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 32 source.dockerfile
+L COPY --link --from=buildx-build /usr/bin/docker-buildx /buildx.exe
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 66 source.dockerfile
+L 
+L FROM binaries-$TARGETOS AS binaries
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 24 source.dockerfile
+T 26 source.dockerfile keyword.other.special-method.dockerfile
+T 35 source.dockerfile
+L # enable scanning for this stage
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 32 source.dockerfile comment.line.number-sign.dockerfile
+L ARG BUILDKIT_SBOM_SCAN_STAGE=true
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 33 source.dockerfile
+L 
+L FROM gobase AS integration-test-base
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 12 source.dockerfile
+T 14 source.dockerfile keyword.other.special-method.dockerfile
+T 36 source.dockerfile
+L # https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 88 source.dockerfile comment.line.number-sign.dockerfile
+L RUN apk add --no-cache \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 24 source.dockerfile
+L       bash \
+T 12 source.dockerfile
+L       btrfs-progs \
+T 19 source.dockerfile
+L       e2fsprogs \
+T 17 source.dockerfile
+L       e2fsprogs-extra \
+T 23 source.dockerfile
+L       ip6tables \
+T 17 source.dockerfile
+L       iptables \
+T 16 source.dockerfile
+L       make \
+T 12 source.dockerfile
+L       openssl \
+T 15 source.dockerfile
+L       shadow-uidmap \
+T 21 source.dockerfile
+L       xfsprogs \
+T 16 source.dockerfile
+L       xz
+T 8 source.dockerfile
+L COPY --link --from=gotestsum /out /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 43 source.dockerfile
+L COPY --link --from=registry /bin/registry /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 51 source.dockerfile
+L COPY --link --from=docker-engine / /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 44 source.dockerfile
+L COPY --link --from=docker-cli / /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 41 source.dockerfile
+L COPY --link --from=docker-engine-alt28 / /opt/docker-alt-28/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 60 source.dockerfile
+L COPY --link --from=docker-engine-alt27 / /opt/docker-alt-27/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 60 source.dockerfile
+L COPY --link --from=docker-cli-alt28 / /opt/docker-alt-28/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L COPY --link --from=docker-cli-alt27 / /opt/docker-alt-27/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L COPY --link --from=buildkit /usr/bin/buildkitd /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=buildkit /usr/bin/buildctl /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 55 source.dockerfile
+L COPY --link --from=compose /docker-compose /usr/bin/compose
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 59 source.dockerfile
+L COPY --link --from=undock /usr/local/bin/undock /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L COPY --link --from=binaries /buildx /usr/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 45 source.dockerfile
+L RUN mkdir -p /usr/local/lib/docker/cli-plugins && ln -s /usr/bin/buildx /usr/local/lib/docker/cli-plugins/docker-buildx
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 119 source.dockerfile
+L ENV TEST_DOCKER_EXTRA="docker@28.5=/opt/docker-alt-28,docker@27.5=/opt/docker-alt-27"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 22 source.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 84 source.dockerfile string.quoted.double.dockerfile
+T 85 source.dockerfile string.quoted.double.dockerfile
+L 
+L FROM integration-test-base AS integration-test
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 27 source.dockerfile
+T 29 source.dockerfile keyword.other.special-method.dockerfile
+T 46 source.dockerfile
+L COPY . .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 8 source.dockerfile
+L 
+L # Release
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 9 source.dockerfile comment.line.number-sign.dockerfile
+L FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS releaser
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 56 source.dockerfile
+T 58 source.dockerfile keyword.other.special-method.dockerfile
+T 67 source.dockerfile
+L WORKDIR /work
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 13 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=from=binaries \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 27 source.dockerfile
+L   --mount=type=bind,from=buildx-version,source=/tmp/.version,target=/tmp/.version <<EOT
+T 87 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L   mkdir -p /out
+T 15 source.dockerfile
+L   cp buildx* "/out/buildx-$(cat /tmp/.version).$(echo $TARGETPLATFORM | sed 's/\//-/g')$(ls buildx* | sed -e 's/^buildx//')"
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 79 source.dockerfile string.quoted.double.dockerfile
+T 81 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 123 source.dockerfile string.quoted.double.dockerfile
+T 124 source.dockerfile string.quoted.double.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM scratch AS release
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+L COPY --from=releaser /out/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 28 source.dockerfile
+L 
+L # Shell
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 7 source.dockerfile comment.line.number-sign.dockerfile
+L FROM docker:$DOCKER_VERSION AS dockerd-release
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+T 30 source.dockerfile keyword.other.special-method.dockerfile
+T 46 source.dockerfile
+L FROM alpine:${ALPINE_VERSION} AS shell
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 30 source.dockerfile
+T 32 source.dockerfile keyword.other.special-method.dockerfile
+T 38 source.dockerfile
+L RUN apk add --no-cache iptables tmux git vim less openssh
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 57 source.dockerfile
+L RUN mkdir -p /usr/local/lib/docker/cli-plugins && ln -s /usr/local/bin/buildx /usr/local/lib/docker/cli-plugins/docker-buildx
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 125 source.dockerfile
+L COPY ./hack/demo-env/entrypoint.sh /usr/local/bin
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 49 source.dockerfile
+L COPY ./hack/demo-env/tmux.conf /root/.tmux.conf
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 47 source.dockerfile
+L COPY --from=dockerd-release /usr/local/bin /usr/local/bin
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L WORKDIR /work
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 13 source.dockerfile
+L COPY ./hack/demo-env/examples .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 31 source.dockerfile
+L COPY --from=binaries / /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 38 source.dockerfile
+L VOLUME /var/lib/docker
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 22 source.dockerfile
+L ENTRYPOINT ["entrypoint.sh"]
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile
+L 
+L FROM binaries
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 13 source.dockerfile
+L 

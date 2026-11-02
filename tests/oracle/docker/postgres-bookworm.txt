@@ -1,0 +1,739 @@
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 61 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # PLEASE DO NOT EDIT IT DIRECTLY.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 33 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L 
+L FROM debian:bookworm-slim
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 25 source.dockerfile
+L 
+L # explicitly set user/group IDs
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 31 source.dockerfile comment.line.number-sign.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	groupadd -r postgres --gid=999; \
+T 34 source.dockerfile
+L # https://salsa.debian.org/postgresql/postgresql-common/blob/997d842ee744687d99a2b2d95c1083a2615c79e8/debian/postgresql-common.postinst#L32-35
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 142 source.dockerfile comment.line.number-sign.dockerfile
+L 	useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
+T 94 source.dockerfile
+L # also create the postgres user's home directory with appropriate permissions
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 77 source.dockerfile comment.line.number-sign.dockerfile
+L # see https://github.com/docker-library/postgres/issues/274
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 59 source.dockerfile comment.line.number-sign.dockerfile
+L 	install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql
+T 96 source.dockerfile
+L 
+L RUN set -ex; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+L 	apt-get update; \
+T 18 source.dockerfile
+L 	apt-get install -y --no-install-recommends \
+T 45 source.dockerfile
+L 		gnupg \
+T 9 source.dockerfile
+L # https://www.postgresql.org/docs/16/app-psql.html#APP-PSQL-META-COMMAND-PSET-PAGER
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 83 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/postgres/postgres/blob/REL_16_1/src/include/fe_utils/print.h#L25
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 85 source.dockerfile comment.line.number-sign.dockerfile
+L # (if "less" is available, it gets used as the default pager for psql, and it only adds ~1.5MiB to our image size)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 114 source.dockerfile comment.line.number-sign.dockerfile
+L 		less \
+T 8 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*
+T 28 source.dockerfile
+L 
+L # grab gosu for easy step-down from root
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 40 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/tianon/gosu/releases
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 41 source.dockerfile comment.line.number-sign.dockerfile
+L ENV GOSU_VERSION 1.19
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	savedAptMark="$(apt-mark showmanual)"; \
+T 14 source.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile
+L 	apt-get update; \
+T 18 source.dockerfile
+L 	apt-get install -y --no-install-recommends ca-certificates wget; \
+T 67 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*; \
+T 31 source.dockerfile
+L 	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 65 source.dockerfile string.quoted.double.dockerfile
+T 66 source.dockerfile string.quoted.double.dockerfile
+T 69 source.dockerfile
+L 	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+T 29 source.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 107 source.dockerfile string.quoted.double.dockerfile
+T 108 source.dockerfile string.quoted.double.dockerfile
+T 111 source.dockerfile
+L 	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+T 33 source.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 115 source.dockerfile string.quoted.double.dockerfile
+T 116 source.dockerfile string.quoted.double.dockerfile
+T 119 source.dockerfile
+L 	export GNUPGHOME="$(mktemp -d)"; \
+T 18 source.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile
+L 	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+T 104 source.dockerfile
+L 	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+T 68 source.dockerfile
+L 	gpgconf --kill all; \
+T 22 source.dockerfile
+L 	rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile
+L 	apt-mark auto '.*' > /dev/null; \
+T 15 source.dockerfile
+T 16 source.dockerfile string.quoted.single.dockerfile
+T 18 source.dockerfile string.quoted.single.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile
+T 34 source.dockerfile
+L 	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 71 source.dockerfile
+L 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+T 80 source.dockerfile
+L 	chmod +x /usr/local/bin/gosu; \
+T 32 source.dockerfile
+L 	gosu --version; \
+T 18 source.dockerfile
+L 	gosu nobody true
+T 17 source.dockerfile
+L 
+L # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	if [ -f /etc/dpkg/dpkg.cfg.d/docker ]; then \
+T 46 source.dockerfile
+L # if this file exists, we're likely in "debian:xxx-slim", and locales are thus being excluded so we need to remove that exclusion (since we need locales)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 153 source.dockerfile comment.line.number-sign.dockerfile
+L 		grep -q '/usr/share/locale' /etc/dpkg/dpkg.cfg.d/docker; \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.single.dockerfile
+T 28 source.dockerfile string.quoted.single.dockerfile
+T 29 source.dockerfile string.quoted.single.dockerfile
+T 60 source.dockerfile
+L 		sed -ri '/\/usr\/share\/locale/d' /etc/dpkg/dpkg.cfg.d/docker; \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.single.dockerfile
+T 12 source.dockerfile string.quoted.single.dockerfile
+T 14 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 17 source.dockerfile string.quoted.single.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 24 source.dockerfile string.quoted.single.dockerfile
+T 26 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 34 source.dockerfile string.quoted.single.dockerfile
+T 35 source.dockerfile string.quoted.single.dockerfile
+T 66 source.dockerfile
+L 		! grep -q '/usr/share/locale' /etc/dpkg/dpkg.cfg.d/docker; \
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.single.dockerfile
+T 30 source.dockerfile string.quoted.single.dockerfile
+T 31 source.dockerfile string.quoted.single.dockerfile
+T 62 source.dockerfile
+L 	fi; \
+T 6 source.dockerfile
+L 	apt-get update; apt-get install -y --no-install-recommends locales; rm -rf /var/lib/apt/lists/*; \
+T 99 source.dockerfile
+L 	echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.single.dockerfile
+T 24 source.dockerfile string.quoted.single.dockerfile
+T 25 source.dockerfile string.quoted.single.dockerfile
+T 47 source.dockerfile
+L 	locale-gen; \
+T 14 source.dockerfile
+L 	locale -a | grep 'en_US.utf8'
+T 18 source.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile
+T 29 source.dockerfile string.quoted.single.dockerfile
+T 30 source.dockerfile string.quoted.single.dockerfile
+L ENV LANG en_US.utf8
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 19 source.dockerfile
+L 
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	apt-get update; \
+T 18 source.dockerfile
+L 	apt-get install -y --no-install-recommends \
+T 45 source.dockerfile
+L 		libnss-wrapper \
+T 18 source.dockerfile
+L 		xz-utils \
+T 12 source.dockerfile
+L 		zstd \
+T 8 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*
+T 28 source.dockerfile
+L 
+L RUN mkdir /docker-entrypoint-initdb.d
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 37 source.dockerfile
+L 
+L RUN set -ex; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+L # pub   4096R/ACCC4CF8 2011-10-13 [expires: 2019-07-02]
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 55 source.dockerfile comment.line.number-sign.dockerfile
+L #       Key fingerprint = B97B 0AFC AA1A 47F0 44F2  44A0 7FCC 7D46 ACCC 4CF8
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # uid                  PostgreSQL Debian Repository
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 51 source.dockerfile comment.line.number-sign.dockerfile
+L 	key='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8'; \
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.single.dockerfile
+T 46 source.dockerfile string.quoted.single.dockerfile
+T 47 source.dockerfile string.quoted.single.dockerfile
+T 50 source.dockerfile
+L 	export GNUPGHOME="$(mktemp -d)"; \
+T 18 source.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile
+L 	mkdir -p /usr/local/share/keyrings/; \
+T 39 source.dockerfile
+L 	gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
+T 58 source.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 63 source.dockerfile string.quoted.double.dockerfile
+T 64 source.dockerfile string.quoted.double.dockerfile
+T 67 source.dockerfile
+L 	gpg --batch --export --armor "$key" > /usr/local/share/keyrings/postgres.gpg.asc; \
+T 30 source.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 84 source.dockerfile
+L 	gpgconf --kill all; \
+T 22 source.dockerfile
+L 	rm -rf "$GNUPGHOME"
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+L 
+L ENV PG_MAJOR 18
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 48 source.dockerfile
+L 
+L ENV PG_VERSION 18.6-1.pgdg12+2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 30 source.dockerfile
+L 
+L RUN set -ex; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L # see note below about "*.pyc" files
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 36 source.dockerfile comment.line.number-sign.dockerfile
+L 	export PYTHONDONTWRITEBYTECODE=1; \
+T 36 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	dpkgArch="$(dpkg --print-architecture)"; \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile
+L 	aptRepo="[ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main $PG_MAJOR"; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 135 source.dockerfile string.quoted.double.dockerfile
+T 136 source.dockerfile string.quoted.double.dockerfile
+T 139 source.dockerfile
+L 	case "$dpkgArch" in \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile
+L 		amd64 | arm64 | ppc64el) \
+T 28 source.dockerfile
+L # arches officialy built by upstream
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 36 source.dockerfile comment.line.number-sign.dockerfile
+L 			echo "deb $aptRepo" > /etc/apt/sources.list.d/pgdg.list; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile
+L 			apt-get update; \
+T 20 source.dockerfile
+L 			;; \
+T 7 source.dockerfile
+L 		*) \
+T 6 source.dockerfile
+L # we're on an architecture upstream doesn't officially build for
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 64 source.dockerfile comment.line.number-sign.dockerfile
+L # let's build binaries from their published source packages
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 59 source.dockerfile comment.line.number-sign.dockerfile
+L 			echo "deb-src $aptRepo" > /etc/apt/sources.list.d/pgdg.list; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 65 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L 			savedAptMark="$(apt-mark showmanual)"; \
+T 16 source.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L 			tempDir="$(mktemp -d)"; \
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile
+L 			cd "$tempDir"; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L # create a temporary local APT repo to install from (so that dependency resolution can be handled by APT, as it should be)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 122 source.dockerfile comment.line.number-sign.dockerfile
+L 			apt-get update; \
+T 20 source.dockerfile
+L 			apt-get install -y --no-install-recommends dpkg-dev; \
+T 57 source.dockerfile
+L 			echo "deb [ trusted=yes ] file://$tempDir ./" > /etc/apt/sources.list.d/temp.list; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile
+T 87 source.dockerfile
+L 			_update_repo() { \
+T 21 source.dockerfile
+L 				dpkg-scanpackages . > Packages; \
+T 37 source.dockerfile
+L # work around the following APT issue by using "Acquire::GzipIndexes=false" (overriding "/etc/apt/apt.conf.d/docker-gzip-indexes")
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 130 source.dockerfile comment.line.number-sign.dockerfile
+L #   Could not open file /var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages - open (13: Permission denied)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 112 source.dockerfile comment.line.number-sign.dockerfile
+L #   ...
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 7 source.dockerfile comment.line.number-sign.dockerfile
+L #   E: Failed to fetch store:/var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages  Could not open file /var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages - open (13: Permission denied)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 196 source.dockerfile comment.line.number-sign.dockerfile
+L 				apt-get -o Acquire::GzipIndexes=false update; \
+T 51 source.dockerfile
+L 			}; \
+T 7 source.dockerfile
+L 			_update_repo; \
+T 18 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L # build .deb files from upstream's source packages (which are verified by apt-get)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 82 source.dockerfile comment.line.number-sign.dockerfile
+L 			nproc="$(nproc)"; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile
+L 			export DEB_BUILD_OPTIONS="nocheck parallel=$nproc"; \
+T 28 source.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 52 source.dockerfile string.quoted.double.dockerfile
+T 53 source.dockerfile string.quoted.double.dockerfile
+T 56 source.dockerfile
+L # we have to build postgresql-common-dev first because postgresql-$PG_MAJOR shares "debian/rules" logic with it: https://salsa.debian.org/postgresql/postgresql/-/commit/f4338a0d28cf4541956bddb0f4e444ba9dba81b9
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 209 source.dockerfile comment.line.number-sign.dockerfile
+L 			apt-get build-dep -y postgresql-common-dev; \
+T 48 source.dockerfile
+L 			apt-get source --compile postgresql-common-dev; \
+T 52 source.dockerfile
+L 			_update_repo; \
+T 18 source.dockerfile
+L 			apt-get build-dep -y "postgresql-$PG_MAJOR=$PG_VERSION"; \
+T 24 source.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile
+L 			apt-get source --compile "postgresql-$PG_MAJOR=$PG_VERSION"; \
+T 28 source.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile string.quoted.double.dockerfile
+T 62 source.dockerfile string.quoted.double.dockerfile
+T 65 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L # we don't remove APT lists here because they get re-downloaded and removed later
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 81 source.dockerfile comment.line.number-sign.dockerfile
+L 			\
+T 4 source.dockerfile
+L # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 97 source.dockerfile comment.line.number-sign.dockerfile
+L # (which is done after we install the built packages so we don't have to redownload any overlapping dependencies)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 113 source.dockerfile comment.line.number-sign.dockerfile
+L 			apt-mark showmanual | xargs apt-mark auto > /dev/null; \
+T 59 source.dockerfile
+L 			apt-mark manual $savedAptMark; \
+T 35 source.dockerfile
+L 			\
+T 4 source.dockerfile
+L 			ls -lAFh; \
+T 14 source.dockerfile
+L 			_update_repo; \
+T 18 source.dockerfile
+L 			grep '^Package: ' Packages; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.single.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile
+T 20 source.dockerfile string.quoted.single.dockerfile
+T 32 source.dockerfile
+L 			cd /; \
+T 10 source.dockerfile
+L 			;; \
+T 7 source.dockerfile
+L 	esac; \
+T 8 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	apt-get install -y --no-install-recommends postgresql-common; \
+T 64 source.dockerfile
+L 	sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.single.dockerfile
+T 39 source.dockerfile string.quoted.single.dockerfile
+T 41 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 50 source.dockerfile string.quoted.single.dockerfile
+T 51 source.dockerfile string.quoted.single.dockerfile
+T 96 source.dockerfile
+L 	apt-get install -y --no-install-recommends \
+T 45 source.dockerfile
+L 		"postgresql-$PG_MAJOR=$PG_VERSION" \
+T 2 source.dockerfile
+T 3 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L # https://github.com/docker-library/postgres/pull/1344#issuecomment-2936578203 (JIT is a separate package in 18+, but only supported for a subset of architectures)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 163 source.dockerfile comment.line.number-sign.dockerfile
+L 	if apt-get install -s "postgresql-$PG_MAJOR-jit" > /dev/null 2>&1; then \
+T 23 source.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile string.quoted.double.dockerfile
+T 74 source.dockerfile
+L 		apt-get install -y --no-install-recommends "postgresql-$PG_MAJOR-jit=$PG_VERSION"; \
+T 45 source.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 82 source.dockerfile string.quoted.double.dockerfile
+T 83 source.dockerfile string.quoted.double.dockerfile
+T 86 source.dockerfile
+L 	fi; \
+T 6 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*; \
+T 31 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	if [ -n "$tempDir" ]; then \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile
+L # if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 96 source.dockerfile comment.line.number-sign.dockerfile
+L 		apt-get purge -y --auto-remove; \
+T 35 source.dockerfile
+L 		rm -rf "$tempDir" /etc/apt/sources.list.d/temp.list; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 56 source.dockerfile
+L 	fi; \
+T 6 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L # some of the steps above generate a lot of "*.pyc" files (and setting "PYTHONDONTWRITEBYTECODE" beforehand doesn't propagate properly for some reason), so we clean them up manually (as long as they aren't owned by a package)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 225 source.dockerfile comment.line.number-sign.dockerfile
+L 	find /usr -name '*.pyc' -type f -exec bash -c 'for pyc; do dpkg -S "$pyc" &> /dev/null || rm -vf "$pyc"; done' -- '{}' +; \
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.single.dockerfile
+T 23 source.dockerfile string.quoted.single.dockerfile
+T 24 source.dockerfile string.quoted.single.dockerfile
+T 47 source.dockerfile
+T 48 source.dockerfile string.quoted.single.dockerfile
+T 110 source.dockerfile string.quoted.single.dockerfile
+T 111 source.dockerfile string.quoted.single.dockerfile
+T 115 source.dockerfile
+T 116 source.dockerfile string.quoted.single.dockerfile
+T 118 source.dockerfile string.quoted.single.dockerfile
+T 119 source.dockerfile string.quoted.single.dockerfile
+T 124 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	postgres --version
+T 19 source.dockerfile
+L 
+L # make the sample config easier to munge (and "correct by default")
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 67 source.dockerfile comment.line.number-sign.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	dpkg-divert --add --rename --divert "/usr/share/postgresql/postgresql.conf.sample.dpkg" "/usr/share/postgresql/$PG_MAJOR/postgresql.conf.sample"; \
+T 37 source.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 87 source.dockerfile string.quoted.double.dockerfile
+T 88 source.dockerfile string.quoted.double.dockerfile
+T 89 source.dockerfile
+T 90 source.dockerfile string.quoted.double.dockerfile
+T 144 source.dockerfile string.quoted.double.dockerfile
+T 145 source.dockerfile string.quoted.double.dockerfile
+T 148 source.dockerfile
+L 	cp -v /usr/share/postgresql/postgresql.conf.sample.dpkg /usr/share/postgresql/postgresql.conf.sample; \
+T 104 source.dockerfile
+L 	ln -sv ../postgresql.conf.sample "/usr/share/postgresql/$PG_MAJOR/"; \
+T 34 source.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+T 67 source.dockerfile string.quoted.double.dockerfile
+T 68 source.dockerfile string.quoted.double.dockerfile
+T 71 source.dockerfile
+L 	sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/share/postgresql/postgresql.conf.sample; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 55 source.dockerfile string.quoted.double.dockerfile
+T 56 source.dockerfile string.quoted.double.dockerfile
+T 104 source.dockerfile
+L 	grep -F "listen_addresses = '*'" /usr/share/postgresql/postgresql.conf.sample
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 78 source.dockerfile
+L 
+L RUN install --verbose --directory --owner postgres --group postgres --mode 3777 /var/run/postgresql
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 99 source.dockerfile
+L 
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # NOTE: in 18+, PGDATA has changed to match the pg_ctlcluster standard directory structure, and the VOLUME has moved from /var/lib/postgresql/data to /var/lib/postgresql
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 169 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L ENV PGDATA /var/lib/postgresql/18/docker
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 40 source.dockerfile
+L VOLUME /var/lib/postgresql
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 26 source.dockerfile
+L # ("/var/lib/postgresql" is already pre-created with suitably usable permissions above)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 87 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L COPY docker-entrypoint.sh docker-ensure-initdb.sh /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 65 source.dockerfile
+L RUN ln -sT docker-ensure-initdb.sh /usr/local/bin/docker-enforce-initdb.sh
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 74 source.dockerfile
+L ENTRYPOINT ["docker-entrypoint.sh"]
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile
+L 
+L # We set the default STOPSIGNAL to SIGINT, which corresponds to what PostgreSQL
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 79 source.dockerfile comment.line.number-sign.dockerfile
+L # calls "Fast Shutdown mode" wherein new connections are disallowed and any
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # in-progress transactions are aborted, allowing PostgreSQL to stop cleanly and
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 79 source.dockerfile comment.line.number-sign.dockerfile
+L # flush tables to disk.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 23 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # See https://www.postgresql.org/docs/current/server-shutdown.html for more details
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 83 source.dockerfile comment.line.number-sign.dockerfile
+L # about available PostgreSQL server shutdown signals.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 53 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # See also https://www.postgresql.org/docs/current/server-start.html for further
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 80 source.dockerfile comment.line.number-sign.dockerfile
+L # justification of this as the default value, namely that the example (and
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 74 source.dockerfile comment.line.number-sign.dockerfile
+L # shipped) systemd service files use the "Fast Shutdown mode" for service
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 73 source.dockerfile comment.line.number-sign.dockerfile
+L # termination.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 14 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L STOPSIGNAL SIGINT
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 17 source.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # An additional setting that is recommended for all users regardless of this
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # value is the runtime "--stop-timeout" (or your orchestrator/runtime's
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 71 source.dockerfile comment.line.number-sign.dockerfile
+L # equivalent) for controlling how long to wait between sending the defined
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 74 source.dockerfile comment.line.number-sign.dockerfile
+L # STOPSIGNAL and sending SIGKILL.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 33 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # The default in most runtimes (such as Docker) is 10 seconds, and the
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 70 source.dockerfile comment.line.number-sign.dockerfile
+L # documentation at https://www.postgresql.org/docs/current/server-start.html notes
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 82 source.dockerfile comment.line.number-sign.dockerfile
+L # that even 90 seconds may not be long enough in many instances.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 64 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L EXPOSE 5432
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 11 source.dockerfile
+L CMD ["postgres"]
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile
+L 

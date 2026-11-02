@@ -124,6 +124,11 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Diff,
     },
+    Name {
+        words: &["dockerfile"],
+        brace: None,
+        lang: Language::Dockerfile,
+    },
 ];
 
 /// A language found in an info string.

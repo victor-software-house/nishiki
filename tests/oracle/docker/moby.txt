@@ -1,0 +1,2198 @@
+L # syntax=docker/dockerfile:1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 28 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L ARG GO_VERSION=1.26.10
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 22 source.dockerfile
+L ARG BASE_DEBIAN_DISTRO=trixie
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ARG GOLANG_IMAGE="golang:${GO_VERSION}-${BASE_DEBIAN_DISTRO}"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 60 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile string.quoted.double.dockerfile
+L 
+L # XX_VERSION specifies the version of the xx utility to use.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 60 source.dockerfile comment.line.number-sign.dockerfile
+L # It must be a valid tag in the docker.io/tonistiigi/xx image repository.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 73 source.dockerfile comment.line.number-sign.dockerfile
+L ARG XX_VERSION=1.10.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L 
+L # DOCKERCLI_VERSION is the version of the CLI to install in the dev-container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 78 source.dockerfile comment.line.number-sign.dockerfile
+L # renovate: datasource=github-tags depName=docker/cli versioning=semver
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 71 source.dockerfile comment.line.number-sign.dockerfile
+L ARG DOCKERCLI_VERSION=v29.9.2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ARG DOCKERCLI_REPOSITORY="https://github.com/docker/cli.git"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 60 source.dockerfile string.quoted.double.dockerfile
+L 
+L # cli version used for integration-cli tests
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 44 source.dockerfile comment.line.number-sign.dockerfile
+L ARG DOCKERCLI_INTEGRATION_REPOSITORY="https://github.com/docker/cli.git"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 37 source.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 71 source.dockerfile string.quoted.double.dockerfile
+T 72 source.dockerfile string.quoted.double.dockerfile
+L ARG DOCKERCLI_INTEGRATION_VERSION=v25.0.5
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 41 source.dockerfile
+L 
+L # BUILDX_VERSION is the version of buildx to install in the dev container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 74 source.dockerfile comment.line.number-sign.dockerfile
+L ARG BUILDX_VERSION=0.38.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L 
+L # COMPOSE_VERSION is the version of compose to install in the dev container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L ARG COMPOSE_VERSION=v5.6.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+L 
+L ARG SYSTEMD="false"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+L ARG FIREWALLD="false"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+L ARG DOCKER_STATIC=1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 19 source.dockerfile
+L 
+L # REGISTRY_VERSION is the version of the registry to use for integration tests.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 79 source.dockerfile comment.line.number-sign.dockerfile
+L # It must be a valid tag in the docker.io/library/registry image repository.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L ARG REGISTRY_VERSION=3.1.2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+L 
+L # delve is currently only supported on linux/amd64, linux/arm64, and linux/ppc64le;
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 83 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/go-delve/delve/blob/v1.26.0/pkg/proc/native/support_sentinel.go#L1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 87 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/go-delve/delve/blob/v1.26.0/pkg/proc/native/support_sentinel_linux.go#L1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 93 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # Remove supported, non-experimental platforms; if anything remains, it's unsupported.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 86 source.dockerfile comment.line.number-sign.dockerfile
+L ARG DELVE_SUPPORTED=${TARGETPLATFORM#linux/amd64}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 49 source.dockerfile
+L ARG DELVE_SUPPORTED=${DELVE_SUPPORTED#linux/arm64}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 50 source.dockerfile
+L ARG DELVE_SUPPORTED=${DELVE_SUPPORTED#linux/ppc64le}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 52 source.dockerfile
+L ARG DELVE_SUPPORTED=${DELVE_SUPPORTED#linux/riscv64}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 52 source.dockerfile
+L ARG DELVE_SUPPORTED=${DELVE_SUPPORTED:+"unsupported"}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 39 source.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile string.quoted.double.dockerfile
+T 52 source.dockerfile string.quoted.double.dockerfile
+T 53 source.dockerfile
+L ARG DELVE_SUPPORTED=${DELVE_SUPPORTED:-"supported"}
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 39 source.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile string.quoted.double.dockerfile
+T 50 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile
+L 
+L # cross compilation helper
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 26 source.dockerfile comment.line.number-sign.dockerfile
+L FROM --platform=$BUILDPLATFORM tonistiigi/xx:${XX_VERSION} AS xx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 59 source.dockerfile
+T 61 source.dockerfile keyword.other.special-method.dockerfile
+T 64 source.dockerfile
+L 
+L # dummy stage to make sure the image is built for deps that don't support some
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 78 source.dockerfile comment.line.number-sign.dockerfile
+L # architectures
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 15 source.dockerfile comment.line.number-sign.dockerfile
+L FROM --platform=$BUILDPLATFORM busybox AS build-dummy
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 39 source.dockerfile
+T 41 source.dockerfile keyword.other.special-method.dockerfile
+T 53 source.dockerfile
+L RUN mkdir -p /build
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 19 source.dockerfile
+L FROM scratch AS binary-dummy
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+L COPY --from=build-dummy /build /build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 37 source.dockerfile
+L 
+L # base
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 6 source.dockerfile comment.line.number-sign.dockerfile
+L FROM --platform=$BUILDPLATFORM ${GOLANG_IMAGE} AS base
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 47 source.dockerfile
+T 49 source.dockerfile keyword.other.special-method.dockerfile
+T 54 source.dockerfile
+L COPY --from=xx / /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 18 source.dockerfile
+L # Disable collecting local telemetry, as collected by Go and Delve;
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 67 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # - https://github.com/go-delve/delve/blob/v1.24.1/CHANGELOG.md#1231-2024-09-23
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 79 source.dockerfile comment.line.number-sign.dockerfile
+L # - https://go.dev/doc/telemetry#background
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 43 source.dockerfile comment.line.number-sign.dockerfile
+L RUN go telemetry off && [ "$(go telemetry)" = "off" ] || { echo "Failed to disable Go telemetry"; exit 1; }
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile string.quoted.double.dockerfile
+T 46 source.dockerfile
+T 47 source.dockerfile string.quoted.double.dockerfile
+T 50 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile string.quoted.double.dockerfile
+T 64 source.dockerfile
+T 65 source.dockerfile string.quoted.double.dockerfile
+T 95 source.dockerfile string.quoted.double.dockerfile
+T 96 source.dockerfile string.quoted.double.dockerfile
+T 107 source.dockerfile
+L RUN echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.single.dockerfile
+T 60 source.dockerfile string.quoted.single.dockerfile
+T 61 source.dockerfile string.quoted.single.dockerfile
+T 94 source.dockerfile
+L RUN apt-get update && apt-get install --no-install-recommends -y file
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 69 source.dockerfile
+L ENV GOTOOLCHAIN=local
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L 
+L FROM base AS criu
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 17 source.dockerfile
+L ADD --chmod=0644 https://download.opensuse.org/repositories/devel:/tools:/criu/Debian_11/Release.key /etc/apt/trusted.gpg.d/criu.gpg.asc
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 136 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-criu-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-criu-aptcache,target=/var/cache/apt \
+T 83 source.dockerfile
+L         echo 'deb https://download.opensuse.org/repositories/devel:/tools:/criu/Debian_12/ /' > /etc/apt/sources.list.d/criu.list \
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.single.dockerfile
+T 92 source.dockerfile string.quoted.single.dockerfile
+T 93 source.dockerfile string.quoted.single.dockerfile
+T 131 source.dockerfile
+L         && apt-get update \
+T 27 source.dockerfile
+L         && apt-get install -y --no-install-recommends criu \
+T 60 source.dockerfile
+L         && install -D /usr/sbin/criu /build/criu \
+T 50 source.dockerfile
+L         && /build/criu --version
+T 32 source.dockerfile
+L 
+L # registry
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 10 source.dockerfile comment.line.number-sign.dockerfile
+L FROM distribution/distribution:${REGISTRY_VERSION} AS registry
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 51 source.dockerfile
+T 53 source.dockerfile keyword.other.special-method.dockerfile
+T 62 source.dockerfile
+L RUN mkdir /build && mv /bin/registry /build/registry
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 52 source.dockerfile
+L 
+L # frozen-images
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 15 source.dockerfile comment.line.number-sign.dockerfile
+L # See also frozenImages in "testutil/environment/protect.go" (which needs to
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # be updated when adding images to this list)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 45 source.dockerfile comment.line.number-sign.dockerfile
+L FROM debian:${BASE_DEBIAN_DISTRO} AS frozen-images
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 34 source.dockerfile
+T 36 source.dockerfile keyword.other.special-method.dockerfile
+T 50 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-frozen-images-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 88 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-frozen-images-aptcache,target=/var/cache/apt \
+T 92 source.dockerfile
+L        apt-get update && apt-get install -y --no-install-recommends \
+T 69 source.dockerfile
+L            ca-certificates \
+T 28 source.dockerfile
+L            curl \
+T 17 source.dockerfile
+L            jq
+T 13 source.dockerfile
+L # Get useful and necessary Hub images so we can "docker load" locally instead of pulling
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 88 source.dockerfile comment.line.number-sign.dockerfile
+L COPY contrib/download-frozen-image-v2.sh /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L ARG TARGETARCH
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+L ARG TARGETVARIANT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L RUN /download-frozen-image-v2.sh /build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 41 source.dockerfile
+L         busybox:latest@sha256:95cf004f559831017cdf4628aaf1bb30133677be8702a8c5f2994629f637a209 \
+T 96 source.dockerfile
+L         busybox:glibc@sha256:1f81263701cddf6402afe9f33fca0266d9fff379e59b1748f33d3072da71ee85 \
+T 95 source.dockerfile
+L         debian:trixie-slim@sha256:c85a2732e97694ea77237c61304b3bb410e0e961dd6ee945997a06c788c545bb \
+T 100 source.dockerfile
+L         hello-world:latest@sha256:d58e752213a51785838f9eed2b7a498ffa1cb3aa7f946dda11af39286c3db9a9 \
+T 100 source.dockerfile
+L         arm32v7/hello-world:latest@sha256:50b8560ad574c779908da71f7ce370c0a2471c098d44d1c8f6b513c5a55eeeb1 \
+T 108 source.dockerfile
+L         hello-world:amd64@sha256:90659bf80b44ce6be8234e6ff90a1ac34acbeb826903b02cfa0da11c82cbc042 \
+T 99 source.dockerfile
+L         hello-world:arm64@sha256:963612c5503f3f1674f315c67089dee577d8cc6afc18565e0b4183ae355fb343
+T 97 source.dockerfile
+L 
+L # delve
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 7 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS delve-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+L WORKDIR /usr/src/delve
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 22 source.dockerfile
+L # DELVE_VERSION specifies the version of the Delve debugger binary
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 66 source.dockerfile comment.line.number-sign.dockerfile
+L # from the https://github.com/go-delve/delve repository.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 56 source.dockerfile comment.line.number-sign.dockerfile
+L # It can be used to run Docker with a possibility of
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 52 source.dockerfile comment.line.number-sign.dockerfile
+L # attaching debugger to it.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 27 source.dockerfile comment.line.number-sign.dockerfile
+L ARG DELVE_VERSION=v1.26.3
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L ADD https://github.com/go-delve/delve.git?ref=${DELVE_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L 
+L FROM base AS delve-supported
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+L WORKDIR /usr/src/delve
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 22 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=from=delve-src,src=/usr/src/delve,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 50 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=delve-build-$TARGETPLATFORM \
+T 84 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod <<EOT
+T 47 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   xx-go build -o /build/dlv ./cmd/dlv
+T 37 source.dockerfile
+L   xx-verify /build/dlv
+T 22 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM binary-dummy AS delve-unsupported
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+T 20 source.dockerfile keyword.other.special-method.dockerfile
+T 38 source.dockerfile
+L FROM delve-${DELVE_SUPPORTED} AS delve
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 30 source.dockerfile
+T 32 source.dockerfile keyword.other.special-method.dockerfile
+T 38 source.dockerfile
+L 
+L FROM base AS gowinres
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 21 source.dockerfile
+L # GOWINRES_VERSION defines go-winres tool version
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 49 source.dockerfile comment.line.number-sign.dockerfile
+L ARG GOWINRES_VERSION=v0.3.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 27 source.dockerfile
+L ADD https://github.com/tc-hib/go-winres.git?ref=${GOWINRES_VERSION}&keep-git-dir=1 /go/src/github.com/tc-hib/go-winres
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 118 source.dockerfile
+L RUN --mount=type=cache,target=/root/.cache/go-build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L         cd /go/src/github.com/tc-hib/go-winres && \
+T 51 source.dockerfile
+L         GOBIN=/build CGO_ENABLED=0 go install . \
+T 49 source.dockerfile
+L      && /build/go-winres --help
+T 31 source.dockerfile
+L 
+L # containerd
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 12 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS containerd-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 27 source.dockerfile
+L WORKDIR /usr/src/containerd
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 27 source.dockerfile
+L # CONTAINERD_VERSION is the version of containerd to use for CI and static binaries.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 84 source.dockerfile comment.line.number-sign.dockerfile
+L # It is used to build containerd binaries, and used for the integration tests.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 78 source.dockerfile comment.line.number-sign.dockerfile
+L # The distributed docker .deb and .rpm packages depend on a separate (containerd.io)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 84 source.dockerfile comment.line.number-sign.dockerfile
+L # package, which may be a different version than specified here.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 64 source.dockerfile comment.line.number-sign.dockerfile
+L ARG CONTAINERD_VERSION=v2.4.2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ADD https://github.com/containerd/containerd.git?ref=${CONTAINERD_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 91 source.dockerfile
+L 
+L FROM base AS containerd-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L WORKDIR /go/src/github.com/containerd/containerd
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 48 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-containerd-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 85 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-containerd-aptcache,target=/var/cache/apt \
+T 89 source.dockerfile
+L         apt-get update && xx-apt-get install -y --no-install-recommends \
+T 73 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             pkg-config
+T 22 source.dockerfile
+L ARG DOCKER_STATIC
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L RUN --mount=from=containerd-src,src=/usr/src/containerd,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 60 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=containerd-build-$TARGETPLATFORM <<EOT
+T 93 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L 
+L   make_flags=
+T 13 source.dockerfile
+L   verify_flags=
+T 15 source.dockerfile
+L   cgo_enabled=1
+T 15 source.dockerfile
+L   if [ "$DOCKER_STATIC" = "1" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile
+L       make_flags=STATIC=1
+T 25 source.dockerfile
+L       verify_flags=--static
+T 27 source.dockerfile
+L       cgo_enabled=0
+T 19 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L 
+L   set -x
+T 8 source.dockerfile
+L   xx-go --wrap
+T 14 source.dockerfile
+L   binaries="bin/containerd bin/ctr"
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+L   exe_suffix=
+T 13 source.dockerfile
+L   if [ "$(xx-info os)" = "windows" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L       exe_suffix=.exe
+T 21 source.dockerfile
+L   else
+T 6 source.dockerfile
+L       binaries="$binaries bin/containerd-shim-runc-v2"
+T 15 source.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 53 source.dockerfile string.quoted.double.dockerfile
+T 54 source.dockerfile string.quoted.double.dockerfile
+L   fi
+T 4 source.dockerfile
+L   CC="$(xx-info)-gcc" CGO_ENABLED=$cgo_enabled make $make_flags BUILDTAGS=grpcnotrace $binaries
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 95 source.dockerfile
+L   mkdir /build
+T 14 source.dockerfile
+L   for binary in $binaries; do
+T 29 source.dockerfile
+L       xx-verify $verify_flags "$binary"
+T 30 source.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+L       mv "$binary" "/build/${binary##*/}$exe_suffix"
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 51 source.dockerfile string.quoted.double.dockerfile
+T 52 source.dockerfile string.quoted.double.dockerfile
+L   done
+T 6 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM base AS runhcs-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+L WORKDIR /usr/src/hcsshim
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 24 source.dockerfile
+L # Override the shim version tested with the selected containerd release.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 72 source.dockerfile comment.line.number-sign.dockerfile
+L ARG RUNHCS_REF
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 14 source.dockerfile
+L RUN --mount=from=containerd-src,src=/usr/src/containerd,target=/usr/src/containerd <<EOT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 88 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   if [ -z "$RUNHCS_REF" ]; then
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile
+L       RUNHCS_REF=$(cat /usr/src/containerd/script/setup/runhcs-version)
+T 71 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L   git init .
+T 12 source.dockerfile
+L   git remote add origin https://github.com/Microsoft/hcsshim.git
+T 64 source.dockerfile
+L   git fetch --depth=1 origin "$RUNHCS_REF"
+T 29 source.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile
+L   git checkout -q FETCH_HEAD
+T 28 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM base AS runhcs-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 25 source.dockerfile
+L WORKDIR /usr/src/hcsshim
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 24 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=from=runhcs-src,src=/usr/src/hcsshim,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=runhcs-build-$TARGETPLATFORM <<EOT
+T 89 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   CGO_ENABLED=0 xx-go build -mod=vendor -o /build/containerd-shim-runhcs-v1.exe ./cmd/containerd-shim-runhcs-v1
+T 111 source.dockerfile
+L   xx-verify --static /build/containerd-shim-runhcs-v1.exe
+T 57 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM containerd-build AS containerd-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+T 24 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+L FROM containerd-build AS containerd-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+T 24 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L COPY --from=runhcs-build /build/ /build/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 40 source.dockerfile
+L FROM containerd-${TARGETOS} AS containerd
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+T 30 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+L 
+L FROM base AS golangci_lint
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 26 source.dockerfile
+L ARG GOLANGCI_LINT_VERSION=v2.14.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 33 source.dockerfile
+L ADD https://github.com/golangci/golangci-lint.git?ref=${GOLANGCI_LINT_VERSION}&keep-git-dir=1 /go/src/github.com/golangci/golangci-lint
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 135 source.dockerfile
+L RUN --mount=type=cache,target=/root/.cache/go-build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L         cd /go/src/github.com/golangci/golangci-lint && \
+T 57 source.dockerfile
+L         GOBIN=/build CGO_ENABLED=0 go install ./cmd/golangci-lint \
+T 67 source.dockerfile
+L      && /build/golangci-lint --version
+T 38 source.dockerfile
+L 
+L FROM base AS gotestsum
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+L # GOTESTSUM_VERSION is the version of gotest.tools/gotestsum to install.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 72 source.dockerfile comment.line.number-sign.dockerfile
+L ARG GOTESTSUM_VERSION=v1.13.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ADD https://github.com/gotestyourself/gotestsum.git?ref=${GOTESTSUM_VERSION}&keep-git-dir=1 /go/src/gotest.tools/gotestsum
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 122 source.dockerfile
+L RUN --mount=type=cache,target=/root/.cache/go-build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L         cd /go/src/gotest.tools/gotestsum && \
+T 46 source.dockerfile
+L         GOBIN=/build CGO_ENABLED=0 go install . \
+T 49 source.dockerfile
+L      && /build/gotestsum --version
+T 34 source.dockerfile
+L 
+L FROM base AS shfmt
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+L ARG SHFMT_VERSION=v3.14.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L ADD https://github.com/mvdan/sh.git?ref=${SHFMT_VERSION}&keep-git-dir=1 /go/src/mvdan.cc/sh
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 91 source.dockerfile
+L RUN --mount=type=cache,target=/root/.cache/go-build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L         cd /go/src/mvdan.cc/sh && \
+T 35 source.dockerfile
+L         GOBIN=/build CGO_ENABLED=0 go install ./cmd/shfmt \
+T 59 source.dockerfile
+L      && /build/shfmt --version
+T 30 source.dockerfile
+L 
+L FROM base AS gopls
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+L # No ARG GOPLS_VERSION, as gopls is only used for devcontainer
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 62 source.dockerfile comment.line.number-sign.dockerfile
+L RUN --mount=type=cache,target=/root/.cache/go-build \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 53 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L         GOBIN=/build CGO_ENABLED=0 go install "golang.org/x/tools/gopls@latest" \
+T 46 source.dockerfile
+T 47 source.dockerfile string.quoted.double.dockerfile
+T 78 source.dockerfile string.quoted.double.dockerfile
+T 79 source.dockerfile string.quoted.double.dockerfile
+T 81 source.dockerfile
+L      && /build/gopls version
+T 28 source.dockerfile
+L 
+L FROM base AS dockercli
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+L WORKDIR /go/src/github.com/docker/cli
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 37 source.dockerfile
+L ARG DOCKERCLI_REPOSITORY
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 24 source.dockerfile
+L ARG DOCKERCLI_VERSION
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=source=hack/dockerfile/cli.sh,target=/download-or-build-cli.sh \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 76 source.dockerfile
+L     --mount=type=cache,id=dockercli-git-$TARGETPLATFORM,sharing=locked,target=./.git \
+T 86 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=dockercli-build-$TARGETPLATFORM \
+T 88 source.dockerfile
+L         rm -f ./.git/*.lock \
+T 29 source.dockerfile
+L      && /download-or-build-cli.sh ${DOCKERCLI_VERSION} ${DOCKERCLI_REPOSITORY} /build \
+T 87 source.dockerfile
+L      && /build/docker --version \
+T 33 source.dockerfile
+L      && /build/docker completion bash >/completion.bash
+T 55 source.dockerfile
+L 
+L FROM base AS dockercli-integration
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 34 source.dockerfile
+L WORKDIR /go/src/github.com/docker/cli
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 37 source.dockerfile
+L ARG DOCKERCLI_INTEGRATION_REPOSITORY
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 36 source.dockerfile
+L ARG DOCKERCLI_INTEGRATION_VERSION
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 33 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=source=hack/dockerfile/cli.sh,target=/download-or-build-cli.sh \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 76 source.dockerfile
+L     --mount=type=cache,id=dockercli-git-$TARGETPLATFORM,sharing=locked,target=./.git \
+T 86 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=dockercli-build-$TARGETPLATFORM \
+T 88 source.dockerfile
+L         rm -f ./.git/*.lock \
+T 29 source.dockerfile
+L      && /download-or-build-cli.sh ${DOCKERCLI_INTEGRATION_VERSION} ${DOCKERCLI_INTEGRATION_REPOSITORY} /build \
+T 111 source.dockerfile
+L      && /build/docker --version
+T 31 source.dockerfile
+L 
+L # runc
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 6 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS runc-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 21 source.dockerfile
+L WORKDIR /usr/src/runc
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 21 source.dockerfile
+L # RUNC_VERSION sets the version of runc to install in the dev-container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 72 source.dockerfile comment.line.number-sign.dockerfile
+L # This version should usually match the version that is used by the containerd version
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 86 source.dockerfile comment.line.number-sign.dockerfile
+L # that is used. If you need to update runc, open a pull request in the containerd
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 81 source.dockerfile comment.line.number-sign.dockerfile
+L # project first, and update both after that is merged.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 54 source.dockerfile comment.line.number-sign.dockerfile
+L # renovate: datasource=github-tags depName=opencontainers/runc
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 62 source.dockerfile comment.line.number-sign.dockerfile
+L ARG RUNC_VERSION=v1.5.2
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L ADD https://github.com/opencontainers/runc.git?ref=${RUNC_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 83 source.dockerfile
+L 
+L FROM base AS runc-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+L WORKDIR /go/src/github.com/opencontainers/runc
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 46 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-runc-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-runc-aptcache,target=/var/cache/apt \
+T 83 source.dockerfile
+L         apt-get update && xx-apt-get install -y --no-install-recommends \
+T 73 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             libc6-dev \
+T 23 source.dockerfile
+L             linux-libc-dev \
+T 28 source.dockerfile
+L             libseccomp-dev \
+T 28 source.dockerfile
+L             pkg-config
+T 22 source.dockerfile
+L ARG DOCKER_STATIC
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L RUN --mount=from=runc-src,src=/usr/src/runc,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 48 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=runc-build-$TARGETPLATFORM <<EOT
+T 87 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L   xx-go --wrap
+T 14 source.dockerfile
+L 
+L   target=runc
+T 13 source.dockerfile
+L   verify_flags=
+T 15 source.dockerfile
+L   if [ "$DOCKER_STATIC" = "1" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile
+L     target=static
+T 17 source.dockerfile
+L     verify_flags=--static
+T 25 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L 
+L   set -x
+T 8 source.dockerfile
+L   CGO_ENABLED=1 make RUNC_BUILDTAGS="-libpathrs" "$target"
+T 36 source.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile string.quoted.double.dockerfile
+T 48 source.dockerfile string.quoted.double.dockerfile
+T 49 source.dockerfile
+T 50 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+L   xx-verify $verify_flags runc
+T 30 source.dockerfile
+L   mkdir /build
+T 14 source.dockerfile
+L   mv runc /build/
+T 17 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM runc-build AS runc-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 16 source.dockerfile
+T 18 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L FROM binary-dummy AS runc-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+T 20 source.dockerfile keyword.other.special-method.dockerfile
+T 33 source.dockerfile
+L FROM runc-${TARGETOS} AS runc
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+T 24 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L 
+L # tini
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 6 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS tini-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 21 source.dockerfile
+L WORKDIR /usr/src/tini
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 21 source.dockerfile
+L # TINI_VERSION specifies the version of tini (docker-init) to build. This
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 73 source.dockerfile comment.line.number-sign.dockerfile
+L # binary is used when starting containers with the `--init` option.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 67 source.dockerfile comment.line.number-sign.dockerfile
+L ARG TINI_VERSION=v0.19.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 24 source.dockerfile
+L ADD https://github.com/krallin/tini.git?ref=${TINI_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 76 source.dockerfile
+L 
+L FROM base AS tini-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+L WORKDIR /go/src/github.com/krallin/tini
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 39 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-tini-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-tini-aptcache,target=/var/cache/apt \
+T 83 source.dockerfile
+L         apt-get update && apt-get install -y --no-install-recommends cmake
+T 74 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-tini-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-tini-aptcache,target=/var/cache/apt \
+T 83 source.dockerfile
+L         xx-apt-get install -y --no-install-recommends \
+T 55 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             libc6-dev \
+T 23 source.dockerfile
+L             linux-libc-dev \
+T 28 source.dockerfile
+L             pkg-config
+T 22 source.dockerfile
+L RUN --mount=from=tini-src,src=/usr/src/tini,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 48 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=tini-build-$TARGETPLATFORM <<EOT
+T 87 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   CC=$(xx-info)-gcc cmake .
+T 27 source.dockerfile
+L   make tini-static
+T 18 source.dockerfile
+L   xx-verify --static tini-static
+T 32 source.dockerfile
+L   mkdir /build
+T 14 source.dockerfile
+L   mv tini-static /build/docker-init
+T 35 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM tini-build AS tini-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 16 source.dockerfile
+T 18 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L FROM binary-dummy AS tini-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+T 20 source.dockerfile keyword.other.special-method.dockerfile
+T 33 source.dockerfile
+L FROM tini-${TARGETOS} AS tini
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+T 24 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L 
+L # rootlesskit
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 13 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS rootlesskit-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+L WORKDIR /usr/src/rootlesskit
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 28 source.dockerfile
+L 
+L # ROOTLESSKIT_VERSION is the version of rootlesskit to install in the dev-container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 84 source.dockerfile comment.line.number-sign.dockerfile
+L # renovate: datasource=github-tags depName=rootless-containers/rootlesskit
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 74 source.dockerfile comment.line.number-sign.dockerfile
+L ARG ROOTLESSKIT_VERSION=v3.3.0
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 30 source.dockerfile
+L ADD https://github.com/rootless-containers/rootlesskit.git?ref=${ROOTLESSKIT_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 102 source.dockerfile
+L 
+L FROM base AS rootlesskit-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 30 source.dockerfile
+L WORKDIR /go/src/github.com/rootless-containers/rootlesskit
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 58 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-rootlesskit-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 86 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-rootlesskit-aptcache,target=/var/cache/apt \
+T 90 source.dockerfile
+L         apt-get update && xx-apt-get install -y --no-install-recommends \
+T 73 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             libc6-dev \
+T 23 source.dockerfile
+L             linux-libc-dev \
+T 28 source.dockerfile
+L             pkg-config
+T 22 source.dockerfile
+L ARG DOCKER_STATIC
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L RUN --mount=from=rootlesskit-src,src=/usr/src/rootlesskit,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 62 source.dockerfile
+L     --mount=type=cache,target=/go/pkg/mod \
+T 43 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=rootlesskit-build-$TARGETPLATFORM <<EOT
+T 94 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L 
+L   if [ "$DOCKER_STATIC" = "1" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile
+L       set -x
+T 12 source.dockerfile
+L       export CGO_ENABLED=0
+T 26 source.dockerfile
+L       xx-go build -tags=urfave_cli_no_docs  -o /build/rootlesskit ./cmd/rootlesskit
+T 83 source.dockerfile
+L       xx-verify --static /build/rootlesskit
+T 43 source.dockerfile
+L   else
+T 6 source.dockerfile
+L       set -x
+T 12 source.dockerfile
+L       export CGO_ENABLED=1
+T 26 source.dockerfile
+L       xx-go build -o /build/rootlesskit -ldflags='-linkmode=external' ./cmd/rootlesskit
+T 49 source.dockerfile
+T 50 source.dockerfile string.quoted.single.dockerfile
+T 68 source.dockerfile string.quoted.single.dockerfile
+T 69 source.dockerfile string.quoted.single.dockerfile
+T 87 source.dockerfile
+L       xx-verify /build/rootlesskit
+T 34 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L COPY --link ./contrib/dockerd-rootless.sh /build/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 49 source.dockerfile
+L COPY --link ./contrib/dockerd-rootless-setuptool.sh /build/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 59 source.dockerfile
+L 
+L FROM rootlesskit-build AS rootlesskit-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+T 25 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L FROM binary-dummy AS rootlesskit-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+T 20 source.dockerfile keyword.other.special-method.dockerfile
+T 40 source.dockerfile
+L FROM rootlesskit-${TARGETOS} AS rootlesskit
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+T 31 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L 
+L FROM base AS crun
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 17 source.dockerfile
+L # CRUN_VERSION is the version of crun to install in the dev-container.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 70 source.dockerfile comment.line.number-sign.dockerfile
+L # renovate: datasource=github-tags depName=containers/crun
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 58 source.dockerfile comment.line.number-sign.dockerfile
+L ARG CRUN_VERSION=1.30.1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-crun-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-crun-aptcache,target=/var/cache/apt \
+T 83 source.dockerfile
+L         apt-get update && apt-get install -y --no-install-recommends \
+T 70 source.dockerfile
+L             autoconf \
+T 22 source.dockerfile
+L             automake \
+T 22 source.dockerfile
+L             build-essential \
+T 29 source.dockerfile
+L             libcap-dev \
+T 24 source.dockerfile
+L             libjson-c-dev \
+T 27 source.dockerfile
+L             libprotobuf-c-dev \
+T 31 source.dockerfile
+L             libseccomp-dev \
+T 28 source.dockerfile
+L             libsystemd-dev \
+T 28 source.dockerfile
+L             libtool \
+T 21 source.dockerfile
+L             pkgconf \
+T 21 source.dockerfile
+L             python3 \
+T 21 source.dockerfile
+L             ;
+T 13 source.dockerfile
+L WORKDIR /tmp/crun-build
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 23 source.dockerfile
+L ADD https://github.com/containers/crun.git?ref=${CRUN_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 79 source.dockerfile
+L RUN ./autogen.sh && \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 21 source.dockerfile
+L     ./configure --bindir=/build && \
+T 36 source.dockerfile
+L     make -j install
+T 19 source.dockerfile
+L 
+L # containerutility
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 18 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS containerutil-src
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 30 source.dockerfile
+L WORKDIR /usr/src/containerutil
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 30 source.dockerfile
+L ARG CONTAINERUTILITY_VERSION=aa1ba87e99b68e0113bd27ec26c60b88f9d4ccd9
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 69 source.dockerfile
+L ADD https://github.com/docker-archive/windows-container-utility.git?commit=${CONTAINERUTILITY_VERSION}&keep-git-dir=1 .
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 119 source.dockerfile
+L 
+L FROM base AS containerutil-build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 32 source.dockerfile
+L WORKDIR /usr/src/containerutil
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 30 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN xx-apt-get install -y --no-install-recommends \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 51 source.dockerfile
+L         gcc \
+T 13 source.dockerfile
+L         g++ \
+T 13 source.dockerfile
+L         libc6-dev \
+T 19 source.dockerfile
+L         pkg-config
+T 18 source.dockerfile
+L RUN --mount=from=containerutil-src,src=/usr/src/containerutil,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 66 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=containerutil-build-$TARGETPLATFORM <<EOT
+T 96 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   CC="$(xx-info)-gcc" CXX="$(xx-info)-g++" make
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile
+L   xx-verify --static containerutility.exe
+T 41 source.dockerfile
+L   mkdir /build
+T 14 source.dockerfile
+L   mv containerutility.exe /build/
+T 33 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L FROM binary-dummy AS containerutil-linux
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+T 20 source.dockerfile keyword.other.special-method.dockerfile
+T 40 source.dockerfile
+L FROM containerutil-build AS containerutil-windows-amd64
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 25 source.dockerfile
+T 27 source.dockerfile keyword.other.special-method.dockerfile
+T 55 source.dockerfile
+L FROM containerutil-windows-${TARGETARCH} AS containerutil-windows
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+T 43 source.dockerfile keyword.other.special-method.dockerfile
+T 65 source.dockerfile
+L FROM containerutil-${TARGETOS} AS containerutil
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 31 source.dockerfile
+T 33 source.dockerfile keyword.other.special-method.dockerfile
+T 47 source.dockerfile
+L FROM docker/buildx-bin:${BUILDX_VERSION} AS buildx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+T 43 source.dockerfile keyword.other.special-method.dockerfile
+T 50 source.dockerfile
+L FROM docker/compose-bin:${COMPOSE_VERSION} AS compose
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+T 45 source.dockerfile keyword.other.special-method.dockerfile
+T 53 source.dockerfile
+L 
+L FROM base AS dev-systemd-false
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 30 source.dockerfile
+L COPY --link --from=frozen-images /build/ /docker-frozen-images
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 62 source.dockerfile
+L COPY --link --from=delve         /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=gowinres      /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=tini          /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=registry      /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L 
+L # Skip the CRIU stage for now, as the opensuse package repository is sometimes
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 78 source.dockerfile comment.line.number-sign.dockerfile
+L # unstable, and we're currently not using it in CI.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 51 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # FIXME(thaJeztah): re-enable this stage when https://github.com/moby/moby/issues/38963 is resolved (see https://github.com/moby/moby/pull/38984)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 145 source.dockerfile comment.line.number-sign.dockerfile
+L # COPY --link --from=criu          /build/ /usr/local/bin/
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 58 source.dockerfile comment.line.number-sign.dockerfile
+L COPY --link --from=gotestsum     /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=golangci_lint /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=shfmt         /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=runc          /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=containerd    /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=rootlesskit   /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=containerutil /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=crun          /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link hack/dockerfile/etc/docker/  /etc/docker/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 53 source.dockerfile
+L COPY --link --from=buildx        /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 92 source.dockerfile
+L COPY --link --from=compose       /docker-compose /usr/libexec/docker/cli-plugins/docker-compose
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 95 source.dockerfile
+L 
+L ENV PATH=/usr/local/cli:$PATH
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L ENV TEST_CLIENT_BINARY=/usr/local/cli-integration/docker
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 56 source.dockerfile
+L ENV CONTAINERD_ADDRESS=/run/docker/containerd/containerd.sock
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 61 source.dockerfile
+L ENV CONTAINERD_NAMESPACE=moby
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L WORKDIR /usr/src/moby
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 21 source.dockerfile
+L VOLUME /var/lib/docker
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 22 source.dockerfile
+L VOLUME /home/unprivilegeduser/.local/share/docker
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 49 source.dockerfile
+L # Wrap all commands in the "docker-in-docker" script to allow nested containers
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 79 source.dockerfile comment.line.number-sign.dockerfile
+L ENTRYPOINT ["hack/dind"]
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile
+L 
+L FROM dev-systemd-false AS dev-systemd-true
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 23 source.dockerfile
+T 25 source.dockerfile keyword.other.special-method.dockerfile
+T 42 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-dev-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 78 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-dev-aptcache,target=/var/cache/apt \
+T 82 source.dockerfile
+L         apt-get update && apt-get install -y --no-install-recommends \
+T 70 source.dockerfile
+L             dbus \
+T 18 source.dockerfile
+L             dbus-user-session \
+T 31 source.dockerfile
+L             systemd \
+T 21 source.dockerfile
+L             systemd-sysv
+T 24 source.dockerfile
+L ENTRYPOINT ["hack/dind-systemd"]
+T 10 source.dockerfile keyword.other.special-method.dockerfile
+T 11 source.dockerfile
+T 12 source.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile
+L 
+L FROM dev-systemd-${SYSTEMD} AS dev-firewalld-false
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 28 source.dockerfile
+T 30 source.dockerfile keyword.other.special-method.dockerfile
+T 50 source.dockerfile
+L 
+L FROM dev-systemd-true AS dev-firewalld-true
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+T 24 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-dev-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 78 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-dev-aptcache,target=/var/cache/apt \
+T 82 source.dockerfile
+L         apt-get update && apt-get install -y --no-install-recommends \
+T 70 source.dockerfile
+L             firewalld
+T 21 source.dockerfile
+L 
+L FROM dev-firewalld-${FIREWALLD} AS dev-base
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 32 source.dockerfile
+T 34 source.dockerfile keyword.other.special-method.dockerfile
+T 43 source.dockerfile
+L RUN groupadd -r docker
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 22 source.dockerfile
+L RUN useradd --create-home --gid docker unprivilegeduser \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 57 source.dockerfile
+L  && mkdir -p /home/unprivilegeduser/.local/share/docker \
+T 57 source.dockerfile
+L  && chown -R unprivilegeduser /home/unprivilegeduser
+T 52 source.dockerfile
+L # Let us use a .bashrc file
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 27 source.dockerfile comment.line.number-sign.dockerfile
+L RUN ln -sfv /usr/src/moby/.bashrc ~/.bashrc
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 43 source.dockerfile
+L # Activate bash completion
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 26 source.dockerfile comment.line.number-sign.dockerfile
+L RUN echo "source /usr/share/bash-completion/bash_completion" >> /etc/bash.bashrc
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 60 source.dockerfile string.quoted.double.dockerfile
+T 80 source.dockerfile
+L RUN ldconfig
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 12 source.dockerfile
+L # Set dev environment as safe git directory to prevent "dubious ownership" errors
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 81 source.dockerfile comment.line.number-sign.dockerfile
+L # when bind-mounting the source into the dev-container. See https://github.com/moby/moby/pull/44930
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 99 source.dockerfile comment.line.number-sign.dockerfile
+L RUN git config --global --add safe.directory /usr/src/moby
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 58 source.dockerfile
+L # This should only install packages that are specifically needed for the dev environment and nothing else
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 105 source.dockerfile comment.line.number-sign.dockerfile
+L # Do you really need to add another package here? Can it be done in a different build stage?
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 92 source.dockerfile comment.line.number-sign.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-dev-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 78 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-dev-aptcache,target=/var/cache/apt \
+T 82 source.dockerfile
+L         apt-get update && apt-get install -y --no-install-recommends \
+T 70 source.dockerfile
+L             apparmor \
+T 22 source.dockerfile
+L             bash-completion \
+T 29 source.dockerfile
+L             bzip2 \
+T 19 source.dockerfile
+L             e2fsprogs \
+T 23 source.dockerfile
+L             fuse-overlayfs \
+T 28 source.dockerfile
+L             inetutils-ping \
+T 28 source.dockerfile
+L             iproute2 \
+T 22 source.dockerfile
+L             iptables \
+T 22 source.dockerfile
+L             nftables \
+T 22 source.dockerfile
+L             jq \
+T 16 source.dockerfile
+L             libcap2-bin \
+T 25 source.dockerfile
+L             libnet1 \
+T 21 source.dockerfile
+L             libnftables-dev \
+T 29 source.dockerfile
+L             libnl-3-200 \
+T 25 source.dockerfile
+L             libprotobuf-c1 \
+T 28 source.dockerfile
+L             libyajl2 \
+T 22 source.dockerfile
+L             nano \
+T 18 source.dockerfile
+L             net-tools \
+T 23 source.dockerfile
+L             netcat-openbsd \
+T 28 source.dockerfile
+L             patch \
+T 19 source.dockerfile
+L             pigz \
+T 18 source.dockerfile
+L             sudo \
+T 18 source.dockerfile
+L             systemd-journal-remote \
+T 36 source.dockerfile
+L             thin-provisioning-tools \
+T 37 source.dockerfile
+L             uidmap \
+T 20 source.dockerfile
+L             vim \
+T 17 source.dockerfile
+L             vim-common \
+T 24 source.dockerfile
+L             xfsprogs \
+T 22 source.dockerfile
+L             xz-utils \
+T 22 source.dockerfile
+L             zip \
+T 17 source.dockerfile
+L             zstd
+T 16 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-dev-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 78 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-dev-aptcache,target=/var/cache/apt \
+T 82 source.dockerfile
+L         apt-get update && apt-get install --no-install-recommends -y \
+T 70 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             pkg-config \
+T 24 source.dockerfile
+L             libseccomp-dev \
+T 28 source.dockerfile
+L             libsystemd-dev \
+T 28 source.dockerfile
+L             yamllint
+T 20 source.dockerfile
+L COPY --link --from=dockercli             /build/ /usr/local/cli
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 63 source.dockerfile
+L COPY --link --from=dockercli             /completion.bash /etc/bash_completion.d/docker
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 87 source.dockerfile
+L COPY --link --from=dockercli-integration /build/ /usr/local/cli-integration
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 75 source.dockerfile
+L 
+L FROM base AS build
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 18 source.dockerfile
+L COPY --from=gowinres /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 44 source.dockerfile
+L WORKDIR /usr/src/moby
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 21 source.dockerfile
+L ENV CGO_ENABLED=1
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-build-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 80 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-build-aptcache,target=/var/cache/apt \
+T 84 source.dockerfile
+L         apt-get update && apt-get install --no-install-recommends -y \
+T 70 source.dockerfile
+L             clang \
+T 19 source.dockerfile
+L             lld \
+T 17 source.dockerfile
+L             llvm \
+T 18 source.dockerfile
+L             icoutils
+T 20 source.dockerfile
+L ARG TARGETPLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L RUN --mount=type=cache,sharing=locked,id=moby-build-aptlib,target=/var/lib/apt \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 80 source.dockerfile
+L     --mount=type=cache,sharing=locked,id=moby-build-aptcache,target=/var/cache/apt \
+T 84 source.dockerfile
+L         xx-apt-get install --no-install-recommends -y \
+T 55 source.dockerfile
+L             gcc \
+T 17 source.dockerfile
+L             libc6-dev \
+T 23 source.dockerfile
+L             linux-libc-dev \
+T 28 source.dockerfile
+L             libnftables-dev \
+T 29 source.dockerfile
+L             libseccomp-dev \
+T 28 source.dockerfile
+L             libsystemd-dev \
+T 28 source.dockerfile
+L             pkg-config
+T 22 source.dockerfile
+L ARG DOCKER_BUILDTAGS
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 20 source.dockerfile
+L ARG DOCKER_DEBUG
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 16 source.dockerfile
+L ARG DOCKER_GITCOMMIT=HEAD
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L ARG DOCKER_LDFLAGS
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 18 source.dockerfile
+L ARG DOCKER_STATIC
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L ARG VERSION
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 11 source.dockerfile
+L ARG PLATFORM
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 12 source.dockerfile
+L ARG PRODUCT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 11 source.dockerfile
+L ARG DEFAULT_PRODUCT_LICENSE
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 27 source.dockerfile
+L ARG PACKAGER_NAME
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 17 source.dockerfile
+L # PREFIX overrides DEST dir in make.sh script otherwise it fails because of
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # read only mount in current work dir
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 37 source.dockerfile comment.line.number-sign.dockerfile
+L ENV PREFIX=/tmp
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L RUN <<EOT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   # in bullseye arm64 target does not link with lld so configure it to use ld instead
+T 2 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 3 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 85 source.dockerfile comment.line.number-sign.dockerfile
+L   if [ "$(xx-info arch)" = "arm64" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 27 source.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L     XX_CC_PREFER_LINKER=ld xx-clang --setup-target-triple
+T 57 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L RUN --mount=type=bind,target=.,rw \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 35 source.dockerfile
+L     --mount=type=cache,target=/root/.cache/go-build,id=moby-build-$TARGETPLATFORM <<EOT
+T 87 source.dockerfile
+L   set -e
+T 8 source.dockerfile
+L 
+L   target=dynbinary
+T 18 source.dockerfile
+L   verify_flags=
+T 15 source.dockerfile
+L   exe_suffix=
+T 13 source.dockerfile
+L   if [ "$DOCKER_STATIC" = "1" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile
+L       target=binary
+T 19 source.dockerfile
+L       verify_flags=--static
+T 27 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L   if [ "$(xx-info os)" = "windows" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L       exe_suffix=.exe
+T 21 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L 
+L   set -x
+T 8 source.dockerfile
+L   xx-go --wrap
+T 14 source.dockerfile
+L   PKG_CONFIG=$(xx-go env PKG_CONFIG) ./hack/make.sh "$target"
+T 52 source.dockerfile
+T 53 source.dockerfile string.quoted.double.dockerfile
+T 60 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile string.quoted.double.dockerfile
+L   xx-verify $verify_flags "/tmp/bundles/${target}-daemon/dockerd${exe_suffix}"
+T 26 source.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 77 source.dockerfile string.quoted.double.dockerfile
+T 78 source.dockerfile string.quoted.double.dockerfile
+L   if [ "$(xx-info os)" = "linux" ]; then
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile
+T 26 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 40 source.dockerfile
+L       xx-verify $verify_flags "/tmp/bundles/${target}-daemon/docker-proxy"
+T 30 source.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 73 source.dockerfile string.quoted.double.dockerfile
+T 74 source.dockerfile string.quoted.double.dockerfile
+L   fi
+T 4 source.dockerfile
+L   mkdir /build
+T 14 source.dockerfile
+L   mv /tmp/bundles/${target}-daemon/* /build/
+T 44 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L # usage:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 8 source.dockerfile comment.line.number-sign.dockerfile
+L # > docker buildx bake binary
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 29 source.dockerfile comment.line.number-sign.dockerfile
+L # > DOCKER_STATIC=0 docker buildx bake binary
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 45 source.dockerfile comment.line.number-sign.dockerfile
+L # or
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile
+L # > make binary
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 15 source.dockerfile comment.line.number-sign.dockerfile
+L # > make dynbinary
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 18 source.dockerfile comment.line.number-sign.dockerfile
+L FROM scratch AS binary
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+L COPY --from=build /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 27 source.dockerfile
+L 
+L # usage:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 8 source.dockerfile comment.line.number-sign.dockerfile
+L # > docker buildx bake all
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 26 source.dockerfile comment.line.number-sign.dockerfile
+L FROM scratch AS all
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 19 source.dockerfile
+L COPY --link --from=tini          /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L COPY --link --from=runc          /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L COPY --link --from=containerd    /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L COPY --link --from=rootlesskit   /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L COPY --link --from=containerutil /build/ /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L COPY --link --from=build         /build  /
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 42 source.dockerfile
+L 
+L # Tools and fixtures for running integration tests directly on a Linux host.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # Build this for the host architecture; the Go toolchain and gotestsum run there.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 81 source.dockerfile comment.line.number-sign.dockerfile
+L # The daemon and tests are compiled on the host by hack/make.sh.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 64 source.dockerfile comment.line.number-sign.dockerfile
+L FROM scratch AS test-integration-deps
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 13 source.dockerfile
+T 15 source.dockerfile keyword.other.special-method.dockerfile
+T 37 source.dockerfile
+L COPY --link --from=base          /usr/local/go/ /usr/local/go/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 62 source.dockerfile
+L COPY --link --from=tini          /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=runc          /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=containerd    /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=rootlesskit   /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=dockercli     /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=gotestsum     /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=registry      /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L COPY --link --from=frozen-images /build/ /docker-frozen-images/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 63 source.dockerfile
+L 
+L # smoke tests
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 13 source.dockerfile comment.line.number-sign.dockerfile
+L # usage:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 8 source.dockerfile comment.line.number-sign.dockerfile
+L # > docker buildx bake binary-smoketest
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 39 source.dockerfile comment.line.number-sign.dockerfile
+L FROM base AS smoketest
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 10 source.dockerfile
+T 12 source.dockerfile keyword.other.special-method.dockerfile
+T 22 source.dockerfile
+L WORKDIR /usr/local/bin
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 22 source.dockerfile
+L COPY --from=build /build .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 26 source.dockerfile
+L RUN <<EOT
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 9 source.dockerfile
+L   set -ex
+T 9 source.dockerfile
+L   file dockerd
+T 14 source.dockerfile
+L   dockerd --version
+T 19 source.dockerfile
+L   file docker-proxy
+T 19 source.dockerfile
+L   docker-proxy --version
+T 24 source.dockerfile
+L EOT
+T 3 source.dockerfile
+L 
+L # devcontainer is a stage used by .devcontainer/devcontainer.json
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 65 source.dockerfile comment.line.number-sign.dockerfile
+L FROM dev-base AS devcontainer
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 14 source.dockerfile
+T 16 source.dockerfile keyword.other.special-method.dockerfile
+T 29 source.dockerfile
+L COPY --link . .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 15 source.dockerfile
+L COPY --link --from=gopls         /build/ /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 56 source.dockerfile
+L 
+L # usage:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 8 source.dockerfile comment.line.number-sign.dockerfile
+L # > docker buildx bake dind
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 27 source.dockerfile comment.line.number-sign.dockerfile
+L # > docker run -d --restart always --privileged --name devdind -p 12375:2375 docker-dind --debug --host=tcp://0.0.0.0:2375 --tlsverify=false
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 140 source.dockerfile comment.line.number-sign.dockerfile
+L FROM docker:dind AS dind
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 17 source.dockerfile
+T 19 source.dockerfile keyword.other.special-method.dockerfile
+T 24 source.dockerfile
+L COPY --link --from=dockercli /build/docker /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 58 source.dockerfile
+L COPY --link --from=buildx    /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 88 source.dockerfile
+L COPY --link --from=compose   /docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 97 source.dockerfile
+L COPY --link --from=all       / /usr/local/bin/
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 46 source.dockerfile
+L 
+L # usage:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 8 source.dockerfile comment.line.number-sign.dockerfile
+L # > make shell
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 14 source.dockerfile comment.line.number-sign.dockerfile
+L # > SYSTEMD=true make shell
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 27 source.dockerfile comment.line.number-sign.dockerfile
+L FROM dev-base AS dev
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 14 source.dockerfile
+T 16 source.dockerfile keyword.other.special-method.dockerfile
+T 20 source.dockerfile
+L COPY --link . .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 15 source.dockerfile
+L 

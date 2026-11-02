@@ -1263,29 +1263,76 @@ T 334 text.html.markdown meta.paragraph.markdown
 L 
 L ```Dockerfile
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L # Use bash for the shell
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-T 43 text.html.markdown markup.fenced_code.block.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # Create a script file sourced by both interactive and non-interactive bash shells
-T 82 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L ENV BASH_ENV="${HOME:-/root}/.bash_env"
-T 39 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
 L RUN touch "${BASH_ENV}"
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
 L RUN echo '. "${BASH_ENV}"' >> ~/.bashrc
-T 39 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.single.dockerfile
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.single.dockerfile
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.single.dockerfile
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # Download and install nvm
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | PROFILE="${BASH_ENV}" bash
-T 105 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 88 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 99 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 100 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 105 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L RUN echo node > .nvmrc
-T 22 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L RUN nvm install
-T 15 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1301,41 +1348,92 @@ T 46 text.html.markdown meta.paragraph.markdown
 L 
 L ```Dockerfile
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L FROM ubuntu:latest
-T 18 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L ARG NODE_VERSION=20
-T 19 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # install curl
-T 14 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L RUN apt update && apt install curl -y
-T 37 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # install nvm
-T 13 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
-T 83 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # set env
-T 9 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L ENV NVM_DIR="${HOME:-/root}/.nvm"
-T 33 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
 L 
 L # install node
-T 14 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L RUN bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION"
-T 65 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
 L 
 L # set ENTRYPOINT for reloading nvm-environment
-T 46 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L ENTRYPOINT ["bash", "-c", "source $NVM_DIR/nvm.sh && exec \"$@\"", "--"]
-T 72 text.html.markdown markup.fenced_code.block.markdown
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L # set cmd to bash
-T 17 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile comment.line.number-sign.dockerfile
 L CMD ["/bin/bash"]
-T 17 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile keyword.other.special-method.dockerfile
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile string.quoted.double.dockerfile
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.dockerfile
 L 
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown

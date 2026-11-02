@@ -19,6 +19,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (TOML, crate::toml::NAMES),
     (MAKE, crate::make::NAMES),
     (DIFF, crate::diff::NAMES),
+    (DOCKERFILE, crate::dockerfile::NAMES),
 ];
 
 // Each table starts where the one before it ends, and the last ends below the
@@ -86,6 +87,9 @@ pub(crate) const MAKE: u16 = after(TOML, crate::toml::NAMES);
 
 /// The base of the diff lexer's scope names: where the Makefile lexer's end.
 pub(crate) const DIFF: u16 = after(MAKE, crate::make::NAMES);
+
+/// The base of the Dockerfile lexer's scope names: where the diff lexer's end.
+pub(crate) const DOCKERFILE: u16 = after(DIFF, crate::diff::NAMES);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

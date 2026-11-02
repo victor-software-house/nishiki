@@ -45,6 +45,8 @@ pub(crate) const TOML: u16 = 0x0900;
 pub(crate) const DIFF: u16 = 0x0e00;
 /// Makefiles.
 pub(crate) const MAKE: u16 = 0x0b00;
+/// Dockerfiles.
+pub(crate) const DOCKERFILE: u16 = 0x2000;
 
 /// Every claimed range. A new lexer adds its constant and its entry here.
 const CLAIMED: &[Tag] = &[
@@ -58,6 +60,7 @@ const CLAIMED: &[Tag] = &[
     Tag::byte(TOML),
     Tag::byte(DIFF),
     Tag::byte(MAKE),
+    Tag::byte(DOCKERFILE),
 ];
 
 /// Two ranges overlap when some code lies in both: when their values agree on

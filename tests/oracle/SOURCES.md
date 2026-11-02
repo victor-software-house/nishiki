@@ -111,6 +111,16 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `themes/github-dark` | [primer/github-vscode-theme][github-theme], through `@shikijs/themes` 4.6.0 | [MIT][github-theme-licence] |
 | `themes/one-light` | [akamud/vscode-theme-onelight][one-light], through `@shikijs/themes` 4.6.0 | [MIT][one-light-licence] |
 | `themes/catppuccin-mocha` | [catppuccin/vscode][catppuccin], through `@shikijs/themes` 4.6.0 | [MIT][catppuccin-licence] |
+| `docker/sample` | [`samples/docker.sample`][docker-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `docker/python-slim-bookworm` | [`3.13/slim-bookworm/Dockerfile`][python-docker] in docker-library/python | [MIT][python-docker-licence] |
+| `docker/next-with-docker` | [`examples/with-docker/Dockerfile`][next-docker] in vercel/next.js | [MIT][next-licence] |
+| `docker/prometheus` | [`Dockerfile`][prometheus-docker] in prometheus/prometheus | [Apache-2.0][prometheus-make-licence] |
+| `docker/moby` | [`Dockerfile`][moby-docker] in moby/moby | [Apache-2.0][moby-licence] |
+| `docker/postgres-bookworm` | [`18/bookworm/Dockerfile`][postgres-docker] in docker-library/postgres | [MIT][postgres-docker-licence] |
+| `docker/buildx` | [`Dockerfile`][buildx-docker] in docker/buildx | [Apache-2.0][buildx-licence] |
+| `markdown/fastapi-docker` | [`docs/en/docs/deployment/docker.md`][fastapi-docker] in tiangolo/fastapi | [MIT][fastapi-licence] |
+| `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
+| `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -135,6 +145,10 @@ Their first scores, before any fix, were 100% for the three YAML files and 64 of
 `diff/sample`, `diff/cranelift-stdarch-sve`, `diff/cranelift-stdlib-atomics` and `diff/mir-opt-gvn-cast` are the development inputs for diff.
 `diff/cranelift-sysroot-tests`, `diff/mir-opt-gvn-slices` and `diff/vscode-foundry-local-sdk` are held out.
 `markdown/vitest-migration-jest` is the development input for diff fences, and `markdown/vite-ssr` and `markdown/prettier-plugins` are held out.
+`docker/sample`, `docker/python-slim-bookworm`, `docker/next-with-docker` and `docker/prometheus` are the development inputs for Dockerfiles.
+`docker/moby`, `docker/postgres-bookworm` and `docker/buildx` are held out.
+`markdown/fastapi-docker` is the development input for `dockerfile` fences, and `markdown/next-with-docker-readme` and `markdown/next-with-docker-export-readme` are held out.
+The lexer matched every input on its first run, held-out ones included.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -290,3 +304,17 @@ Their first scores, before any fix, were 100% for the three YAML files and 64 of
 [vite-licence]: https://github.com/vitejs/vite/blob/b3cb0575aff63004a71301a1ec798aeea2aa05d7/LICENSE
 [prettier-plugins]: https://github.com/prettier/prettier/blob/a02e92be26ec8963a07aa9500a6c20e24599e95b/docs/plugins.md
 [prettier-licence]: https://github.com/prettier/prettier/blob/a02e92be26ec8963a07aa9500a6c20e24599e95b/LICENSE
+[docker-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/docker.sample
+[python-docker]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/3.13/slim-bookworm/Dockerfile
+[python-docker-licence]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/LICENSE
+[next-docker]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/examples/with-docker/Dockerfile
+[next-licence]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/license.md
+[prometheus-docker]: https://github.com/prometheus/prometheus/blob/b0c3a30ab2a09b88e64d876017a0134aa2f38f40/Dockerfile
+[moby-docker]: https://github.com/moby/moby/blob/aed2b781abc209a639b79d00f6962b629242aa1a/Dockerfile
+[postgres-docker]: https://github.com/docker-library/postgres/blob/dfc76bb299b057785026eb2eea39556b6fe52983/18/bookworm/Dockerfile
+[postgres-docker-licence]: https://github.com/docker-library/postgres/blob/dfc76bb299b057785026eb2eea39556b6fe52983/LICENSE
+[buildx-docker]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/Dockerfile
+[buildx-licence]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/LICENSE
+[fastapi-docker]: https://github.com/tiangolo/fastapi/blob/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0/docs/en/docs/deployment/docker.md
+[next-docker-readme]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/examples/with-docker/README.md
+[next-docker-export-readme]: https://github.com/vercel/next.js/blob/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378/examples/with-docker-export-output/README.md

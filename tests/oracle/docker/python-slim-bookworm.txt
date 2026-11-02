@@ -1,0 +1,567 @@
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 61 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L # PLEASE DO NOT EDIT IT DIRECTLY.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 33 source.dockerfile comment.line.number-sign.dockerfile
+L #
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+L 
+L FROM debian:bookworm-slim
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 25 source.dockerfile
+L 
+L # ensure local python is preferred over distribution python
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 59 source.dockerfile comment.line.number-sign.dockerfile
+L ENV PATH /usr/local/bin:$PATH
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L 
+L # cannot remove LANG even though https://bugs.python.org/issue19846 is fixed
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # - embedded interpreters (uWSGI, mod_wsgi, etc) skip locale coercion and UTF-8 mode before Python 3.15, so they fall back to ASCII
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 131 source.dockerfile comment.line.number-sign.dockerfile
+L # - musl (alpine) never gets LC_CTYPE set, so anything that reads locale environment variables (babel) finds none
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 113 source.dockerfile comment.line.number-sign.dockerfile
+L # last attempted removal of LANG broke many users:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 50 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/docker-library/python/pull/570
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 51 source.dockerfile comment.line.number-sign.dockerfile
+L # embedded interpreter reproducer (fails with UnicodeEncodeError without LANG on 3.14 and earlier, needs a non-slim Debian variant for gcc):
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 140 source.dockerfile comment.line.number-sign.dockerfile
+L # docker run --rm --env LANG= python:3.13 sh -c 'printf "#include <Python.h>\nint main(){Py_Initialize();PyRun_SimpleString(\"print(chr(252),flush=True)\");}" | gcc -x c - $(python3-config --embed --cflags --ldflags) && ./a.out'
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 228 source.dockerfile comment.line.number-sign.dockerfile
+L ENV LANG C.UTF-8
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 16 source.dockerfile
+L 
+L # runtime dependencies
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 22 source.dockerfile comment.line.number-sign.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	apt-get update; \
+T 18 source.dockerfile
+L 	apt-get install -y --no-install-recommends \
+T 45 source.dockerfile
+L 		ca-certificates \
+T 19 source.dockerfile
+L 		netbase \
+T 11 source.dockerfile
+L 		tzdata \
+T 10 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*
+T 28 source.dockerfile
+L 
+L ENV GPG_KEY 7169605F62C751356D054A26A821E680E5FA6305
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 52 source.dockerfile
+L ENV PYTHON_VERSION 3.13.18
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 26 source.dockerfile
+L ENV PYTHON_SHA256 abb0102e6d4ae027509bcb82327d9dd85515b44a3ba8ad538cfc5e9847029f68
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 82 source.dockerfile
+L 
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	savedAptMark="$(apt-mark showmanual)"; \
+T 14 source.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile
+L 	apt-get update; \
+T 18 source.dockerfile
+L 	apt-get install -y --no-install-recommends \
+T 45 source.dockerfile
+L 		dpkg-dev \
+T 12 source.dockerfile
+L 		g++ \
+T 7 source.dockerfile
+L 		gcc \
+T 7 source.dockerfile
+L 		gnupg \
+T 9 source.dockerfile
+L 		libbluetooth-dev \
+T 20 source.dockerfile
+L 		libbz2-dev \
+T 14 source.dockerfile
+L 		libc6-dev \
+T 13 source.dockerfile
+L 		libdb-dev \
+T 13 source.dockerfile
+L 		libffi-dev \
+T 14 source.dockerfile
+L 		libgdbm-dev \
+T 15 source.dockerfile
+L 		liblzma-dev \
+T 15 source.dockerfile
+L 		libncursesw5-dev \
+T 20 source.dockerfile
+L 		libreadline-dev \
+T 19 source.dockerfile
+L 		libsqlite3-dev \
+T 18 source.dockerfile
+L 		libssl-dev \
+T 14 source.dockerfile
+L 		make \
+T 8 source.dockerfile
+L 		tk-dev \
+T 10 source.dockerfile
+L 		uuid-dev \
+T 12 source.dockerfile
+L 		wget \
+T 8 source.dockerfile
+L 		xz-utils \
+T 12 source.dockerfile
+L 		zlib1g-dev \
+T 14 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz"; \
+T 23 source.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 113 source.dockerfile string.quoted.double.dockerfile
+T 114 source.dockerfile string.quoted.double.dockerfile
+T 117 source.dockerfile
+L 	echo "$PYTHON_SHA256 *python.tar.xz" | sha256sum -c -; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile
+L 	wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc"; \
+T 27 source.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 121 source.dockerfile string.quoted.double.dockerfile
+T 122 source.dockerfile string.quoted.double.dockerfile
+T 125 source.dockerfile
+L 	GNUPGHOME="$(mktemp -d)"; export GNUPGHOME; \
+T 11 source.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 46 source.dockerfile
+L 	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$GPG_KEY"; \
+T 61 source.dockerfile
+T 62 source.dockerfile string.quoted.double.dockerfile
+T 70 source.dockerfile string.quoted.double.dockerfile
+T 71 source.dockerfile string.quoted.double.dockerfile
+T 74 source.dockerfile
+L 	gpg --batch --verify python.tar.xz.asc python.tar.xz; \
+T 56 source.dockerfile
+L 	gpgconf --kill all; \
+T 22 source.dockerfile
+L 	rm -rf "$GNUPGHOME" python.tar.xz.asc; \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile
+L 	mkdir -p /usr/src/python; \
+T 28 source.dockerfile
+L 	tar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \
+T 87 source.dockerfile
+L 	rm python.tar.xz; \
+T 20 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	cd /usr/src/python; \
+T 22 source.dockerfile
+L 	gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+T 61 source.dockerfile
+L 	./configure \
+T 14 source.dockerfile
+L 		--build="$gnuArch" \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile
+L 		--enable-loadable-sqlite-extensions \
+T 39 source.dockerfile
+L 		--enable-optimizations \
+T 26 source.dockerfile
+L 		--enable-option-checking=fatal \
+T 34 source.dockerfile
+L 		--enable-shared \
+T 19 source.dockerfile
+L 		$(test "${gnuArch%%-*}" != 'riscv64' && echo '--with-lto') \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile
+T 30 source.dockerfile string.quoted.single.dockerfile
+T 37 source.dockerfile string.quoted.single.dockerfile
+T 38 source.dockerfile string.quoted.single.dockerfile
+T 47 source.dockerfile
+T 48 source.dockerfile string.quoted.single.dockerfile
+T 58 source.dockerfile string.quoted.single.dockerfile
+T 59 source.dockerfile string.quoted.single.dockerfile
+T 62 source.dockerfile
+L 		--with-ensurepip \
+T 20 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	nproc="$(nproc)"; \
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 20 source.dockerfile
+L 	EXTRA_CFLAGS="$(dpkg-buildflags --get CFLAGS)"; \
+T 14 source.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 46 source.dockerfile string.quoted.double.dockerfile
+T 47 source.dockerfile string.quoted.double.dockerfile
+T 50 source.dockerfile
+L 	LDFLAGS="$(dpkg-buildflags --get LDFLAGS)"; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile string.quoted.double.dockerfile
+T 46 source.dockerfile
+L 	LDFLAGS="${LDFLAGS:-} -Wl,--strip-all"; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 39 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L 	arch="$(dpkg --print-architecture)"; arch="${arch##*-}"; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 43 source.dockerfile
+T 44 source.dockerfile string.quoted.double.dockerfile
+T 55 source.dockerfile string.quoted.double.dockerfile
+T 56 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile
+L # https://docs.python.org/3.12/howto/perf_profiling.html
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 56 source.dockerfile comment.line.number-sign.dockerfile
+L # https://github.com/docker-library/python/pull/1000#issuecomment-2597021615
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L 	case "$arch" in \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 12 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 18 source.dockerfile
+L 		amd64|arm64) \
+T 16 source.dockerfile
+L 			# only add "-mno-omit-leaf" on arches that support it
+T 3 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 56 source.dockerfile comment.line.number-sign.dockerfile
+L 			# https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/x86-Options.html#index-momit-leaf-frame-pointer-2
+T 3 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 100 source.dockerfile comment.line.number-sign.dockerfile
+L 			# https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/AArch64-Options.html#index-momit-leaf-frame-pointer
+T 3 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 102 source.dockerfile comment.line.number-sign.dockerfile
+L 			EXTRA_CFLAGS="${EXTRA_CFLAGS:-} -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"; \
+T 16 source.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 87 source.dockerfile string.quoted.double.dockerfile
+T 88 source.dockerfile string.quoted.double.dockerfile
+T 91 source.dockerfile
+L 			;; \
+T 7 source.dockerfile
+L 		i386) \
+T 9 source.dockerfile
+L 			# don't enable frame-pointers on 32bit x86 due to performance drop.
+T 3 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 70 source.dockerfile comment.line.number-sign.dockerfile
+L 			;; \
+T 7 source.dockerfile
+L 		*) \
+T 6 source.dockerfile
+L 			# other arches don't support "-mno-omit-leaf"
+T 3 source.dockerfile punctuation.whitespace.comment.leading.dockerfile
+T 4 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 48 source.dockerfile comment.line.number-sign.dockerfile
+L 			EXTRA_CFLAGS="${EXTRA_CFLAGS:-} -fno-omit-frame-pointer"; \
+T 16 source.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 58 source.dockerfile string.quoted.double.dockerfile
+T 59 source.dockerfile string.quoted.double.dockerfile
+T 62 source.dockerfile
+L 			;; \
+T 7 source.dockerfile
+L 	esac; \
+T 8 source.dockerfile
+L 	make -j "$nproc" \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile
+L 		"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}" \
+T 2 source.dockerfile
+T 3 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile
+L 		"LDFLAGS=${LDFLAGS:-}" \
+T 2 source.dockerfile
+T 3 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 26 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L # https://github.com/docker-library/python/issues/784
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 53 source.dockerfile comment.line.number-sign.dockerfile
+L # prevent accidental usage of a system installed libpython of the same version
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 78 source.dockerfile comment.line.number-sign.dockerfile
+L 	rm python; \
+T 13 source.dockerfile
+L 	make -j "$nproc" \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile
+L 		"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}" \
+T 2 source.dockerfile
+T 3 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile string.quoted.double.dockerfile
+T 34 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile
+L 		"LDFLAGS=${LDFLAGS:-} -Wl,-rpath='\$\$ORIGIN/../lib'" \
+T 2 source.dockerfile
+T 3 source.dockerfile string.quoted.double.dockerfile
+T 36 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 40 source.dockerfile string.quoted.double.dockerfile constant.character.escaped.dockerfile
+T 54 source.dockerfile string.quoted.double.dockerfile
+T 55 source.dockerfile string.quoted.double.dockerfile
+T 57 source.dockerfile
+L 		python \
+T 10 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	make install; \
+T 16 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	cd /; \
+T 8 source.dockerfile
+L 	rm -rf /usr/src/python; \
+T 26 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	find /usr/local -depth \
+T 25 source.dockerfile
+L 		\( \
+T 2 source.dockerfile
+T 4 source.dockerfile constant.character.escaped.dockerfile
+T 6 source.dockerfile
+L 			\( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
+T 3 source.dockerfile
+T 5 source.dockerfile constant.character.escaped.dockerfile
+T 17 source.dockerfile
+T 19 source.dockerfile constant.character.escaped.dockerfile
+T 65 source.dockerfile
+T 67 source.dockerfile constant.character.escaped.dockerfile
+T 68 source.dockerfile
+T 70 source.dockerfile constant.character.escaped.dockerfile
+T 72 source.dockerfile
+L 			-o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \
+T 6 source.dockerfile
+T 8 source.dockerfile constant.character.escaped.dockerfile
+T 20 source.dockerfile
+T 22 source.dockerfile constant.character.escaped.dockerfile
+T 29 source.dockerfile
+T 30 source.dockerfile string.quoted.single.dockerfile
+T 35 source.dockerfile string.quoted.single.dockerfile
+T 36 source.dockerfile string.quoted.single.dockerfile
+T 46 source.dockerfile
+T 47 source.dockerfile string.quoted.single.dockerfile
+T 52 source.dockerfile string.quoted.single.dockerfile
+T 53 source.dockerfile string.quoted.single.dockerfile
+T 63 source.dockerfile
+T 64 source.dockerfile string.quoted.single.dockerfile
+T 76 source.dockerfile string.quoted.single.dockerfile
+T 77 source.dockerfile string.quoted.single.dockerfile
+T 78 source.dockerfile
+T 80 source.dockerfile constant.character.escaped.dockerfile
+T 81 source.dockerfile
+T 83 source.dockerfile constant.character.escaped.dockerfile
+T 85 source.dockerfile
+L 		\) -exec rm -rf '{}' + \
+T 2 source.dockerfile
+T 4 source.dockerfile constant.character.escaped.dockerfile
+T 18 source.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile
+T 21 source.dockerfile string.quoted.single.dockerfile
+T 22 source.dockerfile string.quoted.single.dockerfile
+T 26 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	ldconfig; \
+T 12 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	apt-mark auto '.*' > /dev/null; \
+T 15 source.dockerfile
+T 16 source.dockerfile string.quoted.single.dockerfile
+T 18 source.dockerfile string.quoted.single.dockerfile
+T 19 source.dockerfile string.quoted.single.dockerfile
+T 34 source.dockerfile
+L 	apt-mark manual $savedAptMark; \
+T 33 source.dockerfile
+L 	find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec ldd '{}' ';' \
+T 42 source.dockerfile
+T 44 source.dockerfile constant.character.escaped.dockerfile
+T 51 source.dockerfile
+T 52 source.dockerfile string.quoted.single.dockerfile
+T 61 source.dockerfile string.quoted.single.dockerfile
+T 62 source.dockerfile string.quoted.single.dockerfile
+T 63 source.dockerfile
+T 65 source.dockerfile constant.character.escaped.dockerfile
+T 76 source.dockerfile
+T 77 source.dockerfile string.quoted.single.dockerfile
+T 79 source.dockerfile string.quoted.single.dockerfile
+T 80 source.dockerfile string.quoted.single.dockerfile
+T 81 source.dockerfile
+T 82 source.dockerfile string.quoted.single.dockerfile
+T 83 source.dockerfile string.quoted.single.dockerfile
+T 84 source.dockerfile string.quoted.single.dockerfile
+T 86 source.dockerfile
+L 		| awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); printf "*%s\n", so }' \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.single.dockerfile
+T 113 source.dockerfile string.quoted.single.dockerfile
+T 115 source.dockerfile string.quoted.single.dockerfile constant.character.escaped.dockerfile
+T 122 source.dockerfile string.quoted.single.dockerfile
+T 123 source.dockerfile string.quoted.single.dockerfile
+T 125 source.dockerfile
+L 		| sort -u \
+T 13 source.dockerfile
+L 		| xargs -rt dpkg-query --search \
+T 35 source.dockerfile
+L # https://manpages.debian.org/bookworm/dpkg/dpkg-query.1.en.html#S (we ignore diversions and it'll be really unusual for more than one package to provide any given .so file)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 173 source.dockerfile comment.line.number-sign.dockerfile
+L 		| awk 'sub(":$", "", $1) { print $1 }' \
+T 8 source.dockerfile
+T 9 source.dockerfile string.quoted.single.dockerfile
+T 39 source.dockerfile string.quoted.single.dockerfile
+T 40 source.dockerfile string.quoted.single.dockerfile
+T 42 source.dockerfile
+L 		| sort -u \
+T 13 source.dockerfile
+L 		| xargs -r apt-mark manual \
+T 30 source.dockerfile
+L 	; \
+T 4 source.dockerfile
+L 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+T 80 source.dockerfile
+L 	rm -rf /var/lib/apt/lists/*; \
+T 31 source.dockerfile
+L 	\
+T 2 source.dockerfile
+L 	export PYTHONDONTWRITEBYTECODE=1; \
+T 36 source.dockerfile
+L 	python3 --version; \
+T 21 source.dockerfile
+L 	pip3 --version
+T 15 source.dockerfile
+L 
+L # make some useful symlinks that are expected to exist ("/usr/local/bin/python" and friends)
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 92 source.dockerfile comment.line.number-sign.dockerfile
+L RUN set -eux; \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L 	for src in idle3 pip3 pydoc3 python3 python3-config; do \
+T 58 source.dockerfile
+L 		dst="$(echo "$src" | tr -d 3)"; \
+T 6 source.dockerfile
+T 7 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 19 source.dockerfile
+T 20 source.dockerfile string.quoted.double.dockerfile
+T 31 source.dockerfile string.quoted.double.dockerfile
+T 32 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile
+L 		[ -s "/usr/local/bin/$src" ]; \
+T 7 source.dockerfile
+T 8 source.dockerfile string.quoted.double.dockerfile
+T 27 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 33 source.dockerfile
+L 		[ ! -e "/usr/local/bin/$dst" ]; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 30 source.dockerfile string.quoted.double.dockerfile
+T 35 source.dockerfile
+L 		ln -svT "$src" "/usr/local/bin/$dst"; \
+T 10 source.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile string.quoted.double.dockerfile
+T 16 source.dockerfile string.quoted.double.dockerfile
+T 17 source.dockerfile
+T 18 source.dockerfile string.quoted.double.dockerfile
+T 37 source.dockerfile string.quoted.double.dockerfile
+T 38 source.dockerfile string.quoted.double.dockerfile
+T 41 source.dockerfile
+L 	done
+T 5 source.dockerfile
+L 
+L CMD ["python3"]
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile string.quoted.double.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 15 source.dockerfile
+L 

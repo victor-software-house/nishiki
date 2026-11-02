@@ -111,6 +111,14 @@ const PIECES: &[&str] = &[
     "Only in ",
     "\u{a0}",
     "\u{663}",
+    "FROM ",
+    " AS ",
+    "ONBUILD ",
+    "RUN ",
+    "ENTRYPOINT",
+    "\u{17f}",
+    "\u{fb05}",
+    "\u{212a}",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

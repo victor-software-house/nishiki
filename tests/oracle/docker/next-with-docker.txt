@@ -1,0 +1,314 @@
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L # Stage 1: Dependencies Installation Stage
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 42 source.dockerfile comment.line.number-sign.dockerfile
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L # IMPORTANT: Node.js Version Maintenance
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 40 source.dockerfile comment.line.number-sign.dockerfile
+L # This Dockerfile uses Node.js 24.13.0-slim, which was the latest LTS version at the time of writing.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 101 source.dockerfile comment.line.number-sign.dockerfile
+L # To ensure security and compatibility, regularly update the NODE_VERSION ARG to the latest LTS version.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 104 source.dockerfile comment.line.number-sign.dockerfile
+L ARG NODE_VERSION=24.13.0-slim
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 29 source.dockerfile
+L 
+L FROM node:${NODE_VERSION} AS dependencies
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 26 source.dockerfile
+T 28 source.dockerfile keyword.other.special-method.dockerfile
+T 41 source.dockerfile
+L 
+L # Set working directory
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 23 source.dockerfile comment.line.number-sign.dockerfile
+L WORKDIR /app
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 12 source.dockerfile
+L 
+L # Copy package-related files first to leverage Docker's caching mechanism
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 73 source.dockerfile comment.line.number-sign.dockerfile
+L COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* pnpm-workspace.yaml* .npmrc* ./
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 95 source.dockerfile
+L 
+L # Install project dependencies with frozen lockfile for reproducible builds
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L RUN --mount=type=cache,target=/root/.npm \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 42 source.dockerfile
+L     --mount=type=cache,target=/usr/local/share/.cache/yarn \
+T 60 source.dockerfile
+L     --mount=type=cache,target=/root/.local/share/pnpm/store \
+T 61 source.dockerfile
+L   if [ -f package-lock.json ]; then \
+T 37 source.dockerfile
+L     npm ci --no-audit --no-fund; \
+T 34 source.dockerfile
+L   elif [ -f yarn.lock ]; then \
+T 31 source.dockerfile
+L     corepack enable yarn && yarn install --frozen-lockfile --production=false; \
+T 80 source.dockerfile
+L   elif [ -f pnpm-lock.yaml ]; then \
+T 36 source.dockerfile
+L     corepack enable pnpm && pnpm install --frozen-lockfile; \
+T 61 source.dockerfile
+L   else \
+T 8 source.dockerfile
+L     echo "No lockfile found." && exit 1; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L 
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L # Stage 2: Build Next.js application in standalone mode
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 55 source.dockerfile comment.line.number-sign.dockerfile
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L FROM node:${NODE_VERSION} AS builder
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 26 source.dockerfile
+T 28 source.dockerfile keyword.other.special-method.dockerfile
+T 36 source.dockerfile
+L 
+L # Set working directory
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 23 source.dockerfile comment.line.number-sign.dockerfile
+L WORKDIR /app
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 12 source.dockerfile
+L 
+L # Copy project dependencies from dependencies stage
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 51 source.dockerfile comment.line.number-sign.dockerfile
+L COPY --from=dependencies /app/node_modules ./node_modules
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 57 source.dockerfile
+L 
+L # Copy application source code
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 30 source.dockerfile comment.line.number-sign.dockerfile
+L COPY . .
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 8 source.dockerfile
+L 
+L ENV NODE_ENV=production
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L 
+L # Next.js collects completely anonymous telemetry data about general usage.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # Learn more here: https://nextjs.org/telemetry
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 47 source.dockerfile comment.line.number-sign.dockerfile
+L # Uncomment the following line in case you want to disable telemetry during the build.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 86 source.dockerfile comment.line.number-sign.dockerfile
+L # ENV NEXT_TELEMETRY_DISABLED=1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 31 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L # Build Next.js application
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 27 source.dockerfile comment.line.number-sign.dockerfile
+L # If you want to speed up Docker rebuilds, you can cache the build artifacts
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 76 source.dockerfile comment.line.number-sign.dockerfile
+L # by adding: --mount=type=cache,target=/app/.next/cache
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 55 source.dockerfile comment.line.number-sign.dockerfile
+L # This caches the .next/cache directory across builds, but it also prevents
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # .next/cache/fetch-cache from being included in the final image, meaning
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 73 source.dockerfile comment.line.number-sign.dockerfile
+L # cached fetch responses from the build won't be available at runtime.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 70 source.dockerfile comment.line.number-sign.dockerfile
+L RUN if [ -f package-lock.json ]; then \
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 39 source.dockerfile
+L     npm run build; \
+T 20 source.dockerfile
+L   elif [ -f yarn.lock ]; then \
+T 31 source.dockerfile
+L     corepack enable yarn && yarn build; \
+T 41 source.dockerfile
+L   elif [ -f pnpm-lock.yaml ]; then \
+T 36 source.dockerfile
+L     corepack enable pnpm && pnpm build; \
+T 41 source.dockerfile
+L   else \
+T 8 source.dockerfile
+L     echo "No lockfile found." && exit 1; \
+T 9 source.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 28 source.dockerfile string.quoted.double.dockerfile
+T 29 source.dockerfile string.quoted.double.dockerfile
+T 42 source.dockerfile
+L   fi
+T 4 source.dockerfile
+L 
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L # Stage 3: Run Next.js application
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 34 source.dockerfile comment.line.number-sign.dockerfile
+L # ============================================
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 46 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L FROM node:${NODE_VERSION} AS runner
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 26 source.dockerfile
+T 28 source.dockerfile keyword.other.special-method.dockerfile
+T 35 source.dockerfile
+L 
+L # Set working directory
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 23 source.dockerfile comment.line.number-sign.dockerfile
+L WORKDIR /app
+T 7 source.dockerfile keyword.other.special-method.dockerfile
+T 8 source.dockerfile
+T 12 source.dockerfile
+L 
+L # Set production environment variables
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 38 source.dockerfile comment.line.number-sign.dockerfile
+L ENV NODE_ENV=production
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 23 source.dockerfile
+L ENV PORT=3000
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 13 source.dockerfile
+L ENV HOSTNAME="0.0.0.0"
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 21 source.dockerfile string.quoted.double.dockerfile
+T 22 source.dockerfile string.quoted.double.dockerfile
+L 
+L # Next.js collects completely anonymous telemetry data about general usage.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # Learn more here: https://nextjs.org/telemetry
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 47 source.dockerfile comment.line.number-sign.dockerfile
+L # Uncomment the following line in case you want to disable telemetry during the run time.
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 89 source.dockerfile comment.line.number-sign.dockerfile
+L # ENV NEXT_TELEMETRY_DISABLED=1
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 31 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L # Copy production assets
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 24 source.dockerfile comment.line.number-sign.dockerfile
+L COPY --from=builder --chown=node:node /app/public ./public
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 58 source.dockerfile
+L 
+L # Set the correct permission for prerender cache
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 48 source.dockerfile comment.line.number-sign.dockerfile
+L RUN mkdir .next
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 15 source.dockerfile
+L RUN chown node:node .next
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 25 source.dockerfile
+L 
+L # Automatically leverage output traces to reduce image size
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 59 source.dockerfile comment.line.number-sign.dockerfile
+L # https://nextjs.org/docs/advanced-features/output-file-tracing
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 63 source.dockerfile comment.line.number-sign.dockerfile
+L COPY --from=builder --chown=node:node /app/.next/standalone ./
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 62 source.dockerfile
+L COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 70 source.dockerfile
+L 
+L # If you want to persist the fetch cache generated during the build so that
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 75 source.dockerfile comment.line.number-sign.dockerfile
+L # cached responses are available immediately on startup, uncomment this line:
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 77 source.dockerfile comment.line.number-sign.dockerfile
+L # COPY --from=builder --chown=node:node /app/.next/cache ./.next/cache
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 70 source.dockerfile comment.line.number-sign.dockerfile
+L 
+L # Switch to non-root user for security best practices
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 53 source.dockerfile comment.line.number-sign.dockerfile
+L USER node
+T 4 source.dockerfile keyword.other.special-method.dockerfile
+T 5 source.dockerfile
+T 9 source.dockerfile
+L 
+L # Expose port 3000 to allow HTTP traffic
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 40 source.dockerfile comment.line.number-sign.dockerfile
+L EXPOSE 3000
+T 6 source.dockerfile keyword.other.special-method.dockerfile
+T 7 source.dockerfile
+T 11 source.dockerfile
+L 
+L # Start Next.js standalone server
+T 1 source.dockerfile comment.line.number-sign.dockerfile punctuation.definition.comment.dockerfile
+T 33 source.dockerfile comment.line.number-sign.dockerfile
+L CMD ["node", "server.js"]
+T 3 source.dockerfile keyword.other.special-method.dockerfile
+T 4 source.dockerfile
+T 5 source.dockerfile
+T 6 source.dockerfile string.quoted.double.dockerfile
+T 10 source.dockerfile string.quoted.double.dockerfile
+T 11 source.dockerfile string.quoted.double.dockerfile
+T 13 source.dockerfile
+T 14 source.dockerfile string.quoted.double.dockerfile
+T 23 source.dockerfile string.quoted.double.dockerfile
+T 24 source.dockerfile string.quoted.double.dockerfile
+T 25 source.dockerfile
+L 

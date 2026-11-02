@@ -6,7 +6,9 @@ use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
-use crate::{Token, diff, json, make, markdown, python, rust, shell, toml, typescript, yaml};
+use crate::{
+    Token, diff, dockerfile, json, make, markdown, python, rust, shell, toml, typescript, yaml,
+};
 
 /// A language nishiki highlights, named as Shiki names it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -43,6 +45,8 @@ pub enum Language {
     Make,
     /// Diff, with the scopes of Shiki's `diff` grammar.
     Diff,
+    /// Dockerfile, with the scopes of Shiki's `docker` grammar.
+    Dockerfile,
 }
 
 impl Language {
@@ -63,6 +67,7 @@ impl Language {
         Language::Toml,
         Language::Make,
         Language::Diff,
+        Language::Dockerfile,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -84,6 +89,7 @@ impl Language {
             Language::Toml => "toml",
             Language::Make => "make",
             Language::Diff => "diff",
+            Language::Dockerfile => "docker",
         }
     }
 
@@ -125,6 +131,7 @@ impl Language {
             Language::Toml => &["toml"],
             Language::Make => &["make", "makefile"],
             Language::Diff => &["diff"],
+            Language::Dockerfile => &["docker", "dockerfile"],
         }
     }
 }
@@ -180,6 +187,7 @@ impl Language {
             Language::Toml => toml::start(arena, base),
             Language::Make => make::start(arena, base),
             Language::Diff => diff::start(arena, base),
+            Language::Dockerfile => dockerfile::start(arena, base),
         }
     }
 
@@ -199,6 +207,7 @@ impl Language {
             Language::Toml => toml::start_embedded(arena, base),
             Language::Make => make::start_embedded(arena, base),
             Language::Diff => diff::start_embedded(arena, base),
+            Language::Dockerfile => dockerfile::start_embedded(arena, base),
         }
     }
 
@@ -261,6 +270,13 @@ impl Language {
                     start: line.start,
                 };
                 return diff::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
+            }
+            Language::Dockerfile => {
+                let text = dockerfile::Text {
+                    bytes: line.text.as_bytes(),
+                    start: line.start,
+                };
+                return dockerfile::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
             }
             Language::Make => {
                 let text = make::Text {
