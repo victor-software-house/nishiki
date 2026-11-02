@@ -184,14 +184,41 @@ impl<'a> Lexer<'a> {
 
     /// Whether `i` is the end of the line or a blank: what a `-`, `?` or `:`
     /// indicator needs after it.
+    #[inline]
     fn blank_or_end(&self, i: usize) -> bool {
-        self.s.get(i).is_none_or(|&b| is_blank(b))
+        i >= self.s.len() || self.blank_at(i) > 0
+    }
+
+    /// The length of the blank at `i`, or 0: a space, a tab, or a Unicode
+    /// space, which Shiki's `\s` reads as a blank.
+    #[inline]
+    fn blank_at(&self, i: usize) -> usize {
+        match self.s.get(i) {
+            Some(&b) if b < 0xc2 => usize::from(b == b' ' || b == b'\t'),
+            Some(_) => crate::space::len(&self.s[i..]),
+            None => 0,
+        }
+    }
+
+    /// `skip_blanks` over spaces and tabs only, for the places where the
+    /// grammar spells the blank `[ \t]` and not `\s`.
+    fn skip_ascii_blanks(&self, mut p: usize) -> usize {
+        let from = p;
+        while self.s.get(p).is_some_and(|&b| is_blank(b)) {
+            p += 1;
+        }
+        self.spend(p - from);
+        p
     }
 
     fn skip_blanks(&self, mut p: usize) -> usize {
         let from = p;
-        while self.s.get(p).is_some_and(|&b| is_blank(b)) {
-            p += 1;
+        loop {
+            let n = self.blank_at(p);
+            if n == 0 {
+                break;
+            }
+            p += n;
         }
         self.spend(p - from);
         p
@@ -338,7 +365,7 @@ impl<'a> Lexer<'a> {
             b'+' | b'-' => at = self.token(at, at + 1, &[S::Chomping]),
             _ => {}
         }
-        let rest = self.skip_blanks(at);
+        let rest = self.skip_ascii_blanks(at);
         if rest < len && rest > at && self.comment_at(rest) {
             self.comment(rest);
         } else if rest < len {
@@ -478,7 +505,7 @@ impl<'a> Lexer<'a> {
     fn name_end(&self, from: usize) -> usize {
         let mut i = from;
         while i < self.s.len()
-            && !is_blank(self.s[i])
+            && self.blank_at(i) == 0
             && !is_flow_indicator(self.s[i])
             && self.s[i] != b'/'
         {
@@ -515,7 +542,9 @@ impl<'a> Lexer<'a> {
 
     fn tag(&mut self, p: usize) -> usize {
         let end = self.word_end(p);
-        let leaf = if tag_valid(&self.s[p..end]) {
+        // A tag ends at a Unicode space too, but is valid only before a space,
+        // a tab or the line's end.
+        let leaf = if tag_valid(&self.s[p..end]) && self.s.get(end).is_none_or(|&b| is_blank(b)) {
             S::TagHandle
         } else {
             S::InvalidTagHandle
@@ -550,11 +579,12 @@ impl<'a> Lexer<'a> {
         let mut end = p;
         while i < len {
             let b = self.s[i];
-            if is_blank(b) {
-                if i + 1 < len && self.s[i + 1] == b'#' {
+            let blank = self.blank_at(i);
+            if blank > 0 {
+                if i + blank < len && self.s[i + blank] == b'#' {
                     break;
                 }
-                i += 1;
+                i += blank;
                 continue;
             }
             if i > p {
@@ -563,7 +593,7 @@ impl<'a> Lexer<'a> {
                 }
                 if b == b':' {
                     let next = self.s.get(i + 1).copied();
-                    let blank = next.is_none_or(is_blank);
+                    let blank = self.blank_or_end(i + 1);
                     // A lone `-` or `:` cannot be a key: the scalar goes on.
                     let lone = end == p + 1 && matches!(self.s[p], b'-' | b':');
                     if (blank || (flow && next.is_some_and(is_flow_indicator))) && !lone {
@@ -583,12 +613,23 @@ impl<'a> Lexer<'a> {
         (end, key)
     }
 
-    /// `skip_blanks` without counting work: the scan has counted the bytes.
-    fn skip_blanks_noop(&self, mut p: usize) -> usize {
+    /// `skip_ascii_blanks` without counting work.
+    fn skip_ascii_blanks_noop(&self, mut p: usize) -> usize {
         while self.s.get(p).is_some_and(|&b| is_blank(b)) {
             p += 1;
         }
         p
+    }
+
+    /// `skip_blanks` without counting work: the scan has counted the bytes.
+    fn skip_blanks_noop(&self, mut p: usize) -> usize {
+        loop {
+            let n = self.blank_at(p);
+            if n == 0 {
+                return p;
+            }
+            p += n;
+        }
     }
 
     fn plain(&mut self, p: usize) -> usize {
@@ -620,7 +661,7 @@ impl<'a> Lexer<'a> {
 
     fn block_step(&mut self, p: usize) -> usize {
         let b = self.s[p];
-        if is_blank(b) {
+        if self.blank_at(p) > 0 {
             return self.skip_blanks(p);
         }
         if p == 0 && self.line_start && self.top() == Kind::Top {
@@ -679,7 +720,7 @@ impl<'a> Lexer<'a> {
         let word_chars = |b: u8| b.is_ascii_alphanumeric() || b == b'_' || b >= 0x80;
         let name_end = self.run_end(at, word_chars);
         let name = self.s[at..name_end].to_vec();
-        let version = self.version_len(self.skip_blanks_noop(name_end));
+        let version = self.version_len(self.skip_ascii_blanks_noop(name_end));
         let kind = match name.as_slice() {
             b"YAML" if version > 0 => Directive::Yaml,
             b"TAG" => Directive::Tag,
@@ -695,18 +736,18 @@ impl<'a> Lexer<'a> {
                 Directive::Reserved => S::DirectiveReserved,
             };
             at = self.token(at, name_end, &meta(leaf));
-            if !self.blank_or_end(at) {
+            if self.s.get(at).is_some_and(|&b| !is_blank(b)) {
                 bad = true;
             }
         }
         let mut index = 0;
         loop {
             let start = self.skip_blanks(at);
-            if start >= len || (self.s[start] == b'#' && start > at) {
+            if start >= len || (self.s[start] == b'#' && self.comment_at(start)) {
                 break;
             }
             let word = self.word_end(start);
-            self.gap(start);
+            self.token(at, start, &[S::MetaDirective]);
             let mut end = word;
             let mut leaf = S::InvalidUnrecognized;
             if !bad {
@@ -745,6 +786,7 @@ impl<'a> Lexer<'a> {
             index += 1;
         }
         let start = self.skip_blanks(at);
+        self.token(at, start, &[S::MetaDirective]);
         if start < len {
             // A `#` that is no comment is read as the start of the next node.
             return if self.comment_at(start) {
@@ -759,7 +801,7 @@ impl<'a> Lexer<'a> {
     /// The end of the run of bytes from `from` that `class` accepts.
     fn run_end(&self, from: usize, class: fn(u8) -> bool) -> usize {
         let mut i = from;
-        while i < self.s.len() && class(self.s[i]) {
+        while i < self.s.len() && class(self.s[i]) && self.blank_at(i) == 0 {
             i += 1;
         }
         self.spend(i - from);
@@ -815,7 +857,7 @@ impl<'a> Lexer<'a> {
     /// The end of the run of non-blank bytes that starts at `from`.
     fn word_end(&self, from: usize) -> usize {
         let mut i = from;
-        while i < self.s.len() && !is_blank(self.s[i]) {
+        while i < self.s.len() && self.blank_at(i) == 0 {
             i += 1;
         }
         self.spend(i - from);
@@ -852,7 +894,7 @@ impl<'a> Lexer<'a> {
 
     fn flow_step(&mut self, p: usize) -> usize {
         let b = self.s[p];
-        if is_blank(b) {
+        if self.blank_at(p) > 0 {
             return self.skip_blanks(p);
         }
         match b {
@@ -891,7 +933,7 @@ impl<'a> Lexer<'a> {
                 self.token(p, p + 1, &[leaf])
             }
             b':' if self.at(p + 1) == 0
-                || is_blank(self.at(p + 1))
+                || self.blank_at(p + 1) > 0
                 || is_flow_indicator(self.at(p + 1)) =>
             {
                 self.pair(p)

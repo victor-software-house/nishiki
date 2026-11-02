@@ -363,3 +363,35 @@ fn depth_limit_stops_nesting_flow_collections() {
     assert!(report.reached(Limit::Depth));
     assert_eq!(tokens.last().map(|t| t.end()), Some(100));
 }
+
+#[test]
+fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
+    for space in ["\u{a0}", "\u{85}", "\u{2003}", "\u{3000}"] {
+        // After the colon of a key and after a sequence dash.
+        let text = format!("a:{space}b");
+        assert_eq!(
+            scope_of(&text, "a"),
+            "string.unquoted.plain.out entity.name.tag",
+            "{space:?}"
+        );
+        assert_eq!(
+            scope_of(&format!("-{space}a"), "-"),
+            "punctuation.definition.block.sequence.item",
+            "{space:?}"
+        );
+        // Not before a `#`: only a space or a tab makes a comment.
+        let text = format!("a: b{space}# c");
+        assert!(
+            !lex(&text)[0].iter().any(|(_, scopes)| scopes
+                .iter()
+                .any(|scope| scope == "comment.line.number-sign")),
+            "{space:?}"
+        );
+        // A tag before one is not a valid tag.
+        assert_eq!(
+            scope_of(&format!("a: !!str{space}b"), "!!str"),
+            "meta.property invalid.illegal.tag-handle",
+            "{space:?}"
+        );
+    }
+}
