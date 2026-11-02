@@ -60,7 +60,20 @@ impl<G: Grammar> Default for Scratch<G> {
     }
 }
 
+/// The payload of a frame whose begin match took the line feed, so that `\G`
+/// holds at the start of the next line, as in vscode-textmate.
+const CAPTURED_EOL: u32 = 1;
+
+/// The payload of a root frame that is the start of a document: its first
+/// line is the one where `\A` matches, and the root of every state after it
+/// has no payload.
+pub(crate) const FIRST_LINE: u32 = 1;
+
 /// Lexes one line.
+#[expect(
+    clippy::struct_excessive_bools,
+    reason = "each flag is one fact the grammar's anchors ask about"
+)]
 pub(crate) struct Lexer<'a, G: Grammar> {
     pub(crate) s: &'a [u8],
     out: &'a mut Vec<Token>,
@@ -78,6 +91,8 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     anchor: Option<usize>,
     /// Whether `\G` matches at `pos`.
     pub(crate) g: bool,
+    /// Whether this is the first line of the document, where `\A` matches.
+    pub(crate) first_line: bool,
     /// The open rules, the root first.
     frames: Vec<Frame<G>>,
     /// The capture groups of the last match, by group number.
@@ -112,8 +127,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             budget,
             last: start,
             pos: start,
-            anchor: None,
+            anchor: text.anchored.then_some(start),
             g: false,
+            first_line: false,
             frames: std::mem::take(&mut scratch.frames),
             caps: [None; MAX_GROUPS],
             caps_dirty: false,
@@ -135,13 +151,23 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         for (index, &(id, frame)) in chain.iter().rev().enumerate() {
             if index == 0 {
+                // After the first line the root is another state, without
+                // the payload, so `\A` matches on one line only.
+                let mut state = id;
+                if frame.payload == FIRST_LINE {
+                    lexer.first_line = true;
+                    state = lexer
+                        .arena
+                        .push(frame.parent, frame.kind, 0, frame.stack)
+                        .unwrap_or(id);
+                }
                 lexer.frames.push(Frame {
                     rule: G::ROOT,
                     enter: None,
                     anchor: None,
                     name: frame.stack,
                     content: frame.stack,
-                    state: id,
+                    state,
                     payload: 0,
                 });
                 continue;
@@ -160,6 +186,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             });
         }
         scratch.chain = chain;
+        if lexer.frames.len() > 1
+            && G::rule_data(lexer.top().rule).backref.is_none()
+            && lexer.top().payload == CAPTURED_EOL
+        {
+            lexer.anchor = Some(start);
+        }
         lexer
     }
 
@@ -593,6 +625,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     0
                 })
             }
+            // A begin that took the line feed leaves `\G` at the start of the
+            // next line, which the payload of the saved frame remembers.
+            None if end > self.s.len() => CAPTURED_EOL,
             None => 0,
         };
         // The content scopes come after the begin tokens.

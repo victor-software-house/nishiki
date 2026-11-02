@@ -132,6 +132,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/pgvector-readme` | [`README.md`][pgvector-readme] in pgvector/pgvector | [PostgreSQL][pgvector-licence] |
 | `markdown/typeorm-indexes` | [`docs/docs/indexes.md`][typeorm-indexes] in typeorm/typeorm | [MIT][typeorm-licence] |
 | `markdown/knex-schema-builder` | [`docs/src/guide/schema-builder.md`][knex-schema] in knex/knex | [MIT][knex-licence] |
+| `css/sample` | [`samples/css.sample`][css-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `css/normalize` | [`normalize.css`][normalize-css] in necolas/normalize.css | [MIT][normalize-licence] |
+| `css/tailwind-preflight` | [`packages/tailwindcss/preflight.css`][tailwind-preflight] in tailwindlabs/tailwindcss | [MIT][tailwind-licence] |
+| `css/highlightjs-github` | [`src/styles/github.css`][highlightjs-github] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
+| `css/github-markdown` | [`github-markdown.css`][github-markdown-css] in sindresorhus/github-markdown-css | [MIT][github-markdown-css-licence] |
+| `css/milligram` | [`dist/milligram.css`][milligram-css] in milligram/milligram | [MIT][milligram-licence] |
+| `css/highlightjs-atom-one-dark` | [`src/styles/atom-one-dark.css`][highlightjs-atom-one-dark] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
+| `markdown/highlightjs-readme` | [`README.md`][highlightjs-readme] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -446,3 +454,16 @@ The lexer matched every input on its first run, held-out ones included.
 [graphiql-licence]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/LICENSE
 [codegen-apollo]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/dev-test/apollo-tooling/schema.graphql
 [codegen-licence]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/LICENSE
+[css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
+[normalize-css]: https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/normalize.css
+[normalize-licence]: https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md
+[tailwind-preflight]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/packages/tailwindcss/preflight.css
+[tailwind-licence]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/LICENSE
+[highlightjs-github]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/github.css
+[highlightjs-atom-one-dark]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/atom-one-dark.css
+[highlightjs-readme]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/README.md
+[highlightjs-licence]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/LICENSE
+[github-markdown-css]: https://github.com/sindresorhus/github-markdown-css/blob/7f38dcb9054bc5d860fac65291f5c98fef47932c/github-markdown.css
+[github-markdown-css-licence]: https://github.com/sindresorhus/github-markdown-css/blob/7f38dcb9054bc5d860fac65291f5c98fef47932c/license
+[milligram-css]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/dist/milligram.css
+[milligram-licence]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/license

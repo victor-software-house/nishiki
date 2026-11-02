@@ -1,0 +1,531 @@
+L /*!
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+T 3 source.css comment.block.css
+L   Theme: GitHub
+T 15 source.css comment.block.css
+L   Description: Light theme as seen on github.com
+T 48 source.css comment.block.css
+L   Author: github.com
+T 20 source.css comment.block.css
+L   Maintainer: @Hirse
+T 20 source.css comment.block.css
+L   Updated: 2021-05-15
+T 21 source.css comment.block.css
+L 
+L   Outdated base version: https://github.com/primer/github-syntax-light
+T 70 source.css comment.block.css
+L   Current colors taken from GitHub's CSS
+T 40 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L .hljs {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: #24292e;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   background: #ffffff;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 21 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 22 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-doctag,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-keyword,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-meta .hljs-keyword,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 source.css meta.selector.css entity.other.attribute-name.class.css
+T 25 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-template-tag,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-template-variable,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 23 source.css meta.selector.css entity.other.attribute-name.class.css
+T 24 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-type,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-variable.language_ {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 24 source.css meta.selector.css entity.other.attribute-name.class.css
+T 25 source.css
+T 26 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-keyword */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 33 source.css meta.property-list.css comment.block.css
+T 35 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #d73a49;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-title,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-title.class_,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-title.class_.inherited__,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 30 source.css meta.selector.css entity.other.attribute-name.class.css
+T 31 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-title.function_ {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css
+T 22 source.css
+T 23 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-entity */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 32 source.css meta.property-list.css comment.block.css
+T 34 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #6f42c1;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-attr,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-attribute,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-literal,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-meta,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-number,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-operator,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-variable,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-selector-attr,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-selector-class,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 20 source.css meta.selector.css entity.other.attribute-name.class.css
+T 21 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-selector-id {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 source.css
+T 19 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-constant */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 34 source.css meta.property-list.css comment.block.css
+T 36 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #005cc5;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-regexp,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-string,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-meta .hljs-string {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 23 source.css meta.selector.css entity.other.attribute-name.class.css
+T 24 source.css
+T 25 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-string */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 32 source.css meta.property-list.css comment.block.css
+T 34 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #032f62;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-built_in,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-symbol {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css
+T 14 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-variable */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 34 source.css meta.property-list.css comment.block.css
+T 36 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #e36209;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-comment,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-code,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-formula {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-comment */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 33 source.css meta.property-list.css comment.block.css
+T 35 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #6a737d;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-name,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-quote,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-selector-tag,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-selector-pseudo {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 21 source.css meta.selector.css entity.other.attribute-name.class.css
+T 22 source.css
+T 23 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-entity-tag */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 36 source.css meta.property-list.css comment.block.css
+T 38 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #22863a;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-subst {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css
+T 12 source.css
+T 13 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-storage-modifier-import */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 49 source.css meta.property-list.css comment.block.css
+T 51 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #24292e;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-section {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.class.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-heading */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 40 source.css meta.property-list.css comment.block.css
+T 42 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #005cc5;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   font-weight: bold;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-bullet {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css
+T 14 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-list */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 37 source.css meta.property-list.css comment.block.css
+T 39 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #735c0f;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-emphasis {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-italic */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 39 source.css meta.property-list.css comment.block.css
+T 41 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #24292e;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   font-style: italic;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-strong {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css
+T 14 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-bold */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 37 source.css meta.property-list.css comment.block.css
+T 39 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #24292e;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   font-weight: bold;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-addition {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-inserted */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 41 source.css meta.property-list.css comment.block.css
+T 43 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #22863a;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   background-color: #f0fff4;
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 27 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 28 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-deletion {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css
+T 16 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* prettylights-syntax-markup-deleted */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 40 source.css meta.property-list.css comment.block.css
+T 42 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: #b31d28;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   background-color: #ffeef0;
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 27 source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 28 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .hljs-char.escape_,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 18 source.css meta.selector.css entity.other.attribute-name.class.css
+T 19 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-link,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.class.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-params,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 12 source.css meta.selector.css entity.other.attribute-name.class.css
+T 13 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-property,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.class.css
+T 15 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-punctuation,
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 source.css meta.selector.css punctuation.separator.list.comma.css
+L .hljs-tag {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 9 source.css meta.selector.css entity.other.attribute-name.class.css
+T 10 source.css
+T 11 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   /* purposely ignored */
+T 2 source.css meta.property-list.css
+T 4 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 

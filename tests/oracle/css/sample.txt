@@ -1,0 +1,228 @@
+L html {
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css
+T 6 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 	margin: 0;
+T 1 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 11 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	background: black;
+T 1 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	height: 100%;
+T 1 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L body {
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css
+T 6 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 	margin: 0;
+T 1 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 11 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	width: 100%;
+T 1 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	height: inherit;
+T 1 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /* the three main rows going down the page */
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+T 43 source.css comment.block.css
+T 45 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L body > div {
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css
+T 6 source.css meta.selector.css keyword.operator.combinator.css
+T 7 source.css meta.selector.css
+T 10 source.css meta.selector.css entity.name.tag.css
+T 11 source.css
+T 12 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   height: 25%;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .thumb {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.class.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 	float: left;
+T 1 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	width: 25%;
+T 1 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 12 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	height: 100%;
+T 1 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L 	object-fit: cover;
+T 1 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .main {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: none;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .blowup {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css
+T 9 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: block;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   position: absolute;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L   object-fit: contain;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 source.css meta.property-list.css punctuation.terminator.rule.css
+L   object-position: center;
+T 2 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 26 source.css meta.property-list.css punctuation.terminator.rule.css
+L   top: 0;
+T 2 source.css meta.property-list.css
+T 5 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 6 source.css meta.property-list.css punctuation.separator.key-value.css
+T 7 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 9 source.css meta.property-list.css punctuation.terminator.rule.css
+L   left: 0;
+T 2 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 10 source.css meta.property-list.css punctuation.terminator.rule.css
+L   width: 100%;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: 100%;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L   z-index: 2000;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L .darken {
+T 1 source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 source.css
+T 9 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   opacity: 0.4;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /* From https://github.com/mdn/css-examples/blob/main/object-fit-gallery/style.css */
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+T 83 source.css comment.block.css
+T 85 source.css comment.block.css punctuation.definition.comment.end.css
+L 

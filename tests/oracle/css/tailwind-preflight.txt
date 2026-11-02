@@ -1,0 +1,1593 @@
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+T 109 source.css comment.block.css
+L   2. Remove default margins and padding
+T 39 source.css comment.block.css
+L   3. Reset all borders.
+T 23 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L *,
+T 1 source.css meta.selector.css entity.name.tag.wildcard.css
+T 2 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::after,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 7 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 8 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::before,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 8 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 9 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::backdrop,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 11 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::file-selector-button {
+T 2 source.css meta.selector.css
+T 22 source.css meta.selector.css entity.name.tag.custom.css
+T 23 source.css
+T 24 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   box-sizing: border-box; /* 1 */
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 24 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 source.css meta.property-list.css punctuation.terminator.rule.css
+T 26 source.css meta.property-list.css
+T 28 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 31 source.css meta.property-list.css comment.block.css
+T 33 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   margin: 0; /* 2 */
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css punctuation.terminator.rule.css
+T 13 source.css meta.property-list.css
+T 15 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 18 source.css meta.property-list.css comment.block.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   padding: 0; /* 2 */
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+T 14 source.css meta.property-list.css
+T 16 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 19 source.css meta.property-list.css comment.block.css
+T 21 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   border: 0 solid; /* 3 */
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css meta.property-value.css
+T 17 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+T 19 source.css meta.property-list.css
+T 21 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 24 source.css meta.property-list.css comment.block.css
+T 26 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Use a consistent sensible line-height in all browsers.
+T 59 source.css comment.block.css
+L   2. Prevent adjustments of font size after orientation changes in iOS.
+T 71 source.css comment.block.css
+L   3. Use a more readable tab size.
+T 34 source.css comment.block.css
+L   4. Use the user's configured `sans` font-family by default.
+T 61 source.css comment.block.css
+L   5. Use the user's configured `sans` font-feature-settings by default.
+T 71 source.css comment.block.css
+L   6. Use the user's configured `sans` font-variation-settings by default.
+T 73 source.css comment.block.css
+L   7. Disable tap highlights on iOS.
+T 35 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L html,
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css punctuation.separator.list.comma.css
+L :host {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   line-height: 1.5; /* 1 */
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+T 20 source.css meta.property-list.css
+T 22 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 25 source.css meta.property-list.css comment.block.css
+T 27 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   -webkit-text-size-adjust: 100%; /* 2 */
+T 2 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 27 source.css meta.property-list.css punctuation.separator.key-value.css
+T 28 source.css meta.property-list.css
+T 31 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 32 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 33 source.css meta.property-list.css punctuation.terminator.rule.css
+T 34 source.css meta.property-list.css
+T 36 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 39 source.css meta.property-list.css comment.block.css
+T 41 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   tab-size: 4; /* 3 */
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+T 15 source.css meta.property-list.css
+T 17 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 20 source.css meta.property-list.css comment.block.css
+T 22 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-family: --theme(
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 23 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+L     --default-font-family,
+T 25 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 26 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     -apple-system,
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 17 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.vendored.property-value.css
+T 18 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     BlinkMacSystemFont,
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 23 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Segoe UI',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 13 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 14 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 15 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     Roboto,
+T 10 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 11 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Helvetica Neue',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 19 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 20 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 21 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Noto Sans',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 14 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 15 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 16 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     Arial,
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 9 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.font-name.css
+T 10 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     sans-serif,
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 14 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.font-name.css
+T 15 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Apple Color Emoji',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 23 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 24 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Segoe UI Emoji',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 19 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 20 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 21 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Segoe UI Symbol',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 20 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 21 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Noto Color Emoji'
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 21 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+L   ); /* 4 */
+T 2 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 3 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 4 source.css meta.property-list.css punctuation.terminator.rule.css
+T 5 source.css meta.property-list.css
+T 7 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 10 source.css meta.property-list.css comment.block.css
+T 12 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-feature-settings: --theme(--default-font-feature-settings, normal); /* 5 */
+T 2 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 24 source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.css meta.property-list.css
+T 32 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 33 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+T 64 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 65 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+T 66 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 72 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.property-value.css
+T 73 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 74 source.css meta.property-list.css punctuation.terminator.rule.css
+T 75 source.css meta.property-list.css
+T 77 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 80 source.css meta.property-list.css comment.block.css
+T 82 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-variation-settings: --theme(--default-font-variation-settings, normal); /* 6 */
+T 2 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.css meta.property-list.css
+T 34 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 35 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+T 68 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 69 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+T 70 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 76 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.property-value.css
+T 77 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 78 source.css meta.property-list.css punctuation.terminator.rule.css
+T 79 source.css meta.property-list.css
+T 81 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 84 source.css meta.property-list.css comment.block.css
+T 86 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   -webkit-tap-highlight-color: transparent; /* 7 */
+T 2 source.css meta.property-list.css
+T 29 source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 30 source.css meta.property-list.css punctuation.separator.key-value.css
+T 31 source.css meta.property-list.css
+T 42 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 43 source.css meta.property-list.css punctuation.terminator.rule.css
+T 44 source.css meta.property-list.css
+T 46 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 49 source.css meta.property-list.css comment.block.css
+T 51 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Add the correct height in Firefox.
+T 39 source.css comment.block.css
+L   2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+T 110 source.css comment.block.css
+L   3. Reset the default border style to a 1px solid border.
+T 58 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L hr {
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css
+T 4 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   height: 0; /* 1 */
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.css meta.property-list.css punctuation.terminator.rule.css
+T 13 source.css meta.property-list.css
+T 15 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 18 source.css meta.property-list.css comment.block.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: inherit; /* 2 */
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.css meta.property-list.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   border-top-width: 1px; /* 3 */
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 23 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 24 source.css meta.property-list.css punctuation.terminator.rule.css
+T 25 source.css meta.property-list.css
+T 27 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 30 source.css meta.property-list.css comment.block.css
+T 32 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Add the correct text decoration in Chrome, Edge, and Safari.
+T 62 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L abbr:where([title]) {
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 10 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 11 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 12 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 17 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 18 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 19 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 20 source.css
+T 21 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   -webkit-text-decoration: underline dotted;
+T 2 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 26 source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.css meta.property-list.css
+T 36 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 37 source.css meta.property-list.css meta.property-value.css
+T 43 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 44 source.css meta.property-list.css punctuation.terminator.rule.css
+L   text-decoration: underline dotted;
+T 2 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 source.css meta.property-list.css
+T 28 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 29 source.css meta.property-list.css meta.property-value.css
+T 35 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 36 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Remove the default font size and weight for headings.
+T 55 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L h1,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L h2,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L h3,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L h4,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L h5,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L h6 {
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css
+T 4 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-size: inherit;
+T 2 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L   font-weight: inherit;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 23 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Reset links to optimize for opt-in styling instead of opt-out.
+T 64 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L a {
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css
+T 3 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   color: inherit;
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   -webkit-text-decoration: inherit;
+T 2 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 26 source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.css meta.property-list.css
+T 34 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 35 source.css meta.property-list.css punctuation.terminator.rule.css
+L   text-decoration: inherit;
+T 2 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Add the correct font weight in Edge and Safari.
+T 49 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L b,
+T 1 source.css meta.selector.css entity.name.tag.css
+T 2 source.css meta.selector.css punctuation.separator.list.comma.css
+L strong {
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-weight: bolder;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Use the user's configured `mono` font-family by default.
+T 61 source.css comment.block.css
+L   2. Use the user's configured `mono` font-feature-settings by default.
+T 71 source.css comment.block.css
+L   3. Use the user's configured `mono` font-variation-settings by default.
+T 73 source.css comment.block.css
+L   4. Correct the odd `em` font sizing in all browsers.
+T 54 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L code,
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css punctuation.separator.list.comma.css
+L kbd,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L samp,
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css meta.selector.css punctuation.separator.list.comma.css
+L pre {
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css
+T 5 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-family: --theme(
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 23 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+L     --default-mono-font-family,
+T 30 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 31 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     ui-monospace,
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 16 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.font-name.css
+T 17 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     SFMono-Regular,
+T 18 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 19 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     Menlo,
+T 9 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 10 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     Monaco,
+T 10 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 11 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     Consolas,
+T 12 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 13 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Liberation Mono',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 20 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 21 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 22 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     'Courier New',
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 5 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.begin.css
+T 16 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css
+T 17 source.css meta.property-list.css meta.property-value.css meta.function.custom.css string.quoted.single.css punctuation.definition.string.end.css
+T 18 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+L     monospace
+T 4 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 13 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.font-name.css
+L   ); /* 1 */
+T 2 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 3 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 4 source.css meta.property-list.css punctuation.terminator.rule.css
+T 5 source.css meta.property-list.css
+T 7 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 10 source.css meta.property-list.css comment.block.css
+T 12 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-feature-settings: --theme(--default-mono-font-feature-settings, normal); /* 2 */
+T 2 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 24 source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.css meta.property-list.css
+T 32 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 33 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+T 69 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 70 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+T 71 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 77 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.property-value.css
+T 78 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 79 source.css meta.property-list.css punctuation.terminator.rule.css
+T 80 source.css meta.property-list.css
+T 82 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 85 source.css meta.property-list.css comment.block.css
+T 87 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-variation-settings: --theme(--default-mono-font-variation-settings, normal); /* 3 */
+T 2 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.css meta.property-list.css
+T 34 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.function.custom.css
+T 35 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.begin.bracket.round.css
+T 73 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 74 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.separator.list.comma.css
+T 75 source.css meta.property-list.css meta.property-value.css meta.function.custom.css
+T 81 source.css meta.property-list.css meta.property-value.css meta.function.custom.css support.constant.property-value.css
+T 82 source.css meta.property-list.css meta.property-value.css meta.function.custom.css punctuation.section.function.end.bracket.round.css
+T 83 source.css meta.property-list.css punctuation.terminator.rule.css
+T 84 source.css meta.property-list.css
+T 86 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 89 source.css meta.property-list.css comment.block.css
+T 91 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-size: 1em; /* 4 */
+T 2 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.css meta.property-list.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Add the correct font size in all browsers.
+T 44 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L small {
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-size: 80%;
+T 2 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+T 82 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L sub,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L sup {
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css
+T 5 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-size: 75%;
+T 2 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   line-height: 0;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L   position: relative;
+T 2 source.css meta.property-list.css
+T 10 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L   vertical-align: baseline;
+T 2 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L sub {
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css
+T 5 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   bottom: -0.25em;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L sup {
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css
+T 5 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   top: -0.5em;
+T 2 source.css meta.property-list.css
+T 5 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 6 source.css meta.property-list.css punctuation.separator.key-value.css
+T 7 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 14 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+T 181 source.css comment.block.css
+L   2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+T 180 source.css comment.block.css
+L   3. Remove gaps between table borders by default.
+T 50 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L table {
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   text-indent: 0; /* 1 */
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.css meta.property-list.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   border-color: inherit; /* 2 */
+T 2 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 24 source.css meta.property-list.css punctuation.terminator.rule.css
+T 25 source.css meta.property-list.css
+T 27 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 30 source.css meta.property-list.css comment.block.css
+T 32 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   border-collapse: collapse; /* 3 */
+T 2 source.css meta.property-list.css
+T 17 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 18 source.css meta.property-list.css punctuation.separator.key-value.css
+T 19 source.css meta.property-list.css
+T 27 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 28 source.css meta.property-list.css punctuation.terminator.rule.css
+T 29 source.css meta.property-list.css
+T 31 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 34 source.css meta.property-list.css comment.block.css
+T 36 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Use the modern Firefox focus style for all focusable elements.
+T 64 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L :-moz-focusring:where(:not(iframe)) {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 15 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 21 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 22 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 23 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 26 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 27 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 33 source.css meta.selector.css entity.name.tag.css
+T 34 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 35 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 36 source.css
+T 37 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   outline: auto;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Add the correct vertical alignment in Chrome and Firefox.
+T 59 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L progress {
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css
+T 10 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   vertical-align: baseline;
+T 2 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Add the correct display in Chrome and Safari.
+T 47 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L summary {
+T 7 source.css meta.selector.css entity.name.tag.css
+T 8 source.css
+T 9 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: list-item;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Make lists unstyled by default.
+T 33 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ol,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L ul,
+T 2 source.css meta.selector.css entity.name.tag.css
+T 3 source.css meta.selector.css punctuation.separator.list.comma.css
+L menu {
+T 4 source.css meta.selector.css entity.name.tag.css
+T 5 source.css
+T 6 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   list-style: none;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+T 105 source.css comment.block.css
+L   2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+T 161 source.css comment.block.css
+L       This can trigger a poorly considered lint error in some tools but is included by design.
+T 94 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L img,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L svg,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L video,
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.selector.css punctuation.separator.list.comma.css
+L canvas,
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L audio,
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.selector.css punctuation.separator.list.comma.css
+L iframe,
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L embed,
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.selector.css punctuation.separator.list.comma.css
+L object {
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css
+T 8 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: block; /* 1 */
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.css meta.property-list.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   vertical-align: middle; /* 2 */
+T 2 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 source.css meta.property-list.css
+T 24 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 source.css meta.property-list.css punctuation.terminator.rule.css
+T 26 source.css meta.property-list.css
+T 28 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 31 source.css meta.property-list.css comment.block.css
+T 33 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+T 141 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L img,
+T 3 source.css meta.selector.css entity.name.tag.css
+T 4 source.css meta.selector.css punctuation.separator.list.comma.css
+L video {
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css
+T 7 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   max-width: 100%;
+T 2 source.css meta.property-list.css
+T 11 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+L   height: auto;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Inherit font styles in all browsers.
+T 41 source.css comment.block.css
+L   2. Remove border radius in all browsers.
+T 42 source.css comment.block.css
+L   3. Remove background color in all browsers.
+T 45 source.css comment.block.css
+L   4. Ensure consistent opacity for disabled states in all browsers.
+T 67 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L button,
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L input,
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.selector.css punctuation.separator.list.comma.css
+L select,
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L optgroup,
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css meta.selector.css punctuation.separator.list.comma.css
+L textarea,
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::file-selector-button {
+T 2 source.css meta.selector.css
+T 22 source.css meta.selector.css entity.name.tag.custom.css
+T 23 source.css
+T 24 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font: inherit; /* 1 */
+T 2 source.css meta.property-list.css
+T 6 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 7 source.css meta.property-list.css punctuation.separator.key-value.css
+T 8 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.property-list.css punctuation.terminator.rule.css
+T 17 source.css meta.property-list.css
+T 19 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 22 source.css meta.property-list.css comment.block.css
+T 24 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-feature-settings: inherit; /* 1 */
+T 2 source.css meta.property-list.css
+T 23 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 24 source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.css meta.property-list.css
+T 32 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 33 source.css meta.property-list.css punctuation.terminator.rule.css
+T 34 source.css meta.property-list.css
+T 36 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 39 source.css meta.property-list.css comment.block.css
+T 41 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   font-variation-settings: inherit; /* 1 */
+T 2 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.css meta.property-list.css
+T 34 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 35 source.css meta.property-list.css punctuation.terminator.rule.css
+T 36 source.css meta.property-list.css
+T 38 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 41 source.css meta.property-list.css comment.block.css
+T 43 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   letter-spacing: inherit; /* 1 */
+T 2 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 source.css meta.property-list.css
+T 25 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 26 source.css meta.property-list.css punctuation.terminator.rule.css
+T 27 source.css meta.property-list.css
+T 29 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 32 source.css meta.property-list.css comment.block.css
+T 34 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   color: inherit; /* 1 */
+T 2 source.css meta.property-list.css
+T 7 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.css meta.property-list.css
+T 20 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 23 source.css meta.property-list.css comment.block.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   border-radius: 0; /* 2 */
+T 2 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+T 20 source.css meta.property-list.css
+T 22 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 25 source.css meta.property-list.css comment.block.css
+T 27 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   background-color: transparent; /* 3 */
+T 2 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.css meta.property-list.css
+T 31 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 32 source.css meta.property-list.css punctuation.terminator.rule.css
+T 33 source.css meta.property-list.css
+T 35 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 38 source.css meta.property-list.css comment.block.css
+T 40 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   opacity: 1; /* 4 */
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+T 14 source.css meta.property-list.css
+T 16 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 19 source.css meta.property-list.css comment.block.css
+T 21 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Restore default font weight.
+T 30 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L :where(select:is([multiple], [size])) optgroup {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 13 source.css meta.selector.css entity.name.tag.css
+T 14 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 17 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 18 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 26 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 27 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 28 source.css meta.selector.css punctuation.separator.list.comma.css
+T 29 source.css meta.selector.css
+T 30 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 34 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 35 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 36 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 37 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 38 source.css meta.selector.css
+T 46 source.css meta.selector.css entity.name.tag.css
+T 47 source.css
+T 48 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   font-weight: bolder;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Restore indentation.
+T 22 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L :where(select:is([multiple], [size])) optgroup option {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 7 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 13 source.css meta.selector.css entity.name.tag.css
+T 14 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 17 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 18 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 26 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 27 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 28 source.css meta.selector.css punctuation.separator.list.comma.css
+T 29 source.css meta.selector.css
+T 30 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 34 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 35 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 36 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 37 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 38 source.css meta.selector.css
+T 46 source.css meta.selector.css entity.name.tag.css
+T 47 source.css meta.selector.css
+T 53 source.css meta.selector.css entity.name.tag.css
+T 54 source.css
+T 55 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   padding-inline-start: 20px;
+T 2 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 28 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 29 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Restore space after button.
+T 29 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::file-selector-button {
+T 2 source.css meta.selector.css
+T 22 source.css meta.selector.css entity.name.tag.custom.css
+T 23 source.css
+T 24 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   margin-inline-end: 4px;
+T 2 source.css meta.property-list.css
+T 19 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 20 source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 24 source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 25 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+T 109 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::placeholder {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 13 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 14 source.css
+T 15 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   opacity: 1;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Set the default placeholder color to a semi-transparent version of the current text color in browsers that do not
+T 115 source.css comment.block.css
+L   crash when using `color-mix(…)` with `currentcolor`. (https://github.com/tailwindlabs/tailwindcss/issues/17194)
+T 115 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L @supports (not (-webkit-appearance: -apple-pay-button)) /* Not Safari */ or
+T 1 source.css meta.at-rule.supports.header.css keyword.control.at-rule.supports.css punctuation.definition.keyword.css
+T 9 source.css meta.at-rule.supports.header.css keyword.control.at-rule.supports.css
+T 10 source.css meta.at-rule.supports.header.css
+T 11 source.css meta.at-rule.supports.header.css meta.feature-query.css punctuation.definition.condition.begin.bracket.round.css
+T 14 source.css meta.at-rule.supports.header.css meta.feature-query.css keyword.operator.logical.feature.not.css
+T 15 source.css meta.at-rule.supports.header.css meta.feature-query.css
+T 16 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css punctuation.definition.condition.begin.bracket.round.css
+T 34 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css meta.property-name.css support.type.vendored.property-name.css
+T 35 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css punctuation.separator.key-value.css
+T 36 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css
+T 53 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css meta.property-value.css support.constant.vendored.property-value.css
+T 54 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.feature-query.css punctuation.definition.condition.end.bracket.round.css
+T 55 source.css meta.at-rule.supports.header.css meta.feature-query.css punctuation.definition.condition.end.bracket.round.css
+T 56 source.css meta.at-rule.supports.header.css
+T 58 source.css meta.at-rule.supports.header.css comment.block.css punctuation.definition.comment.begin.css
+T 70 source.css meta.at-rule.supports.header.css comment.block.css
+T 72 source.css meta.at-rule.supports.header.css comment.block.css punctuation.definition.comment.end.css
+T 73 source.css meta.at-rule.supports.header.css
+T 75 source.css meta.at-rule.supports.header.css keyword.operator.logical.feature.or.css
+L   (contain-intrinsic-size: 1px) /* Safari 17+ */ {
+T 2 source.css meta.at-rule.supports.header.css
+T 3 source.css meta.at-rule.supports.header.css meta.feature-query.css punctuation.definition.condition.begin.bracket.round.css
+T 25 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.property-name.css
+T 26 source.css meta.at-rule.supports.header.css meta.feature-query.css punctuation.separator.key-value.css
+T 27 source.css meta.at-rule.supports.header.css meta.feature-query.css
+T 28 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.property-value.css constant.numeric.css
+T 30 source.css meta.at-rule.supports.header.css meta.feature-query.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 31 source.css meta.at-rule.supports.header.css meta.feature-query.css punctuation.definition.condition.end.bracket.round.css
+T 32 source.css meta.at-rule.supports.header.css
+T 34 source.css meta.at-rule.supports.header.css comment.block.css punctuation.definition.comment.begin.css
+T 46 source.css meta.at-rule.supports.header.css comment.block.css
+T 48 source.css meta.at-rule.supports.header.css comment.block.css punctuation.definition.comment.end.css
+T 49 source.css
+T 50 source.css meta.at-rule.supports.body.css punctuation.section.supports.begin.bracket.curly.css
+L   ::placeholder {
+T 2 source.css meta.at-rule.supports.body.css
+T 4 source.css meta.at-rule.supports.body.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 15 source.css meta.at-rule.supports.body.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 16 source.css meta.at-rule.supports.body.css
+T 17 source.css meta.at-rule.supports.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: color-mix(in oklab, currentcolor 50%, transparent);
+T 4 source.css meta.at-rule.supports.body.css meta.property-list.css
+T 9 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.at-rule.supports.body.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.at-rule.supports.body.css meta.property-list.css
+T 20 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css support.function.misc.css
+T 21 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.begin.bracket.round.css
+T 23 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css variable.parameter.misc.css
+T 24 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 29 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css variable.parameter.misc.css
+T 30 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.separator.list.comma.css
+T 31 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 43 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css support.constant.color.current.css
+T 44 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 46 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css
+T 47 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css constant.numeric.css keyword.other.unit.percentage.css
+T 48 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.separator.list.comma.css
+T 49 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css
+T 60 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css support.constant.property-value.css
+T 61 source.css meta.at-rule.supports.body.css meta.property-list.css meta.property-value.css meta.function.misc.css punctuation.section.function.end.bracket.round.css
+T 62 source.css meta.at-rule.supports.body.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 source.css meta.at-rule.supports.body.css meta.property-list.css
+T 3 source.css meta.at-rule.supports.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L }
+T 1 source.css meta.at-rule.supports.body.css punctuation.section.supports.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Prevent resizing textareas horizontally by default.
+T 53 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L textarea {
+T 8 source.css meta.selector.css entity.name.tag.css
+T 9 source.css
+T 10 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   resize: vertical;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Remove the inner padding in Chrome and Safari on macOS.
+T 57 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-search-decoration {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 27 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 28 source.css
+T 29 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   -webkit-appearance: none;
+T 2 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 21 source.css meta.property-list.css punctuation.separator.key-value.css
+T 22 source.css meta.property-list.css
+T 26 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   1. Ensure date/time inputs have the same height when empty in iOS Safari.
+T 75 source.css comment.block.css
+L   2. Ensure text alignment can be changed on date/time inputs in iOS Safari.
+T 76 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-date-and-time-value {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 29 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 30 source.css
+T 31 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   min-height: 1lh; /* 1 */
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css meta.property-value.css
+T 18 source.css meta.property-list.css punctuation.terminator.rule.css
+T 19 source.css meta.property-list.css
+T 21 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 24 source.css meta.property-list.css comment.block.css
+T 26 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L   text-align: inherit; /* 2 */
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 21 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 source.css meta.property-list.css punctuation.terminator.rule.css
+T 23 source.css meta.property-list.css
+T 25 source.css meta.property-list.css comment.block.css punctuation.definition.comment.begin.css
+T 28 source.css meta.property-list.css comment.block.css
+T 30 source.css meta.property-list.css comment.block.css punctuation.definition.comment.end.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Prevent height from changing on date/time inputs in macOS Safari when the input is set to `display: block`.
+T 109 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-datetime-edit {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 23 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 24 source.css
+T 25 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: inline-flex;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 22 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 23 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Remove excess padding from pseudo-elements in date/time inputs to ensure consistent height across browsers.
+T 109 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-datetime-edit-fields-wrapper {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 38 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 39 source.css
+T 40 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   padding: 0;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L ::-webkit-datetime-edit,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 23 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 24 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-year-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 34 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 35 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-month-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 35 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 36 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-day-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 33 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 34 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-hour-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 34 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 35 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-minute-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 36 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 37 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-second-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 36 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 37 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-millisecond-field,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 41 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 42 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-datetime-edit-meridiem-field {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 38 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 39 source.css
+T 40 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   padding-block: 0;
+T 2 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Center dropdown marker shown on inputs with paired `<datalist>`s in Chrome. (https://github.com/tailwindlabs/tailwindcss/issues/18499)
+T 136 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-calendar-picker-indicator {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 35 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 36 source.css
+T 37 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   line-height: 1;
+T 2 source.css meta.property-list.css
+T 13 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.css meta.property-list.css
+T 16 source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 17 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+T 175 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L :-moz-ui-invalid {
+T 1 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 17 source.css
+T 18 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   box-shadow: none;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 18 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Correct the inability to style the border radius in iOS Safari.
+T 65 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L button,
+T 6 source.css meta.selector.css entity.name.tag.css
+T 7 source.css meta.selector.css punctuation.separator.list.comma.css
+L input:where([type='button'], [type='reset'], [type='submit']),
+T 5 source.css meta.selector.css entity.name.tag.css
+T 6 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 11 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 12 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 13 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 17 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 18 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 19 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 25 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 26 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 27 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 28 source.css meta.selector.css punctuation.separator.list.comma.css
+T 29 source.css meta.selector.css
+T 30 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 34 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 35 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 36 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 41 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 42 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 43 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 44 source.css meta.selector.css punctuation.separator.list.comma.css
+T 45 source.css meta.selector.css
+T 46 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 50 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 51 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 52 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 58 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 59 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 60 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 61 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 62 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::file-selector-button {
+T 2 source.css meta.selector.css
+T 22 source.css meta.selector.css entity.name.tag.custom.css
+T 23 source.css
+T 24 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   appearance: button;
+T 2 source.css meta.property-list.css
+T 12 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.css meta.property-list.css
+T 20 source.css meta.property-list.css meta.property-value.css
+T 21 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Correct the cursor style of increment and decrement buttons in Safari.
+T 72 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L ::-webkit-inner-spin-button,
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 27 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 28 source.css meta.selector.css punctuation.separator.list.comma.css
+L ::-webkit-outer-spin-button {
+T 2 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css
+T 27 source.css meta.selector.css entity.other.attribute-name.pseudo-element.css
+T 28 source.css
+T 29 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   height: auto;
+T 2 source.css meta.property-list.css
+T 8 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.css meta.property-list.css
+T 14 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 15 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L /*
+T 2 source.css comment.block.css punctuation.definition.comment.begin.css
+L   Make elements with the HTML hidden attribute stay hidden by default.
+T 70 source.css comment.block.css
+L */
+T 2 source.css comment.block.css punctuation.definition.comment.end.css
+L 
+L [hidden]:where(:not([hidden='until-found'])) {
+T 1 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 7 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 8 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 9 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 14 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 15 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 16 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 19 source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 20 source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 21 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 27 source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 28 source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 29 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.begin.css
+T 40 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css
+T 41 source.css meta.selector.css meta.attribute-selector.css string.quoted.single.css punctuation.definition.string.end.css
+T 42 source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 43 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 44 source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 45 source.css
+T 46 source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L   display: none !important;
+T 2 source.css meta.property-list.css
+T 9 source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.css meta.property-list.css
+T 15 source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.css meta.property-list.css meta.property-value.css
+T 26 source.css meta.property-list.css meta.property-value.css keyword.other.important.css
+T 27 source.css meta.property-list.css punctuation.terminator.rule.css
+L }
+T 1 source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 

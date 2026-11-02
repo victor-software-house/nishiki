@@ -13,7 +13,7 @@ mod tables;
 
 use std::fmt::Debug;
 
-pub(crate) use lexer::{Lexer, Scratch};
+pub(crate) use lexer::{FIRST_LINE, Lexer, Scratch};
 pub(crate) use tables::{Place, Tables};
 
 use crate::scope::Scope;
@@ -123,8 +123,13 @@ pub(crate) struct Start {
 /// before it stay in the line, because the grammar looks at them: `^` matches
 /// only at 0, so a decorator that follows indentation is not at the start of
 /// the line.
+///
+/// `anchored` is set for a Markdown fence line: the fence's `while` rule has
+/// matched the container prefix just before `start`, which is where `\G`
+/// stays for the line, as it does in Shiki.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Text<'a> {
     pub(crate) bytes: &'a [u8],
     pub(crate) start: usize,
+    pub(crate) anchored: bool,
 }

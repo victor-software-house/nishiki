@@ -58,6 +58,8 @@ pub(crate) const SQL: u16 = 0x0f00;
 pub(crate) const INI: u16 = 0x2100;
 /// GraphQL.
 pub(crate) const GRAPHQL: u16 = 0x2200;
+/// CSS.
+pub(crate) const CSS: u16 = 0x2600;
 
 /// Every claimed range. A new lexer adds its constant and its entry here.
 const CLAIMED: &[Tag] = &[
@@ -80,6 +82,7 @@ const CLAIMED: &[Tag] = &[
     Tag::byte(SQL),
     Tag::byte(INI),
     Tag::byte(GRAPHQL),
+    Tag::byte(CSS),
 ];
 
 /// Two ranges overlap when some code lies in both: when their values agree on

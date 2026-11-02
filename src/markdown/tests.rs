@@ -427,6 +427,49 @@ fn java_fences_embed_the_java_lexer_without_its_root() {
 }
 
 #[test]
+fn css_fences_embed_the_css_lexer_without_its_root() {
+    for info in ["css", "CSS", "css.erb", "css title=x"] {
+        let text = format!("```{info}\na {{ color: red }}\n```\n");
+        assert_eq!(
+            stack_of(&text, "color"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.css",
+                "meta.property-list.css",
+                "meta.property-name.css",
+                "support.type.property-name.css",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn css_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```css
+        /* a
+        b */ a {}
+        ```
+    "};
+    assert_eq!(stack_of(text, "b ")[3], "comment.block.css");
+}
+
+#[test]
+fn a_css_fence_line_is_anchored_at_its_start() {
+    // The fence's `while` rule matches the line's start, so `\G` is there and
+    // the header of a generic at-rule can begin on a line of its own.
+    let text = indoc! {"
+        ```css
+        @x a;
+        @b
+        ```
+    "};
+    assert_eq!(stack_of(text, "b")[3], "meta.at-rule.header.css");
+}
+
+#[test]
 fn java_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```java

@@ -99,6 +99,7 @@ assert_eq!(highlighter.limits().depth, None);
 | SQL | `Language::Sql` | `sql` |
 | INI | `Language::Ini` | `ini`, `properties` |
 | GraphQL | `Language::GraphQl` | `graphql`, `gql` |
+| CSS | `Language::Css` | `css` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -180,6 +181,13 @@ An unterminated string keeps every later line.
 A string without its closing quote keeps the lines after it until a quote closes it, and a Javadoc comment is read only where `/**` starts a line, after blanks.
 A declaration is found by a lookahead over the rest of the line, as in the grammar: a method is a line that has a blank and then a `(` with no `=` or `//` before it, and a variable is a type, a name and a `:`, `;` or `=`.
 `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/json-classes.ts`).
+
+### CSS
+
+`@charset` is read as the charset rule only on the first line of a document, never in a Markdown fence, as in Shiki.
+A scope name that Shiki builds from the matched text keeps its case: Shiki writes `ONLY` or `Not` in a media query as typed, and a unit written with the long s (`ſ`) under its own name, where nishiki gives the lower case name of the ASCII letter.
+A line that follows a backslash at its end belongs to the escape for the rest of the rule, as in Shiki, because the grammar's end pattern `^(?<!\G)` never matches again.
+A Markdown fence names the languages `css` and `css.erb`.
 
 ### Dockerfile
 

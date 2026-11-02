@@ -76,6 +76,7 @@ pub(crate) fn lex(
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
+        anchored: false,
     };
     self::line(
         cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,

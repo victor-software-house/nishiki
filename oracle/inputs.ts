@@ -201,6 +201,16 @@ const graphiql =
   "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
 const codegen =
   "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
+const normalize =
+  "https://raw.githubusercontent.com/necolas/normalize.css/fc091cce1534909334c1911709a39c22d406977b";
+const tailwind =
+  "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a";
+const highlightjs =
+  "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
+const githubMarkdownCss =
+  "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/7f38dcb9054bc5d860fac65291f5c98fef47932c";
+const milligram =
+  "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -504,4 +514,12 @@ export const inputs: Input[] = [
   { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
   { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
   { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
+  { lang: "css", name: "sample", url: `${samples}/css.sample` },
+  { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
+  { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
+  { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
+  { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
+  { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
+  { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
+  { lang: "markdown", name: "highlightjs-readme", url: `${highlightjs}/README.md` },
 ];

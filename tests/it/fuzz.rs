@@ -11,6 +11,20 @@ use nishiki::{Highlighter, Language, State};
 /// The pieces lines are made of; several bytes long where a lexer reads
 /// them as one construct.
 const PIECES: &[&str] = &[
+    "@media ",
+    "@import url(",
+    "@charset \"",
+    "a:not(",
+    "::before",
+    "[a|=",
+    "{ color: ",
+    "#fff",
+    "1.5e+3px",
+    "U+4??",
+    "!important",
+    "/*",
+    "*/",
+    "\\0000e9",
     "---",
     "...",
     "? ",

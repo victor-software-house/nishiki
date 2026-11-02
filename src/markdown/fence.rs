@@ -149,6 +149,13 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Ini,
     },
+    // The grammar's `css(?:|.erb)` has an unescaped dot, which matches any
+    // character; it is matched here as a literal dot.
+    Name {
+        words: &["css", "css.erb"],
+        brace: None,
+        lang: Language::Css,
+    },
 ];
 
 /// A language found in an info string.
