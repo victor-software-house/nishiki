@@ -215,7 +215,7 @@ Before its pull request opens, a language has:
 - [ ] development and held-out oracle inputs, with their licences in `tests/oracle/SOURCES.md`;
 - [ ] its grammar's notice in `THIRD-PARTY-NOTICES.md`;
 - [ ] the colour test;
-- [ ] its hostile lines in `tests/it/limits.rs`;
+- [ ] its hostile lines in `tests/it/limits/<language>.rs`, a new file there;
 - [ ] a pass of the fuzz test;
 - [ ] its `mise run bench` table.
 
