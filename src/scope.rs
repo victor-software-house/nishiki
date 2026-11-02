@@ -11,13 +11,28 @@ pub(crate) struct Scope(u16);
 const TABLES: &[(u16, &[&str])] = &[
     (RUST, crate::rust::NAMES),
     (MARKDOWN, crate::markdown::NAMES),
+    (TYPESCRIPT, crate::typescript::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
 pub(crate) const RUST: u16 = 1;
 
 /// The base of the Markdown lexer's scope names: where Rust's end.
-pub(crate) const MARKDOWN: u16 = RUST + 98;
+pub(crate) const MARKDOWN: u16 = after(RUST, crate::rust::NAMES);
+
+/// The base of the TypeScript lexer's scope names: where Markdown's end.
+pub(crate) const TYPESCRIPT: u16 = after(MARKDOWN, crate::markdown::NAMES);
+
+/// The base of the table that follows `names`, which is numbered from `base`.
+#[expect(
+    clippy::as_conversions,
+    clippy::cast_possible_truncation,
+    reason = "`u16::try_from` is not const; the assert checks the length fits"
+)]
+const fn after(base: u16, names: &[&str]) -> u16 {
+    assert!(names.len() <= (u16::MAX - base) as usize);
+    base + names.len() as u16
+}
 
 impl Scope {
     /// The placeholder scope of the empty stack.
@@ -52,6 +67,10 @@ mod tests {
     fn names_resolve_through_their_table() {
         assert_eq!(Scope::new(RUST, 0).name(), crate::rust::NAMES[0]);
         assert_eq!(Scope::new(MARKDOWN, 0).name(), crate::markdown::NAMES[0]);
+        assert_eq!(
+            Scope::new(TYPESCRIPT, 0).name(),
+            crate::typescript::NAMES[0]
+        );
         assert_eq!(Scope::NONE.name(), "");
     }
 
@@ -61,6 +80,11 @@ mod tests {
             usize::from(MARKDOWN - RUST),
             crate::rust::NAMES.len(),
             "MARKDOWN is RUST plus the number of Rust scopes"
+        );
+        assert_eq!(
+            usize::from(TYPESCRIPT - MARKDOWN),
+            crate::markdown::NAMES.len(),
+            "TYPESCRIPT is MARKDOWN plus the number of Markdown scopes"
         );
     }
 }

@@ -164,6 +164,49 @@ fn rust_state_continues_across_the_lines_of_a_fence() {
 }
 
 #[test]
+fn typescript_fence_embeds_the_typescript_lexer_without_its_root() {
+    for info in ["ts", "typescript", "TS"] {
+        let text = format!("```{info}\nconst x = 1;\n```\n");
+        assert_eq!(
+            stack_of(&text, "const"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.typescript",
+                "meta.var.expr.ts",
+                "storage.type.ts",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn typescript_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```ts
+        /* a
+        b */
+        ```
+    "};
+    assert_eq!(stack_of(text, "b ")[3], "comment.block.ts");
+}
+
+#[test]
+fn a_shebang_is_not_special_inside_a_fence() {
+    let text = indoc! {"
+        ```ts
+        #!/usr/bin/env node
+        ```
+    "};
+    let shebang = lex(text)
+        .iter()
+        .flatten()
+        .any(|(_, scopes)| scopes.iter().any(|s| s == "comment.line.shebang.ts"));
+    assert!(!shebang, "only the first line of the document can be one");
+}
+
+#[test]
 fn another_language_is_plain_text_with_its_info_string() {
     let text = indoc! {"
         ```python

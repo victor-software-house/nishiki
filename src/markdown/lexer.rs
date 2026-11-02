@@ -20,7 +20,7 @@ use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, rust};
+use crate::{Stack, Token, rust, typescript};
 
 /// What a frame on the context stack is.
 #[derive(Clone, Copy, Debug)]
@@ -263,7 +263,7 @@ impl<'a> Lexer<'a> {
         }
         let from = (self.pos, self.frames.len());
         if let Some(Frame {
-            rule: Rule::Open(Kind::Body(Lang::Rust)),
+            rule: Rule::Open(Kind::Body(Lang::Rust | Lang::TypeScript)),
             ..
         }) = self.frames.last()
         {
@@ -503,6 +503,7 @@ impl<'a> Lexer<'a> {
         let payload = match kind {
             Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
             Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
+            Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
             Kind::Base
             | Kind::Quote
             | Kind::ListBullet
@@ -681,17 +682,29 @@ impl<'a> Lexer<'a> {
         let Some(frame) = self.frames.last().copied() else {
             return;
         };
+        let Rule::Open(Kind::Body(lang)) = frame.rule else {
+            return;
+        };
         self.emit(start, frame.content);
         let first = self.out.len();
-        let text = &self.line.as_bytes()[start..];
-        let state = rust::line(
-            self.arena,
-            self.limits,
-            text,
-            frame.payload,
-            self.out,
-            self.report,
-        );
+        let state = match lang {
+            Lang::TypeScript => typescript::line(
+                self.arena,
+                self.limits,
+                &self.line[start..],
+                frame.payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Rust | Lang::Markdown => rust::line(
+                self.arena,
+                self.limits,
+                &self.line.as_bytes()[start..],
+                frame.payload,
+                self.out,
+                self.report,
+            ),
+        };
         for token in &mut self.out[first..] {
             token.end += start;
         }
@@ -700,7 +713,7 @@ impl<'a> Lexer<'a> {
         if state == frame.payload {
             return;
         }
-        // The state the next line resumes from: this body, with the Rust
+        // The state the next line resumes from: this body, with the embedded
         // lexer's new state.
         let below = self
             .frames
@@ -710,7 +723,7 @@ impl<'a> Lexer<'a> {
             .find_map(|frame| frame.state);
         let pushed = self.arena.push(
             below.unwrap_or(ROOT),
-            Kind::Body(Lang::Rust).code(),
+            Kind::Body(lang).code(),
             state,
             frame.content,
         );

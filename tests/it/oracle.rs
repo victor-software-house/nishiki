@@ -287,3 +287,14 @@ fn markdown_matches_shiki() {
 fn markdown_colours_match_shiki() {
     check_colours(Language::Markdown, "markdown");
 }
+
+#[test]
+fn typescript_matches_shiki() {
+    check("typescript", || lexer(Language::TypeScript));
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn typescript_colours_match_shiki() {
+    check_colours(Language::TypeScript, "typescript");
+}

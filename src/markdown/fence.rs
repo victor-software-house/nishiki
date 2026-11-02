@@ -27,6 +27,11 @@ const LANGUAGES: &[Language] = &[
         lang: Lang::Rust,
     },
     Language {
+        words: &["typescript", "ts"],
+        brace: None,
+        lang: Lang::TypeScript,
+    },
+    Language {
         words: &["markdown", "md"],
         brace: None,
         lang: Lang::Markdown,

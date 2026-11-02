@@ -8,6 +8,8 @@ const TAG: u16 = 0x0200;
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub(crate) enum Lang {
     Rust,
+    /// `TypeScript`, lexed by the TypeScript lexer.
+    TypeScript,
     /// Markdown itself: the grammar includes its own rules in a `markdown`
     /// fence.
     Markdown,
@@ -32,7 +34,8 @@ pub(crate) enum Kind {
     /// the [`Fence`].
     FencePlain,
     /// The lines inside a [`Kind::Fence`], which the embedded language's rules
-    /// take. The payload of a Rust body is the state of the Rust lexer.
+    /// take. The payload of an embedded body is the state of the embedded
+    /// lexer.
     Body(Lang),
     /// Four spaces or a tab up to a line without them.
     RawBlock,
@@ -53,15 +56,17 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
-    const ALL: [Kind; 17] = [
+    const ALL: [Kind; 19] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
         Kind::ListOrdered,
         Kind::Fence(Lang::Rust),
+        Kind::Fence(Lang::TypeScript),
         Kind::Fence(Lang::Markdown),
         Kind::FencePlain,
         Kind::Body(Lang::Rust),
+        Kind::Body(Lang::TypeScript),
         Kind::Body(Lang::Markdown),
         Kind::RawBlock,
         Kind::Table,

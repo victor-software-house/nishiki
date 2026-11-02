@@ -3,7 +3,7 @@
 
 use crate::arena::{Arena, ROOT, Scopes};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Language, Stack, State, Token, markdown, rust};
+use crate::{Language, Stack, State, Token, markdown, rust, typescript};
 
 /// Highlights one language, a line at a time.
 ///
@@ -36,6 +36,7 @@ impl Highlighter {
         let start = match language {
             Language::Rust => rust::start(&mut arena, ROOT),
             Language::Markdown => markdown::start(&mut arena, ROOT),
+            Language::TypeScript => typescript::start(&mut arena, ROOT),
         };
         Highlighter {
             language,
@@ -85,6 +86,9 @@ impl Highlighter {
             ),
             Language::Markdown => {
                 markdown::line(&mut self.arena, &self.limits, line, from, out, &mut report)
+            }
+            Language::TypeScript => {
+                typescript::line(&mut self.arena, &self.limits, line, from, out, &mut report)
             }
         };
         *state = State(if to == self.start { ROOT } else { to });

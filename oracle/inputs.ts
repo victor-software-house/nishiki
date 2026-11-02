@@ -16,6 +16,12 @@ const ripgrep =
   "https://raw.githubusercontent.com/BurntSushi/ripgrep/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b";
 const serde =
   "https://raw.githubusercontent.com/serde-rs/serde/0db9b3b504bcb0a7fa9cf001429869519afd3e9a";
+const vue =
+  "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
+const zod =
+  "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
+const ky =
+  "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
 
 const tokio =
   "https://raw.githubusercontent.com/tokio-rs/tokio/b499257ef62bd631b83a988d371f4330f545670c";
@@ -46,4 +52,32 @@ export const inputs: Input[] = [
     url: `${book}/src/ch08-02-strings.md`,
   },
   { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
+  {
+    lang: "markdown",
+    name: "zod-readme",
+    url: `${zod}/packages/zod/README.md`,
+  },
+  { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
+  {
+    lang: "markdown",
+    name: "zod-api",
+    url: `${zod}/packages/docs/content/api.mdx`,
+  },
+  { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
+  {
+    lang: "typescript",
+    name: "vue-effect",
+    url: `${vue}/packages/reactivity/src/effect.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "vue-api-create-app",
+    url: `${vue}/packages/runtime-core/src/apiCreateApp.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "zod-classic-schemas",
+    url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
+  },
+  { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
 ];

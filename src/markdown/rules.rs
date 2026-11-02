@@ -205,7 +205,10 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
         | Kind::ListBullet
         | Kind::ListOrdered
         | Kind::Body(Lang::Markdown) => BLOCK,
-        Kind::FencePlain | Kind::Body(Lang::Rust) | Kind::RawBlock | Kind::Comment => &[],
+        Kind::FencePlain
+        | Kind::Body(Lang::Rust | Lang::TypeScript)
+        | Kind::RawBlock
+        | Kind::Comment => &[],
         Kind::Table => TABLE,
         Kind::Paragraph => PARAGRAPH,
         Kind::BoldStar | Kind::BoldUnder => BOLD,
@@ -263,6 +266,7 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
 pub(crate) fn content_name(kind: Kind) -> Option<S> {
     match kind {
         Kind::Body(Lang::Rust) => Some(S::EmbeddedRust),
+        Kind::Body(Lang::TypeScript) => Some(S::EmbeddedTypeScript),
         Kind::Body(Lang::Markdown) => Some(S::EmbeddedMarkdown),
         Kind::Base
         | Kind::Quote

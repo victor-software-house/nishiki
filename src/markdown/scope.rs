@@ -50,6 +50,7 @@ scopes! {
     FenceAttrs "fenced_code.block.language.attributes.markdown"
     FenceInfo "fenced_code.block.language"
     EmbeddedRust "meta.embedded.block.rust"
+    EmbeddedTypeScript "meta.embedded.block.typescript"
     EmbeddedMarkdown "meta.embedded.block.markdown"
     Raw "markup.raw.block.markdown"
     Table "markup.table.markdown"
