@@ -4,10 +4,42 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
+/// The captures of a method's modifiers, kept inline: a prefix holds at most
+/// the four modifiers the grammar lists, and the lookahead builds one at every
+/// word of a class body.
+struct CapList {
+    len: usize,
+    items: [(usize, usize, S); Self::MAX],
+}
+
+impl Default for CapList {
+    fn default() -> Self {
+        CapList {
+            len: 0,
+            items: [(0, 0, S::Source); Self::MAX],
+        }
+    }
+}
+
+impl CapList {
+    const MAX: usize = 4;
+
+    fn push(&mut self, cap: (usize, usize, S)) {
+        if let Some(slot) = self.items.get_mut(self.len) {
+            *slot = cap;
+            self.len += 1;
+        }
+    }
+
+    fn items(&self) -> &[(usize, usize, S)] {
+        &self.items[..self.len]
+    }
+}
+
 /// The modifiers before a method, as the grammar's prefix spells them.
 #[derive(Default)]
 struct MethodPrefix {
-    caps: Vec<(usize, usize, S)>,
+    caps: CapList,
     end: usize,
 }
 
@@ -79,7 +111,7 @@ impl Lexer<'_> {
             return None;
         }
         let mut prefix = MethodPrefix {
-            caps: Vec::new(),
+            caps: CapList::default(),
             end: p,
         };
         let mut at = p;
@@ -119,7 +151,7 @@ impl Lexer<'_> {
         // The grammar's optional groups back off, so the empty prefix is
         // tried when the full one does not lead to a method.
         let empty = MethodPrefix {
-            caps: Vec::new(),
+            caps: CapList::default(),
             end: p,
         };
         for prefix in [&first, &empty] {
@@ -141,7 +173,7 @@ impl Lexer<'_> {
             && self.kw_after(k + 11)
         {
             self.flush(p);
-            for &(a, b, s) in &prefix.caps {
+            for &(a, b, s) in prefix.caps.items() {
                 self.cap(Kind::Method, a, b, &[s]);
             }
             self.cap(Kind::Method, k, k + 11, &[S::StorageType]);
@@ -167,7 +199,7 @@ impl Lexer<'_> {
         let la = self.ws(sig);
         if self.tp_paren(la).is_some() {
             self.flush(p);
-            for &(a, b, s) in &prefix.caps {
+            for &(a, b, s) in prefix.caps.items() {
                 self.cap(Kind::Method, a, b, &[s]);
             }
             if let Some((a, b)) = new_cap {
@@ -198,7 +230,7 @@ impl Lexer<'_> {
         }
         if self.named_method_ahead(j) {
             self.flush(p);
-            for &(a, b, s) in &prefix.caps {
+            for &(a, b, s) in prefix.caps.items() {
                 self.cap(Kind::Method, a, b, &[s]);
             }
             if let Some((a, b)) = accessor {
@@ -221,7 +253,7 @@ impl Lexer<'_> {
             }
             if self.named_method_ahead(j) {
                 self.flush(p);
-                for &(a, b, s) in &prefix.caps {
+                for &(a, b, s) in prefix.caps.items() {
                     self.cap(Kind::Method, a, b, &[s]);
                 }
                 if let Some((a, b)) = star {
@@ -570,7 +602,7 @@ impl Lexer<'_> {
             return None;
         }
         let mut at = p;
-        let mut caps: Vec<(usize, usize, S)> = Vec::new();
+        let mut caps = CapList::default();
         if self.starts(at, "async") && self.boundary(at) {
             let e = at + 5;
             let k = self.ws(e);
@@ -598,7 +630,7 @@ impl Lexer<'_> {
             }
             if self.named_method_ahead(j) {
                 self.flush(p);
-                for &(a, b, s) in &caps {
+                for &(a, b, s) in caps.items() {
                     self.cap(kind, a, b, &[s]);
                 }
                 if let Some((a, b)) = acc {
@@ -616,7 +648,7 @@ impl Lexer<'_> {
             }
         }
         // Without the `async` prefix.
-        if !caps.is_empty() {
+        if !caps.items().is_empty() {
             let j = p;
             if self.named_method_ahead(j) {
                 self.flush(p);
@@ -743,7 +775,7 @@ impl Lexer<'_> {
     }
 
     fn possibly_arrow_then_expression(&mut self, p: usize) -> Option<usize> {
-        self.possibly_arrow_return_type_rule(p)
+        self.possibly_arrow_return_type(p)
             .or_else(|| self.expression(p))
     }
 
@@ -872,7 +904,7 @@ impl Lexer<'_> {
                 return Some(j);
             }
         }
-        if let Some(r) = self.parameter_like(p, super::decl2::ParamStyle::ExpressionParameter) {
+        if let Some(r) = self.parameter_like(p, super::functions::ParamStyle::ExpressionParameter) {
             return Some(r);
         }
         self.type_annotation(p)

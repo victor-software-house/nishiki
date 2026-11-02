@@ -7,13 +7,39 @@
 //! starts. Every scan stays within [`Lexer::window`].
 
 use super::lexer::Lexer;
+use super::limits::{GENERIC_NESTING, GRAMMAR_NESTING};
 
-/// The levels of nested brackets the grammar's lookahead expressions spell
-/// out; a group nested deeper does not match.
-const GRAMMAR_NESTING: usize = 3;
+/// The ends of a name chain, kept inline: chains of more than a few names are
+/// rare, and the lookahead runs at every name.
+#[derive(Default)]
+struct Ends {
+    len: usize,
+    inline: [usize; Self::INLINE],
+    spill: Vec<usize>,
+}
 
-/// The levels of nested `<…>` in the grammar's type-argument lookaheads.
-const GENERIC_NESTING: usize = 3;
+impl Ends {
+    const INLINE: usize = 8;
+
+    fn push(&mut self, end: usize) {
+        if let Some(slot) = self.inline.get_mut(self.len) {
+            *slot = end;
+        } else {
+            self.spill.push(end);
+        }
+        self.len += 1;
+    }
+
+    /// The ends, the last one found first.
+    fn longest_first(&self) -> impl Iterator<Item = usize> + '_ {
+        let inline = self.len.min(Self::INLINE);
+        self.spill
+            .iter()
+            .rev()
+            .copied()
+            .chain(self.inline[..inline].iter().rev().copied())
+    }
+}
 
 impl Lexer<'_> {
     /// A balanced `open … close` group at `i`, nested at most
@@ -344,13 +370,10 @@ impl Lexer<'_> {
     pub(crate) fn fn_value_ahead(&self, i: usize) -> bool {
         let async_end = self.starts(i, "async").then(|| i + 5);
         // (async\s+)? then function or `name =>`.
-        let mut starts = vec![i];
-        if let Some(a) = async_end
-            && (self.b(a).is_ascii_whitespace() || a >= self.len)
-        {
-            starts.push(self.ws(a));
-        }
-        for &j in &starts {
+        let after_async = async_end
+            .filter(|&a| self.b(a).is_ascii_whitespace() || a >= self.len)
+            .map(|a| self.ws(a));
+        for j in std::iter::once(i).chain(after_async) {
             if self.function_keyword_head(j)
                 || self.ident(j).is_some_and(|e| self.starts(self.ws(e), "=>"))
             {
@@ -358,12 +381,8 @@ impl Lexer<'_> {
             }
         }
         // (async\s*)? then an opening, a typed arrow or an arrow.
-        let mut starts = vec![i];
-        if let Some(a) = async_end {
-            starts.push(self.ws(a));
-        }
-        starts
-            .into_iter()
+        std::iter::once(i)
+            .chain(async_end.map(|a| self.ws(a)))
             .any(|j| self.fn_open_ahead(j) || self.arrow_typed_ahead(j) || self.arrow_ahead(j))
     }
 
@@ -607,8 +626,8 @@ impl Lexer<'_> {
     }
 
     /// The ends of `ID(\s*\??\.\s*#?ID)*` at `i`, shortest first.
-    fn chain_ends(&self, i: usize) -> Vec<usize> {
-        let mut ends = Vec::new();
+    fn chain_ends(&self, i: usize) -> Ends {
+        let mut ends = Ends::default();
         let Some(mut e) = self.ident(i) else {
             return ends;
         };
@@ -650,7 +669,9 @@ impl Lexer<'_> {
     /// The call lookahead: a name chain, a `.member` or the end of a
     /// parenthesis, then what must follow a call target.
     pub(crate) fn call_ahead(&self, i: usize) -> bool {
-        self.chain_ends(i).iter().rev().any(|&e| self.call_rest(e))
+        self.chain_ends(i)
+            .longest_first()
+            .any(|e| self.call_rest(e))
             || self.dot_member(i).is_some_and(|e| self.call_rest(e))
             || (self.prev_char(i) == Some(')') && self.call_rest(i))
     }
@@ -669,7 +690,7 @@ impl Lexer<'_> {
                 matches!(self.b(j), b'(' | b'[' | b'{') && self.eol(self.ws(j + 1))
             }
         };
-        self.chain_ends(i).iter().rev().any(|&e| open_at(e))
+        self.chain_ends(i).longest_first().any(open_at)
             || self.dot_member(i).is_some_and(open_at)
             || (self.prev_char(i) == Some(')') && open_at(i))
     }

@@ -30,21 +30,30 @@
 )]
 
 mod calls;
+mod classes;
+mod control;
 mod decl;
-mod decl2;
+mod directives;
 mod ends;
+mod enums;
+mod exports;
 mod expr;
+mod functions;
+mod imports;
 mod jsdoc;
+mod jsdoc_params;
 mod kind;
 mod lexer;
+mod limits;
 mod look;
 mod members;
-mod misc;
+mod namespaces;
 mod num;
 mod rules;
 mod scope;
 mod text;
 mod typ;
+mod type_aliases;
 
 use kind::Kind;
 pub(crate) use scope::NAMES;

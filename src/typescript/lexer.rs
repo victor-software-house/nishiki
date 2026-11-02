@@ -33,9 +33,9 @@ pub(crate) struct Lexer<'a> {
     budget: u64,
     /// Where each open context was entered on this line, by the depth of its
     /// frame; a context opened on an earlier line has no entry.
-    enter: Vec<usize>,
+    enter: Depths,
     /// The `\G` anchor in force before each open context began, by depth.
-    anchors: Vec<usize>,
+    anchors: Depths,
     /// The end of the last rule match, which `TextMate` calls the line
     /// position.
     pub(crate) line_pos: usize,
@@ -51,8 +51,72 @@ pub(crate) struct Lexer<'a> {
     depth_hit: Cell<bool>,
     /// The last run of blanks that [`Lexer::ws`] scanned, as start and end.
     blanks: Cell<(usize, usize)>,
+    /// The last name [`Lexer::ident`] scanned, as its start and its end.
+    last_ident: Cell<(usize, Option<usize>)>,
     /// The position of the last backtick on the line, if any.
     last_tick: Option<usize>,
+}
+
+/// For each ASCII byte: bit 0 is `[$_[:alnum:]]`, bit 1 is `[$_[:alpha:]]`.
+const CLASS: [u8; 128] = {
+    let mut table = [0; 128];
+    let mut b = 0;
+    while b < 128 {
+        // `$`, `_`, `A`-`Z` and `a`-`z` are letters; `0`-`9` are digits.
+        let letter = b == 36 || b == 95 || (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
+        if letter {
+            table[b] = 3;
+        } else if b >= 48 && b <= 57 {
+            table[b] = 1;
+        }
+        b += 1;
+    }
+    table
+};
+
+/// A position per frame depth, `usize::MAX` where none was set on this line.
+///
+/// The first depths live inline, so a line that opens few contexts allocates
+/// nothing.
+struct Depths {
+    inline: [usize; Self::INLINE],
+    spill: Vec<usize>,
+}
+
+impl Depths {
+    const INLINE: usize = 32;
+
+    fn new() -> Self {
+        Depths {
+            inline: [usize::MAX; Self::INLINE],
+            spill: Vec::new(),
+        }
+    }
+
+    fn get(&self, depth: u32) -> usize {
+        let index = usize::try_from(depth).unwrap_or(usize::MAX);
+        match self.inline.get(index) {
+            Some(&value) => value,
+            None => self
+                .spill
+                .get(index - Self::INLINE)
+                .copied()
+                .unwrap_or(usize::MAX),
+        }
+    }
+
+    fn set(&mut self, depth: u32, value: usize) {
+        let index = usize::try_from(depth).unwrap_or(usize::MAX);
+        if let Some(slot) = self.inline.get_mut(index) {
+            *slot = value;
+            return;
+        }
+        let spill = index - Self::INLINE;
+        if self.spill.len() <= spill {
+            self.spill.resize(spill + 1, usize::MAX);
+        }
+        self.spill[spill] = value;
+    }
 }
 
 pub(crate) fn is_ws(b: u8) -> bool {
@@ -93,14 +157,15 @@ impl<'a> Lexer<'a> {
             frame,
             steps: Cell::new(0),
             budget,
-            enter: Vec::new(),
-            anchors: Vec::new(),
+            enter: Depths::new(),
+            anchors: Depths::new(),
             line_pos: 0,
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
+            last_ident: Cell::new((usize::MAX, None)),
             last_tick: memchr::memrchr(b'`', src.as_bytes()),
         };
         lexer.spend(src.len());
@@ -143,7 +208,7 @@ impl<'a> Lexer<'a> {
                 self.line_pos = next;
                 p = next;
             } else {
-                p += self.char_len(p);
+                p = self.skip_unmatched(p);
             }
             debug_assert!(
                 p > from || self.state != before || self.stuck,
@@ -154,6 +219,51 @@ impl<'a> Lexer<'a> {
             self.report.record(Limit::Depth);
         }
         self.flush(self.len);
+    }
+
+    /// Where the scan resumes after no rule matched at `p`: the next position
+    /// a rule can match at.
+    ///
+    /// Inside a run of blanks, or of the name characters after a name's first
+    /// letter and the character after it, the next positions all have the
+    /// same kind of character before them as `p`, so the same lookbehinds
+    /// give the same answers, and a rule without a lookbehind would have
+    /// matched at the run's or the name's start. The first position of a run
+    /// and the second of a name are not skipped, because a lookbehind that
+    /// failed at the first (`(?<![$_[:alnum:]])` after a name) can pass at the
+    /// next. The scan still reaches `${`, which starts with a name character,
+    /// and the last character of the line, which the end rules that test
+    /// `[^\\\n]$` match. The oracle fixtures and the differential tests hold
+    /// that nothing else matches in what is skipped.
+    fn skip_unmatched(&self, p: usize) -> usize {
+        let step = p + self.char_len(p);
+        let next = if p >= self.len || p == 0 {
+            return step;
+        } else if is_ws(self.b(p)) {
+            if !is_ws(self.b(p - 1)) {
+                return step;
+            }
+            self.ws(p)
+        } else if self.alnum_at(p) && self.second_of_letter_name(p) {
+            let mut q = step;
+            while q < self.len && self.b(q) != b'$' && self.alnum_at(q) {
+                q += self.char_len(q);
+            }
+            q
+        } else {
+            return step;
+        };
+        let last = self.src.char_indices().next_back().map_or(0, |(i, _)| i);
+        if p < last { next.min(last) } else { step }
+    }
+
+    /// Whether the character before `p` is the first of a name that starts
+    /// with a letter, `$` or `_`, and is alone before `p`.
+    fn second_of_letter_name(&self, p: usize) -> bool {
+        let Some(first) = self.src.get(..p).and_then(|head| head.chars().next_back()) else {
+            return false;
+        };
+        is_alpha_char(first) && !self.alnum_before(p - first.len_utf8())
     }
 
     // Bytes and characters.
@@ -226,21 +336,19 @@ impl<'a> Lexer<'a> {
 
     /// `[$_[:alpha:]]` at `i`.
     pub(crate) fn id_start(&self, i: usize) -> bool {
-        match self.b(i) {
-            b'$' | b'_' => true,
-            b if b.is_ascii_alphabetic() => true,
-            b if b >= 0x80 && i < self.len => self.char_at(i).is_some_and(is_alpha_char),
-            _ => false,
+        match self.s.get(i) {
+            Some(&b) if b < 0x80 => CLASS[usize::from(b)] & 2 != 0,
+            Some(_) => self.char_at(i).is_some_and(is_alpha_char),
+            None => false,
         }
     }
 
     /// `[$_[:alnum:]]` at `i`.
     pub(crate) fn alnum_at(&self, i: usize) -> bool {
-        match self.b(i) {
-            b'$' | b'_' => true,
-            b if b.is_ascii_alphanumeric() => true,
-            b if b >= 0x80 && i < self.len => self.char_at(i).is_some_and(is_alnum_char),
-            _ => false,
+        match self.s.get(i) {
+            Some(&b) if b < 0x80 => CLASS[usize::from(b)] & 1 != 0,
+            Some(_) => self.char_at(i).is_some_and(is_alnum_char),
+            None => false,
         }
     }
 
@@ -250,17 +358,38 @@ impl<'a> Lexer<'a> {
     }
 
     /// The end of `[$_[:alnum:]]*` from `i`.
-    pub(crate) fn alnum_end(&self, mut i: usize) -> usize {
-        while i < self.len && self.alnum_at(i) {
-            i += self.char_len(i);
+    pub(crate) fn alnum_end(&self, from: usize) -> usize {
+        let mut i = from;
+        while let Some(&b) = self.s.get(i) {
+            if b < 0x80 {
+                if CLASS[usize::from(b)] & 1 == 0 {
+                    break;
+                }
+                i += 1;
+            } else {
+                match self.char_at(i) {
+                    Some(c) if is_alnum_char(c) => i += c.len_utf8(),
+                    _ => break,
+                }
+            }
         }
+        self.spend(i - from + 1);
         i
     }
 
     /// `[$_[:alpha:]][$_[:alnum:]]*` at `i`: its end.
     pub(crate) fn ident(&self, i: usize) -> Option<usize> {
-        self.id_start(i)
-            .then(|| self.alnum_end(i + self.char_len(i)))
+        // Every rule asks for the name at the position, so the last answer is
+        // kept.
+        let (at, end) = self.last_ident.get();
+        if at == i {
+            return end;
+        }
+        let end = self
+            .id_start(i)
+            .then(|| self.alnum_end(i + self.char_len(i)));
+        self.last_ident.set((i, end));
+        end
     }
 
     /// `#?[$_[:alpha:]][$_[:alnum:]]*` at `i`: its end.
@@ -304,8 +433,13 @@ impl<'a> Lexer<'a> {
 
     /// A keyword between the grammar's guards: its end.
     pub(crate) fn kw(&self, p: usize, word: &str) -> Option<usize> {
+        let word = word.as_bytes();
         let e = p + word.len();
-        (self.starts(p, word) && self.kw_before(p) && self.kw_after(e)).then_some(e)
+        // Most calls fail on the first byte, so it is checked alone first.
+        if self.s.get(p) != word.first() || e > self.len || self.s[p..e] != *word {
+            return None;
+        }
+        (self.kw_before(p) && self.kw_after(e)).then_some(e)
     }
 
     /// The first of `words` that is a keyword at `p`: its end.
@@ -380,8 +514,7 @@ impl<'a> Lexer<'a> {
 
     /// Where the context of the frame at `depth` was entered on this line.
     fn entered(&self, depth: u32) -> usize {
-        let index = usize::try_from(depth).unwrap_or(usize::MAX);
-        self.enter.get(index).copied().unwrap_or(usize::MAX)
+        self.enter.get(depth)
     }
 
     /// Opens `kind` at the end of its begin tokens; false when a limit keeps
@@ -414,13 +547,9 @@ impl<'a> Lexer<'a> {
             self.report.record(Limit::Nodes);
             return false;
         };
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX) + 1;
-        if self.enter.len() <= depth {
-            self.enter.resize(depth + 1, usize::MAX);
-            self.anchors.resize(depth + 1, usize::MAX);
-        }
-        self.enter[depth] = self.line_pos;
-        self.anchors[depth] = self.anchor;
+        let depth = self.frame.depth + 1;
+        self.enter.set(depth, self.line_pos);
+        self.anchors.set(depth, self.anchor);
         self.anchor = self.pos;
         self.set_state(state);
         true
@@ -447,8 +576,7 @@ impl<'a> Lexer<'a> {
     }
 
     pub(crate) fn pop(&mut self) {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        self.anchor = self.anchors.get(depth).copied().unwrap_or(usize::MAX);
+        self.anchor = self.anchors.get(self.frame.depth);
         self.set_state(self.frame.parent);
     }
 

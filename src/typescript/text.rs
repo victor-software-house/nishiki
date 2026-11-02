@@ -806,4 +806,20 @@ impl Lexer<'_> {
         }
         None
     }
+
+    /// `(?=((ID\s*\??\.\s*)*|(\??\.\s*)?)(ID))`: where a template tag starts.
+    pub(crate) fn template_target_start(&self, p: usize) -> bool {
+        let mut s = p;
+        if matches!(self.b(s), b'?' | b'.') {
+            let mut j = s;
+            if self.b(j) == b'?' {
+                j += 1;
+            }
+            if self.b(j) != b'.' {
+                return false;
+            }
+            s = self.ws(j + 1);
+        }
+        self.ident(s).is_some()
+    }
 }

@@ -247,7 +247,7 @@ impl Lexer<'_> {
             .or_else(|| self.type_parameters(p))
             .or_else(|| self.function_parameters(p))
             .or_else(|| self.arrow_return_type(p))
-            .or_else(|| self.possibly_arrow_return_type_rule(p))
+            .or_else(|| self.possibly_arrow_return_type(p))
     }
 
     /// `(?<=\))\s*(:)` in an arrow function's head.
