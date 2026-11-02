@@ -549,3 +549,17 @@ TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONIN
 THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+Its INI lexer emits the scope names of the INI TextMate grammar in [textmate/ini.tmbundle](https://github.com/textmate/ini.tmbundle), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), and tries that grammar's rules in its order.
+That grammar is licensed under the TextMate bundle licence, which is the one in the bundle's README:
+
+```text
+Copyright (c) textmate-ini.tmbundle project authors
+
+Permission to copy, use, modify, sell and distribute this
+software is granted. This software is provided "as is" without
+express or implied warranty, and with no claim as to its
+suitability for any purpose.
+```
+
+VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".

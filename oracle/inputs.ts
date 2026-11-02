@@ -186,6 +186,14 @@ const typeorm =
 
 const knex =
   "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
+const django =
+  "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
+const sqlalchemy =
+  "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/679372836fe7343683248467d276036a6d6f1673";
+const kafka =
+  "https://raw.githubusercontent.com/apache/kafka/da5316228ee604724dbcede405ebbf7f18f1dbf3";
+const tomcat =
+  "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -472,4 +480,14 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
   { lang: "markdown", name: "typeorm-indexes", url: `${typeorm}/docs/docs/indexes.md` },
   { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
+  { lang: "ini", name: "sample", url: `${samples}/ini.sample` },
+  { lang: "ini", name: "pytest-tox", url: `${pytest}/tox.ini` },
+  { lang: "ini", name: "kafka-server", url: `${kafka}/config/server.properties` },
+  { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
+  { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
+  { lang: "ini", name: "sqlalchemy-tox", url: `${sqlalchemy}/tox.ini` },
+  { lang: "ini", name: "tomcat-catalina", url: `${tomcat}/conf/catalina.properties` },
+  { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
+  { lang: "markdown", name: "black-other-tools", url: `${black}/docs/guides/using_black_with_other_tools.md` },
+  { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
 ];

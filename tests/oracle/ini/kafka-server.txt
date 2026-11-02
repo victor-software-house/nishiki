@@ -1,0 +1,348 @@
+L # Licensed to the Apache Software Foundation (ASF) under one or more
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # contributor license agreements.  See the NOTICE file distributed with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L # this work for additional information regarding copyright ownership.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # The ASF licenses this file to You under the Apache License, Version 2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # (the "License"); you may not use this file except in compliance with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # the License.  You may obtain a copy of the License at
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L #    http://www.apache.org/licenses/LICENSE-2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 47 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Unless required by applicable law or agreed to in writing, software
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # distributed under the License is distributed on an "AS IS" BASIS,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 67 source.ini comment.line.number-sign.ini
+L # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 74 source.ini comment.line.number-sign.ini
+L # See the License for the specific language governing permissions and
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # limitations under the License.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 32 source.ini comment.line.number-sign.ini
+L 
+L ############################# Server Basics #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L 
+L # The role of this server. Setting this puts us in KRaft mode
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L process.roles=broker,controller
+T 13 source.ini keyword.other.definition.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 31 source.ini
+L 
+L # The node id associated with this instance's roles
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 51 source.ini comment.line.number-sign.ini
+L node.id=1
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini punctuation.separator.key-value.ini
+T 9 source.ini
+L 
+L # List of controller endpoints used connect to the controller cluster
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L controller.quorum.bootstrap.servers=localhost:9093
+T 35 source.ini keyword.other.definition.ini
+T 36 source.ini punctuation.separator.key-value.ini
+T 50 source.ini
+L 
+L ############################# Socket Server Settings #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 82 source.ini comment.line.number-sign.ini
+L 
+L # The address the socket server listens on.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 43 source.ini comment.line.number-sign.ini
+L # Combined nodes (i.e. those with `process.roles=broker,controller`) must list the controller listener here at a minimum.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 121 source.ini comment.line.number-sign.ini
+L # If the broker listener is not defined, the default listener will use a host name that is equal to the value of java.net.InetAddress.getCanonicalHostName(),
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 157 source.ini comment.line.number-sign.ini
+L # with PLAINTEXT listener name, and port 9092.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 46 source.ini comment.line.number-sign.ini
+L #   FORMAT:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 11 source.ini comment.line.number-sign.ini
+L #     listeners = listener_name://host_name:port
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L #   EXAMPLE:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 12 source.ini comment.line.number-sign.ini
+L #     listeners = PLAINTEXT://your.host.name:9092
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 49 source.ini comment.line.number-sign.ini
+L listeners=PLAINTEXT://:9092,CONTROLLER://:9093
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 46 source.ini
+L 
+L # Name of listener used for communication between brokers.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 58 source.ini comment.line.number-sign.ini
+L inter.broker.listener.name=PLAINTEXT
+T 26 source.ini keyword.other.definition.ini
+T 27 source.ini punctuation.separator.key-value.ini
+T 36 source.ini
+L 
+L # Listener name, hostname and port the broker or the controller will advertise to clients.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 90 source.ini comment.line.number-sign.ini
+L # If not set, it uses the value for "listeners".
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L advertised.listeners=PLAINTEXT://localhost:9092,CONTROLLER://localhost:9093
+T 20 source.ini keyword.other.definition.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 75 source.ini
+L 
+L # A comma-separated list of the names of the listeners used by the controller.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # If no explicit mapping set in `listener.security.protocol.map`, default will be using PLAINTEXT protocol
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 106 source.ini comment.line.number-sign.ini
+L # This is required if running in KRaft mode.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L controller.listener.names=CONTROLLER
+T 25 source.ini keyword.other.definition.ini
+T 26 source.ini punctuation.separator.key-value.ini
+T 36 source.ini
+L 
+L # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 130 source.ini comment.line.number-sign.ini
+L listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+T 30 source.ini keyword.other.definition.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 127 source.ini
+L 
+L # The number of threads that the server uses for receiving requests from the network and sending responses to the network
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 121 source.ini comment.line.number-sign.ini
+L num.network.threads=3
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini punctuation.separator.key-value.ini
+T 21 source.ini
+L 
+L # The number of threads that the server uses for processing requests, which may include disk I/O
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 96 source.ini comment.line.number-sign.ini
+L num.io.threads=8
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L 
+L # The send buffer (SO_SNDBUF) used by the socket server
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L socket.send.buffer.bytes=102400
+T 24 source.ini keyword.other.definition.ini
+T 25 source.ini punctuation.separator.key-value.ini
+T 31 source.ini
+L 
+L # The receive buffer (SO_RCVBUF) used by the socket server
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 58 source.ini comment.line.number-sign.ini
+L socket.receive.buffer.bytes=102400
+T 27 source.ini keyword.other.definition.ini
+T 28 source.ini punctuation.separator.key-value.ini
+T 34 source.ini
+L 
+L # The maximum size of a request that the socket server will accept (protection against OOM)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 91 source.ini comment.line.number-sign.ini
+L socket.request.max.bytes=104857600
+T 24 source.ini keyword.other.definition.ini
+T 25 source.ini punctuation.separator.key-value.ini
+T 34 source.ini
+L 
+L 
+L ############################# Log Basics #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L 
+L # A comma separated list of directories under which to store log files
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L log.dirs=/tmp/kraft-combined-logs
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L 
+L # The default number of log partitions per topic. More partitions allow greater
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L # parallelism for consumption, but this will also result in more files across
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # the brokers.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 14 source.ini comment.line.number-sign.ini
+L num.partitions=1
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L 
+L # The number of threads per data directory to be used for log recovery at startup and flushing at shutdown.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 107 source.ini comment.line.number-sign.ini
+L # This value is recommended to be increased based on the installation resources.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L num.recovery.threads.per.data.dir=2
+T 33 source.ini keyword.other.definition.ini
+T 34 source.ini punctuation.separator.key-value.ini
+T 35 source.ini
+L 
+L ############################# Internal Topic Settings  #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 84 source.ini comment.line.number-sign.ini
+L # The replication factor for the group metadata internal topics "__consumer_offsets", "__share_group_state" and "__transaction_state"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 133 source.ini comment.line.number-sign.ini
+L # For anything other than development testing, a value greater than 1 is recommended to ensure availability such as 3.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 118 source.ini comment.line.number-sign.ini
+L offsets.topic.replication.factor=1
+T 32 source.ini keyword.other.definition.ini
+T 33 source.ini punctuation.separator.key-value.ini
+T 34 source.ini
+L share.coordinator.state.topic.replication.factor=1
+T 48 source.ini keyword.other.definition.ini
+T 49 source.ini punctuation.separator.key-value.ini
+T 50 source.ini
+L share.coordinator.state.topic.min.isr=1
+T 37 source.ini keyword.other.definition.ini
+T 38 source.ini punctuation.separator.key-value.ini
+T 39 source.ini
+L transaction.state.log.replication.factor=1
+T 40 source.ini keyword.other.definition.ini
+T 41 source.ini punctuation.separator.key-value.ini
+T 42 source.ini
+L transaction.state.log.min.isr=1
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+T 31 source.ini
+L 
+L ############################# Log Flush Policy #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L 
+L # Messages are immediately written to the filesystem but by default we only fsync() to sync
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 91 source.ini comment.line.number-sign.ini
+L # the OS cache lazily. The following configurations control the flush of data to disk.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 86 source.ini comment.line.number-sign.ini
+L # There are a few important trade-offs here:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L #    1. Durability: Unflushed data may be lost if you are not using replication.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L #    2. Latency: Very large flush intervals may lead to latency spikes when the flush does occur as there will be a lot of data to flush.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 137 source.ini comment.line.number-sign.ini
+L #    3. Throughput: The flush is generally the most expensive operation, and a small flush interval may lead to excessive seeks.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 128 source.ini comment.line.number-sign.ini
+L # The settings below allow one to configure the flush policy to flush data after a period of time or
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 100 source.ini comment.line.number-sign.ini
+L # every N messages (or both). This can be done globally and overridden on a per-topic basis.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 92 source.ini comment.line.number-sign.ini
+L 
+L # The number of messages to accept before forcing a flush of data to disk
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L #log.flush.interval.messages=10000
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 34 source.ini comment.line.number-sign.ini
+L 
+L # The maximum amount of time a message can sit in a log before we force a flush
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L #log.flush.interval.ms=1000
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 27 source.ini comment.line.number-sign.ini
+L 
+L ############################# Log Retention Policy #############################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L 
+L # The following configurations control the disposal of log segments. The policy can
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 83 source.ini comment.line.number-sign.ini
+L # be set to delete segments after a period of time, or after a given size has accumulated.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 90 source.ini comment.line.number-sign.ini
+L # A segment will be deleted whenever *either* of these criteria are met. Deletion always happens
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 96 source.ini comment.line.number-sign.ini
+L # from the end of the log.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 26 source.ini comment.line.number-sign.ini
+L 
+L # The minimum age of a log file to be eligible for deletion due to age
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L log.retention.hours=168
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L 
+L # A size-based retention policy for logs. Segments are pruned from the log unless the remaining
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 95 source.ini comment.line.number-sign.ini
+L # segments drop below log.retention.bytes. Functions independently of log.retention.hours.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 90 source.ini comment.line.number-sign.ini
+L #log.retention.bytes=1073741824
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L 
+L # The maximum size of a log segment file. When this size is reached a new log segment will be created.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 102 source.ini comment.line.number-sign.ini
+L log.segment.bytes=1073741824
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 28 source.ini
+L 
+L # The interval at which log segments are checked to see if they can be deleted according
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 88 source.ini comment.line.number-sign.ini
+L # to the retention policies
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 27 source.ini comment.line.number-sign.ini
+L log.retention.check.interval.ms=300000
+T 31 source.ini keyword.other.definition.ini
+T 32 source.ini punctuation.separator.key-value.ini
+T 38 source.ini
+L 

@@ -97,6 +97,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Java | `Language::Java` | `java` |
 | C | `Language::C` | `c` |
 | SQL | `Language::Sql` | `sql` |
+| INI | `Language::Ini` | `ini`, `properties` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -189,6 +190,13 @@ A Markdown fence names the language `dockerfile`; the `docker` fence is plain te
 
 `#` starts no comment, a string that closes on its line ignores a backslash before its quote, and a name after a `.` is a table name even when it is a number.
 A keyword is matched without regard to case as Shiki's engine does, so `ſelect` is `select`.
+
+### INI
+
+A `#` or `;` starts a comment anywhere outside a string, so `a = b # c` has one, and a `key = value` is found anywhere in a line, so `a = b = c` has two keys.
+A double-quoted string has no escapes, and a string runs across lines until its quote.
+A section header is read only at the start of a line, and a Markdown fence's INI lines lose that anchor when a quote or list indents the fence.
+A Markdown fence names the language `ini` or `conf`; a `properties` fence is plain text, as in Shiki.
 
 ## Licence
 

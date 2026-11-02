@@ -145,6 +145,11 @@ const PIECES: &[&str] = &[
     "a.b",
     "%{",
     "#{",
+    "= ",
+    "a=",
+    "a-",
+    "\u{e9}",
+    "; ",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

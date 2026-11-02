@@ -1,0 +1,216 @@
+L [tox]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 source.ini entity.name.section.group-title.ini
+T 5 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L isolated_build = true
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 21 source.ini
+L envlist = {,ci-}py{311,312,313,314,315,py3},fuzz,run_self,generate_schema
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 73 source.ini
+L 
+L [testenv]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 source.ini entity.name.section.group-title.ini
+T 9 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONPATH = {toxinidir}/src
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L     PYTHONWARNDEFAULTENCODING = 1
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L # We use `recreate=True` because otherwise, on the second run of `tox -e py`,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # the `no_jupyter` tests would run with the jupyter extra dependencies installed.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 81 source.ini comment.line.number-sign.ini
+L # See https://github.com/psf/black/issues/2367.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 47 source.ini comment.line.number-sign.ini
+L recreate = True
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 15 source.ini
+L dependency_groups = cov-tests
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 29 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pip install -e .[d]
+T 23 source.ini
+L     coverage erase
+T 18 source.ini
+L     pytest tests --run-optional no_jupyter \
+T 44 source.ini
+L         --numprocesses auto \
+T 29 source.ini
+L         --cov {posargs}
+T 23 source.ini
+L     pip install -e .[jupyter]
+T 29 source.ini
+L     pytest tests --run-optional jupyter \
+T 41 source.ini
+L         -m jupyter \
+T 20 source.ini
+L         --numprocesses auto \
+T 29 source.ini
+L         --cov --cov-append {posargs}
+T 36 source.ini
+L     coverage report
+T 19 source.ini
+L 
+L [testenv:{,ci-}pypy3]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 20 source.ini entity.name.section.group-title.ini
+T 21 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONPATH = {toxinidir}/src
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L recreate = True
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 15 source.ini
+L dependency_groups = tests
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 25 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pip install -e .[d]
+T 23 source.ini
+L     pytest tests --run-optional no_jupyter \
+T 44 source.ini
+L         --numprocesses auto
+T 27 source.ini
+L     pip install -e .[jupyter]
+T 29 source.ini
+L     pytest tests --run-optional jupyter \
+T 41 source.ini
+L         -m jupyter \
+T 20 source.ini
+L         --numprocesses auto
+T 27 source.ini
+L 
+L [testenv:fuzz]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L dependency_groups = fuzz
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pip install -e .[d]
+T 23 source.ini
+L     coverage erase
+T 18 source.ini
+L     coverage run {toxinidir}/scripts/fuzz.py
+T 44 source.ini
+L     coverage report
+T 19 source.ini
+L 
+L [testenv:run_self]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 17 source.ini entity.name.section.group-title.ini
+T 18 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONPATH = {toxinidir}/src
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pip install -e .
+T 20 source.ini
+L     black --check {toxinidir}
+T 29 source.ini
+L 
+L [testenv:generate_schema]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 24 source.ini entity.name.section.group-title.ini
+T 25 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONWARNDEFAULTENCODING =
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini
+T 31 source.ini punctuation.separator.key-value.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pip install -e .
+T 20 source.ini
+L     python {toxinidir}/scripts/generate_schema.py --outfile {toxinidir}/src/black/resources/black.schema.json
+T 109 source.ini
+L 

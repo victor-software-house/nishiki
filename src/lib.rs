@@ -56,6 +56,7 @@ mod c;
 mod diff;
 mod dockerfile;
 mod highlighter;
+mod ini;
 mod java;
 mod json;
 mod language;

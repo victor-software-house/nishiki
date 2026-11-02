@@ -66,6 +66,7 @@ scopes! {
     EmbeddedJava "meta.embedded.block.java"
     EmbeddedC "meta.embedded.block.c"
     EmbeddedSql "meta.embedded.block.sql"
+    EmbeddedIni "meta.embedded.block.ini"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

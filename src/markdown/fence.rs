@@ -144,6 +144,11 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Sql,
     },
+    Name {
+        words: &["ini", "conf"],
+        brace: None,
+        lang: Language::Ini,
+    },
 ];
 
 /// A language found in an info string.

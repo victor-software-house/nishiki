@@ -7,7 +7,7 @@ use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
 use crate::{
-    Token, c, diff, dockerfile, java, json, make, markdown, python, rust, shell, sql, toml,
+    Token, c, diff, dockerfile, ini, java, json, make, markdown, python, rust, shell, sql, toml,
     typescript, yaml,
 };
 
@@ -54,6 +54,8 @@ pub enum Language {
     C,
     /// SQL, with the scopes of Shiki's `sql` grammar.
     Sql,
+    /// INI, with the scopes of Shiki's `ini` grammar.
+    Ini,
 }
 
 impl Language {
@@ -78,6 +80,7 @@ impl Language {
         Language::Java,
         Language::C,
         Language::Sql,
+        Language::Ini,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -103,6 +106,7 @@ impl Language {
             Language::Java => "java",
             Language::C => "c",
             Language::Sql => "sql",
+            Language::Ini => "ini",
         }
     }
 
@@ -148,6 +152,7 @@ impl Language {
             Language::Java => &["java"],
             Language::C => &["c"],
             Language::Sql => &["sql"],
+            Language::Ini => &["ini", "properties"],
         }
     }
 }
@@ -207,6 +212,7 @@ impl Language {
             Language::Java => java::start(arena, base),
             Language::C => c::start(arena, base),
             Language::Sql => sql::start(arena, base),
+            Language::Ini => ini::start(arena, base),
         }
     }
 
@@ -230,6 +236,7 @@ impl Language {
             Language::Java => java::start_embedded(arena, base),
             Language::C => c::start_embedded(arena, base),
             Language::Sql => sql::start_embedded(arena, base),
+            Language::Ini => ini::start_embedded(arena, base),
         }
     }
 
@@ -258,6 +265,7 @@ impl Language {
             Language::Java => java::lex(cx, line, state),
             Language::C => c::lex(cx, line, state),
             Language::Sql => sql::lex(cx, line, state),
+            Language::Ini => ini::lex(cx, line, state),
         }
     }
 }

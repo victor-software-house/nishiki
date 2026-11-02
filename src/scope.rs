@@ -23,6 +23,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (JAVA, crate::java::NAMES),
     (C, crate::c::NAMES),
     (SQL, crate::sql::NAMES),
+    (INI, crate::ini::NAMES),
 ];
 
 // Each table starts where the one before it ends, and the last ends below the
@@ -102,6 +103,9 @@ pub(crate) const C: u16 = after(JAVA, crate::java::NAMES);
 
 /// The base of the SQL lexer's scope names: where the C lexer's end.
 pub(crate) const SQL: u16 = after(C, crate::c::NAMES);
+
+/// The base of the INI lexer's scope names: where the SQL lexer's end.
+pub(crate) const INI: u16 = after(SQL, crate::sql::NAMES);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

@@ -1,0 +1,424 @@
+L # Tox (https://tox.readthedocs.io/) is a tool for running tests in multiple
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L # virtualenvs. This configuration file helps to run the test suite on all
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # supported Python versions. To use it, "python -m pip install tox" and
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L # then run "tox" from this directory.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 37 source.ini comment.line.number-sign.ini
+L 
+L [tox]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 source.ini entity.name.section.group-title.ini
+T 5 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L minversion = 4.0
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L skipsdist = true
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L envlist =
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L     py3
+T 7 source.ini
+L     black
+T 9 source.ini
+L     blacken-docs
+T 16 source.ini
+L     flake8
+T 10 source.ini
+L     docs
+T 8 source.ini
+L     isort
+T 9 source.ini
+L     lint-docs
+T 13 source.ini
+L     zizmor
+T 10 source.ini
+L 
+L # Add environment to use the default python3 installation
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 57 source.ini comment.line.number-sign.ini
+L [testenv:py3]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 12 source.ini entity.name.section.group-title.ini
+T 13 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L 
+L # Free-threaded variants.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 25 source.ini comment.line.number-sign.ini
+L [testenv:py315t]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 15 source.ini entity.name.section.group-title.ini
+T 16 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3.15t
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L 
+L [testenv]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 source.ini entity.name.section.group-title.ini
+T 9 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L usedevelop = true
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L # OBJC_DISABLE_INITIALIZE_FORK_SAFETY fixes hung tests for MacOS users. (#30806)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L # LIBMEMCACHED, GDAL_LIBRARY_PATH, GEOS_LIBRARY_PATH, SPATIALITE_LIBRARY_PATH specify library paths.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 100 source.ini comment.line.number-sign.ini
+L passenv =
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L     DJANGO_SETTINGS_MODULE
+T 26 source.ini
+L     PYTHONPATH
+T 14 source.ini
+L     HOME
+T 8 source.ini
+L     DISPLAY
+T 11 source.ini
+L     OBJC_DISABLE_INITIALIZE_FORK_SAFETY
+T 39 source.ini
+L     LIBMEMCACHED
+T 16 source.ini
+L     GDAL_LIBRARY_PATH
+T 21 source.ini
+L     GEOS_LIBRARY_PATH
+T 21 source.ini
+L     SPATIALITE_LIBRARY_PATH
+T 27 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONDONTWRITEBYTECODE=1
+T 4 source.ini
+T 27 source.ini keyword.other.definition.ini
+T 28 source.ini punctuation.separator.key-value.ini
+T 29 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     -e .
+T 8 source.ini
+L     py{3,312,313,314,315}: -rtests/requirements/py3.txt
+T 55 source.ini
+L     py{313t,314t,315t}: -rtests/requirements/py3-free-threading.txt
+T 67 source.ini
+L     postgres: -rtests/requirements/postgres.txt
+T 47 source.ini
+L     mysql: -rtests/requirements/mysql.txt
+T 41 source.ini
+L     oracle: -rtests/requirements/oracle.txt
+T 43 source.ini
+L changedir = tests
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     {envpython} runtests.py {posargs}
+T 37 source.ini
+L 
+L [testenv:black]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 14 source.ini entity.name.section.group-title.ini
+T 15 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L deps = black
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 12 source.ini
+L changedir = {toxinidir}
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L commands = black --check --diff .
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L 
+L [testenv:blacken-docs]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 21 source.ini entity.name.section.group-title.ini
+T 22 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     make
+T 8 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     Sphinx
+T 10 source.ini
+L     blacken-docs
+T 16 source.ini
+L changedir = docs
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     make black
+T 14 source.ini
+L 
+L [testenv:flake8]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 15 source.ini entity.name.section.group-title.ini
+T 16 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L deps = flake8 >= 7.3.0
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 22 source.ini
+L changedir = {toxinidir}
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L commands = flake8 .
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L 
+L [testenv:docs]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     make
+T 8 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     Sphinx
+T 10 source.ini
+L     pyenchant
+T 13 source.ini
+L     sphinxcontrib-spelling
+T 26 source.ini
+L changedir = docs
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     make spelling
+T 17 source.ini
+L 
+L [testenv:isort]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 14 source.ini entity.name.section.group-title.ini
+T 15 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L deps = isort >= 8.0.1
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 21 source.ini
+L changedir = {toxinidir}
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L commands = isort --check-only --diff django tests scripts
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 57 source.ini
+L 
+L [testenv:javascript]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 19 source.ini entity.name.section.group-title.ini
+T 20 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L changedir = {toxinidir}
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     npm
+T 7 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     npm install
+T 15 source.ini
+L     npm test
+T 12 source.ini
+L 
+L [testenv:lint-docs]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 18 source.ini entity.name.section.group-title.ini
+T 19 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     make
+T 8 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     Sphinx
+T 10 source.ini
+L     sphinx-lint
+T 15 source.ini
+L changedir = docs
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     make lint
+T 13 source.ini
+L 
+L [testenv:zizmor]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 15 source.ini entity.name.section.group-title.ini
+T 16 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L usedevelop = false
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L deps = zizmor >= 1.25.2
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L changedir = {toxinidir}
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     zizmor .
+T 12 source.ini
+L 

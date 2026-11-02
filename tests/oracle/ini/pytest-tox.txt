@@ -1,0 +1,798 @@
+L [tox]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 source.ini entity.name.section.group-title.ini
+T 5 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L requires =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     tox >= 4
+T 12 source.ini
+L     tox-uv >= 1.25
+T 18 source.ini
+L envlist =
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L     linting
+T 11 source.ini
+L     py310
+T 9 source.ini
+L     py311
+T 9 source.ini
+L     py312
+T 9 source.ini
+L     py313
+T 9 source.ini
+L     py314
+T 9 source.ini
+L     py315
+T 9 source.ini
+L     pypy3
+T 9 source.ini
+L     py310-{pexpect,xdist,twisted24,twisted25,asynctest,numpy,pluggymain,pylib}
+T 78 source.ini
+L     doctesting
+T 14 source.ini
+L     doctesting-coverage
+T 23 source.ini
+L     plugins
+T 11 source.ini
+L     py310-freeze
+T 16 source.ini
+L     docs
+T 8 source.ini
+L     docs-checklinks
+T 19 source.ini
+L 
+L     # checks that 3.11 native ExceptionGroup works with exceptiongroup
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L     # not included in CI.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 25 source.ini comment.line.number-sign.ini
+L     py311-exceptiongroup
+T 24 source.ini
+L 
+L 
+L 
+L [pkgenv]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 source.ini entity.name.section.group-title.ini
+T 8 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L # NOTE: This section tweaks how Tox manages the PEP 517 build
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L # NOTE: environment where it assembles wheels (editable and regular)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # NOTE: for further installing them into regular testenvs.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 58 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # NOTE: `[testenv:.pkg]` does not work due to a regression in tox v4.14.1
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # NOTE: so `[pkgenv]` is being used in place of it.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 51 source.ini comment.line.number-sign.ini
+L # Refs:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 7 source.ini comment.line.number-sign.ini
+L # * https://github.com/tox-dev/tox/pull/3237
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L # * https://github.com/tox-dev/tox/issues/3238
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 46 source.ini comment.line.number-sign.ini
+L # * https://github.com/tox-dev/tox/issues/3292
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 46 source.ini comment.line.number-sign.ini
+L # * https://hynek.me/articles/turbo-charge-tox/
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 47 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # NOTE: The `SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYTEST` environment
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 67 source.ini comment.line.number-sign.ini
+L # NOTE: variable allows enforcing a pre-determined version for use in
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # NOTE: the wheel being installed into usual testenvs.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L pass_env =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L   SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYTEST
+T 43 source.ini
+L 
+L 
+L [testenv]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 source.ini entity.name.section.group-title.ini
+T 9 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     run the tests
+T 17 source.ini
+L     coverage: collecting coverage
+T 33 source.ini
+L     exceptiongroup: against `exceptiongroup`
+T 44 source.ini
+L     nobyte: in no-bytecode mode
+T 31 source.ini
+L     lsof: with `--lsof` pytest CLI option
+T 41 source.ini
+L     numpy: against `numpy`
+T 26 source.ini
+L     pexpect: against `pexpect`
+T 30 source.ini
+L     pluggymain: against the bleeding edge `pluggy` from Git
+T 59 source.ini
+L     pylib: against `py` lib
+T 27 source.ini
+L     twisted24: against the unit test extras with twisted prior to 24.0
+T 70 source.ini
+L     twisted25: against the unit test extras with twisted 25.0 or later
+T 70 source.ini
+L     asynctest: against the unit test extras with asynctest
+T 58 source.ini
+L     xdist: with pytest in parallel mode
+T 39 source.ini
+L     under `{basepython}`
+T 24 source.ini
+L     doctesting: including doctests
+T 34 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     {env:_PYTEST_TOX_COVERAGE_RUN:} pytest {posargs:{env:_PYTEST_TOX_DEFAULT_POSARGS:}}
+T 87 source.ini
+L     doctesting: {env:_PYTEST_TOX_COVERAGE_RUN:} pytest --doctest-modules {env:_PYTEST_TOX_POSARGS_JUNIT:} --pyargs _pytest
+T 122 source.ini
+L     coverage: coverage combine
+T 30 source.ini
+L     coverage: coverage report -m
+T 32 source.ini
+L     # Run `coverage xml` only on CI.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 36 source.ini comment.line.number-sign.ini
+L     coverage: python -c 'import os; os.environ.get("CI") and os.execlp("coverage", "coverage", "xml")'
+T 24 source.ini
+T 25 source.ini string.quoted.single.ini punctuation.definition.string.begin.ini
+T 101 source.ini string.quoted.single.ini
+T 102 source.ini string.quoted.single.ini punctuation.definition.string.end.ini
+L passenv =
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L     COVERAGE_*
+T 14 source.ini
+L     PYTEST_ADDOPTS
+T 18 source.ini
+L     TERM
+T 8 source.ini
+L     CI
+T 6 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     _PYTEST_TOX_DEFAULT_POSARGS={env:_PYTEST_TOX_POSARGS_DOCTESTING:} {env:_PYTEST_TOX_POSARGS_JUNIT:} {env:_PYTEST_TOX_POSARGS_LSOF:} {env:_PYTEST_TOX_POSARGS_XDIST:} {env:_PYTEST_FILES:}
+T 4 source.ini
+T 31 source.ini keyword.other.definition.ini
+T 32 source.ini punctuation.separator.key-value.ini
+T 188 source.ini
+L 
+L     # See https://docs.python.org/3/library/io.html#io-encoding-warning
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L     # If we don't enable this, neither can any of our downstream users!
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L     # pylib is not PYTHONWARNDEFAULTENCODING clean, so don't set for it.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L     !pylib: PYTHONWARNDEFAULTENCODING=1
+T 12 source.ini
+T 37 source.ini keyword.other.definition.ini
+T 38 source.ini punctuation.separator.key-value.ini
+T 39 source.ini
+L 
+L     # Configuration to run with coverage similar to CI, e.g.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 60 source.ini comment.line.number-sign.ini
+L     # "tox -e py313-coverage".
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 30 source.ini comment.line.number-sign.ini
+L     coverage: _PYTEST_TOX_COVERAGE_RUN=coverage run -m
+T 14 source.ini
+T 38 source.ini keyword.other.definition.ini
+T 39 source.ini punctuation.separator.key-value.ini
+T 54 source.ini
+L 
+L     doctesting: _PYTEST_TOX_POSARGS_DOCTESTING=doc/en
+T 16 source.ini
+T 46 source.ini keyword.other.definition.ini
+T 47 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L 
+L     # The configurations below are related only to standard unittest support.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L     # Run only tests from test_unittest.py.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 43 source.ini comment.line.number-sign.ini
+L     asynctest: _PYTEST_FILES=testing/test_unittest.py
+T 15 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L     twisted24: _PYTEST_FILES=testing/test_unittest.py
+T 15 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L     twisted25: _PYTEST_FILES=testing/test_unittest.py
+T 15 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L 
+L     nobyte: PYTHONDONTWRITEBYTECODE=1
+T 12 source.ini
+T 35 source.ini keyword.other.definition.ini
+T 36 source.ini punctuation.separator.key-value.ini
+T 37 source.ini
+L 
+L     lsof: _PYTEST_TOX_POSARGS_LSOF=--lsof
+T 10 source.ini
+T 34 source.ini keyword.other.definition.ini
+T 35 source.ini punctuation.separator.key-value.ini
+T 41 source.ini
+L 
+L     xdist: _PYTEST_TOX_POSARGS_XDIST=-n auto
+T 11 source.ini
+T 36 source.ini keyword.other.definition.ini
+T 37 source.ini punctuation.separator.key-value.ini
+T 44 source.ini
+L dependency_groups = dev
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     exceptiongroup: exceptiongroup>=1.2
+T 39 source.ini
+L     pluggymain: pluggy @ git+https://github.com/pytest-dev/pluggy.git
+T 69 source.ini
+L     pylib: py>=1.11
+T 19 source.ini
+L     twisted24: twisted<25
+T 25 source.ini
+L     twisted25: twisted>=25
+T 26 source.ini
+L # Can use the same wheel for all environments.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 46 source.ini comment.line.number-sign.ini
+L package = wheel
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 15 source.ini
+L wheel_build_env = .pkg
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 22 source.ini
+L 
+L [testenv:linting]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 16 source.ini entity.name.section.group-title.ini
+T 17 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     run pre-commit-defined linters under `{basepython}`
+T 55 source.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps = pre-commit>=4
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L commands = pre-commit run --all-files --show-diff-on-failure {posargs:}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 71 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     # pre-commit and tools it launches are not clean of this warning.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L     PYTHONWARNDEFAULTENCODING=
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+L 
+L [testenv:docs]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     build the documentation site under \
+T 40 source.ini
+L     `{toxinidir}{/}doc{/}en{/}_build{/}html` with `{basepython}`
+T 64 source.ini
+L basepython = python3.14 # Sync with .readthedocs.yaml to get errors.
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+T 25 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L usedevelop = True
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     -r{toxinidir}/doc/en/requirements.txt
+T 41 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     sphinx-build \
+T 18 source.ini
+L       -j auto \
+T 15 source.ini
+L       -W --keep-going \
+T 23 source.ini
+L       -b html doc/en doc/en/_build/html \
+T 41 source.ini
+L       {posargs:}
+T 16 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     # Sphinx is not clean of this warning.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 42 source.ini comment.line.number-sign.ini
+L     PYTHONWARNDEFAULTENCODING=
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+L 
+L [testenv:docs-checklinks]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 24 source.ini entity.name.section.group-title.ini
+T 25 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     check the links in the documentation with `{basepython}`
+T 60 source.ini
+L usedevelop = True
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L changedir = doc/en
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps = -r{toxinidir}/doc/en/requirements.txt
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 44 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     sphinx-build -W -q --keep-going -b linkcheck . _build
+T 57 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     # Sphinx is not clean of this warning.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 42 source.ini comment.line.number-sign.ini
+L     PYTHONWARNDEFAULTENCODING=
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+L 
+L [testenv:regen]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 14 source.ini entity.name.section.group-title.ini
+T 15 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     regenerate documentation examples under `{basepython}`
+T 58 source.ini
+L changedir = doc/en
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 18 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     attrs
+T 9 source.ini
+L     PyYAML
+T 10 source.ini
+L     regendoc>=0.8.1
+T 19 source.ini
+L     sphinx
+T 10 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     make
+T 8 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     make regen
+T 14 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     # We don't want this warning to reach regen output.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L     PYTHONWARNDEFAULTENCODING=
+T 4 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+L     # Remove CI markers: pytest auto-detects those and uses more verbose output, which is undesirable
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 101 source.ini comment.line.number-sign.ini
+L     # for the example documentation.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 36 source.ini comment.line.number-sign.ini
+L     CI=
+T 4 source.ini
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L     BUILD_NUMBER=
+T 4 source.ini
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+L 
+L [testenv:plugins]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 16 source.ini entity.name.section.group-title.ini
+T 17 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     run reverse dependency testing against pytest plugins under `{basepython}`
+T 78 source.ini
+L # use latest versions of all plugins, including pre-releases
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 60 source.ini comment.line.number-sign.ini
+L pip_pre=true
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini punctuation.separator.key-value.ini
+T 12 source.ini
+L changedir = testing/plugins_integration
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 39 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps = -rtesting/plugins_integration/requirements.txt
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L allowlist_externals = uv
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L setenv =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     PYTHONPATH=.
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+T 16 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     uv pip check
+T 16 source.ini
+L     ; Currently broken by _arg2fixturedefs -> _arg2node2fixturedefs change.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.semicolon.ini
+L     ; pytest bdd_wallet.py
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 26 source.ini comment.line.semicolon.ini
+L     pytest --cov=. simple_integration.py
+T 13 source.ini
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 40 source.ini
+L     pytest --ds=django_settings simple_integration.py
+T 13 source.ini
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 53 source.ini
+L     pytest --html=simple.html simple_integration.py
+T 13 source.ini
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 51 source.ini
+L     pytest --reruns 5 simple_integration.py pytest_rerunfailures_integration.py
+T 79 source.ini
+L     pytest pytest_anyio_integration.py
+T 38 source.ini
+L     pytest pytest_asyncio_integration.py
+T 40 source.ini
+L     pytest pytest_mock_integration.py
+T 37 source.ini
+L     pytest pytest_trio_integration.py
+T 37 source.ini
+L     pytest pytest_twisted_integration.py
+T 40 source.ini
+L     pytest simple_integration.py --force-sugar --flakes
+T 55 source.ini
+L 
+L [testenv:py310-freeze]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 21 source.ini entity.name.section.group-title.ini
+T 22 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description =
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+L     test pytest frozen with `pyinstaller` under `{basepython}`
+T 62 source.ini
+L changedir = testing/freeze
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini
+T 11 source.ini punctuation.separator.key-value.ini
+T 26 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     pyinstaller
+T 15 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     {envpython} create_executable.py
+T 36 source.ini
+L     {envpython} tox_run.py
+T 26 source.ini
+L 
+L [testenv:release]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 16 source.ini entity.name.section.group-title.ini
+T 17 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description = do a release, required posarg of the version number
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 65 source.ini
+L usedevelop = True
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L passenv = *
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 11 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     colorama
+T 12 source.ini
+L     pre-commit>=2.9.3
+T 21 source.ini
+L     towncrier
+T 13 source.ini
+L commands = python scripts/release.py {posargs}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 46 source.ini
+L 
+L [testenv:prepare-release-pr]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 27 source.ini entity.name.section.group-title.ini
+T 28 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description = prepare a release PR from a manual trigger in GitHub actions
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 74 source.ini
+L usedevelop = {[testenv:release]usedevelop}
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 42 source.ini
+L passenv = {[testenv:release]passenv}
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 36 source.ini
+L dependency_groups = {[testenv:release]dependency_groups}
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 56 source.ini
+L deps = {[testenv:release]deps}
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 30 source.ini
+L commands = python scripts/prepare-release-pr.py {posargs}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 57 source.ini
+L 
+L [testenv:generate-gh-release-notes]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 34 source.ini entity.name.section.group-title.ini
+T 35 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description = generate release notes that can be published as GitHub Release
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 76 source.ini
+L usedevelop = True
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     pypandoc_binary
+T 19 source.ini
+L commands = python scripts/generate-gh-release-notes.py {posargs}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 64 source.ini
+L 
+L [testenv:update-plugin-list]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 27 source.ini entity.name.section.group-title.ini
+T 28 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L description = update the plugin list
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 36 source.ini
+L skip_install = True
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L dependency_groups =
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini
+T 19 source.ini punctuation.separator.key-value.ini
+L deps =
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+L     packaging
+T 13 source.ini
+L     requests
+T 12 source.ini
+L     tabulate[widechars]
+T 23 source.ini
+L     tqdm
+T 8 source.ini
+L     requests-cache
+T 18 source.ini
+L     platformdirs
+T 16 source.ini
+L commands = python scripts/update-plugin-list.py {posargs}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 57 source.ini
+L 

@@ -1,0 +1,985 @@
+L # Using _Black_ with other tools
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 8 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+T 9 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 14 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown markup.italic.markdown
+T 15 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 32 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L ## Black compatible configurations
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 34 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L All of Black's changes are harmless (or at least, they should be), but a few do conflict
+T 88 text.html.markdown meta.paragraph.markdown
+L against other tools. It is not uncommon to be using other tools alongside _Black_ like
+T 74 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 80 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 81 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+L linters and type checkers. Some of them need a bit of tweaking to resolve the conflicts.
+T 88 text.html.markdown meta.paragraph.markdown
+L Listed below are _Black_ compatible configurations in various formats for the common
+T 17 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L tools out there.
+T 16 text.html.markdown meta.paragraph.markdown
+L 
+L **Please note** that _Black_ only supports the TOML file format for its configuration
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L (e.g. `pyproject.toml`). The provided examples are to only configure their corresponding
+T 6 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L tools, using **their** supported file formats.
+T 13 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 46 text.html.markdown meta.paragraph.markdown
+L 
+L Compatible configuration files can be
+T 37 text.html.markdown meta.paragraph.markdown
+L [found here](https://github.com/psf/black/blob/main/docs/compatible_configs/).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L 
+L ### isort
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 9 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L [isort](https://isort.readthedocs.io/) helps to sort and format imports in your Python
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 37 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+L code. _Black_ also formats imports, but in a different way from isort's defaults which
+T 6 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+L leads to conflicting changes.
+T 29 text.html.markdown meta.paragraph.markdown
+L 
+L #### Profile
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Since version 5.0.0, isort supports
+T 35 text.html.markdown meta.paragraph.markdown
+L [profiles](https://isort.readthedocs.io/en/latest/configuration/profiles.html) to allow
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L easy interoperability with common code styles. You can set the black profile in any of
+T 86 text.html.markdown meta.paragraph.markdown
+L the
+T 3 text.html.markdown meta.paragraph.markdown
+L [config files](https://isort.readthedocs.io/en/latest/configuration/config_files.html)
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 86 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L supported by isort. Below, an example for `pyproject.toml`:
+T 42 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [tool.isort]
+T 12 text.html.markdown markup.fenced_code.block.markdown
+L profile = "black"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Custom Configuration
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 25 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L If you're using an isort version that is older than 5.0.0 or you have some custom
+T 81 text.html.markdown meta.paragraph.markdown
+L configuration for _Black_, you can tweak your isort configuration to make it compatible
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L with _Black_. Below, an example for `.isort.cfg`:
+T 5 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 36 text.html.markdown meta.paragraph.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L multi_line_output = 3
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L include_trailing_comma = True
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L force_grid_wrap = 0
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L use_parentheses = True
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ensure_newline_before_comments = True
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L line_length = 88
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Why those options above?
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 29 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L _Black_ wraps imports that surpass `line-length` by moving identifiers onto separate
+T 1 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 35 text.html.markdown meta.paragraph.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L lines and by adding a trailing comma after each. A more detailed explanation of this
+T 84 text.html.markdown meta.paragraph.markdown
+L behaviour can be
+T 16 text.html.markdown meta.paragraph.markdown
+L [found here](../the_black_code_style/current_style.md#how-black-wraps-lines).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 75 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+L 
+L isort's default mode of wrapping imports that extend past the `line_length` limit is
+T 62 text.html.markdown meta.paragraph.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L "Grid".
+T 7 text.html.markdown meta.paragraph.markdown
+L 
+L ```python
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L from third_party import (lib1, lib2, lib3,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.import.python
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.import.python
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.parenthesis.begin.python
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+L                          lib4, lib5, ...)
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python constant.other.ellipsis.python
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.parenthesis.end.python
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This style is incompatible with _Black_, but isort can be configured to use a different
+T 32 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L wrapping mode called "Vertical Hanging Indent" which looks like this:
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L ```python
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L from third_party import (
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.import.python
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python keyword.control.import.python
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.parenthesis.begin.python
+L     lib1,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+L     lib2,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+L     lib3,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+L     lib4,
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.separator.element.python
+L )
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.python punctuation.parenthesis.end.python
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This style is _Black_ compatible and can be achieved by `multi-line-output = 3`. Also,
+T 14 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+L as mentioned above, when wrapping long imports _Black_ puts a trailing comma and uses
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L parentheses. isort should follow the same behaviour and passing the options
+T 75 text.html.markdown meta.paragraph.markdown
+L `include_trailing_comma = True` and `use_parentheses = True` configures that.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown meta.paragraph.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+L 
+L The option `force_grid_wrap = 0` is just to tell isort to only wrap imports that surpass
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L the `line_length` limit.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L Finally, isort should be told to wrap imports when they surpass _Black_'s default limit
+T 64 text.html.markdown meta.paragraph.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L of 88 characters via `line_length = 88` as well as
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+L `ensure_newline_before_comments = True` to ensure spacing import sections with comments
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L works the same as with _Black_.
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 31 text.html.markdown meta.paragraph.markdown
+L 
+L **Please note** `ensure_newline_before_comments = True` only works since isort >= 5 but
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L does not break older versions so you can keep it if you are running previous versions.
+T 86 text.html.markdown meta.paragraph.markdown
+L 
+L #### Formats
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>.isort.cfg</summary>
+T 29 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [settings]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L profile = black
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>setup.cfg</summary>
+T 28 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [isort]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L profile = black
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>pyproject.toml</summary>
+T 33 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [tool.isort]
+T 12 text.html.markdown markup.fenced_code.block.markdown
+L profile = 'black'
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>.editorconfig</summary>
+T 32 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [*.py]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L profile = black
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L ### pycodestyle
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 15 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L [pycodestyle](https://pycodestyle.pycqa.org/en/stable/) is a code linter. It warns you
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 86 text.html.markdown meta.paragraph.markdown
+L of syntax errors, possible bugs, stylistic errors, etc. For the most part, pycodestyle
+T 86 text.html.markdown meta.paragraph.markdown
+L follows [PEP 8](https://peps.python.org/pep-0008/) when warning about stylistic errors.
+T 8 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L There are a few deviations that cause incompatibilities with _Black_.
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 67 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L #### Configuration
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ignore = E203,E701
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L (labels/why-pycodestyle-warnings)=
+T 34 text.html.markdown meta.paragraph.markdown
+L 
+L #### Why those options above?
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 29 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ##### `max-line-length`
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 7 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 23 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L As with isort, pycodestyle should be configured to allow lines up to the length limit of
+T 88 text.html.markdown meta.paragraph.markdown
+L `88`, _Black_'s default.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 3 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 6 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L ##### `E203`
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 7 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L In some cases, as determined by PEP 8, _Black_ will enforce an equal amount of
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L whitespace around slice operators. Due to this, pycodestyle will raise
+T 70 text.html.markdown meta.paragraph.markdown
+L `E203 whitespace before ':'` warnings. Since this warning is not PEP 8 compliant, it
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L should be disabled.
+T 19 text.html.markdown meta.paragraph.markdown
+L 
+L ##### `E701` / `E704`
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 7 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 16 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L _Black_ will collapse implementations of classes and functions consisting solely of `..`
+T 1 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 88 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L to a single line. This matches how such examples are formatted in PEP 8. It remains true
+T 88 text.html.markdown meta.paragraph.markdown
+L that in all other cases Black will prevent multiple statements on the same line, in
+T 83 text.html.markdown meta.paragraph.markdown
+L accordance with PEP 8 generally discouraging this.
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L However, `pycodestyle` does not mirror this logic and may raise
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown
+L `E701 multiple statements on one line (colon)` in this situation. Its
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L disabled-by-default `E704 multiple statements on one line (def)` rule may also raise
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L warnings and should not be enabled.
+T 35 text.html.markdown meta.paragraph.markdown
+L 
+L ##### `W503`
+T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
+T 6 text.html.markdown markup.heading.markdown heading.5.markdown
+T 7 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L When breaking a line, _Black_ will break it before a binary operator. This is compliant
+T 22 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L with PEP 8 as of
+T 16 text.html.markdown meta.paragraph.markdown
+L [April 2016](https://github.com/python/peps/commit/c59c4376ad233a62ca4b3a6060c81368bd21e85b#diff-64ec08cc46db7540f18f2af46037f599).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 129 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 130 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 131 text.html.markdown meta.paragraph.markdown
+L There's a disabled-by-default warning in Flake8 which goes against this PEP 8
+T 77 text.html.markdown meta.paragraph.markdown
+L recommendation called `W503 line break before binary operator`. It should not be enabled
+T 22 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L in your configuration. You can use its counterpart
+T 50 text.html.markdown meta.paragraph.markdown
+L `W504 line break after binary operator` instead.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 48 text.html.markdown meta.paragraph.markdown
+L 
+L #### Formats
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>setup.cfg, .pycodestyle, tox.ini</summary>
+T 51 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [pycodestyle]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ignore = E203,E701
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L ### Flake8
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 10 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L [Flake8](https://flake8.pycqa.org/en/stable/) is a wrapper around multiple linters,
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+L including pycodestyle. As such, it has many of the same issues.
+T 63 text.html.markdown meta.paragraph.markdown
+L 
+L #### Bugbear
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L It's recommended to use [the Bugbear plugin](https://github.com/PyCQA/flake8-bugbear)
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L and enable
+T 10 text.html.markdown meta.paragraph.markdown
+L [its B950 check](https://github.com/PyCQA/flake8-bugbear#opinionated-warnings#:~:text=you%20expect%20it.-,B950,-%3A%20Line%20too%20long)
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 135 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 136 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L instead of using Flake8's E501, because it aligns with
+T 54 text.html.markdown meta.paragraph.markdown
+L [Black's 10% rule](labels/line-length).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 37 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L Install Bugbear and use the following config:
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [flake8]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 80
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L extend-select = B950
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L extend-ignore = E203,E501,E701
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Minimal Configuration
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 26 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L In cases where you can't or don't want to install Bugbear, you can use this minimally
+T 85 text.html.markdown meta.paragraph.markdown
+L compatible config:
+T 18 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [flake8]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L extend-ignore = E203,E701
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Why those options above?
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 29 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L See [the pycodestyle section](labels/why-pycodestyle-warnings) above.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L #### Formats
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>.flake8, setup.cfg, tox.ini</summary>
+T 46 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [flake8]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L extend-ignore = E203,E701
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L ### Pylint
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 10 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L [Pylint](https://pylint.readthedocs.io/) is also a code linter like Flake8. It has many
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L of the same checks as Flake8 and more. It particularly has more formatting checks
+T 81 text.html.markdown meta.paragraph.markdown
+L regarding style conventions like variable naming.
+T 49 text.html.markdown meta.paragraph.markdown
+L 
+L #### Configuration
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L #### Why those options above?
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 29 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Pylint should be configured to only complain about lines that surpass `88` characters
+T 70 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L via `max-line-length = 88`.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L If using `pylint<2.6.0`, also disable `C0326` and `C0330` as these are incompatible with
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L _Black_ formatting and have since been removed.
+T 1 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L #### Formats
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>pylintrc</summary>
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [format]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>setup.cfg</summary>
+T 28 text.html.markdown meta.paragraph.markdown
+L 
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [pylint]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L max-line-length = 88
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L <details>
+T 9 text.html.markdown meta.paragraph.markdown
+L <summary>pyproject.toml</summary>
+T 33 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [tool.pylint.format]
+T 20 text.html.markdown markup.fenced_code.block.markdown
+L max-line-length = "88"
+T 22 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L </details>
+T 10 text.html.markdown meta.paragraph.markdown
+L 

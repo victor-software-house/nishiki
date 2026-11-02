@@ -1,0 +1,369 @@
+L # Licensed to the Apache Software Foundation (ASF) under one or more
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # contributor license agreements.  See the NOTICE file distributed with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L # this work for additional information regarding copyright ownership.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # The ASF licenses this file to You under the Apache License, Version 2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # (the "License"); you may not use this file except in compliance with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # the License.  You may obtain a copy of the License at
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L #    http://www.apache.org/licenses/LICENSE-2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 47 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Unless required by applicable law or agreed to in writing, software
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # distributed under the License is distributed on an "AS IS" BASIS,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 67 source.ini comment.line.number-sign.ini
+L # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 74 source.ini comment.line.number-sign.ini
+L # See the License for the specific language governing permissions and
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # limitations under the License.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 32 source.ini comment.line.number-sign.ini
+L 
+L # See org.apache.kafka.clients.consumer.ConsumerConfig for more details.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L # Consider using environment variables or external configuration management
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L # for sensitive information like passwords and environment-specific settings.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L 
+L ##################### Consumer Basics #######################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L 
+L # List of Kafka brokers used for initial cluster discovery and metadata retrieval.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 82 source.ini comment.line.number-sign.ini
+L # Format: host1:port1,host2:port2,host3:port3
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 45 source.ini comment.line.number-sign.ini
+L # Include all brokers for high availability
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 43 source.ini comment.line.number-sign.ini
+L bootstrap.servers=localhost:9092
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L 
+L # Client identifier for logging and metrics.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L # Helps with debugging and monitoring.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 38 source.ini comment.line.number-sign.ini
+L client.id=test-consumer
+T 9 source.ini keyword.other.definition.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L 
+L ##################### Transaction Support #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 63 source.ini comment.line.number-sign.ini
+L 
+L # Isolation level for reading messages.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 39 source.ini comment.line.number-sign.ini
+L # Options: read_uncommitted (default), read_committed (for exactly-once semantics).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 83 source.ini comment.line.number-sign.ini
+L isolation.level=read_uncommitted
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L 
+L ##################### Consumer Group Configuration #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L 
+L # Unique identifier for this consumer group.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L # All consumers with the same group.id will share partition consumption.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L group.id=test-consumer-group
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 28 source.ini
+L 
+L # What to do when there is no initial offset or if the current offset no longer exists.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 87 source.ini comment.line.number-sign.ini
+L # Options: earliest (from beginning), latest (from end), none (throw exception).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L # Use 'earliest' to avoid data loss on first run.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 49 source.ini comment.line.number-sign.ini
+L auto.offset.reset=earliest
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 26 source.ini
+L 
+L ##################### Partition Assignment Strategy #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L 
+L # Strategy for assigning partitions to consumers in a group.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 60 source.ini comment.line.number-sign.ini
+L # Options: RangeAssignor, RoundRobinAssignor, StickyAssignor, CooperativeStickyAssignor.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 88 source.ini comment.line.number-sign.ini
+L # CooperativeStickyAssignor is recommended (requires Kafka 2.4+).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 65 source.ini comment.line.number-sign.ini
+L partition.assignment.strategy=org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+T 89 source.ini
+L 
+L ##################### Deserialization #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 59 source.ini comment.line.number-sign.ini
+L 
+L # Deserializer class for message keys.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 38 source.ini comment.line.number-sign.ini
+L # Common options: StringDeserializer, ByteArrayDeserializer, AvroDeserializer.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 73 source.ini
+L 
+L # Deserializer class for message values.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 40 source.ini comment.line.number-sign.ini
+L value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 75 source.ini
+L 
+L ##################### Offset Management #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L 
+L # Whether to automatically commit offsets in the background.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 60 source.ini comment.line.number-sign.ini
+L # Set to false for manual offset management and exactly-once processing.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L enable.auto.commit=true
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L 
+L # Frequency (in milliseconds) at which offsets are auto-committed.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 66 source.ini comment.line.number-sign.ini
+L # Lower values provide better fault tolerance but increase broker load.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L auto.commit.interval.ms=5000
+T 23 source.ini keyword.other.definition.ini
+T 24 source.ini punctuation.separator.key-value.ini
+T 28 source.ini
+L 
+L ##################### Classic Group Session Management #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L 
+L # Timeout for detecting consumer failures when using group management.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # Must be between group.min.session.timeout.ms and group.max.session.timeout.ms (broker config).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 96 source.ini comment.line.number-sign.ini
+L session.timeout.ms=30000
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L 
+L # Expected time between heartbeats when using group management.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 63 source.ini comment.line.number-sign.ini
+L # Should be lower than session.timeout.ms (typically 1/3 of session timeout).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L heartbeat.interval.ms=10000
+T 21 source.ini keyword.other.definition.ini
+T 22 source.ini punctuation.separator.key-value.ini
+T 27 source.ini
+L 
+L # Maximum time between successive calls to poll().
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L # If exceeded, consumer is considered failed and partition rebalancing occurs.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L max.poll.interval.ms=300000
+T 20 source.ini keyword.other.definition.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 27 source.ini
+L 
+L ##################### Retry And Error Handling #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L 
+L # Initial and max time to wait for failed request retries.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 58 source.ini comment.line.number-sign.ini
+L # The retry.backoff.ms is the initial backoff value and will increase exponentially
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 83 source.ini comment.line.number-sign.ini
+L # for each failed request, up to the retry.backoff.max.ms value.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 64 source.ini comment.line.number-sign.ini
+L retry.backoff.ms=100
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L retry.backoff.max.ms=1000
+T 20 source.ini keyword.other.definition.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 25 source.ini
+L 
+L # Total time to wait for a response to a request.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 49 source.ini comment.line.number-sign.ini
+L request.timeout.ms=40000
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L 
+L # Close idle connections after this many milliseconds.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L connections.max.idle.ms=540000
+T 23 source.ini keyword.other.definition.ini
+T 24 source.ini punctuation.separator.key-value.ini
+T 30 source.ini
+L 
+L ##################### Security Configuration #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 66 source.ini comment.line.number-sign.ini
+L 
+L # Security protocol for communication with brokers.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 51 source.ini comment.line.number-sign.ini
+L # Options: PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 51 source.ini comment.line.number-sign.ini
+L #security.protocol=SASL_SSL
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 27 source.ini comment.line.number-sign.ini
+L 
+L # SSL configuration.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 20 source.ini comment.line.number-sign.ini
+L #ssl.truststore.location=/path/to/truststore.jks
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L #ssl.truststore.password=truststore-password
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 44 source.ini comment.line.number-sign.ini
+L 
+L # SASL configuration.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 21 source.ini comment.line.number-sign.ini
+L #sasl.mechanism=PLAIN
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 21 source.ini comment.line.number-sign.ini
+L #sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 84 source.ini comment.line.number-sign.ini
+L #    username="your-username" \
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L #    password="your-password";
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 30 source.ini comment.line.number-sign.ini
+L 
+L ##################### Performance And Throughput #####################
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L 
+L # Minimum data size (bytes) and maximum polling timeout (ms).
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L # Whichever condition is met first will trigger the fetch operation.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # Balances response latency against message batching efficiency.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 64 source.ini comment.line.number-sign.ini
+L # For remote partition fetching, configure remote.fetch.max.wait.ms instead.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L fetch.min.bytes=1
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 17 source.ini
+L fetch.max.wait.ms=500
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 21 source.ini
+L 
+L # Set soft limits to the amount of bytes per fetch request and partition.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # Both max.partition.fetch.bytes and fetch.max.bytes limits can be exceeded when
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L # the first batch in the first non-empty partition is larger than the configured
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L # value to ensure that the consumer can make progress.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L # Configuring message.max.bytes (broker config) or max.message.bytes (topic config)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 83 source.ini comment.line.number-sign.ini
+L # <= fetch.max.bytes prevents oversized fetch responses.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 56 source.ini comment.line.number-sign.ini
+L fetch.max.bytes=52428800
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+L max.partition.fetch.bytes=1048576
+T 25 source.ini keyword.other.definition.ini
+T 26 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L 
+L # Maximum number of records returned in a single poll() call.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L # Higher values increase throughput but may cause longer processing delays.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L max.poll.records=500
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L 

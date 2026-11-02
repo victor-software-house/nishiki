@@ -1,0 +1,1039 @@
+L 
+L [tox]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 source.ini entity.name.section.group-title.ini
+T 5 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L envlist = py
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 12 source.ini
+L 
+L [greenletextras]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 15 source.ini entity.name.section.group-title.ini
+T 16 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      asyncio
+T 12 source.ini
+L      sqlite: aiosqlite
+T 22 source.ini
+L      sqlite_file: aiosqlite
+T 27 source.ini
+L 
+L      # asyncpg doesn't build on free threading backends
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L      py{38,39,310,311,312,313,314}-postgresql: postgresql_asyncpg
+T 65 source.ini
+L 
+L      mysql: asyncmy
+T 19 source.ini
+L 
+L      # aioodbc builds on free threading but segfaults once you use it
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L      py{38,39,310,311,312,313,314}-mssql: aioodbc
+T 49 source.ini
+L 
+L [testenv]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 source.ini entity.name.section.group-title.ini
+T 9 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L cov_args=--cov=sqlalchemy --cov-report term --cov-append --cov-report xml --exclude-tag memory-intensive --exclude-tag timing-intensive -k "not aaa_profiling"
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+T 11 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+T 139 source.ini
+T 140 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 157 source.ini string.quoted.double.ini
+T 158 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L # this needs to be set as of tox 4.4.0 *if* we have extras (e.g. .[aiosqlite])
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # inside of deps.  But we put them in extras now.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 49 source.ini comment.line.number-sign.ini
+L # see https://github.com/tox-dev/tox/issues/2898
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L # constrain_package_deps=false
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 30 source.ini comment.line.number-sign.ini
+L 
+L usedevelop=
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini punctuation.separator.key-value.ini
+L      cov: True
+T 14 source.ini
+L 
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      # this can be limited to specific python versions IF there is no
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L      # greenlet available for the most recent python.  otherwise
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 64 source.ini comment.line.number-sign.ini
+L      # keep this present in all cases
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 37 source.ini comment.line.number-sign.ini
+L      # py{38,39,310,311,312,313,314,313t,314t}: {[greenletextras]extras}
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L 
+L      {[greenletextras]extras}
+T 29 source.ini
+L 
+L      postgresql: postgresql
+T 27 source.ini
+L      postgresql: postgresql_pg8000
+T 34 source.ini
+L      postgresql: postgresql_psycopg
+T 35 source.ini
+L 
+L      mysql: mysql
+T 17 source.ini
+L      mysql: pymysql
+T 19 source.ini
+L 
+L      # see https://jira.mariadb.org/browse/CONPY-318.
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 53 source.ini comment.line.number-sign.ini
+L      # installed manually as part of deps w/ version pin
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 56 source.ini comment.line.number-sign.ini
+L      # mysql: mariadb_connector
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L 
+L      oracle: oracle
+T 19 source.ini
+L      oracle: oracle_oracledb
+T 28 source.ini
+L      mssql: mssql
+T 17 source.ini
+L      mssql-py{38,39,310,311,312,313}: mssql_pymssql
+T 51 source.ini
+L      mssql: mssql-python
+T 24 source.ini
+L 
+L install_command=
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+L      # TODO: I can find no way to get pip / tox / anyone to have this
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L      # --only-binary option local to the pymssql install, rather than global
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L      # as it is here.
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 21 source.ini comment.line.number-sign.ini
+L      python -I -m pip install --only-binary=pymssql {opts} {packages}
+T 32 source.ini
+T 43 source.ini keyword.other.definition.ini
+T 44 source.ini punctuation.separator.key-value.ini
+T 69 source.ini
+L 
+L deps=
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini punctuation.separator.key-value.ini
+L      typing-extensions>=4.13.0rc1
+T 33 source.ini
+L 
+L      # see https://jira.mariadb.org/browse/CONPY-318.
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 53 source.ini comment.line.number-sign.ini
+L      # using < to block all future versions for now as it's not clear
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L      # if newer versions will fix the segfault or not
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 53 source.ini comment.line.number-sign.ini
+L      mysql: mariadb<1.1.13
+T 26 source.ini
+L 
+L      pytest>=7.0.0,<10
+T 22 source.ini
+L      # tracked by https://github.com/pytest-dev/pytest-xdist/issues/907
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L      pytest-xdist!=3.3.0
+T 24 source.ini
+L 
+L      dbapimain-sqlite: git+https://github.com/omnilib/aiosqlite.git\#egg=aiosqlite
+T 68 source.ini
+T 69 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 82 source.ini comment.line.number-sign.ini
+L 
+L      dbapimain-postgresql: git+https://github.com/psycopg/psycopg2.git\#egg=psycopg2
+T 71 source.ini
+T 72 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 84 source.ini comment.line.number-sign.ini
+L      dbapimain-postgresql: git+https://github.com/MagicStack/asyncpg.git\#egg=asyncpg
+T 73 source.ini
+T 74 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 85 source.ini comment.line.number-sign.ini
+L      dbapimain-postgresql: git+https://github.com/tlocke/pg8000.git\#egg=pg8000
+T 68 source.ini
+T 69 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L      dbapimain-postgresql: git+https://github.com/psycopg/psycopg.git\#egg=psycopg&subdirectory=psycopg
+T 70 source.ini
+T 71 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 103 source.ini comment.line.number-sign.ini
+L      # dbapimain-postgresql: git+https://github.com/psycopg/psycopg.git\#egg=psycopg-c&subdirectory=psycopg_c
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 109 source.ini comment.line.number-sign.ini
+L 
+L      dbapimain-mysql: git+https://github.com/PyMySQL/mysqlclient-python.git\#egg=mysqlclient
+T 76 source.ini
+T 77 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 92 source.ini comment.line.number-sign.ini
+L      dbapimain-mysql: git+https://github.com/PyMySQL/PyMySQL.git\#egg=pymysql
+T 65 source.ini
+T 66 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L 
+L #    dbapimain-mysql: git+https://github.com/mariadb-corporation/mariadb-connector-python\#egg=mariadb
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 102 source.ini comment.line.number-sign.ini
+L 
+L      dbapimain-oracle: git+https://github.com/oracle/python-cx_Oracle.git\#egg=cx_Oracle
+T 74 source.ini
+T 75 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 88 source.ini comment.line.number-sign.ini
+L 
+L      py313-mssql: git+https://github.com/mkleehammer/pyodbc.git\#egg=pyodbc
+T 64 source.ini
+T 65 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L      dbapimain-mssql: git+https://github.com/mkleehammer/pyodbc.git\#egg=pyodbc
+T 68 source.ini
+T 69 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L 
+L      cov: pytest-cov
+T 20 source.ini
+L 
+L allowlist_externals=sh
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini punctuation.separator.key-value.ini
+T 22 source.ini
+L 
+L # PYTHONPATH - erased so that we use the build that's present
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L # in .tox as the SQLAlchemy library to be imported
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # PYTHONNOUSERSITE - this *MUST* be set so that the ./lib/ import
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 65 source.ini comment.line.number-sign.ini
+L # set up explicitly in test/conftest.py is *disabled*, again so that
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # when SQLAlchemy is built into the .tox area, we use that and not the
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # local checkout, at least when usedevelop=False
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # BASECOMMAND - using an env variable here so we can use it
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 59 source.ini comment.line.number-sign.ini
+L # as a substitution in a command (see https://bitbucket.org/hpk42/tox/issues/307/)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 82 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # only use --dropfirst option if we're *not* using -n;
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L # if -n is used, we're working in brand new DBs anyway, dropfirst
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 65 source.ini comment.line.number-sign.ini
+L # will collide on CI environments
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 33 source.ini comment.line.number-sign.ini
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L     PYTHONPATH=
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+L     PYTHONNOUSERSITE=1
+T 4 source.ini
+T 20 source.ini keyword.other.definition.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 22 source.ini
+L     PYTEST_EXCLUDES=-m "not memory_intensive and not mypy"
+T 4 source.ini
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+T 24 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 57 source.ini string.quoted.double.ini
+T 58 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L     PYTEST_COLOR={tty:--color=yes}
+T 4 source.ini
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+T 34 source.ini
+L     MYPY_COLOR={tty:--color-output}
+T 4 source.ini
+T 14 source.ini keyword.other.definition.ini
+T 15 source.ini punctuation.separator.key-value.ini
+T 35 source.ini
+L 
+L     BASECOMMAND=python -m pytest {env:PYTEST_COLOR} --rootdir {toxinidir} --log-info=sqlalchemy.testing
+T 4 source.ini
+T 15 source.ini keyword.other.definition.ini
+T 16 source.ini punctuation.separator.key-value.ini
+T 76 source.ini
+T 84 source.ini keyword.other.definition.ini
+T 85 source.ini punctuation.separator.key-value.ini
+T 103 source.ini
+L 
+L     WORKERS={env:TOX_WORKERS:-n4  --max-worker-restart=5}
+T 4 source.ini
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 36 source.ini
+T 54 source.ini keyword.other.definition.ini
+T 55 source.ini punctuation.separator.key-value.ini
+T 57 source.ini
+L 
+L     {py313t,py314t}: PYTHON_GIL=0    # when running with 313t, 314t, go for broke
+T 21 source.ini
+T 31 source.ini keyword.other.definition.ini
+T 32 source.ini punctuation.separator.key-value.ini
+T 37 source.ini
+T 38 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 81 source.ini comment.line.number-sign.ini
+L 
+L     # affect setup.py to skip or build the cython extensions.
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 61 source.ini comment.line.number-sign.ini
+L     nocext: DISABLE_SQLALCHEMY_CEXT=1
+T 12 source.ini
+T 35 source.ini keyword.other.definition.ini
+T 36 source.ini punctuation.separator.key-value.ini
+T 37 source.ini
+L     cext: REQUIRE_SQLALCHEMY_CEXT=1
+T 10 source.ini
+T 33 source.ini keyword.other.definition.ini
+T 34 source.ini punctuation.separator.key-value.ini
+T 35 source.ini
+L 
+L     cov: COVERAGE={[testenv]cov_args}
+T 9 source.ini
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 37 source.ini
+L     backendonly: PYTEST_EXCLUDES="-m backend"
+T 17 source.ini
+T 32 source.ini keyword.other.definition.ini
+T 33 source.ini punctuation.separator.key-value.ini
+T 34 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 44 source.ini string.quoted.double.ini
+T 45 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L     memusage: PYTEST_EXCLUDES="-m memory_intensive"
+T 14 source.ini
+T 29 source.ini keyword.other.definition.ini
+T 30 source.ini punctuation.separator.key-value.ini
+T 31 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 50 source.ini string.quoted.double.ini
+T 51 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L     memusage: EXTRA_SQLITE_DRIVERS={env:EXTRA_SQLITE_DRIVERS:--dbdriver sqlite}
+T 14 source.ini
+T 34 source.ini keyword.other.definition.ini
+T 35 source.ini punctuation.separator.key-value.ini
+T 79 source.ini
+L     memusage: EXTRA_PG_DRIVERS={env:EXTRA_PG_DRIVERS:--dbdriver psycopg2}
+T 14 source.ini
+T 30 source.ini keyword.other.definition.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 73 source.ini
+L     memusage: WORKERS={env:TOX_WORKERS:-n2}
+T 14 source.ini
+T 21 source.ini keyword.other.definition.ini
+T 22 source.ini punctuation.separator.key-value.ini
+T 43 source.ini
+L 
+L     oracle: WORKERS={env:TOX_WORKERS:-n2  --max-worker-restart=5}
+T 12 source.ini
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini punctuation.separator.key-value.ini
+T 44 source.ini
+T 62 source.ini keyword.other.definition.ini
+T 63 source.ini punctuation.separator.key-value.ini
+T 65 source.ini
+L     oracle: ORACLE={env:TOX_ORACLE:--db oracle}
+T 12 source.ini
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 47 source.ini
+L     oracle: EXTRA_ORACLE_DRIVERS={env:EXTRA_ORACLE_DRIVERS:--dbdriver cx_oracle --dbdriver oracledb --dbdriver oracledb_async}
+T 12 source.ini
+T 32 source.ini keyword.other.definition.ini
+T 33 source.ini punctuation.separator.key-value.ini
+T 126 source.ini
+L     oracle-nogreenlet: EXTRA_ORACLE_DRIVERS={env:EXTRA_ORACLE_DRIVERS:--dbdriver cx_oracle --dbdriver oracledb}
+T 23 source.ini
+T 43 source.ini keyword.other.definition.ini
+T 44 source.ini punctuation.separator.key-value.ini
+T 111 source.ini
+L 
+L     sqlite: SQLITE={env:TOX_SQLITE:--db sqlite}
+T 12 source.ini
+T 18 source.ini keyword.other.definition.ini
+T 19 source.ini punctuation.separator.key-value.ini
+T 47 source.ini
+L     sqlite-py{38,39,310,311,312,313,314}: EXTRA_SQLITE_DRIVERS={env:EXTRA_SQLITE_DRIVERS:--dbdriver sqlite --dbdriver pysqlite_numeric --dbdriver aiosqlite}
+T 42 source.ini
+T 62 source.ini keyword.other.definition.ini
+T 63 source.ini punctuation.separator.key-value.ini
+T 156 source.ini
+L     sqlite-nogreenlet: EXTRA_SQLITE_DRIVERS={env:EXTRA_SQLITE_DRIVERS:--dbdriver sqlite --dbdriver pysqlite_numeric}
+T 23 source.ini
+T 43 source.ini keyword.other.definition.ini
+T 44 source.ini punctuation.separator.key-value.ini
+T 116 source.ini
+L 
+L     sqlite_file: SQLITE={env:TOX_SQLITE_FILE:--db sqlite_file}
+T 17 source.ini
+T 23 source.ini keyword.other.definition.ini
+T 24 source.ini punctuation.separator.key-value.ini
+T 62 source.ini
+L     sqlite_file: EXTRA_SQLITE_DRIVERS={env:EXTRA_SQLITE_DRIVERS:--dbdriver sqlite --dbdriver aiosqlite}
+T 17 source.ini
+T 37 source.ini keyword.other.definition.ini
+T 38 source.ini punctuation.separator.key-value.ini
+T 103 source.ini
+L     sqlite_file-nogreenlet: EXTRA_SQLITE_DRIVERS={env:EXTRA_SQLITE_DRIVERS:--dbdriver sqlite}
+T 28 source.ini
+T 48 source.ini keyword.other.definition.ini
+T 49 source.ini punctuation.separator.key-value.ini
+T 93 source.ini
+L 
+L     postgresql: POSTGRESQL={env:TOX_POSTGRESQL:--db postgresql}
+T 16 source.ini
+T 26 source.ini keyword.other.definition.ini
+T 27 source.ini punctuation.separator.key-value.ini
+T 63 source.ini
+L     postgresql: EXTRA_PG_DRIVERS={env:EXTRA_PG_DRIVERS:--dbdriver psycopg2 --dbdriver asyncpg --dbdriver pg8000 --dbdriver psycopg --dbdriver psycopg_async}
+T 16 source.ini
+T 32 source.ini keyword.other.definition.ini
+T 33 source.ini punctuation.separator.key-value.ini
+T 156 source.ini
+L     postgresql-nogreenlet: EXTRA_PG_DRIVERS={env:EXTRA_PG_DRIVERS:--dbdriver psycopg2 --dbdriver pg8000 --dbdriver psycopg}
+T 27 source.ini
+T 43 source.ini keyword.other.definition.ini
+T 44 source.ini punctuation.separator.key-value.ini
+T 123 source.ini
+L     postgresql-{py313t,py314t}: EXTRA_PG_DRIVERS={env:EXTRA_PG_DRIVERS:--dbdriver psycopg2 --dbdriver pg8000 --dbdriver psycopg --dbdriver psycopg_async}
+T 32 source.ini
+T 48 source.ini keyword.other.definition.ini
+T 49 source.ini punctuation.separator.key-value.ini
+T 153 source.ini
+L 
+L     mysql: MYSQL={env:TOX_MYSQL:--db mysql}
+T 11 source.ini
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 43 source.ini
+L     mysql: EXTRA_MYSQL_DRIVERS={env:EXTRA_MYSQL_DRIVERS:--dbdriver mysqldb --dbdriver pymysql --dbdriver asyncmy --dbdriver mariadbconnector}
+T 11 source.ini
+T 30 source.ini keyword.other.definition.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 141 source.ini
+L     mysql-nogreenlet: EXTRA_MYSQL_DRIVERS={env:EXTRA_MYSQL_DRIVERS:--dbdriver mysqldb --dbdriver pymysql --dbdriver mariadbconnector}
+T 22 source.ini
+T 41 source.ini keyword.other.definition.ini
+T 42 source.ini punctuation.separator.key-value.ini
+T 133 source.ini
+L 
+L     # for mssql, aioodbc frequently segfaults under free-threaded builds
+T 4 source.ini punctuation.whitespace.comment.leading.ini
+T 5 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L     mssql: MSSQL={env:TOX_MSSQL:--db mssql}
+T 11 source.ini
+T 16 source.ini keyword.other.definition.ini
+T 17 source.ini punctuation.separator.key-value.ini
+T 43 source.ini
+L     mssql: EXTRA_MSSQL_DRIVERS={env:EXTRA_MSSQL_DRIVERS:--dbdriver pyodbc --dbdriver aioodbc --dbdriver pymssql --dbdriver mssqlpython}
+T 11 source.ini
+T 30 source.ini keyword.other.definition.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 135 source.ini
+L     mssql-py314: EXTRA_MSSQL_DRIVERS={env:EXTRA_MSSQL_DRIVERS:--dbdriver pyodbc  --dbdriver aioodbc --dbdriver mssqlpython}
+T 17 source.ini
+T 36 source.ini keyword.other.definition.ini
+T 37 source.ini punctuation.separator.key-value.ini
+T 123 source.ini
+L     mssql-{py313t,py314t,nogreenlet: EXTRA_MSSQL_DRIVERS={env:EXTRA_MSSQL_DRIVERS:--dbdriver pyodbc --dbdriver pymssql}
+T 37 source.ini
+T 56 source.ini keyword.other.definition.ini
+T 57 source.ini punctuation.separator.key-value.ini
+T 119 source.ini
+L 
+L     oracle,mssql,sqlite_file: IDENTS=--write-idents db_idents.txt
+T 30 source.ini
+T 36 source.ini keyword.other.definition.ini
+T 37 source.ini punctuation.separator.key-value.ini
+T 65 source.ini
+L 
+L 
+L 
+L # tox as of 2.0 blocks all environment variables from the
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 57 source.ini comment.line.number-sign.ini
+L # outside, unless they are here (or in TOX_TESTENV_PASSENV,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 59 source.ini comment.line.number-sign.ini
+L # wildcards OK).  Need at least these
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 37 source.ini comment.line.number-sign.ini
+L passenv=
+T 7 source.ini keyword.other.definition.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L     ORACLE_HOME
+T 15 source.ini
+L     NLS_LANG
+T 12 source.ini
+L     TOX_POSTGRESQL
+T 18 source.ini
+L     TOX_POSTGRESQL_PY2K
+T 23 source.ini
+L     TOX_MYSQL
+T 13 source.ini
+L     TOX_MYSQL_PY2K
+T 18 source.ini
+L     TOX_ORACLE
+T 14 source.ini
+L     TOX_MSSQL
+T 13 source.ini
+L     TOX_SQLITE
+T 14 source.ini
+L     TOX_SQLITE_FILE
+T 19 source.ini
+L     TOX_WORKERS
+T 15 source.ini
+L     EXTRA_SQLITE_DRIVERS
+T 24 source.ini
+L     EXTRA_PG_DRIVERS
+T 20 source.ini
+L     EXTRA_MYSQL_DRIVERS
+T 23 source.ini
+L     EXTRA_ORACLE_DRIVERS
+T 24 source.ini
+L     PYTHON_GIL
+T 14 source.ini
+L 
+L commands=
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L 
+L   # removing *.so from lib/ is only useful when usedevelop=True is enabled,
+T 2 source.ini punctuation.whitespace.comment.leading.ini
+T 3 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L   # otherwise the library was already installed in the tox env with or
+T 2 source.ini punctuation.whitespace.comment.leading.ini
+T 3 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L   # without the cython extensions built.  We use usedevelop=True for coverage
+T 2 source.ini punctuation.whitespace.comment.leading.ini
+T 3 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L   # mode.
+T 2 source.ini punctuation.whitespace.comment.leading.ini
+T 3 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 9 source.ini comment.line.number-sign.ini
+L   nocext: sh -c "rm -f lib/sqlalchemy/*.so"
+T 16 source.ini
+T 17 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 42 source.ini string.quoted.double.ini
+T 43 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L   nogreenlet: pip uninstall -y greenlet
+T 39 source.ini
+L   {env:BASECOMMAND} {env:WORKERS} {env:SQLITE:} {env:EXTRA_SQLITE_DRIVERS:} {env:POSTGRESQL:} {env:EXTRA_PG_DRIVERS:} {env:MYSQL:} {env:EXTRA_MYSQL_DRIVERS:} {env:ORACLE:} {env:EXTRA_ORACLE_DRIVERS:} {env:MSSQL:} {env:EXTRA_MSSQL_DRIVERS:} {env:IDENTS:} {env:PYTEST_EXCLUDES:} {env:COVERAGE:} {posargs}
+T 302 source.ini
+L   oracle,mssql,sqlite_file: python reap_dbs.py db_idents.txt
+T 60 source.ini
+L   python tools/warn_tox.py
+T 26 source.ini
+L 
+L 
+L [testenv:pep484]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 15 source.ini entity.name.section.group-title.ini
+T 16 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L deps=
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini punctuation.separator.key-value.ini
+L      greenlet >= 1
+T 18 source.ini
+L      mypy >= 2.4
+T 16 source.ini
+L      types-greenlet
+T 19 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     mypy  {env:MYPY_COLOR} ./lib/sqlalchemy
+T 43 source.ini
+L     python tools/warn_tox.py
+T 28 source.ini
+L 
+L extras =
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+L      {[greenletextras]extras}
+T 29 source.ini
+L 
+L [testenv:mypy]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L deps=
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini punctuation.separator.key-value.ini
+L      pytest>=7.0.0rc1,<10
+T 25 source.ini
+L      pytest-xdist
+T 17 source.ini
+L      greenlet >= 1
+T 18 source.ini
+L      mypy >= 2.4
+T 16 source.ini
+L      types-greenlet
+T 19 source.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[greenletextras]extras}
+T 29 source.ini
+L 
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pytest {env:PYTEST_COLOR} -m mypy {posargs}
+T 47 source.ini
+L     python tools/warn_tox.py
+T 28 source.ini
+L 
+L [testenv:mypy-cov]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 17 source.ini entity.name.section.group-title.ini
+T 18 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L 
+L deps=
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini punctuation.separator.key-value.ini
+L      {[testenv:mypy]deps}
+T 25 source.ini
+L      pytest-cov
+T 15 source.ini
+L 
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[greenletextras]extras}
+T 29 source.ini
+L 
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L     pytest {env:PYTEST_COLOR} -m mypy {env:COVERAGE} {posargs}
+T 62 source.ini
+L     python tools/warn_tox.py
+T 28 source.ini
+L 
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L     COVERAGE={[testenv]cov_args}
+T 4 source.ini
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L 
+L # thanks to https://julien.danjou.info/the-best-flake8-extensions/
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 66 source.ini comment.line.number-sign.ini
+L [testenv:lint]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = python3
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L 
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[greenletextras]extras}
+T 29 source.ini
+L 
+L deps=
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini punctuation.separator.key-value.ini
+L       flake8-pyproject
+T 22 source.ini
+L       flake8>=7.3.0
+T 19 source.ini
+L       flake8-import-order>=0.19.2
+T 33 source.ini
+L       flake8-builtins
+T 21 source.ini
+L       flake8-future-annotations>=0.0.5
+T 38 source.ini
+L       flake8-docstrings>=1.6.0
+T 30 source.ini
+L       flake8-import-single==0.1.5
+T 6 source.ini
+T 26 source.ini keyword.other.definition.ini
+T 27 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L       flake8-unused-arguments
+T 29 source.ini
+L       flake8-rst-docstrings
+T 27 source.ini
+L       # flake8-rst-docstrings dependency, leaving it here
+T 6 source.ini punctuation.whitespace.comment.leading.ini
+T 7 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 57 source.ini comment.line.number-sign.ini
+L       # in case it requires a version pin
+T 6 source.ini punctuation.whitespace.comment.leading.ini
+T 7 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 41 source.ini comment.line.number-sign.ini
+L       pydocstyle
+T 16 source.ini
+L       pygments
+T 14 source.ini
+L       black==26.3.1
+T 6 source.ini
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 19 source.ini
+L       slotscheck>=0.17.0
+T 24 source.ini
+L 
+L       # required by generate_tuple_map_overloads
+T 6 source.ini punctuation.whitespace.comment.leading.ini
+T 7 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L       zimports>=0.7.0
+T 21 source.ini
+L allowlist_externals =
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+L     env
+T 7 source.ini
+L     git
+T 7 source.ini
+L     sh
+T 6 source.ini
+L commands =
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+L      flake8p ./lib/ ./test/ ./examples/ setup.py doc/build/conf.py {posargs}
+T 76 source.ini
+L 
+L      # run "unused argument" lints on asyncio, as we have a lot of
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 66 source.ini comment.line.number-sign.ini
+L      # proxy methods here
+T 5 source.ini punctuation.whitespace.comment.leading.ini
+T 6 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 25 source.ini comment.line.number-sign.ini
+L      flake8p  --ignore='' --select='U100,U101' ./lib/sqlalchemy/ext/asyncio ./lib/sqlalchemy/orm/scoping.py
+T 16 source.ini
+T 22 source.ini keyword.other.definition.ini
+T 23 source.ini punctuation.separator.key-value.ini
+T 24 source.ini string.quoted.single.ini punctuation.definition.string.begin.ini
+T 25 source.ini string.quoted.single.ini punctuation.definition.string.end.ini
+T 28 source.ini
+T 34 source.ini keyword.other.definition.ini
+T 35 source.ini punctuation.separator.key-value.ini
+T 36 source.ini string.quoted.single.ini punctuation.definition.string.begin.ini
+T 45 source.ini string.quoted.single.ini
+T 46 source.ini string.quoted.single.ini punctuation.definition.string.end.ini
+T 107 source.ini
+L 
+L      black --check ./lib/ ./test/ ./examples/ setup.py doc/build/conf.py
+T 72 source.ini
+L      slotscheck -m sqlalchemy
+T 29 source.ini
+L      python ./tools/format_docs_code.py --check
+T 47 source.ini
+L      python ./tools/generate_tuple_map_overloads.py --check
+T 59 source.ini
+L      python ./tools/generate_proxy_methods.py --check
+T 53 source.ini
+L      python ./tools/sync_test_files.py --check
+T 46 source.ini
+L      python ./tools/generate_sql_functions.py --check
+T 53 source.ini
+L      python ./tools/normalize_file_headers.py --check
+T 53 source.ini
+L      python ./tools/cython_imports.py --check
+T 45 source.ini
+L      python ./tools/walk_packages.py
+T 36 source.ini
+L 
+L 
+L # this is a test.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 17 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # "pep8" env was renamed to "lint".
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 35 source.ini comment.line.number-sign.ini
+L # Kept for backwards compatibility until rename is completed elsewhere.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L [testenv:pep8]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 13 source.ini entity.name.section.group-title.ini
+T 14 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L basepython = {[testenv:lint]basepython}
+T 10 source.ini keyword.other.definition.ini
+T 11 source.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 39 source.ini
+L deps = {[testenv:lint]deps}
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 27 source.ini
+L allowlist_externals = {[testenv:lint]allowlist_externals}
+T 19 source.ini keyword.other.definition.ini
+T 20 source.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 57 source.ini
+L commands = {[testenv:lint]commands}
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini
+T 10 source.ini punctuation.separator.key-value.ini
+T 35 source.ini
+L extras = {[testenv:lint]extras}
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+T 31 source.ini
+L 
+L 
+L 
+L # command run in the github action when cext are active.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 56 source.ini comment.line.number-sign.ini
+L # unfortunately it seems impossible to use generative tags with envs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # that are not the default.  so in the interim, build out three separate
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L # envs with explicit names
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 26 source.ini comment.line.number-sign.ini
+L 
+L [testenv:githubbase]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 19 source.ini entity.name.section.group-title.ini
+T 20 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      PYTHONNOUSERSITE=1
+T 5 source.ini
+T 21 source.ini keyword.other.definition.ini
+T 22 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L 
+L      WORKERS={env:TOX_WORKERS:-n4  --max-worker-restart=5}
+T 5 source.ini
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini punctuation.separator.key-value.ini
+T 37 source.ini
+T 55 source.ini keyword.other.definition.ini
+T 56 source.ini punctuation.separator.key-value.ini
+T 58 source.ini
+L      PYTEST_COLOR={tty:--color=yes}
+T 5 source.ini
+T 17 source.ini keyword.other.definition.ini
+T 18 source.ini punctuation.separator.key-value.ini
+T 25 source.ini
+T 30 source.ini keyword.other.definition.ini
+T 31 source.ini punctuation.separator.key-value.ini
+T 35 source.ini
+L      PYTEST_EXCLUDES=-m "not memory_intensive and not mypy and not timing_intensive and not gc_intensive"
+T 5 source.ini
+T 20 source.ini keyword.other.definition.ini
+T 21 source.ini punctuation.separator.key-value.ini
+T 24 source.ini
+T 25 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 104 source.ini string.quoted.double.ini
+T 105 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L      SQLITE=--db sqlite
+T 5 source.ini
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 23 source.ini
+L 
+L commands=
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L   python -m pytest {env:PYTEST_COLOR} {env:WORKERS} {env:PYTEST_EXCLUDES:} {env:SQLITE} {posargs}
+T 97 source.ini
+L   oracle,mssql,sqlite_file: python reap_dbs.py db_idents.txt
+T 60 source.ini
+L 
+L [testenv:github-cext-greenlet]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 29 source.ini entity.name.section.group-title.ini
+T 30 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      asyncio
+T 12 source.ini
+L      aiosqlite
+T 14 source.ini
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[testenv:githubbase]setenv}
+T 33 source.ini
+L      REQUIRE_SQLALCHEMY_CEXT=1
+T 5 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 30 source.ini
+L      SQLITE=--db sqlite --db aiosqlite
+T 5 source.ini
+T 11 source.ini keyword.other.definition.ini
+T 12 source.ini punctuation.separator.key-value.ini
+T 38 source.ini
+L commands=
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L   python -m pytest {env:PYTEST_COLOR} {env:WORKERS} {env:PYTEST_EXCLUDES:} {env:SQLITE} {posargs}
+T 97 source.ini
+L   oracle,mssql,sqlite_file: python reap_dbs.py db_idents.txt
+T 60 source.ini
+L 
+L [testenv:github-cext]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 20 source.ini entity.name.section.group-title.ini
+T 21 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[testenv:githubbase]setenv}
+T 33 source.ini
+L      REQUIRE_SQLALCHEMY_CEXT=1
+T 5 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 30 source.ini
+L deps = {[testenv:githubbase]deps}
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L commands=
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L   python -m pytest {env:PYTEST_COLOR} {env:WORKERS} {env:PYTEST_EXCLUDES:} {env:SQLITE} {posargs}
+T 97 source.ini
+L   oracle,mssql,sqlite_file: python reap_dbs.py db_idents.txt
+T 60 source.ini
+L 
+L 
+L [testenv:github-nocext]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 22 source.ini entity.name.section.group-title.ini
+T 23 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L extras=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L setenv=
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini punctuation.separator.key-value.ini
+L      {[testenv:githubbase]setenv}
+T 33 source.ini
+L      DISABLE_SQLALCHEMY_CEXT=1
+T 5 source.ini
+T 28 source.ini keyword.other.definition.ini
+T 29 source.ini punctuation.separator.key-value.ini
+T 30 source.ini
+L deps = {[testenv:githubbase]deps}
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 33 source.ini
+L commands=
+T 8 source.ini keyword.other.definition.ini
+T 9 source.ini punctuation.separator.key-value.ini
+L   python -m pytest {env:PYTEST_COLOR} {env:WORKERS} {env:PYTEST_EXCLUDES:} {env:SQLITE} {posargs}
+T 97 source.ini
+L   oracle,mssql,sqlite_file: python reap_dbs.py db_idents.txt
+T 60 source.ini
+L 
+L 

@@ -1,0 +1,48 @@
+L ; last modified 1 April 2001 by John Doe
+T 1 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 40 source.ini comment.line.semicolon.ini
+L [owner]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 6 source.ini entity.name.section.group-title.ini
+T 7 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L name = John Doe
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 15 source.ini
+L organization = Acme Widgets Inc.
+T 12 source.ini keyword.other.definition.ini
+T 13 source.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 32 source.ini
+L 
+L [database]
+T 1 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 9 source.ini entity.name.section.group-title.ini
+T 10 source.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L ; use IP address in case network name resolution is not working
+T 1 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 63 source.ini comment.line.semicolon.ini
+L server = 192.0.2.62`
+T 6 source.ini keyword.other.definition.ini
+T 7 source.ini
+T 8 source.ini punctuation.separator.key-value.ini
+T 20 source.ini
+L port = 143
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 10 source.ini
+L file = "payroll.dat"
+T 4 source.ini keyword.other.definition.ini
+T 5 source.ini
+T 6 source.ini punctuation.separator.key-value.ini
+T 7 source.ini
+T 8 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 19 source.ini string.quoted.double.ini
+T 20 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L ; From https://en.wikipedia.org/wiki/INI_file
+T 1 source.ini comment.line.semicolon.ini punctuation.definition.comment.ini
+T 45 source.ini comment.line.semicolon.ini
+L 

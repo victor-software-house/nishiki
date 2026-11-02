@@ -1,0 +1,495 @@
+L # Licensed to the Apache Software Foundation (ASF) under one or more
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L # contributor license agreements.  See the NOTICE file distributed with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L # this work for additional information regarding copyright ownership.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # The ASF licenses this file to You under the Apache License, Version 2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 73 source.ini comment.line.number-sign.ini
+L # (the "License"); you may not use this file except in compliance with
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # the License.  You may obtain a copy of the License at
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 55 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L #     http://www.apache.org/licenses/LICENSE-2.0
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 48 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Unless required by applicable law or agreed to in writing, software
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # distributed under the License is distributed on an "AS IS" BASIS,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 67 source.ini comment.line.number-sign.ini
+L # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 74 source.ini comment.line.number-sign.ini
+L # See the License for the specific language governing permissions and
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # limitations under the License.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 32 source.ini comment.line.number-sign.ini
+L 
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # List of comma-separated paths defining the contents of the "common"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # classloader. Prefixes should be used to define what is the repository type.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # If left as blank,the JVM system loader will be used as Catalina's "common"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L # loader.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 9 source.ini comment.line.number-sign.ini
+L # Examples:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 11 source.ini comment.line.number-sign.ini
+L #     "foo": Add this folder as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L #     "foo/*.jar": Add all the JARs of the specified folder as class
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L #                  repositories
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L #     "foo/bar.jar": Add bar.jar as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Note: Values are enclosed in double quotes ("...") in case either the
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L #       ${catalina.base} path or the ${catalina.home} path contains a comma.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L #       Because double quotes are used for quoting, the double quote character
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L #       may not appear in a path.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 33 source.ini comment.line.number-sign.ini
+L common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
+T 13 source.ini keyword.other.definition.ini
+T 14 source.ini punctuation.separator.key-value.ini
+T 15 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 35 source.ini string.quoted.double.ini
+T 36 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+T 37 source.ini
+T 38 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 64 source.ini string.quoted.double.ini
+T 65 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+T 66 source.ini
+T 67 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 87 source.ini string.quoted.double.ini
+T 88 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+T 89 source.ini
+T 90 source.ini string.quoted.double.ini punctuation.definition.string.begin.ini
+T 116 source.ini string.quoted.double.ini
+T 117 source.ini string.quoted.double.ini punctuation.definition.string.end.ini
+L 
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # List of comma-separated paths defining the contents of the "server"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # classloader. Prefixes should be used to define what is the repository type.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # If left as blank, the "common" loader will be used as Catalina's "server"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L # loader.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 9 source.ini comment.line.number-sign.ini
+L # Examples:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 11 source.ini comment.line.number-sign.ini
+L #     "foo": Add this folder as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L #     "foo/*.jar": Add all the JARs of the specified folder as class
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L #                  repositories
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L #     "foo/bar.jar": Add bar.jar as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Note: Values may be enclosed in double quotes ("...") in case either the
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 74 source.ini comment.line.number-sign.ini
+L #       ${catalina.base} path or the ${catalina.home} path contains a comma.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L #       Because double quotes are used for quoting, the double quote character
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L #       may not appear in a path.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 33 source.ini comment.line.number-sign.ini
+L server.loader=
+T 13 source.ini keyword.other.definition.ini
+T 14 source.ini punctuation.separator.key-value.ini
+L 
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # List of comma-separated paths defining the contents of the "shared"
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # classloader. Prefixes should be used to define what is the repository type.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # Path may be relative to the CATALINA_BASE path or absolute. If left as blank,
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L # the "common" loader will be used as Catalina's "shared" loader.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 65 source.ini comment.line.number-sign.ini
+L # Examples:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 11 source.ini comment.line.number-sign.ini
+L #     "foo": Add this folder as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L #     "foo/*.jar": Add all the JARs of the specified folder as class
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 68 source.ini comment.line.number-sign.ini
+L #                  repositories
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 31 source.ini comment.line.number-sign.ini
+L #     "foo/bar.jar": Add bar.jar as a class repository
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 54 source.ini comment.line.number-sign.ini
+L # Please note that for single jars, e.g. bar.jar, you need the URL form
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 71 source.ini comment.line.number-sign.ini
+L # starting with file:.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 22 source.ini comment.line.number-sign.ini
+L #
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+L # Note: Values may be enclosed in double quotes ("...") in case either the
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 74 source.ini comment.line.number-sign.ini
+L #       ${catalina.base} path or the ${catalina.home} path contains a comma.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 76 source.ini comment.line.number-sign.ini
+L #       Because double quotes are used for quoting, the double quote character
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L #       may not appear in a path.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 33 source.ini comment.line.number-sign.ini
+L shared.loader=
+T 13 source.ini keyword.other.definition.ini
+T 14 source.ini punctuation.separator.key-value.ini
+L 
+L # Default list of JAR files that should not be scanned using the JarScanner
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 75 source.ini comment.line.number-sign.ini
+L # functionality. This is typically used to scan JARs for configuration
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 70 source.ini comment.line.number-sign.ini
+L # information. JARs that do not contain such information may be excluded from
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # the scan to speed up the scanning process. This is the default list. JARs on
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # this list are excluded from all scans. The list must be a comma separated list
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 80 source.ini comment.line.number-sign.ini
+L # of JAR file names.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 20 source.ini comment.line.number-sign.ini
+L # The list of JARs to skip may be over-ridden at a Context level for individual
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L # scan types by configuring a JarScanner with a nested JarScanFilter.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L # The JARs listed below include:
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 32 source.ini comment.line.number-sign.ini
+L # - Tomcat Bootstrap JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 25 source.ini comment.line.number-sign.ini
+L # - Tomcat API JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 19 source.ini comment.line.number-sign.ini
+L # - Catalina JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 17 source.ini comment.line.number-sign.ini
+L # - Jasper JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 15 source.ini comment.line.number-sign.ini
+L # - Tomcat JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 15 source.ini comment.line.number-sign.ini
+L # - Common non-Tomcat JARs
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 26 source.ini comment.line.number-sign.ini
+L # - Test JARs (JUnit, Cobertura and dependencies)
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 49 source.ini comment.line.number-sign.ini
+L tomcat.util.scan.StandardJarScanFilter.jarsToSkip=\
+T 49 source.ini keyword.other.definition.ini
+T 50 source.ini punctuation.separator.key-value.ini
+T 51 source.ini
+L annotations-api.jar,\
+T 21 source.ini
+L ant-junit*.jar,\
+T 16 source.ini
+L ant-launcher*.jar,\
+T 19 source.ini
+L ant*.jar,\
+T 10 source.ini
+L asm-*.jar,\
+T 11 source.ini
+L aspectj*.jar,\
+T 14 source.ini
+L bcel*.jar,\
+T 11 source.ini
+L biz.aQute.bnd*.jar,\
+T 20 source.ini
+L bootstrap.jar,\
+T 15 source.ini
+L catalina-ant.jar,\
+T 18 source.ini
+L catalina-ha.jar,\
+T 17 source.ini
+L catalina-ssi.jar,\
+T 18 source.ini
+L catalina-storeconfig.jar,\
+T 26 source.ini
+L catalina-tribes.jar,\
+T 21 source.ini
+L catalina.jar,\
+T 14 source.ini
+L cglib-*.jar,\
+T 13 source.ini
+L cobertura-*.jar,\
+T 17 source.ini
+L commons-beanutils*.jar,\
+T 24 source.ini
+L commons-codec*.jar,\
+T 20 source.ini
+L commons-collections*.jar,\
+T 26 source.ini
+L commons-compress*.jar,\
+T 23 source.ini
+L commons-daemon.jar,\
+T 20 source.ini
+L commons-dbcp*.jar,\
+T 19 source.ini
+L commons-digester*.jar,\
+T 23 source.ini
+L commons-fileupload*.jar,\
+T 25 source.ini
+L commons-httpclient*.jar,\
+T 25 source.ini
+L commons-io*.jar,\
+T 17 source.ini
+L commons-lang*.jar,\
+T 19 source.ini
+L commons-logging*.jar,\
+T 22 source.ini
+L commons-math*.jar,\
+T 19 source.ini
+L commons-pool*.jar,\
+T 19 source.ini
+L derby-*.jar,\
+T 13 source.ini
+L dom4j-*.jar,\
+T 13 source.ini
+L easymock-*.jar,\
+T 16 source.ini
+L ecj-*.jar,\
+T 11 source.ini
+L el-api.jar,\
+T 12 source.ini
+L geronimo-spec-jaxrpc*.jar,\
+T 27 source.ini
+L h2*.jar,\
+T 9 source.ini
+L ha-api-*.jar,\
+T 14 source.ini
+L hamcrest-*.jar,\
+T 16 source.ini
+L hibernate*.jar,\
+T 16 source.ini
+L httpclient*.jar,\
+T 17 source.ini
+L icu4j-*.jar,\
+T 13 source.ini
+L jakartaee-migration-*.jar,\
+T 27 source.ini
+L jasper-el.jar,\
+T 15 source.ini
+L jasper.jar,\
+T 12 source.ini
+L jaspic-api.jar,\
+T 16 source.ini
+L jaxb-*.jar,\
+T 12 source.ini
+L jaxen-*.jar,\
+T 13 source.ini
+L jaxws-rt-*.jar,\
+T 16 source.ini
+L jdom-*.jar,\
+T 12 source.ini
+L jetty-*.jar,\
+T 13 source.ini
+L jmx-tools.jar,\
+T 15 source.ini
+L jmx.jar,\
+T 9 source.ini
+L jsp-api.jar,\
+T 13 source.ini
+L jstl.jar,\
+T 10 source.ini
+L jta*.jar,\
+T 10 source.ini
+L junit-*.jar,\
+T 13 source.ini
+L junit.jar,\
+T 11 source.ini
+L log4j*.jar,\
+T 12 source.ini
+L mail*.jar,\
+T 11 source.ini
+L objenesis-*.jar,\
+T 17 source.ini
+L oraclepki.jar,\
+T 15 source.ini
+L org.hamcrest.core_*.jar,\
+T 25 source.ini
+L org.junit_*.jar,\
+T 17 source.ini
+L oro-*.jar,\
+T 11 source.ini
+L servlet-api-*.jar,\
+T 19 source.ini
+L servlet-api.jar,\
+T 17 source.ini
+L slf4j*.jar,\
+T 12 source.ini
+L taglibs-standard-spec-*.jar,\
+T 29 source.ini
+L tagsoup-*.jar,\
+T 15 source.ini
+L tomcat-api.jar,\
+T 16 source.ini
+L tomcat-coyote.jar,\
+T 19 source.ini
+L tomcat-coyote-ffm.jar,\
+T 23 source.ini
+L tomcat-dbcp.jar,\
+T 17 source.ini
+L tomcat-i18n-*.jar,\
+T 19 source.ini
+L tomcat-jdbc.jar,\
+T 17 source.ini
+L tomcat-jni.jar,\
+T 16 source.ini
+L tomcat-juli-adapters.jar,\
+T 26 source.ini
+L tomcat-juli.jar,\
+T 17 source.ini
+L tomcat-util-scan.jar,\
+T 22 source.ini
+L tomcat-util.jar,\
+T 17 source.ini
+L tomcat-websocket.jar,\
+T 22 source.ini
+L tools.jar,\
+T 11 source.ini
+L unboundid-ldapsdk-*.jar,\
+T 25 source.ini
+L websocket-api.jar,\
+T 19 source.ini
+L websocket-client-api.jar,\
+T 26 source.ini
+L wsdl4j*.jar,\
+T 13 source.ini
+L xercesImpl.jar,\
+T 16 source.ini
+L xml-apis.jar,\
+T 14 source.ini
+L xmlParserAPIs-*.jar,\
+T 21 source.ini
+L xmlParserAPIs.jar,\
+T 19 source.ini
+L xom-*.jar
+T 9 source.ini
+L 
+L # Default list of JAR files that should be scanned that overrides the default
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 77 source.ini comment.line.number-sign.ini
+L # jarsToSkip list above. This is typically used to include a specific JAR that
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 78 source.ini comment.line.number-sign.ini
+L # has been excluded by a broad file name pattern in the jarsToSkip list.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 72 source.ini comment.line.number-sign.ini
+L # The list of JARs to scan may be over-ridden at a Context level for individual
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 79 source.ini comment.line.number-sign.ini
+L # scan types by configuring a JarScanner with a nested JarScanFilter.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 69 source.ini comment.line.number-sign.ini
+L tomcat.util.scan.StandardJarScanFilter.jarsToScan=\
+T 49 source.ini keyword.other.definition.ini
+T 50 source.ini punctuation.separator.key-value.ini
+T 51 source.ini
+L log4j-taglib*.jar,\
+T 19 source.ini
+L log4j-jakarta-web*.jar,\
+T 24 source.ini
+L log4javascript*.jar,\
+T 21 source.ini
+L slf4j-taglib*.jar
+T 17 source.ini
+L 
+L # String cache configuration.
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 29 source.ini comment.line.number-sign.ini
+L tomcat.util.buf.StringCache.byte.enabled=true
+T 40 source.ini keyword.other.definition.ini
+T 41 source.ini punctuation.separator.key-value.ini
+T 45 source.ini
+L #tomcat.util.buf.StringCache.char.enabled=true
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 46 source.ini comment.line.number-sign.ini
+L #tomcat.util.buf.StringCache.trainThreshold=500000
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 50 source.ini comment.line.number-sign.ini
+L #tomcat.util.buf.StringCache.cacheSize=5000
+T 1 source.ini comment.line.number-sign.ini punctuation.definition.comment.ini
+T 43 source.ini comment.line.number-sign.ini
+L 

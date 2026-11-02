@@ -54,6 +54,8 @@ pub(crate) const DOCKERFILE: u16 = 0x2000;
 pub(crate) const C: u16 = 0x0c00;
 /// SQL.
 pub(crate) const SQL: u16 = 0x0f00;
+/// INI files.
+pub(crate) const INI: u16 = 0x2100;
 
 /// Every claimed range. A new lexer adds its constant and its entry here.
 const CLAIMED: &[Tag] = &[
@@ -74,6 +76,7 @@ const CLAIMED: &[Tag] = &[
         mask: 0xfe00,
     },
     Tag::byte(SQL),
+    Tag::byte(INI),
 ];
 
 /// Two ranges overlap when some code lies in both: when their values agree on

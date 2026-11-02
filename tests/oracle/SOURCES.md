@@ -150,6 +150,16 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `markdown/fastapi-docker` | [`docs/en/docs/deployment/docker.md`][fastapi-docker] in tiangolo/fastapi | [MIT][fastapi-licence] |
 | `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
 | `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
+| `ini/sample` | [`samples/ini.sample`][ini-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `ini/pytest-tox` | [`tox.ini`][pytest-tox] in pytest-dev/pytest | [MIT][pytest-licence] |
+| `ini/kafka-server` | [`config/server.properties`][kafka-server] in apache/kafka | [Apache-2.0][kafka-licence] |
+| `ini/black-tox` | [`tox.ini`][black-tox] in psf/black | [MIT][black-licence] |
+| `ini/django-tox` | [`tox.ini`][django-tox] in django/django | [BSD-3-Clause][django-licence] |
+| `ini/sqlalchemy-tox` | [`tox.ini`][sqlalchemy-tox] in sqlalchemy/sqlalchemy | [MIT][sqlalchemy-licence] |
+| `ini/tomcat-catalina` | [`conf/catalina.properties`][tomcat-catalina] in apache/tomcat | [Apache-2.0][tomcat-licence] |
+| `ini/kafka-consumer` | [`config/consumer.properties`][kafka-consumer] in apache/kafka | [Apache-2.0][kafka-licence] |
+| `markdown/black-other-tools` | [`docs/guides/using_black_with_other_tools.md`][black-other-tools] in psf/black | [MIT][black-licence] |
+| `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -185,6 +195,10 @@ The lexer matched every input on its first run, held-out ones included.
 `c/sample`, `c/cjson` and `c/linenoise` are the development inputs for C, and `markdown/cjson-readme` is the development input for C fences.
 `c/libuv-core`, `c/jq-print`, `c/lua-vm`, `c/zlib-inflate`, `markdown/unity-assertions` and `markdown/unity-getting-started` are held out.
 Their first scores, before any fix, were 115 of 39,696 bytes different for `libuv-core` and 48 of 9,496 for `jq-print`, from one bug in where a macro's line ends and one in how often the lexer scanned a word, and none for the other two C files or the two Markdown files.
+`ini/sample`, `ini/pytest-tox`, `ini/kafka-server` and `ini/black-tox` are the development inputs for INI.
+`ini/django-tox`, `ini/sqlalchemy-tox`, `ini/tomcat-catalina` and `ini/kafka-consumer` are held out.
+`markdown/black-other-tools` is the development input for `ini` fences, and `markdown/poetry-faq` is held out.
+The lexer matched every input on its first run, held-out ones included.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -398,3 +412,17 @@ Their first scores, before any fix, were 115 of 39,696 bytes different for `libu
 [typeorm-licence]: https://github.com/typeorm/typeorm/blob/5bdc67882dee5a02d975d5ed140c9c3f91661116/LICENSE
 [knex-schema]: https://github.com/knex/knex/blob/e25d54bcb707714a17f5a5744eba5c4246bb4d1d/docs/src/guide/schema-builder.md
 [knex-licence]: https://github.com/knex/knex/blob/e25d54bcb707714a17f5a5744eba5c4246bb4d1d/LICENSE
+[ini-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/ini.sample
+[pytest-tox]: https://github.com/pytest-dev/pytest/blob/1211245aa72f1efe07bcfce63a7c543156cee976/tox.ini
+[kafka-server]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/config/server.properties
+[kafka-consumer]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/config/consumer.properties
+[kafka-licence]: https://github.com/apache/kafka/blob/da5316228ee604724dbcede405ebbf7f18f1dbf3/LICENSE
+[black-tox]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tox.ini
+[django-tox]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/tox.ini
+[django-licence]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/LICENSE
+[sqlalchemy-tox]: https://github.com/sqlalchemy/sqlalchemy/blob/679372836fe7343683248467d276036a6d6f1673/tox.ini
+[sqlalchemy-licence]: https://github.com/sqlalchemy/sqlalchemy/blob/679372836fe7343683248467d276036a6d6f1673/LICENSE
+[tomcat-catalina]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/conf/catalina.properties
+[tomcat-licence]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/LICENSE
+[black-other-tools]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/docs/guides/using_black_with_other_tools.md
+[poetry-faq]: https://github.com/python-poetry/poetry/blob/6ecadf5b71309b1da4f00949cc349a79884cff8f/docs/faq.md

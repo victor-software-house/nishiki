@@ -1,0 +1,1226 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L title: "FAQ"
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml
+T 12 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.end.yaml
+L draft: false
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter constant.language.boolean.yaml
+L type: docs
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter
+T 7 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L layout: single
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 8 text.html.markdown meta.embedded.block.frontmatter
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 14 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L 
+L menu:
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+L   docs:
+T 2 text.html.markdown meta.embedded.block.frontmatter
+T 3 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+L     weight: 110
+T 4 text.html.markdown meta.embedded.block.frontmatter
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 12 text.html.markdown meta.embedded.block.frontmatter
+T 15 text.html.markdown meta.embedded.block.frontmatter constant.numeric.integer.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L # FAQ
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 5 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L ### Why is the dependency resolution process slow?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 50 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L While the dependency resolver at the heart of Poetry is highly optimized and
+T 76 text.html.markdown meta.paragraph.markdown
+L should be fast enough for most cases, with certain sets of dependencies,
+T 72 text.html.markdown meta.paragraph.markdown
+L it can take time to find a valid solution.
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L This is due to the fact that not all libraries on PyPI have properly declared their metadata
+T 92 text.html.markdown meta.paragraph.markdown
+L and, as such, they are not available via the PyPI JSON API. At this point, Poetry has no choice
+T 95 text.html.markdown meta.paragraph.markdown
+L but to download the packages and inspect them to get the necessary information. This is an expensive
+T 100 text.html.markdown meta.paragraph.markdown
+L operation, both in bandwidth and time, which is why it seems this is a long process.
+T 84 text.html.markdown meta.paragraph.markdown
+L 
+L At the moment, there is no way around it. However, if you notice that Poetry
+T 76 text.html.markdown meta.paragraph.markdown
+L is downloading many versions of a single package, you can lessen the workload
+T 77 text.html.markdown meta.paragraph.markdown
+L by constraining that one package in your pyproject.toml more narrowly. That way,
+T 80 text.html.markdown meta.paragraph.markdown
+L Poetry does not have to sift through so many versions of it, which may speed up
+T 79 text.html.markdown meta.paragraph.markdown
+L the locking process considerably in some cases.
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L {{% note %}}
+T 12 text.html.markdown meta.paragraph.markdown
+L Once Poetry has cached the releases' information on your machine, the dependency resolution process
+T 99 text.html.markdown meta.paragraph.markdown
+L will be much faster.
+T 20 text.html.markdown meta.paragraph.markdown
+L {{% /note %}}
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L ### What kind of versioning scheme does Poetry use for itself?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 62 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Poetry uses "major.minor.micro" version identifiers as mentioned in
+T 67 text.html.markdown meta.paragraph.markdown
+L [PEP 440](https://peps.python.org/pep-0440/#final-releases).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 58 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+L 
+L Version bumps are done similar to Python's versioning:
+T 54 text.html.markdown meta.paragraph.markdown
+L * A major version bump (incrementing the first number) is only done for breaking changes
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 88 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   if a deprecation cycle is not possible, and many users have to perform some manual steps
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 90 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   to migrate from one version to the next one.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 46 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L * A minor version bump (incrementing the second number) may include new features as well
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 88 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   as new deprecations and drop features deprecated in an earlier minor release.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 79 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L * A micro version bump (incrementing the third number) usually only includes bug fixes.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 87 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   Deprecated features will not be dropped in a micro release.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 61 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ### Why does Poetry not adhere to semantic versioning?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 54 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Because of its large user base, even small changes not considered relevant by most users
+T 88 text.html.markdown meta.paragraph.markdown
+L can turn out to be a breaking change for some users in hindsight.
+T 65 text.html.markdown meta.paragraph.markdown
+L Sticking to strict [semantic versioning](https://semver.org) and (almost) always bumping
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L the major version instead of the minor version does not seem desirable
+T 70 text.html.markdown meta.paragraph.markdown
+L since the minor version will not carry any meaning anymore.
+T 59 text.html.markdown meta.paragraph.markdown
+L 
+L ### Are unbound version constraints a bad idea?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 47 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L A version constraint without an upper bound such as `*` or `>=3.4` will allow updates to any future version of the dependency.
+T 52 text.html.markdown meta.paragraph.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 126 text.html.markdown meta.paragraph.markdown
+L This includes major versions breaking backward compatibility.
+T 61 text.html.markdown meta.paragraph.markdown
+L 
+L Once a release of your package is published, you cannot tweak its dependencies anymore in case a dependency breaks BC
+T 117 text.html.markdown meta.paragraph.markdown
+L – you have to do a new release but the previous one stays broken.
+T 67 text.html.markdown meta.paragraph.markdown
+L (Users can still work around the broken dependency by restricting it by themselves.)
+T 84 text.html.markdown meta.paragraph.markdown
+L 
+L To avoid such issues, you can define an upper bound on your constraints,
+T 72 text.html.markdown meta.paragraph.markdown
+L which you can increase in a new release after testing that your package is compatible
+T 85 text.html.markdown meta.paragraph.markdown
+L with the new major version of your dependency.
+T 46 text.html.markdown meta.paragraph.markdown
+L 
+L For example, instead of using `>=3.4` you can use `^3.4` which allows all versions `<4.0`.
+T 30 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+T 84 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 89 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 90 text.html.markdown meta.paragraph.markdown
+L The `^` operator works very well with libraries following [semantic versioning](https://semver.org).
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 79 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 80 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 98 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 99 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 100 text.html.markdown meta.paragraph.markdown
+L 
+L However, when defining an upper bound, users of your package are not able to update
+T 83 text.html.markdown meta.paragraph.markdown
+L a dependency beyond the upper bound even if it does not break anything
+T 70 text.html.markdown meta.paragraph.markdown
+L and is fully compatible with your package.
+T 42 text.html.markdown meta.paragraph.markdown
+L You have to release a new version of your package with an increased upper-bound first.
+T 86 text.html.markdown meta.paragraph.markdown
+L 
+L If your package is used as a library in other packages, it might be better to avoid
+T 83 text.html.markdown meta.paragraph.markdown
+L upper bounds and thus unnecessary dependency conflicts (unless you already know for sure
+T 88 text.html.markdown meta.paragraph.markdown
+L that the next release of the dependency will break your package).
+T 65 text.html.markdown meta.paragraph.markdown
+L If your package is used as an application, it might be worth defining an upper bound.
+T 85 text.html.markdown meta.paragraph.markdown
+L 
+L ### Is tox supported?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 21 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L **Yes**. Provided that you are using `tox` >= 4, you can use it in combination with
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 7 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 37 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown
+L the PEP 517 compliant build system provided by Poetry. (With tox 3, you have to set the
+T 87 text.html.markdown meta.paragraph.markdown
+L [isolated build](https://tox.wiki/en/3.27.1/config.html#conf-isolated_build) option.)
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 75 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L 
+L So, in your `pyproject.toml` file, add this section if it does not already exist:
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [build-system]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L requires = ["poetry-core>=1.0.0"]
+T 33 text.html.markdown markup.fenced_code.block.markdown
+L build-backend = "poetry.core.masonry.api"
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L `tox` can be configured in multiple ways. It depends on what should be the code under test and which dependencies
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 113 text.html.markdown meta.paragraph.markdown
+L should be installed.
+T 20 text.html.markdown meta.paragraph.markdown
+L 
+L #### Use case #1
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 16 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [tox]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L 
+L [testenv]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L deps =
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     pytest
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L commands =
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     pytest tests/ --import-mode importlib
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L `tox` will create an `sdist` package of the project and uses `pip` to install it in a fresh environment.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 104 text.html.markdown meta.paragraph.markdown
+L Thus, dependencies are resolved by `pip`.
+T 35 text.html.markdown meta.paragraph.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown
+L 
+L #### Use case #2
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 16 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [tox]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L 
+L [testenv]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L allowlist_externals = poetry
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L commands_pre =
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     poetry install --no-root --sync
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L commands =
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     poetry run pytest tests/ --import-mode importlib
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L `tox` will create an `sdist` package of the project and uses `pip` to install it in a fresh environment.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 104 text.html.markdown meta.paragraph.markdown
+L Thus, dependencies are resolved by `pip` in the first place. But afterward, we run Poetry,
+T 35 text.html.markdown meta.paragraph.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 90 text.html.markdown meta.paragraph.markdown
+L  which will install the locked dependencies into the environment.
+T 1 text.html.markdown meta.paragraph.markdown
+T 65 text.html.markdown meta.paragraph.markdown
+L 
+L #### Use case #3
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 16 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L ```ini
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L [tox]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L 
+L [testenv]
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini entity.name.section.group-title.ini punctuation.definition.entity.ini
+L skip_install = true
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L allowlist_externals = poetry
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L commands_pre =
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     poetry install
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L commands =
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini keyword.other.definition.ini
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini punctuation.separator.key-value.ini
+L     poetry run pytest tests/ --import-mode importlib
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.ini
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L `tox` will not do any install. Poetry installs all the dependencies and the current package in editable mode.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+L Thus, tests are running against the local files and not the built and installed package.
+T 88 text.html.markdown meta.paragraph.markdown
+L 
+L #### Note about credentials
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 27 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L Note that `tox` does not forward the environment variables of your current shell session by default.
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 100 text.html.markdown meta.paragraph.markdown
+L This may cause Poetry to not be able to install dependencies in the `tox` environments if you have configured
+T 68 text.html.markdown meta.paragraph.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+L credentials using the system keyring on Linux systems or using environment variables in general.
+T 96 text.html.markdown meta.paragraph.markdown
+L You can use the `passenv` [configuration option](https://tox.wiki/en/latest/config.html#passenv) to forward the
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 95 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 96 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 111 text.html.markdown meta.paragraph.markdown
+L required variables explicitly or `passenv = "*"` to forward all of them.
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+L Linux systems may require forwarding the `DBUS_SESSION_BUS_ADDRESS` variable to allow access to the system keyring,
+T 41 text.html.markdown meta.paragraph.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 67 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 115 text.html.markdown meta.paragraph.markdown
+L though this may vary between desktop environments.
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L Alternatively, you can disable the keyring completely:
+T 54 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L poetry config keyring.enabled false
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.language.false.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Be aware that this will cause Poetry to write passwords to plaintext config files.
+T 82 text.html.markdown meta.paragraph.markdown
+L You will need to set the credentials again after changing this setting.
+T 71 text.html.markdown meta.paragraph.markdown
+L 
+L ### Is Nox supported?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 21 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Use the [`nox-poetry`](https://github.com/cjolowicz/nox-poetry) package to install locked versions of
+T 8 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 101 text.html.markdown meta.paragraph.markdown
+L dependencies specified in `poetry.lock` into [Nox](https://nox.thea.codes/en/stable/) sessions.
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 95 text.html.markdown meta.paragraph.markdown
+L 
+L ### I don't want Poetry to manage my virtual environments. Can I disable it?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 76 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L While Poetry automatically creates virtual environments to always work isolated
+T 79 text.html.markdown meta.paragraph.markdown
+L from the global Python installation, there are rare scenarios where the use of a Poetry managed
+T 95 text.html.markdown meta.paragraph.markdown
+L virtual environment is not possible or preferred.
+T 49 text.html.markdown meta.paragraph.markdown
+L 
+L In this case, you can disable this feature by setting the `virtualenvs.create` setting to `false`:
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 90 text.html.markdown meta.paragraph.markdown
+T 91 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 96 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L poetry config virtualenvs.create false
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.language.false.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L {{% warning %}}
+T 15 text.html.markdown meta.paragraph.markdown
+L The recommended best practice, including when installing an application within a container, is to make
+T 102 text.html.markdown meta.paragraph.markdown
+L use of a virtual environment. This can also be managed by another tool.
+T 71 text.html.markdown meta.paragraph.markdown
+L 
+L The Poetry team strongly encourages the use of a virtual environment.
+T 69 text.html.markdown meta.paragraph.markdown
+L {{% /warning %}}
+T 16 text.html.markdown meta.paragraph.markdown
+L 
+L ### Why is Poetry telling me that the current project's supported Python range is not compatible with one or more packages' Python requirements?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 144 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Unlike `pip`, Poetry doesn't resolve for just the Python in the current environment. Instead, it makes sure that a dependency
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 125 text.html.markdown meta.paragraph.markdown
+L is resolvable within the given Python version range in `pyproject.toml`.
+T 55 text.html.markdown meta.paragraph.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+L 
+L Assume you have the following `pyproject.toml`:
+T 30 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [tool.poetry.dependencies]
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L python = "^3.7"
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This means your project aims to be compatible with any Python version >=3.7,<4.0. Whenever you try to add a dependency
+T 76 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 118 text.html.markdown meta.paragraph.markdown
+L whose Python requirement doesn't match the whole range, Poetry will tell you this, e.g.:
+T 88 text.html.markdown meta.paragraph.markdown
+L 
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L The current project's supported Python range (>=3.7.0,<4.0.0) is not compatible with some of the required packages Python requirement:
+T 134 text.html.markdown markup.fenced_code.block.markdown
+L     - scipy requires Python >=3.7,<3.11, so it will not be installable for Python >=3.11,<4.0.0
+T 95 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Usually you will want to match the supported Python range of your project with the upper bound of the failing dependency.
+T 121 text.html.markdown meta.paragraph.markdown
+L Alternatively, you can tell Poetry to install this dependency [only for a specific range of Python versions]({{< relref "dependency-specification#multiple-constraints-dependencies" >}}),
+T 111 text.html.markdown meta.paragraph.markdown
+T 112 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 186 text.html.markdown meta.paragraph.markdown
+L if you know that it's not needed in all versions.
+T 49 text.html.markdown meta.paragraph.markdown
+L 
+L If you do not want to set an upper bound in the metadata when building your project,
+T 84 text.html.markdown meta.paragraph.markdown
+L you can omit it in the `project` section and only set it in `tool.poetry.dependencies`:
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 86 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [project]
+T 9 text.html.markdown markup.fenced_code.block.markdown
+L # ...
+T 5 text.html.markdown markup.fenced_code.block.markdown
+L requires-python = ">=3.7"  # used for metadata when building the project
+T 72 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.dependencies]
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L python = ">=3.7,<3.11"  # used for locking dependencies
+T 55 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L 
+L ### Why does Poetry enforce PEP 440 versions?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 45 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L This is done to be compliant with the broader Python ecosystem.
+T 63 text.html.markdown meta.paragraph.markdown
+L 
+L For example, if Poetry builds a distribution for a project that uses a version that is not valid, according to
+T 110 text.html.markdown meta.paragraph.markdown
+L [PEP 440](https://peps.python.org/pep-0440), third party tools will be unable to parse the version correctly.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ### Poetry busts my Docker cache because it requires me to COPY my source files in before installing 3rd party dependencies
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 123 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L By default, running `poetry install ...` requires you to have your source files present (both the "root" package and any directory path dependencies you might have).
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 165 text.html.markdown meta.paragraph.markdown
+L This interacts poorly with Docker's caching mechanisms because any change to a source file will make any layers (subsequent commands in your Dockerfile) re-run.
+T 160 text.html.markdown meta.paragraph.markdown
+L For example, you might have a Dockerfile that looks something like this:
+T 72 text.html.markdown meta.paragraph.markdown
+L 
+L ```text
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L FROM python
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L COPY pyproject.toml poetry.lock .
+T 33 text.html.markdown markup.fenced_code.block.markdown
+L COPY src/ ./src
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L RUN pip install poetry && poetry install --only main
+T 52 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L As soon as *any* source file changes, the cache for the `RUN` layer will be invalidated, which forces all 3rd party dependencies (likely the slowest step out of these) to be installed again if you changed any files in `src/`.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 218 text.html.markdown meta.paragraph.markdown
+T 219 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 223 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 224 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 225 text.html.markdown meta.paragraph.markdown
+L 
+L To avoid this cache busting you can split this into two steps:
+T 62 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Install 3rd party dependencies.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 34 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 2. Copy over your source code and install just the source code.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 63 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L This might look something like this:
+T 36 text.html.markdown meta.paragraph.markdown
+L 
+L ```text
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L FROM python
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L COPY pyproject.toml poetry.lock .
+T 33 text.html.markdown markup.fenced_code.block.markdown
+L RUN pip install poetry && poetry install --only main --no-root --no-directory
+T 77 text.html.markdown markup.fenced_code.block.markdown
+L COPY src/ ./src
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L RUN poetry install --only main
+T 30 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The two key options we are using here are `--no-root` (skips installing the project source) and `--no-directory` (skips installing any local directory path dependencies, you can omit this if you don't have any).
+T 42 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 96 text.html.markdown meta.paragraph.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 111 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 112 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 211 text.html.markdown meta.paragraph.markdown
+L [More information on the options available for `poetry install`]({{< relref "cli#install" >}}).
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 95 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ### My requests are timing out!
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 31 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Poetry's default HTTP request timeout is 15 seconds, the same as `pip`.
+T 65 text.html.markdown meta.paragraph.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown
+L Similar to `PIP_REQUESTS_TIMEOUT`, the **experimental** environment variable `POETRY_REQUESTS_TIMEOUT`
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 101 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 102 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L can be set to alter this value.
+T 31 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ### How do I migrate an existing Poetry project using `tool.poetry` section to use the new `project` section (PEP 621)?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 54 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 55 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 67 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 91 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 92 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 99 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 100 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 119 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L {{% note %}}
+T 12 text.html.markdown meta.paragraph.markdown
+L Poetry `>=2.0.0` should seamlessly support both `tool.poetry` section only configuration as well using the `project` section. This
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 48 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 107 text.html.markdown meta.paragraph.markdown
+T 108 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 115 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 116 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 130 text.html.markdown meta.paragraph.markdown
+L lets you decide when and if you would like to migrate to using the `project` section as [described by PyPA](https://packaging.python.org/en/latest/specifications/pyproject-toml/#declaring-project-metadata-the-project-table).
+T 67 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+T 89 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 106 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 107 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 108 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 222 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 223 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 224 text.html.markdown meta.paragraph.markdown
+L 
+L See documentation on [the `pyproject.toml` file]({{< relref "pyproject" >}}), for information specific to Poetry.
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 113 text.html.markdown meta.paragraph.markdown
+L {{% /note %}}
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L Due to the nature of this change some manual changes to your `pyproject.toml` file is unavoidable in order start using the `project` section. The following tabs
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 123 text.html.markdown meta.paragraph.markdown
+T 124 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 131 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 132 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 160 text.html.markdown meta.paragraph.markdown
+L show a transition example. If you wish to retain Poetry's richer [dependency specification]({{< relref "dependency-specification" >}}) syntax it is recommended that
+T 94 text.html.markdown meta.paragraph.markdown
+T 95 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 164 text.html.markdown meta.paragraph.markdown
+L you use dynamic dependencies as described in the second tab below.
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L {{< tabs tabTotal="3" tabID1="migrate-pep621-old" tabName1="Original" tabID2="migrate-pep621-new-dynamic" tabName2="Using Dynamic Dependencies" tabID3="migrate-pep621-new-static" tabName3="Using Static Dependencies">}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 218 text.html.markdown meta.paragraph.markdown
+L 
+L {{< tab tabID="migrate-pep621-old" >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [tool.poetry]
+T 13 text.html.markdown markup.fenced_code.block.markdown
+L name = "foobar"
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L version = "0.1.0"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L description = ""
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L authors = ["Baz Qux <baz.qux@example.com>"]
+T 43 text.html.markdown markup.fenced_code.block.markdown
+L readme = "README.md"
+T 20 text.html.markdown markup.fenced_code.block.markdown
+L packages = [{ include = "awesome", from = "src" }]
+T 50 text.html.markdown markup.fenced_code.block.markdown
+L include = [{ path = "tests", format = "sdist" }]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L homepage = "https://python-foobar.org/"
+T 39 text.html.markdown markup.fenced_code.block.markdown
+L repository = "https://github.com/python-foobar/foobar"
+T 54 text.html.markdown markup.fenced_code.block.markdown
+L documentation = "https://python-foobar.org/docs"
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L keywords = ["packaging", "dependency", "foobar"]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L classifiers = [
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Build Tools",
+T 51 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Libraries :: Python Modules",
+T 67 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.scripts]
+T 21 text.html.markdown markup.fenced_code.block.markdown
+L foobar = "foobar.console.application:main"
+T 42 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.dependencies]
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L python = "^3.13"
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L httpx = "^0.28.1"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.dev.dependencies]
+T 36 text.html.markdown markup.fenced_code.block.markdown
+L pre-commit = ">=2.10"
+T 21 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.test.dependencies]
+T 37 text.html.markdown markup.fenced_code.block.markdown
+L pytest = ">=8.0"
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [build-system]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L requires = ["poetry-core>=2.0.0,<3.0.0"]
+T 40 text.html.markdown markup.fenced_code.block.markdown
+L build-backend = "poetry.core.masonry.api"
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L {{< /tab >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 12 text.html.markdown meta.paragraph.markdown
+L 
+L {{< tab tabID="migrate-pep621-new-static" >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [project]
+T 9 text.html.markdown markup.fenced_code.block.markdown
+L name = "foobar"
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L version = "0.1.0"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L description = ""
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L authors = [
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L     { name = "Baz Qux", email = "baz.qux@example.com" }
+T 55 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L readme = "README.md"
+T 20 text.html.markdown markup.fenced_code.block.markdown
+L requires-python = ">=3.13"
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L keywords = ["packaging", "dependency", "foobar"]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L # classifiers property is dynamic because we want to create Python classifiers automatically
+T 92 text.html.markdown markup.fenced_code.block.markdown
+L # dependencies are dynamic because we want to keep Poetry's rich dependency definition format
+T 93 text.html.markdown markup.fenced_code.block.markdown
+L dynamic = ["classifiers", "dependencies"]
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [project.urls]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L homepage = "https://python-foobar.org/"
+T 39 text.html.markdown markup.fenced_code.block.markdown
+L repository = "https://github.com/python-foobar/foobar"
+T 54 text.html.markdown markup.fenced_code.block.markdown
+L documentation = "https://python-foobar.org/docs"
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [project.scripts]
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L foobar = "foobar.console.application:main"
+T 42 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry]
+T 13 text.html.markdown markup.fenced_code.block.markdown
+L requires-poetry = ">=2.0"
+T 25 text.html.markdown markup.fenced_code.block.markdown
+L packages = [{ include = "foobar", from = "src" }]
+T 49 text.html.markdown markup.fenced_code.block.markdown
+L include = [{ path = "tests", format = "sdist" }]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L classifiers = [
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Build Tools",
+T 51 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Libraries :: Python Modules",
+T 67 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.dependencies]
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L httpx = "^0.28.1"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.dev.dependencies]
+T 36 text.html.markdown markup.fenced_code.block.markdown
+L pre-commit = ">=2.10"
+T 21 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.test.dependencies]
+T 37 text.html.markdown markup.fenced_code.block.markdown
+L pytest = ">=8.0"
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [build-system]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L requires = ["poetry-core>=2.0.0,<3.0.0"]
+T 40 text.html.markdown markup.fenced_code.block.markdown
+L build-backend = "poetry.core.masonry.api"
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L {{< /tab >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 12 text.html.markdown meta.paragraph.markdown
+L 
+L {{< tab tabID="migrate-pep621-new-static" >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L ```toml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L [project]
+T 9 text.html.markdown markup.fenced_code.block.markdown
+L name = "foobar"
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L version = "0.1.0"
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L description = ""
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L authors = [
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L     { name = "Baz Qux", email = "baz.qux@example.com" }
+T 55 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L readme = "README.md"
+T 20 text.html.markdown markup.fenced_code.block.markdown
+L requires-python = ">=3.13"
+T 26 text.html.markdown markup.fenced_code.block.markdown
+L keywords = ["packaging", "dependency", "foobar"]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L # classifiers property is dynamic because we want to create Python classifiers automatically
+T 92 text.html.markdown markup.fenced_code.block.markdown
+L dynamic = ["classifiers"]
+T 25 text.html.markdown markup.fenced_code.block.markdown
+L dependencies = [
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L     "httpx (>=0.28.1,<0.29.0)"
+T 30 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [project.urls]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L homepage = "https://python-foobar.org/"
+T 39 text.html.markdown markup.fenced_code.block.markdown
+L repository = "https://github.com/python-foobar/foobar"
+T 54 text.html.markdown markup.fenced_code.block.markdown
+L documentation = "https://python-foobar.org/docs"
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [project.scripts]
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L foobar = "foobar.console.application:main"
+T 42 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry]
+T 13 text.html.markdown markup.fenced_code.block.markdown
+L requires-poetry = ">=2.0"
+T 25 text.html.markdown markup.fenced_code.block.markdown
+L packages = [{ include = "foobar", from = "src" }]
+T 49 text.html.markdown markup.fenced_code.block.markdown
+L include = [{ path = "tests", format = "sdist" }]
+T 48 text.html.markdown markup.fenced_code.block.markdown
+L classifiers = [
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Build Tools",
+T 51 text.html.markdown markup.fenced_code.block.markdown
+L     "Topic :: Software Development :: Libraries :: Python Modules",
+T 67 text.html.markdown markup.fenced_code.block.markdown
+L ]
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.dev.dependencies]
+T 36 text.html.markdown markup.fenced_code.block.markdown
+L pre-commit = ">=2.10"
+T 21 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [tool.poetry.group.test.dependencies]
+T 37 text.html.markdown markup.fenced_code.block.markdown
+L pytest = ">=8.0"
+T 16 text.html.markdown markup.fenced_code.block.markdown
+L 
+L [build-system]
+T 14 text.html.markdown markup.fenced_code.block.markdown
+L requires = ["poetry-core>=2.0.0,<3.0.0"]
+T 40 text.html.markdown markup.fenced_code.block.markdown
+L build-backend = "poetry.core.masonry.api"
+T 41 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L {{< /tab >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 12 text.html.markdown meta.paragraph.markdown
+L 
+L {{< /tabs >}}
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L {{% note %}}
+T 12 text.html.markdown meta.paragraph.markdown
+L - The `classifiers` property is dynamic to allow Poetry to create and manage Python classifiers in accordance with supported Python version.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 140 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - The `python` dependency, in this example was replaced with `project.requires-python`. However, note that if you need an upper bound on supported Python versions refer to the documentation [here]({{< relref "pyproject#requires-python" >}}).
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 13 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 14 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 62 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 190 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 191 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 195 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 196 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 199 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 200 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 241 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - The [`requires-poetry`]({{< relref "pyproject#requires-poetry" >}}) is added to the `tool.poetry` section.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 24 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 25 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 28 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.other.valid-bracket.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 87 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 99 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 108 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L {{% /note %}}
+T 13 text.html.markdown meta.paragraph.markdown
+L 
