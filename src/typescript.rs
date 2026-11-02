@@ -129,6 +129,19 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
+/// The state at the start of the JavaScript inside an interpolation such as
+/// `${...}`, whose text sits on `base`: like [`start_embedded`], with an end at
+/// the first `}` that no context the code opened is waiting for.
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "the GraphQL lexer's interpolation will call it")
+)]
+pub(crate) fn start_interpolation(arena: &mut Arena, base: u32) -> u32 {
+    arena
+        .push(ROOT, Kind::Interpolation.code(), 0, base)
+        .unwrap_or(ROOT)
+}
+
 /// Lexes one line from `state`, appending its tokens, and returns the state
 /// after it.
 ///
@@ -185,4 +198,44 @@ pub(crate) fn lex(
     cx.lex_from_start(line, |cx, rest| {
         self::line(cx.arena, cx.limits, dialect, rest, state, cx.out, cx.report)
     })
+}
+
+/// Lexes the JavaScript of an interpolation from `state`, which
+/// [`start_interpolation`] made on an earlier line or this one, under the
+/// crate's lexer contract with token ends counted from the start of the whole
+/// line. The tokens stop before the `}` that ends it, and the returned offset
+/// is where that `}` is: the embedding lexer reads it, and the state returned
+/// is of no use after it. Without one, the state resumes on the next line.
+#[expect(dead_code, reason = "the GraphQL lexer's interpolation will call it")]
+pub(crate) fn lex_interpolation(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    state: u32,
+) -> (u32, Option<usize>) {
+    let mut close = None;
+    let next = cx.lex_from_start(line, |cx, rest| {
+        let (next, at) = interpolation_line(cx.arena, cx.limits, rest, state, cx.out, cx.report);
+        close = at;
+        next
+    });
+    (next, close.map(|at| at + line.start))
+}
+
+/// Lexes the non-empty `line` as JavaScript up to the `}` that ends the
+/// interpolation, and returns the state after it and where that `}` is.
+fn interpolation_line(
+    arena: &mut Arena,
+    limits: &Limits,
+    line: &str,
+    state: u32,
+    out: &mut Vec<Token>,
+    report: &mut LineReport,
+) -> (u32, Option<usize>) {
+    if line.is_empty() {
+        return (state, None);
+    }
+    let mut lexer = lexer::Lexer::<1>::new(arena, limits, line, out, state, report);
+    lexer.run();
+    let close = lexer.halted_at();
+    (lexer.into_state(), close)
 }

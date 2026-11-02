@@ -49,6 +49,8 @@ pub(crate) struct Lexer<'a, const D: u8> {
     /// line advancing. `TextMate` then gives the rest of the line to the
     /// context that is open.
     stuck: bool,
+    /// Where a `}` ended the interpolation that the line began inside.
+    halt: Option<usize>,
     /// Set when a context was refused for depth; recorded at the line's end.
     depth_hit: Cell<bool>,
     /// The last run of blanks that [`Lexer::ws`] scanned, as start and end.
@@ -171,6 +173,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
+            halt: None,
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
@@ -233,7 +236,24 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if self.depth_hit.get() {
             self.report.record(Limit::Depth);
         }
-        self.flush(self.len);
+        self.flush(self.halt.unwrap_or(self.len));
+    }
+
+    /// The end of an interpolation, which the lexer that embeds this one
+    /// consumes: a `}` that no context of the line is waiting for stops the
+    /// line before it.
+    pub(crate) fn halt_at_brace(&mut self, p: usize) -> Option<usize> {
+        if p < self.len && self.b(p) == b'}' {
+            self.halt = Some(p);
+            self.stuck = true;
+            return Some(p);
+        }
+        None
+    }
+
+    /// Where an unbalanced `}` ended an interpolation, if the line has one.
+    pub(crate) fn halted_at(&self) -> Option<usize> {
+        self.halt
     }
 
     /// Where the scan resumes after no rule matched at `p`: the next position

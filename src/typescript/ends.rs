@@ -21,6 +21,7 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn end(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
             Kind::Top | Kind::Started | Kind::ObjMember => None,
+            Kind::Interpolation => self.halt_at_brace(p),
             Kind::JsxExprNoAttrs => self.end_zero(self.jsx_expr_no_attrs_ends(p), p),
             Kind::JsxNoAttrs => self.jsx_no_attrs_end(p),
             Kind::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),

@@ -575,3 +575,55 @@ fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
         "storage.type.type.ts"
     );
 }
+
+/// Lexes `lines` as the inside of an interpolation and returns, per line,
+/// where the `}` that ends it is and where the last token ends.
+fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
+    use crate::arena::{Arena, ROOT};
+    use crate::{LineReport, Token};
+
+    let mut arena = Arena::new(None);
+    let mut state = super::start_interpolation(&mut arena, ROOT);
+    let limits = Limits::default();
+    let mut rows = Vec::new();
+    for line in lines {
+        let mut out: Vec<Token> = Vec::new();
+        let mut report = LineReport::default();
+        let (next, close) =
+            super::interpolation_line(&mut arena, &limits, line, state, &mut out, &mut report);
+        state = next;
+        rows.push((close, out.last().map_or(0, |token| token.end())));
+    }
+    rows
+}
+
+#[test]
+fn an_interpolation_ends_at_the_brace_that_no_context_is_waiting_for() {
+    // Braces that code opens close in the code; braces in strings, comments
+    // and nested templates are not told apart by counting.
+    for (line, close) in [
+        ("a.b(1) } c", 7),
+        ("{x: 1}.x } c", 9),
+        ("f(() => { return 1; }) } c", 23),
+        ("\"}\" } c", 4),
+        ("'}' + `a${b}` } c", 14),
+        ("a /* } */ } c", 10),
+        ("a // } ", usize::MAX),
+    ] {
+        let rows = interpolation(&[line]);
+        let expected = (close != usize::MAX).then_some(close);
+        assert_eq!(rows[0].0, expected, "{line:?}");
+        // The tokens stop before the brace.
+        if let Some(at) = expected {
+            assert_eq!(rows[0].1, at, "{line:?}");
+        }
+    }
+}
+
+#[test]
+fn an_interpolation_carries_its_state_to_the_next_line() {
+    let rows = interpolation(&["f(1,", "  {a: 2}) + `x", "y${z}` } w"]);
+    assert_eq!(rows[0].0, None);
+    assert_eq!(rows[1].0, None);
+    assert_eq!(rows[2].0, Some(7));
+}

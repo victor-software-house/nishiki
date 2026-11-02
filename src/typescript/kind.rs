@@ -36,6 +36,7 @@ macro_rules! kinds {
 kinds! {
     Top [] [];
     Started [] [];
+    Interpolation [] [];
     Block [S::MetaBlock] [];
     ObjLit [S::MetaObjectliteral] [];
     ArrLit [S::MetaArrayLiteral] [];

@@ -23,7 +23,7 @@ impl<const D: u8> Lexer<'_, D> {
     )]
     fn rules(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
-            Kind::Top | Kind::Started => self.top_rules(p),
+            Kind::Top | Kind::Started | Kind::Interpolation => self.top_rules(p),
             Kind::JsxExprNoAttrs => self.jsx_tag_without_attributes(p),
             Kind::JsxNoAttrs | Kind::JsxTagBody => self.jsx_children(p),
             Kind::JsxExprTag => self.jsx_tag(p),
