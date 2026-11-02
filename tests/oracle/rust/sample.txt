@@ -1,0 +1,261 @@
+L // Unlike C/C++, there's no restriction on the order of function definitions
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 76 source.rust comment.line.double-slash.rust
+L fn main() {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 7 source.rust meta.function.definition.rust entity.name.function.rust
+T 8 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 9 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 10 source.rust meta.function.definition.rust
+T 11 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     // We can use this function here, and define it somewhere later
+T 4 source.rust
+T 6 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 67 source.rust comment.line.double-slash.rust
+L     fizzbuzz_to(100);
+T 4 source.rust
+T 15 source.rust meta.function.call.rust entity.name.function.rust
+T 16 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 19 source.rust meta.function.call.rust constant.numeric.decimal.rust
+T 20 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 21 source.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L // Function that returns a boolean value
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 40 source.rust comment.line.double-slash.rust
+L fn is_divisible_by(lhs: u32, rhs: u32) -> bool {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 18 source.rust meta.function.definition.rust entity.name.function.rust
+T 19 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 22 source.rust meta.function.definition.rust variable.other.rust
+T 23 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 24 source.rust meta.function.definition.rust
+T 27 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 28 source.rust meta.function.definition.rust punctuation.comma.rust
+T 29 source.rust meta.function.definition.rust
+T 32 source.rust meta.function.definition.rust variable.other.rust
+T 33 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 34 source.rust meta.function.definition.rust
+T 37 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 38 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 39 source.rust meta.function.definition.rust
+T 41 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 42 source.rust meta.function.definition.rust
+T 46 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 47 source.rust meta.function.definition.rust
+T 48 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     // Corner case, early return
+T 4 source.rust
+T 6 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 32 source.rust comment.line.double-slash.rust
+L     if rhs == 0 {
+T 4 source.rust
+T 6 source.rust keyword.control.rust
+T 7 source.rust
+T 10 source.rust variable.other.rust
+T 11 source.rust
+T 13 source.rust keyword.operator.comparison.rust
+T 14 source.rust
+T 15 source.rust constant.numeric.decimal.rust
+T 16 source.rust
+T 17 source.rust punctuation.brackets.curly.rust
+L         return false;
+T 8 source.rust
+T 14 source.rust keyword.control.rust
+T 15 source.rust
+T 20 source.rust constant.language.bool.rust
+T 21 source.rust punctuation.semi.rust
+L     }
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+L 
+L     // This is an expression, the `return` keyword is not necessary here
+T 4 source.rust
+T 6 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 72 source.rust comment.line.double-slash.rust
+L     lhs % rhs == 0
+T 4 source.rust
+T 7 source.rust variable.other.rust
+T 8 source.rust
+T 9 source.rust keyword.operator.math.rust
+T 10 source.rust
+T 13 source.rust variable.other.rust
+T 14 source.rust
+T 16 source.rust keyword.operator.comparison.rust
+T 17 source.rust
+T 18 source.rust constant.numeric.decimal.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L // Functions that "don't" return a value, actually return the unit type `()`
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 76 source.rust comment.line.double-slash.rust
+L fn fizzbuzz(n: u32) -> () {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 11 source.rust meta.function.definition.rust entity.name.function.rust
+T 12 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 13 source.rust meta.function.definition.rust variable.other.rust
+T 14 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 15 source.rust meta.function.definition.rust
+T 18 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 19 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 20 source.rust meta.function.definition.rust
+T 22 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 23 source.rust meta.function.definition.rust
+T 24 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 25 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 26 source.rust meta.function.definition.rust
+T 27 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     if is_divisible_by(n, 15) {
+T 4 source.rust
+T 6 source.rust keyword.control.rust
+T 7 source.rust
+T 22 source.rust meta.function.call.rust entity.name.function.rust
+T 23 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 24 source.rust meta.function.call.rust variable.other.rust
+T 25 source.rust meta.function.call.rust punctuation.comma.rust
+T 26 source.rust meta.function.call.rust
+T 28 source.rust meta.function.call.rust constant.numeric.decimal.rust
+T 29 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 30 source.rust
+T 31 source.rust punctuation.brackets.curly.rust
+L         println!("fizzbuzz");
+T 8 source.rust
+T 16 source.rust meta.macro.rust entity.name.function.macro.rust
+T 17 source.rust punctuation.brackets.round.rust
+T 18 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 26 source.rust string.quoted.double.rust
+T 27 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 28 source.rust punctuation.brackets.round.rust
+T 29 source.rust punctuation.semi.rust
+L     } else if is_divisible_by(n, 3) {
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+T 6 source.rust
+T 10 source.rust keyword.control.rust
+T 11 source.rust
+T 13 source.rust keyword.control.rust
+T 14 source.rust
+T 29 source.rust meta.function.call.rust entity.name.function.rust
+T 30 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 31 source.rust meta.function.call.rust variable.other.rust
+T 32 source.rust meta.function.call.rust punctuation.comma.rust
+T 33 source.rust meta.function.call.rust
+T 34 source.rust meta.function.call.rust constant.numeric.decimal.rust
+T 35 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 36 source.rust
+T 37 source.rust punctuation.brackets.curly.rust
+L         println!("fizz");
+T 8 source.rust
+T 16 source.rust meta.macro.rust entity.name.function.macro.rust
+T 17 source.rust punctuation.brackets.round.rust
+T 18 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 22 source.rust string.quoted.double.rust
+T 23 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 24 source.rust punctuation.brackets.round.rust
+T 25 source.rust punctuation.semi.rust
+L     } else if is_divisible_by(n, 5) {
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+T 6 source.rust
+T 10 source.rust keyword.control.rust
+T 11 source.rust
+T 13 source.rust keyword.control.rust
+T 14 source.rust
+T 29 source.rust meta.function.call.rust entity.name.function.rust
+T 30 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 31 source.rust meta.function.call.rust variable.other.rust
+T 32 source.rust meta.function.call.rust punctuation.comma.rust
+T 33 source.rust meta.function.call.rust
+T 34 source.rust meta.function.call.rust constant.numeric.decimal.rust
+T 35 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 36 source.rust
+T 37 source.rust punctuation.brackets.curly.rust
+L         println!("buzz");
+T 8 source.rust
+T 16 source.rust meta.macro.rust entity.name.function.macro.rust
+T 17 source.rust punctuation.brackets.round.rust
+T 18 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 22 source.rust string.quoted.double.rust
+T 23 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 24 source.rust punctuation.brackets.round.rust
+T 25 source.rust punctuation.semi.rust
+L     } else {
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+T 6 source.rust
+T 10 source.rust keyword.control.rust
+T 11 source.rust
+T 12 source.rust punctuation.brackets.curly.rust
+L         println!("{}", n);
+T 8 source.rust
+T 16 source.rust meta.macro.rust entity.name.function.macro.rust
+T 17 source.rust punctuation.brackets.round.rust
+T 18 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 19 source.rust string.quoted.double.rust meta.interpolation.rust punctuation.definition.interpolation.rust
+T 20 source.rust string.quoted.double.rust meta.interpolation.rust punctuation.definition.interpolation.rust
+T 21 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 22 source.rust punctuation.comma.rust
+T 23 source.rust
+T 24 source.rust variable.other.rust
+T 25 source.rust punctuation.brackets.round.rust
+T 26 source.rust punctuation.semi.rust
+L     }
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L // When a function returns `()`, the return type can be omitted from the
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 72 source.rust comment.line.double-slash.rust
+L // signature
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 12 source.rust comment.line.double-slash.rust
+L fn fizzbuzz_to(n: u32) {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 14 source.rust meta.function.definition.rust entity.name.function.rust
+T 15 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 16 source.rust meta.function.definition.rust variable.other.rust
+T 17 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 18 source.rust meta.function.definition.rust
+T 21 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 22 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 23 source.rust meta.function.definition.rust
+T 24 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     for n in 1..=n {
+T 4 source.rust
+T 7 source.rust keyword.control.rust
+T 8 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust
+T 12 source.rust keyword.other.rust
+T 13 source.rust
+T 14 source.rust constant.numeric.decimal.rust
+T 17 source.rust keyword.operator.range.rust
+T 18 source.rust variable.other.rust
+T 19 source.rust
+T 20 source.rust punctuation.brackets.curly.rust
+L         fizzbuzz(n);
+T 8 source.rust
+T 16 source.rust meta.function.call.rust entity.name.function.rust
+T 17 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 18 source.rust meta.function.call.rust variable.other.rust
+T 19 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 20 source.rust punctuation.semi.rust
+L     }
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L // From https://doc.rust-lang.org/rust-by-example/fn.html
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 57 source.rust comment.line.double-slash.rust
+L 

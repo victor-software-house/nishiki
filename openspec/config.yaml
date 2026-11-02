@@ -1,2 +1,8 @@
 # OpenSpec reads the project context and the per-artifact rules from here.
 schema: spec-driven
+context: |
+  nishiki is a syntax highlighting engine in Rust, written from scratch, whose
+  output is Shiki's scopes. Every reference in an artifact is a clickable,
+  reference-style link: repositories, pull requests, commits, runs and files,
+  with code and file links pinned to a commit. No bare URLs in prose.
+  Prose uses semantic line breaks.

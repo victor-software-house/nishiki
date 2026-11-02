@@ -9,6 +9,8 @@ repository = "https://github.com/victor-software-house/nishiki"
 readme = "README.md"
 keywords = ["syntax", "highlighting", "lexer", "textmate"]
 categories = ["text-processing", "parser-implementations"]
+# One integration test binary, tests/it/main.rs, rather than one per file.
+autotests = false
 # The published source holds only what builds and documents the crate.
 include = [
   "src/**",
@@ -25,6 +27,10 @@ rustdoc-args = ["--cap-lints", "warn"]
 
 [dependencies]
 memchr = "2.8.3"
+
+[[test]]
+name = "it"
+path = "tests/it/main.rs"
 
 [dev-dependencies]
 indoc = "2.0.8"
