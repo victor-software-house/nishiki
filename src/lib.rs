@@ -52,6 +52,7 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod arena;
+mod c;
 mod diff;
 mod dockerfile;
 mod highlighter;

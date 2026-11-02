@@ -119,6 +119,14 @@ const PIECES: &[&str] = &[
     "\u{17f}",
     "\u{fb05}",
     "\u{212a}",
+    "#if 0",
+    "#endif",
+    "switch",
+    "case",
+    "asm",
+    "/**",
+    "->",
+    "%d",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

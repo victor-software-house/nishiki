@@ -1,0 +1,694 @@
+L # Unity - Getting Started
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 25 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L ## Welcome
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 10 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Congratulations.
+T 16 text.html.markdown meta.paragraph.markdown
+L You're now the proud owner of your very own pile of bits!
+T 57 text.html.markdown meta.paragraph.markdown
+L What are you going to do with all these ones and zeros?
+T 55 text.html.markdown meta.paragraph.markdown
+L This document should be able to help you decide just that.
+T 58 text.html.markdown meta.paragraph.markdown
+L 
+L Unity is a unit test framework.
+T 31 text.html.markdown meta.paragraph.markdown
+L The goal has been to keep it small and functional.
+T 50 text.html.markdown meta.paragraph.markdown
+L The core Unity test framework is three files: a single C file and a couple header files.
+T 88 text.html.markdown meta.paragraph.markdown
+L These team up to provide functions and macros to make testing easier.
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L Unity was designed to be cross-platform.
+T 40 text.html.markdown meta.paragraph.markdown
+L It works hard to stick with C standards while still providing support for the many embedded C compilers that bend the rules.
+T 124 text.html.markdown meta.paragraph.markdown
+L Unity has been used with many compilers, including GCC, IAR, Clang, Green Hills, Microchip, and MS Visual Studio.
+T 113 text.html.markdown meta.paragraph.markdown
+L It's not much work to get it to work with a new target.
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L ### Overview of the Documents
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 29 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L #### Unity Assertions reference
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 31 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L This document will guide you through all the assertion options provided by Unity.
+T 81 text.html.markdown meta.paragraph.markdown
+L This is going to be your unit testing bread and butter.
+T 55 text.html.markdown meta.paragraph.markdown
+L You'll spend more time with assertions than any other part of Unity.
+T 68 text.html.markdown meta.paragraph.markdown
+L 
+L #### Unity Assertions Cheat Sheet
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 33 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L This document contains an abridged summary of the assertions described in the previous document.
+T 96 text.html.markdown meta.paragraph.markdown
+L It's perfect for printing and referencing while you familiarize yourself with Unity's options.
+T 94 text.html.markdown meta.paragraph.markdown
+L 
+L #### Unity Configuration Guide
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 30 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L This document is the one to reference when you are going to use Unity with a new target or compiler.
+T 100 text.html.markdown meta.paragraph.markdown
+L It'll guide you through the configuration options and will help you customize your testing experience to meet your needs.
+T 121 text.html.markdown meta.paragraph.markdown
+L 
+L #### Unity Helper Scripts
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 25 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L This document describes the helper scripts that are available for simplifying your testing workflow.
+T 100 text.html.markdown meta.paragraph.markdown
+L It describes the collection of optional Ruby scripts included in the auto directory of your Unity installation.
+T 111 text.html.markdown meta.paragraph.markdown
+L Neither Ruby nor these scripts are necessary for using Unity.
+T 61 text.html.markdown meta.paragraph.markdown
+L They are provided as a convenience for those who wish to use them.
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L #### Unity License
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L What's an open source project without a license file?
+T 53 text.html.markdown meta.paragraph.markdown
+L This brief document describes the terms you're agreeing to when you use this software.
+T 86 text.html.markdown meta.paragraph.markdown
+L Basically, we want it to be useful to you in whatever context you want to use it, but please don't blame us if you run into problems.
+T 133 text.html.markdown meta.paragraph.markdown
+L 
+L ### Overview of the Folders
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L If you have obtained Unity through Github or something similar, you might be surprised by just how much stuff you suddenly have staring you in the face.
+T 152 text.html.markdown meta.paragraph.markdown
+L Don't worry, Unity itself is very small.
+T 40 text.html.markdown meta.paragraph.markdown
+L The rest of it is just there to make your life easier.
+T 54 text.html.markdown meta.paragraph.markdown
+L You can ignore it or use it at your convenience.
+T 48 text.html.markdown meta.paragraph.markdown
+L Here's an overview of everything in the project.
+T 48 text.html.markdown meta.paragraph.markdown
+L 
+L - `src` - This is the code you care about! This folder contains a C file and two header files.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 6 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 94 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   These three files _are_ Unity.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 20 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 21 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 24 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown
+T 25 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 32 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - `docs` - You're reading this document, so it's possible you have found your way into this folder already.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 107 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   This is where all the handy documentation can be found.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 57 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - `examples` - This contains a few examples of using Unity.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - `extras` - These are optional add ons to Unity that are not part of the core project.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 9 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 10 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   If you've reached us through James Grenning's book, you're going to want to look here.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 88 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - `test` - This is how Unity and its scripts are all tested.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   If you're just using Unity, you'll likely never need to go in here.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 69 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   If you are the lucky team member who gets to port Unity to a new toolchain, this is a good place to verify everything is configured properly.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 143 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - `auto` - Here you will find helpful Ruby scripts for simplifying your test workflow.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   They are purely optional and are not required to make use of Unity.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 69 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ## How to Create A Test File
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Test files are C files.
+T 23 text.html.markdown meta.paragraph.markdown
+L Most often you will create a single test file for each C module that you want to test.
+T 86 text.html.markdown meta.paragraph.markdown
+L The test file should include unity.h and the header for your C module to be tested.
+T 83 text.html.markdown meta.paragraph.markdown
+L 
+L Next, a test file will include a `setUp()` and `tearDown()` function.
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L The setUp function can contain anything you would like to run before each test.
+T 79 text.html.markdown meta.paragraph.markdown
+L The tearDown function can contain anything you would like to run after each test.
+T 81 text.html.markdown meta.paragraph.markdown
+L Both functions accept no arguments and return nothing.
+T 54 text.html.markdown meta.paragraph.markdown
+L You may leave either or both of these blank if you have no need for them.
+T 73 text.html.markdown meta.paragraph.markdown
+L 
+L If you're using Ceedling or the test runner generator script, you may leave these off completely.
+T 97 text.html.markdown meta.paragraph.markdown
+L Not sure?
+T 9 text.html.markdown meta.paragraph.markdown
+L Give it a try.
+T 14 text.html.markdown meta.paragraph.markdown
+L If your compiler complains that it can't find setUp or tearDown when it links, you'll know you need to at least include an empty function for these.
+T 148 text.html.markdown meta.paragraph.markdown
+L 
+L The majority of the file will be a series of test functions.
+T 60 text.html.markdown meta.paragraph.markdown
+L Test functions follow the convention of starting with the word "test_" or "spec_".
+T 82 text.html.markdown meta.paragraph.markdown
+L You don't HAVE to name them this way, but it makes it clear what functions are tests for other developers.
+T 106 text.html.markdown meta.paragraph.markdown
+L Also, the automated scripts that come with Unity or Ceedling will default to looking for test functions to be prefixed this way.
+T 128 text.html.markdown meta.paragraph.markdown
+L Test functions take no arguments and return nothing. All test accounting is handled internally in Unity.
+T 104 text.html.markdown meta.paragraph.markdown
+L 
+L Finally, at the bottom of your test file, you will write a `main()` function.
+T 59 text.html.markdown meta.paragraph.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 67 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+L This function will call `UNITY_BEGIN()`, then `RUN_TEST` for each test, and finally `UNITY_END()`.
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 96 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 97 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown meta.paragraph.markdown
+L This is what will actually trigger each of those test functions to run, so it is important that each function gets its own `RUN_TEST` call.
+T 123 text.html.markdown meta.paragraph.markdown
+T 124 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 132 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 133 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 139 text.html.markdown meta.paragraph.markdown
+L 
+L Remembering to add each test to the main function can get to be tedious.
+T 72 text.html.markdown meta.paragraph.markdown
+L If you enjoy using helper scripts in your build process, you might consider making use of our handy [generate_test_runner.rb][] script.
+T 100 text.html.markdown meta.paragraph.markdown
+T 101 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 124 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 125 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 126 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 127 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 135 text.html.markdown meta.paragraph.markdown
+L This will create the main function and all the calls for you, assuming that you have followed the suggested naming conventions.
+T 127 text.html.markdown meta.paragraph.markdown
+L In this case, there is no need for you to include the main function in your test file at all.
+T 93 text.html.markdown meta.paragraph.markdown
+L 
+L When you're done, your test file will look something like this:
+T 63 text.html.markdown meta.paragraph.markdown
+L 
+L ```C
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L #include "unity.h"
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c keyword.control.directive.include.c punctuation.definition.directive.c
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c keyword.control.directive.include.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.begin.c
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "file_to_test.h"
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c keyword.control.directive.include.c punctuation.definition.directive.c
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c keyword.control.directive.include.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.begin.c
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.preprocessor.include.c string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L void setUp(void) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c storage.type.built-in.primitive.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     // set stuff up here
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.whitespace.comment.leading.c
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c punctuation.definition.comment.c
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void tearDown(void) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c storage.type.built-in.primitive.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     // clean stuff up here
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.whitespace.comment.leading.c
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c punctuation.definition.comment.c
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void test_function_should_doBlahAndBlah(void) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c storage.type.built-in.primitive.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     //test stuff
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.whitespace.comment.leading.c
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c punctuation.definition.comment.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L void test_function_should_doAlsoDoBlah(void) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c storage.type.built-in.primitive.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     //more test stuff
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.whitespace.comment.leading.c
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c punctuation.definition.comment.c
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c comment.line.double-slash.c
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L 
+L // not needed when using generate_test_runner.rb
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c comment.line.double-slash.c punctuation.definition.comment.c
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c comment.line.double-slash.c
+L int main(void) {
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c storage.type.built-in.primitive.c
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c storage.type.built-in.primitive.c
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L     UNITY_BEGIN();
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c entity.name.function.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.terminator.statement.c
+L     RUN_TEST(test_function_should_doBlahAndBlah);
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c entity.name.function.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.terminator.statement.c
+L     RUN_TEST(test_function_should_doAlsoDoBlah);
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c entity.name.function.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.terminator.statement.c
+L     return UNITY_END();
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c keyword.control.c
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c entity.name.function.c
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.terminator.statement.c
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L It's possible that you will need more customization than this, eventually.
+T 74 text.html.markdown meta.paragraph.markdown
+L For that sort of thing, you're going to want to look at the configuration guide.
+T 80 text.html.markdown meta.paragraph.markdown
+L This should be enough to get you going, though.
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L ### Running Test Functions
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 26 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L When writing your own `main()` functions, for a test-runner.
+T 22 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+L There are two ways to execute the test.
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L The classic variant
+T 19 text.html.markdown meta.paragraph.markdown
+L 
+L ``` c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L RUN_TEST(func, linenum)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.separator.delimiter.c
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Or its simpler replacement that starts at the beginning of the function.
+T 72 text.html.markdown meta.paragraph.markdown
+L 
+L ``` c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L RUN_TEST(func)
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L These macros perform the necessary setup before the test is called and handles clean-up and result tabulation afterwards.
+T 121 text.html.markdown meta.paragraph.markdown
+L 
+L ### Ignoring Test Functions
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L There are times when a test is incomplete or not valid for some reason.
+T 71 text.html.markdown meta.paragraph.markdown
+L At these times, TEST_IGNORE can be called.
+T 42 text.html.markdown meta.paragraph.markdown
+L Control will immediately be returned to the caller of the test, and no failures will be returned.
+T 97 text.html.markdown meta.paragraph.markdown
+L This is useful when your test runners are automatically generated.
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L ``` c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L TEST_IGNORE()
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Ignore this test and return immediately
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L ```c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L TEST_IGNORE_MESSAGE (message)
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Ignore this test and return immediately.
+T 40 text.html.markdown meta.paragraph.markdown
+L Output a message stating why the test was ignored.
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L ### Aborting Tests
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 18 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L There are times when a test will contain an infinite loop on error conditions, or there may be reason to escape from the test early without executing the rest of the test.
+T 171 text.html.markdown meta.paragraph.markdown
+L A pair of macros support this functionality in Unity.
+T 53 text.html.markdown meta.paragraph.markdown
+L The first `TEST_PROTECT` sets up the feature, and handles emergency abort cases.
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown meta.paragraph.markdown
+L `TEST_ABORT` can then be used at any time within the tests to return to the last `TEST_PROTECT` call.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 94 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 95 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 101 text.html.markdown meta.paragraph.markdown
+L 
+L ```c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L     TEST_PROTECT()
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Setup and Catch macro
+T 21 text.html.markdown meta.paragraph.markdown
+L 
+L ```c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L     TEST_ABORT()
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Abort Test macro
+T 16 text.html.markdown meta.paragraph.markdown
+L 
+L Example:
+T 8 text.html.markdown meta.paragraph.markdown
+L 
+L ```c
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L     main()
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c entity.name.function.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.begin.bracket.round.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.function.c meta.function.definition.parameters.c punctuation.section.parameters.end.bracket.round.c
+L     {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L         if (TEST_PROTECT())
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c keyword.control.c
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.parens.block.c punctuation.section.parens.begin.bracket.round.c
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.parens.block.c meta.function-call.c entity.name.function.c
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.parens.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.parens.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.parens.block.c punctuation.section.parens.end.bracket.round.c
+L         {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.begin.bracket.curly.c
+L             MyTest();
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c entity.name.function.c
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.begin.bracket.round.c
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c meta.function-call.c punctuation.section.arguments.end.bracket.round.c
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.terminator.statement.c
+L         }
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.c meta.block.c punctuation.section.block.end.bracket.curly.c
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L If MyTest calls `TEST_ABORT`, program control will immediately return to `TEST_PROTECT` with a return value of zero.
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 86 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 87 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 116 text.html.markdown meta.paragraph.markdown
+L 
+L ## How to Build and Run A Test File
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 35 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L This is the single biggest challenge to picking up a new unit testing framework, at least in a language like C or C++.
+T 118 text.html.markdown meta.paragraph.markdown
+L These languages are REALLY good at getting you "close to the metal" (why is the phrase metal? Wouldn't it be more accurate to say "close to the silicon"?).
+T 155 text.html.markdown meta.paragraph.markdown
+L While this feature is usually a good thing, it can make testing more challenging.
+T 81 text.html.markdown meta.paragraph.markdown
+L 
+L You have two really good options for toolchains.
+T 48 text.html.markdown meta.paragraph.markdown
+L Depending on where you're coming from, it might surprise you that neither of these options is running the unit tests on your hardware.
+T 134 text.html.markdown meta.paragraph.markdown
+L There are many reasons for this, but here's a short version:
+T 60 text.html.markdown meta.paragraph.markdown
+L 
+L - On hardware, you have too many constraints (processing power, memory, etc),
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 77 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - On hardware, you don't have complete control over all registers,
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 66 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - On hardware, unit testing is more challenging,
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 48 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Unit testing isn't System testing. Keep them separate.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 56 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L Instead of running your tests on your actual hardware, most developers choose to develop them as native applications (using gcc or MSVC for example) or as applications running on a simulator.
+T 191 text.html.markdown meta.paragraph.markdown
+L Either is a good option.
+T 24 text.html.markdown meta.paragraph.markdown
+L Native apps have the advantages of being faster and easier to set up.
+T 69 text.html.markdown meta.paragraph.markdown
+L Simulator apps have the advantage of working with the same compiler as your target application.
+T 95 text.html.markdown meta.paragraph.markdown
+L The options for configuring these are discussed in the configuration guide.
+T 75 text.html.markdown meta.paragraph.markdown
+L 
+L To get either to work, you might need to make a few changes to the file containing your register set (discussed later).
+T 119 text.html.markdown meta.paragraph.markdown
+L 
+L In either case, a test is built by linking unity, the test file, and the C file(s) being tested.
+T 96 text.html.markdown meta.paragraph.markdown
+L These files create an executable which can be run as the test set for that module.
+T 82 text.html.markdown meta.paragraph.markdown
+L Then, this process is repeated for the next test file.
+T 54 text.html.markdown meta.paragraph.markdown
+L This flexibility of separating tests into individual executables allows us to much more thoroughly unit test our system and it keeps all the test code out of our final release!
+T 176 text.html.markdown meta.paragraph.markdown
+L 
+L *Find The Latest of This And More at [ThrowTheSwitch.org][]*
+T 1 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.italic.markdown meta.link.reference.literal.markdown punctuation.definition.link.title.begin.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.italic.markdown meta.link.reference.literal.markdown string.other.link.title.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.italic.markdown meta.link.reference.literal.markdown punctuation.definition.link.title.end.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.italic.markdown meta.link.reference.literal.markdown punctuation.definition.constant.begin.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.italic.markdown meta.link.reference.literal.markdown punctuation.definition.constant.end.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+L 
+L [generate_test_runner.rb]: ../auto/generate_test_runner.rb
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 24 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 25 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 26 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 27 text.html.markdown meta.link.reference.def.markdown
+T 58 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [ThrowTheSwitch.org]: https://throwtheswitch.org
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 19 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 20 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 21 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 22 text.html.markdown meta.link.reference.def.markdown
+T 48 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 

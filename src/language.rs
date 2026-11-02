@@ -7,7 +7,7 @@ use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::typescript::Dialect as ScriptDialect;
 use crate::{
-    Token, diff, dockerfile, java, json, make, markdown, python, rust, shell, toml, typescript,
+    Token, c, diff, dockerfile, java, json, make, markdown, python, rust, shell, toml, typescript,
     yaml,
 };
 
@@ -50,6 +50,8 @@ pub enum Language {
     Dockerfile,
     /// Java, with the scopes of Shiki's `java` grammar.
     Java,
+    /// C, with the scopes of Shiki's `c` grammar.
+    C,
 }
 
 impl Language {
@@ -72,6 +74,7 @@ impl Language {
         Language::Diff,
         Language::Dockerfile,
         Language::Java,
+        Language::C,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -95,6 +98,7 @@ impl Language {
             Language::Diff => "diff",
             Language::Dockerfile => "docker",
             Language::Java => "java",
+            Language::C => "c",
         }
     }
 
@@ -138,6 +142,7 @@ impl Language {
             Language::Diff => &["diff"],
             Language::Dockerfile => &["docker", "dockerfile"],
             Language::Java => &["java"],
+            Language::C => &["c"],
         }
     }
 }
@@ -172,7 +177,7 @@ impl Language {
     /// it after them. The other lexers leave their state alone for such a
     /// line.
     pub(crate) fn reads_line_feed(self) -> bool {
-        matches!(self, Language::Make | Language::Shell)
+        matches!(self, Language::Make | Language::Shell | Language::C)
     }
 
     /// The state at the start of a document whose scopes sit on `base`.
@@ -195,6 +200,7 @@ impl Language {
             Language::Diff => diff::start(arena, base),
             Language::Dockerfile => dockerfile::start(arena, base),
             Language::Java => java::start(arena, base),
+            Language::C => c::start(arena, base),
         }
     }
 
@@ -216,6 +222,7 @@ impl Language {
             Language::Diff => diff::start_embedded(arena, base),
             Language::Dockerfile => dockerfile::start_embedded(arena, base),
             Language::Java => java::start_embedded(arena, base),
+            Language::C => c::start_embedded(arena, base),
         }
     }
 
@@ -242,6 +249,7 @@ impl Language {
             Language::Diff => diff::lex(cx, line, state),
             Language::Dockerfile => dockerfile::lex(cx, line, state),
             Language::Java => java::lex(cx, line, state),
+            Language::C => c::lex(cx, line, state),
         }
     }
 }

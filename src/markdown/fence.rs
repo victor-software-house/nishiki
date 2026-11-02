@@ -134,6 +134,11 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Java,
     },
+    Name {
+        words: &["c", "h"],
+        brace: None,
+        lang: Language::C,
+    },
 ];
 
 /// A language found in an info string.

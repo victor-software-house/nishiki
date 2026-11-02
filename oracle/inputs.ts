@@ -161,6 +161,16 @@ const nextjs =
   "https://raw.githubusercontent.com/vercel/next.js/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378";
 const buildx =
   "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
+const linenoise =
+  "https://raw.githubusercontent.com/antirez/linenoise/a473823d74b93eab2ba83480df16ed37617493f2";
+const libuv =
+  "https://raw.githubusercontent.com/libuv/libuv/7228e05f3e407ed3fa59edba920b8cd825b5d83d";
+const jq =
+  "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
+const lua =
+  "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
+const unity =
+  "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -408,4 +418,22 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "fastapi-docker", url: `${fastapi}/docs/en/docs/deployment/docker.md` },
   { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
   { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
+  { lang: "c", name: "sample", url: `${samples}/c.sample` },
+  { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
+  { lang: "c", name: "linenoise", url: `${linenoise}/linenoise.c` },
+  { lang: "c", name: "libuv-core", url: `${libuv}/src/unix/core.c` },
+  { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },
+  { lang: "c", name: "lua-vm", url: `${lua}/lvm.c` },
+  { lang: "c", name: "zlib-inflate", url: `${zlib}/inflate.c` },
+  { lang: "markdown", name: "cjson-readme", url: `${cjson}/README.md` },
+  {
+    lang: "markdown",
+    name: "unity-assertions",
+    url: `${unity}/docs/UnityAssertionsReference.md`,
+  },
+  {
+    lang: "markdown",
+    name: "unity-getting-started",
+    url: `${unity}/docs/UnityGettingStartedGuide.md`,
+  },
 ];

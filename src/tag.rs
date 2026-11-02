@@ -50,6 +50,8 @@ pub(crate) const JAVA: u16 = 0x0a00;
 pub(crate) const MAKE: u16 = 0x0b00;
 /// Dockerfiles.
 pub(crate) const DOCKERFILE: u16 = 0x2000;
+/// C, with the next byte for its end-of-line flag.
+pub(crate) const C: u16 = 0x0c00;
 
 /// Every claimed range. A new lexer adds its constant and its entry here.
 const CLAIMED: &[Tag] = &[
@@ -65,6 +67,10 @@ const CLAIMED: &[Tag] = &[
     Tag::byte(JAVA),
     Tag::byte(MAKE),
     Tag::byte(DOCKERFILE),
+    Tag {
+        value: C,
+        mask: 0xfe00,
+    },
 ];
 
 /// Two ranges overlap when some code lies in both: when their values agree on

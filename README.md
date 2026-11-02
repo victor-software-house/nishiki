@@ -95,6 +95,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Diff | `Language::Diff` | `diff` |
 | Dockerfile | `Language::Dockerfile` | `docker`, `dockerfile` |
 | Java | `Language::Java` | `java` |
+| C | `Language::C` | `c` |
 
 A Markdown fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does, and YAML front matter is lexed as YAML; any other fence is plain text, as in Shiki when only these languages are loaded.
 That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
@@ -163,6 +164,13 @@ A Markdown fence's Makefile lines see the line feed of a line that a quote or li
 
 Diff lines are lexed on their own, as the grammar has no state.
 A Markdown fence's diff lines lose their `^` anchors when a quote or list indents the fence.
+
+### C
+
+White space before a comment belongs to the comment, and a word that starts with `or`, `not` or `and` after a type, as in `int order(int y);` inside a function, opens an initialization.
+`#define` is found anywhere in a line, while the other directives need the start of the line, so in a Markdown fence indented by a list item a directive is plain text.
+An unterminated string keeps every later line.
+`\d`, `\w` and `\s` for non-ASCII characters come from the JSON table above.
 
 ### Java
 
