@@ -11,6 +11,8 @@ Rules for measuring nishiki, beside the root guide's invariants.
    It states the commit, the host (CPU, cores, memory, OS), the toolchain, when it ran, the number of runs, and its minutes and cost.
 4. Keep the commit a record cites reachable: push the tag `bench/<full sha>` when the record is committed, because a squash or a restack leaves it on no branch.
 5. A claim that a change is faster shows the table before and after, from one host and one session of runs, with at least three runs each and the median reported.
+   Build the before and after binaries each in its own clean target directory: a tree from `git archive` keeps the commit's file times, so cargo can reuse an older build and compare a stale binary (2026-11-02: a stale before-build turned a 1.05 gain into a reported 1.3).
+   A sanity row helps: the before side must reproduce the last known figure for its commit.
 6. A result regresses when the statistic its target names is worse than the last recorded result on the same host class by more than `tolerance_pct`, and by at least the unit's floor.
    A regression blocks the change unless its pull request states why it is accepted.
 7. A target in `targets.toml` changes only by a dated decision, which the comment beside it cites; a target not set yet is listed with the reason.
