@@ -1,0 +1,601 @@
+L 	# Since we rely on paths relative to the makefile location, abort if make isn't being run from there.
+T 1 source.makefile meta.scope.recipe.makefile
+T 101 source.makefile meta.scope.recipe.makefile
+T 102 source.makefile meta.scope.recipe.makefile
+L $(if $(findstring /,$(MAKEFILE_LIST)),$(error Please only invoke this makefile from the directory it resides in))
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 4 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 5 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 7 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.findstring.makefile
+T 18 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 19 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 20 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 22 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 36 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 40 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.error.makefile
+T 46 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 111 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 112 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 113 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	# Note: With Travis CI:
+T 1 source.makefile meta.scope.recipe.makefile
+T 23 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+L 	#  - the path to urchin is passed via the command line.
+T 1 source.makefile meta.scope.recipe.makefile
+T 55 source.makefile meta.scope.recipe.makefile
+T 56 source.makefile meta.scope.recipe.makefile
+L 	#  - the other utilities are NOT needed, so we skip the test for their existence.
+T 1 source.makefile meta.scope.recipe.makefile
+T 81 source.makefile meta.scope.recipe.makefile
+T 82 source.makefile meta.scope.recipe.makefile
+L URCHIN := urchin
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 9 source.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile
+L ifeq ($(findstring /,$(URCHIN)),) # urchin path was NOT passed in.
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.findstring.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 23 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 34 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 35 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 66 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile comment.line.number-sign.makefile
+L 		# Add the local npm packages' bin folder to the PATH, so that `make` can find them, when invoked directly.
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 107 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 108 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 		# Note that rather than using `$(npm bin)` the 'node_modules/.bin' path component is hard-coded, so that invocation works even from an environment
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 35 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 147 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 148 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 		# where npm is (temporarily) unavailable due to having deactivated an nvm instance loaded into the calling shell in order to avoid interference with tests.
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 156 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 157 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	export PATH := $(shell printf '%s' "$$PWD/node_modules/.bin:$$PATH")
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 24 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 32 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 33 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 37 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 39 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile variable.language.makefile
+T 61 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 63 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile variable.language.makefile
+T 68 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 69 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 		# The list of all supporting utilities, installed with `npm install`.
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 70 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 71 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	UTILS := $(URCHIN) replace semver
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 12 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 34 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 		# Make sure that all required utilities can be located.
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 56 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 57 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	UTIL_CHECK := $(or $(shell PATH="$(PATH)" which $(UTILS) >/dev/null && echo 'ok'),$(error Did you forget to run `npm install` after cloning the repo? At least one of the required supporting utilities not found: $(UTILS)))
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 15 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.or.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 22 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 27 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 28 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 34 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 36 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 49 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 51 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 56 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 57 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 81 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 82 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 83 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 85 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 90 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.error.makefile
+T 91 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 212 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 214 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 219 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 220 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 221 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 222 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 	# The files that need updating when incrementing the version number.
+T 1 source.makefile meta.scope.recipe.makefile
+T 68 source.makefile meta.scope.recipe.makefile
+T 69 source.makefile meta.scope.recipe.makefile
+L VERSIONED_FILES := nvm.sh install.sh README.md package.json
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 18 source.makefile punctuation.separator.key-value.makefile
+T 59 source.makefile
+L 	# Define all shells to test with. Can be overridden with `make SHELLS=... <target>`.
+T 1 source.makefile meta.scope.recipe.makefile
+T 84 source.makefile meta.scope.recipe.makefile
+T 85 source.makefile meta.scope.recipe.makefile
+L SHELLS := sh bash dash zsh # ksh (#574)
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 9 source.makefile punctuation.separator.key-value.makefile
+T 27 source.makefile
+T 28 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 39 source.makefile comment.line.number-sign.makefile
+L 	# Generate 'test-<shell>' target names from specified shells.
+T 1 source.makefile meta.scope.recipe.makefile
+T 61 source.makefile meta.scope.recipe.makefile
+T 62 source.makefile meta.scope.recipe.makefile
+L 	# The embedded shell names are extracted on demand inside the recipes.
+T 1 source.makefile meta.scope.recipe.makefile
+T 70 source.makefile meta.scope.recipe.makefile
+T 71 source.makefile meta.scope.recipe.makefile
+L SHELL_TARGETS := $(addprefix test-,$(SHELLS))
+T 13 source.makefile variable.other.makefile
+T 14 source.makefile
+T 16 source.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.addprefix.makefile
+T 29 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 34 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 35 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 37 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 44 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	# Define the default test suite(s). This can be overridden with `make TEST_SUITE=<...>  <target>`.
+T 1 source.makefile meta.scope.recipe.makefile
+T 98 source.makefile meta.scope.recipe.makefile
+T 99 source.makefile meta.scope.recipe.makefile
+L 	# Test suites are the names of subfolders of './test'.
+T 1 source.makefile meta.scope.recipe.makefile
+T 54 source.makefile meta.scope.recipe.makefile
+T 55 source.makefile meta.scope.recipe.makefile
+L TEST_SUITE := $(shell find ./test/* -type d -prune -exec basename {} \;)
+T 10 source.makefile variable.other.makefile
+T 11 source.makefile
+T 13 source.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile
+T 16 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 22 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 34 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 35 source.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 66 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 67 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 68 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 71 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 72 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L 
+L # Default target (by virtue of being the first non '.'-prefixed in the file).
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 77 source.makefile comment.line.number-sign.makefile
+L .PHONY: _no-target-specified
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L _no-target-specified:
+T 20 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 21 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(error Please specify the target to make - `make list` shows targets. Alternatively, use `npm test` to run the default tests; `npm run` shows all tests)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.error.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 85 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 86 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 153 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 154 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L # Lists all targets defined in this makefile.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 45 source.makefile comment.line.number-sign.makefile
+L .PHONY: list
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L list:
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 4 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.recipe.makefile
+T 23 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 37 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 112 source.makefile meta.scope.recipe.makefile
+T 114 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 135 source.makefile meta.scope.recipe.makefile
+T 137 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 177 source.makefile meta.scope.recipe.makefile
+T 179 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 181 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 188 source.makefile meta.scope.recipe.makefile
+T 189 source.makefile meta.scope.recipe.makefile
+L 
+L # Set of test-<shell> targets; each runs the specified test suites for a single shell.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 86 source.makefile comment.line.number-sign.makefile
+L # Note that preexisting NVM_* variables are unset to avoid interfering with tests, except when running the Travis tests (where NVM_DIR must be passed in and the env. is assumed to be pristine).
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 193 source.makefile comment.line.number-sign.makefile
+L # NVM_DIR then defaults to this checkout when it is not set, since not every shell can locate a sourced nvm.sh.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 111 source.makefile comment.line.number-sign.makefile
+L .PHONY: $(SHELL_TARGETS)
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 10 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L $(SHELL_TARGETS):
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile string.interpolated.makefile variable.other.makefile
+T 16 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile
+L 	@shell='$@'; shell=$${shell##*-}; \
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 9 source.makefile meta.scope.recipe.makefile
+T 11 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 20 source.makefile meta.scope.recipe.makefile
+T 22 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 35 source.makefile meta.scope.recipe.makefile
+T 36 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	which "$$shell" >/dev/null || { printf '\033[0;31m%s\033[0m\n' "WARNING: Cannot test with shell '$$shell': not found." >&2; exit 0; } && \
+T 8 source.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 98 source.makefile meta.scope.recipe.makefile
+T 100 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 138 source.makefile meta.scope.recipe.makefile
+T 139 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	printf '\n\033[0;34m%s\033[0m\n' "Running tests in $$shell"; \
+T 52 source.makefile meta.scope.recipe.makefile
+T 54 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 62 source.makefile meta.scope.recipe.makefile
+T 63 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	[ -z "$$TRAVIS_BUILD_DIR" ] && [ -z "$$GITHUB_ACTIONS" ] && for v in $$(set | awk -F'=' '$$1 ~ "^NVM_" { print $$1 }'); do unset $$v; done && unset v; \
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 38 source.makefile meta.scope.recipe.makefile
+T 40 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 70 source.makefile meta.scope.recipe.makefile
+T 72 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 90 source.makefile meta.scope.recipe.makefile
+T 92 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 112 source.makefile meta.scope.recipe.makefile
+T 114 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 130 source.makefile meta.scope.recipe.makefile
+T 132 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 152 source.makefile meta.scope.recipe.makefile
+T 153 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	[ -n "$${NVM_DIR-}" ] || export NVM_DIR="$$PWD"; \
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 42 source.makefile meta.scope.recipe.makefile
+T 44 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 50 source.makefile meta.scope.recipe.makefile
+T 51 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	for suite in $(TEST_SUITE); do \
+T 14 source.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 27 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		echo "Running test suite: $$suite"; \
+T 28 source.makefile meta.scope.recipe.makefile
+T 30 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 38 source.makefile meta.scope.recipe.makefile
+T 39 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		$(URCHIN) -f -s $$shell test/$$suite || exit; \
+T 2 source.makefile meta.scope.recipe.makefile
+T 4 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile
+T 20 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 48 source.makefile meta.scope.recipe.makefile
+T 49 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	done
+T 4 source.makefile meta.scope.recipe.makefile
+T 5 source.makefile meta.scope.recipe.makefile
+L 
+L # All-tests target: invokes the specified test suites for ALL shells defined in $(SHELLS).
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 90 source.makefile comment.line.number-sign.makefile
+L .PHONY: test
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test: $(SHELL_TARGETS)
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 6 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 8 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L .PHONY: _ensure-tag
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L _ensure-tag:
+T 11 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 12 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L ifndef TAG
+T 6 source.makefile meta.scope.conditional.makefile keyword.control.ifndef.makefile
+T 10 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	$(error Please invoke with `make TAG=<new-version> release`, where <new-version> is either an increment specifier (patch, minor, major, prepatch, preminor, premajor, prerelease), or an explicit major.minor.patch version number)
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.error.makefile
+T 9 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 60 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 61 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 115 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 116 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 177 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 178 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 179 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 227 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 228 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L # Ensures there are version tags in repository
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 46 source.makefile comment.line.number-sign.makefile
+L .PHONY: _ensure-current-version
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 31 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L _ensure-current-version:
+T 23 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 24 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L ifeq ($(shell git tag),$(printf ''))
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 13 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 14 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 22 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 25 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 35 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	@git fetch --tags
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L # Ensures that the git workspace is clean.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 42 source.makefile comment.line.number-sign.makefile
+L .PHONY: _ensure-clean
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 21 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L _ensure-clean:
+T 13 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 14 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	@[ -z "$$(git status --porcelain --untracked-files=no || echo err)" ] || { echo "Workspace is not clean; please commit changes first." >&2; exit 2; }
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 8 source.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 149 source.makefile meta.scope.recipe.makefile
+T 150 source.makefile meta.scope.recipe.makefile
+L 
+L # Resolves $(TAG) against the most recent version tag; sets $$old_ver and $$new_ver in the recipe's shell.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 106 source.makefile comment.line.number-sign.makefile
+L define RESOLVE_VERSIONS
+T 6 source.makefile meta.scope.conditional.makefile keyword.control.define.makefile
+T 7 source.makefile meta.scope.conditional.makefile
+T 23 source.makefile meta.scope.conditional.makefile variable.other.makefile
+L old_ver=`git describe --abbrev=0 --tags --match 'v[0-9]*.[0-9]*.[0-9]*'` || { echo "Failed to determine current version." >&2; exit 1; }; old_ver=$${old_ver#v}; \
+T 146 source.makefile meta.scope.conditional.makefile
+T 148 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 162 source.makefile meta.scope.conditional.makefile
+L new_ver=`echo "$(TAG)" | sed 's/^v//'`; new_ver=$${new_ver:-patch}; \
+T 15 source.makefile meta.scope.conditional.makefile
+T 17 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.conditional.makefile
+T 50 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 69 source.makefile meta.scope.conditional.makefile
+L if printf "$$new_ver" | grep -q '^[0-9]'; then \
+T 11 source.makefile meta.scope.conditional.makefile
+T 13 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 48 source.makefile meta.scope.conditional.makefile
+L 	semver "$$new_ver" >/dev/null || { echo 'Invalid version number specified: $(TAG) - must be major.minor.patch' >&2; exit 2; }; \
+T 9 source.makefile meta.scope.conditional.makefile
+T 11 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 76 source.makefile meta.scope.conditional.makefile
+T 78 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 81 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 82 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 129 source.makefile meta.scope.conditional.makefile
+L 	semver -r "> $$old_ver" "$$new_ver" >/dev/null || { echo 'Invalid version number specified: $(TAG) - must be HIGHER than current one.' >&2; exit 2; } \
+T 14 source.makefile meta.scope.conditional.makefile
+T 16 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 26 source.makefile meta.scope.conditional.makefile
+T 28 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 93 source.makefile meta.scope.conditional.makefile
+T 95 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 98 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 99 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 152 source.makefile meta.scope.conditional.makefile
+L else \
+T 6 source.makefile meta.scope.conditional.makefile
+L 	new_ver=`semver -i "$$new_ver" "$$old_ver"` || { echo 'Invalid version-increment specifier: $(TAG)' >&2; exit 2; } \
+T 21 source.makefile meta.scope.conditional.makefile
+T 23 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 33 source.makefile meta.scope.conditional.makefile
+T 35 source.makefile meta.scope.conditional.makefile variable.language.makefile
+T 93 source.makefile meta.scope.conditional.makefile
+T 95 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 98 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 99 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 117 source.makefile meta.scope.conditional.makefile
+L fi
+T 2 source.makefile meta.scope.conditional.makefile
+L endef
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.override.makefile
+L 
+L # Prints the release notes that `make TAG=<versionOrIncrementSpec> release` would use; invoke the same way.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 107 source.makefile comment.line.number-sign.makefile
+L .PHONY: release-notes
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 21 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L release-notes: _ensure-tag _ensure-current-version
+T 13 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 14 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 50 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	@$(RESOLVE_VERSIONS); \
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 4 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	./release-notes.sh "v$$new_ver"
+T 22 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 32 source.makefile meta.scope.recipe.makefile
+L 
+L # Makes a release; invoke with `make TAG=<versionOrIncrementSpec> release`.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 75 source.makefile comment.line.number-sign.makefile
+L .PHONY: release
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L release: _ensure-tag _ensure-clean _ensure-current-version
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 58 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	@$(RESOLVE_VERSIONS); \
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 4 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	notes_file=`mktemp` || { echo 'Failed to create a temp file for the release notes.' >&2; exit 1; }; \
+T 101 source.makefile meta.scope.recipe.makefile
+T 102 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	trap 'rm -f "$$notes_file"' EXIT; \
+T 14 source.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 35 source.makefile meta.scope.recipe.makefile
+T 36 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	./release-notes.sh "v$$new_ver" > "$$notes_file" || { echo 'Failed to generate release notes.' >&2; exit 1; }; \
+T 22 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 36 source.makefile meta.scope.recipe.makefile
+T 38 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 112 source.makefile meta.scope.recipe.makefile
+T 113 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	echo '=== Release notes: ==='; \
+T 32 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	cat "$$notes_file"; \
+T 6 source.makefile meta.scope.recipe.makefile
+T 8 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 21 source.makefile meta.scope.recipe.makefile
+T 22 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	printf "\n=== Bumping version **$$old_ver** to **$$new_ver** before committing and tagging with the above notes:\n=== TYPE 'proceed' TO PROCEED, anything else to abort: " && read response && [ "$$response" = 'proceed' ] || { echo 'Aborted.' >&2; exit 2; }; \
+T 33 source.makefile meta.scope.recipe.makefile
+T 35 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 50 source.makefile meta.scope.recipe.makefile
+T 52 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 195 source.makefile meta.scope.recipe.makefile
+T 197 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 258 source.makefile meta.scope.recipe.makefile
+T 259 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	old_ver_re=`printf '%s' "$$old_ver" | sed 's/[.]/\\\\./g'` && \
+T 26 source.makefile meta.scope.recipe.makefile
+T 28 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 63 source.makefile meta.scope.recipe.makefile
+T 64 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	replace "$$old_ver_re" "$$new_ver" $(VERSIONED_FILES) && \
+T 10 source.makefile meta.scope.recipe.makefile
+T 12 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 25 source.makefile meta.scope.recipe.makefile
+T 27 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 36 source.makefile meta.scope.recipe.makefile
+T 38 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 54 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 58 source.makefile meta.scope.recipe.makefile
+T 59 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	git commit -F "$$notes_file" $(VERSIONED_FILES) && \
+T 16 source.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 30 source.makefile meta.scope.recipe.makefile
+T 32 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile meta.scope.recipe.makefile
+T 53 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	git tag -a -F "$$notes_file" "v$$new_ver"
+T 16 source.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 32 source.makefile meta.scope.recipe.makefile
+T 34 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 41 source.makefile meta.scope.recipe.makefile
+T 42 source.makefile meta.scope.recipe.makefile
+L 

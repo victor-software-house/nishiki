@@ -1,0 +1,1053 @@
+L CJSON_OBJ = cJSON.o
+T 9 source.makefile variable.other.makefile
+T 10 source.makefile
+T 11 source.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile
+L UTILS_OBJ = cJSON_Utils.o
+T 9 source.makefile variable.other.makefile
+T 10 source.makefile
+T 11 source.makefile punctuation.separator.key-value.makefile
+T 25 source.makefile
+L CJSON_LIBNAME = libcjson
+T 13 source.makefile variable.other.makefile
+T 14 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 24 source.makefile
+L UTILS_LIBNAME = libcjson_utils
+T 13 source.makefile variable.other.makefile
+T 14 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 30 source.makefile
+L CJSON_TEST = cJSON_test
+T 10 source.makefile variable.other.makefile
+T 11 source.makefile
+T 12 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+L 
+L CJSON_TEST_SRC = cJSON.c test.c
+T 14 source.makefile variable.other.makefile
+T 15 source.makefile
+T 16 source.makefile punctuation.separator.key-value.makefile
+T 31 source.makefile
+L 
+L LDLIBS = -lm
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 8 source.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile
+L 
+L LIBVERSION = 1.7.19
+T 10 source.makefile variable.other.makefile
+T 11 source.makefile
+T 12 source.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile
+L CJSON_SOVERSION = 1
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 17 source.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile
+L UTILS_SOVERSION = 1
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 17 source.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile
+L 
+L CJSON_SO_LDFLAG=-Wl,-soname=$(CJSON_LIBNAME).so.$(CJSON_SOVERSION)
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile
+T 30 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile variable.other.makefile
+T 44 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile
+T 50 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 65 source.makefile string.interpolated.makefile variable.other.makefile
+T 66 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L UTILS_SO_LDFLAG=-Wl,-soname=$(UTILS_LIBNAME).so.$(UTILS_SOVERSION)
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile
+T 30 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile variable.other.makefile
+T 44 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile
+T 50 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 65 source.makefile string.interpolated.makefile variable.other.makefile
+T 66 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L PREFIX ?= /usr/local
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 9 source.makefile punctuation.separator.key-value.makefile
+T 20 source.makefile
+L INCLUDE_PATH ?= include/cjson
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 29 source.makefile
+L LIBRARY_PATH ?= lib
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile
+L 
+L INSTALL_INCLUDE_PATH = $(DESTDIR)$(PREFIX)/$(INCLUDE_PATH)
+T 20 source.makefile variable.other.makefile
+T 21 source.makefile
+T 22 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile string.interpolated.makefile variable.other.makefile
+T 33 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile string.interpolated.makefile variable.other.makefile
+T 42 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile
+T 45 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 57 source.makefile string.interpolated.makefile variable.other.makefile
+T 58 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L INSTALL_LIBRARY_PATH = $(DESTDIR)$(PREFIX)/$(LIBRARY_PATH)
+T 20 source.makefile variable.other.makefile
+T 21 source.makefile
+T 22 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile string.interpolated.makefile variable.other.makefile
+T 33 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile string.interpolated.makefile variable.other.makefile
+T 42 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile
+T 45 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 57 source.makefile string.interpolated.makefile variable.other.makefile
+T 58 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L INSTALL ?= cp -a
+T 7 source.makefile variable.other.makefile
+T 8 source.makefile
+T 10 source.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile
+L 
+L CC = gcc -std=c89
+T 2 source.makefile variable.other.makefile
+T 3 source.makefile
+T 4 source.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile
+L 
+L # validate gcc version for use fstack-protector-strong
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 54 source.makefile comment.line.number-sign.makefile
+L MIN_GCC_VERSION = "4.9"
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 17 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+L GCC_VERSION := "`$(CC) -dumpversion`"
+T 11 source.makefile variable.other.makefile
+T 12 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile
+L IS_GCC_ABOVE_MIN_VERSION := $(shell expr "$(GCC_VERSION)" ">=" "$(MIN_GCC_VERSION)")
+T 24 source.makefile variable.other.makefile
+T 25 source.makefile
+T 27 source.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile
+T 30 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 36 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 42 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 44 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 55 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 56 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 64 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 66 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 81 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 82 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 83 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 84 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L ifeq "$(IS_GCC_ABOVE_MIN_VERSION)" "1"
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 33 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L     CFLAGS += -fstack-protector-strong
+T 4 source.makefile meta.scope.conditional.makefile
+T 10 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 11 source.makefile meta.scope.conditional.makefile
+T 13 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 38 source.makefile meta.scope.conditional.makefile
+L else
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.else.makefile
+L     CFLAGS += -fstack-protector
+T 4 source.makefile meta.scope.conditional.makefile
+T 10 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 11 source.makefile meta.scope.conditional.makefile
+T 13 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 31 source.makefile meta.scope.conditional.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L PIC_FLAGS = -fPIC
+T 9 source.makefile variable.other.makefile
+T 10 source.makefile
+T 11 source.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile
+L R_CFLAGS = $(PIC_FLAGS) -pedantic -Wall -Werror -Wstrict-prototypes -Wwrite-strings -Wshadow -Winit-self -Wcast-align -Wformat=2 -Wmissing-prototypes -Wstrict-overflow=2 -Wcast-qual -Wc++-compat -Wundef -Wswitch-default -Wconversion $(CFLAGS)
+T 8 source.makefile variable.other.makefile
+T 9 source.makefile
+T 10 source.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile
+T 13 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 233 source.makefile
+T 235 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 241 source.makefile string.interpolated.makefile variable.other.makefile
+T 242 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L uname := $(shell sh -c 'uname -s 2>/dev/null || echo false')
+T 5 source.makefile variable.other.makefile
+T 6 source.makefile
+T 8 source.makefile punctuation.separator.key-value.makefile
+T 9 source.makefile
+T 11 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 17 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 59 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 60 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L #library file extensions
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 24 source.makefile comment.line.number-sign.makefile
+L SHARED = so
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 8 source.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile
+L STATIC = a
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 8 source.makefile punctuation.separator.key-value.makefile
+T 10 source.makefile
+L 
+L ## create dynamic (shared) library on Darwin (base OS for MacOSX and IOS)
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 73 source.makefile comment.line.number-sign.makefile
+L ifeq (Darwin, $(uname))
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 12 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 13 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 14 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 16 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	SHARED = dylib
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 14 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 15 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	CJSON_SO_LDFLAG = ""
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	UTILS_SO_LDFLAG = ""
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L #cJSON library names
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 20 source.makefile comment.line.number-sign.makefile
+L CJSON_SHARED = $(CJSON_LIBNAME).$(SHARED)
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L CJSON_SHARED_VERSION = $(CJSON_LIBNAME).$(SHARED).$(LIBVERSION)
+T 20 source.makefile variable.other.makefile
+T 21 source.makefile
+T 22 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile string.interpolated.makefile variable.other.makefile
+T 39 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile
+T 42 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 50 source.makefile
+T 52 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 62 source.makefile string.interpolated.makefile variable.other.makefile
+T 63 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L CJSON_SHARED_SO = $(CJSON_LIBNAME).$(SHARED).$(CJSON_SOVERSION)
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 17 source.makefile punctuation.separator.key-value.makefile
+T 18 source.makefile
+T 20 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile string.interpolated.makefile variable.other.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile
+T 37 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile variable.other.makefile
+T 44 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile
+T 47 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 62 source.makefile string.interpolated.makefile variable.other.makefile
+T 63 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L CJSON_STATIC = $(CJSON_LIBNAME).$(STATIC)
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L #cJSON_Utils library names
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 26 source.makefile comment.line.number-sign.makefile
+L UTILS_SHARED = $(UTILS_LIBNAME).$(SHARED)
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L UTILS_SHARED_VERSION = $(UTILS_LIBNAME).$(SHARED).$(LIBVERSION)
+T 20 source.makefile variable.other.makefile
+T 21 source.makefile
+T 22 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile string.interpolated.makefile variable.other.makefile
+T 39 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile
+T 42 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 50 source.makefile
+T 52 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 62 source.makefile string.interpolated.makefile variable.other.makefile
+T 63 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L UTILS_SHARED_SO = $(UTILS_LIBNAME).$(SHARED).$(UTILS_SOVERSION)
+T 15 source.makefile variable.other.makefile
+T 16 source.makefile
+T 17 source.makefile punctuation.separator.key-value.makefile
+T 18 source.makefile
+T 20 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile string.interpolated.makefile variable.other.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile
+T 37 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile variable.other.makefile
+T 44 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile
+T 47 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 62 source.makefile string.interpolated.makefile variable.other.makefile
+T 63 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L UTILS_STATIC = $(UTILS_LIBNAME).$(STATIC)
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L SHARED_CMD = $(CC) -shared -o
+T 10 source.makefile variable.other.makefile
+T 11 source.makefile
+T 12 source.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile string.interpolated.makefile variable.other.makefile
+T 18 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile
+L 
+L .PHONY: all shared static tests clean install
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 45 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L all: shared static tests
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L shared: $(CJSON_SHARED) $(UTILS_SHARED)
+T 6 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 10 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 26 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 39 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L static: $(CJSON_STATIC) $(UTILS_STATIC)
+T 6 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 8 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 10 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 26 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 39 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L tests: $(CJSON_TEST)
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 7 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 9 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile variable.other.makefile
+T 20 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L test: tests
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	./$(CJSON_TEST)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 16 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L .c.o:
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(CC) -c $(R_CFLAGS) $<
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile meta.scope.recipe.makefile
+T 24 source.makefile meta.scope.recipe.makefile variable.language.makefile
+L 
+L #tests
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L $(CJSON_TEST): $(CJSON_TEST_SRC) cJSON.h
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile string.interpolated.makefile variable.other.makefile
+T 13 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile string.interpolated.makefile variable.other.makefile
+T 32 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile
+L 	$(CC) $(R_CFLAGS) $(CJSON_TEST_SRC)  -o $@ $(LDLIBS) -I.
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 18 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 19 source.makefile meta.scope.recipe.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 36 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile meta.scope.recipe.makefile
+T 43 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 44 source.makefile meta.scope.recipe.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 56 source.makefile meta.scope.recipe.makefile
+T 57 source.makefile meta.scope.recipe.makefile
+L 
+L #static libraries
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 17 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L $(CJSON_STATIC): $(CJSON_OBJ)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile string.interpolated.makefile variable.other.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile string.interpolated.makefile variable.other.makefile
+T 29 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(AR) rcs $@ $<
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 14 source.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.recipe.makefile variable.language.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L $(UTILS_STATIC): $(UTILS_OBJ)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile string.interpolated.makefile variable.other.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile string.interpolated.makefile variable.other.makefile
+T 29 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(AR) rcs $@ $<
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 14 source.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.recipe.makefile variable.language.makefile
+L 
+L #shared libraries .so.1.0.0
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 27 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L $(CJSON_SHARED_VERSION): $(CJSON_OBJ)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 25 source.makefile
+T 27 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile string.interpolated.makefile variable.other.makefile
+T 37 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(CC) -shared -o $@ $< $(CJSON_SO_LDFLAG) $(LDFLAGS)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile
+T 20 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 21 source.makefile meta.scope.recipe.makefile
+T 23 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 42 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile meta.scope.recipe.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L $(UTILS_SHARED_VERSION): $(UTILS_OBJ)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 25 source.makefile
+T 27 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile string.interpolated.makefile variable.other.makefile
+T 37 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(CC) -shared -o $@ $< $(CJSON_OBJ) $(UTILS_SO_LDFLAG) $(LDFLAGS)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile
+T 20 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 21 source.makefile meta.scope.recipe.makefile
+T 23 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 36 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile meta.scope.recipe.makefile
+T 39 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 54 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 55 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 56 source.makefile meta.scope.recipe.makefile
+T 58 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 65 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 66 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L #objects
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 8 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L $(CJSON_OBJ): cJSON.c cJSON.h
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L $(UTILS_OBJ): cJSON_Utils.c cJSON_Utils.h cJSON.h
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 49 source.makefile
+L 
+L 
+L #links .so -> .so.1 -> .so.1.0.0
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 32 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L $(CJSON_SHARED_SO): $(CJSON_SHARED_VERSION)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile string.interpolated.makefile variable.other.makefile
+T 18 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile
+T 22 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	ln -s $(CJSON_SHARED_VERSION) $(CJSON_SHARED_SO)
+T 1 source.makefile meta.scope.recipe.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L $(CJSON_SHARED): $(CJSON_SHARED_SO)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile string.interpolated.makefile variable.other.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile string.interpolated.makefile variable.other.makefile
+T 35 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	ln -s $(CJSON_SHARED_SO) $(CJSON_SHARED)
+T 1 source.makefile meta.scope.recipe.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 25 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+T 28 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L $(UTILS_SHARED_SO): $(UTILS_SHARED_VERSION)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile string.interpolated.makefile variable.other.makefile
+T 18 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile
+T 22 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	ln -s $(UTILS_SHARED_VERSION) $(UTILS_SHARED_SO)
+T 1 source.makefile meta.scope.recipe.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L $(UTILS_SHARED): $(UTILS_SHARED_SO)
+T 2 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile string.interpolated.makefile variable.other.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 17 source.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile string.interpolated.makefile variable.other.makefile
+T 35 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	ln -s $(UTILS_SHARED_SO) $(UTILS_SHARED)
+T 1 source.makefile meta.scope.recipe.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 25 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+T 28 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 40 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L #install
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 8 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L install-cjson:
+T 13 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 14 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	mkdir -p $(INSTALL_LIBRARY_PATH) $(INSTALL_INCLUDE_PATH)
+T 1 source.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.recipe.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile meta.scope.recipe.makefile
+T 36 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 56 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 57 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(INSTALL) cJSON.h $(INSTALL_INCLUDE_PATH)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(INSTALL) $(CJSON_SHARED) $(CJSON_SHARED_SO) $(CJSON_SHARED_VERSION) $(INSTALL_LIBRARY_PATH)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile
+T 14 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 27 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile meta.scope.recipe.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.recipe.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 69 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 70 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 71 source.makefile meta.scope.recipe.makefile
+T 73 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 93 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 94 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L install-utils: install-cjson
+T 13 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 14 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	$(INSTALL) cJSON_Utils.h $(INSTALL_INCLUDE_PATH)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+T 28 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(INSTALL) $(UTILS_SHARED) $(UTILS_SHARED_SO) $(UTILS_SHARED_VERSION) $(INSTALL_LIBRARY_PATH)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile
+T 14 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 27 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile meta.scope.recipe.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.recipe.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 69 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 70 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 71 source.makefile meta.scope.recipe.makefile
+T 73 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 93 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 94 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L install: install-cjson install-utils
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 36 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L #uninstall
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 10 source.makefile comment.line.number-sign.makefile
+L #cJSON
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 6 source.makefile comment.line.number-sign.makefile
+L uninstall-cjson: uninstall-utils
+T 15 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 16 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 32 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(CJSON_SHARED)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(CJSON_SHARED_VERSION)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 54 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(CJSON_SHARED_SO)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_INCLUDE_PATH)/cJSON.h
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile meta.scope.recipe.makefile
+T 38 source.makefile meta.scope.recipe.makefile
+L 	
+T 1 source.makefile meta.scope.recipe.makefile
+L #cJSON_Utils
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 12 source.makefile comment.line.number-sign.makefile
+L uninstall-utils:
+T 15 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 16 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(UTILS_SHARED)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(UTILS_SHARED_VERSION)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 54 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_LIBRARY_PATH)/$(UTILS_SHARED_SO)
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(RM) $(INSTALL_INCLUDE_PATH)/cJSON_Utils.h
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile meta.scope.recipe.makefile
+T 44 source.makefile meta.scope.recipe.makefile
+L 
+L remove-dir:
+T 10 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 11 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(if $(wildcard $(INSTALL_LIBRARY_PATH)/*.*),,rmdir $(INSTALL_LIBRARY_PATH))
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.wildcard.makefile
+T 17 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 19 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 39 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 40 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 42 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 43 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 44 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 47 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 55 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 75 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 76 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 77 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	$(if $(wildcard $(INSTALL_INCLUDE_PATH)/*.*),,rmdir $(INSTALL_INCLUDE_PATH))
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.wildcard.makefile
+T 17 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 19 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 39 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 40 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 42 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 43 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 44 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile constant.other.placeholder.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 47 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 53 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 55 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 75 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 76 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 77 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L uninstall: uninstall-utils uninstall-cjson remove-dir
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 53 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L clean:
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(RM) $(CJSON_OBJ) $(UTILS_OBJ) #delete object files
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 19 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 32 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile meta.scope.recipe.makefile
+T 53 source.makefile meta.scope.recipe.makefile
+L 	$(RM) $(CJSON_SHARED) $(CJSON_SHARED_VERSION) $(CJSON_SHARED_SO) $(CJSON_STATIC) #delete cJSON
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.recipe.makefile
+T 25 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.recipe.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 64 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 65 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 66 source.makefile meta.scope.recipe.makefile
+T 68 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 80 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 81 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 94 source.makefile meta.scope.recipe.makefile
+T 95 source.makefile meta.scope.recipe.makefile
+L 	$(RM) $(UTILS_SHARED) $(UTILS_SHARED_VERSION) $(UTILS_SHARED_SO) $(UTILS_STATIC) #delete cJSON_Utils
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 23 source.makefile meta.scope.recipe.makefile
+T 25 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 45 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 46 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.recipe.makefile
+T 49 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 64 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 65 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 66 source.makefile meta.scope.recipe.makefile
+T 68 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 80 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 81 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 100 source.makefile meta.scope.recipe.makefile
+T 101 source.makefile meta.scope.recipe.makefile
+L 	$(RM) $(CJSON_TEST)  #delete test
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 5 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 6 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 19 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile meta.scope.recipe.makefile
+T 34 source.makefile meta.scope.recipe.makefile
+L 

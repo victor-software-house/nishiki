@@ -908,15 +908,17 @@ impl<'a> Lexer<'a> {
     /// Takes the rest of the line for the language of the open fence.
     fn embedded(&mut self) {
         let start = self.pos;
-        if start >= self.line.len() {
-            return;
-        }
         let Some(frame) = self.frames.last().copied() else {
             return;
         };
         let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
             return;
         };
+        if start >= self.line.len() && !lang.reads_line_feed() {
+            return;
+        }
+        // The containers may have taken the line feed too.
+        let start = start.min(self.line.len());
         self.emit(start, frame.content);
         let mut cx = Context {
             scratch: &mut *self.scratch,

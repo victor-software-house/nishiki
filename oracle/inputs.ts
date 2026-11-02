@@ -71,6 +71,11 @@ const petstore =
 
 const airflow =
   "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
+const nvmMake =
+  "https://raw.githubusercontent.com/nvm-sh/nvm/16df5aa69aeda3814703e14f9d35a4f60220dd37";
+
+const cjson =
+  "https://raw.githubusercontent.com/DaveGamble/cJSON/6d9f2443ab071f86e5d9b43025a40929ec41c46c";
 
 const prometheus =
   "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
@@ -80,6 +85,32 @@ const traefik =
 
 const jekyll =
   "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
+const nodejs =
+  "https://raw.githubusercontent.com/nodejs/node/3556d018a4863a42fba62a927e7e605c1e8cf128";
+
+const minikube =
+  "https://raw.githubusercontent.com/kubernetes/minikube/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996";
+
+const moby =
+  "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
+
+const zlib =
+  "https://raw.githubusercontent.com/madler/zlib/aaa772ce5c6d0023204c6ee45c59cf70c8372c51";
+
+const helm =
+  "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
+
+const clickMan =
+  "https://raw.githubusercontent.com/click-contrib/click-man/be9eac7642e32a43a93ec2c1f5deea7047bb7288";
+
+const httparser =
+  "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
+
+const latexrun =
+  "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
+
+const deviceVirtual =
+  "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
 
 const burntsushiToml =
   "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
@@ -221,4 +252,17 @@ export const inputs: Input[] = [
     name: "prometheus-config",
     url: `${prometheus}/documentation/examples/prometheus.yml`,
   },
+  { lang: "make", name: "sample", url: `${samples}/make.sample` },
+  { lang: "make", name: "nvm", url: `${nvmMake}/Makefile` },
+  { lang: "make", name: "cjson", url: `${cjson}/Makefile` },
+  { lang: "make", name: "prometheus-common", url: `${prometheus}/Makefile.common` },
+  { lang: "make", name: "node", url: `${nodejs}/Makefile` },
+  { lang: "make", name: "minikube", url: `${minikube}/Makefile` },
+  { lang: "make", name: "moby", url: `${moby}/Makefile` },
+  { lang: "make", name: "zlib", url: `${zlib}/Makefile.in` },
+  { lang: "make", name: "helm", url: `${helm}/Makefile` },
+  { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
+  { lang: "markdown", name: "httparser-readme", url: `${httparser}/README.md` },
+  { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
+  { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
 ];

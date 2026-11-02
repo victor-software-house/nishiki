@@ -5,7 +5,7 @@ use crate::arena::Arena;
 use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Token, json, markdown, python, rust, shell, toml, typescript, yaml};
+use crate::{Token, json, make, markdown, python, rust, shell, toml, typescript, yaml};
 
 /// A language nishiki highlights, named as Shiki names it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -32,6 +32,8 @@ pub enum Language {
     Yaml,
     /// TOML, with the scopes of Shiki's `toml` grammar.
     Toml,
+    /// Makefile, with the scopes of Shiki's `make` grammar.
+    Make,
 }
 
 impl Language {
@@ -47,6 +49,7 @@ impl Language {
         Language::Python,
         Language::Yaml,
         Language::Toml,
+        Language::Make,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -63,6 +66,7 @@ impl Language {
             Language::Python => "python",
             Language::Yaml => "yaml",
             Language::Toml => "toml",
+            Language::Make => "make",
         }
     }
 
@@ -99,6 +103,7 @@ impl Language {
             Language::Python => &["python", "py"],
             Language::Yaml => &["yaml", "yml"],
             Language::Toml => &["toml"],
+            Language::Make => &["make", "makefile"],
         }
     }
 }
@@ -128,6 +133,14 @@ pub(crate) struct Line<'a> {
 /// language is wired in, besides its names above, its scope table and the
 /// Markdown fence names.
 impl Language {
+    /// Whether the language's rules end at the line feed of a line that the
+    /// containers around a Markdown fence took whole, as Shiki's grammar sees
+    /// it after them. The other lexers leave their state alone for such a
+    /// line.
+    pub(crate) fn reads_line_feed(self) -> bool {
+        self == Language::Make
+    }
+
     /// The state at the start of a document whose scopes sit on `base`.
     pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
         match self {
@@ -141,6 +154,7 @@ impl Language {
             Language::Python => python::start(arena, base),
             Language::Yaml => yaml::start(arena, base),
             Language::Toml => toml::start(arena, base),
+            Language::Make => make::start(arena, base),
         }
     }
 
@@ -156,6 +170,7 @@ impl Language {
             Language::Python => python::start_embedded(arena, base),
             Language::Yaml => yaml::start_embedded(arena, base),
             Language::Toml => toml::start_embedded(arena, base),
+            Language::Make => make::start_embedded(arena, base),
         }
     }
 
@@ -210,6 +225,14 @@ impl Language {
                 return shell::line(
                     cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
                 );
+            }
+            Language::Make => {
+                let text = make::Text {
+                    bytes: line.text.as_bytes(),
+                    start: line.start,
+                    anchored: line.embedded,
+                };
+                return make::line(cx.arena, cx.limits, text, state, cx.out, cx.report);
             }
             Language::Python => {
                 let text = python::Text {

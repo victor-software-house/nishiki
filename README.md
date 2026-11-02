@@ -76,8 +76,8 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`), JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`), Python (`Language::Python`, also `py`), YAML (`Language::Yaml`, also `yml`) and TOML (`Language::Toml`) are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, `python` (or `py`), or `yaml` or `yml` is lexed as that language, and so is YAML front matter; any other fence is plain text, as in Shiki when only these languages are loaded.
+1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`), JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`), Python (`Language::Python`, also `py`), YAML (`Language::Yaml`, also `yml`), TOML (`Language::Toml`) and Makefile (`Language::Make`, also `makefile`) are the languages.
+   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, `python` (or `py`), `yaml` or `yml`, or `makefile` (also `Makefile`, `GNUmakefile` and `OCamlMakefile`) is lexed as that language, and so is YAML front matter; any other fence is plain text, as in Shiki when only these languages are loaded.
    That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
@@ -102,6 +102,8 @@ assert_eq!(highlighter.limits().depth, None);
    A value that follows another in an array without a comma, text that is neither a key, a value nor a table header, and a stray character after a value are `invalid.illegal`; `01` is the number `0` and then an invalid `1`; a table header is read only at the start of a line; and a key that begins with a `"` ends at the first later `"` that an `=` follows.
    The grammar has no licence, so the lexer is written from the TOML specification and from Shiki's output alone.
    `\s` for non-ASCII characters is JSON's table, which a pass over every character confirmed for this grammar too.
+12. In a Makefile, `$` at the end of a recipe line is not a variable, a `:` in any line that is not an assignment makes it a target, and the `endef` of a definition has the scope of `override`, as in Shiki.
+    A Markdown fence's Makefile lines see the line feed of a line that a quote or list took whole, so they close the references that line left open.
 
 The API is unstable while the version is `0.x`.
 

@@ -80,6 +80,17 @@ const PIECES: &[&str] = &[
     "EOF",
     "```",
     "~~~",
+    "$(",
+    "${",
+    "define ",
+    "endef",
+    "ifeq ",
+    "else",
+    "endif",
+    "\t@",
+    ".PHONY",
+    "$(shell ",
+    ":=",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

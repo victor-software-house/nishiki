@@ -60,6 +60,7 @@ mod highlighter;
 mod json;
 mod language;
 mod limits;
+mod make;
 mod markdown;
 mod python;
 mod rust;

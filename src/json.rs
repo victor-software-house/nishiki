@@ -13,7 +13,7 @@
 //! number `1`. A non-ASCII digit is not a digit, and a non-ASCII word
 //! character is one when it is alphanumeric, so combining marks are not.
 
-mod classes;
+pub(crate) mod classes;
 mod lexer;
 mod scope;
 mod state;

@@ -103,6 +103,11 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Yaml,
     },
+    Name {
+        words: &["Makefile", "makefile", "GNUmakefile", "OCamlMakefile"],
+        brace: None,
+        lang: Language::Make,
+    },
 ];
 
 /// A language found in an info string.

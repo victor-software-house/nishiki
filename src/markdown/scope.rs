@@ -58,6 +58,7 @@ scopes! {
     EmbeddedJsonl "meta.embedded.block.jsonl"
     EmbeddedPython "meta.embedded.block.python"
     EmbeddedYaml "meta.embedded.block.yaml"
+    EmbeddedMake "meta.embedded.block.makefile"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

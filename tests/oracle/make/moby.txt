@@ -1,0 +1,1334 @@
+L DOCKER ?= docker
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 9 source.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile
+L BUILDX ?= $(DOCKER) buildx
+T 6 source.makefile variable.other.makefile
+T 7 source.makefile
+T 9 source.makefile punctuation.separator.key-value.makefile
+T 10 source.makefile
+T 12 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile string.interpolated.makefile variable.other.makefile
+T 19 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile
+L 
+L DOCKER_GITCOMMIT := $(shell git rev-parse HEAD)
+T 16 source.makefile variable.other.makefile
+T 17 source.makefile
+T 19 source.makefile punctuation.separator.key-value.makefile
+T 20 source.makefile
+T 22 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 27 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 28 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 46 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 47 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L export DOCKER_GITCOMMIT
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 23 source.makefile variable.other.makefile
+L 
+L # allow overriding the repository and branch that validation scripts are running
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 80 source.makefile comment.line.number-sign.makefile
+L # against these are used in hack/validate/.validate to check what changed in the PR.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 84 source.makefile comment.line.number-sign.makefile
+L export VALIDATE_REPO
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 20 source.makefile variable.other.makefile
+L export VALIDATE_BRANCH
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 22 source.makefile variable.other.makefile
+L export VALIDATE_ORIGIN_BRANCH
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 29 source.makefile variable.other.makefile
+L 
+L export PAGER
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 12 source.makefile variable.other.makefile
+L export GIT_PAGER
+T 6 source.makefile keyword.control.export.makefile
+T 7 source.makefile
+T 16 source.makefile variable.other.makefile
+L 
+L # env vars passed through directly to Docker's build scripts
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 60 source.makefile comment.line.number-sign.makefile
+L # to allow things like `make KEEPBUNDLE=1 binary` easily
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 56 source.makefile comment.line.number-sign.makefile
+L # `project/PACKAGERS.md` have some limited documentation of some of these
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 73 source.makefile comment.line.number-sign.makefile
+L #
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+L # DOCKER_LDFLAGS can be used to pass additional parameters to -ldflags
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 70 source.makefile comment.line.number-sign.makefile
+L # option of "go build". For example, a built-in graphdriver priority list
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 73 source.makefile comment.line.number-sign.makefile
+L # can be changed during build time like this:
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 45 source.makefile comment.line.number-sign.makefile
+L #
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+L # make DOCKER_LDFLAGS="-X github.com/moby/moby/v2/daemon/graphdriver.priority=overlay2,zfs" dynbinary
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 101 source.makefile comment.line.number-sign.makefile
+L #
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+L DOCKER_ENVS := \
+T 11 source.makefile variable.other.makefile
+T 12 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 16 source.makefile constant.character.escape.continuation.makefile
+L 	-e BUILDFLAGS \
+T 15 source.makefile
+T 16 source.makefile constant.character.escape.continuation.makefile
+L 	-e KEEPBUNDLE \
+T 15 source.makefile
+T 16 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_BUILD_ARGS \
+T 22 source.makefile
+T 23 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_BUILDKIT \
+T 20 source.makefile
+T 21 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_CLI_PATH \
+T 20 source.makefile
+T 21 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKERCLI_VERSION \
+T 22 source.makefile
+T 23 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKERCLI_REPOSITORY \
+T 25 source.makefile
+T 26 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKERCLI_INTEGRATION_VERSION \
+T 34 source.makefile
+T 35 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKERCLI_INTEGRATION_REPOSITORY \
+T 37 source.makefile
+T 38 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_DEBUG \
+T 17 source.makefile
+T 18 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_EXPERIMENTAL \
+T 24 source.makefile
+T 25 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_FIREWALL_BACKEND \
+T 28 source.makefile
+T 29 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_GITCOMMIT \
+T 21 source.makefile
+T 22 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_GRAPHDRIVER \
+T 23 source.makefile
+T 24 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_IGNORE_BR_NETFILTER_ERROR \
+T 37 source.makefile
+T 38 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_LDFLAGS \
+T 19 source.makefile
+T 20 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_PORT \
+T 16 source.makefile
+T 17 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_REMAP_ROOT \
+T 22 source.makefile
+T 23 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_ROOTLESS \
+T 20 source.makefile
+T 21 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_STORAGE_OPTS \
+T 24 source.makefile
+T 25 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_TEST_HOST \
+T 21 source.makefile
+T 22 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKER_USERLANDPROXY \
+T 25 source.makefile
+T 26 source.makefile constant.character.escape.continuation.makefile
+L 	-e DOCKERD_ARGS \
+T 17 source.makefile
+T 18 source.makefile constant.character.escape.continuation.makefile
+L 	-e DELVE_PORT \
+T 15 source.makefile
+T 16 source.makefile constant.character.escape.continuation.makefile
+L 	-e FIREWALLD \
+T 14 source.makefile
+T 15 source.makefile constant.character.escape.continuation.makefile
+L 	-e GITHUB_ACTIONS \
+T 19 source.makefile
+T 20 source.makefile constant.character.escape.continuation.makefile
+L 	-e CI \
+T 7 source.makefile
+T 8 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_FORCE_VALIDATE \
+T 24 source.makefile
+T 25 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_INTEGRATION_DIR \
+T 25 source.makefile
+T 26 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_INTEGRATION_CONTAINERD_EMBEDDED \
+T 41 source.makefile
+T 42 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_INTEGRATION_USE_GRAPHDRIVER \
+T 37 source.makefile
+T 38 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_INTEGRATION_FAIL_FAST \
+T 31 source.makefile
+T 32 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_SKIP_INTEGRATION \
+T 26 source.makefile
+T 27 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_SKIP_INTEGRATION_CLI \
+T 30 source.makefile
+T 31 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTCOVERAGE \
+T 17 source.makefile
+T 18 source.makefile constant.character.escape.continuation.makefile
+L 	-e FLAKY_EXTRA_TESTS \
+T 22 source.makefile
+T 23 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTDEBUG \
+T 14 source.makefile
+T 15 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTDIRS \
+T 13 source.makefile
+T 14 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTFLAGS \
+T 14 source.makefile
+T 15 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTFLAGS_INTEGRATION \
+T 26 source.makefile
+T 27 source.makefile constant.character.escape.continuation.makefile
+L 	-e TESTFLAGS_INTEGRATION_CLI \
+T 30 source.makefile
+T 31 source.makefile constant.character.escape.continuation.makefile
+L 	-e TEST_FILTER \
+T 16 source.makefile
+T 17 source.makefile constant.character.escape.continuation.makefile
+L 	-e TIMEOUT \
+T 12 source.makefile
+T 13 source.makefile constant.character.escape.continuation.makefile
+L 	-e VALIDATE_REPO \
+T 18 source.makefile
+T 19 source.makefile constant.character.escape.continuation.makefile
+L 	-e VALIDATE_BRANCH \
+T 20 source.makefile
+T 21 source.makefile constant.character.escape.continuation.makefile
+L 	-e VALIDATE_ORIGIN_BRANCH \
+T 27 source.makefile
+T 28 source.makefile constant.character.escape.continuation.makefile
+L 	-e VERSION \
+T 12 source.makefile
+T 13 source.makefile constant.character.escape.continuation.makefile
+L 	-e PLATFORM \
+T 13 source.makefile
+T 14 source.makefile constant.character.escape.continuation.makefile
+L 	-e DEFAULT_PRODUCT_LICENSE \
+T 28 source.makefile
+T 29 source.makefile constant.character.escape.continuation.makefile
+L 	-e PRODUCT \
+T 12 source.makefile
+T 13 source.makefile constant.character.escape.continuation.makefile
+L 	-e PACKAGER_NAME \
+T 18 source.makefile
+T 19 source.makefile constant.character.escape.continuation.makefile
+L 	-e PAGER \
+T 10 source.makefile
+T 11 source.makefile constant.character.escape.continuation.makefile
+L 	-e GIT_PAGER \
+T 14 source.makefile
+T 15 source.makefile constant.character.escape.continuation.makefile
+L 	-e OTEL_EXPORTER_OTLP_ENDPOINT \
+T 32 source.makefile
+T 33 source.makefile constant.character.escape.continuation.makefile
+L 	-e OTEL_EXPORTER_OTLP_PROTOCOL \
+T 32 source.makefile
+T 33 source.makefile constant.character.escape.continuation.makefile
+L 	-e OTEL_SERVICE_NAME
+T 21 source.makefile
+L # note: we _cannot_ add "-e DOCKER_BUILDTAGS" here because even if it's unset in the shell, that would shadow the "ENV DOCKER_BUILDTAGS" set in our Dockerfile, which is very important for our official builds
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 207 source.makefile comment.line.number-sign.makefile
+L 
+L # to allow `make BIND_DIR=. shell` or `make BIND_DIR= test`
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 59 source.makefile comment.line.number-sign.makefile
+L # (default to no bind mount if DOCKER_HOST is set)
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 50 source.makefile comment.line.number-sign.makefile
+L # note: BINDDIR is supported for backwards-compatibility here
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 61 source.makefile comment.line.number-sign.makefile
+L BIND_DIR ?= $(if $(BINDDIR),$(BINDDIR),$(if $(DOCKER_HOST),,.))
+T 8 source.makefile variable.other.makefile
+T 9 source.makefile
+T 11 source.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile
+T 14 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 17 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 19 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 27 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 30 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 38 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 39 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 41 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 44 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 46 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 57 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 58 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 59 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 60 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 61 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 62 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 63 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L # DOCKER_MOUNT can be overridden, but use at your own risk!
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 59 source.makefile comment.line.number-sign.makefile
+L ifndef DOCKER_MOUNT
+T 6 source.makefile meta.scope.conditional.makefile keyword.control.ifndef.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L DOCKER_MOUNT := $(if $(BIND_DIR),-v "$(BIND_DIR):/usr/src/moby/$(BIND_DIR)")
+T 12 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 13 source.makefile meta.scope.conditional.makefile
+T 15 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.conditional.makefile
+T 18 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 21 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 23 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 31 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 32 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 37 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 39 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 47 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 48 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 63 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 65 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 73 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 74 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 75 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 76 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L DOCKER_MOUNT := $(if $(DOCKER_BINDDIR_MOUNT_OPTS),$(DOCKER_MOUNT):$(DOCKER_BINDDIR_MOUNT_OPTS),$(DOCKER_MOUNT))
+T 12 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 13 source.makefile meta.scope.conditional.makefile
+T 15 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.conditional.makefile
+T 18 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 21 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 23 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 49 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 50 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 52 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 64 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 65 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 66 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 68 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 93 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 94 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 95 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 97 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 109 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 110 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 111 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L # This allows the test suite to be able to run without worrying about the underlying fs used by the container running the daemon (e.g. aufs-on-aufs), so long as the host running the container is running a supported fs.
+T 1 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 218 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile
+L # The volume will be cleaned up when the container is removed due to `--rm`.
+T 1 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 76 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile
+L # Note that `BIND_DIR` will already be set to `bundles` if `DOCKER_HOST` is not set (see above BIND_DIR line), in such case this will do nothing since `DOCKER_MOUNT` will already be set.
+T 1 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 186 source.makefile meta.scope.conditional.makefile comment.line.number-sign.makefile
+L DOCKER_MOUNT := $(if $(DOCKER_MOUNT),$(DOCKER_MOUNT),-v /usr/src/moby/bundles) -v "$(CURDIR)/.git:/usr/src/moby/.git"
+T 12 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 13 source.makefile meta.scope.conditional.makefile
+T 15 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.conditional.makefile
+T 18 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 21 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 23 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 36 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 37 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 39 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 51 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 52 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 53 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 77 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 78 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 83 source.makefile meta.scope.conditional.makefile
+T 85 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 91 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.language.makefile
+T 92 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 117 source.makefile meta.scope.conditional.makefile
+L 
+L DOCKER_MOUNT_CACHE := -v docker-dev-cache:/root/.cache -v docker-mod-cache:/go/pkg/mod/
+T 18 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 19 source.makefile meta.scope.conditional.makefile
+T 21 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 87 source.makefile meta.scope.conditional.makefile
+L DOCKER_MOUNT_CLI := $(if $(DOCKER_CLI_PATH),-v $(shell dirname $(DOCKER_CLI_PATH)):/usr/local/cli,)
+T 16 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 17 source.makefile meta.scope.conditional.makefile
+T 19 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 20 source.makefile meta.scope.conditional.makefile
+T 22 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 25 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 27 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 44 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 47 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 49 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 54 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 55 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 63 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 65 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 80 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 81 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 82 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 97 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 98 source.makefile meta.scope.conditional.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 99 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L ifdef BIND_GIT
+T 5 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile keyword.control.ifdef.makefile
+T 14 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	# Gets the common .git directory (even from inside a git worktree)
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 66 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 67 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L 	GITDIR := $(shell realpath $(shell git rev-parse --git-common-dir))
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 11 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 28 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 30 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 36 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 66 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 67 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 68 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	MOUNT_GITDIR := $(if $(GITDIR),-v "$(GITDIR):$(GITDIR)")
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 22 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 24 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 36 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 38 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 44 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 45 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 46 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 48 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 54 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 55 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 56 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 57 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L DOCKER_MOUNT := $(DOCKER_MOUNT) $(DOCKER_MOUNT_CACHE) $(DOCKER_MOUNT_CLI) $(DOCKER_MOUNT_BASH_COMPLETION) $(MOUNT_GITDIR)
+T 12 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 13 source.makefile meta.scope.conditional.makefile
+T 15 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.conditional.makefile
+T 18 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 30 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 31 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.conditional.makefile
+T 34 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 53 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 54 source.makefile meta.scope.conditional.makefile
+T 56 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 72 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 73 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 74 source.makefile meta.scope.conditional.makefile
+T 76 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 104 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 105 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 106 source.makefile meta.scope.conditional.makefile
+T 108 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 120 source.makefile meta.scope.conditional.makefile string.interpolated.makefile variable.other.makefile
+T 121 source.makefile meta.scope.conditional.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L endif # ifndef DOCKER_MOUNT
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+T 6 source.makefile
+T 7 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 27 source.makefile comment.line.number-sign.makefile
+L 
+L # This allows to set the docker-dev container name
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 50 source.makefile comment.line.number-sign.makefile
+L DOCKER_CONTAINER_NAME := $(if $(CONTAINER_NAME),--name $(CONTAINER_NAME),)
+T 21 source.makefile variable.other.makefile
+T 22 source.makefile
+T 24 source.makefile punctuation.separator.key-value.makefile
+T 25 source.makefile
+T 27 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 30 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 32 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 46 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 47 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 55 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 57 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 71 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 72 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 73 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 74 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L DOCKER_IMAGE := docker-dev
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 26 source.makefile
+L DOCKER_PORT_FORWARD := $(if $(DOCKER_PORT),-p "$(DOCKER_PORT)",)
+T 19 source.makefile variable.other.makefile
+T 20 source.makefile
+T 22 source.makefile punctuation.separator.key-value.makefile
+T 23 source.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 27 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 28 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 30 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 42 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 47 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 49 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 60 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 61 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 62 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 63 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 64 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L DELVE_PORT_FORWARD := $(if $(DELVE_PORT),-p "$(DELVE_PORT)",)
+T 18 source.makefile variable.other.makefile
+T 19 source.makefile
+T 21 source.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile
+T 24 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.if.makefile
+T 27 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 29 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 39 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 40 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 41 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 45 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 47 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 57 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 58 source.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 59 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 60 source.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 61 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L DOCKER_FLAGS := $(DOCKER) run --rm --privileged $(DOCKER_CONTAINER_NAME) $(DOCKER_ENVS) $(DOCKER_MOUNT) $(DOCKER_PORT_FORWARD) $(DELVE_PORT_FORWARD)
+T 12 source.makefile variable.other.makefile
+T 13 source.makefile
+T 15 source.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile
+T 18 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile string.interpolated.makefile variable.other.makefile
+T 25 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 48 source.makefile
+T 50 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 71 source.makefile string.interpolated.makefile variable.other.makefile
+T 72 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 73 source.makefile
+T 75 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 86 source.makefile string.interpolated.makefile variable.other.makefile
+T 87 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 88 source.makefile
+T 90 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 102 source.makefile string.interpolated.makefile variable.other.makefile
+T 103 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 104 source.makefile
+T 106 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 125 source.makefile string.interpolated.makefile variable.other.makefile
+T 126 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 127 source.makefile
+T 129 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 147 source.makefile string.interpolated.makefile variable.other.makefile
+T 148 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L define \n
+T 6 source.makefile meta.scope.conditional.makefile keyword.control.define.makefile
+T 7 source.makefile meta.scope.conditional.makefile
+T 9 source.makefile meta.scope.conditional.makefile variable.other.makefile
+L 
+L endef
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.override.makefile
+L 
+L # if this session isn't interactive, then we don't want to allocate a
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 69 source.makefile comment.line.number-sign.makefile
+L # TTY, which would fail, but if it is interactive, we do want to attach
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 71 source.makefile comment.line.number-sign.makefile
+L # so that the user can send e.g. ^C through.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 44 source.makefile comment.line.number-sign.makefile
+L INTERACTIVE := $(shell [ -t 0 ] && echo 1 || echo 0)
+T 11 source.makefile variable.other.makefile
+T 12 source.makefile
+T 14 source.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile
+T 17 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 23 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 51 source.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 52 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L ifeq ($(INTERACTIVE), 1)
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 24 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	DOCKER_FLAGS += -t
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L # on GitHub Runners input device is not a TTY but we allocate a pseudo-one,
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 75 source.makefile comment.line.number-sign.makefile
+L # otherwise keep STDIN open even if not attached if not a GitHub Runner.
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 72 source.makefile comment.line.number-sign.makefile
+L ifeq ($(GITHUB_ACTIONS),true)
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 22 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 23 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 29 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L 	DOCKER_FLAGS += -t
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L else
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.else.makefile
+L 	DOCKER_FLAGS += -i
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 19 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L DOCKER_RUN_DOCKER := $(DOCKER_FLAGS) "$(DOCKER_IMAGE)"
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 21 source.makefile
+T 23 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile string.interpolated.makefile variable.other.makefile
+T 36 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile
+T 40 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 52 source.makefile string.interpolated.makefile variable.other.makefile
+T 53 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 54 source.makefile
+L 
+L DOCKER_BUILD_ARGS += --build-arg=GO_VERSION
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 43 source.makefile
+L DOCKER_BUILD_ARGS += --build-arg=DOCKERCLI_VERSION
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 50 source.makefile
+L DOCKER_BUILD_ARGS += --build-arg=DOCKERCLI_REPOSITORY
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 53 source.makefile
+L DOCKER_BUILD_ARGS += --build-arg=DOCKERCLI_INTEGRATION_VERSION
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 62 source.makefile
+L DOCKER_BUILD_ARGS += --build-arg=DOCKERCLI_INTEGRATION_REPOSITORY
+T 17 source.makefile variable.other.makefile
+T 18 source.makefile
+T 20 source.makefile punctuation.separator.key-value.makefile
+T 65 source.makefile
+L ifdef DOCKER_SYSTEMD
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.ifdef.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L DOCKER_BUILD_ARGS += --build-arg=SYSTEMD=true
+T 17 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 18 source.makefile meta.scope.conditional.makefile
+T 20 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 45 source.makefile meta.scope.conditional.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L ifdef FIREWALLD
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.ifdef.makefile
+T 15 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L DOCKER_BUILD_ARGS += --build-arg=FIREWALLD=true
+T 17 source.makefile meta.scope.conditional.makefile variable.other.makefile
+T 18 source.makefile meta.scope.conditional.makefile
+T 20 source.makefile meta.scope.conditional.makefile punctuation.separator.key-value.makefile
+T 47 source.makefile meta.scope.conditional.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L BUILD_OPTS := ${DOCKER_BUILD_ARGS}
+T 10 source.makefile variable.other.makefile
+T 11 source.makefile
+T 13 source.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile
+T 16 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 33 source.makefile string.interpolated.makefile variable.other.makefile
+T 34 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L BUILD_CMD := $(BUILDX) build
+T 9 source.makefile variable.other.makefile
+T 10 source.makefile
+T 12 source.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile
+T 15 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile string.interpolated.makefile variable.other.makefile
+T 22 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile
+L BAKE_CMD := $(BUILDX) bake
+T 8 source.makefile variable.other.makefile
+T 9 source.makefile
+T 11 source.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile
+T 14 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile
+L 
+L default: binary
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L .PHONY: all
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L all: build ## validate all checks, build linux binaries, run all tests,\ncross build non-linux binaries, and generate archives
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 126 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) bash -c 'hack/validate/default && hack/make.sh'
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 68 source.makefile meta.scope.recipe.makefile
+T 69 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: binary
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L binary: bundles ## build statically linked linux binaries
+T 6 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 57 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(BAKE_CMD) binary
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile
+T 19 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: dynbinary
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L dynbinary: bundles ## build dynamically linked linux binaries
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 20 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 61 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(BAKE_CMD) dynbinary
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 21 source.makefile meta.scope.recipe.makefile
+T 22 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: cross
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L cross: bundles ## cross build the binaries
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 16 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 42 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(BAKE_CMD) binary-cross
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+T 25 source.makefile meta.scope.recipe.makefile
+L 
+L bundles:
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	mkdir bundles
+T 1 source.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.recipe.makefile
+T 14 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: clean
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L clean: clean-cache
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 18 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 
+L .PHONY: clean-cache
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L clean-cache: ## remove the docker volumes that are used for caching in the dev-container
+T 11 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 12 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 88 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	docker volume rm -f docker-dev-cache docker-mod-cache
+T 1 source.makefile meta.scope.recipe.makefile
+T 53 source.makefile meta.scope.recipe.makefile
+T 54 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: help
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L help: ## this help
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 6 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 7 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 18 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {gsub("\\\\n",sprintf("\n%22c",""), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 91 source.makefile meta.scope.recipe.makefile
+T 93 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 132 source.makefile meta.scope.recipe.makefile
+T 134 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 137 source.makefile meta.scope.recipe.makefile
+T 139 source.makefile meta.scope.recipe.makefile variable.language.makefile
+T 143 source.makefile meta.scope.recipe.makefile
+T 145 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 158 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 159 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 
+L .PHONY: install
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L install: ## install the linux binaries
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 9 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 10 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 38 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	KEEPBUNDLE=1 hack/make.sh install-binary
+T 1 source.makefile meta.scope.recipe.makefile
+T 40 source.makefile meta.scope.recipe.makefile
+T 41 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: run
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L run: build ## run the docker daemon in a container
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 50 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) sh -c "KEEPBUNDLE=1 hack/make.sh install-binary run"
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 73 source.makefile meta.scope.recipe.makefile
+T 74 source.makefile meta.scope.recipe.makefile
+L  
+T 1 source.makefile
+L .PHONY: build
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L ifeq ($(BIND_DIR), .)
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.ifeq.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 8 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 16 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile variable.other.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L build: shell_target := --target=dev-base
+T 5 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 40 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L else
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.else.makefile
+L build: shell_target := --target=dev
+T 5 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 35 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L build: validate-bind-dir bundles
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 32 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L 	$(BUILD_CMD) $(BUILD_OPTS) $(shell_target) --load -t "$(DOCKER_IMAGE)" .
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 13 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 14 source.makefile meta.scope.recipe.makefile
+T 16 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 27 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 28 source.makefile meta.scope.recipe.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 42 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 43 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 55 source.makefile meta.scope.recipe.makefile
+T 57 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 69 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 70 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 72 source.makefile meta.scope.recipe.makefile
+T 73 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: shell
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L shell: build  ## start a shell inside the build env
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 51 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) bash
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 25 source.makefile meta.scope.recipe.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: dev
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L dev: build  ## start a dev mode inside the build env
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 52 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/dev.sh
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: test
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 12 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test: build test-unit ## run the unit, integration and docker-py tests
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 23 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 70 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/make.sh dynbinary test-integration test-docker-py
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 75 source.makefile meta.scope.recipe.makefile
+T 76 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: test-docker-py
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test-docker-py: build ## run the docker-py tests
+T 14 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 15 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 23 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 48 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/make.sh dynbinary test-docker-py
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 58 source.makefile meta.scope.recipe.makefile
+T 59 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: test-integration-cli
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 28 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test-integration-cli: test-integration ## (DEPRECATED) use test-integration
+T 20 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 21 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 39 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 40 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 75 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 
+L .PHONY: test-integration
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L ifneq ($(and $(TEST_SKIP_INTEGRATION),$(TEST_SKIP_INTEGRATION_CLI)),)
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.ifneq.makefile
+T 7 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+T 9 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.and.makefile
+T 13 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 15 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 37 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile punctuation.separator.delimeter.comma.makefile
+T 40 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 65 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile variable.other.makefile
+T 66 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 67 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 68 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile punctuation.separator.delimeter.comma.makefile
+T 69 source.makefile meta.scope.conditional.makefile meta.scope.condition.makefile
+L test-integration:
+T 16 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	@echo Both integrations suites skipped per environment variables
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 64 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 65 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L else
+T 4 source.makefile meta.scope.conditional.makefile keyword.control.else.makefile
+L test-integration: build ## run the integration tests
+T 16 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 17 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 24 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 25 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 52 source.makefile meta.scope.conditional.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/make.sh dynbinary test-integration
+T 1 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 60 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+T 61 source.makefile meta.scope.conditional.makefile meta.scope.recipe.makefile
+L endif
+T 5 source.makefile meta.scope.conditional.makefile keyword.control.endif.makefile
+L 
+L .PHONY: test-integration-flaky
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 30 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test-integration-flaky: build ## run the stress test for all new integration tests
+T 22 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 23 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 30 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 31 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 82 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/make.sh dynbinary test-integration-flaky
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 66 source.makefile meta.scope.recipe.makefile
+T 67 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: test-unit
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L test-unit: build ## run the unit tests
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 18 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 38 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/test/unit
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 35 source.makefile meta.scope.recipe.makefile
+T 36 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: validate
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L validate: build ## validate DCO, Seccomp profile generation, gofmt,\n./pkg/ isolation, golint, tests, tomls, go vet and vendor
+T 8 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 9 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 16 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 126 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/validate/all
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 38 source.makefile meta.scope.recipe.makefile
+T 39 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: validate-generate-files
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 31 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L validate-generate-files:
+T 23 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 24 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(BUILD_CMD) --target "validate" \
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 13 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile meta.scope.recipe.makefile
+T 35 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		--output "type=cacheonly" \
+T 28 source.makefile meta.scope.recipe.makefile
+T 29 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		--file "./hack/dockerfiles/generate-files.Dockerfile" .
+T 56 source.makefile meta.scope.recipe.makefile
+T 57 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: validate-%
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 17 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 18 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile constant.other.placeholder.makefile
+L validate-%: build ## validate specific check
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile entity.name.function.target.makefile constant.other.placeholder.makefile
+T 11 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 18 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 44 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(DOCKER_RUN_DOCKER) hack/validate/$*
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 36 source.makefile meta.scope.recipe.makefile
+T 38 source.makefile meta.scope.recipe.makefile variable.language.makefile
+L 
+L .PHONY: win
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 11 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L win: bundles ## cross build the binary for windows
+T 3 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 4 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 13 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 50 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(BAKE_CMD) --set *.platform=windows/amd64 binary
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 49 source.makefile meta.scope.recipe.makefile
+T 50 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: swagger-gen
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 19 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L swagger-gen:  ## generate swagger API types
+T 11 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 12 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 43 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(MAKE) -C api swagger-gen
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+T 27 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: swagger-docs
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 20 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L swagger-docs: ## preview the API documentation
+T 12 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 13 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 14 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 15 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 46 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile comment.line.number-sign.makefile
+L 	$(MAKE) -C api swagger-docs
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 27 source.makefile meta.scope.recipe.makefile
+T 28 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: generate-files
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L generate-files:
+T 14 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 15 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	$(eval $@_TMP_OUT := $(shell mktemp -d -t moby-output.XXXXXXXXXX))
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 7 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.eval.makefile
+T 8 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile variable.language.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 24 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 29 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile support.function.shell.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 65 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile meta.scope.function-call.makefile
+T 66 source.makefile meta.scope.recipe.makefile string.interpolated.makefile meta.scope.function-call.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 67 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+L 	@if [ -z "$($@_TMP_OUT)" ]; then \
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 11 source.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 15 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 23 source.makefile meta.scope.recipe.makefile string.interpolated.makefile
+T 24 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 34 source.makefile meta.scope.recipe.makefile
+T 35 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		echo "Temp dir is not set"; \
+T 30 source.makefile meta.scope.recipe.makefile
+T 31 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		exit 1; \
+T 10 source.makefile meta.scope.recipe.makefile
+T 11 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	fi
+T 2 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile
+L 	$(BUILD_CMD) --target "update" \
+T 1 source.makefile meta.scope.recipe.makefile
+T 3 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 13 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.recipe.makefile
+T 33 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		--output "type=local,dest=$($@_TMP_OUT)" \
+T 28 source.makefile meta.scope.recipe.makefile
+T 30 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 32 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 40 source.makefile meta.scope.recipe.makefile string.interpolated.makefile
+T 41 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 43 source.makefile meta.scope.recipe.makefile
+T 44 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		--file "./hack/dockerfiles/generate-files.Dockerfile" .
+T 56 source.makefile meta.scope.recipe.makefile
+T 57 source.makefile meta.scope.recipe.makefile
+L 	cp -R "$($@_TMP_OUT)"/. .
+T 1 source.makefile meta.scope.recipe.makefile
+T 8 source.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 12 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 20 source.makefile meta.scope.recipe.makefile string.interpolated.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 25 source.makefile meta.scope.recipe.makefile
+T 26 source.makefile meta.scope.recipe.makefile
+L 	rm -rf "$($@_TMP_OUT)"/*
+T 1 source.makefile meta.scope.recipe.makefile
+T 9 source.makefile meta.scope.recipe.makefile
+T 11 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 13 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.language.makefile
+T 21 source.makefile meta.scope.recipe.makefile string.interpolated.makefile
+T 22 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+T 25 source.makefile meta.scope.recipe.makefile
+L 
+L .PHONY: validate-bind-dir
+T 6 source.makefile meta.scope.target.makefile support.function.target.PHONY.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 25 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L validate-bind-dir:
+T 17 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 18 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L 	@case "$(BIND_DIR)" in \
+T 1 source.makefile meta.scope.recipe.makefile
+T 2 source.makefile meta.scope.recipe.makefile keyword.control.@.makefile
+T 8 source.makefile meta.scope.recipe.makefile
+T 10 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 18 source.makefile meta.scope.recipe.makefile string.interpolated.makefile variable.other.makefile
+T 19 source.makefile meta.scope.recipe.makefile string.interpolated.makefile punctuation.definition.variable.makefile
+T 24 source.makefile meta.scope.recipe.makefile
+T 25 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		".."*|"/"*) echo "Make needs to be run from the project-root directory, with BIND_DIR set to \".\" or a subdir"; \
+T 115 source.makefile meta.scope.recipe.makefile
+T 116 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 		exit 1 ;; \
+T 12 source.makefile meta.scope.recipe.makefile
+T 13 source.makefile meta.scope.recipe.makefile constant.character.escape.continuation.makefile
+L 	esac
+T 4 source.makefile meta.scope.recipe.makefile
+T 5 source.makefile meta.scope.recipe.makefile
+L 

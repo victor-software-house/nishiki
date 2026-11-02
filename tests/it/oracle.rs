@@ -306,6 +306,17 @@ fn check_colours(language: Language, dir: &str) {
     assert!(failures.is_empty(), "{}", failures.join("\n\n"));
 }
 
+#[test]
+fn make_matches_shiki() {
+    check("make", || lexer(Language::Make));
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn make_colours_match_shiki() {
+    check_colours(Language::Make, "make");
+}
+
 #[cfg(feature = "json")]
 #[test]
 fn rust_colours_match_shiki() {

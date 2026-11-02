@@ -1,0 +1,511 @@
+//! The per-line engine: it runs the grammar's rules the way a `TextMate` engine
+//! does, with hand-written matchers instead of regular expressions.
+//!
+//! At each position the engine tries the end pattern of the innermost rule and
+//! then the rule's patterns in order, and takes the first that matches at the
+//! earliest position. A begin match opens a rule, an end match closes it, and
+//! a capture may be lexed again with its own pattern list. The corner cases of
+//! `TextMate` engines are kept because Shiki's output depends on them: `\G`
+//! matches only where the enclosing begin ended, the search goes on past the
+//! line feed to the end of the text, and a rule that opens or closes without
+//! advancing stops the line.
+
+use std::cell::Cell;
+
+use super::rules::{Pat, patterns};
+use super::scope::S;
+use super::state::Rule;
+use crate::arena::{Arena, ROOT};
+use crate::limits::{Limit, Limits, LineReport};
+use crate::{Stack, Token};
+
+/// The scope a capture group adds.
+#[derive(Clone, Copy, Debug)]
+pub(super) enum CapName {
+    /// The group has no scope of its own; it is lexed again.
+    None,
+    One(S),
+    /// `keyword.control.` and the flags of a recipe line, which the group
+    /// holds.
+    Flags,
+}
+
+/// A capture group of a match that carries a scope or is lexed again.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Cap {
+    pub(super) from: usize,
+    pub(super) to: usize,
+    pub(super) name: CapName,
+    pub(super) again: Option<Rule>,
+}
+
+/// A match: the bytes `start..end` and the capture groups in order.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Hit {
+    pub(super) start: usize,
+    pub(super) end: usize,
+    pub(super) caps: [Option<Cap>; 4],
+}
+
+impl Hit {
+    pub(super) fn new(start: usize, end: usize) -> Hit {
+        Hit {
+            start,
+            end,
+            caps: [None; 4],
+        }
+    }
+
+    /// The match with a group `from..to` that adds `scope`, in slot `slot`.
+    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.caps[slot] = Some(Cap {
+            from,
+            to,
+            name: CapName::One(scope),
+            again: None,
+        });
+        self
+    }
+
+    /// The match with a group `from..to` in slot `slot` and the way it is
+    /// scoped or lexed again.
+    pub(super) fn group(
+        mut self,
+        slot: usize,
+        from: usize,
+        to: usize,
+        name: CapName,
+        again: Option<Rule>,
+    ) -> Hit {
+        self.caps[slot] = Some(Cap {
+            from,
+            to,
+            name,
+            again,
+        });
+        self
+    }
+}
+
+/// An open rule.
+#[derive(Clone, Copy, Debug)]
+struct Frame {
+    rule: Rule,
+    /// Where the rule opened in this line; `None` for a rule that an earlier
+    /// line opened.
+    enter: Option<usize>,
+    /// The `\G` position when the rule opened.
+    anchor: Option<usize>,
+    /// Interned scope stack of the rule's begin and end.
+    name: u32,
+    /// Interned scope stack of the rule's content.
+    content: u32,
+    /// The interned state with this rule on top. A rule that a limit kept
+    /// out of the arena has its parent's.
+    state: u32,
+}
+
+/// How many bytes the character that starts with `lead` takes.
+pub(super) fn char_len(lead: u8) -> usize {
+    match lead {
+        0xf0.. => 4,
+        0xe0.. => 3,
+        0xc0.. => 2,
+        _ => 1,
+    }
+}
+
+/// What the search found.
+enum Found {
+    End(Hit),
+    Pat(Pat, Hit),
+}
+
+/// Lexes one line.
+pub(super) struct Lexer<'a> {
+    pub(super) s: &'a [u8],
+    /// The text ends here; a capture that is lexed again ends before the line
+    /// does.
+    pub(super) lim: usize,
+    /// Whether a line feed follows the text, which the regular expressions of
+    /// the grammar see at the end of a line but not at the end of a capture.
+    pub(super) nl: bool,
+    out: &'a mut Vec<Token>,
+    arena: &'a mut Arena,
+    limits: &'a Limits,
+    report: &'a mut LineReport,
+    /// Steps spent on this line, counted in scans too.
+    steps: Cell<u64>,
+    /// Steps this line may spend; `u64::MAX` for no limit.
+    budget: u64,
+    /// End of the last token.
+    last: usize,
+    /// Where the current search starts.
+    pub(super) pos: usize,
+    anchor: Option<usize>,
+    /// Whether `\G` matches at `pos`.
+    pub(super) g: bool,
+    /// The open rules, the root first.
+    frames: Vec<Frame>,
+    /// The text of a scope name made from source text.
+    name: String,
+}
+
+impl<'a> Lexer<'a> {
+    pub(super) fn new(
+        arena: &'a mut Arena,
+        limits: &'a Limits,
+        text: super::Text<'a>,
+        out: &'a mut Vec<Token>,
+        state: u32,
+        report: &'a mut LineReport,
+    ) -> Self {
+        let (s, start) = (text.bytes, text.start);
+        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let mut lexer = Lexer {
+            s,
+            lim: s.len(),
+            nl: true,
+            out,
+            arena,
+            limits,
+            report,
+            steps: Cell::new(0),
+            budget,
+            last: start,
+            pos: start,
+            anchor: text.anchored.then_some(start),
+            g: false,
+            frames: Vec::new(),
+            name: String::new(),
+        };
+        // The open rules of `state`, from its root down.
+        let mut chain = Vec::new();
+        let mut id = state;
+        loop {
+            let frame = lexer.arena.frame(id);
+            chain.push((id, frame));
+            if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+                break;
+            }
+            id = frame.parent;
+        }
+        for (index, &(id, frame)) in chain.iter().rev().enumerate() {
+            if index == 0 {
+                lexer.frames.push(Frame {
+                    rule: Rule::Root,
+                    enter: None,
+                    anchor: None,
+                    name: frame.stack,
+                    content: frame.stack,
+                    state: id,
+                });
+                continue;
+            }
+            let rule = Rule::from_code(frame.kind);
+            let parent = lexer.top().content;
+            let name = lexer.path(parent, rule.name());
+            lexer.frames.push(Frame {
+                rule,
+                enter: None,
+                anchor: None,
+                name,
+                content: frame.stack,
+                state: id,
+            });
+        }
+        lexer
+    }
+
+    /// Lexes the line and returns the state after it.
+    pub(super) fn run(mut self) -> u32 {
+        self.tokenize();
+        self.top().state
+    }
+
+    // Bytes.
+
+    /// Whether a character stands at `i`: the text, or its line feed.
+    pub(super) fn avail(&self, i: usize) -> bool {
+        i < self.lim || (i == self.lim && self.nl)
+    }
+
+    /// The byte at `i`, with the line feed at the end of a line, or 0 where no
+    /// character stands.
+    pub(super) fn at(&self, i: usize) -> u8 {
+        if i < self.lim {
+            self.s[i]
+        } else if i == self.lim && self.nl {
+            b'\n'
+        } else {
+            0
+        }
+    }
+
+    /// The byte before `i`, or `None` at the start.
+    pub(super) fn prev(&self, i: usize) -> Option<u8> {
+        if i == 0 { None } else { Some(self.at(i - 1)) }
+    }
+
+    /// Whether `\G` matches at `p`.
+    pub(super) fn at_g(&self, p: usize) -> bool {
+        self.g && p == self.pos
+    }
+
+    /// The regex `$` at `i`: before the line feed or at the end of the text.
+    pub(super) fn at_eol(&self, i: usize) -> bool {
+        i == self.lim || (self.nl && i == self.lim + 1)
+    }
+
+    /// Counts `steps` of work against the line's budget.
+    pub(super) fn spend(&self, steps: usize) {
+        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
+        self.steps.set(self.steps.get().saturating_add(steps));
+    }
+
+    fn over_budget(&self) -> bool {
+        self.steps.get() > self.budget
+    }
+
+    // Scopes and tokens.
+
+    fn top(&self) -> Frame {
+        self.frames[self.frames.len() - 1]
+    }
+
+    /// The stack `base` with `scopes` on top; a node limit keeps the part
+    /// that does not fit off.
+    fn path(&mut self, base: u32, scopes: &[S]) -> u32 {
+        let mut stack = base;
+        for scope in scopes {
+            let Some(child) = self.arena.child(stack, scope.scope()) else {
+                self.report.record(Limit::Nodes);
+                break;
+            };
+            stack = child;
+        }
+        stack
+    }
+
+    /// The stack `base` with the scope a capture group adds on top.
+    fn capture_stack(&mut self, base: u32, cap: &Cap) -> u32 {
+        match cap.name {
+            CapName::None => base,
+            CapName::One(scope) => self.path(base, &[scope]),
+            CapName::Flags => {
+                self.name.clear();
+                self.name.push_str("keyword.control.");
+                self.name
+                    .push_str(std::str::from_utf8(&self.s[cap.from..cap.to]).unwrap_or(""));
+                self.name.push_str(".makefile");
+                let stack = self
+                    .arena
+                    .named_scope(&self.name)
+                    .and_then(|scope| self.arena.child(base, scope));
+                stack.unwrap_or_else(|| {
+                    self.report.record(Limit::Nodes);
+                    base
+                })
+            }
+        }
+    }
+
+    /// Ends a token at `to` with `stack`.
+    fn tok(&mut self, stack: u32, to: usize) {
+        let to = to.min(self.lim);
+        if to > self.last {
+            self.out.push(Token {
+                end: to,
+                stack: Stack(stack),
+            });
+            self.last = to;
+        }
+    }
+
+    // The loop.
+
+    /// Takes matches until nothing matches at or after the position, as
+    /// `TextMate` does, or a guard against a loop that does not advance stops
+    /// the line.
+    fn tokenize(&mut self) {
+        loop {
+            self.spend(1);
+            if self.over_budget() {
+                self.report.record(Limit::Work);
+                self.finish();
+                return;
+            }
+            self.g = self.anchor == Some(self.pos);
+            let Some(found) = self.search() else {
+                if self.over_budget() {
+                    self.report.record(Limit::Work);
+                }
+                self.finish();
+                return;
+            };
+            let stopped = match found {
+                Found::End(hit) => self.close(&hit),
+                Found::Pat(pat, hit) => self.apply(pat, &hit),
+            };
+            if stopped {
+                return;
+            }
+        }
+    }
+
+    /// Gives the rest of the text to the innermost rule's content.
+    fn finish(&mut self) {
+        let stack = self.top().content;
+        self.tok(stack, self.lim);
+    }
+
+    /// The first match from the position: the end pattern of the innermost
+    /// rule first at each position, then its patterns in order.
+    fn search(&self) -> Option<Found> {
+        let rule = self.top().rule;
+        let end = self.lim + usize::from(self.nl);
+        let mut p = self.pos;
+        while p <= end {
+            self.spend(1);
+            if self.over_budget() {
+                return None;
+            }
+            if p >= self.lim || self.s[p] & 0xc0 != 0x80 {
+                if let Some(hit) = self.end_at(rule, p) {
+                    return Some(Found::End(hit));
+                }
+                for &pat in patterns(rule) {
+                    if let Some(hit) = self.pat_at(pat, p) {
+                        return Some(Found::Pat(pat, hit));
+                    }
+                }
+            }
+            p += 1;
+        }
+        None
+    }
+
+    /// Applies an end match; true when the line stops.
+    fn close(&mut self, hit: &Hit) -> bool {
+        let top = self.top();
+        self.tok(top.content, hit.start);
+        self.captures(top.name, hit);
+        self.tok(top.name, hit.end);
+        let advanced = hit.end > self.pos;
+        if !advanced && top.enter == Some(self.pos) {
+            // The rule opened and closed without advancing: the grammar is
+            // taken to mean that it stays open, for the rest of the line.
+            self.tok(top.name, self.lim);
+            return true;
+        }
+        self.frames.pop();
+        self.anchor = top.anchor;
+        self.pos = self.pos.max(hit.end);
+        false
+    }
+
+    /// Applies a pattern's match; true when the line stops.
+    fn apply(&mut self, pat: Pat, hit: &Hit) -> bool {
+        let top = self.top();
+        self.tok(top.content, hit.start);
+        let Some(rule) = pat.opens() else {
+            let name = self.path(top.content, pat.name());
+            self.captures(name, hit);
+            self.tok(name, hit.end);
+            self.pos = self.pos.max(hit.end);
+            return false;
+        };
+        let depth = self.frames.len();
+        if self.limits.depth.is_some_and(|max| depth >= max) {
+            self.report.record(Limit::Depth);
+            // The text stays plain; a rule that matched nothing would match
+            // again where it did, so the search goes on after one character.
+            let next = if hit.end > hit.start {
+                hit.end
+            } else {
+                hit.start + self.s.get(hit.start).map_or(1, |&lead| char_len(lead))
+            };
+            let next = next.min(self.lim);
+            self.tok(top.content, next);
+            self.pos = self.pos.max(next);
+            return false;
+        }
+        if hit.end <= self.pos && self.same_rule_here(rule) {
+            // The rule opened again where it had opened without advancing.
+            self.finish();
+            return true;
+        }
+        let name = self.path(top.content, rule.name());
+        let content = self.path(name, rule.content());
+        let state = self
+            .arena
+            .push(top.state, rule.code(), 0, content)
+            .unwrap_or_else(|| {
+                self.report.record(Limit::Nodes);
+                top.state
+            });
+        self.frames.push(Frame {
+            rule,
+            enter: Some(self.pos),
+            anchor: self.anchor,
+            name,
+            content,
+            state,
+        });
+        self.captures(name, hit);
+        self.tok(name, hit.end);
+        self.anchor = Some(hit.end);
+        self.pos = self.pos.max(hit.end);
+        false
+    }
+
+    /// Whether an open rule entered at the position is `rule`, looking down
+    /// the rules that entered there.
+    fn same_rule_here(&self, rule: Rule) -> bool {
+        self.frames
+            .iter()
+            .rev()
+            .take_while(|frame| frame.enter == Some(self.pos))
+            .any(|frame| frame.rule == rule)
+    }
+
+    /// Emits a match's capture groups over `base`, the stack of the text of
+    /// the match outside them.
+    fn captures(&mut self, base: u32, hit: &Hit) {
+        for cap in hit.caps.iter().flatten() {
+            if cap.from >= cap.to {
+                continue;
+            }
+            self.tok(base, cap.from);
+            let stack = self.capture_stack(base, cap);
+            match cap.again {
+                Some(rule) => self.again(rule, stack, cap.from, cap.to),
+                None => self.tok(stack, cap.to),
+            }
+        }
+    }
+
+    /// Lexes `from..to` with the patterns of the pseudo rule `rule`, on top of
+    /// `stack`, as if it were a line of its own that ends there.
+    fn again(&mut self, rule: Rule, stack: u32, from: usize, to: usize) {
+        let saved = (self.lim, self.nl, self.pos, self.anchor, self.g);
+        let state = self.top().state;
+        self.lim = to;
+        self.nl = false;
+        self.pos = from;
+        self.anchor = None;
+        self.frames.push(Frame {
+            rule,
+            enter: Some(from),
+            anchor: None,
+            name: stack,
+            content: stack,
+            state,
+        });
+        let floor = self.frames.len();
+        self.tokenize();
+        self.frames.truncate(floor - 1);
+        (self.lim, self.nl, self.pos, self.anchor, self.g) = saved;
+        self.last = self.last.max(to);
+    }
+}

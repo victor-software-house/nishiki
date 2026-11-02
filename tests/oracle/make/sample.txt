@@ -1,0 +1,82 @@
+L edit : main.o kbd.o command.o display.o \
+T 4 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 5 source.makefile meta.scope.target.makefile
+T 6 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 40 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+T 41 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile constant.character.escape.continuation.makefile
+L        insert.o search.o files.o utils.o
+T 40 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -o edit main.o kbd.o command.o display.o \
+T 53 source.makefile
+L                    insert.o search.o files.o utils.o
+T 52 source.makefile
+L 
+L main.o : main.c defs.h
+T 6 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 7 source.makefile meta.scope.target.makefile
+T 8 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 22 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c main.c
+T 20 source.makefile
+L kbd.o : kbd.c defs.h command.h
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 30 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c kbd.c
+T 19 source.makefile
+L command.o : command.c defs.h command.h
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile
+T 11 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 38 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c command.c
+T 23 source.makefile
+L display.o : display.c defs.h buffer.h
+T 9 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 10 source.makefile meta.scope.target.makefile
+T 11 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 37 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c display.c
+T 23 source.makefile
+L insert.o : insert.c defs.h buffer.h
+T 8 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 9 source.makefile meta.scope.target.makefile
+T 10 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 35 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c insert.c
+T 22 source.makefile
+L search.o : search.c defs.h buffer.h
+T 8 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 9 source.makefile meta.scope.target.makefile
+T 10 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 35 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c search.c
+T 22 source.makefile
+L files.o : files.c defs.h buffer.h command.h
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile
+T 9 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 43 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c files.c
+T 21 source.makefile
+L utils.o : utils.c defs.h
+T 7 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 8 source.makefile meta.scope.target.makefile
+T 9 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+T 24 source.makefile meta.scope.target.makefile meta.scope.prerequisites.makefile
+L         cc -c utils.c
+T 21 source.makefile
+L clean :
+T 5 source.makefile meta.scope.target.makefile entity.name.function.target.makefile
+T 6 source.makefile meta.scope.target.makefile
+T 7 source.makefile meta.scope.target.makefile punctuation.separator.key-value.makefile
+L         rm edit main.o kbd.o command.o display.o \
+T 50 source.makefile
+L            insert.o search.o files.o utils.o
+T 44 source.makefile
+L 
+L # From https://www.gnu.org/software/make/manual/html_node/Simple-Makefile.html
+T 1 source.makefile comment.line.number-sign.makefile punctuation.definition.comment.makefile
+T 78 source.makefile comment.line.number-sign.makefile
+L 
