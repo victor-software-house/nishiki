@@ -5,7 +5,7 @@ use crate::arena::Arena;
 use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Token, json, markdown, python, rust, shell, typescript, yaml};
+use crate::{Token, json, markdown, python, rust, shell, toml, typescript, yaml};
 
 /// A language nishiki highlights, named as Shiki names it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -30,6 +30,8 @@ pub enum Language {
     Python,
     /// YAML, with the scopes of Shiki's `yaml` grammar.
     Yaml,
+    /// TOML, with the scopes of Shiki's `toml` grammar.
+    Toml,
 }
 
 impl Language {
@@ -44,6 +46,7 @@ impl Language {
         Language::Jsonl,
         Language::Python,
         Language::Yaml,
+        Language::Toml,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -59,6 +62,7 @@ impl Language {
             Language::Jsonl => "jsonl",
             Language::Python => "python",
             Language::Yaml => "yaml",
+            Language::Toml => "toml",
         }
     }
 
@@ -94,6 +98,7 @@ impl Language {
             Language::Jsonl => &["jsonl"],
             Language::Python => &["python", "py"],
             Language::Yaml => &["yaml", "yml"],
+            Language::Toml => &["toml"],
         }
     }
 }
@@ -135,6 +140,7 @@ impl Language {
             Language::Jsonl => json::start(arena, base, Dialect::Jsonl),
             Language::Python => python::start(arena, base),
             Language::Yaml => yaml::start(arena, base),
+            Language::Toml => toml::start(arena, base),
         }
     }
 
@@ -149,6 +155,7 @@ impl Language {
             Language::Json | Language::Jsonc | Language::Jsonl => json::start_embedded(arena, base),
             Language::Python => python::start_embedded(arena, base),
             Language::Yaml => yaml::start_embedded(arena, base),
+            Language::Toml => toml::start_embedded(arena, base),
         }
     }
 
@@ -182,6 +189,14 @@ impl Language {
                 cx.limits,
                 rest.as_bytes(),
                 line.start == 0,
+                state,
+                cx.out,
+                cx.report,
+            ),
+            Language::Toml => toml::line(
+                cx.arena,
+                cx.limits,
+                rest.as_bytes(),
                 state,
                 cx.out,
                 cx.report,

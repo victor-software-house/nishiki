@@ -81,6 +81,13 @@ const traefik =
 const jekyll =
   "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
 
+const burntsushiToml =
+  "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
+const poetry =
+  "https://raw.githubusercontent.com/python-poetry/poetry/6ecadf5b71309b1da4f00949cc349a79884cff8f";
+const ruff =
+  "https://raw.githubusercontent.com/astral-sh/ruff/f10755306e3e932fd127960acb2c892fafb87410";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -137,6 +144,14 @@ export const inputs: Input[] = [
     name: "jekyll-front-matter",
     url: `${jekyll}/docs/_docs/front-matter.md`,
   },
+  { lang: "toml", name: "sample", url: `${samples}/toml.sample` },
+  { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
+  { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
+  { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
+  { lang: "toml", name: "ripgrep-manifest", url: `${ripgrep}/Cargo.toml` },
+  { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
+  { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
+  { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",

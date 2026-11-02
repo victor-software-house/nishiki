@@ -10,8 +10,8 @@
 //! ([`Language::Markdown`]), which hands the code in its fences to the other
 //! lexers, `TypeScript` ([`Language::TypeScript`]), shell
 //! ([`Language::Shell`]), JSON ([`Language::Json`], [`Language::Jsonc`] and
-//! [`Language::Jsonl`]), Python ([`Language::Python`]) and YAML
-//! ([`Language::Yaml`]).
+//! [`Language::Jsonl`]), Python ([`Language::Python`]), YAML
+//! ([`Language::Yaml`]) and TOML ([`Language::Toml`]).
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -67,6 +67,7 @@ mod scope;
 mod scratch;
 mod shell;
 mod theme;
+mod toml;
 mod typescript;
 mod yaml;
 

@@ -48,6 +48,16 @@ impl Dialect {
     }
 }
 
+/// The regex `\s` for a character: the table measured on Shiki, which the
+/// TOML lexer shares because both grammars read the same engine.
+pub(crate) fn is_space(c: char) -> bool {
+    if c.is_ascii() {
+        matches!(c, ' ' | '\t' | '\n' | '\u{b}' | '\u{c}' | '\r')
+    } else {
+        classes::is_space(c)
+    }
+}
+
 /// The state at the start of a JSON document whose scopes sit on the stack
 /// `base`: one context with `source.json` (in `dialect`'s spelling) on top.
 pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {

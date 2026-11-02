@@ -16,6 +16,7 @@ const TABLES: &[(u16, &[&str])] = &[
     (JSON, crate::json::NAMES),
     (PYTHON, crate::python::NAMES),
     (YAML, crate::yaml::NAMES),
+    (TOML, crate::toml::NAMES),
 ];
 
 /// The base of the Rust lexer's scope names.
@@ -54,8 +55,11 @@ pub(crate) const PYTHON: u16 = after(JSON, crate::json::NAMES);
 /// The base of the YAML lexer's scope names: where Python's end.
 pub(crate) const YAML: u16 = after(PYTHON, crate::python::NAMES);
 
+/// The base of the TOML lexer's scope names: where YAML's end.
+pub(crate) const TOML: u16 = after(YAML, crate::yaml::NAMES);
+
 // The tables end below the run-time scopes.
-const _: () = assert!(after(YAML, crate::yaml::NAMES) <= DYNAMIC);
+const _: () = assert!(after(TOML, crate::toml::NAMES) <= DYNAMIC);
 
 impl Scope {
     /// The placeholder scope of the empty stack.

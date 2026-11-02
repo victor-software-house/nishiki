@@ -1,0 +1,1687 @@
+L [package]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L name = "tokio"
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 13 source.toml string.quoted.double.toml
+T 14 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L # When releasing to crates.io:
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 30 source.toml comment.line.number-sign.toml
+L # - Remove path dependencies (if any)
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 37 source.toml comment.line.number-sign.toml
+L # - Update doc url
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 18 source.toml comment.line.number-sign.toml
+L #   - README.md
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 15 source.toml comment.line.number-sign.toml
+L # - Update CHANGELOG.md.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 24 source.toml comment.line.number-sign.toml
+L # - Create "v1.x.y" git tag.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 28 source.toml comment.line.number-sign.toml
+L version = "1.54.1"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 17 source.toml string.quoted.double.toml
+T 18 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L edition = "2021"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 15 source.toml string.quoted.double.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L rust-version = "1.85"
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 20 source.toml string.quoted.double.toml
+T 21 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L authors = ["Tokio Contributors <team@tokio.rs>"]
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 12 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 46 source.toml meta.array.toml string.quoted.double.toml
+T 47 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 48 source.toml meta.array.toml punctuation.definition.array.end.toml
+L license = "MIT"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml string.quoted.double.toml
+T 15 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L readme = "README.md"
+T 6 source.toml variable.other.key.toml
+T 7 source.toml
+T 8 source.toml punctuation.separator.key-value.toml
+T 9 source.toml
+T 10 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L repository = "https://github.com/tokio-rs/tokio"
+T 10 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 47 source.toml string.quoted.double.toml
+T 48 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L homepage = "https://tokio.rs"
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 28 source.toml string.quoted.double.toml
+T 29 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L description = """
+T 11 source.toml variable.other.key.toml
+T 12 source.toml
+T 13 source.toml punctuation.separator.key-value.toml
+T 14 source.toml
+T 17 source.toml string.quoted.triple.double.toml punctuation.definition.string.begin.toml
+L An event-driven, non-blocking I/O platform for writing asynchronous I/O
+T 71 source.toml string.quoted.triple.double.toml
+L backed applications.
+T 20 source.toml string.quoted.triple.double.toml
+L """
+T 3 source.toml string.quoted.triple.double.toml punctuation.definition.string.end.toml
+L categories = ["asynchronous", "network-programming"]
+T 10 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.array.toml string.quoted.double.toml
+T 28 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.array.toml punctuation.separator.array.toml
+T 30 source.toml meta.array.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 50 source.toml meta.array.toml string.quoted.double.toml
+T 51 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 52 source.toml meta.array.toml punctuation.definition.array.end.toml
+L keywords = ["io", "async", "non-blocking", "futures"]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml
+T 16 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 17 source.toml meta.array.toml punctuation.separator.array.toml
+T 18 source.toml meta.array.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml
+T 25 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 26 source.toml meta.array.toml punctuation.separator.array.toml
+T 27 source.toml meta.array.toml
+T 28 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 40 source.toml meta.array.toml string.quoted.double.toml
+T 41 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 42 source.toml meta.array.toml punctuation.separator.array.toml
+T 43 source.toml meta.array.toml
+T 44 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 51 source.toml meta.array.toml string.quoted.double.toml
+T 52 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 53 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [features]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 9 source.toml meta.group.toml entity.name.section.toml
+T 10 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L # Include nothing by default
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 28 source.toml comment.line.number-sign.toml
+L default = []
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L # enable everything
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 19 source.toml comment.line.number-sign.toml
+L full = [
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "fs",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 5 source.toml meta.array.toml string.quoted.double.toml
+T 6 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 7 source.toml meta.array.toml punctuation.separator.array.toml
+L   "io-util",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "io-std",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 9 source.toml meta.array.toml string.quoted.double.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 11 source.toml meta.array.toml punctuation.separator.array.toml
+L   "macros",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 9 source.toml meta.array.toml string.quoted.double.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 11 source.toml meta.array.toml punctuation.separator.array.toml
+L   "net",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 6 source.toml meta.array.toml string.quoted.double.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 8 source.toml meta.array.toml punctuation.separator.array.toml
+L   "parking_lot",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 16 source.toml meta.array.toml punctuation.separator.array.toml
+L   "process",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "rt",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 5 source.toml meta.array.toml string.quoted.double.toml
+T 6 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 7 source.toml meta.array.toml punctuation.separator.array.toml
+L   "rt-multi-thread",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 20 source.toml meta.array.toml punctuation.separator.array.toml
+L   "signal",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 9 source.toml meta.array.toml string.quoted.double.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 11 source.toml meta.array.toml punctuation.separator.array.toml
+L   "sync",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 9 source.toml meta.array.toml punctuation.separator.array.toml
+L   "time",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 9 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L fs = []
+T 2 source.toml variable.other.key.toml
+T 3 source.toml
+T 4 source.toml punctuation.separator.key-value.toml
+T 5 source.toml
+T 6 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 7 source.toml meta.array.toml punctuation.definition.array.end.toml
+L io-util = ["bytes"]
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 12 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 17 source.toml meta.array.toml string.quoted.double.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 19 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # stdin, stdout, stderr
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 23 source.toml comment.line.number-sign.toml
+L io-std = []
+T 6 source.toml variable.other.key.toml
+T 7 source.toml
+T 8 source.toml punctuation.separator.key-value.toml
+T 9 source.toml
+T 10 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.end.toml
+L macros = ["tokio-macros"]
+T 6 source.toml variable.other.key.toml
+T 7 source.toml
+T 8 source.toml punctuation.separator.key-value.toml
+T 9 source.toml
+T 10 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 23 source.toml meta.array.toml string.quoted.double.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 25 source.toml meta.array.toml punctuation.definition.array.end.toml
+L net = [
+T 3 source.toml variable.other.key.toml
+T 4 source.toml
+T 5 source.toml punctuation.separator.key-value.toml
+T 6 source.toml
+T 7 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "libc",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 9 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-poll",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 16 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-ext",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 15 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/net",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "socket2",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_Foundation",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 33 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_Security",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 29 source.toml meta.array.toml string.quoted.double.toml
+T 30 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 31 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_Storage_FileSystem",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 39 source.toml meta.array.toml string.quoted.double.toml
+T 40 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 41 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_System_Pipes",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 33 source.toml meta.array.toml string.quoted.double.toml
+T 34 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 35 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_System_SystemServices",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 42 source.toml meta.array.toml string.quoted.double.toml
+T 43 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 44 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L process = [
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "bytes",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml
+T 9 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 10 source.toml meta.array.toml punctuation.separator.array.toml
+L   "libc",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 9 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-poll",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 16 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-ext",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 15 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/net",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "signal-hook-registry",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 23 source.toml meta.array.toml string.quoted.double.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 25 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_Foundation",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 33 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_System_Threading",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 37 source.toml meta.array.toml string.quoted.double.toml
+T 38 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 39 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_System_WindowsProgramming",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 46 source.toml meta.array.toml string.quoted.double.toml
+T 47 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 48 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # Includes basic task execution capabilities
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 44 source.toml comment.line.number-sign.toml
+L rt = []
+T 2 source.toml variable.other.key.toml
+T 3 source.toml
+T 4 source.toml punctuation.separator.key-value.toml
+T 5 source.toml
+T 6 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 7 source.toml meta.array.toml punctuation.definition.array.end.toml
+L rt-multi-thread = ["rt"]
+T 15 source.toml variable.other.key.toml
+T 16 source.toml
+T 17 source.toml punctuation.separator.key-value.toml
+T 18 source.toml
+T 19 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 20 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 22 source.toml meta.array.toml string.quoted.double.toml
+T 23 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 24 source.toml meta.array.toml punctuation.definition.array.end.toml
+L signal = [
+T 6 source.toml variable.other.key.toml
+T 7 source.toml
+T 8 source.toml punctuation.separator.key-value.toml
+T 9 source.toml
+T 10 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "libc",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 7 source.toml meta.array.toml string.quoted.double.toml
+T 8 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 9 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-poll",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 16 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/net",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 10 source.toml meta.array.toml string.quoted.double.toml
+T 11 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+L   "mio/os-ext",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 15 source.toml meta.array.toml punctuation.separator.array.toml
+L   "signal-hook-registry",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 23 source.toml meta.array.toml string.quoted.double.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 25 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_Foundation",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 33 source.toml meta.array.toml punctuation.separator.array.toml
+L   "windows-sys/Win32_System_Console",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 35 source.toml meta.array.toml string.quoted.double.toml
+T 36 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 37 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L sync = []
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 9 source.toml meta.array.toml punctuation.definition.array.end.toml
+L test-util = ["rt", "sync", "time"]
+T 9 source.toml variable.other.key.toml
+T 10 source.toml
+T 11 source.toml punctuation.separator.key-value.toml
+T 12 source.toml
+T 13 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 14 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 16 source.toml meta.array.toml string.quoted.double.toml
+T 17 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 18 source.toml meta.array.toml punctuation.separator.array.toml
+T 19 source.toml meta.array.toml
+T 20 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml
+T 25 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 26 source.toml meta.array.toml punctuation.separator.array.toml
+T 27 source.toml meta.array.toml
+T 28 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml
+T 33 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 34 source.toml meta.array.toml punctuation.definition.array.end.toml
+L time = []
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 9 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # Unstable feature. Requires `--cfg tokio_unstable` to enable.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 62 source.toml comment.line.number-sign.toml
+L io-uring = ["dep:io-uring", "libc", "mio/os-poll", "mio/os-ext", "dep:slab"]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 25 source.toml meta.array.toml string.quoted.double.toml
+T 26 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 27 source.toml meta.array.toml punctuation.separator.array.toml
+T 28 source.toml meta.array.toml
+T 29 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 33 source.toml meta.array.toml string.quoted.double.toml
+T 34 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 35 source.toml meta.array.toml punctuation.separator.array.toml
+T 36 source.toml meta.array.toml
+T 37 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 48 source.toml meta.array.toml string.quoted.double.toml
+T 49 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 50 source.toml meta.array.toml punctuation.separator.array.toml
+T 51 source.toml meta.array.toml
+T 52 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 62 source.toml meta.array.toml string.quoted.double.toml
+T 63 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 64 source.toml meta.array.toml punctuation.separator.array.toml
+T 65 source.toml meta.array.toml
+T 66 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 74 source.toml meta.array.toml string.quoted.double.toml
+T 75 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 76 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # Unstable feature. Requires `--cfg tokio_unstable` to enable.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 62 source.toml comment.line.number-sign.toml
+L taskdump = ["dep:backtrace"]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 26 source.toml meta.array.toml string.quoted.double.toml
+T 27 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 28 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # Unstable feature. Requires `--cfg tokio_unstable` to enable.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 62 source.toml comment.line.number-sign.toml
+L schedule-latency = []
+T 16 source.toml variable.other.key.toml
+T 17 source.toml
+T 18 source.toml punctuation.separator.key-value.toml
+T 19 source.toml
+T 20 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 21 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 13 source.toml meta.group.toml entity.name.section.toml
+T 14 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L tokio-macros = { version = "~2.7.0", optional = true }
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 17 source.toml meta.inline-table.toml
+T 24 source.toml meta.inline-table.toml variable.other.key.toml
+T 25 source.toml meta.inline-table.toml
+T 26 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 27 source.toml meta.inline-table.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 34 source.toml meta.inline-table.toml string.quoted.double.toml
+T 35 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 36 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 37 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml variable.other.key.toml
+T 46 source.toml meta.inline-table.toml
+T 47 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 48 source.toml meta.inline-table.toml
+T 52 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 53 source.toml meta.inline-table.toml
+T 54 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L pin-project-lite = "0.2.11"
+T 16 source.toml variable.other.key.toml
+T 17 source.toml
+T 18 source.toml punctuation.separator.key-value.toml
+T 19 source.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 26 source.toml string.quoted.double.toml
+T 27 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L # Everything else is optional...
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 32 source.toml comment.line.number-sign.toml
+L bytes = { version = "1.2.1", optional = true }
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 10 source.toml meta.inline-table.toml
+T 17 source.toml meta.inline-table.toml variable.other.key.toml
+T 18 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 26 source.toml meta.inline-table.toml string.quoted.double.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 28 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 29 source.toml meta.inline-table.toml
+T 37 source.toml meta.inline-table.toml variable.other.key.toml
+T 38 source.toml meta.inline-table.toml
+T 39 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 40 source.toml meta.inline-table.toml
+T 44 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 45 source.toml meta.inline-table.toml
+T 46 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L mio = { version = "1.2.0", optional = true, default-features = false }
+T 3 source.toml variable.other.key.toml
+T 4 source.toml
+T 5 source.toml punctuation.separator.key-value.toml
+T 6 source.toml
+T 7 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 15 source.toml meta.inline-table.toml variable.other.key.toml
+T 16 source.toml meta.inline-table.toml
+T 17 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 18 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml meta.inline-table.toml string.quoted.double.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 26 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 27 source.toml meta.inline-table.toml
+T 35 source.toml meta.inline-table.toml variable.other.key.toml
+T 36 source.toml meta.inline-table.toml
+T 37 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 38 source.toml meta.inline-table.toml
+T 42 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 43 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 44 source.toml meta.inline-table.toml
+T 60 source.toml meta.inline-table.toml variable.other.key.toml
+T 61 source.toml meta.inline-table.toml
+T 62 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 63 source.toml meta.inline-table.toml
+T 68 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 69 source.toml meta.inline-table.toml
+T 70 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L parking_lot = { version = "0.12.0", optional = true }
+T 11 source.toml variable.other.key.toml
+T 12 source.toml
+T 13 source.toml punctuation.separator.key-value.toml
+T 14 source.toml
+T 15 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 16 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml variable.other.key.toml
+T 24 source.toml meta.inline-table.toml
+T 25 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 26 source.toml meta.inline-table.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 33 source.toml meta.inline-table.toml string.quoted.double.toml
+T 34 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 35 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 36 source.toml meta.inline-table.toml
+T 44 source.toml meta.inline-table.toml variable.other.key.toml
+T 45 source.toml meta.inline-table.toml
+T 46 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 47 source.toml meta.inline-table.toml
+T 51 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 52 source.toml meta.inline-table.toml
+T 53 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(any(not(target_family = "wasm"), target_os = "emscripten", all(target_os = "wasi", not(target_env = "p1"))))'.dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 34 source.toml meta.group.toml entity.name.section.toml
+T 35 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml
+T 45 source.toml meta.group.toml entity.name.section.toml
+T 46 source.toml meta.group.toml
+T 55 source.toml meta.group.toml entity.name.section.toml
+T 56 source.toml meta.group.toml
+T 57 source.toml meta.group.toml entity.name.section.toml
+T 58 source.toml meta.group.toml
+T 71 source.toml meta.group.toml entity.name.section.toml
+T 72 source.toml meta.group.toml
+T 85 source.toml meta.group.toml entity.name.section.toml
+T 86 source.toml meta.group.toml
+T 87 source.toml meta.group.toml entity.name.section.toml
+T 88 source.toml meta.group.toml
+T 95 source.toml meta.group.toml entity.name.section.toml
+T 96 source.toml meta.group.toml
+T 110 source.toml meta.group.toml entity.name.section.toml
+T 111 source.toml meta.group.toml
+T 112 source.toml meta.group.toml entity.name.section.toml
+T 113 source.toml meta.group.toml
+T 122 source.toml meta.group.toml entity.name.section.toml
+T 123 source.toml meta.group.toml
+T 135 source.toml meta.group.toml entity.name.section.toml
+T 136 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L socket2 = { version = "0.6.3", optional = true, features = ["all"] }
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 12 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml variable.other.key.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml
+T 29 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 30 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 31 source.toml meta.inline-table.toml
+T 39 source.toml meta.inline-table.toml variable.other.key.toml
+T 40 source.toml meta.inline-table.toml
+T 41 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 42 source.toml meta.inline-table.toml
+T 46 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 47 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 48 source.toml meta.inline-table.toml
+T 56 source.toml meta.inline-table.toml variable.other.key.toml
+T 57 source.toml meta.inline-table.toml
+T 58 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 59 source.toml meta.inline-table.toml
+T 60 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 61 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 64 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 65 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 66 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 67 source.toml meta.inline-table.toml
+T 68 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L # Currently unstable. The API exposed by these features may be broken at any time.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 82 source.toml comment.line.number-sign.toml
+L # Requires `--cfg tokio_unstable` to enable.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 44 source.toml comment.line.number-sign.toml
+L [target.'cfg(tokio_unstable)'.dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 29 source.toml meta.group.toml entity.name.section.toml
+T 30 source.toml meta.group.toml
+T 42 source.toml meta.group.toml entity.name.section.toml
+T 43 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L tracing = { version = "0.1.29", default-features = false, features = ["std"], optional = true } # Not in full
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 12 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml variable.other.key.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 29 source.toml meta.inline-table.toml string.quoted.double.toml
+T 30 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 31 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 32 source.toml meta.inline-table.toml
+T 48 source.toml meta.inline-table.toml variable.other.key.toml
+T 49 source.toml meta.inline-table.toml
+T 50 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 51 source.toml meta.inline-table.toml
+T 56 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 57 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 58 source.toml meta.inline-table.toml
+T 66 source.toml meta.inline-table.toml variable.other.key.toml
+T 67 source.toml meta.inline-table.toml
+T 68 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 69 source.toml meta.inline-table.toml
+T 70 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 71 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 74 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 75 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 76 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 77 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 78 source.toml meta.inline-table.toml
+T 86 source.toml meta.inline-table.toml variable.other.key.toml
+T 87 source.toml meta.inline-table.toml
+T 88 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 89 source.toml meta.inline-table.toml
+T 93 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 94 source.toml meta.inline-table.toml
+T 95 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+T 96 source.toml
+T 97 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 109 source.toml comment.line.number-sign.toml
+L 
+L # Currently unstable. The API exposed by these features may be broken at any time.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 82 source.toml comment.line.number-sign.toml
+L # Requires `--cfg tokio_unstable` to enable.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 44 source.toml comment.line.number-sign.toml
+L [target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml
+T 42 source.toml meta.group.toml entity.name.section.toml
+T 43 source.toml meta.group.toml
+T 44 source.toml meta.group.toml entity.name.section.toml
+T 45 source.toml meta.group.toml
+T 55 source.toml meta.group.toml entity.name.section.toml
+T 56 source.toml meta.group.toml
+T 68 source.toml meta.group.toml entity.name.section.toml
+T 69 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L io-uring = { version = "0.7.11", default-features = false, optional = true }
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 13 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml variable.other.key.toml
+T 21 source.toml meta.inline-table.toml
+T 22 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 23 source.toml meta.inline-table.toml
+T 24 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 30 source.toml meta.inline-table.toml string.quoted.double.toml
+T 31 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 32 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 33 source.toml meta.inline-table.toml
+T 49 source.toml meta.inline-table.toml variable.other.key.toml
+T 50 source.toml meta.inline-table.toml
+T 51 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 52 source.toml meta.inline-table.toml
+T 57 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 58 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 59 source.toml meta.inline-table.toml
+T 67 source.toml meta.inline-table.toml variable.other.key.toml
+T 68 source.toml meta.inline-table.toml
+T 69 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 70 source.toml meta.inline-table.toml
+T 74 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 75 source.toml meta.inline-table.toml
+T 76 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L libc = { version = "0.2.168", optional = true }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 30 source.toml meta.inline-table.toml
+T 38 source.toml meta.inline-table.toml variable.other.key.toml
+T 39 source.toml meta.inline-table.toml
+T 40 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 41 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 46 source.toml meta.inline-table.toml
+T 47 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L mio = { version = "1.2.0", default-features = false, features = ["os-poll", "os-ext"], optional = true }
+T 3 source.toml variable.other.key.toml
+T 4 source.toml
+T 5 source.toml punctuation.separator.key-value.toml
+T 6 source.toml
+T 7 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 15 source.toml meta.inline-table.toml variable.other.key.toml
+T 16 source.toml meta.inline-table.toml
+T 17 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 18 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml meta.inline-table.toml string.quoted.double.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 26 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 27 source.toml meta.inline-table.toml
+T 43 source.toml meta.inline-table.toml variable.other.key.toml
+T 44 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 46 source.toml meta.inline-table.toml
+T 51 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 52 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 53 source.toml meta.inline-table.toml
+T 61 source.toml meta.inline-table.toml variable.other.key.toml
+T 62 source.toml meta.inline-table.toml
+T 63 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 64 source.toml meta.inline-table.toml
+T 65 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 66 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 73 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 74 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 75 source.toml meta.inline-table.toml meta.array.toml punctuation.separator.array.toml
+T 76 source.toml meta.inline-table.toml meta.array.toml
+T 77 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 83 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 84 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 85 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 86 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 87 source.toml meta.inline-table.toml
+T 95 source.toml meta.inline-table.toml variable.other.key.toml
+T 96 source.toml meta.inline-table.toml
+T 97 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 98 source.toml meta.inline-table.toml
+T 102 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 103 source.toml meta.inline-table.toml
+T 104 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L slab = { version = "0.4.9", optional = true }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml
+T 26 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 27 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 28 source.toml meta.inline-table.toml
+T 36 source.toml meta.inline-table.toml variable.other.key.toml
+T 37 source.toml meta.inline-table.toml
+T 38 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 39 source.toml meta.inline-table.toml
+T 43 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 44 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L backtrace = { version = "0.3.58", optional = true }
+T 9 source.toml variable.other.key.toml
+T 10 source.toml
+T 11 source.toml punctuation.separator.key-value.toml
+T 12 source.toml
+T 13 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 14 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml variable.other.key.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 24 source.toml meta.inline-table.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 31 source.toml meta.inline-table.toml string.quoted.double.toml
+T 32 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 33 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 34 source.toml meta.inline-table.toml
+T 42 source.toml meta.inline-table.toml variable.other.key.toml
+T 43 source.toml meta.inline-table.toml
+T 44 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 45 source.toml meta.inline-table.toml
+T 49 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 50 source.toml meta.inline-table.toml
+T 51 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(all(tokio_unstable, target_os = "linux"))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml
+T 42 source.toml meta.group.toml entity.name.section.toml
+T 43 source.toml meta.group.toml
+T 44 source.toml meta.group.toml entity.name.section.toml
+T 45 source.toml meta.group.toml
+T 55 source.toml meta.group.toml entity.name.section.toml
+T 56 source.toml meta.group.toml
+T 72 source.toml meta.group.toml entity.name.section.toml
+T 73 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L backtrace = "0.3.58"
+T 9 source.toml variable.other.key.toml
+T 10 source.toml
+T 11 source.toml punctuation.separator.key-value.toml
+T 12 source.toml
+T 13 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(unix)'.dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 19 source.toml meta.group.toml entity.name.section.toml
+T 20 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L libc = { version = "0.2.168", optional = true }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 30 source.toml meta.inline-table.toml
+T 38 source.toml meta.inline-table.toml variable.other.key.toml
+T 39 source.toml meta.inline-table.toml
+T 40 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 41 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 46 source.toml meta.inline-table.toml
+T 47 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L signal-hook-registry = { version = "1.1.1", optional = true }
+T 20 source.toml variable.other.key.toml
+T 21 source.toml
+T 22 source.toml punctuation.separator.key-value.toml
+T 23 source.toml
+T 24 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 25 source.toml meta.inline-table.toml
+T 32 source.toml meta.inline-table.toml variable.other.key.toml
+T 33 source.toml meta.inline-table.toml
+T 34 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 35 source.toml meta.inline-table.toml
+T 36 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 41 source.toml meta.inline-table.toml string.quoted.double.toml
+T 42 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 43 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 44 source.toml meta.inline-table.toml
+T 52 source.toml meta.inline-table.toml variable.other.key.toml
+T 53 source.toml meta.inline-table.toml
+T 54 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 55 source.toml meta.inline-table.toml
+T 59 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 60 source.toml meta.inline-table.toml
+T 61 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(target_os = "wasi")'.dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 24 source.toml meta.group.toml entity.name.section.toml
+T 25 source.toml meta.group.toml
+T 33 source.toml meta.group.toml entity.name.section.toml
+T 34 source.toml meta.group.toml
+T 46 source.toml meta.group.toml entity.name.section.toml
+T 47 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L libc = { version = "0.2.168", optional = true }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 30 source.toml meta.inline-table.toml
+T 38 source.toml meta.inline-table.toml variable.other.key.toml
+T 39 source.toml meta.inline-table.toml
+T 40 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 41 source.toml meta.inline-table.toml
+T 45 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 46 source.toml meta.inline-table.toml
+T 47 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(unix)'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 19 source.toml meta.group.toml entity.name.section.toml
+T 20 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L libc = { version = "0.2.168" }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.inline-table.toml string.quoted.double.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.inline-table.toml
+T 30 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(all(unix, not(target_os = "emscripten")))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml
+T 38 source.toml meta.group.toml entity.name.section.toml
+T 39 source.toml meta.group.toml
+T 55 source.toml meta.group.toml entity.name.section.toml
+T 56 source.toml meta.group.toml
+T 72 source.toml meta.group.toml entity.name.section.toml
+T 73 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L nix = { version = "0.31.0", default-features = false, features = ["aio", "fs", "socket"] }
+T 3 source.toml variable.other.key.toml
+T 4 source.toml
+T 5 source.toml punctuation.separator.key-value.toml
+T 6 source.toml
+T 7 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 8 source.toml meta.inline-table.toml
+T 15 source.toml meta.inline-table.toml variable.other.key.toml
+T 16 source.toml meta.inline-table.toml
+T 17 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 18 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml
+T 26 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 27 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 28 source.toml meta.inline-table.toml
+T 44 source.toml meta.inline-table.toml variable.other.key.toml
+T 45 source.toml meta.inline-table.toml
+T 46 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 47 source.toml meta.inline-table.toml
+T 52 source.toml meta.inline-table.toml constant.language.boolean.toml
+T 53 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 54 source.toml meta.inline-table.toml
+T 62 source.toml meta.inline-table.toml variable.other.key.toml
+T 63 source.toml meta.inline-table.toml
+T 64 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 65 source.toml meta.inline-table.toml
+T 66 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 67 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 70 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 71 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 72 source.toml meta.inline-table.toml meta.array.toml punctuation.separator.array.toml
+T 73 source.toml meta.inline-table.toml meta.array.toml
+T 74 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 76 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 77 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 78 source.toml meta.inline-table.toml meta.array.toml punctuation.separator.array.toml
+T 79 source.toml meta.inline-table.toml meta.array.toml
+T 80 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 86 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 87 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 88 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 89 source.toml meta.inline-table.toml
+T 90 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(windows)'.dependencies.windows-sys]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 35 source.toml meta.group.toml entity.name.section.toml
+T 36 source.toml meta.group.toml
+T 47 source.toml meta.group.toml entity.name.section.toml
+T 48 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L version = "0.61"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 15 source.toml string.quoted.double.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L optional = true
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 15 source.toml constant.language.boolean.toml
+L 
+L [target.'cfg(windows)'.dev-dependencies.windows-sys]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 39 source.toml meta.group.toml entity.name.section.toml
+T 40 source.toml meta.group.toml
+T 51 source.toml meta.group.toml entity.name.section.toml
+T 52 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L version = "0.61"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 15 source.toml string.quoted.double.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L features = [
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "Win32_Foundation",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml
+T 20 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 21 source.toml meta.array.toml punctuation.separator.array.toml
+L   "Win32_Security_Authorization",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 33 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 17 source.toml meta.group.toml entity.name.section.toml
+T 18 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L tokio-test = "0.4.0"
+T 10 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L tokio-stream = "0.1"
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L futures = { version = "0.3.0", features = ["async-await"] }
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 12 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml variable.other.key.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 28 source.toml meta.inline-table.toml string.quoted.double.toml
+T 29 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 30 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 31 source.toml meta.inline-table.toml
+T 39 source.toml meta.inline-table.toml variable.other.key.toml
+T 40 source.toml meta.inline-table.toml
+T 41 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 42 source.toml meta.inline-table.toml
+T 43 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 44 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 55 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 56 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 57 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 58 source.toml meta.inline-table.toml
+T 59 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L futures-test = "0.3.31"
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 22 source.toml string.quoted.double.toml
+T 23 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L mockall = "0.13.0"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 17 source.toml string.quoted.double.toml
+T 18 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L async-stream = "0.3"
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L futures-concurrency = "7.6.3"
+T 19 source.toml variable.other.key.toml
+T 20 source.toml
+T 21 source.toml punctuation.separator.key-value.toml
+T 22 source.toml
+T 23 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 28 source.toml string.quoted.double.toml
+T 29 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 30 source.toml meta.group.toml entity.name.section.toml
+T 31 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml
+T 42 source.toml meta.group.toml entity.name.section.toml
+T 43 source.toml meta.group.toml
+T 59 source.toml meta.group.toml entity.name.section.toml
+T 60 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L socket2 = "0.6.0"
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 16 source.toml string.quoted.double.toml
+T 17 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L proptest = "1"
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 13 source.toml string.quoted.double.toml
+T 14 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(any(not(target_family = "wasm"), target_os = "emscripten"))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 34 source.toml meta.group.toml entity.name.section.toml
+T 35 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml
+T 45 source.toml meta.group.toml entity.name.section.toml
+T 46 source.toml meta.group.toml
+T 55 source.toml meta.group.toml entity.name.section.toml
+T 56 source.toml meta.group.toml
+T 57 source.toml meta.group.toml entity.name.section.toml
+T 58 source.toml meta.group.toml
+T 73 source.toml meta.group.toml entity.name.section.toml
+T 74 source.toml meta.group.toml
+T 90 source.toml meta.group.toml entity.name.section.toml
+T 91 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L tempfile = "3.1.0"
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 17 source.toml string.quoted.double.toml
+T 18 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(not(all(target_family = "wasm", target_os = "unknown")))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 34 source.toml meta.group.toml entity.name.section.toml
+T 35 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml
+T 44 source.toml meta.group.toml entity.name.section.toml
+T 45 source.toml meta.group.toml
+T 54 source.toml meta.group.toml entity.name.section.toml
+T 55 source.toml meta.group.toml
+T 56 source.toml meta.group.toml entity.name.section.toml
+T 57 source.toml meta.group.toml
+T 70 source.toml meta.group.toml entity.name.section.toml
+T 71 source.toml meta.group.toml
+T 87 source.toml meta.group.toml entity.name.section.toml
+T 88 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L rand = "0.9"
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 11 source.toml string.quoted.double.toml
+T 12 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(all(target_family = "wasm", target_os = "unknown"))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 30 source.toml meta.group.toml entity.name.section.toml
+T 31 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml
+T 40 source.toml meta.group.toml entity.name.section.toml
+T 41 source.toml meta.group.toml
+T 50 source.toml meta.group.toml entity.name.section.toml
+T 51 source.toml meta.group.toml
+T 52 source.toml meta.group.toml entity.name.section.toml
+T 53 source.toml meta.group.toml
+T 65 source.toml meta.group.toml entity.name.section.toml
+T 66 source.toml meta.group.toml
+T 82 source.toml meta.group.toml entity.name.section.toml
+T 83 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L wasm-bindgen-test = "0.3.0"
+T 17 source.toml variable.other.key.toml
+T 18 source.toml
+T 19 source.toml punctuation.separator.key-value.toml
+T 20 source.toml
+T 21 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 26 source.toml string.quoted.double.toml
+T 27 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [target.'cfg(target_os = "freebsd")'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 24 source.toml meta.group.toml entity.name.section.toml
+T 25 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml
+T 53 source.toml meta.group.toml entity.name.section.toml
+T 54 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L mio-aio = { version = "2", features = ["tokio"] }
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 12 source.toml meta.inline-table.toml
+T 19 source.toml meta.inline-table.toml variable.other.key.toml
+T 20 source.toml meta.inline-table.toml
+T 21 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 22 source.toml meta.inline-table.toml
+T 23 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml meta.inline-table.toml string.quoted.double.toml
+T 25 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 26 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 27 source.toml meta.inline-table.toml
+T 35 source.toml meta.inline-table.toml variable.other.key.toml
+T 36 source.toml meta.inline-table.toml
+T 37 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 38 source.toml meta.inline-table.toml
+T 39 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 40 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 45 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 46 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 47 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 48 source.toml meta.inline-table.toml
+T 49 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(loom)'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 19 source.toml meta.group.toml entity.name.section.toml
+T 20 source.toml meta.group.toml
+T 36 source.toml meta.group.toml entity.name.section.toml
+T 37 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L loom = { version = "0.7", features = ["futures", "checkpoint"] }
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 9 source.toml meta.inline-table.toml
+T 16 source.toml meta.inline-table.toml variable.other.key.toml
+T 17 source.toml meta.inline-table.toml
+T 18 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 19 source.toml meta.inline-table.toml
+T 20 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 23 source.toml meta.inline-table.toml string.quoted.double.toml
+T 24 source.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 25 source.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 26 source.toml meta.inline-table.toml
+T 34 source.toml meta.inline-table.toml variable.other.key.toml
+T 35 source.toml meta.inline-table.toml
+T 36 source.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 37 source.toml meta.inline-table.toml
+T 38 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.begin.toml
+T 39 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 46 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 47 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 48 source.toml meta.inline-table.toml meta.array.toml punctuation.separator.array.toml
+T 49 source.toml meta.inline-table.toml meta.array.toml
+T 50 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 60 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml
+T 61 source.toml meta.inline-table.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 62 source.toml meta.inline-table.toml meta.array.toml punctuation.definition.array.end.toml
+T 63 source.toml meta.inline-table.toml
+T 64 source.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+L 
+L [target.'cfg(all(tokio_unstable, target_has_atomic = "64"))'.dev-dependencies]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 source.toml meta.group.toml entity.name.section.toml
+T 8 source.toml meta.group.toml
+T 32 source.toml meta.group.toml entity.name.section.toml
+T 33 source.toml meta.group.toml
+T 50 source.toml meta.group.toml entity.name.section.toml
+T 51 source.toml meta.group.toml
+T 52 source.toml meta.group.toml entity.name.section.toml
+T 53 source.toml meta.group.toml
+T 60 source.toml meta.group.toml entity.name.section.toml
+T 61 source.toml meta.group.toml
+T 77 source.toml meta.group.toml entity.name.section.toml
+T 78 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L tracing-mock = "= 0.1.0-beta.1"
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 30 source.toml string.quoted.double.toml
+T 31 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [package.metadata.docs.rs]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml
+T 17 source.toml meta.group.toml entity.name.section.toml
+T 18 source.toml meta.group.toml
+T 22 source.toml meta.group.toml entity.name.section.toml
+T 23 source.toml meta.group.toml
+T 25 source.toml meta.group.toml entity.name.section.toml
+T 26 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L all-features = true
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 19 source.toml constant.language.boolean.toml
+L # enable unstable features in the documentation
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 47 source.toml comment.line.number-sign.toml
+L rustdoc-args = ["--cfg", "docsrs", "--cfg", "tokio_unstable"]
+T 12 source.toml variable.other.key.toml
+T 13 source.toml
+T 14 source.toml punctuation.separator.key-value.toml
+T 15 source.toml
+T 16 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 17 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 22 source.toml meta.array.toml string.quoted.double.toml
+T 23 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 24 source.toml meta.array.toml punctuation.separator.array.toml
+T 25 source.toml meta.array.toml
+T 26 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 32 source.toml meta.array.toml string.quoted.double.toml
+T 33 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 34 source.toml meta.array.toml punctuation.separator.array.toml
+T 35 source.toml meta.array.toml
+T 36 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 41 source.toml meta.array.toml string.quoted.double.toml
+T 42 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 43 source.toml meta.array.toml punctuation.separator.array.toml
+T 44 source.toml meta.array.toml
+T 45 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 59 source.toml meta.array.toml string.quoted.double.toml
+T 60 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 61 source.toml meta.array.toml punctuation.definition.array.end.toml
+L # it's necessary to _also_ pass `--cfg tokio_unstable`
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 54 source.toml comment.line.number-sign.toml
+L # to rustc, or else dependencies will not be enabled, and the docs build will fail.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 83 source.toml comment.line.number-sign.toml
+L rustc-args = ["--cfg", "tokio_unstable"]
+T 10 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 15 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 20 source.toml meta.array.toml string.quoted.double.toml
+T 21 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 22 source.toml meta.array.toml punctuation.separator.array.toml
+T 23 source.toml meta.array.toml
+T 24 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 38 source.toml meta.array.toml string.quoted.double.toml
+T 39 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 40 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [package.metadata.playground]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml
+T 17 source.toml meta.group.toml entity.name.section.toml
+T 18 source.toml meta.group.toml
+T 28 source.toml meta.group.toml entity.name.section.toml
+T 29 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L features = ["full", "test-util"]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 17 source.toml meta.array.toml string.quoted.double.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 19 source.toml meta.array.toml punctuation.separator.array.toml
+T 20 source.toml meta.array.toml
+T 21 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 30 source.toml meta.array.toml string.quoted.double.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 32 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [package.metadata.cargo_check_external_types]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml
+T 17 source.toml meta.group.toml entity.name.section.toml
+T 18 source.toml meta.group.toml
+T 44 source.toml meta.group.toml entity.name.section.toml
+T 45 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L # The following are types that are allowed to be exposed in Tokio's public API.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 79 source.toml comment.line.number-sign.toml
+L # The standard library is allowed by default.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 45 source.toml comment.line.number-sign.toml
+L allowed_external_types = [
+T 22 source.toml variable.other.key.toml
+T 23 source.toml
+T 24 source.toml punctuation.separator.key-value.toml
+T 25 source.toml
+T 26 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L   "bytes::buf::buf_impl::Buf",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 28 source.toml meta.array.toml string.quoted.double.toml
+T 29 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 30 source.toml meta.array.toml punctuation.separator.array.toml
+L   "bytes::buf::buf_mut::BufMut",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 30 source.toml meta.array.toml string.quoted.double.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 32 source.toml meta.array.toml punctuation.separator.array.toml
+L   "tokio_macros::*",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 20 source.toml meta.array.toml punctuation.separator.array.toml
+L   "libc::*::mode_t",
+T 2 source.toml meta.array.toml
+T 3 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 20 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L [lints]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 6 source.toml meta.group.toml entity.name.section.toml
+T 7 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L workspace = true
+T 9 source.toml variable.other.key.toml
+T 10 source.toml
+T 11 source.toml punctuation.separator.key-value.toml
+T 12 source.toml
+T 16 source.toml constant.language.boolean.toml
+L 

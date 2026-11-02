@@ -1,0 +1,345 @@
+L # This is an example TOML document which shows most of its features.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 68 source.toml comment.line.number-sign.toml
+L 
+L # Simple key/value with a string.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 33 source.toml comment.line.number-sign.toml
+L title = "TOML example \U0001F60A"
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 22 source.toml string.quoted.double.toml
+T 32 source.toml string.quoted.double.toml constant.character.escape.toml
+T 33 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L desc = """
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 10 source.toml string.quoted.triple.double.toml punctuation.definition.string.begin.toml
+L An example TOML document. \
+T 27 source.toml string.quoted.triple.double.toml
+L """
+T 3 source.toml string.quoted.triple.double.toml punctuation.definition.string.end.toml
+L 
+L # Array with integers and floats in the various allowed formats.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 64 source.toml comment.line.number-sign.toml
+L integers = [42, 0x42, 0o42, 0b0110]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 14 source.toml meta.array.toml constant.numeric.integer.toml
+T 15 source.toml meta.array.toml punctuation.separator.array.toml
+T 16 source.toml meta.array.toml
+T 20 source.toml meta.array.toml constant.numeric.hex.toml
+T 21 source.toml meta.array.toml punctuation.separator.array.toml
+T 22 source.toml meta.array.toml
+T 26 source.toml meta.array.toml constant.numeric.octal.toml
+T 27 source.toml meta.array.toml punctuation.separator.array.toml
+T 28 source.toml meta.array.toml
+T 34 source.toml meta.array.toml constant.numeric.binary.toml
+T 35 source.toml meta.array.toml punctuation.definition.array.end.toml
+L floats   = [1.42, 1e-02]
+T 6 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 16 source.toml meta.array.toml constant.numeric.float.toml
+T 17 source.toml meta.array.toml punctuation.separator.array.toml
+T 18 source.toml meta.array.toml
+T 23 source.toml meta.array.toml constant.numeric.float.toml
+T 24 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L # Array with supported datetime formats.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 40 source.toml comment.line.number-sign.toml
+L times = [
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L 	2021-11-09T15:16:17+01:00,  # datetime with timezone.
+T 1 source.toml meta.array.toml
+T 26 source.toml meta.array.toml constant.other.date.toml
+T 27 source.toml meta.array.toml punctuation.separator.array.toml
+T 29 source.toml meta.array.toml
+T 30 source.toml meta.array.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 54 source.toml meta.array.toml comment.line.number-sign.toml
+L 	2021-11-09T15:16:17Z,       # UTC datetime.
+T 1 source.toml meta.array.toml
+T 21 source.toml meta.array.toml constant.other.date.toml
+T 22 source.toml meta.array.toml punctuation.separator.array.toml
+T 29 source.toml meta.array.toml
+T 30 source.toml meta.array.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 44 source.toml meta.array.toml comment.line.number-sign.toml
+L 	2021-11-09T15:16:17,        # local datetime.
+T 1 source.toml meta.array.toml
+T 20 source.toml meta.array.toml constant.other.date.toml
+T 21 source.toml meta.array.toml punctuation.separator.array.toml
+T 29 source.toml meta.array.toml
+T 30 source.toml meta.array.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 46 source.toml meta.array.toml comment.line.number-sign.toml
+L 	2021-11-09,                 # local date.
+T 1 source.toml meta.array.toml
+T 11 source.toml meta.array.toml constant.other.date.toml
+T 12 source.toml meta.array.toml punctuation.separator.array.toml
+T 29 source.toml meta.array.toml
+T 30 source.toml meta.array.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 42 source.toml meta.array.toml comment.line.number-sign.toml
+L 	15:16:17,                   # local time.
+T 1 source.toml meta.array.toml
+T 9 source.toml meta.array.toml constant.other.time.toml
+T 10 source.toml meta.array.toml punctuation.separator.array.toml
+T 29 source.toml meta.array.toml
+T 30 source.toml meta.array.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 42 source.toml meta.array.toml comment.line.number-sign.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L # Durations.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 12 source.toml comment.line.number-sign.toml
+L duration = ["4m49s", "8m03s", "1231h15m55s"]
+T 8 source.toml variable.other.key.toml
+T 9 source.toml
+T 10 source.toml punctuation.separator.key-value.toml
+T 11 source.toml
+T 12 source.toml meta.array.toml punctuation.definition.array.begin.toml
+T 13 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 18 source.toml meta.array.toml string.quoted.double.toml
+T 19 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 20 source.toml meta.array.toml punctuation.separator.array.toml
+T 21 source.toml meta.array.toml
+T 22 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 27 source.toml meta.array.toml string.quoted.double.toml
+T 28 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 29 source.toml meta.array.toml punctuation.separator.array.toml
+T 30 source.toml meta.array.toml
+T 31 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 42 source.toml meta.array.toml string.quoted.double.toml
+T 43 source.toml meta.array.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 44 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L # Array with inline tables.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 27 source.toml comment.line.number-sign.toml
+L distros = [
+T 7 source.toml variable.other.key.toml
+T 8 source.toml
+T 9 source.toml punctuation.separator.key-value.toml
+T 10 source.toml
+T 11 source.toml meta.array.toml punctuation.definition.array.begin.toml
+L 	{name = "Arch Linux", packages = "pacman"},
+T 1 source.toml meta.array.toml
+T 2 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 6 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 7 source.toml meta.array.toml meta.inline-table.toml
+T 8 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 9 source.toml meta.array.toml meta.inline-table.toml
+T 10 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 20 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 21 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 22 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 23 source.toml meta.array.toml meta.inline-table.toml
+T 31 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 32 source.toml meta.array.toml meta.inline-table.toml
+T 33 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 34 source.toml meta.array.toml meta.inline-table.toml
+T 35 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 41 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 42 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 43 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+T 44 source.toml meta.array.toml punctuation.separator.array.toml
+L 	{name = "Void Linux", packages = "xbps"},
+T 1 source.toml meta.array.toml
+T 2 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 6 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 7 source.toml meta.array.toml meta.inline-table.toml
+T 8 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 9 source.toml meta.array.toml meta.inline-table.toml
+T 10 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 20 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 21 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 22 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 23 source.toml meta.array.toml meta.inline-table.toml
+T 31 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 32 source.toml meta.array.toml meta.inline-table.toml
+T 33 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 34 source.toml meta.array.toml meta.inline-table.toml
+T 35 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 39 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 40 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 41 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+T 42 source.toml meta.array.toml punctuation.separator.array.toml
+L 	{name = "Debian",     packages = "apt"},
+T 1 source.toml meta.array.toml
+T 2 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.begin.toml
+T 6 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 7 source.toml meta.array.toml meta.inline-table.toml
+T 8 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 9 source.toml meta.array.toml meta.inline-table.toml
+T 10 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 16 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 17 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 18 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.inline-table.toml
+T 23 source.toml meta.array.toml meta.inline-table.toml
+T 31 source.toml meta.array.toml meta.inline-table.toml variable.other.key.toml
+T 32 source.toml meta.array.toml meta.inline-table.toml
+T 33 source.toml meta.array.toml meta.inline-table.toml punctuation.separator.key-value.toml
+T 34 source.toml meta.array.toml meta.inline-table.toml
+T 35 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 38 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml
+T 39 source.toml meta.array.toml meta.inline-table.toml string.quoted.double.toml punctuation.definition.string.end.toml
+T 40 source.toml meta.array.toml meta.inline-table.toml punctuation.definition.inline-table.end.toml
+T 41 source.toml meta.array.toml punctuation.separator.array.toml
+L ]
+T 1 source.toml meta.array.toml punctuation.definition.array.end.toml
+L 
+L # Create new table; note the "servers" table is created implicitly.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 67 source.toml comment.line.number-sign.toml
+L [servers.alpha]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml
+T 14 source.toml meta.group.toml entity.name.section.toml
+T 15 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L 	# You can indent as you please, tabs or spaces.
+T 1 source.toml punctuation.whitespace.comment.leading.toml
+T 2 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 48 source.toml comment.line.number-sign.toml
+L 	ip        = '10.0.0.1'
+T 1 source.toml
+T 3 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.single.toml punctuation.definition.string.begin.toml
+T 22 source.toml string.quoted.single.toml
+T 23 source.toml string.quoted.single.toml punctuation.definition.string.end.toml
+L 	hostname  = 'server1'
+T 1 source.toml
+T 9 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.single.toml punctuation.definition.string.begin.toml
+T 21 source.toml string.quoted.single.toml
+T 22 source.toml string.quoted.single.toml punctuation.definition.string.end.toml
+L 	enabled   = false
+T 1 source.toml
+T 8 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 18 source.toml constant.language.boolean.toml
+L [servers.beta]
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 8 source.toml meta.group.toml entity.name.section.toml
+T 9 source.toml meta.group.toml
+T 13 source.toml meta.group.toml entity.name.section.toml
+T 14 source.toml meta.group.toml punctuation.definition.section.begin.toml
+L 	ip        = '10.0.0.2'
+T 1 source.toml
+T 3 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.single.toml punctuation.definition.string.begin.toml
+T 22 source.toml string.quoted.single.toml
+T 23 source.toml string.quoted.single.toml punctuation.definition.string.end.toml
+L 	hostname  = 'server2'
+T 1 source.toml
+T 9 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 14 source.toml string.quoted.single.toml punctuation.definition.string.begin.toml
+T 21 source.toml string.quoted.single.toml
+T 22 source.toml string.quoted.single.toml punctuation.definition.string.end.toml
+L 	enabled   = true
+T 1 source.toml
+T 8 source.toml variable.other.key.toml
+T 11 source.toml
+T 12 source.toml punctuation.separator.key-value.toml
+T 13 source.toml
+T 17 source.toml constant.language.boolean.toml
+L 
+L # Start a new table array; note that the "characters" table is created implicitly.
+T 1 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 82 source.toml comment.line.number-sign.toml
+L [[characters.star-trek]]
+T 2 source.toml meta.group.double.toml punctuation.definition.section.begin.toml
+T 12 source.toml meta.group.double.toml entity.name.section.toml
+T 13 source.toml meta.group.double.toml
+T 22 source.toml meta.group.double.toml entity.name.section.toml
+T 24 source.toml meta.group.double.toml punctuation.definition.section.begin.toml
+L 	name = "James Kirk"
+T 1 source.toml
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 19 source.toml string.quoted.double.toml
+T 20 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 	rank = "Captain"
+T 1 source.toml
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 16 source.toml string.quoted.double.toml
+T 17 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L [[characters.star-trek]]
+T 2 source.toml meta.group.double.toml punctuation.definition.section.begin.toml
+T 12 source.toml meta.group.double.toml entity.name.section.toml
+T 13 source.toml meta.group.double.toml
+T 22 source.toml meta.group.double.toml entity.name.section.toml
+T 24 source.toml meta.group.double.toml punctuation.definition.section.begin.toml
+L 	name = "Spock"
+T 1 source.toml
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 14 source.toml string.quoted.double.toml
+T 15 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 	rank = "Science officer"
+T 1 source.toml
+T 5 source.toml variable.other.key.toml
+T 6 source.toml
+T 7 source.toml punctuation.separator.key-value.toml
+T 8 source.toml
+T 9 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 24 source.toml string.quoted.double.toml
+T 25 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
+L [undecoded] # To show the MetaData.Undecoded() feature.
+T 1 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 10 source.toml meta.group.toml entity.name.section.toml
+T 11 source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 12 source.toml
+T 13 source.toml comment.line.number-sign.toml punctuation.definition.comment.toml
+T 55 source.toml comment.line.number-sign.toml
+L 	key = "This table intentionally left undecoded"
+T 1 source.toml
+T 4 source.toml variable.other.key.toml
+T 5 source.toml
+T 6 source.toml punctuation.separator.key-value.toml
+T 7 source.toml
+T 8 source.toml string.quoted.double.toml punctuation.definition.string.begin.toml
+T 47 source.toml string.quoted.double.toml
+T 48 source.toml string.quoted.double.toml punctuation.definition.string.end.toml
+L 
