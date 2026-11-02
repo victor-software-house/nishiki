@@ -36,6 +36,29 @@ for token in &tokens {
 
 `scopes` lists a stack innermost first, the order theme rules match it in.
 
+## Themes
+
+A `Theme` is a TextMate theme in Shiki's format, and `Theme::style` gives a scope stack the colour and font style Shiki would.
+With the `json` feature, `Theme::from_json` reads a theme file as `@shikijs/themes` ships it; without it, `Theme::new` takes the rules as values and nishiki depends on `memchr` alone.
+
+```rust
+use nishiki::{Highlighter, Language, RuleScope, State, Theme, ThemeRule, ThemeSource};
+
+let theme = Theme::new(ThemeSource {
+    rules: vec![ThemeRule {
+        scope: RuleScope::Selectors("storage.type".into()),
+        foreground: Some("#f97583".into()),
+        ..ThemeRule::default()
+    }],
+    ..ThemeSource::default()
+});
+let mut highlighter = Highlighter::new(Language::Rust);
+let mut tokens = Vec::new();
+let _ = highlighter.line("let x = 42;", &mut State::default(), &mut tokens);
+let style = theme.style(highlighter.scopes(tokens[0].stack()));
+assert_eq!(style.foreground.to_string(), "#F97583");
+```
+
 ## Limits
 
 Every line is bounded by `Limits`: its length in bytes, the lexer steps it may take, the contexts open at once, and the scope stacks and states a highlighter interns.
@@ -54,7 +77,7 @@ assert_eq!(highlighter.limits().depth, None);
 ## Scope and limits
 
 1. Rust is the only language.
-2. nishiki returns scopes, not colours: theme colouring is not built yet.
+2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
 4. Every non-ASCII byte counts as a word character.
 

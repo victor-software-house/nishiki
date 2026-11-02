@@ -1,0 +1,6 @@
+# Generated oracle fixtures: third-party text and theme files, spelled as
+# their sources spell them. Keeps spelling and other file walkers out of
+# them; mise run oracle rewrites them.
+*.txt
+*.colors
+*.json

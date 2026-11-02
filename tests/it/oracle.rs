@@ -179,3 +179,100 @@ fn lexer(language: Language) -> impl FnMut(&str) -> Tokens {
 fn rust_matches_shiki() {
     check("rust", || lexer(Language::Rust));
 }
+
+/// Shiki's colours for one fixture under one theme: the fixture's lines,
+/// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
+#[cfg(feature = "json")]
+#[expect(
+    clippy::expect_used,
+    reason = "a test helper; a bad fixture fails the test"
+)]
+fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
+    let content = fs::read_to_string(colours).expect("a readable colour fixture");
+    let lines = parse(fixture);
+    lines
+        .into_iter()
+        .zip(content.lines())
+        .map(|(line, row)| {
+            let mut stacks = Vec::with_capacity(line.text.len());
+            let mut start = 0;
+            for token in row.split(' ').filter(|token| !token.is_empty()) {
+                let mut fields = token.splitn(3, ':');
+                let end: usize = fields
+                    .next()
+                    .and_then(|end| end.parse().ok())
+                    .expect("a byte end");
+                let colour = fields
+                    .next()
+                    .and_then(nishiki::Color::from_hex)
+                    .expect("a hex colour");
+                let font: u8 = fields
+                    .next()
+                    .and_then(|font| font.parse().ok())
+                    .expect("font bits");
+                stacks.extend((start..end).map(|_| format!("{colour}:{font}")));
+                start = end;
+            }
+            Line {
+                text: line.text,
+                stacks,
+            }
+        })
+        .collect()
+}
+
+/// Checks nishiki's colours against Shiki's for every colour fixture of
+/// `language`, under each theme in `tests/oracle/themes/`.
+#[cfg(feature = "json")]
+#[expect(
+    clippy::expect_used,
+    reason = "a test helper; a bad fixture fails the test"
+)]
+fn check_colours(language: Language, dir: &str) {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
+    let mut failures = Vec::new();
+    for fixture in fixtures(dir) {
+        let stem = fixture
+            .file_stem()
+            .and_then(|stem| stem.to_str())
+            .expect("a UTF-8 name");
+        for theme_path in fs::read_dir(root.join("themes")).expect("the themes directory exists") {
+            let theme_path = theme_path.expect("a readable directory entry").path();
+            let name = theme_path
+                .file_stem()
+                .and_then(|name| name.to_str())
+                .expect("a UTF-8 name");
+            let colours = fixture.with_file_name(format!("{stem}.{name}.colors"));
+            let json = fs::read_to_string(&theme_path).expect("a readable theme");
+            let theme = nishiki::Theme::from_json(&json).expect("a theme Shiki loads");
+            let lines = parse_colours(&colours, &fixture);
+            let mut highlighter = Highlighter::new(language);
+            let mut state = State::default();
+            let mut tokens = Vec::new();
+            let (checked, misses) = compare(&lines, |line: &str| {
+                tokens.clear();
+                let _ = highlighter.line(line, &mut state, &mut tokens);
+                tokens
+                    .iter()
+                    .map(|token| {
+                        let style = theme.style(highlighter.scopes(token.stack()));
+                        (
+                            token.end(),
+                            format!("{}:{}", style.foreground, style.font.bits()),
+                        )
+                    })
+                    .collect()
+            });
+            if !misses.is_empty() {
+                failures.push(report(&colours, checked, &misses));
+            }
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n\n"));
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn rust_colours_match_shiki() {
+    check_colours(Language::Rust, "rust");
+}

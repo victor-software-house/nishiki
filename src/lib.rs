@@ -42,6 +42,13 @@
 //!
 //! Every line is bounded by [`Limits`], which the caller can set, raise,
 //! lower or turn off; each [`LineReport`] says which limits a line reached.
+//!
+//! A [`Theme`] in Shiki's format turns a token's scopes into a [`Style`], as
+//! Shiki would colour it; the `json` feature reads theme files.
+
+// docs.rs labels feature-gated items, such as `Theme::from_json`, with their
+// feature.
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod arena;
 mod highlighter;
@@ -49,11 +56,15 @@ mod language;
 mod limits;
 mod rust;
 mod scope;
+mod theme;
 
 pub use arena::Scopes;
 pub use highlighter::Highlighter;
 pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};
+#[cfg(feature = "json")]
+pub use theme::ThemeError;
+pub use theme::{Color, FontStyle, RuleScope, Style, Theme, ThemeKind, ThemeRule, ThemeSource};
 
 /// The README's examples, compiled and run as doctests.
 #[cfg(doctest)]

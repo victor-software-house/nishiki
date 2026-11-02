@@ -41,5 +41,6 @@ The decisions that created it live in a private planning repository: `openspec/d
 6. Shiki is the oracle.
    `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` fails when a non-whitespace byte gets a different scope stack.
    A new language adds its inputs and fixtures, and `tests/oracle/SOURCES.md` records each input's source and licence.
+   `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures, which keep their sources' spelling; search them with `rg -u`.
 7. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
    Defaults may follow the resources the caller has, such as memory or a time budget, but a caller that pins the limits gets the same output on every machine.
