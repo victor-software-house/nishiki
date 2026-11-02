@@ -31,6 +31,13 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
+/// The state at the start of the Rust lines of a fenced code block, whose
+/// text sits on the stack `base` with no `source.rust` of its own, as in
+/// Shiki's embedding.
+pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
+    arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
+}
+
 /// Lexes one line from `state`, appending its tokens, and returns the state
 /// after it.
 pub(crate) fn line(

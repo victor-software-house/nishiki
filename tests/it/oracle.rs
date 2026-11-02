@@ -276,3 +276,14 @@ fn check_colours(language: Language, dir: &str) {
 fn rust_colours_match_shiki() {
     check_colours(Language::Rust, "rust");
 }
+
+#[test]
+fn markdown_matches_shiki() {
+    check("markdown", || lexer(Language::Markdown));
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn markdown_colours_match_shiki() {
+    check_colours(Language::Markdown, "markdown");
+}

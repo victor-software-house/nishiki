@@ -6,7 +6,9 @@
 //! input of the next, so an editor can re-highlight from any line, and a
 //! streamed reply can be highlighted as it arrives.
 //!
-//! This release highlights Rust ([`Language::Rust`]).
+//! This release highlights Rust ([`Language::Rust`]) and Markdown
+//! ([`Language::Markdown`]), which hands the code in its fences to the Rust
+//! lexer.
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -54,6 +56,7 @@ mod arena;
 mod highlighter;
 mod language;
 mod limits;
+mod markdown;
 mod rust;
 mod scope;
 mod theme;

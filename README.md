@@ -76,12 +76,17 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust is the only language.
+1. Rust and Markdown are the languages.
+   A Markdown fence of `rust`, or of `markdown`, is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
-4. Every non-ASCII byte counts as a word character.
+   In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
+4. In Rust, every non-ASCII byte counts as a word character.
+5. In Markdown, a label or link destination nested deeper than 32 brackets ends there.
+   The grammar's backtracking is followed where it matters in practice, not everywhere: a code span gives back backticks, but an escaped `>` does not end an angle-bracket destination.
+   A fence of more than 255 characters is never closed.
 
-The API is unstable while the version is `0.0.x`.
+The API is unstable while the version is `0.x`.
 
 ## Licence
 

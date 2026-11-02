@@ -8,10 +8,16 @@ pub(crate) struct Scope(u16);
 
 /// Each language's scope names, with the base its scopes are numbered from.
 /// Bases ascend; a new language's base is the previous one's end.
-const TABLES: &[(u16, &[&str])] = &[(RUST, crate::rust::NAMES)];
+const TABLES: &[(u16, &[&str])] = &[
+    (RUST, crate::rust::NAMES),
+    (MARKDOWN, crate::markdown::NAMES),
+];
 
 /// The base of the Rust lexer's scope names.
 pub(crate) const RUST: u16 = 1;
+
+/// The base of the Markdown lexer's scope names: where Rust's end.
+pub(crate) const MARKDOWN: u16 = RUST + 98;
 
 impl Scope {
     /// The placeholder scope of the empty stack.
@@ -45,6 +51,16 @@ mod tests {
     #[test]
     fn names_resolve_through_their_table() {
         assert_eq!(Scope::new(RUST, 0).name(), crate::rust::NAMES[0]);
+        assert_eq!(Scope::new(MARKDOWN, 0).name(), crate::markdown::NAMES[0]);
         assert_eq!(Scope::NONE.name(), "");
+    }
+
+    #[test]
+    fn each_table_starts_where_the_last_ends() {
+        assert_eq!(
+            usize::from(MARKDOWN - RUST),
+            crate::rust::NAMES.len(),
+            "MARKDOWN is RUST plus the number of Rust scopes"
+        );
     }
 }

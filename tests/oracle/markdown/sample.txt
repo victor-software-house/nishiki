@@ -1,0 +1,453 @@
+L An h1 header
+T 12 text.html.markdown meta.paragraph.markdown
+L ============
+T 12 text.html.markdown meta.paragraph.markdown markup.heading.setext.1.markdown
+L 
+L Paragraphs are separated by a blank line.
+T 41 text.html.markdown meta.paragraph.markdown
+L 
+L 2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 25 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown
+L look like:
+T 10 text.html.markdown meta.paragraph.markdown
+L 
+L   * this one
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   * that one
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 12 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   * the other one
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 17 text.html.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L Note that --- not considering the asterisk --- the actual text
+T 62 text.html.markdown meta.paragraph.markdown
+L content starts at 4-columns in.
+T 31 text.html.markdown meta.paragraph.markdown
+L 
+L > Block quotes are
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 18 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > written like so.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 18 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L >
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+L > They can span multiple paragraphs,
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 36 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > if you like.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 14 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L 
+L Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
+T 68 text.html.markdown meta.paragraph.markdown
+L in chapters 12--14"). Three dots ... will be converted to an ellipsis.
+T 70 text.html.markdown meta.paragraph.markdown
+L Unicode is supported. ☺
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L 
+L An h2 header
+T 12 text.html.markdown meta.paragraph.markdown
+L ------------
+T 12 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L Here's a numbered list:
+T 23 text.html.markdown meta.paragraph.markdown
+L 
+L  1. first item
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 14 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L  2. second item
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 15 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L  3. third item
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 14 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L Note again how the actual text starts at 4 columns in (4 characters
+T 67 text.html.markdown meta.paragraph.markdown
+L from the left side). Here's a code sample:
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L     # Let me re-iterate ...
+T 4 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown
+L     for i in 1 .. 10 { do-something(i) }
+T 4 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L As you probably guessed, indented 4 spaces. By the way, instead of
+T 66 text.html.markdown meta.paragraph.markdown
+L indenting the block, you can use delimited blocks, if you like:
+T 63 text.html.markdown meta.paragraph.markdown
+L 
+L ~~~
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L define foobar() {
+T 17 text.html.markdown markup.fenced_code.block.markdown
+L     print "Welcome to flavor country!";
+T 39 text.html.markdown markup.fenced_code.block.markdown
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L ~~~
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L (which makes copying & pasting easier). You can optionally mark the
+T 21 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.other.valid-ampersand.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L delimited block for Pandoc to syntax highlight it:
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L ~~~python
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+L import time
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L # Quick, count to ten!
+T 22 text.html.markdown markup.fenced_code.block.markdown
+L for i in range(10):
+T 19 text.html.markdown markup.fenced_code.block.markdown
+L     # (but not *too* quick)
+T 27 text.html.markdown markup.fenced_code.block.markdown
+L     time.sleep(0.5)
+T 19 text.html.markdown markup.fenced_code.block.markdown
+L     print(i)
+T 12 text.html.markdown markup.fenced_code.block.markdown
+L ~~~
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L 
+L 
+L ### An h3 header ###
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 16 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 17 text.html.markdown markup.heading.markdown heading.3.markdown
+T 20 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+L 
+L Now a nested list:
+T 18 text.html.markdown meta.paragraph.markdown
+L 
+L  1. First, get these ingredients:
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 33 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L       * carrots
+T 4 text.html.markdown markup.list.numbered.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 7 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 8 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 15 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L       * celery
+T 4 text.html.markdown markup.list.numbered.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 7 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 8 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 14 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L       * lentils
+T 4 text.html.markdown markup.list.numbered.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 7 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 8 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown
+T 15 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L  2. Boil some water.
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 20 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L  3. Dump everything in the pot and follow
+T 1 text.html.markdown markup.list.numbered.markdown
+T 3 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 4 text.html.markdown markup.list.numbered.markdown
+T 41 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L     this algorithm:
+T 4 text.html.markdown markup.list.numbered.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L         find wooden spoon
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 25 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         uncover pot
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         stir
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 12 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         cover pot
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 17 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         balance wooden spoon precariously on pot handle
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 55 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         wait 10 minutes
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 23 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L         goto first step (or shut off burner when done)
+T 4 text.html.markdown markup.list.numbered.markdown
+T 8 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 54 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L     Do not bump wooden spoon or it will fall.
+T 4 text.html.markdown markup.list.numbered.markdown
+T 45 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L Notice again how text always lines up on 4-space indents (including
+T 67 text.html.markdown meta.paragraph.markdown
+L that last line which continues item 3 above).
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L Here's a link to [a website](http://foo.bar), to a [local
+T 17 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 57 text.html.markdown meta.paragraph.markdown
+L doc](local-doc.html), and to a [section heading in the current
+T 62 text.html.markdown meta.paragraph.markdown
+L doc](#an-h2-header). Here's a footnote [^1].
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 44 text.html.markdown meta.paragraph.markdown
+L 
+L [^1]: Some footnote text.
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 3 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 4 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L Tables can look like this:
+T 26 text.html.markdown meta.paragraph.markdown
+L 
+L Name           Size  Material      Color
+T 40 text.html.markdown meta.paragraph.markdown
+L ------------- -----  ------------  ------------
+T 47 text.html.markdown meta.separator.markdown
+L All Business      9  leather       brown
+T 40 text.html.markdown meta.paragraph.markdown
+L Roundabout       10  hemp canvas   natural
+T 42 text.html.markdown meta.paragraph.markdown
+L Cinderella       11  glass         transparent
+T 46 text.html.markdown meta.paragraph.markdown
+L 
+L Table: Shoes sizes, materials, and colors.
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L (The above is the caption for the table.) Pandoc also supports
+T 62 text.html.markdown meta.paragraph.markdown
+L multi-line tables:
+T 18 text.html.markdown meta.paragraph.markdown
+L 
+L --------  -----------------------
+T 33 text.html.markdown meta.separator.markdown
+L Keyword   Text
+T 14 text.html.markdown meta.paragraph.markdown
+L --------  -----------------------
+T 33 text.html.markdown meta.separator.markdown
+L red       Sunsets, apples, and
+T 30 text.html.markdown meta.paragraph.markdown
+L           other red or reddish
+T 10 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown
+L           things.
+T 10 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown
+L 
+L green     Leaves, grass, frogs
+T 30 text.html.markdown meta.paragraph.markdown
+L           and other things it's
+T 10 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown
+L           not easy being.
+T 10 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown
+L --------  -----------------------
+T 33 text.html.markdown meta.separator.markdown
+L 
+L A horizontal rule follows.
+T 26 text.html.markdown meta.paragraph.markdown
+L 
+L ***
+T 3 text.html.markdown meta.separator.markdown
+L 
+L Here's a definition list:
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L apples
+T 6 text.html.markdown meta.paragraph.markdown
+L   : Good for making applesauce.
+T 2 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown
+L 
+L oranges
+T 7 text.html.markdown meta.paragraph.markdown
+L   : Citrus!
+T 2 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown
+L 
+L tomatoes
+T 8 text.html.markdown meta.paragraph.markdown
+L   : There's no "e" in tomatoe.
+T 2 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown
+L 
+L Again, text is indented 4 spaces. (Put a blank line between each
+T 64 text.html.markdown meta.paragraph.markdown
+L term and  its definition to spread things out more.)
+T 52 text.html.markdown meta.paragraph.markdown
+L 
+L Here's a "line block" (note how whitespace is honored):
+T 55 text.html.markdown meta.paragraph.markdown
+L 
+L | Line one
+T 10 text.html.markdown meta.paragraph.markdown
+L |   Line too
+T 12 text.html.markdown meta.paragraph.markdown
+L | Line tree
+T 11 text.html.markdown meta.paragraph.markdown
+L 
+L and images can be specified like so:
+T 36 text.html.markdown meta.paragraph.markdown
+L 
+L ![example image](example-image.jpg "An exemplary image")
+T 2 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown
+T 36 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.begin.markdown
+T 54 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.title.markdown punctuation.definition.string.end.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+L 
+L Inline math equation: $\omega = d\phi / dt$. Display
+T 52 text.html.markdown meta.paragraph.markdown
+L math should get its own line like so:
+T 37 text.html.markdown meta.paragraph.markdown
+L 
+L $$I = \int \rho R^{2} dV$$
+T 26 text.html.markdown meta.paragraph.markdown
+L 
+L And note that you can backslash-escape any punctuation characters
+T 65 text.html.markdown meta.paragraph.markdown
+L which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
+T 47 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown meta.paragraph.markdown constant.character.escape.markdown
+T 52 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown meta.paragraph.markdown constant.character.escape.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 58 text.html.markdown meta.paragraph.markdown constant.character.escape.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+T 63 text.html.markdown meta.paragraph.markdown constant.character.escape.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L | Syntax | Description |
+T 1 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 2 text.html.markdown markup.table.markdown
+T 8 text.html.markdown markup.table.markdown
+T 9 text.html.markdown markup.table.markdown
+T 10 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 11 text.html.markdown markup.table.markdown
+T 22 text.html.markdown markup.table.markdown
+T 23 text.html.markdown markup.table.markdown
+T 24 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+L | ----------- | ----------- |
+T 1 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 2 text.html.markdown markup.table.markdown
+T 13 text.html.markdown markup.table.markdown punctuation.separator.table.markdown
+T 14 text.html.markdown markup.table.markdown
+T 15 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 16 text.html.markdown markup.table.markdown
+T 27 text.html.markdown markup.table.markdown punctuation.separator.table.markdown
+T 28 text.html.markdown markup.table.markdown
+T 29 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+L | Header | Title |
+T 1 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 2 text.html.markdown markup.table.markdown
+T 8 text.html.markdown markup.table.markdown
+T 9 text.html.markdown markup.table.markdown
+T 10 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 11 text.html.markdown markup.table.markdown
+T 16 text.html.markdown markup.table.markdown
+T 17 text.html.markdown markup.table.markdown
+T 18 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+L | Paragraph | Text |
+T 1 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 2 text.html.markdown markup.table.markdown
+T 11 text.html.markdown markup.table.markdown
+T 12 text.html.markdown markup.table.markdown
+T 13 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+T 14 text.html.markdown markup.table.markdown
+T 18 text.html.markdown markup.table.markdown
+T 19 text.html.markdown markup.table.markdown
+T 20 text.html.markdown markup.table.markdown punctuation.definition.table.markdown
+L 
+L - [x] Write the press release
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 4 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 5 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - [ ] Update the website
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 24 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - [ ] Contact the media
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 23 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L <!--- From http://www.unexpected-vortices.com/sw/rippledoc/quick-markdown-example.html -->
+T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 87 text.html.markdown comment.block.html
+T 90 text.html.markdown comment.block.html punctuation.definition.comment.html
+L 

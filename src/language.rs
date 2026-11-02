@@ -6,17 +6,21 @@
 pub enum Language {
     /// Rust, with the scopes of Shiki's `rust` grammar.
     Rust,
+    /// Markdown, with the scopes of Shiki's `markdown` grammar. A fence of
+    /// another supported language is lexed as that language.
+    Markdown,
 }
 
 impl Language {
     /// Every supported language.
-    pub const ALL: &[Language] = &[Language::Rust];
+    pub const ALL: &[Language] = &[Language::Rust, Language::Markdown];
 
     /// Shiki's id for the language, such as `"rust"`.
     #[must_use]
     pub fn id(self) -> &'static str {
         match self {
             Language::Rust => "rust",
+            Language::Markdown => "markdown",
         }
     }
 
@@ -27,6 +31,7 @@ impl Language {
     /// use nishiki::Language;
     ///
     /// assert_eq!(Language::from_name("RS"), Some(Language::Rust));
+    /// assert_eq!(Language::from_name("MD"), Some(Language::Markdown));
     /// assert_eq!(Language::from_name("cobol"), None);
     /// ```
     #[must_use]
@@ -43,6 +48,7 @@ impl Language {
     fn names(self) -> &'static [&'static str] {
         match self {
             Language::Rust => &["rust", "rs"],
+            Language::Markdown => &["markdown", "md"],
         }
     }
 }
