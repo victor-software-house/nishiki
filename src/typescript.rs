@@ -29,6 +29,7 @@
     reason = "a scanner names positions by role: `p` where a rule starts, `e` where it ends, `j` and `k` for the cursor"
 )]
 
+mod bytes;
 mod calls;
 mod classes;
 mod control;

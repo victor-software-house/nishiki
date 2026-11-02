@@ -1,6 +1,10 @@
 //! Expressions: operators, literals, names, calls, arrow functions and
 //! object literals.
 
+use super::bytes::{
+    ANY, ARROW_START, BLANK, Bytes, CALL_START, COMMENT_START, DIGIT, LITERAL_START, NAME_START,
+    OPERATOR_START, STRING_START,
+};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -15,23 +19,79 @@ impl Lexer<'_> {
     }
 
     pub(crate) fn expression_without_identifiers(&mut self, p: usize) -> Option<usize> {
-        self.string(p)
-            .or_else(|| self.regex(p))
-            .or_else(|| self.comment(p))
-            .or_else(|| self.function_expression(p))
-            .or_else(|| self.class_expression(p))
-            .or_else(|| self.arrow_function(p))
-            .or_else(|| self.paren_expression_possibly_arrow(p))
-            .or_else(|| self.cast(p))
-            .or_else(|| self.ternary_expression(p))
-            .or_else(|| self.new_expr(p))
-            .or_else(|| self.instanceof_expr(p))
-            .or_else(|| self.object_literal(p))
-            .or_else(|| self.expression_operators(p))
-            .or_else(|| self.function_call(p))
-            .or_else(|| self.literal(p))
-            .or_else(|| self.support_objects(p))
-            .or_else(|| self.paren_expression(p))
+        self.only("e.string", STRING_START, p, Self::string)
+            .or_else(|| self.only("e.regex", BLANK.with(b'/'), p, Self::regex))
+            .or_else(|| self.only("e.comment", COMMENT_START, p, Self::comment))
+            .or_else(|| {
+                self.only(
+                    "e.function_expression",
+                    Bytes::of(b"af"),
+                    p,
+                    Self::function_expression,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "e.class_expression",
+                    Bytes::of(b"ac"),
+                    p,
+                    Self::class_expression,
+                )
+            })
+            .or_else(|| self.only("e.arrow_function", ARROW_START, p, Self::arrow_function))
+            .or_else(|| {
+                self.only(
+                    "e.paren_expression_possibly_arrow",
+                    ANY,
+                    p,
+                    Self::paren_expression_possibly_arrow,
+                )
+            })
+            .or_else(|| self.only("e.cast", BLANK.with(b'<'), p, Self::cast))
+            .or_else(|| {
+                self.only(
+                    "e.ternary_expression",
+                    Bytes::of(b"?"),
+                    p,
+                    Self::ternary_expression,
+                )
+            })
+            .or_else(|| self.only("e.new_expr", Bytes::of(b"n"), p, Self::new_expr))
+            .or_else(|| {
+                self.only(
+                    "e.instanceof_expr",
+                    Bytes::of(b"i"),
+                    p,
+                    Self::instanceof_expr,
+                )
+            })
+            .or_else(|| self.only("e.object_literal", Bytes::of(b"{"), p, Self::object_literal))
+            .or_else(|| {
+                self.only(
+                    "e.expression_operators",
+                    OPERATOR_START,
+                    p,
+                    Self::expression_operators,
+                )
+            })
+            .or_else(|| self.only("e.function_call", CALL_START, p, Self::function_call))
+            .or_else(|| self.only("e.literal", LITERAL_START, p, Self::literal))
+            .or_else(|| {
+                self.only(
+                    "e.support_objects",
+                    Bytes::of(b"aPinem.?"),
+                    p,
+                    Self::support_objects,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "e.paren_expression",
+                    Bytes::of(b"("),
+                    p,
+                    Self::paren_expression,
+                )
+            })
     }
 
     pub(crate) fn expression_punctuation(&mut self, p: usize) -> Option<usize> {
@@ -271,9 +331,9 @@ impl Lexer<'_> {
     // Literals.
 
     pub(crate) fn literal(&mut self, p: usize) -> Option<usize> {
-        self.numeric_literal(p)
-            .or_else(|| self.keyword_literal(p))
-            .or_else(|| self.array_literal(p))
+        self.only("l.number", DIGIT.with(b'.'), p, Self::numeric_literal)
+            .or_else(|| self.only("l.keyword", Bytes::of(b"tfnuNIs"), p, Self::keyword_literal))
+            .or_else(|| self.only("l.array", BLANK.with(b'['), p, Self::array_literal))
     }
 
     fn keyword_literal(&mut self, p: usize) -> Option<usize> {
@@ -455,10 +515,22 @@ impl Lexer<'_> {
     // Names.
 
     pub(crate) fn identifiers(&mut self, p: usize) -> Option<usize> {
-        self.object_identifiers(p)
-            .or_else(|| self.assigned_function_name(p))
-            .or_else(|| self.property_name(p))
-            .or_else(|| self.variable_name(p))
+        self.only(
+            "i.object",
+            NAME_START.or(Bytes::of(b".?")),
+            p,
+            Self::object_identifiers,
+        )
+        .or_else(|| {
+            self.only(
+                "i.assigned_function",
+                NAME_START.or(Bytes::of(b".?")),
+                p,
+                Self::assigned_function_name,
+            )
+        })
+        .or_else(|| self.only("i.property", Bytes::of(b".?"), p, Self::property_name))
+        .or_else(|| self.only("i.variable", NAME_START, p, Self::variable_name))
     }
 
     /// The names that start a member chain.

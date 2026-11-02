@@ -3,6 +3,7 @@
 
 use std::cell::Cell;
 
+use super::bytes::Bytes;
 use super::kind::Kind;
 use super::scope::S;
 use crate::arena::{Arena, Frame};
@@ -264,6 +265,33 @@ impl<'a> Lexer<'a> {
             return false;
         };
         is_alpha_char(first) && !self.alnum_before(p - first.len_utf8())
+    }
+
+    /// Runs `rule` at `p` when the byte there is in `starts`, the bytes the
+    /// rule can match at; a rule that cannot start there is not called.
+    ///
+    /// A debug build calls the rule anyway and fails when it matches at a byte
+    /// outside its set, so a set that is too small is found by the tests.
+    pub(crate) fn only(
+        &mut self,
+        name: &'static str,
+        starts: Bytes,
+        p: usize,
+        rule: impl FnOnce(&mut Self, usize) -> Option<usize>,
+    ) -> Option<usize> {
+        let byte = self.b(p);
+        if cfg!(debug_assertions) {
+            let result = rule(self, p);
+            debug_assert!(
+                result.is_none() || starts.has(byte),
+                "rule {name} matched at byte {byte:#04x}, outside its start set"
+            );
+            result
+        } else if starts.has(byte) {
+            rule(self, p)
+        } else {
+            None
+        }
     }
 
     // Bytes and characters.

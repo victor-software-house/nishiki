@@ -1,5 +1,6 @@
 //! Statements and declarations.
 
+use super::bytes::{ANY, BLANK, Bytes, COMMENT_START, LOWER, NAME_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -22,32 +23,83 @@ pub(crate) enum VarKind {
 
 impl Lexer<'_> {
     pub(crate) fn statements(&mut self, p: usize) -> Option<usize> {
-        self.declaration(p)
-            .or_else(|| self.control_statement(p))
-            .or_else(|| self.after_operator_block_as_object_literal(p))
-            .or_else(|| self.decl_block(p))
-            .or_else(|| self.label(p))
-            .or_else(|| self.expression(p))
-            .or_else(|| self.punctuation_semicolon(p))
-            .or_else(|| self.string(p))
-            .or_else(|| self.comment(p))
+        self.only("s.declaration", LOWER.with(b'@'), p, Self::declaration)
+            .or_else(|| {
+                self.only(
+                    "s.control",
+                    Bytes::of(b"bcdefgiprstw"),
+                    p,
+                    Self::control_statement,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "s.opblock",
+                    BLANK.with(b'{'),
+                    p,
+                    Self::after_operator_block_as_object_literal,
+                )
+            })
+            .or_else(|| self.only("s.block", Bytes::of(b"{"), p, Self::decl_block))
+            .or_else(|| self.only("s.label", NAME_START, p, Self::label))
+            .or_else(|| self.only("s.expression", ANY, p, Self::expression))
+            .or_else(|| {
+                self.only(
+                    "s.semicolon",
+                    Bytes::of(b";"),
+                    p,
+                    Self::punctuation_semicolon,
+                )
+            })
+            .or_else(|| self.only("s.string", STRING_START, p, Self::string))
+            .or_else(|| self.only("s.comment", COMMENT_START, p, Self::comment))
     }
 
     pub(crate) fn declaration(&mut self, p: usize) -> Option<usize> {
-        self.decorator(p)
-            .or_else(|| self.var_expr(p))
-            .or_else(|| self.function_declaration(p))
-            .or_else(|| self.class_declaration(p))
-            .or_else(|| self.interface_declaration(p))
-            .or_else(|| self.enum_declaration(p))
-            .or_else(|| self.namespace_declaration(p))
-            .or_else(|| self.type_alias_declaration(p))
-            .or_else(|| self.import_equals_declaration(p))
-            .or_else(|| self.import_declaration(p))
-            .or_else(|| self.export_declaration(p))
+        self.only("d.decorator", Bytes::of(b"@"), p, Self::decorator)
+            .or_else(|| self.only("d.var", Bytes::of(b"vlcuaed"), p, Self::var_expr))
             .or_else(|| {
-                let e = self.kw_of(p, &["declare", "export"])?;
-                self.tok(p, e, S::StorageModifier)
+                self.only(
+                    "d.function",
+                    Bytes::of(b"afed"),
+                    p,
+                    Self::function_declaration,
+                )
+            })
+            .or_else(|| self.only("d.class", Bytes::of(b"aced"), p, Self::class_declaration))
+            .or_else(|| {
+                self.only(
+                    "d.interface",
+                    Bytes::of(b"aied"),
+                    p,
+                    Self::interface_declaration,
+                )
+            })
+            .or_else(|| self.only("d.enum", Bytes::of(b"ced"), p, Self::enum_declaration))
+            .or_else(|| {
+                self.only(
+                    "d.namespace",
+                    Bytes::of(b"nmed"),
+                    p,
+                    Self::namespace_declaration,
+                )
+            })
+            .or_else(|| self.only("d.type", Bytes::of(b"ted"), p, Self::type_alias_declaration))
+            .or_else(|| {
+                self.only(
+                    "d.importeq",
+                    Bytes::of(b"ied"),
+                    p,
+                    Self::import_equals_declaration,
+                )
+            })
+            .or_else(|| self.only("d.import", Bytes::of(b"ied"), p, Self::import_declaration))
+            .or_else(|| self.only("d.export", Bytes::of(b"e"), p, Self::export_declaration))
+            .or_else(|| {
+                self.only("d.modifier", Bytes::of(b"de"), p, |s, p| {
+                    let e = s.kw_of(p, &["declare", "export"])?;
+                    s.tok(p, e, S::StorageModifier)
+                })
             })
     }
 

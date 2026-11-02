@@ -295,3 +295,133 @@ fn doc_comment_optional_parameter_needs_its_closing_bracket() {
         "without a `]` the bracket is plain text"
     );
 }
+
+/// Lines over every printable ASCII byte and the grammar's keywords, so that
+/// each gated rule meets every byte in many contexts. A debug build fails when
+/// a rule matches at a byte outside the set it is gated on.
+#[test]
+fn gated_rules_match_only_inside_their_start_sets() {
+    const WORDS: &[&str] = &[
+        "const",
+        "let",
+        "var",
+        "function",
+        "class",
+        "interface",
+        "enum",
+        "type",
+        "import",
+        "export",
+        "declare",
+        "namespace",
+        "module",
+        "async",
+        "await",
+        "yield",
+        "new",
+        "typeof",
+        "as",
+        "satisfies",
+        "extends",
+        "implements",
+        "if",
+        "else",
+        "for",
+        "while",
+        "switch",
+        "case",
+        "return",
+        "this",
+        "super",
+        "static",
+        "public",
+        "private",
+        "readonly",
+        "abstract",
+        "keyof",
+        "infer",
+        "in",
+        "of",
+        "void",
+        "null",
+        "true",
+        "undefined",
+        "=>",
+        "...",
+        "?.",
+        "??",
+        "${",
+        "/**",
+        "*/",
+        "/*",
+        "//",
+        "@param",
+        "{@link",
+        "<T>",
+        "<",
+        ">",
+        "(",
+        ")",
+        "{",
+        "}",
+        "[",
+        "]",
+        "\"",
+        "'",
+        "`",
+        "/",
+        "\\",
+        "é",
+        "日",
+        "$",
+        "_",
+        "0x",
+        "1e",
+        ".",
+        ",",
+        ";",
+        ":",
+        "=",
+        "!",
+        "?",
+        "|",
+        "&",
+        "+",
+        "-",
+        "*",
+        "%",
+        "~",
+        "^",
+        "#",
+        "@",
+        " ",
+        " ",
+        "  ",
+        "\t",
+    ];
+    let mut seed = 0x9e37_79b9_7f4a_7c15_u64;
+    let mut next = move || {
+        seed ^= seed << 13;
+        seed ^= seed >> 7;
+        seed ^= seed << 17;
+        seed
+    };
+    for _ in 0..400 {
+        let mut h = highlighter();
+        let mut state = State::default();
+        let mut out = Vec::new();
+        for _ in 0..40 {
+            let mut line = String::new();
+            for _ in 0..next() % 30 {
+                if next() % 5 == 0 {
+                    line.push(char::from(32 + u8::try_from(next() % 95).unwrap_or(0)));
+                } else {
+                    let word = usize::try_from(next()).unwrap_or(0) % WORDS.len();
+                    line.push_str(WORDS[word]);
+                }
+            }
+            out.clear();
+            let _ = h.line(&line, &mut state, &mut out);
+        }
+    }
+}

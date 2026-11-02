@@ -27,13 +27,11 @@ impl Lexer<'_> {
     // Calls.
 
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
-        if self.call_ahead(p) {
-            return self.open0(Kind::CallOuter, p);
+        if self.call_kind(p)? {
+            self.open0(Kind::CallOuter, p)
+        } else {
+            self.open0(Kind::Call2Outer, p)
         }
-        if self.call_open_ahead(p) {
-            return self.open0(Kind::Call2Outer, p);
-        }
-        None
     }
 
     /// The rules inside a call: its target, comments, optional-chaining marks,
@@ -212,6 +210,14 @@ impl Lexer<'_> {
     /// which may be arrow parameters.
     pub(crate) fn paren_expression_possibly_arrow(&mut self, p: usize) -> Option<usize> {
         if self.full() {
+            return None;
+        }
+        // The byte before `p` tells which of the rule's lookbehinds can hold:
+        // `(`, `,` and `=`, the `>` of `=>`, the `n` of `return`, and the `)`
+        // of a return type. Any other byte, anywhere but the line's start,
+        // rules them all out.
+        let before = p.checked_sub(1).and_then(|i| self.s.get(i)).copied();
+        if p != 0 && !matches!(before, Some(b'(' | b',' | b'=' | b'>' | b'n' | b')')) {
             return None;
         }
         let prev = self.prev_char(p);

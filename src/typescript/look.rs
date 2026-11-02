@@ -669,9 +669,11 @@ impl Lexer<'_> {
     /// The call lookahead: a name chain, a `.member` or the end of a
     /// parenthesis, then what must follow a call target.
     pub(crate) fn call_ahead(&self, i: usize) -> bool {
-        self.chain_ends(i)
-            .longest_first()
-            .any(|e| self.call_rest(e))
+        self.call_ahead_in(i, &self.chain_ends(i))
+    }
+
+    fn call_ahead_in(&self, i: usize, chain: &Ends) -> bool {
+        chain.longest_first().any(|e| self.call_rest(e))
             || self.dot_member(i).is_some_and(|e| self.call_rest(e))
             || (self.prev_char(i) == Some(')') && self.call_rest(i))
     }
@@ -684,14 +686,32 @@ impl Lexer<'_> {
     /// The same lookahead with type arguments that the line leaves open:
     /// `<` then `(`, `[` or `{` at the end of the line.
     pub(crate) fn call_open_ahead(&self, i: usize) -> bool {
+        self.call_open_ahead_in(i, &self.chain_ends(i))
+    }
+
+    fn call_open_ahead_in(&self, i: usize, chain: &Ends) -> bool {
         let open_at = |e: usize| {
             self.b(e) == b'<' && {
                 let j = self.ws(e + 1);
                 matches!(self.b(j), b'(' | b'[' | b'{') && self.eol(self.ws(j + 1))
             }
         };
-        self.chain_ends(i).longest_first().any(open_at)
+        chain.longest_first().any(open_at)
             || self.dot_member(i).is_some_and(open_at)
             || (self.prev_char(i) == Some(')') && open_at(i))
+    }
+
+    /// Which call lookahead holds at `i`, if either: `Some(true)` for a call,
+    /// `Some(false)` for one that the line leaves open. The name chain, which
+    /// both read, is scanned once.
+    pub(crate) fn call_kind(&self, i: usize) -> Option<bool> {
+        let chain = self.chain_ends(i);
+        if self.call_ahead_in(i, &chain) {
+            Some(true)
+        } else if self.call_open_ahead_in(i, &chain) {
+            Some(false)
+        } else {
+            None
+        }
     }
 }
