@@ -302,6 +302,7 @@ fn a_directive_is_one_only_at_the_start_of_the_line() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_in_a_list_item_does_not_start_its_directives() {
     let rows = lex_as(
         Language::Markdown,
@@ -321,6 +322,7 @@ fn a_fence_in_a_list_item_does_not_start_its_directives() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_line_of_containers_alone_still_ends_a_macro() {
     let rows = lex_as(
         Language::Markdown,

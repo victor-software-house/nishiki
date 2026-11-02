@@ -374,32 +374,59 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
     }
 }
 
+/// The scope each embedded language's fence adds to its text. Shiki's Markdown
+/// grammar has no rule that embeds TOML or GraphQL, so they have none, and
+/// neither has a language whose feature is off.
+const EMBEDDED: &[(Language, S)] = &[
+    #[cfg(feature = "lang-rust")]
+    (Language::Rust, S::EmbeddedRust),
+    #[cfg(feature = "lang-typescript")]
+    (Language::TypeScript, S::EmbeddedTypeScript),
+    #[cfg(feature = "lang-javascript")]
+    (Language::JavaScript, S::EmbeddedJavascript),
+    #[cfg(feature = "lang-jsx")]
+    (Language::Jsx, S::EmbeddedJavascript),
+    #[cfg(feature = "lang-tsx")]
+    (Language::Tsx, S::EmbeddedTypescriptreact),
+    (Language::Markdown, S::EmbeddedMarkdown),
+    #[cfg(feature = "lang-shell")]
+    (Language::Shell, S::EmbeddedShell),
+    #[cfg(feature = "lang-json")]
+    (Language::Json, S::EmbeddedJson),
+    #[cfg(feature = "lang-json")]
+    (Language::Jsonc, S::EmbeddedJsonc),
+    #[cfg(feature = "lang-json")]
+    (Language::Jsonl, S::EmbeddedJsonl),
+    #[cfg(feature = "lang-python")]
+    (Language::Python, S::EmbeddedPython),
+    #[cfg(feature = "lang-yaml")]
+    (Language::Yaml, S::EmbeddedYaml),
+    #[cfg(feature = "lang-make")]
+    (Language::Make, S::EmbeddedMake),
+    #[cfg(feature = "lang-diff")]
+    (Language::Diff, S::EmbeddedDiff),
+    #[cfg(feature = "lang-dockerfile")]
+    (Language::Dockerfile, S::EmbeddedDockerfile),
+    #[cfg(feature = "lang-java")]
+    (Language::Java, S::EmbeddedJava),
+    #[cfg(feature = "lang-c")]
+    (Language::C, S::EmbeddedC),
+    #[cfg(feature = "lang-sql")]
+    (Language::Sql, S::EmbeddedSql),
+    #[cfg(feature = "lang-ini")]
+    (Language::Ini, S::EmbeddedIni),
+    #[cfg(feature = "lang-css")]
+    (Language::Css, S::EmbeddedCss),
+];
+
 /// The scope a container adds to the text between its opening and closing.
 pub(crate) fn content_name(kind: Kind) -> Option<S> {
     match kind {
-        Kind::Body(Language::Rust) => Some(S::EmbeddedRust),
-        Kind::Body(Language::TypeScript) => Some(S::EmbeddedTypeScript),
-        Kind::Body(Language::JavaScript | Language::Jsx) => Some(S::EmbeddedJavascript),
-        Kind::Body(Language::Tsx) => Some(S::EmbeddedTypescriptreact),
-        Kind::Body(Language::Markdown) => Some(S::EmbeddedMarkdown),
-        Kind::Body(Language::Shell) => Some(S::EmbeddedShell),
-        Kind::Body(Language::Json) => Some(S::EmbeddedJson),
-        Kind::Body(Language::Jsonc) => Some(S::EmbeddedJsonc),
-        Kind::Body(Language::Jsonl) => Some(S::EmbeddedJsonl),
-        Kind::Body(Language::Python) => Some(S::EmbeddedPython),
-        Kind::Body(Language::Yaml) => Some(S::EmbeddedYaml),
-        Kind::Body(Language::Make) => Some(S::EmbeddedMake),
-        Kind::Body(Language::Diff) => Some(S::EmbeddedDiff),
-        Kind::Body(Language::Dockerfile) => Some(S::EmbeddedDockerfile),
-        Kind::Body(Language::Java) => Some(S::EmbeddedJava),
-        Kind::Body(Language::C) => Some(S::EmbeddedC),
-        Kind::Body(Language::Sql) => Some(S::EmbeddedSql),
-        Kind::Body(Language::Ini) => Some(S::EmbeddedIni),
-        Kind::Body(Language::Css) => Some(S::EmbeddedCss),
+        Kind::Body(language) => EMBEDDED
+            .iter()
+            .find_map(|&(embedded, scope)| (embedded == language).then_some(scope)),
         Kind::FrontMatterBody => Some(S::EmbeddedFrontMatter),
-        // Shiki's Markdown grammar has no rule that embeds TOML or GraphQL.
-        Kind::Body(Language::Toml | Language::GraphQl)
-        | Kind::Base
+        Kind::Base
         | Kind::Quote
         | Kind::ListBullet
         | Kind::ListOrdered

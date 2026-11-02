@@ -191,6 +191,7 @@ fn only_a_single_quoted_string_has_escapes() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_inside_a_quote_loses_its_line_start_anchors() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     let mut state = State::default();

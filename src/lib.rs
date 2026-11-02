@@ -52,33 +52,59 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod arena;
+#[cfg(feature = "lang-c")]
 mod c;
+#[cfg(feature = "_classes")]
 mod classes;
+#[cfg(feature = "lang-css")]
 mod css;
+#[cfg(feature = "lang-diff")]
 mod diff;
+#[cfg(feature = "lang-dockerfile")]
 mod dockerfile;
+#[cfg(feature = "lang-graphql")]
 mod graphql;
 mod highlighter;
+#[cfg(feature = "lang-ini")]
 mod ini;
+#[cfg(feature = "lang-java")]
 mod java;
+#[cfg(feature = "lang-json")]
 mod json;
 mod language;
 mod limits;
+#[cfg(feature = "lang-make")]
 mod make;
+#[cfg(feature = "lang-markdown")]
 mod markdown;
+#[cfg(feature = "lang-python")]
 mod python;
+#[cfg(feature = "_rule-engine")]
 mod rules;
+#[cfg(feature = "lang-rust")]
 mod rust;
 mod scope;
 mod scratch;
+#[cfg(feature = "lang-shell")]
 mod shell;
+#[cfg(feature = "_space")]
 mod space;
+#[cfg(feature = "lang-sql")]
 mod sql;
 mod tag;
 mod theme;
+#[cfg(feature = "lang-toml")]
 mod toml;
+#[cfg(any(
+    feature = "lang-typescript",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx"
+))]
 mod typescript;
+#[cfg(feature = "_utf8")]
 mod utf8;
+#[cfg(feature = "lang-yaml")]
 mod yaml;
 
 pub use arena::Scopes;

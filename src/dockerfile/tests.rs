@@ -167,6 +167,7 @@ fn the_folds_of_case_insensitive_matching_apply() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_inside_a_quote_loses_its_line_start_anchors() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     let mut state = State::default();

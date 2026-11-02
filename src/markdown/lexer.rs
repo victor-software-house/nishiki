@@ -737,7 +737,10 @@ impl<'a> Lexer<'a> {
                 Kind::Body(lang) if lang != Language::Markdown => {
                     lang.start_embedded(self.arena, content)
                 }
+                #[cfg(feature = "lang-yaml")]
                 Kind::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
+                #[cfg(not(feature = "lang-yaml"))]
+                Kind::FrontMatterBody => 0,
                 Kind::FrontMatter => {
                     let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
                     u32::try_from(dashes).unwrap_or(u32::MAX)
@@ -967,6 +970,7 @@ fn embedded_language(rule: Rule) -> Option<Language> {
     match rule {
         Rule::Open(Kind::Body(Language::Markdown)) => None,
         Rule::Open(Kind::Body(lang)) => Some(lang),
+        #[cfg(feature = "lang-yaml")]
         Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
         Rule::Open(_) | Rule::Capture(_) => None,
     }

@@ -5,7 +5,7 @@
 //! Lexers are written in parallel, so the tags are allocated here and nowhere
 //! else; a lexer module takes its constant and never a "next free byte".
 //! A lexer that needs more than the low byte for its own bits (a flag next to
-//! the kind) claims a wider range by giving its [`Tag`] a mask that covers
+//! the kind) claims a wider range by giving its row a `mask` that covers
 //! fewer bits of the high byte, and the check below counts the whole range.
 //! Bytes `0x10` and up belong to the shared rule engine.
 
@@ -15,75 +15,92 @@ struct Tag {
     mask: u16,
 }
 
-impl Tag {
-    /// A whole high byte.
-    const fn byte(value: u16) -> Self {
-        Self {
-            value,
-            mask: 0xff00,
-        }
-    }
+/// Claims each lexer's range, one row per language: the constant, its value
+/// and, for a lexer that claims a wider range for flag bits, the mask that
+/// covers it. A language's row is on only when its feature is, so the overlap
+/// check below counts the languages that are built.
+macro_rules! tags {
+    (@mask) => { 0xff00 };
+    (@mask $mask:literal) => { $mask };
+    ($(
+        $(#[doc = $doc:literal])*
+        $(#[cfg($($cfg:tt)*)])*
+        $name:ident = $value:literal $(mask $mask:literal)?,
+    )*) => {
+        $(
+            $(#[doc = $doc])*
+            $(#[cfg($($cfg)*)])*
+            pub(crate) const $name: u16 = $value;
+        )*
+
+        /// Every claimed range.
+        const CLAIMED: &[Tag] = &[
+            $(
+                $(#[cfg($($cfg)*)])*
+                Tag { value: $name, mask: tags!(@mask $($mask)?) },
+            )*
+        ];
+    };
 }
 
-/// Rust.
-pub(crate) const RUST: u16 = 0x0100;
-/// Markdown.
-pub(crate) const MARKDOWN: u16 = 0x0200;
-/// TypeScript, JavaScript, JSX and TSX.
-pub(crate) const TYPESCRIPT: u16 = 0x0300;
-/// Shell.
-pub(crate) const SHELL: u16 = 0x0400;
-/// JSON.
-pub(crate) const JSON: u16 = 0x0500;
-/// Python.
-pub(crate) const PYTHON: u16 = 0x0600;
-/// YAML.
-pub(crate) const YAML: u16 = 0x0800;
-/// TOML.
-pub(crate) const TOML: u16 = 0x0900;
-/// Diff.
-pub(crate) const DIFF: u16 = 0x0e00;
-
-/// Java.
-pub(crate) const JAVA: u16 = 0x0a00;
-/// Makefiles.
-pub(crate) const MAKE: u16 = 0x0b00;
-/// Dockerfiles.
-pub(crate) const DOCKERFILE: u16 = 0x2000;
-/// C, with the next byte for its end-of-line flag.
-pub(crate) const C: u16 = 0x0c00;
-/// SQL.
-pub(crate) const SQL: u16 = 0x0f00;
-/// INI files.
-pub(crate) const INI: u16 = 0x2100;
-/// GraphQL.
-pub(crate) const GRAPHQL: u16 = 0x2200;
-/// CSS.
-pub(crate) const CSS: u16 = 0x2600;
-
-/// Every claimed range. A new lexer adds its constant and its entry here.
-const CLAIMED: &[Tag] = &[
-    Tag::byte(RUST),
-    Tag::byte(MARKDOWN),
-    Tag::byte(TYPESCRIPT),
-    Tag::byte(SHELL),
-    Tag::byte(JSON),
-    Tag::byte(PYTHON),
-    Tag::byte(YAML),
-    Tag::byte(TOML),
-    Tag::byte(DIFF),
-    Tag::byte(JAVA),
-    Tag::byte(MAKE),
-    Tag::byte(DOCKERFILE),
-    Tag {
-        value: C,
-        mask: 0xfe00,
-    },
-    Tag::byte(SQL),
-    Tag::byte(INI),
-    Tag::byte(GRAPHQL),
-    Tag::byte(CSS),
-];
+tags! {
+    /// Rust.
+    #[cfg(feature = "lang-rust")]
+    RUST = 0x0100,
+    /// Markdown.
+    #[cfg(feature = "lang-markdown")]
+    MARKDOWN = 0x0200,
+    /// TypeScript, JavaScript, JSX and TSX.
+    #[cfg(any(
+    feature = "lang-typescript",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx"
+))]
+    TYPESCRIPT = 0x0300,
+    /// Shell.
+    #[cfg(feature = "lang-shell")]
+    SHELL = 0x0400,
+    /// JSON.
+    #[cfg(feature = "lang-json")]
+    JSON = 0x0500,
+    /// Python.
+    #[cfg(feature = "lang-python")]
+    PYTHON = 0x0600,
+    /// YAML.
+    #[cfg(feature = "lang-yaml")]
+    YAML = 0x0800,
+    /// TOML.
+    #[cfg(feature = "lang-toml")]
+    TOML = 0x0900,
+    /// Diff.
+    #[cfg(feature = "lang-diff")]
+    DIFF = 0x0e00,
+    /// Java.
+    #[cfg(feature = "lang-java")]
+    JAVA = 0x0a00,
+    /// Makefiles.
+    #[cfg(feature = "lang-make")]
+    MAKE = 0x0b00,
+    /// Dockerfiles.
+    #[cfg(feature = "lang-dockerfile")]
+    DOCKERFILE = 0x2000,
+    /// C, with the next byte for its end-of-line flag.
+    #[cfg(feature = "lang-c")]
+    C = 0x0c00 mask 0xfe00,
+    /// SQL.
+    #[cfg(feature = "lang-sql")]
+    SQL = 0x0f00,
+    /// INI files.
+    #[cfg(feature = "lang-ini")]
+    INI = 0x2100,
+    /// GraphQL.
+    #[cfg(feature = "lang-graphql")]
+    GRAPHQL = 0x2200,
+    /// CSS.
+    #[cfg(feature = "lang-css")]
+    CSS = 0x2600,
+}
 
 /// Two ranges overlap when some code lies in both: when their values agree on
 /// every bit that both masks look at.

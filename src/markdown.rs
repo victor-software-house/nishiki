@@ -131,8 +131,12 @@ pub(crate) fn line(
     lexer.finish()
 }
 
-#[cfg(test)]
+/// The tests that name the languages Markdown embeds, so they need them all.
+#[cfg(all(test, feature = "all"))]
 mod tests;
+
+#[cfg(all(test, not(all(feature = "lang-rust", feature = "lang-yaml"))))]
+mod subset_tests;
 
 /// Lexes `line` from `state` under the crate's one lexer contract
 /// ([`Language::lex`](crate::Language)), with token ends counted from the

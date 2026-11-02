@@ -26,7 +26,85 @@ all-features = true
 rustdoc-args = ["--cap-lints", "warn"]
 
 [features]
-# Theme::from_json, for theme files in Shiki's JSON format.
+# Every language is on by default; `default-features = false` and one or more
+# `lang-*` features, or a tier, build only what a caller highlights.
+default = ["all"]
+all = [
+  "lang-rust",
+  "lang-markdown",
+  "lang-typescript",
+  "lang-javascript",
+  "lang-jsx",
+  "lang-tsx",
+  "lang-shell",
+  "lang-json",
+  "lang-python",
+  "lang-yaml",
+  "lang-toml",
+  "lang-make",
+  "lang-diff",
+  "lang-dockerfile",
+  "lang-java",
+  "lang-c",
+  "lang-sql",
+  "lang-ini",
+  "lang-graphql",
+  "lang-css",
+]
+
+# Tiers, which overlap.
+config = [
+  "lang-json",
+  "lang-toml",
+  "lang-yaml",
+  "lang-ini",
+  "lang-diff",
+  "lang-dockerfile",
+  "lang-make",
+]
+web = [
+  "lang-typescript",
+  "lang-javascript",
+  "lang-jsx",
+  "lang-tsx",
+  "lang-css",
+  "lang-json",
+  "lang-graphql",
+]
+systems = ["lang-rust", "lang-c", "lang-shell", "lang-java"]
+docs = ["lang-markdown", "config"]
+
+# One feature per lexer module. A language that embeds another needs it.
+lang-rust = ["_space"]
+lang-markdown = []
+# One module lexes the four dialects, each a copy of the lexer.
+lang-typescript = []
+lang-javascript = []
+lang-jsx = []
+lang-tsx = []
+lang-shell = []
+lang-json = ["_classes", "_utf8"]
+lang-python = ["_rule-engine"]
+lang-yaml = ["_utf8", "_space"]
+lang-toml = ["_classes", "_utf8"]
+lang-make = ["_classes", "_utf8"]
+lang-diff = ["_classes", "_utf8"]
+lang-dockerfile = ["_classes", "_utf8"]
+lang-java = ["_rule-engine", "_classes"]
+lang-c = ["_classes", "_utf8"]
+lang-sql = ["_classes", "_utf8"]
+lang-ini = ["_classes", "_utf8"]
+lang-graphql = ["lang-javascript", "_classes", "_utf8"]
+lang-css = ["_rule-engine", "_classes"]
+
+# Shared code that only some languages use; not for callers.
+_classes = []
+_rule-engine = []
+_space = []
+_utf8 = []
+
+# Theme::from_json, for theme files in Shiki's JSON format. Not the JSON
+# language, which is `lang-json`.
 json = ["dep:serde_json"]
 
 [dependencies]
@@ -36,6 +114,8 @@ serde_json = { version = "1.0.154", optional = true }
 [[test]]
 name = "it"
 path = "tests/it/main.rs"
+# The tests name languages across the whole list, so they need all of it.
+required-features = ["all"]
 
 [dev-dependencies]
 indoc = "2.0.8"

@@ -48,7 +48,8 @@ A new language is wired in by appending:
 1. its row in `src/language.rs`;
 2. its scope table: one line in `src/scope.rs`;
 3. its frame tag in `src/tag.rs`;
-4. its fence names in `src/markdown/fence.rs`.
+4. its fence names in `src/markdown/fence.rs`;
+5. its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of the above (5.2).
 
 A language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API,
@@ -75,9 +76,9 @@ That is what lets an editor stop re-lexing as soon as a line's state matches the
 - Each language lists its scope names once, in Shiki's spelling,
   as an enum whose discriminant indexes a `NAMES` table.
 - `src/scope.rs` numbers every table in one space.
-  A table's slot is its line in `tables!`, and a scope number is the slot in the high 16 bits and the name's index in the low 16.
-  One table's length therefore never moves another table's numbers.
-- A compile-time check fails the build when a table outgrows its slot or the slots reach the run-time scopes.
+  A table's slot is the high byte of its language's frame tag, and a scope number is the slot in the high 16 bits and the name's index in the low 16.
+  One table's length therefore never moves another table's numbers, and no language needs a number of its own.
+- A compile-time check fails the build when a table outgrows its slot.
 - A language whose names are one list declares them with `scope_table!`, which generates the enum, `NAMES` and the conversion to a scope.
 - A name the grammar misspells keeps the grammar's spelling.
   It is written with one byte escape in the literal, so the stock spelling check passes.
@@ -236,8 +237,15 @@ A new file is a module there, not a new binary.
 
 ### 5.2 Languages are features
 
-- When the language list grows past what every user wants, each language becomes a cargo feature, as tree-shaking tiers.
-- `check:features` proves each advertised set builds alone.
+- Each lexer module is a `lang-*` feature, in the `all` default and in the tiers that fit it.
+  One module that lexes several languages (TypeScript's four dialects) gets a feature for each.
+- A language that embeds another lists it as a feature dependency.
+- Code that only some languages use sits behind a hidden feature they turn on (`_classes`, `_utf8`, `_space`, `_rule-engine`).
+- Wiring a language for features means a `cfg` on each of: its `mod` in `src/lib.rs`, its row in `src/language.rs`, its constant in `src/tag.rs`, its line in `src/scope.rs`, its fence names, and its `Scratch` field.
+- A fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
+- `check:features` builds each language, each tier and the empty set alone.
+  It does not deny warnings: a language built without the ones that embed it leaves some embedding code unused, which only `--all-features` must be free of.
+- Unit tests that name another language are gated on its feature.
 
 ### 5.3 What ships
 

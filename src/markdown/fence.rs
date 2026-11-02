@@ -20,27 +20,32 @@ struct Name {
 }
 
 const NAMES: &[Name] = &[
+    #[cfg(feature = "lang-rust")]
     Name {
         words: &["rust", "rs"],
         brace: Some("rust"),
         lang: Language::Rust,
     },
+    #[cfg(feature = "lang-typescript")]
     Name {
         words: &["typescript", "ts"],
         brace: None,
         lang: Language::TypeScript,
     },
     // The grammar sends `jsx` to the JavaScript grammar, not the JSX one.
+    #[cfg(feature = "lang-javascript")]
     Name {
         words: &["javascript", "jsx", "js", "es6", "mjs", "cjs", "dataviewjs"],
         brace: Some("js"),
         lang: Language::JavaScript,
     },
+    #[cfg(feature = "lang-tsx")]
     Name {
         words: &["tsx"],
         brace: None,
         lang: Language::Tsx,
     },
+    #[cfg(feature = "lang-markdown")]
     Name {
         words: &["markdown", "md"],
         brace: None,
@@ -48,6 +53,7 @@ const NAMES: &[Name] = &[
     },
     // The grammar's `.textmate_init` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
+    #[cfg(feature = "lang-shell")]
     Name {
         words: &[
             "shell",
@@ -64,6 +70,7 @@ const NAMES: &[Name] = &[
         brace: Some("bash"),
         lang: Language::Shell,
     },
+    #[cfg(feature = "lang-json")]
     Name {
         words: &[
             "json",
@@ -80,16 +87,19 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Json,
     },
+    #[cfg(feature = "lang-json")]
     Name {
         words: &["jsonc"],
         brace: None,
         lang: Language::Jsonc,
     },
+    #[cfg(feature = "lang-json")]
     Name {
         words: &["jsonl", "jsonlines"],
         brace: None,
         lang: Language::Jsonl,
     },
+    #[cfg(feature = "lang-python")]
     Name {
         words: &[
             "python",
@@ -109,41 +119,49 @@ const NAMES: &[Name] = &[
         brace: Some("python"),
         lang: Language::Python,
     },
+    #[cfg(feature = "lang-yaml")]
     Name {
         words: &["yaml", "yml"],
         brace: None,
         lang: Language::Yaml,
     },
+    #[cfg(feature = "lang-make")]
     Name {
         words: &["Makefile", "makefile", "GNUmakefile", "OCamlMakefile"],
         brace: None,
         lang: Language::Make,
     },
+    #[cfg(feature = "lang-diff")]
     Name {
         words: &["patch", "diff", "rej"],
         brace: None,
         lang: Language::Diff,
     },
+    #[cfg(feature = "lang-dockerfile")]
     Name {
         words: &["dockerfile"],
         brace: None,
         lang: Language::Dockerfile,
     },
+    #[cfg(feature = "lang-java")]
     Name {
         words: &["java"],
         brace: None,
         lang: Language::Java,
     },
+    #[cfg(feature = "lang-c")]
     Name {
         words: &["c", "h"],
         brace: None,
         lang: Language::C,
     },
+    #[cfg(feature = "lang-sql")]
     Name {
         words: &["sql", "ddl", "dml"],
         brace: None,
         lang: Language::Sql,
     },
+    #[cfg(feature = "lang-ini")]
     Name {
         words: &["ini", "conf"],
         brace: None,
@@ -151,6 +169,7 @@ const NAMES: &[Name] = &[
     },
     // The grammar's `css(?:|.erb)` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
+    #[cfg(feature = "lang-css")]
     Name {
         words: &["css", "css.erb"],
         brace: None,

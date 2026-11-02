@@ -297,6 +297,7 @@ fn the_keyword_that_a_grammar_bug_extends_needs_literal_backslashes() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_embeds_sql_without_its_source_scope() {
     for info in ["sql", "ddl", "dml", "SQL"] {
         let mut highlighter = Highlighter::new(Language::Markdown);

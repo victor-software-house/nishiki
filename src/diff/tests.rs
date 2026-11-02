@@ -275,6 +275,7 @@ fn a_comment_runs_to_the_end_of_the_line_and_the_next_line_starts_afresh() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_markdown_fence_embeds_diff_without_its_source_scope() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     let mut state = State::default();
@@ -296,6 +297,7 @@ fn a_markdown_fence_embeds_diff_without_its_source_scope() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_by_any_of_the_grammars_names_embeds_diff() {
     for info in ["diff", "patch", "rej", "DIFF"] {
         let mut highlighter = Highlighter::new(Language::Markdown);
@@ -314,6 +316,7 @@ fn a_fence_by_any_of_the_grammars_names_embeds_diff() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_inside_a_quote_gets_no_anchored_rule() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     let mut state = State::default();

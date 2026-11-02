@@ -106,30 +106,57 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Languages
 
-| Language | Variant | Names `Language::from_name` takes |
-|:--|:--|:--|
-| Rust | `Language::Rust` | `rust`, `rs` |
-| Markdown | `Language::Markdown` | `markdown`, `md` |
-| TypeScript | `Language::TypeScript` | `typescript`, `ts`, `cts`, `mts` |
-| JavaScript | `Language::JavaScript` | `javascript`, `js`, `cjs`, `mjs` |
-| JSX | `Language::Jsx` | `jsx` |
-| TSX | `Language::Tsx` | `tsx` |
-| Shell | `Language::Shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
-| JSON | `Language::Json` | `json` |
-| JSON with comments | `Language::Jsonc` | `jsonc` |
-| JSON Lines | `Language::Jsonl` | `jsonl` |
-| Python | `Language::Python` | `python`, `py` |
-| YAML | `Language::Yaml` | `yaml`, `yml` |
-| TOML | `Language::Toml` | `toml` |
-| Makefile | `Language::Make` | `make`, `makefile` |
-| Diff | `Language::Diff` | `diff` |
-| Dockerfile | `Language::Dockerfile` | `docker`, `dockerfile` |
-| Java | `Language::Java` | `java` |
-| C | `Language::C` | `c` |
-| SQL | `Language::Sql` | `sql` |
-| INI | `Language::Ini` | `ini`, `properties` |
-| GraphQL | `Language::GraphQl` | `graphql`, `gql` |
-| CSS | `Language::Css` | `css` |
+| Language | Variant | Feature | Names `Language::from_name` takes |
+|:--|:--|:--|:--|
+| Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
+| Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
+| TypeScript | `Language::TypeScript` | `lang-typescript` | `typescript`, `ts`, `cts`, `mts` |
+| JavaScript | `Language::JavaScript` | `lang-javascript` | `javascript`, `js`, `cjs`, `mjs` |
+| JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
+| TSX | `Language::Tsx` | `lang-tsx` | `tsx` |
+| Shell | `Language::Shell` | `lang-shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
+| JSON | `Language::Json` | `lang-json` | `json` |
+| JSON with comments | `Language::Jsonc` | `lang-json` | `jsonc` |
+| JSON Lines | `Language::Jsonl` | `lang-json` | `jsonl` |
+| Python | `Language::Python` | `lang-python` | `python`, `py` |
+| YAML | `Language::Yaml` | `lang-yaml` | `yaml`, `yml` |
+| TOML | `Language::Toml` | `lang-toml` | `toml` |
+| Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
+| Diff | `Language::Diff` | `lang-diff` | `diff` |
+| Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
+| Java | `Language::Java` | `lang-java` | `java` |
+| C | `Language::C` | `lang-c` | `c` |
+| SQL | `Language::Sql` | `lang-sql` | `sql` |
+| INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
+| GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
+| CSS | `Language::Css` | `lang-css` | `css` |
+
+### Features
+
+Every language is on by default.
+To build only some, turn off the default features and name what you highlight:
+
+```toml
+nishiki = { version = "0.1", default-features = false, features = ["lang-rust", "lang-markdown"] }
+```
+
+- Each language is a `lang-*` feature, named in the table above.
+  One module lexes TypeScript, JavaScript, JSX and TSX, so each of the four is its own feature and a build pays for the copies it turns on.
+- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`.
+- Tiers turn on several at once, and overlap:
+
+  | Feature | Languages |
+  |:--|:--|
+  | `all` (the default) | Every language |
+  | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
+  | `systems` | Rust, C, Shell, Java |
+  | `docs` | Markdown and `config` |
+
+- `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
+- `Language::ALL` and `Language::from_name` know only the languages that are built.
+  A Markdown fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
+- Nothing is downloaded at run time; every language you turn on is in the binary.
 
 ### Inside Markdown
 

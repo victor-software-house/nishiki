@@ -75,40 +75,57 @@ use crate::limits::{Limits, LineReport};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub(crate) enum Dialect {
     /// `typescript`: names end in `.ts`.
+    #[cfg(feature = "lang-typescript")]
     TypeScript,
     /// `javascript`: names end in `.js`.
+    #[cfg(feature = "lang-javascript")]
     JavaScript,
     /// `jsx`: names end in `.js.jsx`.
+    #[cfg(feature = "lang-jsx")]
     Jsx,
     /// `tsx`: names end in `.tsx`.
+    #[cfg(feature = "lang-tsx")]
     Tsx,
 }
 
 impl Dialect {
     /// The dialect at position `index` among the four.
+    ///
+    /// Evaluated at compile time for each `D` that [`line`] instantiates, so
+    /// the arm of a dialect whose feature is off is never reached, and
+    /// reaching it fails the build.
     pub(crate) const fn of(index: u8) -> Dialect {
         match index {
+            #[cfg(feature = "lang-typescript")]
             0 => Dialect::TypeScript,
+            #[cfg(feature = "lang-javascript")]
             1 => Dialect::JavaScript,
+            #[cfg(feature = "lang-jsx")]
             2 => Dialect::Jsx,
-            _ => Dialect::Tsx,
+            #[cfg(feature = "lang-tsx")]
+            3 => Dialect::Tsx,
+            _ => panic!("the dialect's feature is off"),
         }
     }
 
     /// The dialect's position among the four, which numbers its table.
     pub(crate) const fn index(self) -> u16 {
         match self {
+            #[cfg(feature = "lang-typescript")]
             Dialect::TypeScript => 0,
+            #[cfg(feature = "lang-javascript")]
             Dialect::JavaScript => 1,
+            #[cfg(feature = "lang-jsx")]
             Dialect::Jsx => 2,
+            #[cfg(feature = "lang-tsx")]
             Dialect::Tsx => 3,
         }
     }
 
     /// Whether the dialect reads JSX, which `<` then starts a tag instead of
-    /// type arguments or a cast.
+    /// type arguments or a cast: every dialect but `typescript`.
     pub(crate) const fn jsx(self) -> bool {
-        !matches!(self, Dialect::TypeScript)
+        self.index() != 0
     }
 }
 
@@ -157,9 +174,13 @@ pub(crate) fn line(
         return state;
     }
     match dialect {
+        #[cfg(feature = "lang-typescript")]
         Dialect::TypeScript => run::<0>(arena, limits, line, state, out, report),
+        #[cfg(feature = "lang-javascript")]
         Dialect::JavaScript => run::<1>(arena, limits, line, state, out, report),
+        #[cfg(feature = "lang-jsx")]
         Dialect::Jsx => run::<2>(arena, limits, line, state, out, report),
+        #[cfg(feature = "lang-tsx")]
         Dialect::Tsx => run::<3>(arena, limits, line, state, out, report),
     }
 }
@@ -178,7 +199,13 @@ fn run<const D: u8>(
     lexer.into_state()
 }
 
-#[cfg(test)]
+#[cfg(all(
+    test,
+    feature = "lang-typescript",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx"
+))]
 mod tests;
 
 /// Lexes `line` in `dialect` from `state` under the crate's one lexer contract

@@ -3,8 +3,10 @@
 //! same arena.
 //!
 //! A scope number is a table's slot in the high 16 bits and the name's index
-//! in that table in the low 16. A table's slot is its position in [`tables!`]
-//! below, so it does not depend on any other table's length.
+//! in that table in the low 16. A table's slot is the high byte of its
+//! language's frame tag (`src/tag.rs`), so it needs no number of its own and
+//! does not depend on any other table's length, or on which languages are
+//! built.
 
 /// A scope name: a language's table base plus the name's index in it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -18,86 +20,119 @@ pub(crate) const DYNAMIC: u32 = 0x8000_0000;
 /// can hold.
 const TABLE_SPAN: usize = 1 << 16;
 
-/// The base of the table in `slot`. Slot 0 is the placeholder scope of the
-/// empty stack, so tables start at slot 1.
+/// How many slots a frame tag's high byte can name.
+const SLOTS: usize = 0x100;
+
+/// The slot of the table whose language has the frame tag `tag`.
 #[expect(
     clippy::as_conversions,
-    reason = "`u32::from` is not const, and a `repr(u16)` enum has no `From` for its discriminant"
+    reason = "`usize::from` is not const, and a `u16` widens without loss"
 )]
-const fn base(slot: Slot) -> u32 {
-    (slot as u32 + 1) << 16
+const fn slot(tag: u16) -> usize {
+    (tag >> 8) as usize
 }
 
-/// Registers each language's scope table, one line per language: the constant
-/// that names its base, and its module. The order sets the slots, so a new
-/// language is appended.
-macro_rules! tables {
-    ($($base:ident $module:ident)*) => {
-        /// A table's position in [`TABLES`], named for its module.
-        #[repr(u16)]
-        #[expect(
-            non_camel_case_types,
-            reason = "each variant is its language's module name"
-        )]
-        enum Slot { $($module),* }
+/// The base of the table whose language has the frame tag `tag`.
+#[expect(
+    clippy::as_conversions,
+    reason = "`u32::from` is not const, and a `u16` widens without loss"
+)]
+const fn base(tag: u16) -> u32 {
+    ((tag >> 8) as u32) << 16
+}
 
+/// Registers each language's scope table, one row per language: the constant
+/// that names its base, which is also the name of its frame tag, and its
+/// module. A row is on only when its language's feature is.
+macro_rules! tables {
+    ($($(#[cfg($($cfg:tt)*)])* $base:ident = $module:ident;)*) => {
         $(
+            $(#[cfg($($cfg)*)])*
             /// The base of this language's scope names.
-            pub(crate) const $base: u32 = base(Slot::$module);
+            pub(crate) const $base: u32 = base(crate::tag::$base);
         )*
 
         /// Every language's scope names, by slot.
-        const TABLES: &[&[&str]] = &[$(crate::$module::NAMES),*];
+        const TABLES: [&[&str]; SLOTS] = {
+            let mut tables: [&[&str]; SLOTS] = [&[]; SLOTS];
+            $(
+                $(#[cfg($($cfg)*)])*
+                {
+                    tables[slot(crate::tag::$base)] = crate::$module::NAMES;
+                }
+            )*
+            tables
+        };
     };
 }
 
 tables! {
-    RUST rust
-    MARKDOWN markdown
-    TYPESCRIPT typescript
-    SHELL shell
-    JSON json
-    PYTHON python
-    YAML yaml
-    TOML toml
-    MAKE make
-    DIFF diff
-    DOCKERFILE dockerfile
-    JAVA java
-    C c
-    SQL sql
-    INI ini
-    GRAPHQL graphql
-    CSS css
+    #[cfg(feature = "lang-rust")]
+    RUST = rust;
+    #[cfg(feature = "lang-markdown")]
+    MARKDOWN = markdown;
+    #[cfg(any(
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    ))]
+    TYPESCRIPT = typescript;
+    #[cfg(feature = "lang-shell")]
+    SHELL = shell;
+    #[cfg(feature = "lang-json")]
+    JSON = json;
+    #[cfg(feature = "lang-python")]
+    PYTHON = python;
+    #[cfg(feature = "lang-yaml")]
+    YAML = yaml;
+    #[cfg(feature = "lang-toml")]
+    TOML = toml;
+    #[cfg(feature = "lang-make")]
+    MAKE = make;
+    #[cfg(feature = "lang-diff")]
+    DIFF = diff;
+    #[cfg(feature = "lang-dockerfile")]
+    DOCKERFILE = dockerfile;
+    #[cfg(feature = "lang-java")]
+    JAVA = java;
+    #[cfg(feature = "lang-c")]
+    C = c;
+    #[cfg(feature = "lang-sql")]
+    SQL = sql;
+    #[cfg(feature = "lang-ini")]
+    INI = ini;
+    #[cfg(feature = "lang-graphql")]
+    GRAPHQL = graphql;
+    #[cfg(feature = "lang-css")]
+    CSS = css;
 }
 
-// No table is longer than its slot, and the last slot ends below the
-// run-time scopes, so no two scopes share a number.
+// No table is longer than its slot.
 const _: () = {
     let mut i = 0;
-    while i < TABLES.len() {
+    while i < SLOTS {
         assert!(
             TABLES[i].len() < TABLE_SPAN,
             "a scope table outgrew its slot"
         );
         i += 1;
     }
-    assert!(
-        TABLES.len() < 0x7fff,
-        "the scope tables run into the run-time scopes"
-    );
 };
 
 /// The scope table of a language whose names are one list: the enum of
 /// scopes, the table of their names in Shiki's spelling, and the conversion
 /// to a [`Scope`] numbered from the language's base.
 macro_rules! scope_table {
-    ($(#[$meta:meta])* $base:ident; $($id:ident $name:literal)*) => {
+    (
+        $(#[$meta:meta])* $base:ident;
+        $($(#[cfg($($cfg:tt)*)])* $id:ident $name:literal)*
+    ) => {
         /// A scope name; the discriminant indexes [`NAMES`].
         #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
         #[repr(u8)]
         $(#[$meta])*
-        pub(crate) enum S { $($id),* }
+        pub(crate) enum S { $($(#[cfg($($cfg)*)])* $id),* }
 
         impl S {
             /// The scope in the crate's shared numbering.
@@ -111,7 +146,7 @@ macro_rules! scope_table {
         }
 
         /// The name of every scope, indexed by discriminant.
-        pub(crate) const NAMES: &[&str] = &[$($name),*];
+        pub(crate) const NAMES: &[&str] = &[$($(#[cfg($($cfg)*)])* $name),*];
     };
 }
 
@@ -153,9 +188,7 @@ impl Scope {
 
     /// The scope's name, such as `"string.quoted.double.rust"`.
     pub(crate) fn name(self) -> &'static str {
-        let slot = usize::try_from(self.0 >> 16)
-            .ok()
-            .and_then(|slot| slot.checked_sub(1));
+        let slot = usize::try_from(self.0 >> 16).ok();
         let index = usize::try_from(self.0 & 0xffff).ok();
         slot.and_then(|slot| TABLES.get(slot))
             .zip(index)
@@ -165,7 +198,7 @@ impl Scope {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "all"))]
 mod tests {
     use super::*;
 

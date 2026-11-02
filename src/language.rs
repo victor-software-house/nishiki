@@ -2,15 +2,10 @@
 //! `Language` enum and every function that has an arm per language are
 //! generated.
 
+use crate::Token;
 use crate::arena::Arena;
-use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::typescript::Dialect as ScriptDialect;
-use crate::{
-    Token, c, css, diff, dockerfile, graphql, ini, java, json, make, markdown, python, rust, shell,
-    sql, toml, typescript, yaml,
-};
 
 /// The language list, and with it every function that has one arm per
 /// language: [`Language`], [`Language::ALL`], [`Language::id`], the names
@@ -29,6 +24,7 @@ macro_rules! languages {
     ($(
         $(#[$meta:meta])*
         $variant:ident {
+            feature: $feature:literal,
             names: [$id:literal $(, $alias:literal)*],
             module: $module:ident
             $(, dialect: $dialect:expr)?
@@ -40,25 +36,30 @@ macro_rules! languages {
         #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
         #[non_exhaustive]
         pub enum Language {
-            $($(#[$meta])* $variant,)*
+            $(
+                $(#[$meta])*
+                #[cfg(feature = $feature)]
+                #[cfg_attr(docsrs, doc(cfg(feature = $feature)))]
+                $variant,
+            )*
         }
 
         impl Language {
             /// Every supported language.
-            pub const ALL: &[Language] = &[$(Language::$variant),*];
+            pub const ALL: &[Language] = &[$(#[cfg(feature = $feature)] Language::$variant),*];
 
             /// Shiki's id for the language, such as `"rust"`.
             #[must_use]
             pub fn id(self) -> &'static str {
                 match self {
-                    $(Language::$variant => $id,)*
+                    $(#[cfg(feature = $feature)] Language::$variant => $id,)*
                 }
             }
 
             /// The id and aliases, as Shiki lists them.
             fn names(self) -> &'static [&'static str] {
                 match self {
-                    $(Language::$variant => &[$id $(, $alias)*],)*
+                    $(#[cfg(feature = $feature)] Language::$variant => &[$id $(, $alias)*],)*
                 }
             }
 
@@ -68,7 +69,7 @@ macro_rules! languages {
             /// their state alone for such a line.
             pub(crate) fn reads_line_feed(self) -> bool {
                 match self {
-                    $(Language::$variant => languages!(@flag $($line_feed)?),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@flag $($line_feed)?),)*
                 }
             }
 
@@ -76,7 +77,7 @@ macro_rules! languages {
             /// `base`.
             pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(Language::$variant => $module::start(arena, base $(, $dialect)?),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::start(arena, base $(, $dialect)?),)*
                 }
             }
 
@@ -85,7 +86,7 @@ macro_rules! languages {
             /// Shiki's embedding.
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(Language::$variant => $module::start_embedded(arena, base),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::start_embedded(arena, base),)*
                 }
             }
 
@@ -95,7 +96,7 @@ macro_rules! languages {
             #[inline]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
-                    $(Language::$variant => $module::lex(cx, $($dialect,)? line, state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::lex(cx, $($dialect,)? line, state),)*
                 }
             }
         }
@@ -104,62 +105,90 @@ macro_rules! languages {
 
 languages! {
     /// Rust, with the scopes of Shiki's `rust` grammar.
-    Rust { names: ["rust", "rs"], module: rust }
+    Rust { feature: "lang-rust", names: ["rust", "rs"], module: rust }
     /// Markdown, with the scopes of Shiki's `markdown` grammar. A fence of
     /// another supported language is lexed as that language.
-    Markdown { names: ["markdown", "md"], module: markdown }
+    Markdown { feature: "lang-markdown", names: ["markdown", "md"], module: markdown }
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     TypeScript {
+        feature: "lang-typescript",
         names: ["typescript", "ts", "cts", "mts"],
         module: typescript,
-        dialect: ScriptDialect::TypeScript,
+        dialect: crate::typescript::Dialect::TypeScript,
     }
     /// `JavaScript`, with the scopes of Shiki's `javascript` grammar.
     JavaScript {
+        feature: "lang-javascript",
         names: ["javascript", "js", "cjs", "mjs"],
         module: typescript,
-        dialect: ScriptDialect::JavaScript,
+        dialect: crate::typescript::Dialect::JavaScript,
     }
     /// `JSX`, with the scopes of Shiki's `jsx` grammar.
-    Jsx { names: ["jsx"], module: typescript, dialect: ScriptDialect::Jsx }
+    Jsx {
+        feature: "lang-jsx",
+        names: ["jsx"],
+        module: typescript,
+        dialect: crate::typescript::Dialect::Jsx,
+    }
     /// `TSX`, with the scopes of Shiki's `tsx` grammar.
-    Tsx { names: ["tsx"], module: typescript, dialect: ScriptDialect::Tsx }
+    Tsx {
+        feature: "lang-tsx",
+        names: ["tsx"],
+        module: typescript,
+        dialect: crate::typescript::Dialect::Tsx,
+    }
     /// Shell, with the scopes of Shiki's `shellscript` grammar.
     Shell {
+        feature: "lang-shell",
         names: ["shellscript", "bash", "sh", "shell", "zsh"],
         module: shell,
         reads_line_feed: true,
     }
     /// JSON, with the scopes of Shiki's `json` grammar.
-    Json { names: ["json"], module: json, dialect: Dialect::Json }
+    Json {
+        feature: "lang-json",
+        names: ["json"],
+        module: json,
+        dialect: crate::json::Dialect::Json,
+    }
     /// JSON with comments, with the scopes of Shiki's `jsonc` grammar.
-    Jsonc { names: ["jsonc"], module: json, dialect: Dialect::Jsonc }
+    Jsonc {
+        feature: "lang-json",
+        names: ["jsonc"],
+        module: json,
+        dialect: crate::json::Dialect::Jsonc,
+    }
     /// JSON Lines, with the scopes of Shiki's `jsonl` grammar.
-    Jsonl { names: ["jsonl"], module: json, dialect: Dialect::Jsonl }
+    Jsonl {
+        feature: "lang-json",
+        names: ["jsonl"],
+        module: json,
+        dialect: crate::json::Dialect::Jsonl,
+    }
     /// Python, with the scopes of Shiki's `python` grammar.
-    Python { names: ["python", "py"], module: python }
+    Python { feature: "lang-python", names: ["python", "py"], module: python }
     /// YAML, with the scopes of Shiki's `yaml` grammar.
-    Yaml { names: ["yaml", "yml"], module: yaml }
+    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml }
     /// TOML, with the scopes of Shiki's `toml` grammar.
-    Toml { names: ["toml"], module: toml }
+    Toml { feature: "lang-toml", names: ["toml"], module: toml }
     /// Makefile, with the scopes of Shiki's `make` grammar.
-    Make { names: ["make", "makefile"], module: make, reads_line_feed: true }
+    Make { feature: "lang-make", names: ["make", "makefile"], module: make, reads_line_feed: true }
     /// Diff, with the scopes of Shiki's `diff` grammar.
-    Diff { names: ["diff"], module: diff }
+    Diff { feature: "lang-diff", names: ["diff"], module: diff }
     /// Dockerfile, with the scopes of Shiki's `docker` grammar.
-    Dockerfile { names: ["docker", "dockerfile"], module: dockerfile }
+    Dockerfile { feature: "lang-dockerfile", names: ["docker", "dockerfile"], module: dockerfile }
     /// Java, with the scopes of Shiki's `java` grammar.
-    Java { names: ["java"], module: java }
+    Java { feature: "lang-java", names: ["java"], module: java }
     /// C, with the scopes of Shiki's `c` grammar.
-    C { names: ["c"], module: c, reads_line_feed: true }
+    C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
-    Sql { names: ["sql"], module: sql }
+    Sql { feature: "lang-sql", names: ["sql"], module: sql }
     /// INI, with the scopes of Shiki's `ini` grammar.
-    Ini { names: ["ini", "properties"], module: ini }
+    Ini { feature: "lang-ini", names: ["ini", "properties"], module: ini }
     /// GraphQL, with the scopes of Shiki's `graphql` grammar.
-    GraphQl { names: ["graphql", "gql"], module: graphql }
+    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql }
     /// CSS, with the scopes of Shiki's `css` grammar.
-    Css { names: ["css"], module: css }
+    Css { feature: "lang-css", names: ["css"], module: css }
 }
 
 impl Language {

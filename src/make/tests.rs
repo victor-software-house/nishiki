@@ -276,6 +276,7 @@ fn an_unclosed_reference_takes_the_line_feed_and_leaves_the_assignment_open() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_embeds_a_makefile_with_its_start_of_line_anchor() {
     let mut highlighter = Highlighter::new(Language::Markdown);
     let rows = lex_with(&mut highlighter, "```makefile\n\tFOO = bar\n```");
@@ -294,6 +295,7 @@ fn a_fence_embeds_a_makefile_with_its_start_of_line_anchor() {
 }
 
 #[test]
+#[cfg(feature = "lang-markdown")]
 fn a_fence_by_any_of_the_grammars_names_embeds_a_makefile() {
     for info in ["makefile", "Makefile", "GNUmakefile", "OCamlMakefile"] {
         let mut highlighter = Highlighter::new(Language::Markdown);

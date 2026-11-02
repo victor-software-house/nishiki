@@ -27,24 +27,42 @@ crate::scope::scope_table! {
     FenceLang "fenced_code.block.language.markdown"
     FenceAttrs "fenced_code.block.language.attributes.markdown"
     FenceInfo "fenced_code.block.language"
+    #[cfg(feature = "lang-rust")]
     EmbeddedRust "meta.embedded.block.rust"
+    #[cfg(feature = "lang-typescript")]
     EmbeddedTypeScript "meta.embedded.block.typescript"
+    #[cfg(any(feature = "lang-javascript", feature = "lang-jsx"))]
     EmbeddedJavascript "meta.embedded.block.javascript"
+    #[cfg(feature = "lang-tsx")]
     EmbeddedTypescriptreact "meta.embedded.block.typescriptreact"
     EmbeddedMarkdown "meta.embedded.block.markdown"
+    #[cfg(feature = "lang-shell")]
     EmbeddedShell "meta.embedded.block.shellscript"
+    #[cfg(feature = "lang-json")]
     EmbeddedJson "meta.embedded.block.json"
+    #[cfg(feature = "lang-json")]
     EmbeddedJsonc "meta.embedded.block.jsonc"
+    #[cfg(feature = "lang-json")]
     EmbeddedJsonl "meta.embedded.block.jsonl"
+    #[cfg(feature = "lang-python")]
     EmbeddedPython "meta.embedded.block.python"
+    #[cfg(feature = "lang-yaml")]
     EmbeddedYaml "meta.embedded.block.yaml"
+    #[cfg(feature = "lang-make")]
     EmbeddedMake "meta.embedded.block.makefile"
+    #[cfg(feature = "lang-diff")]
     EmbeddedDiff "meta.embedded.block.diff"
+    #[cfg(feature = "lang-dockerfile")]
     EmbeddedDockerfile "meta.embedded.block.dockerfile"
+    #[cfg(feature = "lang-java")]
     EmbeddedJava "meta.embedded.block.java"
+    #[cfg(feature = "lang-c")]
     EmbeddedC "meta.embedded.block.c"
+    #[cfg(feature = "lang-sql")]
     EmbeddedSql "meta.embedded.block.sql"
+    #[cfg(feature = "lang-ini")]
     EmbeddedIni "meta.embedded.block.ini"
+    #[cfg(feature = "lang-css")]
     EmbeddedCss "meta.embedded.block.css"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
