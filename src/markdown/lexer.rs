@@ -445,8 +445,23 @@ impl<'a> Lexer<'a> {
                 return Some(hit);
             }
             let byte = line.get(start).copied().unwrap_or(b'\n');
+            let (anchored, first) = if starts == Starts::Block {
+                let cx = cx!(self);
+                (cx.at_start(start), cx.at(cx.skip_space(start)))
+            } else {
+                (false, 0)
+            };
             for &rule in list {
-                if starts == Starts::Inline && !rule.opens_with(byte) {
+                let skip = match starts {
+                    Starts::Inline => !rule.opens_with(byte),
+                    Starts::Block => !rule.opens_block(anchored, byte, first),
+                    Starts::Nowhere | Starts::Anchored | Starts::Dash | Starts::Anywhere => false,
+                };
+                if skip {
+                    debug_assert!(
+                        self.try_rule(rule, start).is_none(),
+                        "{rule:?} matches at byte {start} outside the bytes it opens with"
+                    );
                     continue;
                 }
                 if let Some(hit) = self.try_rule(rule, start) {

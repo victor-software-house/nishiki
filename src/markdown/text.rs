@@ -64,6 +64,11 @@ impl Cx<'_> {
         }
     }
 
+    /// The byte at `p`, or 0 where there is none.
+    pub(crate) fn at(&self, p: usize) -> u8 {
+        self.get(p).unwrap_or(0)
+    }
+
     /// The byte before `p`.
     #[inline]
     pub(crate) fn before(&self, p: usize) -> Option<u8> {

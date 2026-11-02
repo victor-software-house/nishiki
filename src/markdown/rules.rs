@@ -58,6 +58,60 @@ pub(crate) enum P {
 }
 
 impl P {
+    /// Whether a block rule can match at a position, given the byte there
+    /// (`at`), the first byte after the blanks that follow (`first`), and
+    /// whether `^` or `\G` matches there (`anchored`). Every block rule but
+    /// the definition starts at such a position; each begins by testing one of
+    /// the two bytes, and the lexer asserts in debug builds that a rule this
+    /// skips would have failed.
+    pub(crate) fn opens_block(self, anchored: bool, at: u8, first: u8) -> bool {
+        if !anchored {
+            return self == P::LinkDef;
+        }
+        match self {
+            P::Separator => matches!(first, b'-' | b'*' | b'_'),
+            P::Heading => first == b'#',
+            P::Quote => first == b'>',
+            P::Bullet => matches!(first, b'-' | b'*' | b'+'),
+            P::Ordered => first.is_ascii_digit(),
+            P::Fence => matches!(first, b'`' | b'~'),
+            P::RawBlock => matches!(at, b' ' | b'\t'),
+            P::LinkDef => first == b'[',
+            P::Comment => first == b'<',
+            P::Table => at == b'|',
+            P::Paragraph
+            | P::FenceLanguage
+            | P::FencePlain
+            | P::EmbedBegin
+            | P::TablePipe
+            | P::TableSeparator
+            | P::TableCell
+            | P::Setext1
+            | P::Setext2
+            | P::Level1
+            | P::Level2
+            | P::Level3
+            | P::Level4
+            | P::Level5
+            | P::Level6
+            | P::Ampersand
+            | P::Bracket
+            | P::Bold
+            | P::Italic
+            | P::Raw
+            | P::Strike
+            | P::Escape
+            | P::ImageInline
+            | P::ImageRef
+            | P::LinkEmail
+            | P::LinkInet
+            | P::LinkInline
+            | P::LinkRef
+            | P::LinkRefLiteral
+            | P::LinkRefShortcut => true,
+        }
+    }
+
     /// Whether an inline rule can start with `byte`, so that the lexer tries
     /// only those that can. The block rules answer true, as they are not
     /// chosen by their first byte.
