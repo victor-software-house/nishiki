@@ -328,8 +328,8 @@ impl Lexer<'_> {
                 }
                 None
             }
-            Kind::TypeAnn1 => self.end_zero(self.type_ann_end(p, true), p),
-            Kind::TypeAnn2 => self.end_zero(self.type_ann_end(p, false), p),
+            Kind::TypeAnn1 => self.type_ann_close(p, true),
+            Kind::TypeAnn2 => self.type_ann_close(p, false),
             Kind::TypeArgs | Kind::TypeParams => {
                 self.end_char(p, b'>', S::PunctuationDefinitionTypeparametersEnd)
             }
@@ -609,16 +609,29 @@ impl Lexer<'_> {
         None
     }
 
+    /// Ends a type annotation where its end rule matches: zero-width, except
+    /// before a `{` that follows a name or a closing bracket, where the match
+    /// takes the blanks up to the brace.
+    fn type_ann_close(&mut self, p: usize, first: bool) -> Option<usize> {
+        let (end, blanks) = self.type_ann_end(p, first)?;
+        let to = self.ws(p);
+        if blanks && to > p {
+            return Some(self.close(p, to, &[]));
+        }
+        Some(self.close_here(end))
+    }
+
     /// `(?<![\&:|])(?!\s*[\&|]\s+)(…)` for the first form of a type annotation
-    /// end, and the second form without the lookahead.
-    fn type_ann_end(&self, p: usize, first: bool) -> bool {
+    /// end, and the second form without the lookahead: where it ends, and
+    /// whether the match takes the blanks that follow.
+    fn type_ann_end(&self, p: usize, first: bool) -> Option<(usize, bool)> {
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) {
-            return false;
+            return None;
         }
         if first {
             let j = self.ws(p);
             if matches!(self.b(j), b'&' | b'|') && self.ws(j + 1) > j + 1 {
-                return false;
+                return None;
             }
         }
         let next = self.b(p);
@@ -631,7 +644,10 @@ impl Lexer<'_> {
             .prev_char(p)
             .is_some_and(|c| matches!(c, ']' | '$' | ')' | '>' | '_' | '}') || c.is_alphabetic())
             && self.b(self.ws(p)) == b'{';
-        stop || equals || blank || brace
+        if stop || equals || blank {
+            return Some((p, false));
+        }
+        brace.then_some((p, true))
     }
 
     fn return_type2_end(&self, p: usize) -> bool {

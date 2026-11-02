@@ -425,3 +425,36 @@ fn gated_rules_match_only_inside_their_start_sets() {
         }
     }
 }
+
+#[test]
+fn a_type_annotation_takes_the_blanks_before_a_brace() {
+    // The end of a type annotation before `{` takes the blanks, so the brace is
+    // an object literal and not the start of a destructured parameter, in the
+    // parentheses that the first line leaves open.
+    let text = indoc! {"
+        c() {
+          return (
+            false
+        }
+        u(n: number): void {
+          this.x()
+        }
+    "};
+    let (rows, _) = lex(text);
+    let stack = rows
+        .into_iter()
+        .flatten()
+        .find(|(token, _)| token.contains("this.x()"))
+        .map(|(_, stack)| stack)
+        .unwrap_or_default();
+    assert!(
+        stack.iter().any(|s| s == "meta.objectliteral.ts"),
+        "{stack:?}"
+    );
+    assert!(
+        !stack
+            .iter()
+            .any(|s| s == "meta.parameter.object-binding-pattern.ts"),
+        "{stack:?}"
+    );
+}
