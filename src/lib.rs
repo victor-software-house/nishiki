@@ -60,6 +60,7 @@ mod limits;
 mod markdown;
 mod rust;
 mod scope;
+mod scratch;
 mod shell;
 mod theme;
 mod typescript;

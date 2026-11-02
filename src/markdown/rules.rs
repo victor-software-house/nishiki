@@ -57,6 +57,49 @@ pub(crate) enum P {
     LinkRefShortcut,
 }
 
+impl P {
+    /// Whether an inline rule can start with `byte`, so that the lexer tries
+    /// only those that can. The block rules answer true, as they are not
+    /// chosen by their first byte.
+    pub(crate) fn opens_with(self, byte: u8) -> bool {
+        match self {
+            P::Ampersand => byte == b'&',
+            P::Bracket | P::LinkEmail | P::LinkInet => byte == b'<',
+            P::Bold | P::Italic => matches!(byte, b'*' | b'_'),
+            P::Raw => byte == b'`',
+            P::Strike => byte == b'~',
+            P::Escape => byte == b'\\',
+            P::ImageInline | P::ImageRef => byte == b'!',
+            P::LinkInline | P::LinkRef | P::LinkRefLiteral | P::LinkRefShortcut => byte == b'[',
+            P::Setext1 => byte == b'=',
+            P::Setext2 => byte == b'-',
+            P::Separator
+            | P::Heading
+            | P::Quote
+            | P::Bullet
+            | P::Ordered
+            | P::Fence
+            | P::FenceLanguage
+            | P::FencePlain
+            | P::RawBlock
+            | P::LinkDef
+            | P::Comment
+            | P::Table
+            | P::Paragraph
+            | P::EmbedBegin
+            | P::TablePipe
+            | P::TableSeparator
+            | P::TableCell
+            | P::Level1
+            | P::Level2
+            | P::Level3
+            | P::Level4
+            | P::Level5
+            | P::Level6 => true,
+        }
+    }
+}
+
 /// The rule that closes a container.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum End {

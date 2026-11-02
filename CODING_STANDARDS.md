@@ -9,7 +9,7 @@ Reviews cite the number.
 ### 1.1 One contract per language
 
 A language is a module `src/<language>.rs` beside `src/<language>/`, with two crate-private functions: `start(arena, base) -> u32`, the state at the start of a document whose scopes sit on `base`, and `line(...) -> u32`, which lexes one line from a state, appends its tokens, records the limits it reached, and returns the next state.
-`line` takes the shared arena, the limits, the language's scratch (buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated), and the line with the byte where its text starts, so an embedding language can pass a fence line whole and `^` still matches only at column 0.
+`line` takes the shared arena, the limits, the crate-level `Scratch` (`src/scratch.rs`: one field per language, buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated; a language uses its own field and those of the languages it embeds), and the line with the byte where its text starts, so an embedding language can pass a fence line whole and `^` still matches only at column 0.
 `Highlighter` dispatches to them by `Language`; a language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API, and lets one language embed another on the same arena.
 

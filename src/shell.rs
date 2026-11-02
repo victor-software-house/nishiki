@@ -68,7 +68,7 @@ pub(crate) struct Text<'a> {
 /// lines, and the grammar would otherwise close a statement it left open at
 /// the end of the line before.
 pub(crate) fn line(
-    scratch: &mut Scratch,
+    scratch: &mut crate::scratch::Scratch,
     arena: &mut Arena,
     limits: &Limits,
     line: Text<'_>,
@@ -79,6 +79,7 @@ pub(crate) fn line(
     if line.bytes.is_empty() {
         return state;
     }
+    let scratch = &mut scratch.shell;
     engine::Lexer::new(arena, limits, line, out, state, report, scratch).run(scratch)
 }
 

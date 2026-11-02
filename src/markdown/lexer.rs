@@ -163,8 +163,6 @@ struct Hit {
 /// Lexes one line.
 pub(crate) struct Lexer<'a> {
     arena: &'a mut Arena,
-    /// The shell lexer's buffers and caches, for the shell lines of fences.
-    shell: &'a mut shell::Scratch,
     limits: &'a Limits,
     report: &'a mut LineReport,
     line: &'a str,
@@ -190,12 +188,28 @@ pub(crate) struct Lexer<'a> {
     opened: Option<block::FenceOpen>,
     /// The capture groups of the rule being tried.
     caps: Caps,
+    /// What the highlighter keeps from line to line.
+    scratch: &'a mut crate::scratch::Scratch,
+}
+
+/// What the Markdown lexer keeps from one line to the next, so that a line
+/// allocates nothing and does not look up what the last line interned.
+#[derive(Debug, Default)]
+pub(crate) struct Scratch {
+    /// The open containers: after a line, those of `resume`, and otherwise
+    /// the buffer the next line builds them in.
+    frames: Vec<Frame>,
+    /// The state `frames` holds the containers of.
+    resume: Option<u32>,
+    /// The paragraph last opened: the state it opened in, the stack of its
+    /// text, and the state it made.
+    paragraph: Option<(u32, u32, u32)>,
 }
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(
+        scratch: &'a mut crate::scratch::Scratch,
         arena: &'a mut Arena,
-        shell: &'a mut shell::Scratch,
         limits: &'a Limits,
         line: &'a str,
         out: &'a mut Vec<Token>,
@@ -203,31 +217,36 @@ impl<'a> Lexer<'a> {
         report: &'a mut LineReport,
     ) -> Self {
         let first_token = out.len();
-        let mut frames =
-            Vec::with_capacity(usize::try_from(arena.frame(state).depth).unwrap_or(0) + 4);
-        let mut at = state;
-        while at != ROOT {
-            let frame = arena.frame(at);
-            let kind = Kind::from_code(frame.kind);
-            let name = if matches!(kind, Kind::Body(_)) {
-                arena.frame(frame.parent).stack
-            } else {
-                frame.stack
-            };
-            frames.push(Frame {
-                rule: Rule::Open(kind),
-                name,
-                content: frame.stack,
-                saved_anchor: None,
-                payload: frame.payload,
-                state: Some(at),
-            });
-            at = frame.parent;
+        let mut frames = std::mem::take(&mut scratch.markdown.frames);
+        if scratch.markdown.resume == Some(state) {
+            for frame in &mut frames {
+                frame.saved_anchor = None;
+            }
+        } else {
+            frames.clear();
+            let mut at = state;
+            while at != ROOT {
+                let frame = arena.frame(at);
+                let kind = Kind::from_code(frame.kind);
+                let name = if matches!(kind, Kind::Body(_)) {
+                    arena.frame(frame.parent).stack
+                } else {
+                    frame.stack
+                };
+                frames.push(Frame {
+                    rule: Rule::Open(kind),
+                    name,
+                    content: frame.stack,
+                    saved_anchor: None,
+                    payload: frame.payload,
+                    state: Some(at),
+                });
+                at = frame.parent;
+            }
+            frames.reverse();
         }
-        frames.reverse();
         Lexer {
             arena,
-            shell,
             limits,
             report,
             line,
@@ -242,16 +261,21 @@ impl<'a> Lexer<'a> {
             budget: limits.work.map_or(u64::MAX, |work| work.steps(line.len())),
             opened: None,
             caps: Caps::new(),
+            scratch,
         }
     }
 
-    /// The state after the line.
-    pub(crate) fn into_state(self) -> u32 {
-        self.frames
+    /// The state after the line, with its containers kept for the next one.
+    pub(crate) fn finish(self) -> u32 {
+        let state = self
+            .frames
             .iter()
             .rev()
             .find_map(|frame| frame.state)
-            .unwrap_or(ROOT)
+            .unwrap_or(ROOT);
+        self.scratch.markdown.frames = self.frames;
+        self.scratch.markdown.resume = Some(state);
+        state
     }
 
     pub(crate) fn run(&mut self) {
@@ -420,7 +444,11 @@ impl<'a> Lexer<'a> {
             {
                 return Some(hit);
             }
+            let byte = line.get(start).copied().unwrap_or(b'\n');
             for &rule in list {
+                if starts == Starts::Inline && !rule.opens_with(byte) {
+                    continue;
+                }
                 if let Some(hit) = self.try_rule(rule, start) {
                     return Some(hit);
                 }
@@ -619,49 +647,68 @@ impl<'a> Lexer<'a> {
             self.refuse(hit, parent);
             return;
         }
-        let name = self.path(parent, rules::names(kind));
-        let content = match rules::content_name(kind) {
-            Some(scope) => self.child(name, scope),
-            None => name,
-        };
-        let payload = match kind {
-            Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
-            Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
-            Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
-            Kind::Body(Lang::Shell) => shell::start_embedded(self.arena, content),
-            Kind::Base
-            | Kind::Quote
-            | Kind::ListBullet
-            | Kind::ListOrdered
-            | Kind::Body(Lang::Markdown)
-            | Kind::RawBlock
-            | Kind::Table
-            | Kind::Paragraph
-            | Kind::Comment
-            | Kind::BoldStar
-            | Kind::BoldUnder
-            | Kind::ItalicStar
-            | Kind::ItalicUnder => 0,
-        };
         // A container opened outside a capture group stays open between
         // lines, so it is a state.
         let in_capture = self
             .frames
             .iter()
             .any(|frame| matches!(frame.rule, Rule::Capture(_)));
-        let state = if in_capture {
+        let parent_state = if in_capture {
             None
         } else {
-            let parent_state = self.frames.iter().rev().find_map(|frame| frame.state);
-            let Some(state) =
-                self.arena
-                    .push(parent_state.unwrap_or(ROOT), kind.code(), payload, content)
-            else {
-                self.report.record(Limit::Nodes);
-                self.refuse(hit, parent);
-                return;
+            self.frames.iter().rev().find_map(|frame| frame.state)
+        };
+        // A paragraph opens on nearly every line, in the same state.
+        let cached = match (kind, parent_state, self.scratch.markdown.paragraph) {
+            (Kind::Paragraph, Some(from), Some((was, stack, state))) if from == was => {
+                Some((stack, state))
+            }
+            _ => None,
+        };
+        let (name, content, payload, state) = if let Some((stack, state)) = cached {
+            (stack, stack, 0, Some(state))
+        } else {
+            let name = self.path(parent, rules::names(kind));
+            let content = match rules::content_name(kind) {
+                Some(scope) => self.child(name, scope),
+                None => name,
             };
-            Some(state)
+            let payload = match kind {
+                Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
+                Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
+                Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
+                Kind::Body(Lang::Shell) => shell::start_embedded(self.arena, content),
+                Kind::Base
+                | Kind::Quote
+                | Kind::ListBullet
+                | Kind::ListOrdered
+                | Kind::Body(Lang::Markdown)
+                | Kind::RawBlock
+                | Kind::Table
+                | Kind::Paragraph
+                | Kind::Comment
+                | Kind::BoldStar
+                | Kind::BoldUnder
+                | Kind::ItalicStar
+                | Kind::ItalicUnder => 0,
+            };
+            let state = if in_capture {
+                None
+            } else {
+                let Some(state) =
+                    self.arena
+                        .push(parent_state.unwrap_or(ROOT), kind.code(), payload, content)
+                else {
+                    self.report.record(Limit::Nodes);
+                    self.refuse(hit, parent);
+                    return;
+                };
+                if let (Kind::Paragraph, Some(from)) = (kind, parent_state) {
+                    self.scratch.markdown.paragraph = Some((from, content, state));
+                }
+                Some(state)
+            };
+            (name, content, payload, state)
         };
         self.frames.push(Frame {
             rule: Rule::Open(kind),
@@ -818,7 +865,7 @@ impl<'a> Lexer<'a> {
                 self.report,
             ),
             Lang::Shell => shell::line(
-                self.shell,
+                self.scratch,
                 self.arena,
                 self.limits,
                 shell::Text {

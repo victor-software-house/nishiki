@@ -3,6 +3,7 @@
 
 use crate::arena::{Arena, ROOT, Scopes};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::scratch::Scratch;
 use crate::{Language, Stack, State, Token, markdown, rust, shell, typescript};
 
 /// Highlights one language, a line at a time.
@@ -17,8 +18,8 @@ pub struct Highlighter {
     language: Language,
     limits: Limits,
     arena: Arena,
-    /// Buffers and caches of the shell lexer.
-    shell: shell::Scratch,
+    /// Buffers and caches of the lexers, one field per language.
+    scratch: Scratch,
     /// The state at the start of a document; [`State::default`] stands for
     /// it.
     start: u32,
@@ -45,7 +46,7 @@ impl Highlighter {
             language,
             limits,
             arena,
-            shell: shell::Scratch::default(),
+            scratch: Scratch::default(),
             start,
         }
     }
@@ -89,7 +90,7 @@ impl Highlighter {
                 &mut report,
             ),
             Language::Markdown => markdown::line(
-                &mut self.shell,
+                &mut self.scratch,
                 &mut self.arena,
                 &self.limits,
                 line,
@@ -101,7 +102,7 @@ impl Highlighter {
                 typescript::line(&mut self.arena, &self.limits, line, from, out, &mut report)
             }
             Language::Shell => shell::line(
-                &mut self.shell,
+                &mut self.scratch,
                 &mut self.arena,
                 &self.limits,
                 shell::Text {

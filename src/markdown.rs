@@ -83,13 +83,14 @@ mod scope;
 mod state;
 mod text;
 
+pub(crate) use lexer::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
 use state::Kind;
 
+use crate::Token;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limits, LineReport};
-use crate::{Token, shell};
 
 /// The state at the start of a Markdown document whose scopes sit on the
 /// stack `base`: one context with `text.html.markdown` on top of it.
@@ -104,7 +105,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// after it. An empty line appends none and leaves the state as it was, as it
 /// does in Shiki.
 pub(crate) fn line(
-    shell: &mut shell::Scratch,
+    scratch: &mut crate::scratch::Scratch,
     arena: &mut Arena,
     limits: &Limits,
     line: &str,
@@ -115,9 +116,9 @@ pub(crate) fn line(
     if line.is_empty() {
         return state;
     }
-    let mut lexer = lexer::Lexer::new(arena, shell, limits, line, out, state, report);
+    let mut lexer = lexer::Lexer::new(scratch, arena, limits, line, out, state, report);
     lexer.run();
-    lexer.into_state()
+    lexer.finish()
 }
 
 #[cfg(test)]
