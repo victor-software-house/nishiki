@@ -70,7 +70,7 @@ The decisions that created nishiki live in a private planning repository:
    - the repository checks.
 2. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
-   - Before a push, run only the cheap checks: `typos`, `mise run lint:md` and rustfmt.
+   - Before a push, run only the cheap checks: `typos`, `mise run lint:md`, `mise run format` (rustfmt) and `mise run format:toml` (taplo).
    - When CI fails, fix forward.
 3. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
 
