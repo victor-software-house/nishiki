@@ -1,51 +1,10 @@
 //! The contexts the Markdown lexer opens, which are frames of the interned
 //! state.
 
+use crate::Language;
+
 /// The high byte that marks a frame as one of Markdown's.
 const TAG: u16 = 0x0200;
-
-/// A language that a fence embeds.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub(crate) enum Lang {
-    Rust,
-    /// `TypeScript`, lexed by the TypeScript lexer.
-    TypeScript,
-    /// Markdown itself: the grammar includes its own rules in a `markdown`
-    /// fence.
-    Markdown,
-    /// Shell, lexed by the shell lexer.
-    Shell,
-    /// JSON, lexed by the JSON lexer in the `json` spelling.
-    Json,
-    /// JSON with comments: the `jsonc` spelling.
-    Jsonc,
-    /// JSON Lines: the `jsonl` spelling.
-    Jsonl,
-    /// Python, lexed by the Python lexer.
-    Python,
-    /// YAML, lexed by the YAML lexer.
-    Yaml,
-    /// The YAML of front matter.
-    FrontMatter,
-}
-
-impl Lang {
-    /// The JSON spelling a fence of this language embeds, for JSON's.
-    pub(crate) fn dialect(self) -> Option<crate::json::Dialect> {
-        match self {
-            Lang::Json => Some(crate::json::Dialect::Json),
-            Lang::Jsonc => Some(crate::json::Dialect::Jsonc),
-            Lang::Jsonl => Some(crate::json::Dialect::Jsonl),
-            Lang::Rust
-            | Lang::TypeScript
-            | Lang::Markdown
-            | Lang::Shell
-            | Lang::Python
-            | Lang::Yaml
-            | Lang::FrontMatter => None,
-        }
-    }
-}
 
 /// A container left open at the end of a line: a begin/end or begin/while rule
 /// of the Markdown grammar.
@@ -60,15 +19,16 @@ pub(crate) enum Kind {
     /// `1.` or `1)` up to a line that is not indented.
     ListOrdered,
     /// A fence of an embedded language up to the closing fence. The frame's
-    /// payload is the [`Fence`].
-    Fence(Lang),
+    /// payload is the [`Fence`]. A `markdown` fence embeds Markdown itself:
+    /// the grammar includes its own rules there.
+    Fence(Language),
     /// A fence of any other language up to the closing fence. The payload is
     /// the [`Fence`].
     FencePlain,
     /// The lines inside a [`Kind::Fence`], which the embedded language's rules
     /// take. The payload of an embedded body is the state of the embedded
     /// lexer.
-    Body(Lang),
+    Body(Language),
     /// Four spaces or a tab up to a line without them.
     RawBlock,
     /// `|` up to a line that does not start with `|`.
@@ -88,33 +48,20 @@ pub(crate) enum Kind {
     /// A first line of dashes up to a line of the same dashes or `...`. The
     /// payload is the number of dashes.
     FrontMatter,
+    /// The YAML inside [`Kind::FrontMatter`]; the payload is the YAML lexer's
+    /// state.
+    FrontMatterBody,
 }
 
 impl Kind {
-    /// The kinds in code order, which [`Kind::code`] numbers; a test checks
-    /// that the two agree.
-    pub(crate) const ALL: [Kind; 33] = [
+    /// The kinds that name no language, in code order; a test checks that
+    /// [`Kind::code`] agrees.
+    const FIXED: [Kind; 15] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
         Kind::ListOrdered,
-        Kind::Fence(Lang::Rust),
-        Kind::Fence(Lang::TypeScript),
-        Kind::Fence(Lang::Markdown),
-        Kind::Fence(Lang::Shell),
-        Kind::Fence(Lang::Json),
-        Kind::Fence(Lang::Jsonc),
-        Kind::Fence(Lang::Jsonl),
-        Kind::Fence(Lang::Python),
         Kind::FencePlain,
-        Kind::Body(Lang::Rust),
-        Kind::Body(Lang::TypeScript),
-        Kind::Body(Lang::Markdown),
-        Kind::Body(Lang::Shell),
-        Kind::Body(Lang::Json),
-        Kind::Body(Lang::Jsonc),
-        Kind::Body(Lang::Jsonl),
-        Kind::Body(Lang::Python),
         Kind::RawBlock,
         Kind::Table,
         Kind::Paragraph,
@@ -123,50 +70,41 @@ impl Kind {
         Kind::BoldUnder,
         Kind::ItalicStar,
         Kind::ItalicUnder,
-        Kind::Fence(Lang::Yaml),
-        Kind::Body(Lang::Yaml),
         Kind::FrontMatter,
-        Kind::Body(Lang::FrontMatter),
+        Kind::FrontMatterBody,
     ];
 
-    /// The kind as a frame stores it: the Markdown tag in the high byte, the
-    /// position in [`Kind::ALL`] in the low one.
+    /// The kind as a frame stores it: the Markdown tag in the high byte and,
+    /// in the low one, the position in [`Kind::FIXED`], or after those two
+    /// codes per language, its fence then its body, in [`Language::ALL`]
+    /// order. A new language therefore needs no code of its own.
     pub(crate) fn code(self) -> u16 {
-        TAG | match self {
+        let language = |language: Language| {
+            Language::ALL
+                .iter()
+                .position(|&l| l == language)
+                .unwrap_or(0)
+        };
+        let low = match self {
             Kind::Base => 0,
             Kind::Quote => 1,
             Kind::ListBullet => 2,
             Kind::ListOrdered => 3,
-            Kind::Fence(Lang::Rust) => 4,
-            Kind::Fence(Lang::TypeScript) => 5,
-            Kind::Fence(Lang::Markdown) => 6,
-            Kind::Fence(Lang::Shell) => 7,
-            Kind::Fence(Lang::Json) => 8,
-            Kind::Fence(Lang::Jsonc) => 9,
-            Kind::Fence(Lang::Jsonl) => 10,
-            Kind::Fence(Lang::Python) => 11,
-            Kind::FencePlain => 12,
-            Kind::Body(Lang::Rust) => 13,
-            Kind::Body(Lang::TypeScript) => 14,
-            Kind::Body(Lang::Markdown) => 15,
-            Kind::Body(Lang::Shell) => 16,
-            Kind::Body(Lang::Json) => 17,
-            Kind::Body(Lang::Jsonc) => 18,
-            Kind::Body(Lang::Jsonl) => 19,
-            Kind::Body(Lang::Python) => 20,
-            Kind::RawBlock => 21,
-            Kind::Table => 22,
-            Kind::Paragraph => 23,
-            Kind::Comment => 24,
-            Kind::BoldStar => 25,
-            Kind::BoldUnder => 26,
-            Kind::ItalicStar => 27,
-            Kind::ItalicUnder => 28,
-            Kind::Fence(Lang::Yaml | Lang::FrontMatter) => 29,
-            Kind::Body(Lang::Yaml) => 30,
-            Kind::FrontMatter => 31,
-            Kind::Body(Lang::FrontMatter) => 32,
-        }
+            Kind::FencePlain => 4,
+            Kind::RawBlock => 5,
+            Kind::Table => 6,
+            Kind::Paragraph => 7,
+            Kind::Comment => 8,
+            Kind::BoldStar => 9,
+            Kind::BoldUnder => 10,
+            Kind::ItalicStar => 11,
+            Kind::ItalicUnder => 12,
+            Kind::FrontMatter => 13,
+            Kind::FrontMatterBody => 14,
+            Kind::Fence(lang) => Kind::FIXED.len() + 2 * language(lang),
+            Kind::Body(lang) => Kind::FIXED.len() + 2 * language(lang) + 1,
+        };
+        TAG | u16::try_from(low).unwrap_or(0)
     }
 
     /// The kind a frame's code names; [`Kind::Base`] for a code that is not
@@ -175,10 +113,16 @@ impl Kind {
         if code & 0xff00 != TAG {
             return Kind::Base;
         }
-        Kind::ALL
-            .get(usize::from(code & 0xff))
-            .copied()
-            .unwrap_or(Kind::Base)
+        let low = usize::from(code & 0xff);
+        if let Some(&kind) = Kind::FIXED.get(low) {
+            return kind;
+        }
+        let pair = low - Kind::FIXED.len();
+        match Language::ALL.get(pair / 2) {
+            Some(&lang) if pair.is_multiple_of(2) => Kind::Fence(lang),
+            Some(&lang) => Kind::Body(lang),
+            None => Kind::Base,
+        }
     }
 }
 
@@ -220,10 +164,15 @@ mod tests {
     use super::*;
 
     #[test]
-    fn every_kind_codes_to_its_place_in_all() {
-        for (index, kind) in Kind::ALL.iter().enumerate() {
+    fn every_kind_round_trips_through_its_code() {
+        let languages = Language::ALL
+            .iter()
+            .flat_map(|&lang| [Kind::Fence(lang), Kind::Body(lang)]);
+        let kinds: Vec<Kind> = Kind::FIXED.into_iter().chain(languages).collect();
+        for (index, kind) in kinds.iter().enumerate() {
             assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
             assert_eq!(Kind::from_code(kind.code()), *kind);
         }
+        assert!(kinds.len() <= 0x100, "the codes fit the low byte");
     }
 }

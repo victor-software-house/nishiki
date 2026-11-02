@@ -10,7 +10,8 @@ Reviews cite the number.
 
 A language is a module `src/<language>.rs` beside `src/<language>/`, with two crate-private functions: `start(arena, base) -> u32`, the state at the start of a document whose scopes sit on `base`, and `line(...) -> u32`, which lexes one line from a state, appends its tokens, records the limits it reached, and returns the next state.
 `line` takes the shared arena, the limits, the crate-level `Scratch` (`src/scratch.rs`: one field per language, buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated; a language uses its own field and those of the languages it embeds), and the line with the byte where its text starts, so an embedding language can pass a fence line whole and `^` still matches only at column 0.
-`Highlighter` dispatches to them by `Language`; a language has no highlighter, interner or state type of its own.
+`src/language.rs` is the one place they are called: `Language::start`, `Language::start_embedded` and `Language::lex`, which takes a `Context` (arena, limits, scratch, tokens, report) and a `Line` (the whole line, where the language's text starts, and whether a fence embeds it) and returns tokens counted from the start of the whole line.
+The `Highlighter` and the Markdown fences both call `Language::lex`, so a new language is wired in by appending its arms there, its scope table, and its fence names; a language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API, and lets one language embed another on the same arena.
 
 ### 1.2 State lives in the arena
@@ -43,7 +44,7 @@ The fuzz test and the work limit catch what the assertion misses.
 
 A language embedded in another (Rust in a Markdown fence) runs on the embedding lexer's arena, through a `start_embedded` that starts on the fence's stack without a root scope of its own, as Shiki embeds it.
 Its state is the payload of the fence's frame, and it shares the embedding line's work and depth limits.
-Adding a fence language is one entry in the fence table and one dispatch arm.
+A fence's kind holds the embedded `Language`, and Markdown numbers its kinds from `Language::ALL`, so adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
 ## 2. Speed
 

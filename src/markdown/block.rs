@@ -4,8 +4,9 @@
 
 use super::caps::Caps;
 use super::fence;
-use super::state::{Fence, Lang};
+use super::state::Fence;
 use super::text::Cx;
+use crate::Language;
 
 /// `(^|\G) {0,3}([-*_])( {0,2}\2){2,}[\t ]*$\n?`
 pub(crate) fn separator(cx: &Cx<'_>, p: usize) -> Option<usize> {
@@ -196,7 +197,7 @@ pub(crate) struct FenceOpen {
     pub(crate) end: usize,
     pub(crate) fence: Fence,
     /// The language to embed, or none for a fence that only holds text.
-    pub(crate) lang: Option<Lang>,
+    pub(crate) lang: Option<Language>,
 }
 
 /// The opening of a fence: leading whitespace, a run of three or more backticks

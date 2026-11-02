@@ -2,10 +2,10 @@
 //! limits.
 
 use crate::arena::{Arena, ROOT, Scopes};
-use crate::json::Dialect;
+use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Language, Stack, State, Token, json, markdown, python, rust, shell, typescript, yaml};
+use crate::{Language, Stack, State, Token};
 
 /// Highlights one language, a line at a time.
 ///
@@ -37,17 +37,7 @@ impl Highlighter {
     #[must_use]
     pub fn new_with_limits(language: Language, limits: Limits) -> Self {
         let mut arena = Arena::new(limits.nodes);
-        let start = match language {
-            Language::Rust => rust::start(&mut arena, ROOT),
-            Language::Markdown => markdown::start(&mut arena, ROOT),
-            Language::TypeScript => typescript::start(&mut arena, ROOT),
-            Language::Shell => shell::start(&mut arena, ROOT),
-            Language::Json => json::start(&mut arena, ROOT, Dialect::Json),
-            Language::Jsonc => json::start(&mut arena, ROOT, Dialect::Jsonc),
-            Language::Jsonl => json::start(&mut arena, ROOT, Dialect::Jsonl),
-            Language::Python => python::start(&mut arena, ROOT),
-            Language::Yaml => yaml::start(&mut arena, ROOT),
-        };
+        let start = language.start(&mut arena, ROOT);
         Highlighter {
             language,
             limits,
@@ -86,86 +76,21 @@ impl Highlighter {
             });
             return report;
         }
-        let to = match self.language {
-            Language::Rust => rust::line(
-                &mut self.arena,
-                &self.limits,
-                line.as_bytes(),
-                from,
-                out,
-                &mut report,
-            ),
-            Language::Markdown => markdown::line(
-                &mut self.scratch,
-                &mut self.arena,
-                &self.limits,
-                line,
-                from,
-                out,
-                &mut report,
-            ),
-            Language::TypeScript => {
-                typescript::line(&mut self.arena, &self.limits, line, from, out, &mut report)
-            }
-            Language::Shell => shell::line(
-                &mut self.scratch,
-                &mut self.arena,
-                &self.limits,
-                shell::Text {
-                    bytes: line.as_bytes(),
-                    start: 0,
-                    anchored: false,
-                },
-                from,
-                out,
-                &mut report,
-            ),
-            Language::Json => self.json_line(Dialect::Json, line, from, out, &mut report),
-            Language::Jsonc => self.json_line(Dialect::Jsonc, line, from, out, &mut report),
-            Language::Jsonl => self.json_line(Dialect::Jsonl, line, from, out, &mut report),
-            Language::Python => python::line(
-                &mut self.scratch,
-                &mut self.arena,
-                &self.limits,
-                python::Text {
-                    bytes: line.as_bytes(),
-                    start: 0,
-                },
-                from,
-                out,
-                &mut report,
-            ),
-            Language::Yaml => yaml::line(
-                &mut self.arena,
-                &self.limits,
-                line.as_bytes(),
-                true,
-                from,
-                out,
-                &mut report,
-            ),
+        let mut cx = Context {
+            scratch: &mut self.scratch,
+            arena: &mut self.arena,
+            limits: &self.limits,
+            out,
+            report: &mut report,
         };
+        let text = Line {
+            text: line,
+            start: 0,
+            embedded: false,
+        };
+        let to = self.language.lex(&mut cx, text, from);
         *state = State(if to == self.start { ROOT } else { to });
         report
-    }
-
-    fn json_line(
-        &mut self,
-        dialect: Dialect,
-        line: &str,
-        from: u32,
-        out: &mut Vec<Token>,
-        report: &mut LineReport,
-    ) -> u32 {
-        json::line(
-            &mut self.arena,
-            &self.limits,
-            dialect,
-            line.as_bytes(),
-            from,
-            out,
-            report,
-        )
     }
 
     /// The scope names of `stack`, innermost first, such as

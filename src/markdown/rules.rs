@@ -2,7 +2,8 @@
 //! scope each of a rule's capture groups gets.
 
 use super::scope::S;
-use super::state::{Kind, Lang};
+use super::state::Kind;
+use crate::Language;
 
 /// A rule that matches text: a `match` rule, or the `begin` of a rule that
 /// opens a container. The closing rules ([`End`]) are separate.
@@ -312,19 +313,10 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
         | Kind::Quote
         | Kind::ListBullet
         | Kind::ListOrdered
-        | Kind::Body(Lang::Markdown) => BLOCK,
+        | Kind::Body(Language::Markdown) => BLOCK,
         Kind::FencePlain
-        | Kind::Body(
-            Lang::Rust
-            | Lang::TypeScript
-            | Lang::Shell
-            | Lang::Json
-            | Lang::Jsonc
-            | Lang::Jsonl
-            | Lang::Python
-            | Lang::Yaml
-            | Lang::FrontMatter,
-        )
+        | Kind::Body(_)
+        | Kind::FrontMatterBody
         | Kind::RawBlock
         | Kind::Comment => &[],
         Kind::Table => TABLE,
@@ -357,6 +349,7 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
         | Kind::ListBullet
         | Kind::ListOrdered
         | Kind::Body(_)
+        | Kind::FrontMatterBody
         | Kind::RawBlock
         | Kind::Table
         | Kind::Paragraph => None,
@@ -367,7 +360,7 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
 /// and closes it included.
 pub(crate) fn names(kind: Kind) -> &'static [S] {
     match kind {
-        Kind::Base | Kind::Body(_) | Kind::FrontMatter => &[],
+        Kind::Base | Kind::Body(_) | Kind::FrontMatter | Kind::FrontMatterBody => &[],
         Kind::Quote => &[S::Quote],
         Kind::ListBullet => &[S::ListBullet],
         Kind::ListOrdered => &[S::ListOrdered],
@@ -384,16 +377,16 @@ pub(crate) fn names(kind: Kind) -> &'static [S] {
 /// The scope a container adds to the text between its opening and closing.
 pub(crate) fn content_name(kind: Kind) -> Option<S> {
     match kind {
-        Kind::Body(Lang::Rust) => Some(S::EmbeddedRust),
-        Kind::Body(Lang::TypeScript) => Some(S::EmbeddedTypeScript),
-        Kind::Body(Lang::Markdown) => Some(S::EmbeddedMarkdown),
-        Kind::Body(Lang::Shell) => Some(S::EmbeddedShell),
-        Kind::Body(Lang::Json) => Some(S::EmbeddedJson),
-        Kind::Body(Lang::Jsonc) => Some(S::EmbeddedJsonc),
-        Kind::Body(Lang::Jsonl) => Some(S::EmbeddedJsonl),
-        Kind::Body(Lang::Python) => Some(S::EmbeddedPython),
-        Kind::Body(Lang::Yaml) => Some(S::EmbeddedYaml),
-        Kind::Body(Lang::FrontMatter) => Some(S::EmbeddedFrontMatter),
+        Kind::Body(Language::Rust) => Some(S::EmbeddedRust),
+        Kind::Body(Language::TypeScript) => Some(S::EmbeddedTypeScript),
+        Kind::Body(Language::Markdown) => Some(S::EmbeddedMarkdown),
+        Kind::Body(Language::Shell) => Some(S::EmbeddedShell),
+        Kind::Body(Language::Json) => Some(S::EmbeddedJson),
+        Kind::Body(Language::Jsonc) => Some(S::EmbeddedJsonc),
+        Kind::Body(Language::Jsonl) => Some(S::EmbeddedJsonl),
+        Kind::Body(Language::Python) => Some(S::EmbeddedPython),
+        Kind::Body(Language::Yaml) => Some(S::EmbeddedYaml),
+        Kind::FrontMatterBody => Some(S::EmbeddedFrontMatter),
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet

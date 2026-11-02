@@ -15,12 +15,13 @@ use std::cell::Cell;
 use super::caps::Caps;
 use super::rules::{self, Capture, End, List, P};
 use super::scope::S;
-use super::state::{Fence, Kind, Lang};
+use super::state::{Fence, Kind};
 use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
+use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, json, python, rust, shell, typescript, yaml};
+use crate::{Language, Stack, Token};
 
 /// The window on the line that the rules see, built from the fields it needs
 /// so that a rule can fill in `self.caps` while it is held.
@@ -92,20 +93,9 @@ impl Starts {
             | Kind::Quote
             | Kind::ListBullet
             | Kind::ListOrdered
-            | Kind::Body(Lang::Markdown) => Starts::Block,
+            | Kind::Body(Language::Markdown) => Starts::Block,
             Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
-            Kind::Body(
-                Lang::Rust
-                | Lang::TypeScript
-                | Lang::Shell
-                | Lang::Json
-                | Lang::Jsonc
-                | Lang::Jsonl
-                | Lang::Python
-                | Lang::Yaml
-                | Lang::FrontMatter,
-            )
-            | Kind::RawBlock => Starts::Nowhere,
+            Kind::Body(_) | Kind::FrontMatterBody | Kind::RawBlock => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
             Kind::Table => Starts::Anywhere,
             Kind::Paragraph
@@ -364,7 +354,7 @@ impl<'a> Lexer<'a> {
             let end = match kind {
                 Kind::Quote => block::quote_while(&cx, pos, &mut self.caps),
                 Kind::ListBullet | Kind::ListOrdered => block::list_while(&cx, pos),
-                Kind::Body(Lang::FrontMatter) => {
+                Kind::FrontMatterBody => {
                     let dashes = index
                         .checked_sub(1)
                         .and_then(|outer| self.frames.get(outer))
@@ -420,21 +410,11 @@ impl<'a> Lexer<'a> {
             return false;
         }
         let from = (self.pos, self.frames.len());
-        if let Some(Frame {
-            rule:
-                Rule::Open(Kind::Body(
-                    Lang::Rust
-                    | Lang::TypeScript
-                    | Lang::Shell
-                    | Lang::Json
-                    | Lang::Jsonc
-                    | Lang::Jsonl
-                    | Lang::Python
-                    | Lang::Yaml
-                    | Lang::FrontMatter,
-                )),
-            ..
-        }) = self.frames.last()
+        if self
+            .frames
+            .last()
+            .and_then(|frame| embedded_language(frame.rule))
+            .is_some()
         {
             self.embedded();
         }
@@ -651,7 +631,7 @@ impl<'a> Lexer<'a> {
         let byte = self.line.as_bytes().get(start).copied();
         Some(match rule {
             P::FrontMatter => Kind::FrontMatter,
-            P::FrontMatterBegin => Kind::Body(Lang::FrontMatter),
+            P::FrontMatterBegin => Kind::FrontMatterBody,
             P::Quote => Kind::Quote,
             P::Bullet => Kind::ListBullet,
             P::Ordered => Kind::ListOrdered,
@@ -754,16 +734,10 @@ impl<'a> Lexer<'a> {
             };
             let payload = match kind {
                 Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
-                Kind::Body(Lang::Rust) => rust::start_embedded(self.arena, content),
-                Kind::Body(Lang::TypeScript) => typescript::start_embedded(self.arena, content),
-                Kind::Body(Lang::Shell) => shell::start_embedded(self.arena, content),
-                Kind::Body(Lang::Json | Lang::Jsonc | Lang::Jsonl) => {
-                    json::start_embedded(self.arena, content)
+                Kind::Body(lang) if lang != Language::Markdown => {
+                    lang.start_embedded(self.arena, content)
                 }
-                Kind::Body(Lang::Python) => python::start_embedded(self.arena, content),
-                Kind::Body(Lang::Yaml | Lang::FrontMatter) => {
-                    yaml::start_embedded(self.arena, content)
-                }
+                Kind::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
                 Kind::FrontMatter => {
                     let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
                     u32::try_from(dashes).unwrap_or(u32::MAX)
@@ -772,7 +746,7 @@ impl<'a> Lexer<'a> {
                 | Kind::Quote
                 | Kind::ListBullet
                 | Kind::ListOrdered
-                | Kind::Body(Lang::Markdown)
+                | Kind::Body(_)
                 | Kind::RawBlock
                 | Kind::Table
                 | Kind::Paragraph
@@ -940,19 +914,23 @@ impl<'a> Lexer<'a> {
         let Some(frame) = self.frames.last().copied() else {
             return;
         };
-        let Rule::Open(Kind::Body(lang)) = frame.rule else {
+        let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
             return;
         };
         self.emit(start, frame.content);
-        let first = self.out.len();
-        let state = self.embedded_line(lang, start, frame.payload);
-        if !matches!(lang, Lang::Shell | Lang::Python) {
-            // The shell and Python lexers saw the whole line and made their
-            // tokens absolute.
-            for token in &mut self.out[first..] {
-                token.end += start;
-            }
-        }
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: self.limits,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        let line = Line {
+            text: self.line,
+            start,
+            embedded: true,
+        };
+        let state = lang.lex(&mut cx, line, frame.payload);
         self.last = self.line.len();
         self.pos = self.limit;
         if state == frame.payload {
@@ -966,12 +944,9 @@ impl<'a> Lexer<'a> {
             .rev()
             .skip(1)
             .find_map(|frame| frame.state);
-        let pushed = self.arena.push(
-            below.unwrap_or(ROOT),
-            Kind::Body(lang).code(),
-            state,
-            frame.content,
-        );
+        let pushed = self
+            .arena
+            .push(below.unwrap_or(ROOT), kind.code(), state, frame.content);
         if let Some(top) = self.frames.last_mut() {
             top.payload = state;
             if pushed.is_some() {
@@ -981,71 +956,17 @@ impl<'a> Lexer<'a> {
             }
         }
     }
+}
 
-    /// Runs the lexer of `lang` on the line from `start`, resuming from
-    /// `payload`, and returns its state after the line.
-    fn embedded_line(&mut self, lang: Lang, start: usize, payload: u32) -> u32 {
-        match lang {
-            Lang::TypeScript => typescript::line(
-                self.arena,
-                self.limits,
-                &self.line[start..],
-                payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Shell => shell::line(
-                self.scratch,
-                self.arena,
-                self.limits,
-                shell::Text {
-                    bytes: self.line.as_bytes(),
-                    start,
-                    anchored: true,
-                },
-                payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Json | Lang::Jsonc | Lang::Jsonl => json::line(
-                self.arena,
-                self.limits,
-                lang.dialect().unwrap_or(json::Dialect::Json),
-                &self.line.as_bytes()[start..],
-                payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Python => python::line(
-                self.scratch,
-                self.arena,
-                self.limits,
-                python::Text {
-                    bytes: self.line.as_bytes(),
-                    start,
-                },
-                payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Yaml | Lang::FrontMatter => yaml::line(
-                self.arena,
-                self.limits,
-                &self.line.as_bytes()[start..],
-                start == 0,
-                payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Rust | Lang::Markdown => rust::line(
-                self.arena,
-                self.limits,
-                &self.line.as_bytes()[start..],
-                payload,
-                self.out,
-                self.report,
-            ),
-        }
+/// The language whose lexer takes the rest of each line inside `rule`: an
+/// embedded fence's, or YAML in front matter. A `markdown` fence takes
+/// Markdown's own rules instead.
+fn embedded_language(rule: Rule) -> Option<Language> {
+    match rule {
+        Rule::Open(Kind::Body(Language::Markdown)) => None,
+        Rule::Open(Kind::Body(lang)) => Some(lang),
+        Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
+        Rule::Open(_) | Rule::Capture(_) => None,
     }
 }
 

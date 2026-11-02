@@ -3,42 +3,41 @@
 //! The grammar has a rule for each of some sixty languages, but Shiki drops a
 //! rule whose language grammar is not loaded, and then the fence is an
 //! ordinary one with no embedded scope. So a language is listed here only when
-//! nishiki lexes it. To add one: add a variant to [`Lang`], an entry to
-//! [`LANGUAGES`], and an arm to the places that match on [`Lang`] in `rules.rs`
-//! and `lexer.rs`.
+//! nishiki lexes it. To add one, add its names to [`NAMES`] and its embedded
+//! scope to `rules::content_name`.
 
-use super::state::Lang;
 use super::text::Cx;
+use crate::Language;
 
 /// How a fence's info string names a language, as the grammar spells it: each
 /// word, and each `{.word ...}` attribute form, matched without regard to
 /// case.
-struct Language {
+struct Name {
     words: &'static [&'static str],
     /// The text after `{.` in the attribute form, as in `{.rust .numberLines}`.
     brace: Option<&'static str>,
-    lang: Lang,
+    lang: Language,
 }
 
-const LANGUAGES: &[Language] = &[
-    Language {
+const NAMES: &[Name] = &[
+    Name {
         words: &["rust", "rs"],
         brace: Some("rust"),
-        lang: Lang::Rust,
+        lang: Language::Rust,
     },
-    Language {
+    Name {
         words: &["typescript", "ts"],
         brace: None,
-        lang: Lang::TypeScript,
+        lang: Language::TypeScript,
     },
-    Language {
+    Name {
         words: &["markdown", "md"],
         brace: None,
-        lang: Lang::Markdown,
+        lang: Language::Markdown,
     },
     // The grammar's `.textmate_init` has an unescaped dot, which matches any
     // character; it is matched here as a literal dot.
-    Language {
+    Name {
         words: &[
             "shell",
             "sh",
@@ -52,9 +51,9 @@ const LANGUAGES: &[Language] = &[
             ".textmate_init",
         ],
         brace: Some("bash"),
-        lang: Lang::Shell,
+        lang: Language::Shell,
     },
-    Language {
+    Name {
         words: &[
             "json",
             "json5",
@@ -68,19 +67,19 @@ const LANGUAGES: &[Language] = &[
             "sublime-completions",
         ],
         brace: None,
-        lang: Lang::Json,
+        lang: Language::Json,
     },
-    Language {
+    Name {
         words: &["jsonc"],
         brace: None,
-        lang: Lang::Jsonc,
+        lang: Language::Jsonc,
     },
-    Language {
+    Name {
         words: &["jsonl", "jsonlines"],
         brace: None,
-        lang: Lang::Jsonl,
+        lang: Language::Jsonl,
     },
-    Language {
+    Name {
         words: &[
             "python",
             "py",
@@ -97,18 +96,18 @@ const LANGUAGES: &[Language] = &[
             "gypi",
         ],
         brace: Some("python"),
-        lang: Lang::Python,
+        lang: Language::Python,
     },
-    Language {
+    Name {
         words: &["yaml", "yml"],
         brace: None,
-        lang: Lang::Yaml,
+        lang: Language::Yaml,
     },
 ];
 
 /// A language found in an info string.
 pub(crate) struct Found {
-    pub(crate) lang: Lang,
+    pub(crate) lang: Language,
     /// Where the language ends, which is where its attributes start.
     pub(crate) name_end: usize,
 }
@@ -116,7 +115,7 @@ pub(crate) struct Found {
 /// The language the info string at `i` names, when the attributes after it
 /// are allowed: nothing, or a space or one of `,:?{` and then no backtick.
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
-    for lang in LANGUAGES {
+    for lang in NAMES {
         for word in lang.words {
             if starts_ignore_case(cx, i, word.as_bytes()) && attributes_ok(cx, i + word.len()) {
                 return Some(Found {
