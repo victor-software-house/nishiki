@@ -13,6 +13,7 @@ The decisions that created it live in a private planning repository: `openspec/d
 2. Permissively licensed: MIT OR Apache-2.0.
    No GPL or other copyleft code or grammar enters the crate; a language whose only grammar is copyleft gets a hand-written lexer.
    A third-party grammar is bundled or followed only after its licence is found at its source and permits it.
+   A language whose grammar has no licence, such as YAML's, gets a hand-written lexer built from the language's specification and Shiki's output alone; nobody reads the grammar (operator, 2026-11-02).
    Its licence text goes in `THIRD-PARTY-NOTICES.md`, which the crate ships, and nowhere else.
    The README gets a section for open-source sources only once there are several of them.
 3. Shiki is the fidelity target: scopes and colours for every language, measured against Shiki's samples.
