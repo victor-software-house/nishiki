@@ -2,6 +2,7 @@
 
 A syntax highlighting engine in Rust, written from scratch.
 Read [README.md](README.md) for what it is.
+[CODING_STANDARDS.md](CODING_STANDARDS.md) holds the numbered coding rules, [docs/AGENTS.md](docs/AGENTS.md) the rules for research notes, and [bench/AGENTS.md](bench/AGENTS.md) the rules for measuring.
 The decisions that created it live in a private planning repository: `openspec/decisions/2026-10-21-highlighting-*.md`, `openspec/decisions/2026-10-21-engine-name-nishiki.md` and `openspec/decisions/2026-10-24-highlighting-engine.md`, with the research notes `docs/research/2026-10-21-syntax-engine-direction.md` and `docs/research/2026-10-22-highlighting-engine-comparison.md`.
 
 ## Invariants
@@ -44,6 +45,6 @@ The decisions that created it live in a private planning repository: `openspec/d
    A new language adds its inputs and fixtures, and `tests/oracle/SOURCES.md` records each input's source and licence.
    `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures, which keep their sources' spelling; search them with `rg -u`.
 7. `mise run bench` measures throughput, streaming latency per line, cold start and theme styling on the oracle fixtures, in release mode.
-   It is not part of `verify`, because timings depend on the machine; compare runs on one quiet machine.
+   It is not part of `verify`, because timings depend on the machine; `bench/AGENTS.md` says where a run counts and how it is recorded.
 8. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
    Defaults may follow the resources the caller has, such as memory or a time budget, but a caller that pins the limits gets the same output on every machine.

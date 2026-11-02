@@ -1,0 +1,55 @@
+# What every recorded benchmark result is judged against (bench/AGENTS.md).
+# A target changes only by a dated decision, cited in the comment above it.
+#
+# Not set yet, with the reason:
+# - throughput floors per language: no recorded run on a box yet. For
+#   reference, the hand-written prototypes of the 2026-10-22 engine comparison
+#   reached, per line on a 4 vCPU AMD EPYC box, 89.7 MiB/s on Rust, 90.6 on
+#   TypeScript, 345 on Markdown and 21.1 on shell. A floor per language is set
+#   once the first recorded run exists.
+
+# A result regresses when its statistic is worse than the last recorded
+# result on the same host class by more than this percentage and by at least
+# its unit's floor, so noise in small numbers does not fire.
+tolerance_pct = 10
+
+[floors]
+mib_per_s = 1.0
+us = 0.5
+
+# A streamed line must never cost a frame: the 4 ms frame budget the
+# 2026-10-22 engine comparison used for streaming. Applies
+# to every language's p99 per-line time on every oracle fixture.
+[[target]]
+metric = "line_time"
+stat = "p99"
+op = "<="
+value = 4000
+unit = "us"
+reason = "one streamed line fits a 4 ms frame"
+
+# The worst single line of an oracle fixture, which a stream may hit once.
+[[target]]
+metric = "line_time"
+stat = "max"
+op = "<="
+value = 4000
+unit = "us"
+reason = "even the worst real line fits a frame"
+
+# Reported, not bound: compared with the last recorded result on the same
+# host class under the regression rule above.
+[reported.throughput]
+metric = "throughput"
+stat = "median"
+unit = "mib_per_s"
+
+[reported.first_line]
+metric = "first_line_time"
+stat = "median"
+unit = "us"
+
+[reported.styling]
+metric = "theme_style_time"
+stat = "median"
+unit = "ns_per_token"
