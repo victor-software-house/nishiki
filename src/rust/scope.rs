@@ -7,6 +7,17 @@ macro_rules! scopes {
         #[repr(u8)]
         pub(crate) enum S { $($id),* }
 
+        impl S {
+            /// The position of this scope in [`NAMES`].
+            #[expect(
+                clippy::as_conversions,
+                reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
+            )]
+            pub(crate) const fn index(self) -> usize {
+                self as usize
+            }
+        }
+
         /// The name of every scope, indexed by discriminant.
         pub(crate) const NAMES: &[&str] = &[$($name),*];
     };

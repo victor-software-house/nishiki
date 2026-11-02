@@ -36,6 +36,15 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
+    /// The discriminant, which fits the four bits of a frame.
+    #[expect(
+        clippy::as_conversions,
+        reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
+    )]
+    const fn bits(self) -> u8 {
+        self as u8
+    }
+
     const ALL: [Kind; 13] = [
         Kind::Top,
         Kind::FnDef,
@@ -112,7 +121,7 @@ impl State {
         if self.depth() == Self::CAPACITY {
             return false;
         }
-        self.frames |= (kind as u128) << (4 * self.depth());
+        self.frames |= u128::from(kind.bits()) << (4 * self.depth());
         self.depth += 1;
         true
     }

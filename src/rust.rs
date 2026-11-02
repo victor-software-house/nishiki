@@ -46,25 +46,25 @@ struct Interner {
 impl Interner {
     fn new() -> Self {
         let root = Node {
-            names: vec![NAMES[S::Source as usize]],
+            names: vec![NAMES[S::Source.index()]],
             children: vec![0; NAMES.len()].into_boxed_slice(),
         };
         Interner { nodes: vec![root] }
     }
 
     fn child(&mut self, parent: usize, scope: S) -> usize {
-        let known = self.nodes[parent].children[scope as usize];
+        let known = self.nodes[parent].children[scope.index()];
         if known != 0 {
             return known;
         }
         let mut names = self.nodes[parent].names.clone();
-        names.push(NAMES[scope as usize]);
+        names.push(NAMES[scope.index()]);
         let id = self.nodes.len();
         self.nodes.push(Node {
             names,
             children: vec![0; NAMES.len()].into_boxed_slice(),
         });
-        self.nodes[parent].children[scope as usize] = id;
+        self.nodes[parent].children[scope.index()] = id;
         id
     }
 
