@@ -589,8 +589,15 @@ fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
     for line in lines {
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
-        let (next, close) =
-            super::interpolation_line(&mut arena, &limits, line, state, &mut out, &mut report);
+        let (next, close) = super::interpolation_line(
+            &mut arena,
+            &limits,
+            line,
+            true,
+            state,
+            &mut out,
+            &mut report,
+        );
         state = next;
         rows.push((close, out.last().map_or(0, |token| token.end())));
     }

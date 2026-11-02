@@ -447,6 +447,16 @@ export const inputs: Input[] = [
     url: `${vitest}/docs/guide/migration/jest.md`,
   },
   { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
+  {
+    lang: "markdown",
+    name: "vite-features",
+    url: `${vite}/docs/guide/features.md`,
+  },
+  {
+    lang: "markdown",
+    name: "vite-api-plugin",
+    url: `${vite}/docs/guide/api-plugin.md`,
+  },
   { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
   { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
   { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },

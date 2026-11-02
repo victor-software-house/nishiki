@@ -162,39 +162,37 @@ pub(crate) fn start_interpolation(arena: &mut Arena, base: u32) -> u32 {
 /// Shiki treats it: the end rules that test for a blank line (`^\s*$`) never
 /// run on an empty one.
 pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
+    cx: &mut crate::language::Context<'_>,
     dialect: Dialect,
     line: &str,
+    line_start: bool,
     state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
 ) -> u32 {
     if line.is_empty() {
         return state;
     }
     match dialect {
         #[cfg(feature = "lang-typescript")]
-        Dialect::TypeScript => run::<0>(arena, limits, line, state, out, report),
+        Dialect::TypeScript => run::<0>(cx, line, line_start, state),
         #[cfg(feature = "lang-javascript")]
-        Dialect::JavaScript => run::<1>(arena, limits, line, state, out, report),
+        Dialect::JavaScript => run::<1>(cx, line, line_start, state),
         #[cfg(feature = "lang-jsx")]
-        Dialect::Jsx => run::<2>(arena, limits, line, state, out, report),
+        Dialect::Jsx => run::<2>(cx, line, line_start, state),
         #[cfg(feature = "lang-tsx")]
-        Dialect::Tsx => run::<3>(arena, limits, line, state, out, report),
+        Dialect::Tsx => run::<3>(cx, line, line_start, state),
     }
 }
 
 /// Lexes the non-empty `line` as the dialect `D` numbers.
 fn run<const D: u8>(
-    arena: &mut Arena,
-    limits: &Limits,
+    cx: &mut crate::language::Context<'_>,
     line: &str,
+    line_start: bool,
     state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
 ) -> u32 {
-    let mut lexer = lexer::Lexer::<D>::new(arena, limits, line, out, state, report);
+    let mut lexer = lexer::Lexer::<D>::new(
+        cx.arena, cx.limits, line, line_start, cx.out, state, cx.report,
+    );
     lexer.run();
     lexer.into_state()
 }
@@ -219,7 +217,7 @@ pub(crate) fn lex(
     state: u32,
 ) -> u32 {
     cx.lex_from_start(line, |cx, rest| {
-        self::line(cx.arena, cx.limits, dialect, rest, state, cx.out, cx.report)
+        self::line(cx, dialect, rest, line.start == 0, state)
     })
 }
 
@@ -236,7 +234,15 @@ pub(crate) fn lex_interpolation(
 ) -> (u32, Option<usize>) {
     let mut close = None;
     let next = cx.lex_from_start(line, |cx, rest| {
-        let (next, at) = interpolation_line(cx.arena, cx.limits, rest, state, cx.out, cx.report);
+        let (next, at) = interpolation_line(
+            cx.arena,
+            cx.limits,
+            rest,
+            line.start == 0,
+            state,
+            cx.out,
+            cx.report,
+        );
         close = at;
         next
     });
@@ -249,6 +255,7 @@ fn interpolation_line(
     arena: &mut Arena,
     limits: &Limits,
     line: &str,
+    line_start: bool,
     state: u32,
     out: &mut Vec<Token>,
     report: &mut LineReport,
@@ -256,7 +263,7 @@ fn interpolation_line(
     if line.is_empty() {
         return (state, None);
     }
-    let mut lexer = lexer::Lexer::<1>::new(arena, limits, line, out, state, report);
+    let mut lexer = lexer::Lexer::<1>::new(arena, limits, line, line_start, out, state, report);
     lexer.run();
     let close = lexer.halted_at();
     (lexer.into_state(), close)

@@ -51,6 +51,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
     stuck: bool,
     /// Where a `}` ended the interpolation that the line began inside.
     halt: Option<usize>,
+    /// Whether the text starts the line, where `^` matches: not when a
+    /// Markdown container took the start of the line.
+    bol: bool,
     /// Set when a context was refused for depth; recorded at the line's end.
     depth_hit: Cell<bool>,
     /// The last run of blanks that [`Lexer::ws`] scanned, as start and end.
@@ -148,6 +151,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         arena: &'a mut Arena,
         limits: &'a Limits,
         src: &'a str,
+        bol: bool,
         out: &'a mut Vec<Token>,
         state: u32,
         report: &'a mut LineReport,
@@ -174,6 +178,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
             halt: None,
+            bol,
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
@@ -195,6 +200,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
     }
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
+    /// `^` at `p`.
+    pub(crate) fn bol(&self, p: usize) -> bool {
+        p == 0 && self.bol
+    }
+
     pub(crate) fn spend(&self, bytes: usize) {
         let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
         self.steps.set(self.steps.get().saturating_add(bytes));
@@ -832,7 +842,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `^\s*` followed by one of the statement keywords the grammar treats as
     /// the start of a new statement, as the end rules spell it.
     pub(crate) fn statement_start_at(&self, p: usize) -> bool {
-        if p != 0 {
+        if !self.bol(p) {
             return false;
         }
         let j = self.ws(0);
@@ -923,6 +933,6 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `^\s*$`: a blank line, at its start.
     pub(crate) fn blank_line_at(&self, p: usize) -> bool {
-        p == 0 && self.eol(self.ws(0))
+        self.bol(p) && self.eol(self.ws(0))
     }
 }

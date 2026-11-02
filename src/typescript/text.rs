@@ -681,7 +681,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             b' ' | b'\t' => {
                 // `^[\t ]+` before `//`.
-                if p != 0 {
+                if !self.bol(p) {
                     return None;
                 }
                 let mut j = p;
@@ -795,7 +795,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(p) == b'/' && self.b(p + 1) == b'/' {
             return self.line_comment_begin(p, p, Kind::CommentLineNl);
         }
-        if p == 0 && matches!(self.b(p), b' ' | b'\t') {
+        if self.bol(p) && matches!(self.b(p), b' ' | b'\t') {
             let mut j = p;
             while matches!(self.b(j), b' ' | b'\t') {
                 j += 1;

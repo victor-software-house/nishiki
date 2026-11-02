@@ -205,7 +205,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.starts(p, "=>") || self.b(p) == b'{' {
             return true;
         }
-        if p != 0 {
+        if !self.bol(p) {
             return false;
         }
         let j = self.ws(0);
@@ -370,7 +370,7 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::Cast);
             return Some(j + 1);
         }
-        if p == 0 {
+        if self.bol(p) {
             let e = self.ident(self.ws(j + 1));
             if e.is_some_and(|e| self.b(self.ws(e)) == b'>') {
                 self.flush(p);

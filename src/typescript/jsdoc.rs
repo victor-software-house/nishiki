@@ -757,7 +757,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Inside `@example`: the line prefix, a caption and the code.
     pub(crate) fn doc_example_rules(&mut self, p: usize) -> Option<usize> {
-        if p == 0 && is_ws(self.b(0)) {
+        if self.bol(p) && is_ws(self.b(0)) {
             let j = 1;
             if self.b(j) == b'*' {
                 let e = self.ws(j + 1);

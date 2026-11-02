@@ -852,3 +852,22 @@ fn a_fence_name_matches_with_oracles_case_folding() {
     // Other letters do not fold.
     assert!(!second_line_is_embedded("```ru\u{df}t\nlet x = 1;\n```"));
 }
+
+#[test]
+fn a_caret_does_not_match_where_a_list_took_the_start_of_the_line() {
+    // The list consumed the indentation, so `^` matches nowhere in the fence:
+    // a type annotation, which ends at `^` or `$`, goes on to the next line,
+    // and a triple-slash directive, which starts with `^`, is a plain comment.
+    let text = "- a:\n  ```ts\n  const c: A\n  export default c\n  ```";
+    assert!(
+        stack_of(text, "export")
+            .iter()
+            .any(|scope| scope == "meta.type.annotation.ts")
+    );
+    let text = "- a:\n  ```ts\n  /// <reference types=\"x\" />\n  ```";
+    assert!(
+        stack_of(text, "//")
+            .iter()
+            .any(|scope| scope == "comment.line.double-slash.ts")
+    );
+}
