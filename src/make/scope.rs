@@ -4,32 +4,10 @@
 //! listed whole for the words the grammar can capture; the flags of a
 //! recipe line, which are any run of `+`, `-` and `@`, are made at run time.
 
-macro_rules! scopes {
-    ($($id:ident $name:literal)*) => {
-        /// A scope name; the discriminant indexes [`NAMES`].
-        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-        #[repr(u8)]
-        pub(crate) enum S { $($id),* }
-
-        impl S {
-            /// The scope in the crate's shared numbering.
-            #[expect(
-                clippy::as_conversions,
-                reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
-            )]
-            pub(crate) const fn scope(self) -> crate::scope::Scope {
-                crate::scope::Scope::new(crate::scope::MAKE, self as u16)
-            }
-        }
-
-        /// The name of every scope, indexed by discriminant.
-        pub(crate) const NAMES: &[&str] = &[$($name),*];
-    };
-}
-
 // The grammar spells the comma's scope with a misspelled word; the escape in
 // it keeps the spelling checker from reading it as a typo.
-scopes! {
+crate::scope::scope_table! {
+    MAKE;
     Source "source.makefile"
     Continuation "constant.character.escape.continuation.makefile"
     Comma "punctuation.separator.delim\x65ter.comma.makefile"

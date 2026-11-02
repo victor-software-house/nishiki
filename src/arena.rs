@@ -52,7 +52,7 @@ impl Hasher for IdHasher {
 type IdMap<K> = HashMap<K, u32, BuildHasherDefault<IdHasher>>;
 
 /// A scope stack's key: its parent and its top scope.
-type ScopeKey = (u32, u16);
+type ScopeKey = (u32, u32);
 
 /// A state's key: parent, kind, payload and scope stack.
 type FrameKey = (u32, u16, u32, u32);
@@ -164,7 +164,7 @@ impl Arena {
     /// it from being made.
     pub(crate) fn named_scope(&mut self, name: &str) -> Option<Scope> {
         let index = u16::try_from(self.intern(name)?).ok()?;
-        (index < u16::MAX - crate::scope::DYNAMIC).then(|| Scope::dynamic(index))
+        Some(Scope::dynamic(index))
     }
 
     /// The scopes of `stack`, innermost first; empty for an id this arena

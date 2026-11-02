@@ -101,6 +101,16 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
+/// The state at the start of a Markdown body whose text sits on the stack
+/// `base` with no root scope of its own.
+///
+/// No Markdown fence embeds Markdown through this: a Markdown fence is lexed
+/// by the Markdown lexer's own rules. It completes the contract every
+/// language keeps.
+pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
+    arena.push(ROOT, Kind::Base.code(), 1, base).unwrap_or(ROOT)
+}
+
 /// Lexes one line from `state`, appending its tokens, and returns the state
 /// after it. An empty line appends none and leaves the state as it was, as it
 /// does in Shiki.

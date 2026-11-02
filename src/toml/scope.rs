@@ -1,18 +1,7 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
-macro_rules! scopes {
-    ($($id:ident $name:literal)*) => {
-        /// A scope name; the discriminant indexes [`NAMES`].
-        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-        #[repr(u8)]
-        pub(crate) enum S { $($id),* }
-
-        /// The name of every scope, in discriminant order.
-        pub(crate) const NAMES: &[&str] = &[$($name),*];
-    };
-}
-
-scopes! {
+crate::scope::scope_table! {
+    TOML;
     Source "source.toml"
     MetaArray "meta.array.toml"
     MetaInline "meta.inline-table.toml"
@@ -52,15 +41,4 @@ scopes! {
     Comment "comment.line.number-sign.toml"
     PunctComment "punctuation.definition.comment.toml"
     CommentLeading "punctuation.whitespace.comment.leading.toml"
-}
-
-impl S {
-    /// The scope in the crate's shared numbering.
-    #[expect(
-        clippy::as_conversions,
-        reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
-    )]
-    pub(crate) const fn scope(self) -> crate::scope::Scope {
-        crate::scope::Scope::new(crate::scope::TOML, self as u16)
-    }
 }

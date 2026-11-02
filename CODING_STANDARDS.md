@@ -32,16 +32,17 @@ An embedding language can therefore pass a fence line whole, and `^` still match
   buffers and caches the `Highlighter` owns and keeps across lines, cleared rather than reallocated.
   A language uses its own field and those of the languages it embeds.
 
-`src/language.rs` is the one place these functions are called.
-`Language::start`, `Language::start_embedded` and `Language::lex` each have one arm per language that calls the module's function.
+`src/language.rs` holds one `languages!` table, a row per language.
+The table generates `Language`, `Language::ALL`, `Language::id`, the names `Language::from_name` reads, and `Language::start`, `Language::start_embedded` and `Language::lex`, each with one arm per language that calls the module's function.
 The `Highlighter` and the Markdown fences both call `Language::lex`.
+A row names the language's module, and a dialect when one module serves several languages.
 
 A new language is wired in by appending:
 
-1. its arms in `src/language.rs`;
-2. its scope table;
-3. its frame tag;
-4. its fence names.
+1. its row in `src/language.rs`;
+2. its scope table: one line in `src/scope.rs`;
+3. its frame tag in `src/tag.rs`;
+4. its fence names in `src/markdown/fence.rs`.
 
 A language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API,
@@ -68,10 +69,10 @@ That is what lets an editor stop re-lexing as soon as a line's state matches the
 - Each language lists its scope names once, in Shiki's spelling,
   as an enum whose discriminant indexes a `NAMES` table.
 - `src/scope.rs` numbers every table in one space.
-  Each table's base is computed from the previous table's end (`after`), never written by hand,
-  so adding a language cannot make two tables overlap.
-- A compile-time check fails the build when a table does not start where the one before it ends,
-  as a merge that keeps both sides can leave it.
+  A table's slot is its line in `tables!`, and a scope number is the slot in the high 16 bits and the name's index in the low 16.
+  One table's length therefore never moves another table's numbers.
+- A compile-time check fails the build when a table outgrows its slot or the slots reach the run-time scopes.
+- A language whose names are one list declares them with `scope_table!`, which generates the enum, `NAMES` and the conversion to a scope.
 - A name the grammar misspells keeps the grammar's spelling.
   It is written with one byte escape in the literal, so the stock spelling check passes.
 

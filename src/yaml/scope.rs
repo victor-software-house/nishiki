@@ -1,18 +1,7 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
-macro_rules! scopes {
-    ($($id:ident $name:literal)*) => {
-        /// A scope name; the discriminant indexes [`NAMES`].
-        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-        #[repr(u8)]
-        pub(crate) enum S { $($id),* }
-
-        /// The name of every scope, in the order of [`S`].
-        pub(crate) const NAMES: &[&str] = &[$($name,)*];
-    };
-}
-
-scopes! {
+crate::scope::scope_table! {
+    YAML;
     Source "source.yaml"
     PlainOut "string.unquoted.plain.out.yaml"
     PlainIn "string.unquoted.plain.in.yaml"
@@ -79,15 +68,4 @@ scopes! {
     MetaBlockMap "meta.block-mapping.yaml"
     InvalidNewline "invalid.illegal.expected-newline.yaml"
     InvalidCommentNewline "invalid.illegal.expected-comment-or-newline.yaml"
-}
-
-impl S {
-    /// The scope in the crate's shared numbering.
-    #[expect(
-        clippy::as_conversions,
-        reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
-    )]
-    pub(crate) const fn scope(self) -> crate::scope::Scope {
-        crate::scope::Scope::new(crate::scope::YAML, self as u16)
-    }
 }

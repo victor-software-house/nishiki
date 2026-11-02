@@ -1,5 +1,6 @@
-//! The languages nishiki highlights, and the one place their lexers are
-//! called.
+//! The languages nishiki highlights: one table of rows, from which the
+//! `Language` enum and every function that has an arm per language are
+//! generated.
 
 use crate::arena::Arena;
 use crate::json::Dialect;
@@ -11,113 +12,157 @@ use crate::{
     sql, toml, typescript, yaml,
 };
 
-/// A language nishiki highlights, named as Shiki names it.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-#[non_exhaustive]
-pub enum Language {
+/// The language list, and with it every function that has one arm per
+/// language: [`Language`], [`Language::ALL`], [`Language::id`], the names
+/// [`Language::from_name`] reads, and the three lexer entry points.
+///
+/// A row is one language: its variant, its Shiki names (the first is its id),
+/// the module that lexes it, and optionally the dialect the module is told,
+/// and whether its rules end at the line feed of a line that the containers
+/// around a Markdown fence took whole.
+/// A new language is one row here, its scope table in `src/scope.rs`, its
+/// frame tag in `src/tag.rs`, its fence names in `src/markdown/fence.rs`, and
+/// its field in `src/scratch.rs` when it keeps buffers.
+macro_rules! languages {
+    (@flag) => { false };
+    (@flag $flag:literal) => { $flag };
+    ($(
+        $(#[$meta:meta])*
+        $variant:ident {
+            names: [$id:literal $(, $alias:literal)*],
+            module: $module:ident
+            $(, dialect: $dialect:expr)?
+            $(, reads_line_feed: $line_feed:literal)?
+            $(,)?
+        }
+    )*) => {
+        /// A language nishiki highlights, named as Shiki names it.
+        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+        #[non_exhaustive]
+        pub enum Language {
+            $($(#[$meta])* $variant,)*
+        }
+
+        impl Language {
+            /// Every supported language.
+            pub const ALL: &[Language] = &[$(Language::$variant),*];
+
+            /// Shiki's id for the language, such as `"rust"`.
+            #[must_use]
+            pub fn id(self) -> &'static str {
+                match self {
+                    $(Language::$variant => $id,)*
+                }
+            }
+
+            /// The id and aliases, as Shiki lists them.
+            fn names(self) -> &'static [&'static str] {
+                match self {
+                    $(Language::$variant => &[$id $(, $alias)*],)*
+                }
+            }
+
+            /// Whether the language's rules end at the line feed of a line
+            /// that the containers around a Markdown fence took whole, as
+            /// Shiki's grammar sees it after them. The other lexers leave
+            /// their state alone for such a line.
+            pub(crate) fn reads_line_feed(self) -> bool {
+                match self {
+                    $(Language::$variant => languages!(@flag $($line_feed)?),)*
+                }
+            }
+
+            /// The state at the start of a document whose scopes sit on
+            /// `base`.
+            pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
+                match self {
+                    $(Language::$variant => $module::start(arena, base $(, $dialect)?),)*
+                }
+            }
+
+            /// The state at the start of a Markdown fence's body, whose text
+            /// sits on `base` with no root scope of the language's own, as in
+            /// Shiki's embedding.
+            pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
+                match self {
+                    $(Language::$variant => $module::start_embedded(arena, base),)*
+                }
+            }
+
+            /// Lexes `line` from its `start` and from `state`, appending
+            /// tokens whose ends count from the start of the whole line, and
+            /// returns the state after it.
+            #[inline]
+            pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+                match self {
+                    $(Language::$variant => $module::lex(cx, $($dialect,)? line, state),)*
+                }
+            }
+        }
+    };
+}
+
+languages! {
     /// Rust, with the scopes of Shiki's `rust` grammar.
-    Rust,
+    Rust { names: ["rust", "rs"], module: rust }
     /// Markdown, with the scopes of Shiki's `markdown` grammar. A fence of
     /// another supported language is lexed as that language.
-    Markdown,
+    Markdown { names: ["markdown", "md"], module: markdown }
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
-    TypeScript,
+    TypeScript {
+        names: ["typescript", "ts", "cts", "mts"],
+        module: typescript,
+        dialect: ScriptDialect::TypeScript,
+    }
     /// `JavaScript`, with the scopes of Shiki's `javascript` grammar.
-    JavaScript,
+    JavaScript {
+        names: ["javascript", "js", "cjs", "mjs"],
+        module: typescript,
+        dialect: ScriptDialect::JavaScript,
+    }
     /// `JSX`, with the scopes of Shiki's `jsx` grammar.
-    Jsx,
+    Jsx { names: ["jsx"], module: typescript, dialect: ScriptDialect::Jsx }
     /// `TSX`, with the scopes of Shiki's `tsx` grammar.
-    Tsx,
+    Tsx { names: ["tsx"], module: typescript, dialect: ScriptDialect::Tsx }
     /// Shell, with the scopes of Shiki's `shellscript` grammar.
-    Shell,
+    Shell {
+        names: ["shellscript", "bash", "sh", "shell", "zsh"],
+        module: shell,
+        reads_line_feed: true,
+    }
     /// JSON, with the scopes of Shiki's `json` grammar.
-    Json,
+    Json { names: ["json"], module: json, dialect: Dialect::Json }
     /// JSON with comments, with the scopes of Shiki's `jsonc` grammar.
-    Jsonc,
+    Jsonc { names: ["jsonc"], module: json, dialect: Dialect::Jsonc }
     /// JSON Lines, with the scopes of Shiki's `jsonl` grammar.
-    Jsonl,
+    Jsonl { names: ["jsonl"], module: json, dialect: Dialect::Jsonl }
     /// Python, with the scopes of Shiki's `python` grammar.
-    Python,
+    Python { names: ["python", "py"], module: python }
     /// YAML, with the scopes of Shiki's `yaml` grammar.
-    Yaml,
+    Yaml { names: ["yaml", "yml"], module: yaml }
     /// TOML, with the scopes of Shiki's `toml` grammar.
-    Toml,
+    Toml { names: ["toml"], module: toml }
     /// Makefile, with the scopes of Shiki's `make` grammar.
-    Make,
+    Make { names: ["make", "makefile"], module: make, reads_line_feed: true }
     /// Diff, with the scopes of Shiki's `diff` grammar.
-    Diff,
+    Diff { names: ["diff"], module: diff }
     /// Dockerfile, with the scopes of Shiki's `docker` grammar.
-    Dockerfile,
+    Dockerfile { names: ["docker", "dockerfile"], module: dockerfile }
     /// Java, with the scopes of Shiki's `java` grammar.
-    Java,
+    Java { names: ["java"], module: java }
     /// C, with the scopes of Shiki's `c` grammar.
-    C,
+    C { names: ["c"], module: c, reads_line_feed: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
-    Sql,
+    Sql { names: ["sql"], module: sql }
     /// INI, with the scopes of Shiki's `ini` grammar.
-    Ini,
+    Ini { names: ["ini", "properties"], module: ini }
     /// GraphQL, with the scopes of Shiki's `graphql` grammar.
-    GraphQl,
+    GraphQl { names: ["graphql", "gql"], module: graphql }
     /// CSS, with the scopes of Shiki's `css` grammar.
-    Css,
+    Css { names: ["css"], module: css }
 }
 
 impl Language {
-    /// Every supported language.
-    pub const ALL: &[Language] = &[
-        Language::Rust,
-        Language::Markdown,
-        Language::TypeScript,
-        Language::JavaScript,
-        Language::Jsx,
-        Language::Tsx,
-        Language::Shell,
-        Language::Json,
-        Language::Jsonc,
-        Language::Jsonl,
-        Language::Python,
-        Language::Yaml,
-        Language::Toml,
-        Language::Make,
-        Language::Diff,
-        Language::Dockerfile,
-        Language::Java,
-        Language::C,
-        Language::Sql,
-        Language::Ini,
-        Language::GraphQl,
-        Language::Css,
-    ];
-
-    /// Shiki's id for the language, such as `"rust"`.
-    #[must_use]
-    pub fn id(self) -> &'static str {
-        match self {
-            Language::Rust => "rust",
-            Language::Markdown => "markdown",
-            Language::TypeScript => "typescript",
-            Language::JavaScript => "javascript",
-            Language::Jsx => "jsx",
-            Language::Tsx => "tsx",
-            Language::Shell => "shellscript",
-            Language::Json => "json",
-            Language::Jsonc => "jsonc",
-            Language::Jsonl => "jsonl",
-            Language::Python => "python",
-            Language::Yaml => "yaml",
-            Language::Toml => "toml",
-            Language::Make => "make",
-            Language::Diff => "diff",
-            Language::Dockerfile => "docker",
-            Language::Java => "java",
-            Language::C => "c",
-            Language::Sql => "sql",
-            Language::Ini => "ini",
-            Language::GraphQl => "graphql",
-            Language::Css => "css",
-        }
-    }
-
     /// The language Shiki knows by `name`, its id or one of its aliases,
     /// such as `"rust"` or `"rs"`; ASCII case is ignored.
     ///
@@ -136,34 +181,6 @@ impl Language {
                 .iter()
                 .any(|known| known.eq_ignore_ascii_case(name))
         })
-    }
-
-    /// The id and aliases, as Shiki lists them.
-    fn names(self) -> &'static [&'static str] {
-        match self {
-            Language::Rust => &["rust", "rs"],
-            Language::Markdown => &["markdown", "md"],
-            Language::TypeScript => &["typescript", "ts", "cts", "mts"],
-            Language::JavaScript => &["javascript", "js", "cjs", "mjs"],
-            Language::Jsx => &["jsx"],
-            Language::Tsx => &["tsx"],
-            Language::Shell => &["shellscript", "bash", "sh", "shell", "zsh"],
-            Language::Json => &["json"],
-            Language::Jsonc => &["jsonc"],
-            Language::Jsonl => &["jsonl"],
-            Language::Python => &["python", "py"],
-            Language::Yaml => &["yaml", "yml"],
-            Language::Toml => &["toml"],
-            Language::Make => &["make", "makefile"],
-            Language::Diff => &["diff"],
-            Language::Dockerfile => &["docker", "dockerfile"],
-            Language::Java => &["java"],
-            Language::C => &["c"],
-            Language::Sql => &["sql"],
-            Language::Ini => &["ini", "properties"],
-            Language::GraphQl => &["graphql", "gql"],
-            Language::Css => &["css"],
-        }
     }
 }
 
@@ -186,104 +203,6 @@ pub(crate) struct Line<'a> {
     /// Whether a Markdown fence embeds the language, which sets the anchor
     /// `\G` at `start` as the fence's `while` rule does in Shiki.
     pub(crate) embedded: bool,
-}
-
-/// The lexers, called the same way for every language: the one place a new
-/// language is wired in, besides its names above, its scope table and the
-/// Markdown fence names.
-impl Language {
-    /// Whether the language's rules end at the line feed of a line that the
-    /// containers around a Markdown fence took whole, as Shiki's grammar sees
-    /// it after them. The other lexers leave their state alone for such a
-    /// line.
-    pub(crate) fn reads_line_feed(self) -> bool {
-        matches!(self, Language::Make | Language::Shell | Language::C)
-    }
-
-    /// The state at the start of a document whose scopes sit on `base`.
-    pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
-        match self {
-            Language::Rust => rust::start(arena, base),
-            Language::Markdown => markdown::start(arena, base),
-            Language::TypeScript => typescript::start(arena, base, ScriptDialect::TypeScript),
-            Language::JavaScript => typescript::start(arena, base, ScriptDialect::JavaScript),
-            Language::Jsx => typescript::start(arena, base, ScriptDialect::Jsx),
-            Language::Tsx => typescript::start(arena, base, ScriptDialect::Tsx),
-            Language::Shell => shell::start(arena, base),
-            Language::Json => json::start(arena, base, Dialect::Json),
-            Language::Jsonc => json::start(arena, base, Dialect::Jsonc),
-            Language::Jsonl => json::start(arena, base, Dialect::Jsonl),
-            Language::Python => python::start(arena, base),
-            Language::Yaml => yaml::start(arena, base),
-            Language::Toml => toml::start(arena, base),
-            Language::Make => make::start(arena, base),
-            Language::Diff => diff::start(arena, base),
-            Language::Dockerfile => dockerfile::start(arena, base),
-            Language::Java => java::start(arena, base),
-            Language::C => c::start(arena, base),
-            Language::Sql => sql::start(arena, base),
-            Language::Ini => ini::start(arena, base),
-            Language::GraphQl => graphql::start(arena, base),
-            Language::Css => css::start(arena, base),
-        }
-    }
-
-    /// The state at the start of a Markdown fence's body, whose text sits on
-    /// `base` with no root scope of the language's own, as in Shiki's
-    /// embedding.
-    pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
-        match self {
-            Language::Rust | Language::Markdown => rust::start_embedded(arena, base),
-            Language::TypeScript | Language::JavaScript | Language::Jsx | Language::Tsx => {
-                typescript::start_embedded(arena, base)
-            }
-            Language::Shell => shell::start_embedded(arena, base),
-            Language::Json | Language::Jsonc | Language::Jsonl => json::start_embedded(arena, base),
-            Language::Python => python::start_embedded(arena, base),
-            Language::Yaml => yaml::start_embedded(arena, base),
-            Language::Toml => toml::start_embedded(arena, base),
-            Language::Make => make::start_embedded(arena, base),
-            Language::Diff => diff::start_embedded(arena, base),
-            Language::Dockerfile => dockerfile::start_embedded(arena, base),
-            Language::Java => java::start_embedded(arena, base),
-            Language::C => c::start_embedded(arena, base),
-            Language::Sql => sql::start_embedded(arena, base),
-            Language::Ini => ini::start_embedded(arena, base),
-            Language::GraphQl => graphql::start_embedded(arena, base),
-            Language::Css => css::start_embedded(arena, base),
-        }
-    }
-
-    /// Lexes `line` from its `start` and from `state`, appending tokens whose
-    /// ends count from the start of the whole line, and returns the state
-    /// after it.
-    #[inline]
-    pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
-        match self {
-            Language::Rust => rust::lex(cx, line, state),
-            Language::Markdown => markdown::lex(cx, line, state),
-            Language::TypeScript => typescript::lex(cx, ScriptDialect::TypeScript, line, state),
-            Language::JavaScript => typescript::lex(cx, ScriptDialect::JavaScript, line, state),
-            Language::Jsx => typescript::lex(cx, ScriptDialect::Jsx, line, state),
-            Language::Tsx => typescript::lex(cx, ScriptDialect::Tsx, line, state),
-            Language::Shell => shell::lex(cx, line, state),
-            Language::Json => json::lex(cx, Dialect::Json, line, state),
-            Language::Jsonc => json::lex(cx, Dialect::Jsonc, line, state),
-            Language::Jsonl => json::lex(cx, Dialect::Jsonl, line, state),
-            Language::Python => python::lex(cx, line, state),
-            Language::Yaml => yaml::lex(cx, line, state),
-            Language::Toml => toml::lex(cx, line, state),
-            Language::Make => make::lex(cx, line, state),
-            Language::Diff => diff::lex(cx, line, state),
-            Language::Dockerfile => dockerfile::lex(cx, line, state),
-            Language::Java => java::lex(cx, line, state),
-            Language::C => c::lex(cx, line, state),
-            Language::Sql => sql::lex(cx, line, state),
-            Language::Ini => ini::lex(cx, line, state),
-            Language::GraphQl => graphql::lex(cx, line, state),
-            Language::Css => css::lex(cx, line, state),
-        }
-    }
 }
 
 impl Context<'_> {
