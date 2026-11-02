@@ -10,7 +10,8 @@
 //! ([`Language::Markdown`]), which hands the code in its fences to the other
 //! lexers, `TypeScript` ([`Language::TypeScript`]), shell
 //! ([`Language::Shell`]), JSON ([`Language::Json`], [`Language::Jsonc`] and
-//! [`Language::Jsonl`]) and Python ([`Language::Python`]).
+//! [`Language::Jsonl`]), Python ([`Language::Python`]) and YAML
+//! ([`Language::Yaml`]).
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -67,6 +68,7 @@ mod scratch;
 mod shell;
 mod theme;
 mod typescript;
+mod yaml;
 
 pub use arena::Scopes;
 pub use highlighter::Highlighter;

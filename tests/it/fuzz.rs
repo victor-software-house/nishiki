@@ -11,6 +11,17 @@ use nishiki::{Highlighter, Language, State};
 /// The pieces lines are made of; several bytes long where a lexer reads
 /// them as one construct.
 const PIECES: &[&str] = &[
+    "---",
+    "...",
+    "? ",
+    ": ",
+    "- ",
+    "|2",
+    ">-",
+    "&a ",
+    "*a",
+    "!!str ",
+    "%YAML 1.2",
     "R",
     "a",
     "_",

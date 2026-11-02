@@ -9,6 +9,8 @@ use super::state::{Kind, Lang};
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum P {
     // Blocks.
+    /// The zero-width beginning of front matter: `\A(?=(-{3,}))`.
+    FrontMatter,
     Separator,
     Heading,
     Quote,
@@ -25,6 +27,8 @@ pub(crate) enum P {
     Paragraph,
     /// The rule inside an embedded fence that takes its lines.
     EmbedBegin,
+    /// The rule inside front matter that takes its first line.
+    FrontMatterBegin,
     // Inside a table.
     TablePipe,
     TableSeparator,
@@ -69,6 +73,7 @@ impl P {
             return self == P::LinkDef;
         }
         match self {
+            P::FrontMatter => at == b'-',
             P::Separator => matches!(first, b'-' | b'*' | b'_'),
             P::Heading => first == b'#',
             P::Quote => first == b'>',
@@ -83,6 +88,7 @@ impl P {
             | P::FenceLanguage
             | P::FencePlain
             | P::EmbedBegin
+            | P::FrontMatterBegin
             | P::TablePipe
             | P::TableSeparator
             | P::TableCell
@@ -127,7 +133,9 @@ impl P {
             P::LinkInline | P::LinkRef | P::LinkRefLiteral | P::LinkRefShortcut => byte == b'[',
             P::Setext1 => byte == b'=',
             P::Setext2 => byte == b'-',
-            P::Separator
+            P::FrontMatter
+            | P::FrontMatterBegin
+            | P::Separator
             | P::Heading
             | P::Quote
             | P::Bullet
@@ -157,6 +165,7 @@ impl P {
 /// The rule that closes a container.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum End {
+    FrontMatter,
     Fence,
     Comment,
     Bold,
@@ -177,6 +186,7 @@ pub(crate) enum List {
 }
 
 const BLOCK: &[P] = &[
+    P::FrontMatter,
     P::Separator,
     P::Heading,
     P::Quote,
@@ -297,6 +307,7 @@ const TABLE: &[P] = &[P::TablePipe, P::TableSeparator, P::TableCell];
 pub(crate) fn patterns(kind: Kind) -> &'static [P] {
     match kind {
         Kind::Fence(_) => &[P::EmbedBegin],
+        Kind::FrontMatter => &[P::FrontMatterBegin],
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet
@@ -310,7 +321,9 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
             | Lang::Json
             | Lang::Jsonc
             | Lang::Jsonl
-            | Lang::Python,
+            | Lang::Python
+            | Lang::Yaml
+            | Lang::FrontMatter,
         )
         | Kind::RawBlock
         | Kind::Comment => &[],
@@ -334,6 +347,7 @@ pub(crate) fn list_patterns(list: List) -> &'static [P] {
 /// The rule that closes a container, if it has one.
 pub(crate) fn end(kind: Kind) -> Option<End> {
     match kind {
+        Kind::FrontMatter => Some(End::FrontMatter),
         Kind::Fence(_) | Kind::FencePlain => Some(End::Fence),
         Kind::Comment => Some(End::Comment),
         Kind::BoldStar | Kind::BoldUnder => Some(End::Bold),
@@ -353,7 +367,7 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
 /// and closes it included.
 pub(crate) fn names(kind: Kind) -> &'static [S] {
     match kind {
-        Kind::Base | Kind::Body(_) => &[],
+        Kind::Base | Kind::Body(_) | Kind::FrontMatter => &[],
         Kind::Quote => &[S::Quote],
         Kind::ListBullet => &[S::ListBullet],
         Kind::ListOrdered => &[S::ListOrdered],
@@ -378,12 +392,15 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         Kind::Body(Lang::Jsonc) => Some(S::EmbeddedJsonc),
         Kind::Body(Lang::Jsonl) => Some(S::EmbeddedJsonl),
         Kind::Body(Lang::Python) => Some(S::EmbeddedPython),
+        Kind::Body(Lang::Yaml) => Some(S::EmbeddedYaml),
+        Kind::Body(Lang::FrontMatter) => Some(S::EmbeddedFrontMatter),
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet
         | Kind::ListOrdered
         | Kind::Fence(_)
         | Kind::FencePlain
+        | Kind::FrontMatter
         | Kind::RawBlock
         | Kind::Table
         | Kind::Paragraph
@@ -433,6 +450,8 @@ pub(crate) fn match_name(rule: P) -> Option<S> {
         | P::Table
         | P::Paragraph
         | P::EmbedBegin
+        | P::FrontMatter
+        | P::FrontMatterBegin
         | P::TableSeparator
         | P::TableCell
         | P::Bold
@@ -520,6 +539,11 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
             4 => scope(S::FenceInfo),
             _ => NONE,
         },
+        P::FrontMatterBegin => match group {
+            1 => scope(S::FrontMatterBegin),
+            2 => scope(S::FrontMatterComment),
+            _ => NONE,
+        },
         P::Comment => only(group, 2, scope(S::CommentHtmlPunct)),
         P::Table => only(group, 2, scope(S::TablePunct)),
         P::TableSeparator => only(group, 1, scope(S::TableSeparator)),
@@ -532,7 +556,8 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
             6 | 8 => scope(S::UnderlineLink),
             _ => title(group, 9),
         },
-        P::Separator
+        P::FrontMatter
+        | P::Separator
         | P::Fence
         | P::RawBlock
         | P::Paragraph
@@ -559,6 +584,10 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
 }
 
 /// [`capture`] for the inline rules.
+#[expect(
+    clippy::wildcard_enum_match_arm,
+    reason = "`capture` handles every rule that is not inline"
+)]
 fn inline_capture(rule: P, group: usize) -> Capture {
     match rule {
         P::Bold => only(group, 1, scope(S::BoldPunct)),
@@ -631,40 +660,15 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             3 => scope(S::TitleEndLink),
             _ => NONE,
         },
-        P::Separator
-        | P::Heading
-        | P::Quote
-        | P::Bullet
-        | P::Ordered
-        | P::Fence
-        | P::FenceLanguage
-        | P::FencePlain
-        | P::RawBlock
-        | P::LinkDef
-        | P::Comment
-        | P::Table
-        | P::Paragraph
-        | P::EmbedBegin
-        | P::TablePipe
-        | P::TableSeparator
-        | P::TableCell
-        | P::Setext1
-        | P::Setext2
-        | P::Level1
-        | P::Level2
-        | P::Level3
-        | P::Level4
-        | P::Level5
-        | P::Level6
-        | P::Ampersand
-        | P::Bracket
-        | P::Escape => NONE,
+        // `capture` has taken every rule that is not inline.
+        _ => NONE,
     }
 }
 
 /// The scope of group `group` of the closing rule `end`.
 pub(crate) fn end_capture(end: End, group: usize) -> Capture {
     match (end, group) {
+        (End::FrontMatter, 0) => scope(S::FrontMatterEnd),
         (End::Fence, 3) => scope(S::FencePunct),
         (End::Comment, 1) => scope(S::CommentHtmlPunct),
         (End::Bold, 1) => scope(S::BoldPunct),

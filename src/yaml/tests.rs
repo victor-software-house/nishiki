@@ -1,0 +1,365 @@
+use indoc::indoc;
+
+use crate::{Highlighter, Language, Limit, Limits, State};
+
+/// Lexes `text` and returns, per line, each token's text with its scope
+/// stack, outermost first, without the `.yaml` suffix.
+fn lex(text: &str) -> Vec<Vec<(String, Vec<String>)>> {
+    let mut highlighter = Highlighter::new(Language::Yaml);
+    let mut state = State::default();
+    let mut lines = Vec::new();
+    for line in text.split('\n') {
+        let mut tokens = Vec::new();
+        let report = highlighter.line(line, &mut state, &mut tokens);
+        assert!(report.is_complete(), "{line:?} reached a limit");
+        let mut start = 0;
+        let mut row = Vec::new();
+        for token in &tokens {
+            let mut scopes: Vec<String> = highlighter
+                .scopes(token.stack())
+                .map(|scope| scope.trim_end_matches(".yaml").to_owned())
+                .collect();
+            scopes.reverse();
+            row.push((line[start..token.end()].to_owned(), scopes));
+            start = token.end();
+        }
+        assert_eq!(start, line.len(), "tokens must cover the line: {line:?}");
+        lines.push(row);
+    }
+    lines
+}
+
+/// The scopes after `source`, joined, of the first token of `text` that
+/// reads `token`.
+fn scope_of(text: &str, token: &str) -> String {
+    let lines = lex(text);
+    let found = lines.iter().flatten().find(|(t, _)| t == token);
+    let (_, scopes) = found.unwrap_or_else(|| panic!("no token {token:?} in {lines:?}"));
+    scopes[1..].join(" ")
+}
+
+#[test]
+fn a_key_is_tagged_and_its_value_is_not() {
+    let text = "name: value";
+    assert_eq!(
+        scope_of(text, "name"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+    assert_eq!(
+        scope_of(text, ":"),
+        "punctuation.separator.key-value.mapping"
+    );
+    assert_eq!(scope_of(text, "value"), "string.unquoted.plain.out");
+}
+
+#[test]
+fn a_constant_key_is_a_constant_not_a_tag() {
+    assert_eq!(scope_of("n: x", "n"), "constant.language.boolean");
+    assert_eq!(scope_of("1: x", "1"), "constant.numeric.integer");
+}
+
+#[test]
+fn numbers_follow_the_yaml_1_1_patterns() {
+    for (value, scope) in [
+        ("0x1F", "constant.numeric.integer"),
+        ("012", "constant.numeric.integer"),
+        ("1_000", "constant.numeric.integer"),
+        ("1:30:00", "constant.numeric.integer"),
+        ("1.5.2", "constant.numeric.float"),
+        ("-.inf", "constant.numeric.float"),
+        ("1.5e+3", "constant.numeric.float"),
+        ("2001-12-14", "constant.other.timestamp"),
+        ("2001-12-14 21:59:43.10 Z", "constant.other.timestamp"),
+        ("~", "constant.language.null"),
+        ("Off", "constant.language.boolean"),
+        ("<<", "constant.language.merge"),
+    ] {
+        assert_eq!(scope_of(&format!("k: {value}"), value), scope, "{value}");
+    }
+}
+
+#[test]
+fn a_scalar_that_nearly_matches_is_plain() {
+    // No `0o`, an exponent needs its sign, and the zone has no blank before
+    // `-5`.
+    for value in [
+        "0o17",
+        "1e3",
+        "1.5e3",
+        "2001-12-14 21:59:43.10 -5",
+        "true x",
+    ] {
+        let lines = lex(&format!("k: {value}"));
+        assert!(
+            lines[0].iter().skip(3).all(|(_, scopes)| scopes
+                .last()
+                .is_some_and(|s| s == "string.unquoted.plain.out")),
+            "{value}: {lines:?}"
+        );
+    }
+}
+
+#[test]
+fn a_comment_needs_a_blank_before_it_and_no_tab_in_it() {
+    assert_eq!(
+        scope_of("a: b #c", "#"),
+        "comment.line.number-sign punctuation.definition.comment"
+    );
+    let lines = lex("a: b#c");
+    assert_eq!(lines[0].len(), 4, "{lines:?}");
+    assert_eq!(scope_of("a: b #c\td", "#"), "");
+}
+
+#[test]
+fn an_indented_comment_line_has_a_leading_whitespace_scope() {
+    assert_eq!(
+        scope_of("  # c", "  "),
+        "punctuation.whitespace.comment.leading"
+    );
+}
+
+#[test]
+fn a_block_scalar_ends_at_the_first_line_indented_less() {
+    let text = indoc! {"
+        a: |
+            x
+          z
+        b: 1
+    "};
+    let lines = lex(text);
+    let last = |line: usize| {
+        lines[line]
+            .last()
+            .and_then(|(_, scopes)| scopes.last().cloned())
+    };
+    assert_eq!(last(1).as_deref(), Some("string.unquoted.block"));
+    // `z` is indented less than the first line, so it is plain text again.
+    assert_eq!(last(2).as_deref(), Some("string.unquoted.plain.out"));
+    assert_eq!(
+        scope_of(text, "b"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+}
+
+#[test]
+fn a_block_scalar_without_indented_lines_ends_at_once() {
+    let lines = lex("a: |\nb: 1");
+    assert_eq!(
+        scope_of("a: |\nb: 1", "b"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+    assert_eq!(lines[1].len(), 4);
+}
+
+#[test]
+fn a_block_header_takes_one_indicator_and_a_comment() {
+    assert_eq!(
+        scope_of("a: |2-", "2"),
+        "keyword.control.flow.block-scalar.literal constant.numeric.indentation-indicator"
+            .replace("keyword.control.flow.block-scalar.literal ", "")
+    );
+    assert_eq!(
+        scope_of("a: >-  # c", "-"),
+        "storage.modifier.chomping-indicator"
+    );
+    assert_eq!(
+        scope_of("a: |-2", "2"),
+        "invalid.illegal.expected-comment-or-newline"
+    );
+    assert_eq!(
+        scope_of("a: |x", "x"),
+        "invalid.illegal.expected-comment-or-newline"
+    );
+}
+
+#[test]
+fn escapes_in_double_quotes_take_decimal_digits_only() {
+    // The `u` is added apart so that this source holds no unicode escape.
+    let unicode = format!("\\{}0041", 'u');
+    let text = format!(r#"a: "\n\x41\x4a{unicode}\q\p""#);
+    for escape in ["\\n", "\\x41", unicode.as_str(), "\\p"] {
+        assert_eq!(
+            scope_of(&text, escape),
+            "string.quoted.double constant.character.escape",
+            "{escape}"
+        );
+    }
+    // The letter in `\x4a` ends that escape, and `\q` is none.
+    let lines = lex(&text);
+    for plain in ["\\x4a", "\\q"] {
+        assert!(
+            lines[0].iter().any(|(t, s)| t == plain && s.len() == 2),
+            "{plain}: {lines:?}"
+        );
+    }
+}
+
+#[test]
+fn a_double_quoted_string_and_its_escape_can_cross_lines() {
+    let lines = lex("a: \"x\\\ny\"");
+    assert_eq!(
+        lines[0].last().map(|(_, s)| s.last().cloned()),
+        Some(Some(
+            "constant.character.escape.double-quoted.newline".to_owned()
+        ))
+    );
+    assert_eq!(
+        lines[1][1].1.last().map(String::as_str),
+        Some("punctuation.definition.string.end")
+    );
+}
+
+#[test]
+fn a_single_quote_is_doubled_to_be_in_the_string() {
+    assert_eq!(
+        scope_of("a: 'it''s'", "''"),
+        "string.quoted.single constant.character.escape.single-quoted"
+    );
+}
+
+#[test]
+fn a_flow_pair_opens_at_the_colon() {
+    let lines = lex("{a: 1}");
+    let scopes: Vec<(&str, String)> = lines[0]
+        .iter()
+        .map(|(text, scopes)| (text.as_str(), scopes[1..].join(" ")))
+        .collect();
+    assert_eq!(
+        scopes,
+        [
+            (
+                "{",
+                "meta.flow-mapping punctuation.definition.mapping.begin".to_owned()
+            ),
+            (
+                "a",
+                "meta.flow-mapping meta.flow-pair.key string.unquoted.plain.in entity.name.tag"
+                    .to_owned()
+            ),
+            (
+                ":",
+                "meta.flow-mapping meta.flow-pair punctuation.separator.key-value.mapping"
+                    .to_owned()
+            ),
+            (
+                " ",
+                "meta.flow-mapping meta.flow-pair meta.flow-pair.value".to_owned()
+            ),
+            (
+                "1",
+                "meta.flow-mapping meta.flow-pair meta.flow-pair.value constant.numeric.integer"
+                    .to_owned()
+            ),
+            (
+                "}",
+                "meta.flow-mapping punctuation.definition.mapping.end".to_owned()
+            ),
+        ]
+    );
+}
+
+#[test]
+fn a_flow_collection_continues_on_the_next_line() {
+    let lines = lex("a: [x,\n  z]");
+    assert_eq!(
+        lines[1][1].1[1..].join(" "),
+        "meta.flow-sequence string.unquoted.plain.in"
+    );
+}
+
+#[test]
+fn a_key_before_a_flow_bracket_is_not_a_pair() {
+    assert_eq!(
+        scope_of("[a:]", "a"),
+        "meta.flow-sequence string.unquoted.plain.in"
+    );
+    assert_eq!(
+        scope_of("{a:1}", "a:1"),
+        "meta.flow-mapping string.unquoted.plain.in"
+    );
+}
+
+#[test]
+fn documents_and_directives() {
+    assert_eq!(scope_of("---", "---"), "entity.other.document.begin");
+    assert_eq!(scope_of("--- text", "text"), "string.unquoted.plain.out");
+    assert_eq!(scope_of("...", "..."), "entity.other.document.end");
+    assert_eq!(
+        scope_of("%YAML 1.2", "1.2"),
+        "meta.directive constant.numeric.yaml-version"
+    );
+    assert_eq!(
+        scope_of("%TAG !e! tag:x", "tag:x"),
+        "meta.directive support.type.tag-prefix"
+    );
+    assert_eq!(
+        scope_of("%YAML 1.2 x", "x"),
+        "meta.directive invalid.illegal.unrecognized"
+    );
+}
+
+#[test]
+fn properties_and_aliases() {
+    assert_eq!(
+        scope_of("a: &x 1", "x"),
+        "meta.property entity.name.type.anchor"
+    );
+    assert_eq!(
+        scope_of("a: !!str 1", "!!str"),
+        "meta.property storage.type.tag-handle"
+    );
+    assert_eq!(scope_of("a: *x", "x"), "variable.other.alias");
+    assert_eq!(
+        scope_of("a: !a{b 1", "!a{b"),
+        "meta.property invalid.illegal.tag-handle"
+    );
+    assert_eq!(
+        scope_of("a: &x/y 1", "/y"),
+        "meta.property invalid.illegal.character.anchor"
+    );
+}
+
+#[test]
+fn an_explicit_key_opens_a_block_mapping_until_its_colon() {
+    let lines = lex("? a\n: b");
+    assert_eq!(lines[0][0].1[1..].join(" "), "meta.block-mapping");
+    assert_eq!(
+        lines[1][0].1[1..].join(" "),
+        "meta.block-mapping punctuation.separator.key-value.mapping"
+    );
+    assert_eq!(
+        lines[1].last().map(|(_, s)| s[1..].join(" ")),
+        Some("string.unquoted.plain.out".to_owned())
+    );
+}
+
+#[test]
+fn characters_that_cannot_start_a_scalar_have_no_scope() {
+    assert_eq!(scope_of("a: @x", "@"), "");
+    assert_eq!(scope_of("a: ]x", "]"), "");
+    assert_eq!(scope_of("[|]", "|"), "meta.flow-sequence");
+}
+
+#[test]
+fn an_empty_line_keeps_the_block_scalar_open() {
+    let mut highlighter = Highlighter::new(Language::Yaml);
+    let mut state = State::default();
+    let mut tokens = Vec::new();
+    let _ = highlighter.line("a: |", &mut state, &mut tokens);
+    let open = state;
+    let _ = highlighter.line("", &mut state, &mut tokens);
+    assert_eq!(state, open);
+}
+
+#[test]
+fn depth_limit_stops_nesting_flow_collections() {
+    let limits = Limits {
+        depth: Some(8),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Yaml, limits);
+    let mut tokens = Vec::new();
+    let report = highlighter.line(&"[".repeat(100), &mut State::default(), &mut tokens);
+    assert!(report.reached(Limit::Depth));
+    assert_eq!(tokens.last().map(|t| t.end()), Some(100));
+}

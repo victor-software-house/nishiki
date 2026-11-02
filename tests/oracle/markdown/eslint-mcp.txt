@@ -1,23 +1,49 @@
 L ---
-T 3 text.html.markdown meta.separator.markdown
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
 L title: MCP Server Setup
-T 23 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 23 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L eleventyNavigation:
-T 19 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
 L     key: mcp server
-T 4 text.html.markdown meta.paragraph.markdown
-T 19 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.embedded.block.frontmatter
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter
+T 10 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 19 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L     parent: use eslint
-T 4 text.html.markdown meta.paragraph.markdown
-T 22 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.embedded.block.frontmatter
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 12 text.html.markdown meta.embedded.block.frontmatter
+T 13 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 22 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L     title: MCP Server Setup
-T 4 text.html.markdown meta.paragraph.markdown
-T 27 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.embedded.block.frontmatter
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 27 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L     order: 5
-T 4 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.embedded.block.frontmatter
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter constant.numeric.integer.yaml
 L ---
-T 3 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+T 3 text.html.markdown punctuation.definition.end.frontmatter
 L 
 L {%- from 'components/npm_tabs.macro.html' import npm_tabs with context %}
 T 73 text.html.markdown meta.paragraph.markdown
@@ -811,9 +837,14 @@ T 214 text.html.markdown meta.paragraph.markdown
 L 
 L ```yaml
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L nodeLinker: node-modules
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

@@ -76,8 +76,8 @@ assert_eq!(highlighter.limits().depth, None);
 
 ## Scope and limits
 
-1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`) JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`) and Python (`Language::Python`, also `py`) are the languages.
-   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, or `python` (or `py`) is lexed as that language; any other fence is plain text, as in Shiki when only these languages are loaded.
+1. Rust, Markdown, TypeScript, shell (`Language::Shell`, also `bash`, `sh` and `zsh`), JSON (`Language::Json`, `Language::Jsonc` and `Language::Jsonl`), Python (`Language::Python`, also `py`) and YAML (`Language::Yaml`, also `yml`) are the languages.
+   A Markdown fence of `rust`, `typescript` (or `ts`), `markdown`, `shell`, `sh`, `bash` or `zsh`, `json` (or `json5`), `jsonc`, `jsonl`, `python` (or `py`), or `yaml` or `yml` is lexed as that language, and so is YAML front matter; any other fence is plain text, as in Shiki when only these languages are loaded.
 2. A theme colour that is not hex, such as a CSS variable, sets no colour; Shiki passes it through.
 3. The scopes match Shiki's, quirks included: `||` is two `|` operators, `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no scope.
    In Markdown an empty line leaves the state unchanged while a line of spaces does not, and HTML blocks other than comments are plain text.
@@ -93,6 +93,10 @@ assert_eq!(highlighter.limits().depth, None);
    `\d`, `\w` and `\s` for non-ASCII characters come from a table measured on Shiki 4.6.0 (`oracle/json-classes.ts`), so a later Unicode version in Shiki's engine would need the table regenerated.
 9. The Python scopes keep the grammar's quirks: `def` opens a function after the end of any word, as in `x def f(): pass`, and an empty line leaves the state as it is.
    `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/python-classes.ts`), so a later Unicode version in Shiki's engine would need them regenerated.
+10. The YAML lexer follows the YAML 1.1 type patterns that Shiki's grammar uses: `0o17` is plain text, an exponent needs its sign, and `y` and `n` are booleans, as keys too.
+   Each line is read on its own, so a plain scalar on several lines is scoped line by line, and a comment whose text holds a tab is not a comment.
+   Front matter starts only on the first line of a Markdown document, so the state of a document's first line differs from the states after it.
+   A line of a block scalar is text up to the first line indented less than the scalar's first line.
 
 The API is unstable while the version is `0.x`.
 

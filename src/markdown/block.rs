@@ -537,3 +537,49 @@ fn link_def_tail(cx: &Cx<'_>, p: usize, caps: &mut Caps, first: usize) -> bool {
     cx.spend(i - at);
     false
 }
+
+/// `\A(?=(-{3,}))`: the start of front matter, which has no text of its own.
+/// Whether the line is the first one is the lexer's to say.
+pub(crate) fn front_matter_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
+    (p == 0 && cx.starts(0, b"---")).then_some(0)
+}
+
+/// `\A(-{3,})(.*)$`: the first line of front matter, whose dashes and the
+/// text after them are groups 1 and 2.
+pub(crate) fn front_matter_begin(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+    if p != 0 || !cx.starts(0, b"---") {
+        return None;
+    }
+    let dashes = cx.skip(0, |b| b == b'-');
+    caps.set(1, 0, dashes);
+    caps.set(2, dashes, cx.end);
+    Some(cx.end)
+}
+
+/// `^(?: {0,3}\1-*[\t ]*|[\t ]*\.{3})$`, which ends front matter: the opening
+/// dashes, indented by at most three spaces and followed by more dashes, or
+/// three dots. The whole line is group 0.
+pub(crate) fn front_matter_close(
+    cx: &Cx<'_>,
+    p: usize,
+    dashes: usize,
+    caps: &mut Caps,
+) -> Option<usize> {
+    if p != 0 {
+        return None;
+    }
+    let blanks = cx.skip(0, |b| b == b' ');
+    let with_dashes = blanks <= 3 && {
+        let run = cx.skip(blanks, |b| b == b'-');
+        run - blanks >= dashes && cx.at_eol(cx.skip(run, |b| matches!(b, b' ' | b'\t')))
+    };
+    let with_dots = {
+        let start = cx.skip(0, |b| matches!(b, b' ' | b'\t'));
+        cx.starts(start, b"...") && cx.at_eol(start + 3)
+    };
+    if !(with_dashes || with_dots) {
+        return None;
+    }
+    caps.set(0, 0, cx.end);
+    Some(cx.end)
+}

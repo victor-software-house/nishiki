@@ -1671,17 +1671,40 @@ T 19 text.html.markdown meta.paragraph.markdown
 L 
 L ```yaml
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L - name: Install nvm
-T 19 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
 L   ansible.builtin.shell: >
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml keyword.control.flow.block-scalar.folded.yaml
 L     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
-T 83 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.block.yaml
+T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.block.yaml
 L   args:
-T 7 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
 L     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

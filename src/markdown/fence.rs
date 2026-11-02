@@ -99,6 +99,11 @@ const LANGUAGES: &[Language] = &[
         brace: Some("python"),
         lang: Lang::Python,
     },
+    Language {
+        words: &["yaml", "yml"],
+        brace: None,
+        lang: Lang::Yaml,
+    },
 ];
 
 /// A language found in an info string.

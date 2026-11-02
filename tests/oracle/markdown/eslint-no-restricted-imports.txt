@@ -1,11 +1,21 @@
 L ---
-T 3 text.html.markdown meta.separator.markdown
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
 L title: no-restricted-imports
-T 28 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 28 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L rule_type: suggestion
-T 21 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 21 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
 L ---
-T 3 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+T 3 text.html.markdown punctuation.definition.end.frontmatter
 L 
 L 
 L Imports are an ES6/ES2015 standard for making the functionality of other modules available in your current module. In CommonJS this is implemented through the `require()` call which makes this ESLint rule roughly equivalent to its CommonJS counterpart `no-restricted-modules`.

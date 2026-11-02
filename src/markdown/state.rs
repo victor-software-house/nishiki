@@ -23,6 +23,10 @@ pub(crate) enum Lang {
     Jsonl,
     /// Python, lexed by the Python lexer.
     Python,
+    /// YAML, lexed by the YAML lexer.
+    Yaml,
+    /// The YAML of front matter.
+    FrontMatter,
 }
 
 impl Lang {
@@ -32,7 +36,13 @@ impl Lang {
             Lang::Json => Some(crate::json::Dialect::Json),
             Lang::Jsonc => Some(crate::json::Dialect::Jsonc),
             Lang::Jsonl => Some(crate::json::Dialect::Jsonl),
-            Lang::Rust | Lang::TypeScript | Lang::Markdown | Lang::Shell | Lang::Python => None,
+            Lang::Rust
+            | Lang::TypeScript
+            | Lang::Markdown
+            | Lang::Shell
+            | Lang::Python
+            | Lang::Yaml
+            | Lang::FrontMatter => None,
         }
     }
 }
@@ -75,12 +85,15 @@ pub(crate) enum Kind {
     ItalicStar,
     /// `_` up to `_`.
     ItalicUnder,
+    /// A first line of dashes up to a line of the same dashes or `...`. The
+    /// payload is the number of dashes.
+    FrontMatter,
 }
 
 impl Kind {
     /// The kinds in code order, which [`Kind::code`] numbers; a test checks
     /// that the two agree.
-    pub(crate) const ALL: [Kind; 29] = [
+    pub(crate) const ALL: [Kind; 33] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -110,6 +123,10 @@ impl Kind {
         Kind::BoldUnder,
         Kind::ItalicStar,
         Kind::ItalicUnder,
+        Kind::Fence(Lang::Yaml),
+        Kind::Body(Lang::Yaml),
+        Kind::FrontMatter,
+        Kind::Body(Lang::FrontMatter),
     ];
 
     /// The kind as a frame stores it: the Markdown tag in the high byte, the
@@ -145,6 +162,10 @@ impl Kind {
             Kind::BoldUnder => 26,
             Kind::ItalicStar => 27,
             Kind::ItalicUnder => 28,
+            Kind::Fence(Lang::Yaml | Lang::FrontMatter) => 29,
+            Kind::Body(Lang::Yaml) => 30,
+            Kind::FrontMatter => 31,
+            Kind::Body(Lang::FrontMatter) => 32,
         }
     }
 

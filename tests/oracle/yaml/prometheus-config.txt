@@ -1,0 +1,160 @@
+L # my global config
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 18 source.yaml comment.line.number-sign.yaml
+L global:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+L   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml
+T 24 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 96 source.yaml comment.line.number-sign.yaml
+L   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 22 source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 source.yaml
+T 24 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+T 27 source.yaml
+T 28 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 92 source.yaml comment.line.number-sign.yaml
+L   # scrape_timeout is set to the global default (10s).
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 54 source.yaml comment.line.number-sign.yaml
+L 
+L # Alertmanager configuration
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 28 source.yaml comment.line.number-sign.yaml
+L alerting:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   alertmanagers:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L     - static_configs:
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+L         - targets:
+T 8 source.yaml
+T 9 source.yaml punctuation.definition.block.sequence.item.yaml
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+L           # - alertmanager:9093
+T 10 source.yaml punctuation.whitespace.comment.leading.yaml
+T 11 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 31 source.yaml comment.line.number-sign.yaml
+L 
+L # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 95 source.yaml comment.line.number-sign.yaml
+L rule_files:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+L   # - "first_rules.yml"
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L   # - "second_rules.yml"
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 24 source.yaml comment.line.number-sign.yaml
+L 
+L # A scrape configuration containing exactly one endpoint to scrape:
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 67 source.yaml comment.line.number-sign.yaml
+L # Here it's Prometheus itself.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 30 source.yaml comment.line.number-sign.yaml
+L scrape_configs:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 97 source.yaml comment.line.number-sign.yaml
+L   - job_name: "prometheus"
+T 2 source.yaml
+T 3 source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 25 source.yaml string.quoted.double.yaml
+T 26 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L 
+L     # metrics_path defaults to '/metrics'
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 41 source.yaml comment.line.number-sign.yaml
+L     # scheme defaults to 'http'.
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 32 source.yaml comment.line.number-sign.yaml
+L 
+L     static_configs:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - targets: ["localhost:9090"]
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 19 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 33 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 34 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 35 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L        # The label name is added as a label `label_name=<label_value>` to any timeseries scraped from this config.
+T 7 source.yaml punctuation.whitespace.comment.leading.yaml
+T 8 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 114 source.yaml comment.line.number-sign.yaml
+L         labels:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L           app: "prometheus"
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 26 source.yaml string.quoted.double.yaml
+T 27 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     scrape_native_histograms: true
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 29 source.yaml punctuation.separator.key-value.mapping.yaml
+T 30 source.yaml
+T 34 source.yaml constant.language.boolean.yaml
+L 

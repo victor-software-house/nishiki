@@ -20,7 +20,7 @@ use super::text::Cx;
 use super::{block, inline};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, json, python, rust, shell, typescript};
+use crate::{Stack, Token, json, python, rust, shell, typescript, yaml};
 
 /// The window on the line that the rules see, built from the fields it needs
 /// so that a rule can fill in `self.caps` while it is held.
@@ -93,7 +93,7 @@ impl Starts {
             | Kind::ListBullet
             | Kind::ListOrdered
             | Kind::Body(Lang::Markdown) => Starts::Block,
-            Kind::Fence(_) | Kind::FencePlain => Starts::Anchored,
+            Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
             Kind::Body(
                 Lang::Rust
                 | Lang::TypeScript
@@ -101,7 +101,9 @@ impl Starts {
                 | Lang::Json
                 | Lang::Jsonc
                 | Lang::Jsonl
-                | Lang::Python,
+                | Lang::Python
+                | Lang::Yaml
+                | Lang::FrontMatter,
             )
             | Kind::RawBlock => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
@@ -197,6 +199,8 @@ pub(crate) struct Lexer<'a> {
     caps: Caps,
     /// What the highlighter keeps from line to line.
     scratch: &'a mut crate::scratch::Scratch,
+    /// Whether this is the first line of the document, where `\A` matches.
+    first_line: bool,
 }
 
 /// What the Markdown lexer keeps from one line to the next, so that a line
@@ -252,6 +256,11 @@ impl<'a> Lexer<'a> {
             }
             frames.reverse();
         }
+        // The document's own state is its root with a payload of 1; after the
+        // first line the root has none, so `\A` matches on one line only.
+        let first_line = frames
+            .first()
+            .is_some_and(|root| matches!(root.rule, Rule::Open(Kind::Base)) && root.payload == 1);
         Lexer {
             arena,
             limits,
@@ -269,6 +278,7 @@ impl<'a> Lexer<'a> {
             opened: None,
             caps: Caps::new(),
             scratch,
+            first_line,
         }
     }
 
@@ -281,6 +291,12 @@ impl<'a> Lexer<'a> {
             .find_map(|frame| frame.state)
             .unwrap_or(ROOT);
         self.scratch.markdown.frames = self.frames;
+        if self.first_line {
+            // The containers rest on the document's start state; move them
+            // onto a root that is not the start.
+            self.scratch.markdown.resume = None;
+            return after_first_line(self.arena, state).unwrap_or(state);
+        }
         self.scratch.markdown.resume = Some(state);
         state
     }
@@ -348,6 +364,16 @@ impl<'a> Lexer<'a> {
             let end = match kind {
                 Kind::Quote => block::quote_while(&cx, pos, &mut self.caps),
                 Kind::ListBullet | Kind::ListOrdered => block::list_while(&cx, pos),
+                Kind::Body(Lang::FrontMatter) => {
+                    let dashes = index
+                        .checked_sub(1)
+                        .and_then(|outer| self.frames.get(outer))
+                        .map_or(3, |outer| usize::try_from(outer.payload).unwrap_or(3));
+                    let mut caps = Caps::new();
+                    block::front_matter_close(&cx, pos, dashes, &mut caps)
+                        .is_none()
+                        .then_some(pos)
+                }
                 Kind::Body(_) => {
                     (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
                 }
@@ -357,6 +383,7 @@ impl<'a> Lexer<'a> {
                 Kind::Base
                 | Kind::Fence(_)
                 | Kind::FencePlain
+                | Kind::FrontMatter
                 | Kind::Comment
                 | Kind::BoldStar
                 | Kind::BoldUnder
@@ -402,7 +429,9 @@ impl<'a> Lexer<'a> {
                     | Lang::Json
                     | Lang::Jsonc
                     | Lang::Jsonl
-                    | Lang::Python,
+                    | Lang::Python
+                    | Lang::Yaml
+                    | Lang::FrontMatter,
                 )),
             ..
         }) = self.frames.last()
@@ -497,6 +526,16 @@ impl<'a> Lexer<'a> {
                 let payload = self.frames.last().map_or(0, |frame| frame.payload);
                 block::fence_close(&cx, start, Fence::from_payload(payload), &mut self.caps)
             }
+            End::FrontMatter => {
+                // The end rule applies last, so the first line, which would
+                // close it, begins the front matter instead.
+                if self.first_line {
+                    return None;
+                }
+                let payload = self.frames.last().map_or(3, |frame| frame.payload);
+                let dashes = usize::try_from(payload).unwrap_or(3);
+                block::front_matter_close(&cx, start, dashes, &mut self.caps)
+            }
             End::Comment => block::comment_close(&cx, start, &mut self.caps),
             End::Bold => {
                 let mark = if kind == Kind::BoldStar { b'*' } else { b'_' };
@@ -519,6 +558,13 @@ impl<'a> Lexer<'a> {
         let cx = cx!(self);
         let mut rule = rule;
         let end = match rule {
+            P::FrontMatter => {
+                if !self.first_line || self.frames.len() != 1 {
+                    return None;
+                }
+                block::front_matter_open(&cx, start)
+            }
+            P::FrontMatterBegin => block::front_matter_begin(&cx, start, &mut self.caps),
             P::Separator => block::separator(&cx, start),
             P::Heading => block::heading(&cx, start, &mut self.caps),
             P::Quote => block::quote(&cx, start, &mut self.caps),
@@ -604,6 +650,8 @@ impl<'a> Lexer<'a> {
     fn container(&self, rule: P, start: usize) -> Option<Kind> {
         let byte = self.line.as_bytes().get(start).copied();
         Some(match rule {
+            P::FrontMatter => Kind::FrontMatter,
+            P::FrontMatterBegin => Kind::Body(Lang::FrontMatter),
             P::Quote => Kind::Quote,
             P::Bullet => Kind::ListBullet,
             P::Ordered => Kind::ListOrdered,
@@ -713,6 +761,13 @@ impl<'a> Lexer<'a> {
                     json::start_embedded(self.arena, content)
                 }
                 Kind::Body(Lang::Python) => python::start_embedded(self.arena, content),
+                Kind::Body(Lang::Yaml | Lang::FrontMatter) => {
+                    yaml::start_embedded(self.arena, content)
+                }
+                Kind::FrontMatter => {
+                    let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
+                    u32::try_from(dashes).unwrap_or(u32::MAX)
+                }
                 Kind::Base
                 | Kind::Quote
                 | Kind::ListBullet
@@ -890,58 +945,7 @@ impl<'a> Lexer<'a> {
         };
         self.emit(start, frame.content);
         let first = self.out.len();
-        let state = match lang {
-            Lang::TypeScript => typescript::line(
-                self.arena,
-                self.limits,
-                &self.line[start..],
-                frame.payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Shell => shell::line(
-                self.scratch,
-                self.arena,
-                self.limits,
-                shell::Text {
-                    bytes: self.line.as_bytes(),
-                    start,
-                    anchored: true,
-                },
-                frame.payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Json | Lang::Jsonc | Lang::Jsonl => json::line(
-                self.arena,
-                self.limits,
-                lang.dialect().unwrap_or(json::Dialect::Json),
-                &self.line.as_bytes()[start..],
-                frame.payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Python => python::line(
-                self.scratch,
-                self.arena,
-                self.limits,
-                python::Text {
-                    bytes: self.line.as_bytes(),
-                    start,
-                },
-                frame.payload,
-                self.out,
-                self.report,
-            ),
-            Lang::Rust | Lang::Markdown => rust::line(
-                self.arena,
-                self.limits,
-                &self.line.as_bytes()[start..],
-                frame.payload,
-                self.out,
-                self.report,
-            ),
-        };
+        let state = self.embedded_line(lang, start, frame.payload);
         if !matches!(lang, Lang::Shell | Lang::Python) {
             // The shell and Python lexers saw the whole line and made their
             // tokens absolute.
@@ -977,6 +981,72 @@ impl<'a> Lexer<'a> {
             }
         }
     }
+
+    /// Runs the lexer of `lang` on the line from `start`, resuming from
+    /// `payload`, and returns its state after the line.
+    fn embedded_line(&mut self, lang: Lang, start: usize, payload: u32) -> u32 {
+        match lang {
+            Lang::TypeScript => typescript::line(
+                self.arena,
+                self.limits,
+                &self.line[start..],
+                payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Shell => shell::line(
+                self.scratch,
+                self.arena,
+                self.limits,
+                shell::Text {
+                    bytes: self.line.as_bytes(),
+                    start,
+                    anchored: true,
+                },
+                payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Json | Lang::Jsonc | Lang::Jsonl => json::line(
+                self.arena,
+                self.limits,
+                lang.dialect().unwrap_or(json::Dialect::Json),
+                &self.line.as_bytes()[start..],
+                payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Python => python::line(
+                self.scratch,
+                self.arena,
+                self.limits,
+                python::Text {
+                    bytes: self.line.as_bytes(),
+                    start,
+                },
+                payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Yaml | Lang::FrontMatter => yaml::line(
+                self.arena,
+                self.limits,
+                &self.line.as_bytes()[start..],
+                start == 0,
+                payload,
+                self.out,
+                self.report,
+            ),
+            Lang::Rust | Lang::Markdown => rust::line(
+                self.arena,
+                self.limits,
+                &self.line.as_bytes()[start..],
+                payload,
+                self.out,
+                self.report,
+            ),
+        }
+    }
 }
 
 /// `(^|\G)(\s*)(.*)`, the rule that starts the lines of an embedded
@@ -992,4 +1062,22 @@ fn embed_begin(cx: &Cx<'_>, p: usize) -> Option<usize> {
         return Some(cx.end);
     }
     Some(cx.skip(text, |b| b != b'\n'))
+}
+
+/// The state `state`, whose root is the document's start state, rebuilt on a
+/// root that is not, so that the lines after the first are told apart from it.
+fn after_first_line(arena: &mut Arena, state: u32) -> Option<u32> {
+    let mut chain = Vec::new();
+    let mut at = state;
+    while at != ROOT {
+        let frame = arena.frame(at);
+        chain.push(frame);
+        at = frame.parent;
+    }
+    let root = chain.pop()?;
+    let mut rebuilt = arena.push(ROOT, root.kind, 0, root.stack)?;
+    while let Some(frame) = chain.pop() {
+        rebuilt = arena.push(rebuilt, frame.kind, frame.payload, frame.stack)?;
+    }
+    Some(rebuilt)
 }

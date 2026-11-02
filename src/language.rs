@@ -21,6 +21,8 @@ pub enum Language {
     Jsonl,
     /// Python, with the scopes of Shiki's `python` grammar.
     Python,
+    /// YAML, with the scopes of Shiki's `yaml` grammar.
+    Yaml,
 }
 
 impl Language {
@@ -34,6 +36,7 @@ impl Language {
         Language::Jsonc,
         Language::Jsonl,
         Language::Python,
+        Language::Yaml,
     ];
 
     /// Shiki's id for the language, such as `"rust"`.
@@ -48,6 +51,7 @@ impl Language {
             Language::Jsonc => "jsonc",
             Language::Jsonl => "jsonl",
             Language::Python => "python",
+            Language::Yaml => "yaml",
         }
     }
 
@@ -82,6 +86,7 @@ impl Language {
             Language::Jsonc => &["jsonc"],
             Language::Jsonl => &["jsonl"],
             Language::Python => &["python", "py"],
+            Language::Yaml => &["yaml", "yml"],
         }
     }
 }

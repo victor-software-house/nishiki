@@ -568,3 +568,119 @@ fn the_state_resumes_from_any_line() {
     }
     assert_eq!(resumed, state);
 }
+
+#[test]
+fn a_yaml_fence_embeds_the_yaml_lexer_without_its_root() {
+    for info in ["yaml", "yml", "YAML"] {
+        let text = format!("```{info}\nkey: value\n```");
+        assert_eq!(
+            stack_of(&text, "key")[1..],
+            [
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.yaml",
+                "string.unquoted.plain.out.yaml",
+                "entity.name.tag.yaml"
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn front_matter_is_yaml_between_dashes_on_the_first_line() {
+    let text = "---\ntitle: x\n---\n# H";
+    let lines = lex(text);
+    assert_eq!(
+        lines[0][0].1[1..],
+        ["punctuation.definition.begin.frontmatter"]
+    );
+    assert_eq!(
+        stack_of(text, "title")[1..],
+        [
+            "meta.embedded.block.frontmatter",
+            "string.unquoted.plain.out.yaml",
+            "entity.name.tag.yaml"
+        ]
+    );
+    assert_eq!(
+        lines[2][0].1[1..],
+        ["punctuation.definition.end.frontmatter"]
+    );
+    assert_eq!(scope_of(text, "H"), "entity.name.section.markdown");
+}
+
+#[test]
+fn front_matter_ends_at_three_dots_or_more_dashes() {
+    for closer in ["...", "----", "  ---", "--- "] {
+        let lines = lex(&format!("---\na: 1\n{closer}\nplain"));
+        assert_eq!(
+            lines[2][0].1.last().map(String::as_str),
+            Some("punctuation.definition.end.frontmatter"),
+            "{closer:?}"
+        );
+        assert_eq!(
+            lines[3][0].1.last().map(String::as_str),
+            Some("meta.paragraph.markdown"),
+            "{closer:?}"
+        );
+    }
+}
+
+#[test]
+fn front_matter_opens_on_the_first_line_only() {
+    let lines = lex("# Title\n---\ntext");
+    assert_eq!(
+        lines[1][0].1.last().map(String::as_str),
+        Some("meta.separator.markdown")
+    );
+    let lines = lex(" ---\ntext");
+    assert!(
+        lines[0]
+            .iter()
+            .all(|(_, scopes)| scopes.iter().all(|s| !s.contains("frontmatter")))
+    );
+}
+
+#[test]
+fn an_empty_first_line_leaves_the_first_line_for_the_next() {
+    let lines = lex("\n---\na: 1\n---");
+    assert_eq!(
+        lines[1][0].1.last().map(String::as_str),
+        Some("punctuation.definition.begin.frontmatter")
+    );
+}
+
+#[test]
+fn the_start_state_is_not_the_state_after_a_first_line_that_opens_nothing() {
+    let mut highlighter = Highlighter::new(Language::Markdown);
+    let mut state = State::default();
+    let mut tokens = Vec::new();
+    let _ = highlighter.line("# Title", &mut state, &mut tokens);
+    assert_ne!(state, State::default());
+}
+
+#[test]
+fn a_yaml_fence_in_a_list_has_no_line_starts_for_yaml() {
+    // The fence's text begins after the list's indent, where `^` does not
+    // match, so a block scalar has no lines and the first character of the
+    // line after its header has no scope, and a comment needs a blank before
+    // it.
+    let text = indoc! {"
+        - ```yaml
+          run: |
+            echo
+          # c
+          ```
+    "};
+    assert_eq!(
+        stack_of(text, "cho")[1..],
+        [
+            "markup.list.unnumbered.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.yaml",
+            "string.unquoted.plain.out.yaml"
+        ]
+    );
+    assert_eq!(scope_of(text, "#"), "meta.embedded.block.yaml");
+    assert_eq!(scope_of(text, "e"), "meta.embedded.block.yaml");
+}

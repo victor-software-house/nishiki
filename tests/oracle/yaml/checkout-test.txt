@@ -1,0 +1,2252 @@
+L name: Build and Test
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+L 
+L on:
+T 2 source.yaml constant.language.boolean.yaml
+T 3 source.yaml punctuation.separator.key-value.mapping.yaml
+L   pull_request:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L   push:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+L     branches:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - main
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml
+L       - releases/*
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L 
+L 
+L # Note that when you see patterns like "ref: test-data/v2/basic" within this workflow,
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 86 source.yaml comment.line.number-sign.yaml
+L # these refer to "test-data" branches on this actions/checkout repo.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 68 source.yaml comment.line.number-sign.yaml
+L # (For example, test-data/v2/basic -> https://github.com/actions/checkout/tree/test-data/v2/basic)
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 98 source.yaml comment.line.number-sign.yaml
+L 
+L jobs:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+L   build:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - uses: actions/setup-node@v6
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           node-version: 24.x
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml punctuation.separator.key-value.mapping.yaml
+T 24 source.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L       - uses: actions/checkout@v7
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L       - run: npm ci
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       - run: npm run build
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L       - run: npm run format-check
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L       - run: npm run lint
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+L       - run: npm test
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify no unstaged changes
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 40 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-no-unstaged-changes.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 51 source.yaml string.unquoted.plain.out.yaml
+L 
+L   test:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+L     strategy:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       matrix:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L         runs-on: [ubuntu-latest, macos-latest, windows-latest]
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 19 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 31 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 32 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 33 source.yaml meta.flow-sequence.yaml
+T 34 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 45 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 46 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 47 source.yaml meta.flow-sequence.yaml
+T 48 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 61 source.yaml meta.flow-sequence.yaml string.unquoted.plain.in.yaml
+T 62 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L     runs-on: ${{ matrix.runs-on }}
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L 
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # Clone this repo
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 22 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Clean
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 13 source.yaml comment.line.number-sign.yaml
+L       - name: Modify work tree
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/modify-work-tree.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L       - name: Checkout clean
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify clean
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-clean.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Side by side
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 20 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout side by side 1
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/side-by-side-1
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 42 source.yaml string.unquoted.plain.out.yaml
+L           path: side-by-side-1
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L       - name: Checkout side by side 2
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/side-by-side-2
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 42 source.yaml string.unquoted.plain.out.yaml
+L           path: side-by-side-2
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify side by side
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-side-by-side.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 44 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Filter
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 14 source.yaml comment.line.number-sign.yaml
+L       - name: Fetch filter
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           filter: 'blob:none'
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml punctuation.separator.key-value.mapping.yaml
+T 18 source.yaml
+T 19 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 28 source.yaml string.quoted.single.yaml
+T 29 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L           path: fetch-filter
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Verify fetch filter
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-fetch-filter.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 44 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Fetch tags
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 18 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout with fetch-tags
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 38 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: fetch-tags-test
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L           fetch-tags: true
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+T 22 source.yaml
+T 26 source.yaml constant.language.boolean.yaml
+L       - name: Verify fetch-tags
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-fetch-tags.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 42 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Sparse checkout
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Sparse checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 29 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           sparse-checkout: |
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 26 source.yaml punctuation.separator.key-value.mapping.yaml
+T 27 source.yaml
+T 28 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L             __test__
+T 12 source.yaml string.unquoted.block.yaml
+T 20 source.yaml string.unquoted.block.yaml
+L             .github
+T 19 source.yaml string.unquoted.block.yaml
+L             dist
+T 16 source.yaml string.unquoted.block.yaml
+L           path: sparse-checkout
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Verify sparse checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-sparse-checkout.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Disabled sparse checkout in existing checkout
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 53 source.yaml comment.line.number-sign.yaml
+L       - name: Disabled sparse checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 38 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: sparse-checkout
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Verify disabled sparse checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: set -x && ls -l sparse-checkout/src/git-command-manager.ts
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 71 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Sparse checkout (non-cone mode)
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 39 source.yaml comment.line.number-sign.yaml
+L       - name: Sparse checkout (non-cone mode)
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           sparse-checkout: |
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 26 source.yaml punctuation.separator.key-value.mapping.yaml
+T 27 source.yaml
+T 28 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L             /__test__/
+T 12 source.yaml string.unquoted.block.yaml
+T 22 source.yaml string.unquoted.block.yaml
+L             /.github/
+T 21 source.yaml string.unquoted.block.yaml
+L             /dist/
+T 18 source.yaml string.unquoted.block.yaml
+L           sparse-checkout-cone-mode: false
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 36 source.yaml punctuation.separator.key-value.mapping.yaml
+T 37 source.yaml
+T 42 source.yaml constant.language.boolean.yaml
+L           path: sparse-checkout-non-cone-mode
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Verify sparse checkout (non-cone mode)
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 52 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-sparse-checkout-non-cone-mode.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 61 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # LFS
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 11 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout LFS
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           repository: actions/checkout # hardcoded, otherwise doesn't work from a fork
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+T 22 source.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+T 38 source.yaml string.unquoted.plain.out.yaml
+T 39 source.yaml
+T 40 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 86 source.yaml comment.line.number-sign.yaml
+L           ref: test-data/v2/lfs
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L           path: lfs
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L           lfs: true
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 19 source.yaml constant.language.boolean.yaml
+L       - name: Verify LFS
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 24 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-lfs.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Submodules false
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 24 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout submodules false
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 39 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/submodule-ssh-url
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L           path: submodules-false
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify submodules false
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-submodules-false.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 48 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Submodules one level
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 28 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout submodules true
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 38 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/submodule-ssh-url
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L           path: submodules-true
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L           submodules: true
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+T 22 source.yaml
+T 26 source.yaml constant.language.boolean.yaml
+L       - name: Verify submodules true
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-submodules-true.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Submodules recursive
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 28 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout submodules recursive
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/submodule-ssh-url
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L           path: submodules-recursive
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+L           submodules: recursive
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+T 22 source.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify submodules recursive
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-submodules-recursive.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 52 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Worktree credentials
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 28 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout for worktree test
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 40 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: worktree-test
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 29 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify worktree credentials
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L         shell: bash
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-worktree.sh worktree-test worktree-branch
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 70 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Worktree credentials in container step
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 46 source.yaml comment.line.number-sign.yaml
+L       - name: Verify worktree credentials in container step
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 59 source.yaml string.unquoted.plain.out.yaml
+L         if: runner.os == 'Linux'
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L         uses: docker://bitnami/git:latest
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           args: bash __test__/verify-worktree.sh worktree-test container-worktree-branch
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 88 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using REST API
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 37 source.yaml comment.line.number-sign.yaml
+L       - name: Remove basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         if: runner.os != 'windows'
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: rm -rf basic
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+L       - name: Remove basic (Windows)
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+L         if: runner.os == 'windows'
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         shell: cmd
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L         run: rmdir /s /q basic
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L       - name: Override git version
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         if: runner.os != 'windows'
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/override-git-version.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L       - name: Override git version (Windows)
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 44 source.yaml string.unquoted.plain.out.yaml
+L         if: runner.os == 'windows'
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__\\override-git-version.cmd
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L       - name: Checkout basic using REST API
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh --archive
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L 
+L   test-proxy:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     container:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+L       image: ghcr.io/actions/test-ubuntu-git:main.20240221.114913.703z
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 70 source.yaml string.unquoted.plain.out.yaml
+L       options: --dns 127.0.0.1
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L     services:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       squid-proxy:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+L         image: ubuntu/squid:latest
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         ports:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+L           - 3128:3128
+T 10 source.yaml
+T 11 source.yaml punctuation.definition.block.sequence.item.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L     env:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L       https_proxy: http://squid-proxy:3128
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 42 source.yaml string.unquoted.plain.out.yaml
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # Clone this repo
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using git
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 32 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using REST API
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 37 source.yaml comment.line.number-sign.yaml
+L       - name: Remove basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: rm -rf basic
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+L       - name: Override git version
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/override-git-version.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L       - name: Basic checkout using REST API
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh --archive
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L 
+L   test-bypass-proxy:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     env:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L       https_proxy: http://no-such-proxy:3128
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 44 source.yaml string.unquoted.plain.out.yaml
+L       no_proxy: api.github.com,github.com
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # Clone this repo
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using git
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 32 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 37 source.yaml string.unquoted.plain.out.yaml
+L       - name: Remove basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: rm -rf basic
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using REST API
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 37 source.yaml comment.line.number-sign.yaml
+L       - name: Override git version
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/override-git-version.sh
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 45 source.yaml string.unquoted.plain.out.yaml
+L       - name: Checkout basic using REST API
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L           path: basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: __test__/verify-basic.sh --archive
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 47 source.yaml string.unquoted.plain.out.yaml
+L 
+L   test-git-container:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     container: bitnami/git:latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # Clone this repo
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: localClone
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using git
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 32 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./localClone
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L       - name: Verify basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L         run: |
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L           if [ ! -f "./basic-file.txt" ]; then
+T 10 source.yaml string.unquoted.block.yaml
+T 46 source.yaml string.unquoted.block.yaml
+L               echo "Expected basic file does not exist"
+T 55 source.yaml string.unquoted.block.yaml
+L               exit 1
+T 20 source.yaml string.unquoted.block.yaml
+L           fi
+T 12 source.yaml string.unquoted.block.yaml
+L 
+L           # Verify .git folder
+T 30 source.yaml string.unquoted.block.yaml
+L           if [ ! -d "./.git" ]; then
+T 36 source.yaml string.unquoted.block.yaml
+L             echo "Expected ./.git folder to exist"
+T 50 source.yaml string.unquoted.block.yaml
+L             exit 1
+T 18 source.yaml string.unquoted.block.yaml
+L           fi
+T 12 source.yaml string.unquoted.block.yaml
+L 
+L           # Verify auth token
+T 29 source.yaml string.unquoted.block.yaml
+L           git config --global --add safe.directory "*"
+T 54 source.yaml string.unquoted.block.yaml
+L           git fetch --no-tags --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+T 88 source.yaml string.unquoted.block.yaml
+L 
+L       # needed to make checkout post cleanup succeed
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 52 source.yaml comment.line.number-sign.yaml
+L       - name: Fix Checkout v6
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 29 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: localClone
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L 
+L   test-output:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # Clone this repo
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 23 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/checkout@v7
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: actions-checkout
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Basic checkout using git
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 32 source.yaml comment.line.number-sign.yaml
+L       - name: Checkout basic
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L         id: checkout
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+L         uses: ./actions-checkout
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           path: cloned-using-local-action
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L           ref: test-data/v2/basic
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # Verify output
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 21 source.yaml comment.line.number-sign.yaml
+L       - name: Verify output
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 27 source.yaml string.unquoted.plain.out.yaml
+L         run: |
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L           echo "Commit: ${{ steps.checkout.outputs.commit }}"
+T 10 source.yaml string.unquoted.block.yaml
+T 61 source.yaml string.unquoted.block.yaml
+L           echo "Ref: ${{ steps.checkout.outputs.ref }}"
+T 55 source.yaml string.unquoted.block.yaml
+L 
+L           if [ "${{ steps.checkout.outputs.ref }}" != "test-data/v2/basic" ]; then
+T 82 source.yaml string.unquoted.block.yaml
+L             echo "Expected ref to be test-data/v2/basic"
+T 56 source.yaml string.unquoted.block.yaml
+L             exit 1
+T 18 source.yaml string.unquoted.block.yaml
+L           fi
+T 12 source.yaml string.unquoted.block.yaml
+L 
+L           if [ "${{ steps.checkout.outputs.commit }}" != "82f71901cf8c021332310dcc8cdba84c4193ff5d" ]; then
+T 107 source.yaml string.unquoted.block.yaml
+L             echo "Expected commit to be 82f71901cf8c021332310dcc8cdba84c4193ff5d"
+T 81 source.yaml string.unquoted.block.yaml
+L             exit 1
+T 18 source.yaml string.unquoted.block.yaml
+L           fi
+T 12 source.yaml string.unquoted.block.yaml
+L 

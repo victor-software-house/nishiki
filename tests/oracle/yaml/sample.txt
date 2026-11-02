@@ -1,0 +1,258 @@
+L name: Check dist/
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+L 
+L on:
+T 2 source.yaml constant.language.boolean.yaml
+T 3 source.yaml punctuation.separator.key-value.mapping.yaml
+L   push:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+L     branches:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - main
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml
+L     paths-ignore:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - '**.md'
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 14 source.yaml string.quoted.single.yaml
+T 15 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L   pull_request:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L     paths-ignore:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - '**.md'
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 14 source.yaml string.quoted.single.yaml
+T 15 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L 
+L jobs:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+L   check-dist:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L     runs-on: ubuntu-latest
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L 
+L     steps:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - uses: actions/checkout@v3
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Set Node.js 16.x
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+L         uses: actions/setup-node@v3
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           node-version: 16.x
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml punctuation.separator.key-value.mapping.yaml
+T 24 source.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L           cache: npm
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Install dependencies
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L         run: npm ci
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L 
+L       - name: Rebuild the dist/ directory
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 41 source.yaml string.unquoted.plain.out.yaml
+L         run: |
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L           npm run build:compile
+T 10 source.yaml string.unquoted.block.yaml
+T 31 source.yaml string.unquoted.block.yaml
+L           npm run build:package
+T 31 source.yaml string.unquoted.block.yaml
+L 
+L       - name: Compare the expected and actual dist/ directories
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 63 source.yaml string.unquoted.plain.out.yaml
+L         run: |
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L           if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
+T 10 source.yaml string.unquoted.block.yaml
+T 80 source.yaml string.unquoted.block.yaml
+L             echo "Detected uncommitted changes after build.  See status below:"
+T 79 source.yaml string.unquoted.block.yaml
+L             git diff
+T 20 source.yaml string.unquoted.block.yaml
+L             exit 1
+T 18 source.yaml string.unquoted.block.yaml
+L           fi
+T 12 source.yaml string.unquoted.block.yaml
+L         id: diff
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+L 
+L       # If index.js was different than expected, upload the expected version as an artifact
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 91 source.yaml comment.line.number-sign.yaml
+L       - uses: actions/upload-artifact@v3
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+T 40 source.yaml string.unquoted.plain.out.yaml
+L         if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+T 66 source.yaml string.unquoted.plain.out.yaml
+L         with:
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L           name: dist
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+L           path: dist/
+T 10 source.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+L 
+L # From https://github.com/actions/add-to-project/blob/main/.github/workflows/check-dist.yml
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 91 source.yaml comment.line.number-sign.yaml
+L 

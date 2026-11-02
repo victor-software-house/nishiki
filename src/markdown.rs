@@ -97,7 +97,7 @@ use crate::limits::{Limits, LineReport};
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, S::Root.scope()).unwrap_or(base);
     arena
-        .push(ROOT, Kind::Base.code(), 0, stack)
+        .push(ROOT, Kind::Base.code(), 1, stack)
         .unwrap_or(ROOT)
 }
 

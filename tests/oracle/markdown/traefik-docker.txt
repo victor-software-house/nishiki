@@ -1,0 +1,593 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L title: "Docker and Traefik Quick Start"
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 38 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml
+T 39 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.end.yaml
+L description: "Deploy Traefik in Docker and expose your first service"
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 13 text.html.markdown meta.embedded.block.frontmatter
+T 14 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 68 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml
+T 69 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.end.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L # Getting Started with Docker and Traefik
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 41 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Docker is a first-class citizen in Traefik, offering native support for Docker containers and services. 
+T 104 text.html.markdown meta.paragraph.markdown
+L Whether you're using Docker Compose or running containers directly, Traefik provides a seamless experience for managing your Docker traffic.
+T 140 text.html.markdown meta.paragraph.markdown
+L 
+L This guide shows you how to:
+T 28 text.html.markdown meta.paragraph.markdown
+L 
+L - Install Traefik using Docker
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 30 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Expose the Traefik dashboard
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 30 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Deploy a sample application
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Configure basic routing
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 25 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ## Prerequisites
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L - Docker 
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 9 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Docker Compose (optional)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 27 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ## Install Traefik
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L ### Using Docker Compose
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 24 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Create a Docker Compose file. 
+T 30 text.html.markdown meta.paragraph.markdown
+L This configuration:
+T 19 text.html.markdown meta.paragraph.markdown
+L 
+L - Exposes ports 80 and 8080. 
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Enables the Docker provider
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Configures the dashboard with basic settings. Port 8080 serves the dashboard because we enabled `--api.insecure=true` (development use only)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 98 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 99 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 118 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 119 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 142 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Mounts the Docker socket for container discovery
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 50 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L ```yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # docker-compose.yml
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml
+L services:
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L   traefik:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L     image: traefik:v3.8
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+L     command:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L       - "--api.insecure=true"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L       - "--providers.docker=true"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L       - "--entrypoints.web.address=:80"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     ports:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L       - "80:80"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L       - "8080:8080"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     volumes:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L       - /var/run/docker.sock:/var/run/docker.sock
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Start Traefik:
+T 14 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L docker-compose up -d
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ### Using Docker CLI
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 20 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Alternatively, you can run Traefik directly with Docker. 
+T 57 text.html.markdown meta.paragraph.markdown
+L This command:
+T 13 text.html.markdown meta.paragraph.markdown
+L 
+L - Exposes ports 80 and 8080 for web traffic and dashboard access
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 64 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Mounts the configuration file and Docker socket
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 49 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L - Uses the same configuration as the Docker Compose example
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 59 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L Create a configuration file:
+T 28 text.html.markdown meta.paragraph.markdown
+L 
+L ```yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # traefik.yml
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml
+L api:
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L   insecure: true
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml constant.language.boolean.yaml
+L entryPoints:
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L   web:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L     address: ":80"
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L providers:
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L   docker: {}
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml meta.flow-mapping.yaml punctuation.definition.mapping.begin.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml meta.flow-mapping.yaml punctuation.definition.mapping.end.yaml
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Start Traefik:
+T 14 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L docker run -d \
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L   -p 80:80 \
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L   -p 8080:8080 \
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L   -v $PWD/traefik.yml:/etc/traefik/traefik.yml \
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L   -v /var/run/docker.sock:/var/run/docker.sock \
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell constant.character.escape.line-continuation.shell
+L   traefik:v3.8
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Expose the Dashboard
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 23 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Because we explicitly enabled insecure mode, the [dashboard](../reference/install-configuration/api-dashboard.md) is reachable on port 8080 without authentication. 
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 60 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 112 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 113 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 164 text.html.markdown meta.paragraph.markdown
+L **Do not enable this flag in production**.
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L You can access the dashboard at:
+T 32 text.html.markdown meta.paragraph.markdown
+L 
+L [http://localhost:8080/dashboard/](http://localhost:8080/dashboard/)
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 68 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L 
+L ![Traefik Dashboard Screenshot](../assets/img/getting-started/traefik-dashboard.png)
+T 2 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+L 
+L ## Deploy a Sample Application
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Create a whoami service:
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L ```yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # whoami.yml
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml comment.line.number-sign.yaml
+L services:
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L   whoami:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L     image: traefik/whoami
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml
+L     labels:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.separator.key-value.mapping.yaml
+L       - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml punctuation.definition.block.sequence.item.yaml
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Apply the configuration:
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L docker-compose -f whoami.yml up -d
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument.shell constant.other.option.dash.shell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell string.unquoted.argument constant.other.option
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Test Your Setup
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 18 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L You can use the following curl command to verify that the application is correctly exposed:
+T 91 text.html.markdown meta.paragraph.markdown
+L 
+L ```bash
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L curl http://whoami.localhost
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L 
+L Hostname: 068c0a29a8b7
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L IP: 127.0.0.1
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.version.shell
+L IP: ::1
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L IP: 192.168.147.3
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.version.shell
+L RemoteAddr: 192.168.147.2:56006
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L GET / HTTP/1.1
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L Host: whoami.localhost
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L User-Agent: curl/8.7.1
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L Accept: */*
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell variable.language.special.wildcard.shell
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell variable.language.special.wildcard.shell
+L Accept-Encoding: gzip
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L X-Forwarded-For: 192.168.147.1
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.version.shell
+L X-Forwarded-Host: whoami.localhost
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L X-Forwarded-Port: 80
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L X-Forwarded-Proto: http
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L X-Forwarded-Server: 9232cdd4fd6c
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L X-Real-Ip: 192.168.147.1
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.shellscript meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.version.shell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L You can also open [http://whoami.localhost](http://whoami.localhost) in a browser to test the application:
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 68 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 106 text.html.markdown meta.paragraph.markdown
+L 
+L ![whoami application Screenshot](../assets/img/getting-started/whoami-localhost.png)
+T 2 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+L 
+L If you navigate to the **HTTP Routers** section of the Traefik dashboard, you can see that the `whoami.localhost` route is managed by the Traefik Docker provider:
+T 23 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 95 text.html.markdown meta.paragraph.markdown
+T 96 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 112 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 113 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 162 text.html.markdown meta.paragraph.markdown
+L 
+L ![Traefik Dashboard HTTP Routers Section Screenshot](../assets/img/getting-started/docker-router.png)
+T 2 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.begin.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown string.other.link.description.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.link.description.end.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+T 100 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown markup.underline.link.image.markdown
+T 101 text.html.markdown meta.paragraph.markdown meta.image.inline.markdown punctuation.definition.metadata.markdown
+L 
+L That's it! You've successfully deployed Traefik and configured routing in Docker.
+T 81 text.html.markdown meta.paragraph.markdown
+L 
+L ## Next Steps
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L - [Configure TLS](../reference/routing-configuration/http/tls/overview.md)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 16 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 17 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 18 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 73 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 74 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [Set up Middlewares](../reference/routing-configuration/http/middlewares/overview.md)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 21 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 22 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 23 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 87 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [Enable Metrics](../reference/install-configuration/observability/metrics.md)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 17 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 18 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 19 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 78 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 79 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L - [Learn more about Docker provider](../reference/install-configuration/providers/docker.md)
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 35 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 36 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 37 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 92 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L 
+L {% include-markdown "includes/traefik-for-business-applications.md" %}
+T 70 text.html.markdown meta.paragraph.markdown
+L 

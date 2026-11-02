@@ -63,6 +63,24 @@ const fastapi =
 const pytest =
   "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
 
+const checkout =
+  "https://raw.githubusercontent.com/actions/checkout/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a";
+
+const petstore =
+  "https://raw.githubusercontent.com/swagger-api/swagger-petstore/5cb909fc7780bc708151bce0014939acba8b212a";
+
+const airflow =
+  "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
+
+const prometheus =
+  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
+
+const traefik =
+  "https://raw.githubusercontent.com/traefik/traefik/38d53dd06c53c7e9bd08e57b217e72686d823610";
+
+const jekyll =
+  "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -109,6 +127,16 @@ export const inputs: Input[] = [
     url: `${eslint}/docs/src/rules/no-restricted-imports.md`,
   },
   { lang: "markdown", name: "eslint-mcp", url: `${eslint}/docs/src/use/mcp.md` },
+  {
+    lang: "markdown",
+    name: "traefik-docker",
+    url: `${traefik}/docs/content/getting-started/docker.md`,
+  },
+  {
+    lang: "markdown",
+    name: "jekyll-front-matter",
+    url: `${jekyll}/docs/_docs/front-matter.md`,
+  },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
     lang: "typescript",
@@ -152,4 +180,30 @@ export const inputs: Input[] = [
   { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
   { lang: "markdown", name: "fastapi-readme", url: `${fastapi}/README.md` },
   { lang: "markdown", name: "rich-readme", url: `${rich}/README.md` },
+  { lang: "yaml", name: "sample", url: `${samples}/yaml.sample` },
+  {
+    lang: "yaml",
+    name: "checkout-test",
+    url: `${checkout}/.github/workflows/test.yml`,
+  },
+  {
+    lang: "yaml",
+    name: "petstore-openapi",
+    url: `${petstore}/src/main/resources/openapi.yaml`,
+  },
+  {
+    lang: "yaml",
+    name: "airflow-compose",
+    url: `${airflow}/airflow-core/docs/howto/docker-compose/docker-compose.yaml`,
+  },
+  {
+    lang: "yaml",
+    name: "ripgrep-ci",
+    url: `${ripgrep}/.github/workflows/ci.yml`,
+  },
+  {
+    lang: "yaml",
+    name: "prometheus-config",
+    url: `${prometheus}/documentation/examples/prometheus.yml`,
+  },
 ];

@@ -1,0 +1,1714 @@
+L # Licensed to the Apache Software Foundation (ASF) under one
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 60 source.yaml comment.line.number-sign.yaml
+L # or more contributor license agreements.  See the NOTICE file
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 62 source.yaml comment.line.number-sign.yaml
+L # distributed with this work for additional information
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 55 source.yaml comment.line.number-sign.yaml
+L # regarding copyright ownership.  The ASF licenses this file
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 60 source.yaml comment.line.number-sign.yaml
+L # to you under the Apache License, Version 2.0 (the
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 51 source.yaml comment.line.number-sign.yaml
+L # "License"); you may not use this file except in compliance
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 60 source.yaml comment.line.number-sign.yaml
+L # with the License.  You may obtain a copy of the License at
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 60 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L #   http://www.apache.org/licenses/LICENSE-2.0
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 46 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # Unless required by applicable law or agreed to in writing,
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 60 source.yaml comment.line.number-sign.yaml
+L # software distributed under the License is distributed on an
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 61 source.yaml comment.line.number-sign.yaml
+L # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 56 source.yaml comment.line.number-sign.yaml
+L # KIND, either express or implied.  See the License for the
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 59 source.yaml comment.line.number-sign.yaml
+L # specific language governing permissions and limitations
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 57 source.yaml comment.line.number-sign.yaml
+L # under the License.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 20 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L 
+L # Basic Airflow cluster configuration for CeleryExecutor with Redis and PostgreSQL.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 83 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # WARNING: This configuration is for local development. Do not use it in a production deployment.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 97 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # This configuration supports basic configuration using environment variables or an .env file
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 93 source.yaml comment.line.number-sign.yaml
+L # The following variables are supported:
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 40 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # AIRFLOW_IMAGE_NAME           - Docker image name used to run Airflow.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 71 source.yaml comment.line.number-sign.yaml
+L #                                Default: apache/airflow:|version|
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 66 source.yaml comment.line.number-sign.yaml
+L # AIRFLOW_UID                  - User ID in Airflow containers
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 62 source.yaml comment.line.number-sign.yaml
+L #                                Default: 50000
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 47 source.yaml comment.line.number-sign.yaml
+L # AIRFLOW_PROJ_DIR             - Base path to which all the files will be volumed.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 82 source.yaml comment.line.number-sign.yaml
+L #                                Default: .
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 43 source.yaml comment.line.number-sign.yaml
+L # Those configurations are useful mostly in case of standalone testing/running Airflow in test/try-out mode
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 107 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # _AIRFLOW_WWW_USER_USERNAME   - Username for the administrator account (if requested).
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 87 source.yaml comment.line.number-sign.yaml
+L #                                Default: airflow
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 49 source.yaml comment.line.number-sign.yaml
+L # _AIRFLOW_WWW_USER_PASSWORD   - Password for the administrator account (if requested).
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 87 source.yaml comment.line.number-sign.yaml
+L #                                Default: airflow
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 49 source.yaml comment.line.number-sign.yaml
+L # _PIP_ADDITIONAL_REQUIREMENTS - Additional PIP requirements to add when starting all containers.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 97 source.yaml comment.line.number-sign.yaml
+L #                                Use this option ONLY for quick checks. Installing requirements at container
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 108 source.yaml comment.line.number-sign.yaml
+L #                                startup is done EVERY TIME the service is started.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 83 source.yaml comment.line.number-sign.yaml
+L #                                A better way is to build a custom image or extend the official image
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 101 source.yaml comment.line.number-sign.yaml
+L #                                as described in https://airflow.apache.org/docs/docker-stack/build.html.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 105 source.yaml comment.line.number-sign.yaml
+L #                                Default: ''
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 44 source.yaml comment.line.number-sign.yaml
+L #
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+L # Feel free to modify this file to suit your needs.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 51 source.yaml comment.line.number-sign.yaml
+L ---
+T 3 source.yaml entity.other.document.begin.yaml
+L x-airflow-common:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml punctuation.separator.key-value.mapping.yaml
+L   &airflow-common
+T 2 source.yaml
+T 3 source.yaml meta.property.yaml keyword.control.property.anchor.yaml punctuation.definition.anchor.yaml
+T 17 source.yaml meta.property.yaml entity.name.type.anchor.yaml
+L   # In order to add custom dependencies or upgrade provider distributions you can use your extended image.
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 106 source.yaml comment.line.number-sign.yaml
+L   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 107 source.yaml comment.line.number-sign.yaml
+L   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 94 source.yaml comment.line.number-sign.yaml
+L   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:|version|}
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+T 9 source.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml
+T 56 source.yaml string.unquoted.plain.out.yaml
+L   # build: .
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 12 source.yaml comment.line.number-sign.yaml
+L   env_file:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+L     - ${ENV_FILE_PATH:-.env}
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L   environment:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+L     &airflow-common-env
+T 4 source.yaml
+T 5 source.yaml meta.property.yaml keyword.control.property.anchor.yaml punctuation.definition.anchor.yaml
+T 23 source.yaml meta.property.yaml entity.name.type.anchor.yaml
+L     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 27 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 28 source.yaml punctuation.separator.key-value.mapping.yaml
+T 29 source.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml punctuation.separator.key-value.mapping.yaml
+T 33 source.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+T 99 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg://airflow:airflow@postgres/airflow
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 39 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 40 source.yaml punctuation.separator.key-value.mapping.yaml
+T 41 source.yaml
+T 42 source.yaml string.unquoted.plain.out.yaml
+T 94 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql+psycopg://airflow:airflow@postgres/airflow
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 36 source.yaml punctuation.separator.key-value.mapping.yaml
+T 37 source.yaml
+T 38 source.yaml string.unquoted.plain.out.yaml
+T 93 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 31 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml punctuation.separator.key-value.mapping.yaml
+T 33 source.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+T 55 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 29 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 30 source.yaml punctuation.separator.key-value.mapping.yaml
+T 31 source.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+T 44 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 46 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 47 source.yaml punctuation.separator.key-value.mapping.yaml
+T 48 source.yaml
+T 49 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 53 source.yaml string.quoted.single.yaml
+T 54 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml punctuation.separator.key-value.mapping.yaml
+T 34 source.yaml
+T 35 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 39 source.yaml string.quoted.single.yaml
+T 40 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 44 source.yaml punctuation.separator.key-value.mapping.yaml
+T 45 source.yaml
+T 46 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 86 source.yaml string.quoted.single.yaml
+T 87 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L     AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET:-airflow_jwt_secret}
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 34 source.yaml punctuation.separator.key-value.mapping.yaml
+T 35 source.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+T 87 source.yaml string.unquoted.plain.out.yaml
+L     AIRFLOW__API_AUTH__JWT_ISSUER: ${AIRFLOW__API_AUTH__JWT_ISSUER:-airflow}
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 34 source.yaml punctuation.separator.key-value.mapping.yaml
+T 35 source.yaml
+T 36 source.yaml string.unquoted.plain.out.yaml
+T 76 source.yaml string.unquoted.plain.out.yaml
+L     # yamllint disable rule:line-length
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 39 source.yaml comment.line.number-sign.yaml
+L     # Use simple http server on scheduler for health checks
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 59 source.yaml comment.line.number-sign.yaml
+L     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 160 source.yaml comment.line.number-sign.yaml
+L     # yamllint enable rule:line-length
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 38 source.yaml comment.line.number-sign.yaml
+L     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 43 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 44 source.yaml punctuation.separator.key-value.mapping.yaml
+T 45 source.yaml
+T 46 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 50 source.yaml string.quoted.single.yaml
+T 51 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 78 source.yaml comment.line.number-sign.yaml
+L     # for other purpose (development, test and especially production usage) build/extend Airflow image.
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 103 source.yaml comment.line.number-sign.yaml
+L     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml punctuation.separator.key-value.mapping.yaml
+T 34 source.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+T 67 source.yaml string.unquoted.plain.out.yaml
+L     # The following line can be used to set a custom config file, stored in the local config folder
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 99 source.yaml comment.line.number-sign.yaml
+L     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 52 source.yaml string.quoted.single.yaml
+T 53 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L   volumes:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 51 source.yaml string.unquoted.plain.out.yaml
+L     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 51 source.yaml string.unquoted.plain.out.yaml
+L     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 55 source.yaml string.unquoted.plain.out.yaml
+L     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+T 4 source.yaml
+T 5 source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+T 57 source.yaml string.unquoted.plain.out.yaml
+L   user: "${AIRFLOW_UID:-50000}:0"
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 32 source.yaml string.quoted.double.yaml
+T 33 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L   depends_on:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L     &airflow-common-depends-on
+T 4 source.yaml
+T 5 source.yaml meta.property.yaml keyword.control.property.anchor.yaml punctuation.definition.anchor.yaml
+T 30 source.yaml meta.property.yaml entity.name.type.anchor.yaml
+L     redis:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       condition: service_healthy
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L     postgres:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       condition: service_healthy
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L 
+L services:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L   postgres:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+L     image: postgres:16
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+T 11 source.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L     environment:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       POSTGRES_USER: airflow
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+T 21 source.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+T 28 source.yaml string.unquoted.plain.out.yaml
+L       POSTGRES_PASSWORD: airflow
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 24 source.yaml punctuation.separator.key-value.mapping.yaml
+T 25 source.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml
+L       POSTGRES_DB: airflow
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     volumes:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - postgres-db-volume:/var/lib/postgresql/data
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 51 source.yaml string.unquoted.plain.out.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD", "pg_isready", "-U", "airflow"]
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 17 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 18 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 19 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 20 source.yaml meta.flow-sequence.yaml
+T 21 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 31 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 32 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 33 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 34 source.yaml meta.flow-sequence.yaml
+T 35 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 37 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 38 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 39 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 40 source.yaml meta.flow-sequence.yaml
+T 41 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 48 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 49 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 50 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 5s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L 
+L   redis:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L     # Redis is limited to 7.2-bookworm due to licencing change
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 62 source.yaml comment.line.number-sign.yaml
+L     # https://redis.io/blog/redis-adopts-dual-source-available-licensing/
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 73 source.yaml comment.line.number-sign.yaml
+L     image: redis:7.2-bookworm
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+T 11 source.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml
+T 29 source.yaml string.unquoted.plain.out.yaml
+L     expose:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - 6379
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 12 source.yaml constant.numeric.integer.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD", "redis-cli", "ping"]
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 17 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 18 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 19 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 20 source.yaml meta.flow-sequence.yaml
+T 21 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 30 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 31 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 32 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 33 source.yaml meta.flow-sequence.yaml
+T 34 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 38 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 39 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 40 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 50
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 17 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-apiserver:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: api-server
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     ports:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - "${AIRFLOW_API_SERVER_PORT:-8080}:8080"
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 46 source.yaml string.quoted.double.yaml
+T 47 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 17 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 18 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 19 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 20 source.yaml meta.flow-sequence.yaml
+T 21 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 25 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 26 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 27 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 28 source.yaml meta.flow-sequence.yaml
+T 29 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 35 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 36 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 37 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 38 source.yaml meta.flow-sequence.yaml
+T 39 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 82 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 83 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 84 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-scheduler:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: scheduler
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 23 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 24 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 25 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 26 source.yaml meta.flow-sequence.yaml
+T 27 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 95 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml
+T 96 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+T 97 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-dag-processor:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 24 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: dag-processor
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD-SHELL", 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 23 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 24 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 25 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 26 source.yaml meta.flow-sequence.yaml
+T 27 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 98 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml
+T 99 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+T 100 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-worker:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: celery worker
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       # yamllint disable rule:line-length
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 41 source.yaml comment.line.number-sign.yaml
+L       test: ["CMD-SHELL", 'celery --app airflow.providers.celery.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}" || celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 23 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 24 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 25 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 26 source.yaml meta.flow-sequence.yaml
+T 27 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 224 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml
+T 225 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+T 226 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     environment:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-env
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 29 source.yaml variable.other.alias.yaml
+L       # Required to handle warm shutdown of the celery workers properly
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 71 source.yaml comment.line.number-sign.yaml
+L       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+T 6 source.yaml punctuation.whitespace.comment.leading.yaml
+T 7 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 91 source.yaml comment.line.number-sign.yaml
+L       DUMB_INIT_SETSID: "0"
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml punctuation.separator.key-value.mapping.yaml
+T 24 source.yaml
+T 25 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 26 source.yaml string.quoted.double.yaml
+T 27 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-apiserver:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 24 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_healthy
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-triggerer:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: triggerer
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 22 source.yaml string.unquoted.plain.out.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 23 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 24 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 25 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 26 source.yaml meta.flow-sequence.yaml
+T 27 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 95 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml
+T 96 source.yaml meta.flow-sequence.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+T 97 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L   airflow-init:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     entrypoint: /bin/bash
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml
+L     # yamllint disable rule:line-length
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 39 source.yaml comment.line.number-sign.yaml
+L     command:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - -c
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml
+L       - |
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.block-scalar.literal.yaml
+L         if [[ -z "${AIRFLOW_UID}" ]]; then
+T 8 source.yaml string.unquoted.block.yaml
+T 42 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           echo -e "\033[1;33mWARNING!!!: AIRFLOW_UID not set!\e[0m"
+T 67 source.yaml string.unquoted.block.yaml
+L           echo "If you are on Linux, you SHOULD follow the instructions below to set "
+T 86 source.yaml string.unquoted.block.yaml
+L           echo "AIRFLOW_UID environment variable, otherwise files will be owned by root."
+T 89 source.yaml string.unquoted.block.yaml
+L           echo "For other operating systems you can get rid of the warning with manually created .env file:"
+T 108 source.yaml string.unquoted.block.yaml
+L           echo "    See: https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#setting-the-right-airflow-user"
+T 142 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           export AIRFLOW_UID=$$(id -u)
+T 38 source.yaml string.unquoted.block.yaml
+L         fi
+T 10 source.yaml string.unquoted.block.yaml
+L         one_meg=1048576
+T 23 source.yaml string.unquoted.block.yaml
+L         mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
+T 85 source.yaml string.unquoted.block.yaml
+L         cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
+T 58 source.yaml string.unquoted.block.yaml
+L         disk_available=$$(df / | tail -1 | awk '{print $$4}')
+T 61 source.yaml string.unquoted.block.yaml
+L         warning_resources="false"
+T 33 source.yaml string.unquoted.block.yaml
+L         if (( mem_available < 4000 )) ; then
+T 44 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           echo -e "\033[1;33mWARNING!!!: Not enough memory available for Docker.\e[0m"
+T 86 source.yaml string.unquoted.block.yaml
+L           echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
+T 108 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           warning_resources="true"
+T 34 source.yaml string.unquoted.block.yaml
+L         fi
+T 10 source.yaml string.unquoted.block.yaml
+L         if (( cpus_available < 2 )); then
+T 41 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           echo -e "\033[1;33mWARNING!!!: Not enough CPUS available for Docker.\e[0m"
+T 84 source.yaml string.unquoted.block.yaml
+L           echo "At least 2 CPUs recommended. You have $${cpus_available}"
+T 73 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           warning_resources="true"
+T 34 source.yaml string.unquoted.block.yaml
+L         fi
+T 10 source.yaml string.unquoted.block.yaml
+L         if (( disk_available < one_meg * 10 )); then
+T 52 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           echo -e "\033[1;33mWARNING!!!: Not enough Disk space available for Docker.\e[0m"
+T 90 source.yaml string.unquoted.block.yaml
+L           echo "At least 10 GBs recommended. You have $$(numfmt --to iec $$((disk_available * 1024 )))"
+T 103 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           warning_resources="true"
+T 34 source.yaml string.unquoted.block.yaml
+L         fi
+T 10 source.yaml string.unquoted.block.yaml
+L         if [[ $${warning_resources} == "true" ]]; then
+T 54 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L           echo -e "\033[1;33mWARNING!!!: You have not enough resources to run Airflow (see above)!\e[0m"
+T 104 source.yaml string.unquoted.block.yaml
+L           echo "Please follow the instructions to increase amount of resources available:"
+T 90 source.yaml string.unquoted.block.yaml
+L           echo "   https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#before-you-begin"
+T 122 source.yaml string.unquoted.block.yaml
+L           echo
+T 14 source.yaml string.unquoted.block.yaml
+L         fi
+T 10 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Creating missing opt dirs if missing:"
+T 52 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         mkdir -v -p /opt/airflow/{logs,dags,plugins,config}
+T 59 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Airflow version:"
+T 31 source.yaml string.unquoted.block.yaml
+L         /entrypoint airflow version
+T 35 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Files in shared volumes:"
+T 39 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         ls -la /opt/airflow/{logs,dags,plugins,config}
+T 54 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Running airflow config list to create default config file if missing."
+T 84 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         /entrypoint airflow config list >/dev/null
+T 50 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Files in shared volumes:"
+T 39 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         ls -la /opt/airflow/{logs,dags,plugins,config}
+T 54 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Change ownership of files in /opt/airflow to ${AIRFLOW_UID:-50000}:0"
+T 83 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         chown -R "${AIRFLOW_UID:-50000}:0" /opt/airflow/
+T 56 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Change ownership of files in shared volumes to ${AIRFLOW_UID:-50000}:0"
+T 85 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         chown -v -R "${AIRFLOW_UID:-50000}:0" /opt/airflow/{logs,dags,plugins,config}
+T 85 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         echo "Files in shared volumes:"
+T 39 source.yaml string.unquoted.block.yaml
+L         echo
+T 12 source.yaml string.unquoted.block.yaml
+L         ls -la /opt/airflow/{logs,dags,plugins,config}
+T 54 source.yaml string.unquoted.block.yaml
+L 
+L     # yamllint enable rule:line-length
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 38 source.yaml comment.line.number-sign.yaml
+L     environment:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-env
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 29 source.yaml variable.other.alias.yaml
+L       _AIRFLOW_DB_MIGRATE: 'true'
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 25 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 26 source.yaml punctuation.separator.key-value.mapping.yaml
+T 27 source.yaml
+T 28 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 32 source.yaml string.quoted.single.yaml
+T 33 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L       _AIRFLOW_WWW_USER_CREATE: 'true'
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 30 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 31 source.yaml punctuation.separator.key-value.mapping.yaml
+T 32 source.yaml
+T 33 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 37 source.yaml string.quoted.single.yaml
+T 38 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml punctuation.separator.key-value.mapping.yaml
+T 34 source.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+T 72 source.yaml string.unquoted.plain.out.yaml
+L       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml punctuation.separator.key-value.mapping.yaml
+T 34 source.yaml
+T 35 source.yaml string.unquoted.plain.out.yaml
+T 72 source.yaml string.unquoted.plain.out.yaml
+L       _PIP_ADDITIONAL_REQUIREMENTS: ''
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 34 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 35 source.yaml punctuation.separator.key-value.mapping.yaml
+T 36 source.yaml
+T 37 source.yaml string.quoted.single.yaml punctuation.definition.string.begin.yaml
+T 38 source.yaml string.quoted.single.yaml punctuation.definition.string.end.yaml
+L     user: "0:0"
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 14 source.yaml string.quoted.double.yaml
+T 15 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L 
+L   airflow-cli:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     profiles:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - debug
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml
+L     environment:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-env
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 29 source.yaml variable.other.alias.yaml
+L       CONNECTION_CHECK_MAX_COUNT: "0"
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 32 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 33 source.yaml punctuation.separator.key-value.mapping.yaml
+T 34 source.yaml
+T 35 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 36 source.yaml string.quoted.double.yaml
+T 37 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     # Workaround for entrypoint issue. See: https://github.com/apache/airflow/issues/16252
+T 4 source.yaml punctuation.whitespace.comment.leading.yaml
+T 5 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 90 source.yaml comment.line.number-sign.yaml
+L     command:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - bash
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml
+L       - -c
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml
+L       - airflow
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L 
+L   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 101 source.yaml comment.line.number-sign.yaml
+L   # or by explicitly targeted on the command line e.g. docker-compose up flower.
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 80 source.yaml comment.line.number-sign.yaml
+L   # See: https://docs.docker.com/compose/profiles/
+T 2 source.yaml punctuation.whitespace.comment.leading.yaml
+T 3 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 50 source.yaml comment.line.number-sign.yaml
+L   flower:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+L     <<: *airflow-common
+T 4 source.yaml
+T 6 source.yaml constant.language.merge.yaml
+T 7 source.yaml punctuation.separator.key-value.mapping.yaml
+T 8 source.yaml
+T 9 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 23 source.yaml variable.other.alias.yaml
+L     command: celery flower
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 26 source.yaml string.unquoted.plain.out.yaml
+L     profiles:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - flower
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+L     ports:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml punctuation.separator.key-value.mapping.yaml
+L       - "5555:5555"
+T 6 source.yaml
+T 7 source.yaml punctuation.definition.block.sequence.item.yaml
+T 8 source.yaml
+T 9 source.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 18 source.yaml string.quoted.double.yaml
+T 19 source.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+L     healthcheck:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+L       test: ["CMD", "curl", "--fail", "http://localhost:5555/"]
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+T 12 source.yaml
+T 13 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 14 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 17 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 18 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 19 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 20 source.yaml meta.flow-sequence.yaml
+T 21 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 25 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 26 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 27 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 28 source.yaml meta.flow-sequence.yaml
+T 29 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 35 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 36 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 37 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 38 source.yaml meta.flow-sequence.yaml
+T 39 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 61 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml
+T 62 source.yaml meta.flow-sequence.yaml string.quoted.double.yaml punctuation.definition.string.end.yaml
+T 63 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
+L       interval: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+T 16 source.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L       timeout: 10s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml string.unquoted.plain.out.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml
+L       retries: 5
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml punctuation.separator.key-value.mapping.yaml
+T 15 source.yaml
+T 16 source.yaml constant.numeric.integer.yaml
+L       start_period: 30s
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+T 20 source.yaml
+T 21 source.yaml string.unquoted.plain.out.yaml
+T 23 source.yaml string.unquoted.plain.out.yaml
+L     restart: always
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml punctuation.separator.key-value.mapping.yaml
+T 13 source.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml
+L     depends_on:
+T 4 source.yaml
+T 5 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml punctuation.separator.key-value.mapping.yaml
+L       <<: *airflow-common-depends-on
+T 6 source.yaml
+T 8 source.yaml constant.language.merge.yaml
+T 9 source.yaml punctuation.separator.key-value.mapping.yaml
+T 10 source.yaml
+T 11 source.yaml keyword.control.flow.alias.yaml punctuation.definition.alias.yaml
+T 36 source.yaml variable.other.alias.yaml
+L       airflow-init:
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml punctuation.separator.key-value.mapping.yaml
+L         condition: service_completed_successfully
+T 8 source.yaml
+T 9 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 18 source.yaml punctuation.separator.key-value.mapping.yaml
+T 19 source.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml
+T 49 source.yaml string.unquoted.plain.out.yaml
+L 
+L volumes:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+L   postgres-db-volume:
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 source.yaml punctuation.separator.key-value.mapping.yaml
+L 
