@@ -3,6 +3,7 @@
 
 use std::cell::Cell;
 
+use super::Dialect;
 use super::bytes::Bytes;
 use super::kind::Kind;
 use super::scope::S;
@@ -16,7 +17,7 @@ use crate::{Stack, Token};
 /// The grammar was written for `TextMate`, which tokenizes each line with a
 /// newline appended. [`Lexer::b`] therefore reads a newline at the end of the
 /// line, so `\s` and `$` behave as they do there.
-pub(crate) struct Lexer<'a> {
+pub(crate) struct Lexer<'a, const D: u8> {
     pub(crate) src: &'a str,
     pub(crate) s: &'a [u8],
     pub(crate) len: usize,
@@ -136,7 +137,11 @@ pub(crate) fn is_alpha_char(c: char) -> bool {
     c == '$' || c == '_' || c.is_alphabetic()
 }
 
-impl<'a> Lexer<'a> {
+impl<'a, const D: u8> Lexer<'a, D> {
+    /// The grammar followed: TypeScript, or one that reads JSX. A parameter of
+    /// the type, so the TypeScript lexer compiles with no JSX branches.
+    pub(crate) const DIALECT: Dialect = Dialect::of(D);
+
     pub(crate) fn new(
         arena: &'a mut Arena,
         limits: &'a Limits,
@@ -550,7 +555,7 @@ impl<'a> Lexer<'a> {
     /// reached.
     fn node(&mut self, mut base: u32, scopes: &[S]) -> u32 {
         for scope in scopes {
-            let Some(child) = self.arena.child(base, scope.scope()) else {
+            let Some(child) = self.arena.child(base, scope.scope(Self::DIALECT)) else {
                 self.report.record(Limit::Nodes);
                 break;
             };
@@ -696,7 +701,7 @@ impl<'a> Lexer<'a> {
     }
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// Whether a context cannot open because the stack is full.
     pub(crate) fn full(&self) -> bool {
         let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);

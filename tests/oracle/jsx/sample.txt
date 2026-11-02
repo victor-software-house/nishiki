@@ -1,0 +1,177 @@
+L function Item({ name, isPacked }) {
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 34 source.js.jsx meta.function.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   if (isPacked) {
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.conditional.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L     return null;
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx constant.language.null.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L   }
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   return <li className="item">{name}</li>;
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx punctuation.definition.tag.begin.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx entity.name.tag.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx punctuation.definition.tag.end.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.jsx.children.js.jsx punctuation.section.embedded.begin.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.jsx.children.js.jsx meta.embedded.expression.js.jsx variable.other.readwrite.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx meta.jsx.children.js.jsx punctuation.section.embedded.end.js.jsx
+T 38 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx punctuation.definition.tag.begin.js.jsx
+T 40 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx entity.name.tag.js.jsx
+T 41 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.tag.js.jsx punctuation.definition.tag.end.js.jsx
+T 42 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L export default function PackingList() {
+T 6 source.js.jsx meta.export.default.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.default.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx keyword.control.default.js.jsx
+T 15 source.js.jsx meta.export.default.js.jsx
+T 23 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx storage.type.function.js.jsx
+T 24 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx
+T 35 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 36 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 37 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 38 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx
+T 39 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   return (
+T 2 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+L     <section>
+T 4 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx
+T 5 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 12 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 13 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+L       <h1>Sally Ride's Packing List</h1>
+T 6 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 7 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+T 35 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 37 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 39 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 40 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+L       <ul>
+T 6 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 7 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+L         <Item
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.begin.js.jsx
+T 13 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx entity.name.tag.js.jsx support.class.component.js.jsx
+L           isPacked={true}
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 18 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 19 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.begin.js.jsx
+T 24 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx meta.embedded.expression.js.jsx constant.language.boolean.true.js.jsx
+T 25 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.end.js.jsx
+L           name="Space suit"
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 15 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 26 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx
+T 27 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+L         />
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.end.js.jsx
+L         <Item
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.begin.js.jsx
+T 13 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx entity.name.tag.js.jsx support.class.component.js.jsx
+L           isPacked={true}
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 18 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 19 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.begin.js.jsx
+T 24 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx meta.embedded.expression.js.jsx constant.language.boolean.true.js.jsx
+T 25 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.end.js.jsx
+L           name="Helmet with a golden leaf"
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 15 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 41 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx
+T 42 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+L         />
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.end.js.jsx
+L         <Item
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 9 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.begin.js.jsx
+T 13 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx entity.name.tag.js.jsx support.class.component.js.jsx
+L           isPacked={false}
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 18 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 19 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.begin.js.jsx
+T 25 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx meta.embedded.expression.js.jsx constant.language.boolean.false.js.jsx
+T 26 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx punctuation.section.embedded.end.js.jsx
+L           name="Photo of Tam"
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx entity.other.attribute-name.js.jsx
+T 15 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 28 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx
+T 29 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+L         />
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx meta.tag.attributes.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.js.jsx punctuation.definition.tag.end.js.jsx
+L       </ul>
+T 6 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 8 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 10 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 11 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+L     </section>
+T 4 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx meta.jsx.children.js.jsx
+T 6 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.begin.js.jsx
+T 13 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx entity.name.tag.js.jsx
+T 14 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.tag.without-attributes.js.jsx punctuation.definition.tag.end.js.jsx
+L   );
+T 2 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 4 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.export.default.js.jsx meta.function.expression.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L // From https://react.dev/learn/conditional-rendering
+T 2 source.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 53 source.js.jsx comment.line.double-slash.js.jsx
+L 

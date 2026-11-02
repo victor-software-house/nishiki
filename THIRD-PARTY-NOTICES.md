@@ -55,7 +55,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Its TypeScript lexer emits the scope names of the TypeScript TextMate grammar in [microsoft/TypeScript-TmLanguage](https://github.com/microsoft/TypeScript-TmLanguage), which Shiki bundles, and tries that grammar's rules in its order.
+Its TypeScript, JavaScript, JSX and TSX lexers emit the scope names of the TypeScript and TypeScriptReact TextMate grammars in [microsoft/TypeScript-TmLanguage](https://github.com/microsoft/TypeScript-TmLanguage), which Shiki bundles (VS Code's JavaScript grammar is converted from the second), and try those grammars' rules in their order.
 That grammar is licensed under the MIT License:
 
 ```text

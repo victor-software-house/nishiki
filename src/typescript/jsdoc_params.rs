@@ -15,7 +15,7 @@ struct OptionalParam {
     end: usize,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// `(?:[^*/@\s]|\*[^/])+` as the name of a `@typedef`.
     pub(crate) fn doc_typedef_name(&mut self, p: usize) -> Option<usize> {
         let mut j = p;

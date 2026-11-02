@@ -114,12 +114,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", "fs"]*/
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import fs from 'fs';
-T 20 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -134,12 +145,27 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", "fs"]*/
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L export { fs } from 'fs';
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.export.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js punctuation.definition.block.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.from.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js punctuation.definition.string.begin.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js punctuation.definition.string.end.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -151,12 +177,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", "fs"]*/
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L export * from 'fs';
-T 19 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.export.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js constant.language.import-export-all.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.from.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js punctuation.definition.string.begin.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.single.js punctuation.definition.string.end.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -175,14 +212,38 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", "fs"]*/
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import crypto from 'crypto';
-T 28 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L export { foo } from "bar";
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.export.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js variable.other.readwrite.alias.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js meta.block.js punctuation.definition.block.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js keyword.control.from.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.double.js punctuation.definition.string.begin.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.double.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.export.js string.quoted.double.js punctuation.definition.string.end.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -288,18 +349,29 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", {
-T 43 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     "name": "disallowed-import",
-T 32 text.html.markdown markup.fenced_code.block.markdown
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     "message": "Please use 'allowed-import' instead"
-T 52 text.html.markdown markup.fenced_code.block.markdown
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]*/
-T 4 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import foo from 'disallowed-import';
-T 36 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -367,12 +439,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "paths": ["cluster"] }]*/
-T 69 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import cluster from 'cluster';
-T 30 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -611,20 +694,31 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ["default"],
-T 29 text.html.markdown markup.fenced_code.block.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use the default import from '/bar/baz/' instead."
-T 70 text.html.markdown markup.fenced_code.block.markdown
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import DisallowedObject from "foo";
-T 35 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -651,26 +745,75 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ["DisallowedObject"],
-T 38 text.html.markdown markup.fenced_code.block.markdown
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please import 'DisallowedObject' from '/bar/baz/' instead."
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { DisallowedObject } from "foo";
-T 39 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L 
 L import { DisallowedObject as AllowedObject } from "foo";
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js keyword.control.as.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L 
 L import { "DisallowedObject" as SomeObject } from "foo";
-T 55 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js string.quoted.alias.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js keyword.control.as.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -682,20 +825,35 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ["DisallowedObject"],
-T 38 text.html.markdown markup.fenced_code.block.markdown
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please import 'DisallowedObject' from '/bar/baz/' instead."
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import * as Foo from "foo";
-T 27 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js constant.language.import-export-all.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.as.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -729,12 +887,22 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{ name: "foo", importNames: ["DisallowedObject"] }] }]*/
-T 108 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 106 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 108 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import DisallowedObject from "foo"
-T 34 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -746,20 +914,39 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ["DisallowedObject"],
-T 38 text.html.markdown markup.fenced_code.block.markdown
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please import 'DisallowedObject' from '/bar/baz/' instead."
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { AllowedObject as DisallowedObject } from "foo";
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js keyword.control.as.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -884,20 +1071,35 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNames: ["AllowedObject"],
-T 40 text.html.markdown markup.fenced_code.block.markdown
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use only 'AllowedObject' from 'foo'."
-T 58 text.html.markdown markup.fenced_code.block.markdown
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { DisallowedObject } from "foo";
-T 39 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -927,20 +1129,35 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { paths: [{
-T 53 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     name: "foo",
-T 16 text.html.markdown markup.fenced_code.block.markdown
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNames: ["AllowedObject"],
-T 40 text.html.markdown markup.fenced_code.block.markdown
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Only use 'AllowedObject' from 'foo'."
-T 51 text.html.markdown markup.fenced_code.block.markdown
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { AllowedObject } from "foo";
-T 36 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1439,12 +1656,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*"] }]*/
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'lodash/pick';
-T 31 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1456,12 +1684,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*", "!lodash/pick"] }]*/
-T 89 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'lodash/map';
-T 30 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1473,12 +1712,23 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["import1/*", "!import1/private/*"] }]*/
-T 96 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 94 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'import1/private/someModule';
-T 46 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1528,12 +1778,23 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["crypto/*"] }]*/
-T 73 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import crypto from 'crypto';
-T 28 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1545,12 +1806,23 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["lodash/*", "!lodash/pick"] }]*/
-T 89 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'lodash/pick';
-T 31 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1562,12 +1834,23 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { "patterns": ["import1/*", "!import1/private"] }]*/
-T 94 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 94 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'import1/private/someModule';
-T 46 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1720,18 +2003,29 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["lodash/*"],
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use the default import from 'lodash' instead."
-T 67 text.html.markdown markup.fenced_code.block.markdown
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'lodash/pick';
-T 31 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1754,18 +2048,29 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["lodash/*"],
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use the default import from 'lodash' instead."
-T 67 text.html.markdown markup.fenced_code.block.markdown
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import lodash from 'lodash';
-T 28 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1893,22 +2198,60 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     regex: "@app/(?!(api/enums$)).*",
-T 37 text.html.markdown markup.fenced_code.block.markdown
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import Foo from '@app/api';
-T 27 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L import Bar from '@app/api/bar';
-T 31 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L import Baz from '@app/api/baz';
-T 31 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L import Bux from '@app/api/enums/foo';
-T 37 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -1931,16 +2274,27 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     regex: "@app/(?!(api/enums$)).*",
-T 37 text.html.markdown markup.fenced_code.block.markdown
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import Foo from '@app/api/enums';
-T 33 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2042,18 +2396,29 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["foo[A-Z]*"],
-T 25 text.html.markdown markup.fenced_code.block.markdown
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     caseSensitive: true
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'fooBar';
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2076,18 +2441,29 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["foo[A-Z]*"],
-T 25 text.html.markdown markup.fenced_code.block.markdown
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     caseSensitive: true
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import pick from 'food';
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2208,20 +2584,35 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ['isEmpty'],
-T 29 text.html.markdown markup.fenced_code.block.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Use 'isEmpty' from lodash instead."
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isEmpty } from 'utils/collection-utils';
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2248,20 +2639,35 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ['isEmpty'],
-T 29 text.html.markdown markup.fenced_code.block.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Use 'isEmpty' from lodash instead."
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { hasValues } from 'utils/collection-utils';
-T 51 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2401,20 +2807,35 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNames: ['isEmpty'],
-T 34 text.html.markdown markup.fenced_code.block.markdown
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use only 'isEmpty' from utils."
-T 52 text.html.markdown markup.fenced_code.block.markdown
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { hasValues } from 'utils/collection-utils';
-T 51 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2441,20 +2862,35 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNames: ['isEmpty'],
-T 34 text.html.markdown markup.fenced_code.block.markdown
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Please use only 'isEmpty' from utils."
-T 52 text.html.markdown markup.fenced_code.block.markdown
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isEmpty } from 'utils/collection-utils';
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2543,20 +2979,35 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: '^is',
-T 29 text.html.markdown markup.fenced_code.block.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Use 'is*' functions from lodash instead."
-T 55 text.html.markdown markup.fenced_code.block.markdown
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isEmpty } from 'utils/collection-utils';
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2568,20 +3019,38 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["foo/*"],
-T 21 text.html.markdown markup.fenced_code.block.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: '^(is|has)',
-T 35 text.html.markdown markup.fenced_code.block.markdown
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Use 'is*' and 'has*' functions from baz/bar instead"
-T 66 text.html.markdown markup.fenced_code.block.markdown
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isSomething, hasSomething } from 'foo/bar';
-T 52 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.separator.comma.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2593,20 +3062,38 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["foo/*"],
-T 21 text.html.markdown markup.fenced_code.block.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNames: ["bar"],
-T 25 text.html.markdown markup.fenced_code.block.markdown
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: '^baz',
-T 30 text.html.markdown markup.fenced_code.block.markdown
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { bar, bazQux } from 'foo/quux';
-T 39 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.separator.comma.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2629,20 +3116,38 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: '^is',
-T 29 text.html.markdown markup.fenced_code.block.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     message: "Use 'is*' functions from lodash instead."
-T 55 text.html.markdown markup.fenced_code.block.markdown
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import isEmpty, { hasValue } from 'utils/collection-utils';
-T 59 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js punctuation.separator.comma.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2672,21 +3177,52 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: "^"
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import isEmpty, { hasValue } from 'utils/collection-utils';
-T 59 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js punctuation.separator.comma.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L 
 L import * as file from 'utils/file-utils';
-T 41 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js constant.language.import-export-all.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.as.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2709,18 +3245,25 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     importNamePattern: "^"
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import 'utils/init-utils';
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2832,18 +3375,33 @@ T 13 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNamePattern: '^has'
-T 34 text.html.markdown markup.fenced_code.block.markdown
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isEmpty } from 'utils/collection-utils';
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 
@@ -2866,18 +3424,33 @@ T 11 text.html.markdown meta.paragraph.markdown
 L 
 L ```js
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 5 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L /*eslint no-restricted-imports: ["error", { patterns: [{
-T 56 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     group: ["utils/*"],
-T 23 text.html.markdown markup.fenced_code.block.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L     allowImportNamePattern: '^is'
-T 33 text.html.markdown markup.fenced_code.block.markdown
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
 L }]}]*/
-T 6 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript comment.block.js punctuation.definition.comment.js
 L 
 L import { isEmpty } from 'utils/collection-utils';
-T 49 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js variable.other.readwrite.alias.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js meta.block.js punctuation.definition.block.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js keyword.control.from.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

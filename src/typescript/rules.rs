@@ -5,7 +5,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// Processes position `p` once: the innermost context's end rule first,
     /// then its other rules. `None` means nothing matched and the byte is
     /// plain text.
@@ -24,9 +24,17 @@ impl Lexer<'_> {
     fn rules(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
             Kind::Top | Kind::Started => self.top_rules(p),
+            Kind::JsxExprNoAttrs => self.jsx_tag_without_attributes(p),
+            Kind::JsxNoAttrs | Kind::JsxTagBody => self.jsx_children(p),
+            Kind::JsxExprTag => self.jsx_tag(p),
+            Kind::JsxTag => self.jsx_tag_rules(p),
+            Kind::JsxTagOpen => self.jsx_tag_open_rules(p),
+            Kind::JsxAttributes => self.jsx_attribute_rules(p),
+            Kind::JsxStrDouble | Kind::JsxStrSingle => self.jsx_string_rules(p),
             Kind::Block | Kind::CaseBlock => self.statements(p),
             Kind::ObjLit => self.object_member(p),
-            Kind::ArrLit
+            Kind::JsxEval
+            | Kind::ArrLit
             | Kind::ParenExpr
             | Kind::SwitchExpr
             | Kind::IfParen

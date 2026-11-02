@@ -379,6 +379,8 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
     match kind {
         Kind::Body(Language::Rust) => Some(S::EmbeddedRust),
         Kind::Body(Language::TypeScript) => Some(S::EmbeddedTypeScript),
+        Kind::Body(Language::JavaScript | Language::Jsx) => Some(S::EmbeddedJavascript),
+        Kind::Body(Language::Tsx) => Some(S::EmbeddedTypescriptreact),
         Kind::Body(Language::Markdown) => Some(S::EmbeddedMarkdown),
         Kind::Body(Language::Shell) => Some(S::EmbeddedShell),
         Kind::Body(Language::Json) => Some(S::EmbeddedJson),

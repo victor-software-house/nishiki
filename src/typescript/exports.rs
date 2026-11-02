@@ -4,7 +4,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn export_declaration(&mut self, p: usize) -> Option<usize> {
         if !self.starts(p, "export") || !self.kw_before(p) || !self.boundary(p) {
             return None;

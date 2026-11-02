@@ -112,6 +112,18 @@ const latexrun =
 const deviceVirtual =
   "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
 
+const express =
+  "https://raw.githubusercontent.com/expressjs/express/bcc0551cb7a785b7772f77cb59ce55a2bc94975a";
+
+const preact =
+  "https://raw.githubusercontent.com/preactjs/preact/81dbe69d39e948b2305193d2622c225699311083";
+
+const shadcn =
+  "https://raw.githubusercontent.com/shadcn-ui/ui/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610";
+
+const axios =
+  "https://raw.githubusercontent.com/axios/axios/7324e94d8a7b5156a4baf3c86c8b5daa242daee3";
+
 const burntsushiToml =
   "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
 const poetry =
@@ -265,4 +277,18 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "httparser-readme", url: `${httparser}/README.md` },
   { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
   { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
+  { lang: "javascript", name: "sample", url: `${samples}/javascript.sample` },
+  { lang: "javascript", name: "express-application", url: `${express}/lib/application.js` },
+  { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
+  { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
+  { lang: "tsx", name: "sample", url: `${samples}/tsx.sample` },
+  { lang: "tsx", name: "shadcn-sidebar", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/sidebar.tsx` },
+  { lang: "javascript", name: "express-response", url: `${express}/lib/response.js` },
+  { lang: "javascript", name: "axios-xhr", url: `${axios}/lib/adapters/xhr.js` },
+  { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
+  { lang: "tsx", name: "shadcn-chart", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/chart.tsx` },
+  { lang: "tsx", name: "shadcn-combobox", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx` },
+  { lang: "markdown", name: "shadcn-data-table", url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx` },
+  { lang: "markdown", name: "shadcn-message-scroller", url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx` },
+  { lang: "markdown", name: "preact-readme", url: `${preact}/README.md` },
 ];

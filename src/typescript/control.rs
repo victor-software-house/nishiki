@@ -5,7 +5,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn control_statement(&mut self, p: usize) -> Option<usize> {
         if !self.b(p).is_ascii_lowercase() {
             return None;

@@ -31,7 +31,7 @@ pub(crate) struct Number {
     big: Option<usize>,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     fn digits(&self, i: usize, valid: impl Fn(u8) -> bool) -> usize {
         let mut j = i;
         while valid(self.b(j)) {

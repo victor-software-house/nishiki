@@ -182,6 +182,43 @@ fn typescript_fence_embeds_the_typescript_lexer_without_its_root() {
 }
 
 #[test]
+fn javascript_fences_embed_the_javascript_grammar() {
+    // The Markdown grammar sends `jsx` to the JavaScript grammar too.
+    for info in ["js", "javascript", "jsx", "mjs", "cjs", "es6", "JS"] {
+        let text = format!("```{info}\nconst x = 1;\n```\n");
+        assert_eq!(
+            stack_of(&text, "const"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.javascript",
+                "meta.var.expr.js",
+                "storage.type.js",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn a_tsx_fence_embeds_the_tsx_grammar() {
+    let text = "```tsx\nconst x = <a b=\"1\" />;\n```\n";
+    let stack = stack_of(text, "a");
+    assert_eq!(
+        stack[..3],
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.typescriptreact",
+        ]
+    );
+    assert_eq!(
+        stack.last().map(String::as_str),
+        Some("entity.name.tag.tsx")
+    );
+}
+
+#[test]
 fn typescript_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```ts

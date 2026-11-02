@@ -4,7 +4,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// `^(///)\s*(?=<(reference|amd-dependency|amd-module)(…)+\s*/>\s*$)`.
     pub(crate) fn directive(&mut self, p: usize) -> Option<usize> {
         if p != 0 || !self.starts(0, "///") || self.full() {

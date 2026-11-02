@@ -426,6 +426,99 @@ fn gated_rules_match_only_inside_their_start_sets() {
     }
 }
 
+/// The full scope stack of the first token that reads `token`, in `language`.
+fn stack_in(language: Language, text: &str, token: &str) -> Vec<String> {
+    let (lines, _) = lex_with(&mut Highlighter::new(language), text);
+    lines
+        .into_iter()
+        .flatten()
+        .find(|(t, _)| t == token)
+        .unwrap_or_else(|| panic!("no token {token:?}"))
+        .1
+}
+
+#[test]
+fn the_dialects_differ_in_the_suffix_of_their_names() {
+    for (language, suffix) in [
+        (Language::TypeScript, "ts"),
+        (Language::JavaScript, "js"),
+        (Language::Jsx, "js.jsx"),
+        (Language::Tsx, "tsx"),
+    ] {
+        assert_eq!(
+            stack_in(language, "const x = 1;", "const"),
+            [
+                format!("source.{suffix}"),
+                format!("meta.var.expr.{suffix}"),
+                format!("storage.type.{suffix}"),
+            ],
+            "{language:?}"
+        );
+    }
+}
+
+#[test]
+fn a_tag_is_jsx_after_an_operator_in_the_jsx_dialects() {
+    let text = "const a = <div id=\"x\">hi &amp; {y}</div>;";
+    for language in [Language::JavaScript, Language::Jsx, Language::Tsx] {
+        let stack = stack_in(language, text, "div");
+        assert!(
+            stack.iter().any(|scope| scope.starts_with("meta.tag")),
+            "{language:?}: {stack:?}"
+        );
+    }
+    let stack = stack_in(Language::TypeScript, "const a = <div>x;", "div");
+    assert!(
+        !stack.iter().any(|scope| scope.starts_with("meta.tag")),
+        "typescript has no JSX: {stack:?}"
+    );
+}
+
+#[test]
+fn a_component_name_has_its_own_scope() {
+    let stack = stack_in(Language::Tsx, "x = <Foo.Bar a=\"1\" />;", "Foo.Bar");
+    assert_eq!(
+        stack[stack.len() - 2..],
+        ["entity.name.tag.tsx", "support.class.component.tsx"]
+    );
+    let stack = stack_in(Language::Tsx, "x = <a b=\"1\" />;", "a");
+    assert_eq!(
+        stack.last().map(String::as_str),
+        Some("entity.name.tag.tsx")
+    );
+}
+
+#[test]
+fn a_type_parameter_list_with_extends_is_an_arrow_function_in_tsx() {
+    let text = "const f = <T extends object>(x: T) => x;";
+    assert_eq!(
+        scope_in(Language::Tsx, text, "f"),
+        "entity.name.function.tsx"
+    );
+}
+
+/// The innermost scope of the first token that reads `token`, in `language`.
+fn scope_in(language: Language, text: &str, token: &str) -> String {
+    stack_in(language, text, token).pop().unwrap_or_default()
+}
+
+#[test]
+fn jsx_state_continues_across_lines() {
+    let text = "x = (\n  <div\n    a=\"1\"\n  >\n    text\n  </div>\n);";
+    let mut h = Highlighter::new(Language::Jsx);
+    let (rows, states) = lex_with(&mut h, text);
+    assert!(depth(&h, states[1]) > 0, "the tag is open");
+    assert!(
+        depth(&h, states[5]) == depth(&h, states[0]),
+        "the tag closed"
+    );
+    assert!(
+        rows[4]
+            .iter()
+            .any(|(_, scopes)| scopes.iter().any(|s| s == "meta.jsx.children.js.jsx"))
+    );
+}
+
 #[test]
 fn a_type_annotation_takes_the_blanks_before_a_brace() {
     // The end of a type annotation before `{` takes the blanks, so the brace is

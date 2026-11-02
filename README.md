@@ -81,6 +81,9 @@ assert_eq!(highlighter.limits().depth, None);
 | Rust | `Language::Rust` | `rust`, `rs` |
 | Markdown | `Language::Markdown` | `markdown`, `md` |
 | TypeScript | `Language::TypeScript` | `typescript`, `ts`, `cts`, `mts` |
+| JavaScript | `Language::JavaScript` | `javascript`, `js`, `cjs`, `mjs` |
+| JSX | `Language::Jsx` | `jsx` |
+| TSX | `Language::Tsx` | `tsx` |
 | Shell | `Language::Shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
 | JSON | `Language::Json` | `json` |
 | JSON with comments | `Language::Jsonc` | `jsonc` |
@@ -114,9 +117,10 @@ A label or link destination nested deeper than 32 brackets ends there.
 The grammar's backtracking is followed where it matters in practice, not everywhere: a code span gives back backticks, but an escaped `>` does not end an angle-bracket destination.
 A fence of more than 255 characters is never closed.
 
-### TypeScript
+### TypeScript, JavaScript, JSX and TSX
 
 `Number.MAX_VALUE` gets no scope, and an empty line leaves the state as it is.
+JavaScript, JSX and TSX are one grammar with three spellings of its scope names, and they differ from TypeScript in reading `<` as a JSX tag and in the generic arrow function lookaheads that tags would confuse.
 
 ### Shell
 

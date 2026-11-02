@@ -9,7 +9,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// The `expression` rule group: everything that is not an identifier,
     /// then identifiers, then punctuation.
     pub(crate) fn expression(&mut self, p: usize) -> Option<usize> {
@@ -19,7 +19,8 @@ impl Lexer<'_> {
     }
 
     pub(crate) fn expression_without_identifiers(&mut self, p: usize) -> Option<usize> {
-        self.only("e.string", STRING_START, p, Self::string)
+        self.only("e.jsx", BLANK.with(b'<'), p, Self::jsx)
+            .or_else(|| self.only("e.string", STRING_START, p, Self::string))
             .or_else(|| self.only("e.regex", BLANK.with(b'/'), p, Self::regex))
             .or_else(|| self.only("e.comment", COMMENT_START, p, Self::comment))
             .or_else(|| {

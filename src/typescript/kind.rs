@@ -191,6 +191,16 @@ kinds! {
     VarSingle [S::MetaVarSingleVariableExpr] [];
     VarInit1 [] [];
     VarInit2 [] [];
+    JsxExprNoAttrs [] [];
+    JsxNoAttrs [S::MetaTagWithoutAttributes] [S::MetaJsxChildren];
+    JsxExprTag [] [];
+    JsxTag [S::MetaTag] [];
+    JsxTagOpen [] [];
+    JsxTagBody [] [S::MetaJsxChildren];
+    JsxAttributes [S::MetaTagAttributes] [];
+    JsxEval [] [S::MetaEmbeddedExpression];
+    JsxStrDouble [S::StringQuotedDouble] [];
+    JsxStrSingle [S::StringQuotedSingle] [];
 }
 
 impl Kind {

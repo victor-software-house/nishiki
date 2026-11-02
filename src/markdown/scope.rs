@@ -51,6 +51,8 @@ scopes! {
     FenceInfo "fenced_code.block.language"
     EmbeddedRust "meta.embedded.block.rust"
     EmbeddedTypeScript "meta.embedded.block.typescript"
+    EmbeddedJavascript "meta.embedded.block.javascript"
+    EmbeddedTypescriptreact "meta.embedded.block.typescriptreact"
     EmbeddedMarkdown "meta.embedded.block.markdown"
     EmbeddedShell "meta.embedded.block.shellscript"
     EmbeddedJson "meta.embedded.block.json"

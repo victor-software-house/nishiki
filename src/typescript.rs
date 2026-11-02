@@ -43,6 +43,7 @@ mod functions;
 mod imports;
 mod jsdoc;
 mod jsdoc_params;
+mod jsx;
 mod kind;
 mod lexer;
 mod limits;
@@ -64,10 +65,57 @@ use crate::Token;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limits, LineReport};
 
-/// The state at the start of a TypeScript document whose scopes sit on the
-/// stack `base`: one context with `source.ts` on top of it.
-pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
-    let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
+/// Which of the grammars to follow: TypeScript, or one of the three that
+/// share a structure with it and add JSX.
+///
+/// The `javascript`, `jsx` and `tsx` grammars are one grammar with three
+/// spellings of its scope names, so they lex alike. They differ from
+/// `typescript` in the JSX rules, and in the rules that read an angle bracket
+/// as a type argument or a cast.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub(crate) enum Dialect {
+    /// `typescript`: names end in `.ts`.
+    TypeScript,
+    /// `javascript`: names end in `.js`.
+    JavaScript,
+    /// `jsx`: names end in `.js.jsx`.
+    Jsx,
+    /// `tsx`: names end in `.tsx`.
+    Tsx,
+}
+
+impl Dialect {
+    /// The dialect at position `index` among the four.
+    pub(crate) const fn of(index: u8) -> Dialect {
+        match index {
+            0 => Dialect::TypeScript,
+            1 => Dialect::JavaScript,
+            2 => Dialect::Jsx,
+            _ => Dialect::Tsx,
+        }
+    }
+
+    /// The dialect's position among the four, which numbers its table.
+    pub(crate) const fn index(self) -> u16 {
+        match self {
+            Dialect::TypeScript => 0,
+            Dialect::JavaScript => 1,
+            Dialect::Jsx => 2,
+            Dialect::Tsx => 3,
+        }
+    }
+
+    /// Whether the dialect reads JSX, which `<` then starts a tag instead of
+    /// type arguments or a cast.
+    pub(crate) const fn jsx(self) -> bool {
+        !matches!(self, Dialect::TypeScript)
+    }
+}
+
+/// The state at the start of a document whose scopes sit on the stack `base`:
+/// one context with `source.ts` (in `dialect`'s spelling) on top of it.
+pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
+    let stack = arena.child(base, S::Source.scope(dialect)).unwrap_or(base);
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
@@ -90,6 +138,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 pub(crate) fn line(
     arena: &mut Arena,
     limits: &Limits,
+    dialect: Dialect,
     line: &str,
     state: u32,
     out: &mut Vec<Token>,
@@ -98,7 +147,24 @@ pub(crate) fn line(
     if line.is_empty() {
         return state;
     }
-    let mut lexer = lexer::Lexer::new(arena, limits, line, out, state, report);
+    match dialect {
+        Dialect::TypeScript => run::<0>(arena, limits, line, state, out, report),
+        Dialect::JavaScript => run::<1>(arena, limits, line, state, out, report),
+        Dialect::Jsx => run::<2>(arena, limits, line, state, out, report),
+        Dialect::Tsx => run::<3>(arena, limits, line, state, out, report),
+    }
+}
+
+/// Lexes the non-empty `line` as the dialect `D` numbers.
+fn run<const D: u8>(
+    arena: &mut Arena,
+    limits: &Limits,
+    line: &str,
+    state: u32,
+    out: &mut Vec<Token>,
+    report: &mut LineReport,
+) -> u32 {
+    let mut lexer = lexer::Lexer::<D>::new(arena, limits, line, out, state, report);
     lexer.run();
     lexer.into_state()
 }

@@ -21,7 +21,7 @@ pub(crate) enum VarKind {
     Using,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn statements(&mut self, p: usize) -> Option<usize> {
         self.only("s.declaration", LOWER.with(b'@'), p, Self::declaration)
             .or_else(|| {

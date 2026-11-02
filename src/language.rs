@@ -5,6 +5,7 @@ use crate::arena::Arena;
 use crate::json::Dialect;
 use crate::limits::{Limits, LineReport};
 use crate::scratch::Scratch;
+use crate::typescript::Dialect as ScriptDialect;
 use crate::{Token, json, make, markdown, python, rust, shell, toml, typescript, yaml};
 
 /// A language nishiki highlights, named as Shiki names it.
@@ -18,6 +19,12 @@ pub enum Language {
     Markdown,
     /// `TypeScript`, with the scopes of Shiki's `typescript` grammar.
     TypeScript,
+    /// `JavaScript`, with the scopes of Shiki's `javascript` grammar.
+    JavaScript,
+    /// `JSX`, with the scopes of Shiki's `jsx` grammar.
+    Jsx,
+    /// `TSX`, with the scopes of Shiki's `tsx` grammar.
+    Tsx,
     /// Shell, with the scopes of Shiki's `shellscript` grammar.
     Shell,
     /// JSON, with the scopes of Shiki's `json` grammar.
@@ -42,6 +49,9 @@ impl Language {
         Language::Rust,
         Language::Markdown,
         Language::TypeScript,
+        Language::JavaScript,
+        Language::Jsx,
+        Language::Tsx,
         Language::Shell,
         Language::Json,
         Language::Jsonc,
@@ -59,6 +69,9 @@ impl Language {
             Language::Rust => "rust",
             Language::Markdown => "markdown",
             Language::TypeScript => "typescript",
+            Language::JavaScript => "javascript",
+            Language::Jsx => "jsx",
+            Language::Tsx => "tsx",
             Language::Shell => "shellscript",
             Language::Json => "json",
             Language::Jsonc => "jsonc",
@@ -96,6 +109,9 @@ impl Language {
             Language::Rust => &["rust", "rs"],
             Language::Markdown => &["markdown", "md"],
             Language::TypeScript => &["typescript", "ts", "cts", "mts"],
+            Language::JavaScript => &["javascript", "js", "cjs", "mjs"],
+            Language::Jsx => &["jsx"],
+            Language::Tsx => &["tsx"],
             Language::Shell => &["shellscript", "bash", "sh", "shell", "zsh"],
             Language::Json => &["json"],
             Language::Jsonc => &["jsonc"],
@@ -146,7 +162,10 @@ impl Language {
         match self {
             Language::Rust => rust::start(arena, base),
             Language::Markdown => markdown::start(arena, base),
-            Language::TypeScript => typescript::start(arena, base),
+            Language::TypeScript => typescript::start(arena, base, ScriptDialect::TypeScript),
+            Language::JavaScript => typescript::start(arena, base, ScriptDialect::JavaScript),
+            Language::Jsx => typescript::start(arena, base, ScriptDialect::Jsx),
+            Language::Tsx => typescript::start(arena, base, ScriptDialect::Tsx),
             Language::Shell => shell::start(arena, base),
             Language::Json => json::start(arena, base, Dialect::Json),
             Language::Jsonc => json::start(arena, base, Dialect::Jsonc),
@@ -164,7 +183,9 @@ impl Language {
     pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
         match self {
             Language::Rust | Language::Markdown => rust::start_embedded(arena, base),
-            Language::TypeScript => typescript::start_embedded(arena, base),
+            Language::TypeScript | Language::JavaScript | Language::Jsx | Language::Tsx => {
+                typescript::start_embedded(arena, base)
+            }
             Language::Shell => shell::start_embedded(arena, base),
             Language::Json | Language::Jsonc | Language::Jsonl => json::start_embedded(arena, base),
             Language::Python => python::start_embedded(arena, base),
@@ -193,9 +214,10 @@ impl Language {
             Language::Markdown => markdown::line(
                 cx.scratch, cx.arena, cx.limits, rest, state, cx.out, cx.report,
             ),
-            Language::TypeScript => {
-                typescript::line(cx.arena, cx.limits, rest, state, cx.out, cx.report)
-            }
+            Language::TypeScript => ts_line(cx, ScriptDialect::TypeScript, rest, state),
+            Language::JavaScript => ts_line(cx, ScriptDialect::JavaScript, rest, state),
+            Language::Jsx => ts_line(cx, ScriptDialect::Jsx, rest, state),
+            Language::Tsx => ts_line(cx, ScriptDialect::Tsx, rest, state),
             Language::Json => json_line(cx, Dialect::Json, rest, state),
             Language::Jsonc => json_line(cx, Dialect::Jsonc, rest, state),
             Language::Jsonl => json_line(cx, Dialect::Jsonl, rest, state),
@@ -263,4 +285,8 @@ fn json_line(cx: &mut Context<'_>, dialect: Dialect, line: &str, state: u32) -> 
         cx.out,
         cx.report,
     )
+}
+
+fn ts_line(cx: &mut Context<'_>, dialect: ScriptDialect, line: &str, state: u32) -> u32 {
+    typescript::line(cx.arena, cx.limits, dialect, line, state, cx.out, cx.report)
 }

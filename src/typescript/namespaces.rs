@@ -4,7 +4,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn namespace_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;

@@ -44,7 +44,7 @@ struct MethodPrefix {
     end: usize,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     // Class members.
 
     pub(crate) fn class_body_rules(&mut self, p: usize) -> Option<usize> {

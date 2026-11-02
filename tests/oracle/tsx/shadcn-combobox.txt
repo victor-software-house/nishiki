@@ -1,0 +1,1866 @@
+L "use client"
+T 1 source.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 11 source.tsx string.quoted.double.tsx
+T 12 source.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L 
+L import * as React from "react"
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx constant.language.import-export-all.tsx
+T 9 source.tsx meta.import.tsx
+T 11 source.tsx meta.import.tsx keyword.control.as.tsx
+T 12 source.tsx meta.import.tsx
+T 17 source.tsx meta.import.tsx variable.other.readwrite.alias.tsx
+T 18 source.tsx meta.import.tsx
+T 22 source.tsx meta.import.tsx keyword.control.from.tsx
+T 23 source.tsx meta.import.tsx
+T 24 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 29 source.tsx meta.import.tsx string.quoted.double.tsx
+T 30 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L import { Combobox as ComboboxPrimitive } from "@base-ui/react"
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 9 source.tsx meta.import.tsx meta.block.tsx
+T 17 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.tsx
+T 18 source.tsx meta.import.tsx meta.block.tsx
+T 20 source.tsx meta.import.tsx meta.block.tsx keyword.control.as.tsx
+T 21 source.tsx meta.import.tsx meta.block.tsx
+T 38 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 39 source.tsx meta.import.tsx meta.block.tsx
+T 40 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 41 source.tsx meta.import.tsx
+T 45 source.tsx meta.import.tsx keyword.control.from.tsx
+T 46 source.tsx meta.import.tsx
+T 47 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 61 source.tsx meta.import.tsx string.quoted.double.tsx
+T 62 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L import { cn } from "cn"
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 9 source.tsx meta.import.tsx meta.block.tsx
+T 11 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 12 source.tsx meta.import.tsx meta.block.tsx
+T 13 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 14 source.tsx meta.import.tsx
+T 18 source.tsx meta.import.tsx keyword.control.from.tsx
+T 19 source.tsx meta.import.tsx
+T 20 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 22 source.tsx meta.import.tsx string.quoted.double.tsx
+T 23 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L import { CheckIcon, ChevronDownIcon, XIcon } from "lucide-react"
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 9 source.tsx meta.import.tsx meta.block.tsx
+T 18 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 19 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+T 20 source.tsx meta.import.tsx meta.block.tsx
+T 35 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 36 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+T 37 source.tsx meta.import.tsx meta.block.tsx
+T 42 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 43 source.tsx meta.import.tsx meta.block.tsx
+T 44 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 45 source.tsx meta.import.tsx
+T 49 source.tsx meta.import.tsx keyword.control.from.tsx
+T 50 source.tsx meta.import.tsx
+T 51 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 63 source.tsx meta.import.tsx string.quoted.double.tsx
+T 64 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L 
+L import { Button } from "@/registry/new-york-v4/ui/button"
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 9 source.tsx meta.import.tsx meta.block.tsx
+T 15 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.import.tsx meta.block.tsx
+T 17 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 18 source.tsx meta.import.tsx
+T 22 source.tsx meta.import.tsx keyword.control.from.tsx
+T 23 source.tsx meta.import.tsx
+T 24 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 56 source.tsx meta.import.tsx string.quoted.double.tsx
+T 57 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L import {
+T 6 source.tsx meta.import.tsx keyword.control.import.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+L   InputGroup,
+T 2 source.tsx meta.import.tsx meta.block.tsx
+T 12 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 13 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   InputGroupAddon,
+T 2 source.tsx meta.import.tsx meta.block.tsx
+T 17 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 18 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   InputGroupButton,
+T 2 source.tsx meta.import.tsx meta.block.tsx
+T 18 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 19 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   InputGroupInput,
+T 2 source.tsx meta.import.tsx meta.block.tsx
+T 17 source.tsx meta.import.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 18 source.tsx meta.import.tsx meta.block.tsx punctuation.separator.comma.tsx
+L } from "@/registry/new-york-v4/ui/input-group"
+T 1 source.tsx meta.import.tsx meta.block.tsx punctuation.definition.block.tsx
+T 2 source.tsx meta.import.tsx
+T 6 source.tsx meta.import.tsx keyword.control.from.tsx
+T 7 source.tsx meta.import.tsx
+T 8 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 45 source.tsx meta.import.tsx string.quoted.double.tsx
+T 46 source.tsx meta.import.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L 
+L const Combobox = ComboboxPrimitive.Root
+T 5 source.tsx meta.var.expr.tsx storage.type.tsx
+T 6 source.tsx meta.var.expr.tsx
+T 14 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 15 source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 16 source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.var.expr.tsx
+T 34 source.tsx meta.var.expr.tsx variable.other.object.tsx
+T 35 source.tsx meta.var.expr.tsx punctuation.accessor.tsx
+T 39 source.tsx meta.var.expr.tsx variable.other.property.tsx
+L 
+L function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 37 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 54 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 55 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 60 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 61 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 66 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 67 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 68 source.tsx meta.function.tsx
+T 69 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 44 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 45 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 59 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 60 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 61 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 62 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 65 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 70 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 71 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 72 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 74 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxTrigger({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 24 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   children,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Trigger.Props) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 29 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 36 source.tsx meta.function.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Trigger
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-trigger"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 57 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 58 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 59 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+T 60 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 69 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 70 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 71 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     >
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       {children}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L       <ChevronDownIcon
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L         data-slot="combobox-trigger-icon"
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L         className="pointer-events-none size-4 text-muted-foreground"
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 67 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 68 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       />
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L     </ComboboxPrimitive.Trigger>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 44 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 45 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 46 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 47 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 48 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 65 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 66 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 71 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 72 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 77 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 78 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 79 source.tsx meta.function.tsx
+T 80 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Clear
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-clear"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       render={<InputGroupButton variant="ghost" size="icon-xs" />}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 46 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 48 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 52 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 53 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 54 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 61 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 62 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 63 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 65 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 66 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       className={cn(className)}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     >
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       <XIcon className="pointer-events-none" />
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 44 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 45 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L     </ComboboxPrimitive.Clear>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxInput({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   children,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   disabled = false,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 18 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.language.boolean.false.tsx
+T 19 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   showTrigger = true,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.language.boolean.true.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   showClear = false,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 19 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.language.boolean.false.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Input.Props & {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 27 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx punctuation.definition.block.tsx
+L   showTrigger?: boolean
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.definition.property.tsx variable.object.property.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx keyword.operator.optional.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx support.type.primitive.tsx
+L   showClear?: boolean
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.definition.property.tsx variable.object.property.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx keyword.operator.optional.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx support.type.primitive.tsx
+L }) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx punctuation.definition.block.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 3 source.tsx meta.function.tsx
+T 4 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <InputGroup className={cn("w-auto", className)}>
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 38 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 49 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 50 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 51 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 52 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       <ComboboxPrimitive.Input
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L         render={<InputGroupInput disabled={disabled} />}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 51 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 52 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 53 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 55 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 56 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         {...props}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       />
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       <InputGroupAddon align="inline-end">
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         {showTrigger && (
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx keyword.operator.logical.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L           <InputGroupButton
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L             size="icon-xs"
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L             variant="ghost"
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L             asChild
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+L             data-slot="input-group-button"
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L             className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 106 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 107 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L             disabled={disabled}
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L           >
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L             <ComboboxTrigger />
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L           </InputGroupButton>
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         )}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L         {showClear && <ComboboxClear disabled={disabled} />}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx keyword.operator.logical.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 45 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 46 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 55 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 56 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 57 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 59 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 60 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L       </InputGroupAddon>
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       {children}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L     </InputGroup>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxContent({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 24 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   side = "bottom",
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 6 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 7 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 8 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 9 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 18 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   sideOffset = 6,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.numeric.decimal.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   align = "start",
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 7 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 8 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 9 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 18 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   alignOffset = 0,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 17 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.numeric.decimal.tsx
+T 18 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   anchor,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 8 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 9 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Popup.Props &
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 27 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.tsx
+L   Pick<
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 6 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 7 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+L     ComboboxPrimitive.Positioner.Props,
+T 4 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.module.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.accessor.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.module.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.accessor.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.separator.comma.tsx
+L     "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
+T 4 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 9 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.type.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 19 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.type.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 37 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.type.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 50 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx
+T 51 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 52 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 53 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.type.tsx
+T 54 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 55 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 61 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx
+T 62 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L   >) {
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+T 4 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 5 source.tsx meta.function.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Portal>
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx support.class.component.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+L       <ComboboxPrimitive.Positioner
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L         side={side}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         sideOffset={sideOffset}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         align={align}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         alignOffset={alignOffset}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         anchor={anchor}
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         className="isolate z-50"
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       >
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         <ComboboxPrimitive.Popup
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L           data-slot="combobox-content"
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 38 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L           data-chips={!!anchor}
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.logical.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.logical.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L           className={cn(
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 23 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 24 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L             "group/combobox-content relative max-h-96 w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) overflow-hidden rounded-md bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[chips=true]:min-w-(--anchor-width) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:border-input/30 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:shadow-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 13 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 823 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 824 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 825 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L             className
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L           )}
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 12 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L           {...props}
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L         />
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       </ComboboxPrimitive.Positioner>
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L     </ComboboxPrimitive.Portal>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx support.class.component.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 21 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 43 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 44 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 45 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 46 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 47 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 64 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 65 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 69 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 70 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 75 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 76 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 77 source.tsx meta.function.tsx
+T 78 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.List
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-list"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "max-h-[min(calc(--spacing(96)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto p-1 data-empty:p-0",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 144 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 145 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 146 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxItem({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 21 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   children,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Item.Props) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 33 source.tsx meta.function.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Item
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-item"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 338 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 339 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 340 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     >
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       {children}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L       <ComboboxPrimitive.ItemIndicator
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 38 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L         data-slot="combobox-item-indicator"
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L         render={
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+L           <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 103 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 104 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 105 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 107 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         }
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       >
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         <CheckIcon className="pointer-events-none size-4 pointer-coarse:size-5" />
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 78 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 79 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 80 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 82 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       </ComboboxPrimitive.ItemIndicator>
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.jsx.children.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L     </ComboboxPrimitive.Item>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxGroup({ className, ...props }: ComboboxPrimitive.Group.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 44 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 45 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 46 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 47 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 48 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 65 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 66 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 71 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 72 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 77 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 78 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 79 source.tsx meta.function.tsx
+T 80 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Group
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-group"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(className)}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxLabel({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.GroupLabel.Props) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 37 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 39 source.tsx meta.function.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.GroupLabel
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-label"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "px-2 py-1.5 text-xs text-muted-foreground pointer-coarse:px-3 pointer-coarse:py-2 pointer-coarse:text-sm",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 113 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 114 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 115 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxCollection({ ...props }: ComboboxPrimitive.Collection.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 27 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 29 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 30 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 40 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 41 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 42 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 59 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 60 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 70 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 71 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 76 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 77 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 78 source.tsx meta.function.tsx
+T 79 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 44 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 45 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 64 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 65 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 66 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 67 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 70 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 75 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 76 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+T 77 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 79 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 39 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 44 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 45 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 46 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 47 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 48 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 65 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 66 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 71 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 72 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 77 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 78 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 79 source.tsx meta.function.tsx
+T 80 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Empty
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-empty"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "hidden w-full justify-center py-2 text-center text-sm text-muted-foreground group-data-empty/combobox-content:flex",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 123 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 124 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 125 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxSeparator({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 26 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 27 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Separator.Props) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 30 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 36 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 37 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 38 source.tsx meta.function.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Separator
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-separator"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn("-mx-1 my-1 h-px bg-border", className)}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 46 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 48 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+T 49 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 58 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 59 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 60 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxChips({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 22 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 24 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: React.ComponentPropsWithRef<typeof ComboboxPrimitive.Chips> &
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 8 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 9 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 30 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+T 37 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx keyword.operator.expression.typeof.tsx
+T 38 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx
+T 55 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx variable.other.object.tsx
+T 56 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.accessor.tsx
+T 61 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx variable.other.property.tsx
+T 62 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+T 63 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 64 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.tsx
+L   ComboboxPrimitive.Chips.Props) {
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 19 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 33 source.tsx meta.function.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Chips
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-chips"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 32 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "flex min-h-9 flex-wrap items-center gap-1.5 rounded-md border border-input bg-transparent bg-clip-padding px-2.5 py-1.5 text-sm shadow-xs transition-[color,box-shadow] focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50 has-aria-invalid:border-destructive has-aria-invalid:ring-[3px] has-aria-invalid:ring-destructive/20 has-data-[slot=combobox-chip]:px-1.5 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 492 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 493 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 494 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxChip({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 21 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 23 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   children,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   showRemove = true,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.assignment.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 19 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx constant.language.boolean.true.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Chip.Props & {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 25 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 31 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.tsx
+T 34 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 35 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx punctuation.definition.block.tsx
+L   showRemove?: boolean
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.definition.property.tsx variable.object.property.tsx
+T 13 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx keyword.operator.optional.tsx
+T 14 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 15 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx
+T 22 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx meta.field.declaration.tsx meta.type.annotation.tsx support.type.primitive.tsx
+L }) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx meta.object.type.tsx punctuation.definition.block.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 3 source.tsx meta.function.tsx
+T 4 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Chip
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-chip"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 31 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn(
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         "flex h-[calc(--spacing(5.5))] w-fit items-center justify-center gap-1 rounded-sm bg-muted px-1.5 text-xs font-medium whitespace-nowrap text-foreground has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 has-data-[slot=combobox-chip-remove]:pr-0",
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 290 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 291 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 292 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+L         className
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     >
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       {children}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L       {showRemove && (
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx keyword.operator.logical.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+L         <ComboboxPrimitive.ChipRemove
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L           render={<Button variant="ghost" size="icon-xs" />}
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 18 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 25 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 33 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 34 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 40 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 46 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 48 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 55 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 56 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 57 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 59 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+T 60 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L           className="-ml-1 opacity-50 hover:opacity-100"
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 55 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 56 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L           data-slot="combobox-chip-remove"
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 41 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 42 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L         >
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L           <XIcon className="pointer-events-none" />
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx
+T 11 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 26 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 27 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 47 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 48 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 49 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 51 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L         </ComboboxPrimitive.ChipRemove>
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx meta.jsx.children.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 38 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L       )}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+L     </ComboboxPrimitive.Chip>
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.jsx.children.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+T 29 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function ComboboxChipsInput({
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 27 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 29 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+L   className,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 12 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   children,
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+T 11 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.separator.comma.tsx
+L   ...props
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx
+T 5 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx keyword.operator.rest.tsx
+T 10 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx variable.parameter.tsx
+L }: ComboboxPrimitive.Input.Props) {
+T 1 source.tsx meta.function.tsx meta.parameters.tsx meta.parameter.object-binding-pattern.tsx punctuation.definition.binding-pattern.object.tsx
+T 2 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx keyword.operator.type.annotation.tsx
+T 3 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx
+T 20 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 21 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 26 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.module.tsx
+T 27 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx punctuation.accessor.tsx
+T 32 source.tsx meta.function.tsx meta.parameters.tsx meta.type.annotation.tsx entity.name.type.tsx
+T 33 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 34 source.tsx meta.function.tsx
+T 35 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return (
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L     <ComboboxPrimitive.Input
+T 4 source.tsx meta.function.tsx meta.block.tsx
+T 5 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.begin.tsx
+T 28 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx entity.name.tag.tsx support.class.component.tsx
+L       data-slot="combobox-chip-input"
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+L       className={cn("min-w-16 flex-1 outline-none", className)}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx entity.other.attribute-name.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx keyword.operator.assignment.tsx
+T 17 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 19 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.function-call.tsx entity.name.function.tsx
+T 20 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 49 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx
+T 50 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 51 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx punctuation.separator.comma.tsx
+T 52 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx
+T 61 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 62 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx meta.brace.round.tsx
+T 63 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L       {...props}
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 7 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.begin.tsx
+T 10 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx keyword.operator.spread.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx meta.embedded.expression.tsx variable.other.readwrite.tsx
+T 16 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx punctuation.section.embedded.end.tsx
+L     />
+T 4 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx meta.tag.attributes.tsx
+T 6 source.tsx meta.function.tsx meta.block.tsx meta.tag.tsx punctuation.definition.tag.end.tsx
+L   )
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 3 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L function useComboboxAnchor() {
+T 8 source.tsx meta.function.tsx storage.type.function.tsx
+T 9 source.tsx meta.function.tsx
+T 26 source.tsx meta.function.tsx meta.definition.function.tsx entity.name.function.tsx
+T 27 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 28 source.tsx meta.function.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 29 source.tsx meta.function.tsx
+T 30 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L   return React.useRef<HTMLDivElement | null>(null)
+T 2 source.tsx meta.function.tsx meta.block.tsx
+T 8 source.tsx meta.function.tsx meta.block.tsx keyword.control.flow.tsx
+T 9 source.tsx meta.function.tsx meta.block.tsx
+T 14 source.tsx meta.function.tsx meta.block.tsx meta.function-call.tsx variable.other.object.tsx
+T 15 source.tsx meta.function.tsx meta.block.tsx meta.function-call.tsx punctuation.accessor.tsx
+T 21 source.tsx meta.function.tsx meta.block.tsx meta.function-call.tsx entity.name.function.tsx
+T 22 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.begin.tsx
+T 36 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx entity.name.type.tsx
+T 37 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx
+T 38 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx keyword.operator.type.tsx
+T 39 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx
+T 43 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx support.type.builtin.tsx
+T 44 source.tsx meta.function.tsx meta.block.tsx meta.type.parameters.tsx punctuation.definition.typeparameters.end.tsx
+T 45 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+T 49 source.tsx meta.function.tsx meta.block.tsx constant.language.null.tsx
+T 50 source.tsx meta.function.tsx meta.block.tsx meta.brace.round.tsx
+L }
+T 1 source.tsx meta.function.tsx meta.block.tsx punctuation.definition.block.tsx
+L 
+L export {
+T 6 source.tsx meta.export.tsx keyword.control.export.tsx
+T 7 source.tsx meta.export.tsx
+T 8 source.tsx meta.export.tsx meta.block.tsx punctuation.definition.block.tsx
+L   Combobox,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 10 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 11 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxInput,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxContent,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 17 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 18 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxList,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 14 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxItem,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 14 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxGroup,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxLabel,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxCollection,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 20 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 21 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxEmpty,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxSeparator,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 19 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 20 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxChips,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxChip,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 14 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxChipsInput,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 20 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 21 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxTrigger,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 17 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 18 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   ComboboxValue,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 15 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 16 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L   useComboboxAnchor,
+T 2 source.tsx meta.export.tsx meta.block.tsx
+T 19 source.tsx meta.export.tsx meta.block.tsx variable.other.readwrite.alias.tsx
+T 20 source.tsx meta.export.tsx meta.block.tsx punctuation.separator.comma.tsx
+L }
+T 1 source.tsx meta.export.tsx meta.block.tsx punctuation.definition.block.tsx
+L 

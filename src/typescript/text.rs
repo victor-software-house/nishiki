@@ -4,7 +4,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     // Strings.
 
     pub(crate) fn string(&mut self, p: usize) -> Option<usize> {

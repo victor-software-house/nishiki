@@ -41,7 +41,7 @@ impl Ends {
     }
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// A balanced `open … close` group at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end.
     pub(crate) fn balanced(&self, i: usize, open: u8, close: u8) -> Option<usize> {
@@ -350,6 +350,22 @@ impl Lexer<'_> {
     pub(crate) fn arrow_ahead(&self, i: usize) -> bool {
         self.tp_paren(i)
             .is_some_and(|j| self.arrow_typed(j) || self.arrow_untyped(j))
+            || (Self::DIALECT.jsx() && self.generic_extends_ahead(i))
+    }
+
+    /// `<\s*ID\s+extends\s*[^=>]`, which the JSX grammars add to the arrow
+    /// function lookahead: a type parameter list that cannot be a tag.
+    fn generic_extends_ahead(&self, i: usize) -> bool {
+        if self.b(i) != b'<' {
+            return false;
+        }
+        let Some(name_end) = self.ident(self.ws(i + 1)) else {
+            return false;
+        };
+        let after = self.ws(name_end);
+        after > name_end
+            && self.starts(after, "extends")
+            && !matches!(self.b(after + 7), b'=' | b'>')
     }
 
     /// An arrow function's return type followed by `=>`: the text after the
@@ -398,16 +414,27 @@ impl Lexer<'_> {
 
     /// `(<\s*)$`, or `(<…>)?\(` followed by a line end or by a destructured
     /// parameter that the line leaves open or assigns.
+    ///
+    /// The JSX grammars drop the type arguments before the parenthesis, which
+    /// a tag would otherwise be read as.
     pub(crate) fn fn_open_ahead(&self, i: usize) -> bool {
-        (self.b(i) == b'<' && self.eol(self.ws(i + 1))) || self.paren_open_ahead(i)
+        (self.b(i) == b'<' && self.eol(self.ws(i + 1)))
+            || if Self::DIALECT.jsx() {
+                self.b(i) == b'(' && self.paren_open_rest(i + 1)
+            } else {
+                self.paren_open_ahead(i)
+            }
     }
 
     /// `(<…>)?\(` followed by a line end or by a destructured parameter that
     /// the line leaves open or assigns.
     pub(crate) fn paren_open_ahead(&self, i: usize) -> bool {
-        let Some(j) = self.tp_paren(i) else {
-            return false;
-        };
+        self.tp_paren(i).is_some_and(|j| self.paren_open_rest(j))
+    }
+
+    /// What follows the `(` that ends at `j`: a line end, or a destructured
+    /// parameter that the line leaves open or assigns.
+    fn paren_open_rest(&self, j: usize) -> bool {
         let m = self.ws(j);
         if self.eol(m) {
             return true;

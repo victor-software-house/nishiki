@@ -24,7 +24,7 @@ const ARROW_END_WORDS: [&str; 14] = [
     "declare",
 ];
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     // Calls.
 
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
@@ -339,6 +339,11 @@ impl Lexer<'_> {
     // Casts.
 
     pub(crate) fn cast(&mut self, p: usize) -> Option<usize> {
+        // The JSX grammars replace the rule with the JSX one, which has
+        // already been tried at this position.
+        if Self::DIALECT.jsx() {
+            return None;
+        }
         let j = self.ws(p);
         if self.b(j) != b'<' {
             return None;

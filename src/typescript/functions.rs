@@ -5,7 +5,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// `(async\s+)?(function)\b(?:\s*(\*))?(?:(?:\s+|(?<=\*))(ID))?\s*` at
     /// `at`: the pieces of the head.
     fn function_head(&self, at: usize) -> Option<FunctionHead> {

@@ -139,7 +139,7 @@ const KNOWN_TAGS: &[&str] = &[
     "yield",
 ];
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// The rules of a doc comment: its tags and inline tags.
     pub(crate) fn docblock(&mut self, p: usize) -> Option<usize> {
         match self.b(p) {

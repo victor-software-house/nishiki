@@ -30,6 +30,17 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::TypeScript,
     },
+    // The grammar sends `jsx` to the JavaScript grammar, not the JSX one.
+    Name {
+        words: &["javascript", "jsx", "js", "es6", "mjs", "cjs", "dataviewjs"],
+        brace: Some("js"),
+        lang: Language::JavaScript,
+    },
+    Name {
+        words: &["tsx"],
+        brace: None,
+        lang: Language::Tsx,
+    },
     Name {
         words: &["markdown", "md"],
         brace: None,

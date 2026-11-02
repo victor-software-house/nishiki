@@ -12,7 +12,7 @@ use super::scope::S;
 const BLOCK: S = S::PunctuationDefinitionBlock;
 const ROUND: S = S::MetaBraceRound;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// Closes the innermost context at `p` if its end rule matches there.
     #[expect(
         clippy::too_many_lines,
@@ -21,6 +21,15 @@ impl Lexer<'_> {
     pub(crate) fn end(&mut self, kind: Kind, p: usize) -> Option<usize> {
         match kind {
             Kind::Top | Kind::Started | Kind::ObjMember => None,
+            Kind::JsxExprNoAttrs => self.end_zero(self.jsx_expr_no_attrs_ends(p), p),
+            Kind::JsxNoAttrs => self.jsx_no_attrs_end(p),
+            Kind::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
+            Kind::JsxTag => self.jsx_tag_end(p),
+            Kind::JsxTagOpen | Kind::JsxAttributes => self.end_zero(self.jsx_open_ends(p), p),
+            Kind::JsxTagBody => self.end_zero(self.starts(p, "</"), p),
+            Kind::JsxEval => self.end_char(p, b'}', S::PunctuationSectionEmbeddedEnd),
+            Kind::JsxStrDouble => self.end_char(p, b'"', S::PunctuationDefinitionStringEnd),
+            Kind::JsxStrSingle => self.end_char(p, b'\'', S::PunctuationDefinitionStringEnd),
             Kind::Block
             | Kind::ObjLit
             | Kind::ClassBody

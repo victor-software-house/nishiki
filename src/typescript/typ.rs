@@ -5,7 +5,7 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D> {
     /// The `type` rule group.
     pub(crate) fn type_(&mut self, p: usize) -> Option<usize> {
         self.only("t.comment", COMMENT_START, p, Self::comment)
