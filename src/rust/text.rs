@@ -47,8 +47,10 @@ impl Lexer<'_> {
         }
         let doc = self.at(p + 2) == b'*';
         let width = if doc { 3 } else { 2 };
-        if !self.push(if doc { Kind::Doc } else { Kind::Block }) {
-            self.state.over = self.state.over.saturating_add(1);
+        if !self.push(if doc { Kind::Doc } else { Kind::Block })
+            && matches!(self.top(), Kind::Block | Kind::Doc)
+        {
+            self.set_payload(self.payload().saturating_add(1));
         }
         self.tok(p + width, &[]);
         Some(p + width)
@@ -84,15 +86,14 @@ impl Lexer<'_> {
     fn raw_string_start(&mut self, p: usize, prefix: usize) -> Option<usize> {
         let r_end = p + prefix + 1;
         let hashes_end = self.skip(r_end, |b| b == b'#');
-        let hashes = u8::try_from(hashes_end - r_end).ok()?;
+        let hashes = u32::try_from(hashes_end - r_end).ok()?;
         if self.at(hashes_end) != b'"' {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Raw) {
+        if !self.push_with(Kind::Raw, hashes) {
             return None;
         }
-        self.state.hashes = hashes;
         self.tok(r_end, &[S::StrByteRaw]);
         self.tok(hashes_end, &[S::PunctDefStringRaw]);
         self.tok(hashes_end + 1, &[S::PunctDefString]);
@@ -133,10 +134,11 @@ impl Lexer<'_> {
     }
 
     pub(crate) fn in_raw_string(&mut self, p: usize) -> usize {
-        let hashes = usize::from(self.state.hashes);
+        let hashes = usize::try_from(self.payload()).unwrap_or(usize::MAX);
         let mut from = p;
         while let Some(i) = memchr(b'"', &self.s[from..]) {
             let q = from + i;
+            self.spend(hashes.min(self.s.len() - q));
             if self.s[q + 1..].len() >= hashes
                 && self.s[q + 1..q + 1 + hashes].iter().all(|&b| b == b'#')
             {
@@ -162,10 +164,9 @@ impl Lexer<'_> {
             }
             self.gap(q);
             self.tok(q + 2, &[]);
-            if self.state.over > 0 {
-                self.state.over -= 1;
-            } else {
-                self.pop();
+            match self.payload() {
+                0 => self.pop(),
+                over => self.set_payload(over - 1),
             }
             return q + 2;
         }

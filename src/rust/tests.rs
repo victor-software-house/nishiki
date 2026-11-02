@@ -1,6 +1,20 @@
 use indoc::indoc;
 
-use super::*;
+use super::state::Kind;
+use crate::{Highlighter, Language, State};
+
+fn highlighter() -> Highlighter {
+    Highlighter::new(Language::Rust)
+}
+
+/// The innermost open context after a line, and how many are open.
+fn top(h: &Highlighter, state: State) -> Kind {
+    Kind::from_code(h.frame(state).kind)
+}
+
+fn depth(h: &Highlighter, state: State) -> u32 {
+    h.frame(state).depth - 1
+}
 
 /// Lexes `text` and returns, per token, its text and innermost scope.
 fn lex(text: &str) -> Vec<Vec<(String, String)>> {
@@ -8,21 +22,21 @@ fn lex(text: &str) -> Vec<Vec<(String, String)>> {
 }
 
 fn lex_with_states(text: &str) -> (Vec<Vec<(String, String)>>, Vec<State>) {
-    let mut h = Highlighter::new();
+    lex_with(&mut highlighter(), text)
+}
+
+fn lex_with(h: &mut Highlighter, text: &str) -> (Vec<Vec<(String, String)>>, Vec<State>) {
     let mut state = State::default();
     let (mut lines, mut states) = (Vec::new(), Vec::new());
     for line in text.split('\n') {
         let mut toks = Vec::new();
-        h.line(line, &mut state, &mut toks);
+        let _ = h.line(line, &mut state, &mut toks);
         let mut start = 0;
         let mut row = Vec::new();
         for t in &toks {
             let end = t.end();
-            let stack = h.scopes(t.stack());
-            row.push((
-                line[start..end].to_string(),
-                stack.last().unwrap().to_string(),
-            ));
+            let innermost = h.scopes(t.stack()).next().unwrap();
+            row.push((line[start..end].to_string(), innermost.to_string()));
             start = end;
         }
         assert_eq!(start, line.len(), "tokens must cover the line: {line:?}");
@@ -45,20 +59,18 @@ fn scope_of(text: &str, token: &str) -> String {
 
 /// The full scope stack of the first token whose text is `token`.
 fn stack_of(text: &str, token: &str) -> Vec<String> {
-    let mut h = Highlighter::new();
+    let mut h = highlighter();
     let mut state = State::default();
     for line in text.split('\n') {
         let mut toks = Vec::new();
-        h.line(line, &mut state, &mut toks);
+        let _ = h.line(line, &mut state, &mut toks);
         let mut start = 0;
         for t in &toks {
             let end = t.end();
             if &line[start..end] == token {
-                return h
-                    .scopes(t.stack())
-                    .iter()
-                    .map(ToString::to_string)
-                    .collect();
+                let mut stack: Vec<String> = h.scopes(t.stack()).map(ToString::to_string).collect();
+                stack.reverse();
+                return stack;
             }
             start = end;
         }
@@ -72,15 +84,16 @@ fn nested_block_comments_span_lines() {
         /* a /* b
         */ still */ let
     "};
-    let (rows, states) = lex_with_states(text);
+    let mut h = highlighter();
+    let (rows, states) = lex_with(&mut h, text);
     assert_eq!(rows[0][0].1, "comment.block.rust");
-    assert_eq!(states[0].depth(), 2, "two comments open after line 1");
+    assert_eq!(depth(&h, states[0]), 2, "two comments open after line 1");
     assert_eq!(
         stack_of(text, " still "),
         ["source.rust", "comment.block.rust"],
         "one comment still open after the inner `*/`"
     );
-    assert_eq!(states[1].depth(), 0);
+    assert_eq!(depth(&h, states[1]), 0);
     assert_eq!(rows[1].last().unwrap().1, "storage.type.rust");
 }
 
@@ -111,10 +124,11 @@ fn raw_strings_resume_across_lines() {
         let s = r#"a "q" b
         "# + "x";
     "##};
-    let (rows, states) = lex_with_states(text);
+    let mut h = highlighter();
+    let (rows, states) = lex_with(&mut h, text);
     assert_eq!(rows[0].last().unwrap().1, "string.quoted.double.rust");
-    assert_eq!(states[0].top(), state::Kind::Raw);
-    assert_eq!(states[1].top(), state::Kind::Top);
+    assert_eq!(top(&h, states[0]), Kind::Raw);
+    assert_eq!(top(&h, states[1]), Kind::Top);
     assert_eq!(scope_of(text, "r"), "string.quoted.byte.raw.rust");
     assert_eq!(
         scope_of(text, "#"),
@@ -147,8 +161,9 @@ fn strings_and_escapes() {
 
 #[test]
 fn unterminated_string_runs_to_the_end() {
-    let (rows, states) = lex_with_states("let s = \"open\nstill string\nlet t");
-    assert_eq!(states[0].top(), state::Kind::Str);
+    let mut h = highlighter();
+    let (rows, states) = lex_with(&mut h, "let s = \"open\nstill string\nlet t");
+    assert_eq!(top(&h, states[0]), Kind::Str);
     assert_eq!(rows[1][0].1, "string.quoted.double.rust");
     assert_eq!(rows[2][0].1, "string.quoted.double.rust", "never recovers");
 }
@@ -270,28 +285,29 @@ fn definitions_calls_and_generics() {
 
 #[test]
 fn a_saved_state_resumes_identically() {
-    let mut h = Highlighter::new();
+    let mut h = highlighter();
     let mut state = State::default();
     let mut out = Vec::new();
-    h.line("let s = \"open", &mut state, &mut out);
+    let _ = h.line("let s = \"open", &mut state, &mut out);
     let saved = state;
     let (mut a, mut b) = (Vec::new(), Vec::new());
     let (mut sa, mut sb) = (saved, saved);
-    h.line("still\" + 1", &mut sa, &mut a);
-    h.line("still\" + 1", &mut sb, &mut b);
+    let _ = h.line("still\" + 1", &mut sa, &mut a);
+    let _ = h.line("still\" + 1", &mut sb, &mut b);
     assert_eq!(a, b);
     assert_eq!(sa, sb);
     assert_eq!(
-        h.scopes(a[0].stack()).last(),
-        Some(&"string.quoted.double.rust")
+        h.scopes(a[0].stack()).next(),
+        Some("string.quoted.double.rust")
     );
 }
 
 #[test]
 fn deep_nesting_degrades_without_panicking() {
     let text = format!("{}x{}", "/*".repeat(100), "*/".repeat(100));
-    let (rows, states) = lex_with_states(&text);
-    assert_eq!(states[0].depth(), 0);
+    let mut h = highlighter();
+    let (rows, states) = lex_with(&mut h, &text);
+    assert_eq!(depth(&h, states[0]), 0);
     assert_eq!(rows[0][0].1, "comment.block.rust");
     let calls = format!("{}x{}", "f(".repeat(100), ")".repeat(100));
     lex(&calls);

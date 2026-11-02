@@ -18,7 +18,7 @@ The decisions that created it live in a private planning repository: `openspec/d
    Themes are TextMate themes in Shiki's format.
 4. Nothing is downloaded at run time; every supported language is built in.
 5. The repository is private; the crate's published source is public on crates.io, so nothing private goes into a packaged file.
-6. Conventional Commits; first release `0.0.1`, patch bumps only after that.
+6. Conventional Commits; first release `0.0.1`, patch bumps after that, except that a change that breaks the public API bumps the minor (`0.0.z` to `0.1.0`); `cargo semver-checks` in CI enforces it, and `1.0.0` is the operator's call.
    No AI attribution in commits, pull requests or comments.
 7. `AGENTS.md` is the only guide file; add no `CLAUDE.md`.
 8. Nothing is published to npm or PyPI until nishiki ships something real for them.

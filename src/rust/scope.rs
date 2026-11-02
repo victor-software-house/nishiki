@@ -8,13 +8,13 @@ macro_rules! scopes {
         pub(crate) enum S { $($id),* }
 
         impl S {
-            /// The position of this scope in [`NAMES`].
+            /// The scope in the crate's shared numbering.
             #[expect(
                 clippy::as_conversions,
                 reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
             )]
-            pub(crate) const fn index(self) -> usize {
-                self as usize
+            pub(crate) const fn scope(self) -> crate::scope::Scope {
+                crate::scope::Scope::new(crate::scope::RUST, self as u16)
             }
         }
 

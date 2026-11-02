@@ -1,8 +1,13 @@
 //! The per-line lexer: cursor, token emission and the context stack.
 
-use super::Interner;
+use std::cell::{Cell, OnceCell};
+
+use memchr::memmem;
+
 use super::scope::S;
-use super::state::{Kind, State};
+use super::state::Kind;
+use crate::arena::{Arena, Frame};
+use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token};
 
 /// Lexes one line. `pos` is the end of the last token; `s` is scanned ahead
@@ -10,11 +15,20 @@ use crate::{Stack, Token};
 pub(crate) struct Lexer<'a> {
     pub(crate) s: &'a [u8],
     out: &'a mut Vec<Token>,
-    interner: &'a mut Interner,
+    arena: &'a mut Arena,
+    limits: &'a Limits,
+    report: &'a mut LineReport,
     pos: usize,
-    pub(crate) state: State,
-    /// Interned scope stack of each open context, `nodes[depth]` being current.
-    nodes: [usize; State::CAPACITY + 1],
+    /// The current state, and its frame.
+    state: u32,
+    frame: Frame,
+    /// Steps spent on this line, counted in `&self` scans too.
+    steps: Cell<u64>,
+    /// Steps this line may spend; `u64::MAX` for no limit.
+    budget: u64,
+    /// Where the line's last `>(` starts, once [`Lexer::call_ahead`] has
+    /// searched for it.
+    last_call: OnceCell<Option<usize>>,
     /// End of the ASCII identifier run at the cursor, and of the word run
     /// (which also covers non-ASCII bytes). Set by [`Lexer::scan_word`].
     pub(crate) ident_end: usize,
@@ -37,31 +51,33 @@ pub(crate) fn is_word(b: u8) -> bool {
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(
-        interner: &'a mut Interner,
+        arena: &'a mut Arena,
+        limits: &'a Limits,
         s: &'a [u8],
         out: &'a mut Vec<Token>,
-        state: State,
+        state: u32,
+        report: &'a mut LineReport,
     ) -> Self {
-        let mut nodes = [0; State::CAPACITY + 1];
-        for i in 0..state.depth() {
-            nodes[i + 1] = match state.kind(i).scope() {
-                Some(scope) => interner.child(nodes[i], scope),
-                None => nodes[i],
-            };
-        }
+        let frame = arena.frame(state);
+        let budget = limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
         Lexer {
             s,
             out,
-            interner,
+            arena,
+            limits,
+            report,
             pos: 0,
             state,
-            nodes,
+            frame,
+            steps: Cell::new(0),
+            budget,
+            last_call: OnceCell::new(),
             ident_end: 0,
             word_end: 0,
         }
     }
 
-    pub(crate) fn into_state(self) -> State {
+    pub(crate) fn into_state(self) -> u32 {
         self.state
     }
 
@@ -69,7 +85,12 @@ impl<'a> Lexer<'a> {
         let len = self.s.len();
         let mut p = 0;
         while p < len {
-            p = match self.state.top() {
+            self.spend(1);
+            if self.steps.get() > self.budget {
+                self.report.record(Limit::Work);
+                break;
+            }
+            p = match self.top() {
                 Kind::Str => self.in_string(p),
                 Kind::Raw => self.in_raw_string(p),
                 Kind::Char => self.in_char(p),
@@ -99,10 +120,29 @@ impl<'a> Lexer<'a> {
     }
 
     pub(crate) fn skip(&self, mut i: usize, class: impl Fn(u8) -> bool) -> usize {
+        let from = i;
         while i < self.s.len() && class(self.s[i]) {
             i += 1;
         }
+        self.spend(i - from);
         i
+    }
+
+    /// Whether `>(` occurs at or after `from`: the lookahead of the turbofish
+    /// call rule. The line is searched once, from its end, so each check is
+    /// one comparison and a line of repeated `a::<` stays linear.
+    pub(crate) fn call_ahead(&self, from: usize) -> bool {
+        let last = self.last_call.get_or_init(|| {
+            self.spend(self.s.len());
+            memmem::rfind(self.s, b">(")
+        });
+        last.is_some_and(|at| at >= from)
+    }
+
+    /// Counts `bytes` read ahead of the cursor against the line's work.
+    pub(crate) fn spend(&self, bytes: usize) {
+        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
+        self.steps.set(self.steps.get().saturating_add(bytes));
     }
 
     /// The regex `\b` at `i`.
@@ -144,31 +184,81 @@ impl<'a> Lexer<'a> {
         if to <= self.pos {
             return;
         }
-        let node = self.nodes[self.state.depth()];
-        let stack = Stack(self.interner.path(node, leaf));
-        self.out.push(Token { end: to, stack });
+        let mut stack = self.frame.stack;
+        for scope in leaf {
+            let Some(child) = self.arena.child(stack, scope.scope()) else {
+                self.report.record(Limit::Nodes);
+                break;
+            };
+            stack = child;
+        }
+        self.out.push(Token {
+            end: to,
+            stack: Stack(stack),
+        });
         self.pos = to;
     }
 
     // Contexts.
 
-    /// Opens a context; false when the stack is full. Call [`Lexer::gap`]
-    /// first.
+    /// The innermost open context.
+    pub(crate) fn top(&self) -> Kind {
+        Kind::from_code(self.frame.kind)
+    }
+
+    /// The data the innermost context carries.
+    pub(crate) fn payload(&self) -> u32 {
+        self.frame.payload
+    }
+
+    /// Opens a context; false when a limit keeps it closed. Call
+    /// [`Lexer::gap`] first.
     pub(crate) fn push(&mut self, kind: Kind) -> bool {
-        if !self.state.push(kind) {
+        self.push_with(kind, 0)
+    }
+
+    /// Opens a context that carries `payload`.
+    pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
+        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
+        if self.limits.depth.is_some_and(|max| depth >= max) {
+            self.report.record(Limit::Depth);
             return false;
         }
-        let depth = self.state.depth();
-        let parent = self.nodes[depth - 1];
-        self.nodes[depth] = match kind.scope() {
-            Some(scope) => self.interner.child(parent, scope),
-            None => parent,
+        let stack = match kind.scope() {
+            Some(scope) => self.arena.child(self.frame.stack, scope.scope()),
+            None => Some(self.frame.stack),
         };
+        let Some(state) =
+            stack.and_then(|stack| self.arena.push(self.state, kind.code(), payload, stack))
+        else {
+            self.report.record(Limit::Nodes);
+            return false;
+        };
+        self.enter(state);
         true
     }
 
+    /// Replaces the innermost context's payload.
+    pub(crate) fn set_payload(&mut self, payload: u32) {
+        let Frame {
+            parent,
+            kind,
+            stack,
+            ..
+        } = self.frame;
+        match self.arena.push(parent, kind, payload, stack) {
+            Some(state) => self.enter(state),
+            None => self.report.record(Limit::Nodes),
+        }
+    }
+
     pub(crate) fn pop(&mut self) {
-        self.state.pop();
+        self.enter(self.frame.parent);
+    }
+
+    fn enter(&mut self, state: u32) {
+        self.state = state;
+        self.frame = self.arena.frame(state);
     }
 
     // Code.
@@ -184,7 +274,7 @@ impl<'a> Lexer<'a> {
         if is_ident(b) {
             self.scan_word(p);
         }
-        let kind = self.state.top();
+        let kind = self.top();
         if kind == Kind::Top
             && let Some(end) = self.top_rules(p, b)
         {
@@ -202,7 +292,7 @@ impl<'a> Lexer<'a> {
     fn whitespace(&mut self, p: usize) -> usize {
         if p > 0
             && is_word(self.s[p - 1])
-            && super::code::groups(self.state.top()).contains(&super::code::Group::Keywords)
+            && super::code::groups(self.top()).contains(&super::code::Group::Keywords)
             && let Some(end) = self.comparison(p)
         {
             return end;
@@ -212,7 +302,7 @@ impl<'a> Lexer<'a> {
 
     /// Closes the innermost code context when its end rule matches at `p`.
     fn end_of_context(&mut self, p: usize, b: u8) -> Option<usize> {
-        let leaf = match (self.state.top(), b) {
+        let leaf = match (self.top(), b) {
             (Kind::FnDef, b'{') => S::Curly,
             (Kind::FnDef | Kind::Use | Kind::Import, b';') => S::Semi,
             (Kind::Call, b')') => S::Round,

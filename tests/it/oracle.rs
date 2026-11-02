@@ -10,7 +10,7 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use nishiki::rust;
+use nishiki::{Highlighter, Language, State};
 
 /// One source line of a fixture and Shiki's scope stack for each of its bytes.
 struct Line {
@@ -150,19 +150,32 @@ fn report(path: &Path, checked: usize, misses: &[Miss]) -> String {
     message
 }
 
+/// A lexer under test: `language`'s highlighter with default limits, whose
+/// every line must be lexed in full.
+fn lexer(language: Language) -> impl FnMut(&str) -> Tokens {
+    let mut highlighter = Highlighter::new(language);
+    let mut state = State::default();
+    let mut tokens = Vec::new();
+    move |line: &str| {
+        tokens.clear();
+        let report = highlighter.line(line, &mut state, &mut tokens);
+        assert!(
+            report.is_complete(),
+            "{line:?} reached {:?}",
+            report.limits().collect::<Vec<_>>()
+        );
+        tokens
+            .iter()
+            .map(|token| {
+                let mut scopes: Vec<&str> = highlighter.scopes(token.stack()).collect();
+                scopes.reverse();
+                (token.end(), scopes.join(" "))
+            })
+            .collect()
+    }
+}
+
 #[test]
 fn rust_matches_shiki() {
-    check("rust", || {
-        let mut highlighter = rust::Highlighter::new();
-        let mut state = rust::State::default();
-        let mut tokens = Vec::new();
-        move |line: &str| {
-            tokens.clear();
-            highlighter.line(line, &mut state, &mut tokens);
-            tokens
-                .iter()
-                .map(|token| (token.end(), highlighter.scopes(token.stack()).join(" ")))
-                .collect()
-        }
-    });
+    check("rust", || lexer(Language::Rust));
 }

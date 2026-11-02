@@ -3,24 +3,26 @@
 //! nishiki splits each line of source into tokens and gives every token the
 //! scope stack Shiki gives it, so a theme in Shiki's format colours the result
 //! as Shiki would. Lexers resume line by line: the state after one line is the
-//! input of the next, so an editor can re-highlight from any line.
+//! input of the next, so an editor can re-highlight from any line, and a
+//! streamed reply can be highlighted as it arrives.
 //!
-//! This release highlights Rust ([`rust`]).
+//! This release highlights Rust ([`Language::Rust`]).
 //!
 //! ```
-//! use nishiki::rust::{Highlighter, State};
+//! use nishiki::{Highlighter, Language, State};
 //!
-//! let mut highlighter = Highlighter::new();
+//! let mut highlighter = Highlighter::new(Language::Rust);
 //! let mut state = State::default();
 //! let mut tokens = Vec::new();
 //! let line = "let x = 42;";
-//! highlighter.line(line, &mut state, &mut tokens);
+//! let report = highlighter.line(line, &mut state, &mut tokens);
+//! assert!(report.is_complete());
 //!
 //! let mut start = 0;
 //! let mut innermost = Vec::new();
 //! for token in &tokens {
-//!     let scopes = highlighter.scopes(token.stack());
-//!     innermost.push((&line[start..token.end()], scopes[scopes.len() - 1]));
+//!     let scope = highlighter.scopes(token.stack()).next();
+//!     innermost.push((&line[start..token.end()], scope.unwrap_or_default()));
 //!     start = token.end();
 //! }
 //! assert_eq!(
@@ -37,8 +39,21 @@
 //!     ]
 //! );
 //! ```
+//!
+//! Every line is bounded by [`Limits`], which the caller can set, raise,
+//! lower or turn off; each [`LineReport`] says which limits a line reached.
 
-pub mod rust;
+mod arena;
+mod highlighter;
+mod language;
+mod limits;
+mod rust;
+mod scope;
+
+pub use arena::Scopes;
+pub use highlighter::Highlighter;
+pub use language::Language;
+pub use limits::{Budget, Limit, Limits, LineReport, Work};
 
 /// The README's examples, compiled and run as doctests.
 #[cfg(doctest)]
@@ -62,8 +77,8 @@ impl Token {
         self.end
     }
 
-    /// The token's scope stack. The highlighter that produced the token
-    /// resolves it to scope names.
+    /// The token's scope stack, which [`Highlighter::scopes`] resolves to
+    /// scope names.
     #[must_use]
     pub fn stack(self) -> Stack {
         self.stack
@@ -71,6 +86,15 @@ impl Token {
 }
 
 /// An interned scope stack, which only the highlighter that produced it can
-/// resolve, such as with [`rust::Highlighter::scopes`].
+/// resolve, with [`Highlighter::scopes`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub struct Stack(usize);
+pub struct Stack(u32);
+
+/// A lexer state between two lines: the contexts left open, such as a
+/// string or a comment.
+///
+/// A small `Copy` handle into the state its [`Highlighter`] interned, so
+/// equal states compare equal in one step. [`State::default`] starts a
+/// document. A state belongs to the highlighter that produced it.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+pub struct State(u32);

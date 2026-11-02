@@ -1,7 +1,5 @@
 //! The rule groups of the grammar, and which contexts use which, in order.
 
-use memchr::memmem;
-
 use super::lexer::{Lexer, is_ident, is_word, is_ws};
 use super::numbers::NUMERIC;
 use super::scope::S;
@@ -537,9 +535,7 @@ impl Lexer<'_> {
         }
         let end = self.ident_at(p)?;
         let call = self.at(end) == b'(';
-        let turbofish = !call
-            && self.starts_with(end, b"::<")
-            && memmem::find(&self.s[end + 3..], b">(").is_some();
+        let turbofish = !call && self.starts_with(end, b"::<") && self.call_ahead(end + 3);
         if !call && !turbofish {
             return None;
         }

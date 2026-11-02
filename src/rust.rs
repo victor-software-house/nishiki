@@ -1,18 +1,12 @@
 //! Rust, with the scopes of the Rust grammar that Shiki bundles.
 //!
-//! The lexer is a hand-written state machine over bytes. [`State`] is the stack
-//! of contexts left open at the end of a line (strings, comments, calls,
-//! generics and so on); it is small and `Copy`. Scope stacks are interned once
-//! per highlighter, so lexing allocates only for stacks it has not seen.
+//! The lexer is a hand-written state machine over bytes. Its contexts
+//! (strings, comments, calls, generics and so on) are frames of the
+//! highlighter's interned state.
 //!
 //! It reproduces Shiki's output, quirks included: `||` is two `|` operators,
 //! `a!=b` reads `a!` as a macro, and a camel-case name such as `fooBar` gets no
-//! scope.
-//!
-//! Limits: a context nested deeper than 32 is not tracked (a block comment is
-//! only counted, anything else is lexed as plain text); a raw string with more
-//! than 255 `#` is not a raw string; and every non-ASCII byte counts as a word
-//! character.
+//! scope. Every non-ASCII byte counts as a word character.
 
 mod code;
 mod lexer;
@@ -22,104 +16,34 @@ mod scope;
 mod state;
 mod text;
 
-use scope::{NAMES, S};
-pub use state::State;
+pub(crate) use scope::NAMES;
+use scope::S;
+use state::Kind;
 
-use crate::{Stack, Token};
+use crate::Token;
+use crate::arena::{Arena, ROOT};
+use crate::limits::{Limits, LineReport};
 
-/// One interned scope stack.
-#[derive(Debug)]
-struct Node {
-    /// The full stack, outermost first.
-    names: Vec<&'static str>,
-    /// Child node per scope, 0 when not yet created.
-    children: Box<[usize]>,
+/// The state at the start of a Rust document whose scopes sit on the stack
+/// `base`: one context with `source.rust` on top of it.
+pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
+    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// Interns scope stacks as a trie, so a token's stack is found by following
-/// one child link per scope.
-#[derive(Debug)]
-struct Interner {
-    nodes: Vec<Node>,
-}
-
-impl Interner {
-    fn new() -> Self {
-        let root = Node {
-            names: vec![NAMES[S::Source.index()]],
-            children: vec![0; NAMES.len()].into_boxed_slice(),
-        };
-        Interner { nodes: vec![root] }
-    }
-
-    fn child(&mut self, parent: usize, scope: S) -> usize {
-        let known = self.nodes[parent].children[scope.index()];
-        if known != 0 {
-            return known;
-        }
-        let mut names = self.nodes[parent].names.clone();
-        names.push(NAMES[scope.index()]);
-        let id = self.nodes.len();
-        self.nodes.push(Node {
-            names,
-            children: vec![0; NAMES.len()].into_boxed_slice(),
-        });
-        self.nodes[parent].children[scope.index()] = id;
-        id
-    }
-
-    fn path(&mut self, mut node: usize, scopes: &[S]) -> usize {
-        for &scope in scopes {
-            node = self.child(node, scope);
-        }
-        node
-    }
-}
-
-/// The Rust highlighter. It owns the interned scope stacks its tokens name.
-#[derive(Debug)]
-pub struct Highlighter {
-    interner: Interner,
-}
-
-impl Default for Highlighter {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl Highlighter {
-    /// A highlighter with no scope stacks interned yet.
-    #[must_use]
-    pub fn new() -> Self {
-        Highlighter {
-            interner: Interner::new(),
-        }
-    }
-
-    /// Lexes `line`, which excludes its line ending, starting from `state`.
-    ///
-    /// Appends tokens that cover every byte of `line` in order (an empty line
-    /// may append none), and leaves in `state` the state for the next line.
-    /// Start a document from [`State::default`].
-    pub fn line(&mut self, line: &str, state: &mut State, out: &mut Vec<Token>) {
-        let mut lexer = lexer::Lexer::new(&mut self.interner, line.as_bytes(), out, *state);
-        lexer.run();
-        *state = lexer.into_state();
-    }
-
-    /// The scope names of `stack`, outermost first, such as
-    /// `["source.rust", "string.quoted.double.rust"]`.
-    ///
-    /// Empty when `stack` is unknown to this highlighter. A stack from another
-    /// highlighter resolves to an unrelated stack or to nothing.
-    #[must_use]
-    pub fn scopes(&self, stack: Stack) -> &[&'static str] {
-        self.interner
-            .nodes
-            .get(stack.0)
-            .map_or(&[], |node| &node.names)
-    }
+/// Lexes one line from `state`, appending its tokens, and returns the state
+/// after it.
+pub(crate) fn line(
+    arena: &mut Arena,
+    limits: &Limits,
+    line: &[u8],
+    state: u32,
+    out: &mut Vec<Token>,
+    report: &mut LineReport,
+) -> u32 {
+    let mut lexer = lexer::Lexer::new(arena, limits, line, out, state, report);
+    lexer.run();
+    lexer.into_state()
 }
 
 #[cfg(test)]

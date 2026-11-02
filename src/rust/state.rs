@@ -1,6 +1,9 @@
-//! The state carried from one line to the next: a stack of open contexts.
+//! The contexts the Rust lexer opens, which are frames of the interned state.
 
 use super::scope::S;
+
+/// The high byte that marks a frame as one of Rust's.
+const TAG: u16 = 0x0100;
 
 /// An open context. Each one is a TextMate-style begin/end rule of the Rust
 /// grammar: it adds a scope (some add none) and limits which rules apply.
@@ -36,13 +39,26 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
-    /// The discriminant, which fits the four bits of a frame.
+    /// The kind as a frame stores it: the Rust tag in the high byte, the
+    /// discriminant in the low one.
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
     )]
-    const fn bits(self) -> u8 {
-        self as u8
+    pub(crate) const fn code(self) -> u16 {
+        TAG | self as u16
+    }
+
+    /// The kind a frame's code names; [`Kind::Top`] for a code that is not
+    /// Rust's, such as the empty state's.
+    pub(crate) fn from_code(code: u16) -> Kind {
+        if code & 0xff00 != TAG {
+            return Kind::Top;
+        }
+        Kind::ALL
+            .get(usize::from(code & 0xff))
+            .copied()
+            .unwrap_or(Kind::Top)
     }
 
     const ALL: [Kind; 13] = [
@@ -76,58 +92,5 @@ impl Kind {
             Kind::Block => Some(S::CommentBlock),
             Kind::Doc => Some(S::CommentBlockDoc),
         }
-    }
-}
-
-/// The lexer state between lines; [`State::default`] starts a document.
-///
-/// Small and `Copy`, so a caller can keep one per line and re-highlight from
-/// any line. Two equal states lex the following lines identically.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
-pub struct State {
-    /// Open contexts, 4 bits each, outermost in the lowest bits.
-    frames: u128,
-    depth: u8,
-    /// Hash count of the innermost raw string.
-    pub(crate) hashes: u8,
-    /// Block comments opened beyond [`State::CAPACITY`]; they close first.
-    pub(crate) over: u16,
-}
-
-impl State {
-    /// Most contexts that nest. A deeper context is not tracked: block
-    /// comments only count, other contexts are lexed as plain text.
-    pub(crate) const CAPACITY: usize = 32;
-
-    pub(crate) fn depth(self) -> usize {
-        usize::from(self.depth)
-    }
-
-    /// The kind at `index`, outermost first.
-    pub(crate) fn kind(self, index: usize) -> Kind {
-        let nibble = (self.frames >> (4 * index)) & 0xf;
-        Kind::ALL[usize::try_from(nibble).unwrap_or_default()]
-    }
-
-    pub(crate) fn top(self) -> Kind {
-        match self.depth {
-            0 => Kind::Top,
-            d => self.kind(usize::from(d) - 1),
-        }
-    }
-
-    /// Opens a context; false when the stack is full.
-    pub(crate) fn push(&mut self, kind: Kind) -> bool {
-        if self.depth() == Self::CAPACITY {
-            return false;
-        }
-        self.frames |= u128::from(kind.bits()) << (4 * self.depth());
-        self.depth += 1;
-        true
-    }
-
-    pub(crate) fn pop(&mut self) {
-        self.depth -= 1;
-        self.frames &= !(0xf << (4 * self.depth()));
     }
 }
