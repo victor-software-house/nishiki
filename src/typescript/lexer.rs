@@ -56,6 +56,8 @@ pub(crate) struct Lexer<'a> {
     last_ident: Cell<(usize, Option<usize>)>,
     /// The position of the last backtick on the line, if any.
     last_tick: Option<usize>,
+    /// The position of the last `(` or `<` on the line, if any.
+    last_open: Option<usize>,
 }
 
 /// For each ASCII byte: bit 0 is `[$_[:alnum:]]`, bit 1 is `[$_[:alpha:]]`.
@@ -168,6 +170,7 @@ impl<'a> Lexer<'a> {
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
             last_tick: memchr::memrchr(b'`', src.as_bytes()),
+            last_open: memchr::memrchr2(b'(', b'<', src.as_bytes()),
         };
         lexer.spend(src.len());
         if lexer.first_line {
@@ -187,6 +190,12 @@ impl<'a> Lexer<'a> {
     pub(crate) fn spend(&self, bytes: usize) {
         let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
         self.steps.set(self.steps.get().saturating_add(bytes));
+    }
+
+    /// Whether a `(` or `<` lies at or after `p`, which every call lookahead
+    /// needs after the name.
+    pub(crate) fn has_open_after(&self, p: usize) -> bool {
+        self.last_open.is_some_and(|at| at >= p)
     }
 
     /// Whether a backtick lies at or after `p`.

@@ -705,6 +705,9 @@ impl Lexer<'_> {
     /// `Some(false)` for one that the line leaves open. The name chain, which
     /// both read, is scanned once.
     pub(crate) fn call_kind(&self, i: usize) -> Option<bool> {
+        if !self.has_open_after(i) {
+            return None;
+        }
         let chain = self.chain_ends(i);
         if self.call_ahead_in(i, &chain) {
             Some(true)
