@@ -53,6 +53,7 @@
 
 mod arena;
 mod c;
+mod classes;
 mod css;
 mod diff;
 mod dockerfile;

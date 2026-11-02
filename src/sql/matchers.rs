@@ -12,7 +12,7 @@ use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
-use crate::json::classes;
+use crate::classes;
 
 /// The ASCII lowercase letter that `c` matches without regard to case: itself,
 /// or `s` for `ſ` and `k` for the Kelvin sign, which `Onig` folds to them.

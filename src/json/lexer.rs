@@ -4,10 +4,11 @@ use std::cell::Cell;
 
 use memchr::{memchr2, memmem};
 
+use super::Dialect;
 use super::scope::S;
 use super::state::Kind;
-use super::{Dialect, classes};
 use crate::arena::{Arena, Frame};
+use crate::classes::{self, is_word};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token};
 
@@ -33,15 +34,6 @@ pub(crate) struct Lexer<'a> {
 /// The regex `\s` for an ASCII byte.
 fn is_ascii_space(b: u8) -> bool {
     matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
-}
-
-/// The regex `\w` for a character.
-fn is_word(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_alphanumeric() || c == '_'
-    } else {
-        classes::is_word(c)
-    }
 }
 
 /// How many bytes the character that starts with `lead` takes.

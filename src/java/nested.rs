@@ -114,7 +114,7 @@ impl Lexer<'_> {
     fn word_run_end(&self, mut i: usize, limit: usize) -> usize {
         while i < limit {
             match self.char_at(i) {
-                Some((c, end)) if crate::json::is_word(c) => i = end,
+                Some((c, end)) if crate::classes::is_word(c) => i = end,
                 _ => break,
             }
         }

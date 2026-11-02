@@ -855,16 +855,16 @@ fn contains(table: &[(u32, u32)], c: char) -> bool {
 }
 
 /// The regex `\d` for a non-ASCII character.
-pub(crate) fn is_digit(c: char) -> bool {
+pub(super) fn is_digit(c: char) -> bool {
     contains(DIGITS, c)
 }
 
 /// The regex `\w` for a non-ASCII character.
-pub(crate) fn is_word(c: char) -> bool {
+pub(super) fn is_word(c: char) -> bool {
     contains(WORDS, c)
 }
 
 /// The regex `\s` for a non-ASCII character.
-pub(crate) fn is_space(c: char) -> bool {
+pub(super) fn is_space(c: char) -> bool {
     contains(SPACES, c)
 }

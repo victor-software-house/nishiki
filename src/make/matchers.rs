@@ -10,7 +10,7 @@ use super::engine::{CapName, Hit, Lexer, char_len};
 use super::rules::Pat;
 use super::scope::{BUILTINS, FUNCTIONS, S, SPECIAL_TARGETS};
 use super::state::Rule;
-use crate::json::classes;
+use crate::classes;
 
 /// The regex `\s` for an ASCII byte.
 fn is_ascii_space(b: u8) -> bool {

@@ -13,7 +13,6 @@
 //! number `1`. A non-ASCII digit is not a digit, and a non-ASCII word
 //! character is one when it is alphanumeric, so combining marks are not.
 
-pub(crate) mod classes;
 mod lexer;
 mod scope;
 mod state;
@@ -45,34 +44,6 @@ impl Dialect {
             Dialect::Jsonc => 1,
             Dialect::Jsonl => 2,
         }
-    }
-}
-
-/// The regex `\s` for a character: the table measured on Shiki, which the
-/// lexers of other grammars share because they read the same engine.
-pub(crate) fn is_space(c: char) -> bool {
-    if c.is_ascii() {
-        matches!(c, ' ' | '\t' | '\n' | '\u{b}' | '\u{c}' | '\r')
-    } else {
-        classes::is_space(c)
-    }
-}
-
-/// The regex `\w` for a character, from the same measured table.
-pub(crate) fn is_word(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_alphanumeric() || c == '_'
-    } else {
-        classes::is_word(c)
-    }
-}
-
-/// The regex `\d` for a character, from the same measured table.
-pub(crate) fn is_digit(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_digit()
-    } else {
-        classes::is_digit(c)
     }
 }
 

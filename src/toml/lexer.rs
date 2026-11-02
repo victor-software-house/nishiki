@@ -9,7 +9,7 @@ use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token, json};
+use crate::{Stack, Token, classes};
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
 /// and the cursor are plain text of the current context.
@@ -144,7 +144,7 @@ impl<'a> Lexer<'a> {
             .and_then(|bytes| std::str::from_utf8(bytes).ok())
             .and_then(|text| text.chars().next())
         {
-            Some(c) if json::is_space(c) => width,
+            Some(c) if classes::is_space(c) => width,
             _ => 0,
         }
     }

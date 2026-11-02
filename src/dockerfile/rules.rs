@@ -11,7 +11,7 @@
 //! instruction.
 
 use super::scope::S;
-use crate::json::classes;
+use crate::classes;
 
 /// The most pieces a rule's match splits into.
 const MAX_SEGS: usize = 5;

@@ -1,7 +1,7 @@
 //! The character classes of the grammar's expressions.
 
+use crate::classes::{is_digit, is_space, is_word};
 use crate::java::engine::Lexer;
-use crate::json::{is_digit, is_space, is_word};
 
 impl Lexer<'_> {
     /// The width of the `\w` character at `i`, when there is one.

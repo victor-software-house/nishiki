@@ -1,4 +1,4 @@
-// Writes src/json/classes.rs: the characters that Oniguruma's `\d`, `\w` and
+// Writes src/classes/table.rs: the characters that Oniguruma's `\d`, `\w` and
 // `\s` match, as Shiki 4.6.0 uses them in the `json` grammar. Rust's `char`
 // methods differ from them (`\d` is only the decimal digits, `\w` includes
 // marks), so the table is measured rather than derived: one line per
@@ -116,5 +116,5 @@ pub(super) fn is_space(c: char) -> bool {
     contains(SPACES, c)
 }
 `;
-await Bun.write(`${root}src/json/classes.rs`, out);
+await Bun.write(`${root}src/classes/table.rs`, out);
 console.log(ranges(digits).length, ranges(words).length, ranges(spaces).length);

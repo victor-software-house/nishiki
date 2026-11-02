@@ -4,7 +4,7 @@
 use super::engine::{Act, Dyn, Hit, Lexer, Retok, Span};
 use super::scope::S;
 use super::state::R;
-use crate::json::classes;
+use crate::classes;
 
 /// The regex `\s` for an ASCII byte.
 fn is_ascii_space(b: u8) -> bool {

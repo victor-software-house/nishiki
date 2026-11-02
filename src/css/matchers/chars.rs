@@ -3,7 +3,7 @@
 
 use super::super::ahead::{Ahead, Find};
 use super::super::engine::Lexer;
-use crate::json::classes;
+use crate::classes;
 
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;

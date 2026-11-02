@@ -9,7 +9,7 @@
 
 use memchr::memchr;
 
-use crate::json::classes;
+use crate::classes;
 
 /// A rule's first match at or after a position.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

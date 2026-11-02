@@ -10,7 +10,7 @@
 use memchr::memmem;
 
 use super::scope::S;
-use crate::json::classes;
+use crate::classes;
 
 /// A capture group that carries a scope of its own.
 #[derive(Clone, Copy, Debug)]
