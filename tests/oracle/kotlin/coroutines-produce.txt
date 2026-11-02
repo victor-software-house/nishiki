@@ -1,0 +1,1342 @@
+L package kotlinx.coroutines.channels
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 35 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import kotlinx.coroutines.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 26 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 27 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlin.coroutines.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 25 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 26 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.flow.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Scope for the [produce][CoroutineScope.produce], [callbackFlow] and [channelFlow] builders.
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public interface ProducerScope<in E> : CoroutineScope, SendChannel<E> {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 16 source.kotlin keyword.hard.class.kotlin
+T 17 source.kotlin
+T 30 source.kotlin entity.name.type.class.kotlin
+T 31 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 66 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 70 source.kotlin
+T 71 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * A reference to the channel this coroutine [sends][send] elements to.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      * It is provided for convenience, so that the code in the coroutine can refer
+T 82 source.kotlin comment.block.javadoc.kotlin
+L      * to the channel as `channel` as opposed to `this`.
+T 56 source.kotlin comment.block.javadoc.kotlin
+L      * All the [SendChannel] functions on this interface delegate to
+T 68 source.kotlin comment.block.javadoc.kotlin
+L      * the channel instance returned by this property.
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public val channel: SendChannel<E>
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Suspends the current coroutine until the channel is either
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  * [closed][SendChannel.close] or [cancelled][ReceiveChannel.cancel].
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The given [block] will be executed unconditionally before this function returns.
+T 83 source.kotlin comment.block.javadoc.kotlin
+L  * `awaitClose { cleanup() }` is a convenient shorthand for the often useful form
+T 81 source.kotlin comment.block.javadoc.kotlin
+L  * `try { awaitClose() } finally { cleanup() }`.
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * This function can only be invoked directly inside the same coroutine that is its receiver.
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * Specifying the receiver of [awaitClose] explicitly is most probably a mistake.
+T 81 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * This suspending function is cancellable: if the [Job] of the current coroutine is [cancelled][CoroutineScope.cancel]
+T 119 source.kotlin comment.block.javadoc.kotlin
+L  * while this suspending function is waiting, this function immediately resumes with [CancellationException].
+T 109 source.kotlin comment.block.javadoc.kotlin
+L  * There is a **prompt cancellation guarantee**: even if this function is ready to return, but was cancelled
+T 108 source.kotlin comment.block.javadoc.kotlin
+L  * while suspended, [CancellationException] will be thrown. See [suspendCancellableCoroutine] for low-level details.
+T 116 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Example of usage:
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val callbackEventsStream = produce {
+T 39 source.kotlin comment.block.javadoc.kotlin
+L  *     val disposable = registerChannelInCallback(channel)
+T 58 source.kotlin comment.block.javadoc.kotlin
+L  *     awaitClose { disposable.dispose() }
+T 42 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Internally, [awaitClose] is implemented using [SendChannel.invokeOnClose].
+T 77 source.kotlin comment.block.javadoc.kotlin
+L  * Currently, every channel can have at most one [SendChannel.invokeOnClose] handler.
+T 85 source.kotlin comment.block.javadoc.kotlin
+L  * This means that calling [awaitClose] several times in a row or combining it with other [SendChannel.invokeOnClose]
+T 117 source.kotlin comment.block.javadoc.kotlin
+L  * invocations is prohibited.
+T 29 source.kotlin comment.block.javadoc.kotlin
+L  * An [IllegalStateException] will be thrown if this rule is broken.
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * **Pitfall**: when used in [produce], if the channel is [cancelled][ReceiveChannel.cancel], [awaitClose] can either
+T 117 source.kotlin comment.block.javadoc.kotlin
+L  * return normally or throw a [CancellationException] due to a race condition.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  * The reason is that, for [produce], cancelling the channel and cancelling the coroutine of the [ProducerScope] is
+T 115 source.kotlin comment.block.javadoc.kotlin
+L  * done simultaneously.
+T 23 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @throws IllegalStateException if invoked from outside the [ProducerScope] (by leaking `this` outside the producer
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 32 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 116 source.kotlin comment.block.javadoc.kotlin
+L  * coroutine).
+T 14 source.kotlin comment.block.javadoc.kotlin
+L  * @throws IllegalStateException if this channel already has a [SendChannel.invokeOnClose] handler registered.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 32 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 110 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public suspend fun ProducerScope<*>.awaitClose(block: () -> Unit = {}) {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 14 source.kotlin storage.modifier.other.kotlin
+T 15 source.kotlin
+T 18 source.kotlin keyword.hard.fun.kotlin
+T 19 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin keyword.operator.comparison.kotlin
+T 34 source.kotlin keyword.operator.arithmetic.kotlin
+T 35 source.kotlin keyword.operator.comparison.kotlin
+T 36 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 57 source.kotlin
+T 59 source.kotlin storage.type.function.arrow.kotlin
+T 65 source.kotlin
+T 66 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+L     check(kotlin.coroutines.coroutineContext[Job] === this) { "awaitClose() can only be invoked from the producer context" }
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 53 source.kotlin keyword.operator.comparison.kotlin
+T 54 source.kotlin
+T 58 source.kotlin variable.language.this.kotlin
+T 62 source.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin string.quoted.double.kotlin
+T 122 source.kotlin string.quoted.double.kotlin
+T 124 source.kotlin
+L     try {
+T 4 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+L         suspendCancellableCoroutine<Unit> { cont ->
+T 8 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin storage.type.function.arrow.kotlin
+L             invokeOnClose {
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L                 cont.resume(Unit)
+T 20 source.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     } finally {
+T 6 source.kotlin
+T 13 source.kotlin keyword.soft.kotlin
+T 15 source.kotlin
+L         block()
+T 8 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Launches a new coroutine to produce a stream of values by sending them to a channel
+T 86 source.kotlin comment.block.javadoc.kotlin
+L  * and returns a reference to the coroutine as a [ReceiveChannel]. This resulting
+T 81 source.kotlin comment.block.javadoc.kotlin
+L  * object can be used to [receive][ReceiveChannel.receive] elements produced by this coroutine.
+T 95 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The receiver of [block] is a [ProducerScope], which implements both [SendChannel] and [CoroutineScope].
+T 106 source.kotlin comment.block.javadoc.kotlin
+L  * This allows invoking [send][SendChannel.send] directly from the [block] to send elements to the channel
+T 106 source.kotlin comment.block.javadoc.kotlin
+L  * while treating [block] as a coroutine.
+T 41 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The kind of the resulting channel depends on the specified [capacity] parameter.
+T 83 source.kotlin comment.block.javadoc.kotlin
+L  * See the [Channel] interface documentation for details.
+T 57 source.kotlin comment.block.javadoc.kotlin
+L  * By default, an unbuffered channel is created.
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  * If an invalid [capacity] value is specified, an [IllegalArgumentException] is thrown.
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ## Behavior specifics
+T 24 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Behavior on termination
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The channel is [closed][SendChannel.close] when the coroutine completes.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val values = listOf(1, 2, 3, 4)
+T 34 source.kotlin comment.block.javadoc.kotlin
+L  * val channel = produce<Int> {
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  *     for (value in values) {
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  *         send(value)
+T 22 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * check(channel.toList() == values)
+T 36 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The running coroutine is cancelled when the channel is [cancelled][ReceiveChannel.cancel].
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val channel = produce<Int> {
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  *     send(1)
+T 14 source.kotlin comment.block.javadoc.kotlin
+L  *     send(2)
+T 14 source.kotlin comment.block.javadoc.kotlin
+L  *     try {
+T 12 source.kotlin comment.block.javadoc.kotlin
+L  *         send(3) // will throw CancellationException
+T 54 source.kotlin comment.block.javadoc.kotlin
+L  *     } catch (e: CancellationException) {
+T 43 source.kotlin comment.block.javadoc.kotlin
+L  *         println("The channel was cancelled!")
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  *         throw e // always rethrow CancellationException
+T 58 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * check(channel.receive() == 1)
+T 32 source.kotlin comment.block.javadoc.kotlin
+L  * check(channel.receive() == 2)
+T 32 source.kotlin comment.block.javadoc.kotlin
+L  * channel.cancel()
+T 19 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * If this coroutine finishes with an exception, it will attempt to close the channel with that exception as the cause,
+T 119 source.kotlin comment.block.javadoc.kotlin
+L  * so after receiving all the existing elements,
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  * all further attempts to receive from it will throw the exception with which the coroutine finished.
+T 102 source.kotlin comment.block.javadoc.kotlin
+L  * In addition, the exception will cancel the parent coroutine through structured concurrency.
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val produceJob = Job()
+T 25 source.kotlin comment.block.javadoc.kotlin
+L  * val scope = CoroutineScope(produceJob)
+T 41 source.kotlin comment.block.javadoc.kotlin
+L  * // create and populate a channel with a buffer
+T 49 source.kotlin comment.block.javadoc.kotlin
+L  * val channel = scope.produce<Int>(capacity = Channel.UNLIMITED) {
+T 67 source.kotlin comment.block.javadoc.kotlin
+L  *     repeat(5) { send(it) }
+T 29 source.kotlin comment.block.javadoc.kotlin
+L  *     throw TestException()
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * produceJob.join() // wait for the parent of the `produce` to get cancelled
+T 77 source.kotlin comment.block.javadoc.kotlin
+L  * check(produceJob.isCancelled == true)
+T 40 source.kotlin comment.block.javadoc.kotlin
+L  * // prints 0, 1, 2, 3, 4, then throws `TestException`
+T 55 source.kotlin comment.block.javadoc.kotlin
+L  * for (value in channel) { println(value) }
+T 44 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * If the channel is already closed *and* the exception cannot be propagated through structured concurrency
+T 107 source.kotlin comment.block.javadoc.kotlin
+L  * (for example, because the parent has a [SupervisorJob]), the last-resort error-handling logic described in the
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  * [CoroutineExceptionHandler] will get invoked:
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * withContext(CoroutineExceptionHandler { ctx, e ->
+T 52 source.kotlin comment.block.javadoc.kotlin
+L  *     // Will be invoked with `Failed to cancel`
+T 49 source.kotlin comment.block.javadoc.kotlin
+L  *     println("Failure in the produce coroutine: $e")
+T 54 source.kotlin comment.block.javadoc.kotlin
+L  * }) {
+T 7 source.kotlin comment.block.javadoc.kotlin
+L  *     supervisorScope {
+T 24 source.kotlin comment.block.javadoc.kotlin
+L  *         // Because the parent job is a supervisor,
+T 53 source.kotlin comment.block.javadoc.kotlin
+L  *         // the exception will not be propagated to the parent.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L  *         val channel = produce(capacity = Channel.UNLIMITED) {
+T 64 source.kotlin comment.block.javadoc.kotlin
+L  *             send(1)
+T 22 source.kotlin comment.block.javadoc.kotlin
+L  *             try {
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  *                 awaitCancellation()
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  *             } catch (e: CancellationException) {
+T 51 source.kotlin comment.block.javadoc.kotlin
+L  *                 throw IllegalStateException("Failed to cancel", e)
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  *             }
+T 16 source.kotlin comment.block.javadoc.kotlin
+L  *         }
+T 12 source.kotlin comment.block.javadoc.kotlin
+L  *         channel.receive()
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *         // Cancelling a channel also closes it,
+T 50 source.kotlin comment.block.javadoc.kotlin
+L  *         // so now, the exception with which `produce` fails
+T 62 source.kotlin comment.block.javadoc.kotlin
+L  *         // cannot be propagated.
+T 35 source.kotlin comment.block.javadoc.kotlin
+L  *         channel.cancel()
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * When the coroutine is cancelled via structured concurrency and not the `cancel` function,
+T 92 source.kotlin comment.block.javadoc.kotlin
+L  * the channel does not automatically close until the coroutine completes,
+T 74 source.kotlin comment.block.javadoc.kotlin
+L  * so it is possible that some elements will be sent even after the coroutine is cancelled:
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val parentScope = CoroutineScope(Dispatchers.Default)
+T 56 source.kotlin comment.block.javadoc.kotlin
+L  * val channel = parentScope.produce<Int>(capacity = Channel.UNLIMITED) {
+T 73 source.kotlin comment.block.javadoc.kotlin
+L  *     repeat(5) {
+T 18 source.kotlin comment.block.javadoc.kotlin
+L  *         send(it)
+T 19 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  *     parentScope.cancel()
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     // suspending after this point would fail, but sending succeeds
+T 70 source.kotlin comment.block.javadoc.kotlin
+L  *     send(-1)
+T 15 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * for (c in channel) {
+T 23 source.kotlin comment.block.javadoc.kotlin
+L  *     println(c) // 0, 1, 2, 3, 4, -1
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  * } // throws a `CancellationException` exception after reaching -1
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Note that cancelling `produce` via structured concurrency closes the channel with a cause.
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The behavior around coroutine cancellation and error handling is experimental and may change in a future release.
+T 116 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * See [newCoroutineContext] for a description of debugging facilities available for newly created coroutines.
+T 110 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Undelivered elements
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Some values that [produce] creates may be lost:
+T 50 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val channel = produce(Dispatchers.Default, capacity = 5) {
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  *     repeat(100) {
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  *         send(it)
+T 19 source.kotlin comment.block.javadoc.kotlin
+L  *         println("Sent $it")
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * channel.cancel() // no elements can be received after this!
+T 62 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * There is no way to recover these lost elements.
+T 50 source.kotlin comment.block.javadoc.kotlin
+L  * If this is unsuitable, please create a [Channel] manually and pass the `onUndeliveredElement` callback to the
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  * constructor: [Channel(onUndeliveredElement = ...)][Channel].
+T 63 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ## Structured concurrency
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Coroutine context
+T 24 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [produce] creates a *child coroutine* of `this` [CoroutineScope].
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * See the corresponding subsection in the [launch] documentation for details on how the coroutine context is created.
+T 118 source.kotlin comment.block.javadoc.kotlin
+L  * In essence, the elements of [context] are combined with the elements of the [CoroutineScope.coroutineContext],
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  * typically overriding them. It is incorrect to pass a [Job] element there, as this breaks structured concurrency.
+T 115 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Interactions between coroutines
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The details of structured concurrency are described in the [CoroutineScope] interface documentation.
+T 103 source.kotlin comment.block.javadoc.kotlin
+L  * Here is a restatement of some main points as they relate to [produce]:
+T 73 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * - The lifecycle of the parent [CoroutineScope] cannot end until this coroutine
+T 81 source.kotlin comment.block.javadoc.kotlin
+L  *   (as well as all its children) completes.
+T 45 source.kotlin comment.block.javadoc.kotlin
+L  * - If the parent [CoroutineScope] is cancelled, this coroutine is cancelled as well.
+T 86 source.kotlin comment.block.javadoc.kotlin
+L  * - If this coroutine fails with a non-[CancellationException] exception
+T 73 source.kotlin comment.block.javadoc.kotlin
+L  *   and the parent [CoroutineScope] has a non-supervisor [Job] in its context,
+T 79 source.kotlin comment.block.javadoc.kotlin
+L  *   the parent [Job] is cancelled with this exception.
+T 55 source.kotlin comment.block.javadoc.kotlin
+L  * - If this coroutine fails with a non-[CancellationException] exception,
+T 74 source.kotlin comment.block.javadoc.kotlin
+L  *   the parent [CoroutineScope] has a supervisor [Job] or no job at all
+T 72 source.kotlin comment.block.javadoc.kotlin
+L  *   (as is the case with [GlobalScope] or malformed scopes),
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  *   and the channel is already [closed][SendChannel.close],
+T 60 source.kotlin comment.block.javadoc.kotlin
+L  *   the exception cannot be propagated and is handled as the [CoroutineExceptionHandler] documentation describes.
+T 114 source.kotlin comment.block.javadoc.kotlin
+L  * - The lifecycle of the [CoroutineScope] passed as the receiver to the [block]
+T 80 source.kotlin comment.block.javadoc.kotlin
+L  *   will not end until the [block] completes (or gets cancelled before ever having a chance to run).
+T 101 source.kotlin comment.block.javadoc.kotlin
+L  * - If the [block] throws a [CancellationException], the coroutine is considered cancelled,
+T 92 source.kotlin comment.block.javadoc.kotlin
+L  *   cancelling all its children in turn, but the parent does not get notified.
+T 79 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ## Usage example
+T 19 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * /* Generate random integers until we find the square root of 9801.
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  *    To calculate whether the given number is that square root,
+T 64 source.kotlin comment.block.javadoc.kotlin
+L  *    use several coroutines that separately process these integers.
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *    Alternatively, we may randomly give up during value generation.
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  *    `produce` is used to generate the integers and put them into a
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *    channel, from which the square-computing coroutines take them. */
+T 69 source.kotlin comment.block.javadoc.kotlin
+T 71 source.kotlin comment.block.javadoc.kotlin
+L  * val parentScope = CoroutineScope(SupervisorJob())
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 7 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L  * val channel = parentScope.produce<Int>(
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 7 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+L  *     Dispatchers.IO,
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 22 source.kotlin
+L  *     capacity = 16 // buffer of size 16
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 21 source.kotlin
+T 23 source.kotlin comment.line.double-slash.kotlin
+T 41 source.kotlin comment.line.double-slash.kotlin
+L  * ) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 6 source.kotlin
+L  *     // this code will run on Dispatchers.IO
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin
+T 9 source.kotlin comment.line.double-slash.kotlin
+T 46 source.kotlin comment.line.double-slash.kotlin
+L  *     while (true) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+T 18 source.kotlin constant.language.boolean.kotlin
+T 21 source.kotlin
+L  *         val request = run {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+L  *             // simulate waiting for the next request
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 17 source.kotlin comment.line.double-slash.kotlin
+T 55 source.kotlin comment.line.double-slash.kotlin
+L  *             delay(5.milliseconds)
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 36 source.kotlin
+L  *             val randomInt = Random.nextInt(-1, 100)
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 19 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.arithmetic.kotlin
+T 48 source.kotlin constant.numeric.decimal.kotlin
+T 50 source.kotlin
+T 53 source.kotlin constant.numeric.decimal.kotlin
+T 54 source.kotlin
+L  *             if (randomInt == -1) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.comparison.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.arithmetic.kotlin
+T 34 source.kotlin constant.numeric.decimal.kotlin
+T 37 source.kotlin
+L  *                 // external termination request received
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin
+T 21 source.kotlin comment.line.double-slash.kotlin
+T 59 source.kotlin comment.line.double-slash.kotlin
+L  *                 println("Producer: no longer accepting requests")
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin
+L  *                 return@produce
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin
+T 25 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+L  *             }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 16 source.kotlin
+L  *             println("Producer: sending a request ($randomInt)")
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin
+L  *             randomInt
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 24 source.kotlin
+L  *         }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 12 source.kotlin
+L  *         send(request)
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L  *     }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 8 source.kotlin
+L  * }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 4 source.kotlin
+L  * // Launch consumers
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin
+T 5 source.kotlin comment.line.double-slash.kotlin
+T 22 source.kotlin comment.line.double-slash.kotlin
+L  * repeat(4) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 10 source.kotlin
+T 11 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+L  *     launch(Dispatchers.Default) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L  *         for (request in channel) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+L  *             // simulate processing a request
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 17 source.kotlin comment.line.double-slash.kotlin
+T 47 source.kotlin comment.line.double-slash.kotlin
+L  *             delay(25.milliseconds)
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 37 source.kotlin
+L  *             println("Consumer $it: received a request ($request)")
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin
+L  *             if (request * request == 9801) {
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.arithmetic.kotlin
+T 37 source.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 44 source.kotlin constant.numeric.decimal.kotlin
+T 47 source.kotlin
+L  *                 println("Consumer $it found the square root of 9801!")
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin
+L  *                 /* the work is done, the producer may finish.
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin
+T 21 source.kotlin comment.block.kotlin
+T 64 source.kotlin comment.block.kotlin
+L  *                    the internal termination request will cancel
+T 66 source.kotlin comment.block.kotlin
+L  *                    the producer on the next suspension point. */
+T 65 source.kotlin comment.block.kotlin
+T 67 source.kotlin comment.block.kotlin
+L  *                 channel.cancel()
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L  *             }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 16 source.kotlin
+L  *         }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 12 source.kotlin
+L  *     }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 8 source.kotlin
+L  * }
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 4 source.kotlin
+L  * ```
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 6 source.kotlin
+L  *
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+L  * **Note: This is an experimental api.** Behaviour of producers that work as children in a parent scope with respect
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin
+T 4 source.kotlin keyword.operator.arithmetic.kotlin
+T 5 source.kotlin keyword.operator.arithmetic.kotlin
+T 9 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.arithmetic.kotlin
+T 41 source.kotlin keyword.operator.arithmetic.kotlin
+T 75 source.kotlin
+T 77 source.kotlin keyword.hard.kotlin
+T 87 source.kotlin
+T 89 source.kotlin keyword.hard.kotlin
+T 117 source.kotlin
+L  *        to cancellation and error handling may change in the future.
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 56 source.kotlin
+T 58 source.kotlin keyword.hard.kotlin
+T 70 source.kotlin
+L  */
+T 1 source.kotlin
+T 2 source.kotlin keyword.operator.arithmetic.kotlin
+T 3 source.kotlin keyword.operator.arithmetic.kotlin
+L @ExperimentalCoroutinesApi
+T 26 source.kotlin entity.name.type.annotation.kotlin
+L public fun <E> CoroutineScope.produce(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.type.class.extension.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+L     context: CoroutineContext = EmptyCoroutineContext,
+T 11 source.kotlin
+T 13 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+L     capacity: Int = Channel.RENDEZVOUS,
+T 12 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L     block: suspend ProducerScope<E>.() -> Unit
+T 9 source.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 39 source.kotlin
+T 41 source.kotlin storage.type.function.arrow.kotlin
+T 46 source.kotlin
+L ): ReceiveChannel<E> =
+T 1 source.kotlin
+T 3 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+L     produce(context, capacity, BufferOverflow.SUSPEND, CoroutineStart.DEFAULT, onCompletion = null, block = block)
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 92 source.kotlin
+T 93 source.kotlin keyword.operator.assignment.kotlin
+T 94 source.kotlin
+T 98 source.kotlin constant.language.null.kotlin
+T 106 source.kotlin
+T 107 source.kotlin keyword.operator.assignment.kotlin
+T 114 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * **This is an internal API and should not be used from general code.**
+T 72 source.kotlin comment.block.javadoc.kotlin
+L  * The `onCompletion` parameter will be redesigned.
+T 51 source.kotlin comment.block.javadoc.kotlin
+L  * If you have to use the `onCompletion` operator, please report to https://github.com/Kotlin/kotlinx.coroutines/issues/.
+T 121 source.kotlin comment.block.javadoc.kotlin
+L  * As a temporary solution, [invokeOnCompletion][Job.invokeOnCompletion] can be used instead:
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * fun <E> ReceiveChannel<E>.myOperator(): ReceiveChannel<E> = GlobalScope.produce(Dispatchers.Unconfined) {
+T 108 source.kotlin comment.block.javadoc.kotlin
+L  *     coroutineContext[Job]?.invokeOnCompletion { consumes() }
+T 63 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * @suppress
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 12 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @InternalCoroutinesApi
+T 22 source.kotlin entity.name.type.annotation.kotlin
+L public fun <E> CoroutineScope.produce(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.type.class.extension.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+L     context: CoroutineContext = EmptyCoroutineContext,
+T 11 source.kotlin
+T 13 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+L     capacity: Int = 0,
+T 12 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 21 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+L     start: CoroutineStart = CoroutineStart.DEFAULT,
+T 9 source.kotlin
+T 11 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+L     onCompletion: CompletionHandler? = null,
+T 16 source.kotlin
+T 18 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 43 source.kotlin constant.language.null.kotlin
+T 44 source.kotlin
+L     block: suspend ProducerScope<E>.() -> Unit
+T 9 source.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 39 source.kotlin
+T 41 source.kotlin storage.type.function.arrow.kotlin
+T 46 source.kotlin
+L ): ReceiveChannel<E> =
+T 1 source.kotlin
+T 3 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+L     produce(context, capacity, BufferOverflow.SUSPEND, start, onCompletion, block)
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 82 source.kotlin
+L 
+L // Internal version of produce that is maximally flexible, but is not exposed through public API (too many params)
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 114 source.kotlin comment.line.double-slash.kotlin
+L // (scope + context1).produce(context2) == scope.produce(context1 + context2)
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 77 source.kotlin comment.line.double-slash.kotlin
+L internal fun <E> CoroutineScope.produce(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.type.class.extension.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+L     context: CoroutineContext = EmptyCoroutineContext,
+T 11 source.kotlin
+T 13 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+L     capacity: Int = 0,
+T 12 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 21 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+L     onBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND,
+T 20 source.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+L     start: CoroutineStart = CoroutineStart.DEFAULT,
+T 9 source.kotlin
+T 11 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+L     onCompletion: CompletionHandler? = null,
+T 16 source.kotlin
+T 18 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 43 source.kotlin constant.language.null.kotlin
+T 44 source.kotlin
+L     block: suspend ProducerScope<E>.() -> Unit
+T 9 source.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 39 source.kotlin
+T 41 source.kotlin storage.type.function.arrow.kotlin
+T 46 source.kotlin
+L ): ReceiveChannel<E> {
+T 1 source.kotlin
+T 3 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L     val channel = Channel<E>(capacity, onBufferOverflow)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 56 source.kotlin
+L     val newContext = newCoroutineContext(context)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L     val coroutine = ProducerCoroutine(newContext, channel)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L     if (onCompletion != null) coroutine.invokeOnCompletion(handler = onCompletion)
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.operator.comparison.kotlin
+T 24 source.kotlin
+T 28 source.kotlin constant.language.null.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 68 source.kotlin keyword.operator.assignment.kotlin
+T 82 source.kotlin
+L     coroutine.start(start, coroutine, block)
+T 13 source.kotlin
+T 14 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L     return coroutine
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private class ProducerCoroutine<E>(
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin keyword.hard.class.kotlin
+T 14 source.kotlin
+T 31 source.kotlin entity.name.type.class.kotlin
+T 32 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     parentContext: CoroutineContext, channel: Channel<E>
+T 17 source.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+L ) : ChannelCoroutine<E>(parentContext, channel, true, active = true), ProducerScope<E> {
+T 2 source.kotlin
+T 4 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 68 source.kotlin
+T 70 source.kotlin
+T 83 source.kotlin entity.name.function.call.kotlin
+T 84 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin
+T 88 source.kotlin
+L     override val isActive: Boolean
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+L         get() = super.isActive
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 21 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L 
+L     override fun onCompleted(value: Unit) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 29 source.kotlin
+T 34 source.kotlin storage.modifier.other.kotlin
+T 36 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+L         _channel.close()
+T 16 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun onCancelled(cause: Throwable, handled: Boolean) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+T 63 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+L         val processed = _channel.close(cause)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         if (!processed && !handled) handleCoroutineException(context, cause)
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.logical.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.logical.kotlin
+T 36 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 76 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 

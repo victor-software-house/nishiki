@@ -1,0 +1,4260 @@
+L package org.jetbrains.exposed.v1.core
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 37 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import org.jetbrains.exposed.v1.core.dao.id.EntityID
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 52 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import org.jetbrains.exposed.v1.core.vendors.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 45 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 46 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import java.math.BigDecimal
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 27 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator.
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @Suppress("UnnecessaryAbstractClass")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L abstract class Op<T> : Expression<T>() {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 40 source.kotlin
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         @Deprecated(
+T 8 source.kotlin
+T 19 source.kotlin entity.name.type.annotation.kotlin
+T 20 source.kotlin
+L             message = "This builder method will continue to be phased out following release 1.0.0 and should be replaced " +
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin string.quoted.double.kotlin
+T 122 source.kotlin string.quoted.double.kotlin
+T 123 source.kotlin
+T 124 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "with the contents of the lambda block pulled out of the parentheses. The `SqlExpressionBuilder` receiver " +
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 122 source.kotlin string.quoted.double.kotlin
+T 123 source.kotlin string.quoted.double.kotlin
+T 124 source.kotlin
+T 125 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "has been deprecated, as well as all expression builder methods previously restricted to the object, " +
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 117 source.kotlin string.quoted.double.kotlin
+T 118 source.kotlin string.quoted.double.kotlin
+T 119 source.kotlin
+T 120 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "in favor of equivalent top-level functions, making this scope function redundant. " +
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 99 source.kotlin string.quoted.double.kotlin
+T 100 source.kotlin string.quoted.double.kotlin
+T 101 source.kotlin
+T 102 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "It will no longer be necessary to import each individual method when used outside a scoped block, " +
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 115 source.kotlin string.quoted.double.kotlin
+T 116 source.kotlin string.quoted.double.kotlin
+T 117 source.kotlin
+T 118 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "and on demand imports will now be possible via 'import org.jetbrains.exposed.v1.core.*', if required. " +
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 119 source.kotlin string.quoted.double.kotlin
+T 120 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin
+T 122 source.kotlin keyword.operator.arithmetic.kotlin
+L                 "",
+T 16 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin
+L             replaceWith = ReplaceWith("op()"),
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+T 26 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+L             level = DeprecationLevel.ERROR
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+L         )
+T 9 source.kotlin
+L         inline fun <T> build(op: () -> Op<T>): Op<T> = op()
+T 8 source.kotlin
+T 14 source.kotlin storage.modifier.other.kotlin
+T 15 source.kotlin
+T 18 source.kotlin keyword.hard.fun.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin
+T 38 source.kotlin storage.type.function.arrow.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.comparison.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.comparison.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+L 
+L         fun <T> nullOp(): Op<T> = NULL as Op<T>
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 41 source.kotlin keyword.hard.kotlin
+T 44 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.comparison.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     internal interface OpBoolean
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 22 source.kotlin keyword.hard.class.kotlin
+T 23 source.kotlin
+T 32 source.kotlin entity.name.type.class.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Boolean operator that always evaluates to the SQL value `TRUE`.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * **Note** Some databases, like SQL Server and Oracle, do not support conditions like `WHERE 1` or `WHERE TRUE`.
+T 117 source.kotlin comment.block.javadoc.kotlin
+L      * When using these databases, this operator will instead produce the condition `1 = 1`.
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     object TRUE : Op<Boolean>(), OpBoolean {
+T 4 source.kotlin
+T 10 source.kotlin keyword.hard.object.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.object.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 33 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+L         override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 20 source.kotlin keyword.hard.fun.kotlin
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 71 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+L             when {
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+L                 currentDialect is SQLServerDialect || currentDialect is OracleDialect || currentDialect.h2Mode == H2Dialect.H2CompatibilityMode.Oracle ->
+T 31 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+T 53 source.kotlin keyword.operator.logical.kotlin
+T 69 source.kotlin
+T 71 source.kotlin keyword.hard.kotlin
+T 86 source.kotlin
+T 88 source.kotlin keyword.operator.logical.kotlin
+T 111 source.kotlin
+T 113 source.kotlin keyword.operator.comparison.kotlin
+T 151 source.kotlin
+T 153 source.kotlin storage.type.function.arrow.kotlin
+L                     (booleanLiteral(true) eq booleanLiteral(true)).toQueryBuilder(this)
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 45 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 64 source.kotlin constant.language.boolean.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 81 source.kotlin entity.name.function.call.kotlin
+T 82 source.kotlin
+T 86 source.kotlin variable.language.this.kotlin
+T 87 source.kotlin
+L 
+L                 else -> append(currentDialect.dataTypeProvider.booleanToStatementString(true))
+T 16 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin storage.type.function.arrow.kotlin
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+T 87 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+T 92 source.kotlin constant.language.boolean.kotlin
+T 94 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Boolean operator that always evaluates to the SQL value `FALSE`.
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * **Note** Some databases, like SQL Server and Oracle, do not support conditions like `WHERE 0` or `WHERE FALSE`.
+T 118 source.kotlin comment.block.javadoc.kotlin
+L      * When using these databases, this operator will instead produce the condition `1 = 0`.
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     object FALSE : Op<Boolean>(), OpBoolean {
+T 4 source.kotlin
+T 10 source.kotlin keyword.hard.object.kotlin
+T 11 source.kotlin
+T 16 source.kotlin entity.name.type.object.kotlin
+T 17 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 34 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+L         override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 20 source.kotlin keyword.hard.fun.kotlin
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 71 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+L             when {
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+L                 currentDialect is SQLServerDialect || currentDialect is OracleDialect || currentDialect.h2Mode == H2Dialect.H2CompatibilityMode.Oracle ->
+T 31 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+T 53 source.kotlin keyword.operator.logical.kotlin
+T 69 source.kotlin
+T 71 source.kotlin keyword.hard.kotlin
+T 86 source.kotlin
+T 88 source.kotlin keyword.operator.logical.kotlin
+T 111 source.kotlin
+T 113 source.kotlin keyword.operator.comparison.kotlin
+T 151 source.kotlin
+T 153 source.kotlin storage.type.function.arrow.kotlin
+L                     (booleanLiteral(true) eq booleanLiteral(false)).toQueryBuilder(this)
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 45 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 65 source.kotlin constant.language.boolean.kotlin
+T 67 source.kotlin
+T 68 source.kotlin
+T 82 source.kotlin entity.name.function.call.kotlin
+T 83 source.kotlin
+T 87 source.kotlin variable.language.this.kotlin
+T 88 source.kotlin
+L                 else -> append(currentDialect.dataTypeProvider.booleanToStatementString(false))
+T 16 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin storage.type.function.arrow.kotlin
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+T 87 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+T 93 source.kotlin constant.language.boolean.kotlin
+T 95 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     internal object NULL : Op<Any>() {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 19 source.kotlin keyword.hard.object.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.type.object.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 38 source.kotlin
+L         override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 20 source.kotlin keyword.hard.fun.kotlin
+T 21 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 71 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+L             append("NULL")
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Logical Operators
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 20 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents a logical operator that inverts the specified boolean [expr].
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NotOp<T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 11 source.kotlin entity.name.type.class.kotlin
+T 12 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L     /** Returns the expression being inverted. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 47 source.kotlin comment.block.javadoc.kotlin
+T 49 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<T>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L ) : Op<Boolean>(), Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder { append("NOT (", expr, ")") }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 89 source.kotlin entity.name.function.call.kotlin
+T 90 source.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 105 source.kotlin
+T 106 source.kotlin string.quoted.double.kotlin
+T 107 source.kotlin string.quoted.double.kotlin
+T 108 source.kotlin string.quoted.double.kotlin
+T 111 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Marker interface which indicates that expression should be wrapped with braces when used in compound operators
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L interface ComplexExpression
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 27 source.kotlin entity.name.type.class.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represent a logical operator that performs an operation between all the specified [expressions].
+T 99 source.kotlin comment.block.javadoc.kotlin
+L  * This is the base class for the `and` and `or` operators:
+T 59 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @see AndOp
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 13 source.kotlin comment.block.javadoc.kotlin
+L  * @see OrOp
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 12 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L sealed class CompoundBooleanOp(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 30 source.kotlin entity.name.type.class.kotlin
+T 31 source.kotlin
+L     private val operator: String,
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 24 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+L     internal val expressions: List<Expression<Boolean>>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         expressions.appendTo(this, separator = operator) { appendExpression(it) }
+T 19 source.kotlin
+T 20 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 33 source.kotlin variable.language.this.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 47 source.kotlin
+T 55 source.kotlin storage.modifier.other.kotlin
+T 59 source.kotlin
+T 75 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents a logical operator that performs an `and` operation between all the specified [expressions].
+T 106 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class AndOp(expressions: List<Expression<Boolean>>) : CompoundBooleanOp(" AND ", expressions)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 11 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents a logical operator that performs an `or` operation between all the specified [expressions].
+T 105 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class OrOp(expressions: List<Expression<Boolean>>) : CompoundBooleanOp(" OR ", expressions)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 10 source.kotlin entity.name.type.class.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 76 source.kotlin string.quoted.double.kotlin
+T 77 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin
+L 
+L // Comparison Operators
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 23 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents a comparison between [expr1] and [expr2] using the given SQL [opSign].
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L abstract class ComparisonOp(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 27 source.kotlin entity.name.type.class.kotlin
+T 28 source.kotlin
+L     /** Returns the left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** Returns the right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 45 source.kotlin comment.block.javadoc.kotlin
+T 47 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** Returns the symbol of the comparison operation. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 56 source.kotlin comment.block.javadoc.kotlin
+T 58 source.kotlin comment.block.javadoc.kotlin
+L     val opSign: String
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         appendComparison(expr1, expr2, opSign)
+T 8 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is equals to [expr2].
+T 74 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class EqOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, "=")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 10 source.kotlin entity.name.type.class.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is not equals to [expr2].
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NeqOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, "<>")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 11 source.kotlin entity.name.type.class.kotlin
+T 17 source.kotlin
+T 19 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 85 source.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is less than [expr2].
+T 74 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class LessOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, "<")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is less than or equal to [expr2].
+T 86 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class LessEqOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, "<=")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 88 source.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is greater than [expr2].
+T 77 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class GreaterOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, ">")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 15 source.kotlin entity.name.type.class.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 74 source.kotlin entity.name.type.kotlin
+T 89 source.kotlin
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] is greater than or equal to [expr2].
+T 89 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class GreaterEqOp(expr1: Expression<*>, expr2: Expression<*>) : ComparisonOp(expr1, expr2, ">=")
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 76 source.kotlin entity.name.type.kotlin
+T 91 source.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if the specified [expr] is between the values [from] and [to].
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class Between(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+L     /** The expression being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+T 40 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     /** Returns the lower limit of the range to check against. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 63 source.kotlin comment.block.javadoc.kotlin
+T 65 source.kotlin comment.block.javadoc.kotlin
+L     val from: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     /** Returns the upper limit of the range to check against. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 63 source.kotlin comment.block.javadoc.kotlin
+T 65 source.kotlin comment.block.javadoc.kotlin
+L     val to: Expression<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 10 source.kotlin
+T 12 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder { append(expr, " BETWEEN ", from, " AND ", to) }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 89 source.kotlin entity.name.function.call.kotlin
+T 96 source.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 106 source.kotlin string.quoted.double.kotlin
+T 107 source.kotlin string.quoted.double.kotlin
+T 115 source.kotlin
+T 116 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin string.quoted.double.kotlin
+T 122 source.kotlin string.quoted.double.kotlin
+T 129 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if the specified [expr] is null.
+T 74 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class IsNullOp(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+L     /** The expression being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+T 40 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder { append(expr, " IS NULL") }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 89 source.kotlin entity.name.function.call.kotlin
+T 96 source.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 105 source.kotlin string.quoted.double.kotlin
+T 106 source.kotlin string.quoted.double.kotlin
+T 109 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if the specified [expr] is not null.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class IsNotNullOp(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+L     /** The expression being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+T 40 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder { append(expr, " IS NOT NULL") }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 89 source.kotlin entity.name.function.call.kotlin
+T 96 source.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 109 source.kotlin string.quoted.double.kotlin
+T 110 source.kotlin string.quoted.double.kotlin
+T 113 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expression1] is equal to [expression2], with `null` treated as a comparable value.
+T 128 source.kotlin comment.block.javadoc.kotlin
+L  * This comparison never returns null.
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class IsNotDistinctFromOp(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.type.class.kotlin
+T 26 source.kotlin
+L     val expression1: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     val expression2: Expression<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder) = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 61 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+T 74 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+L         when (currentDialectIfAvailable) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+L             is MariaDBDialect, is MysqlDialect -> appendComparison(expression1, expression2, "<=>")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 47 source.kotlin
+T 49 source.kotlin storage.type.function.arrow.kotlin
+T 50 source.kotlin
+T 66 source.kotlin entity.name.function.call.kotlin
+T 93 source.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 98 source.kotlin string.quoted.double.kotlin
+T 99 source.kotlin
+L             is OracleDialect -> append("DECODE(", expression1, ", ", expression2, ", 1, 0) = 1")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin
+L             is SQLiteDialect -> appendComparison(expression1, expression2, "IS")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 76 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin
+L             else -> appendComparison(expression1, expression2, "IS NOT DISTINCT FROM")
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expression1] is not equal to [expression2], with `null` treated as a comparable value.
+T 132 source.kotlin comment.block.javadoc.kotlin
+L  * This comparison never returns null.
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class IsDistinctFromOp(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 22 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+L     val expression1: Expression<*>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     val expression2: Expression<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder) = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 61 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+T 74 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+L         when (currentDialectIfAvailable) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+L             is MariaDBDialect, is MysqlDialect -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 47 source.kotlin
+T 49 source.kotlin storage.type.function.arrow.kotlin
+T 51 source.kotlin
+L                 +"NOT("
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+L                 appendComparison(expression1, expression2, "<=>")
+T 16 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin
+L                 +")"
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L             is OracleDialect -> append("DECODE(", expression1, ", ", expression2, ", 1, 0) = 0")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin
+L             is SQLiteDialect -> appendComparison(expression1, expression2, "IS NOT")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 76 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin
+L             else -> appendComparison(expression1, expression2, "IS DISTINCT FROM")
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Mathematical Operators
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 25 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that adds [expr2] to [expr1].
+T 59 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class PlusOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.type.class.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 20 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     expr1: Expression<T>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     expr2: Expression<S>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     columnType: IColumnType<T & Any>
+T 14 source.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L ) : CustomOperator<T>("+", columnType, expr1, expr2)
+T 2 source.kotlin
+T 4 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that subtracts [expr2] from [expr1].
+T 66 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class MinusOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     expr1: Expression<T>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     expr2: Expression<S>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     columnType: IColumnType<T & Any>
+T 14 source.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L ) : CustomOperator<T>("-", columnType, expr1, expr2)
+T 2 source.kotlin
+T 4 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that multiplies [expr1] by [expr2].
+T 65 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class TimesOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     expr1: Expression<T>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     expr2: Expression<S>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     columnType: IColumnType<T & Any>
+T 14 source.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L ) : CustomOperator<T>("*", columnType, expr1, expr2)
+T 2 source.kotlin
+T 4 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that divides [expr1] by [expr2].
+T 62 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class DivideOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     private val dividend: Expression<T>,
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     private val divisor: Expression<S>,
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     columnType: IColumnType<T & Any>
+T 14 source.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L ) : CustomOperator<T>("/", columnType, dividend, divisor) {
+T 2 source.kotlin
+T 4 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         fun <T : BigDecimal?, S : T> DivideOp<T, S>.withScale(scale: Int): DivideOp<T, S> {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin
+T 45 source.kotlin entity.name.function.declaration.kotlin
+T 46 source.kotlin keyword.operator.comparison.kotlin
+T 50 source.kotlin
+T 51 source.kotlin keyword.operator.comparison.kotlin
+T 52 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 69 source.kotlin
+T 72 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 75 source.kotlin
+T 83 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 88 source.kotlin entity.name.type.kotlin
+T 90 source.kotlin
+T 91 source.kotlin
+L             val precision = (columnType as DecimalColumnType).precision + scale
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 42 source.kotlin keyword.hard.kotlin
+T 72 source.kotlin
+T 73 source.kotlin keyword.operator.arithmetic.kotlin
+T 79 source.kotlin
+L             val decimalColumnType = DecimalColumnType(precision, scale)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+L 
+L             val newExpression = (dividend as? LiteralOp<BigDecimal>)?.value?.takeIf { it.scale() == 0 }?.let {
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 44 source.kotlin keyword.hard.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.comparison.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.comparison.kotlin
+T 70 source.kotlin
+T 75 source.kotlin storage.modifier.other.kotlin
+T 77 source.kotlin
+T 83 source.kotlin entity.name.function.call.kotlin
+T 84 source.kotlin
+T 88 source.kotlin
+T 89 source.kotlin
+T 94 source.kotlin entity.name.function.call.kotlin
+T 97 source.kotlin
+T 99 source.kotlin keyword.operator.comparison.kotlin
+T 100 source.kotlin
+T 101 source.kotlin constant.numeric.decimal.kotlin
+T 103 source.kotlin
+T 105 source.kotlin
+T 108 source.kotlin entity.name.function.call.kotlin
+T 109 source.kotlin
+T 110 source.kotlin
+L                 decimalLiteral(it.setScale(1)) // it is needed to treat dividend as decimal instead of integer in SQL
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin constant.numeric.decimal.kotlin
+T 47 source.kotlin
+T 49 source.kotlin comment.line.double-slash.kotlin
+T 117 source.kotlin comment.line.double-slash.kotlin
+L             } ?: dividend
+T 25 source.kotlin
+L 
+L             return DivideOp(newExpression as Expression<T>, divisor, decimalColumnType as IColumnType<T & Any>)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 44 source.kotlin keyword.hard.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.comparison.kotlin
+T 57 source.kotlin
+T 58 source.kotlin keyword.operator.comparison.kotlin
+T 87 source.kotlin
+T 89 source.kotlin keyword.hard.kotlin
+T 101 source.kotlin
+T 102 source.kotlin keyword.operator.comparison.kotlin
+T 109 source.kotlin
+T 110 source.kotlin keyword.operator.comparison.kotlin
+T 111 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that calculates the remainder of dividing [expr1] by [expr2].
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class ModOp<T : Number?, S : Number?, R : Number?>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 11 source.kotlin entity.name.type.class.kotlin
+T 12 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+L     /** Returns the left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** Returns the right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 45 source.kotlin comment.block.javadoc.kotlin
+T 47 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<S>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     override val columnType: IColumnType<R & Any>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+L ) : ExpressionWithColumnType<R>() {
+T 2 source.kotlin
+T 4 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 35 source.kotlin
+L 
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+L         queryBuilder {
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L             when (currentDialectIfAvailable) {
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 46 source.kotlin
+L                 is OracleDialect -> append("MOD(", expr1, ", ", expr2, ")")
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 35 source.kotlin storage.type.function.arrow.kotlin
+T 36 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin
+L                 else -> append('(', expr1, " % ", expr2, ')')
+T 16 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin storage.type.function.arrow.kotlin
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.single.kotlin
+T 33 source.kotlin string.quoted.single.kotlin
+T 34 source.kotlin string.quoted.single.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+T 58 source.kotlin string.quoted.single.kotlin
+T 59 source.kotlin string.quoted.single.kotlin
+T 60 source.kotlin string.quoted.single.kotlin
+T 61 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         @Suppress("UNCHECKED_CAST")
+T 8 source.kotlin
+T 17 source.kotlin entity.name.type.annotation.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin
+L         private fun <T : Number?, K : EntityID<T>?> originalColumn(expr1: ExpressionWithColumnType<K>): Column<T> {
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 66 source.kotlin entity.name.function.declaration.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 98 source.kotlin entity.name.type.kotlin
+T 99 source.kotlin
+T 100 source.kotlin entity.name.type.kotlin
+T 101 source.kotlin
+T 102 source.kotlin
+T 104 source.kotlin
+T 110 source.kotlin entity.name.type.kotlin
+T 111 source.kotlin
+T 112 source.kotlin entity.name.type.kotlin
+T 114 source.kotlin
+T 115 source.kotlin
+L             return (expr1.columnType as EntityIDColumnType<*>).idColumn as Column<T>
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 37 source.kotlin
+T 39 source.kotlin keyword.hard.kotlin
+T 58 source.kotlin
+T 59 source.kotlin keyword.operator.comparison.kotlin
+T 60 source.kotlin keyword.operator.arithmetic.kotlin
+T 61 source.kotlin keyword.operator.comparison.kotlin
+T 72 source.kotlin
+T 74 source.kotlin keyword.hard.kotlin
+T 81 source.kotlin
+T 82 source.kotlin keyword.operator.comparison.kotlin
+T 83 source.kotlin
+T 84 source.kotlin keyword.operator.comparison.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         internal operator fun <T, S : Number, K : EntityID<T>?> invoke(
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.fun.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 70 source.kotlin entity.name.function.declaration.kotlin
+T 71 source.kotlin
+L             expr1: ExpressionWithColumnType<K>,
+T 17 source.kotlin
+T 19 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+L             expr2: Expression<S>
+T 17 source.kotlin
+T 19 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+L         ): ExpressionWithColumnType<T> where T : Number, T : Comparable<T> {
+T 9 source.kotlin
+T 11 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+L             val column = originalColumn(expr1)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L             return ModOp(column, expr2, column.columnType)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         internal operator fun <T, S : Number, K : EntityID<T>?> invoke(
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.fun.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 70 source.kotlin entity.name.function.declaration.kotlin
+T 71 source.kotlin
+L             expr1: Expression<S>,
+T 17 source.kotlin
+T 19 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L             expr2: ExpressionWithColumnType<K>
+T 17 source.kotlin
+T 19 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+L         ): ExpressionWithColumnType<T> where T : Number, T : Comparable<T> {
+T 9 source.kotlin
+T 11 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+L             val column = originalColumn(expr2)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L             return ModOp(expr1, column, column.columnType)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         internal operator fun <T, S : Number, K : EntityID<T>?> invoke(
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.fun.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 70 source.kotlin entity.name.function.declaration.kotlin
+T 71 source.kotlin
+L             expr1: ExpressionWithColumnType<K>,
+T 17 source.kotlin
+T 19 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+L             expr2: S
+T 17 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+L         ): ExpressionWithColumnType<T> where T : Number, T : Comparable<T> {
+T 9 source.kotlin
+T 11 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+L             val column = originalColumn(expr1)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L             return ModOp(column, column.wrap(expr2), column.columnType)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // https://github.com/h2database/h2database/issues/3253
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 55 source.kotlin comment.line.double-slash.kotlin
+L private fun <T> ExpressionWithColumnType<T>.castToExpressionTypeForH2BitWiseIps(e: Expression<out T>, queryBuilder: QueryBuilder) {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 40 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.comparison.kotlin
+T 44 source.kotlin
+T 79 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 93 source.kotlin entity.name.type.kotlin
+T 94 source.kotlin
+T 97 source.kotlin entity.name.type.kotlin
+T 98 source.kotlin
+T 99 source.kotlin entity.name.type.kotlin
+T 100 source.kotlin
+T 114 source.kotlin
+T 116 source.kotlin
+T 128 source.kotlin entity.name.type.kotlin
+T 131 source.kotlin
+L     when {
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+L         currentDialect.h2Mode == H2Dialect.H2CompatibilityMode.Oracle -> H2FunctionProvider.cast(e, ByteColumnType(), queryBuilder)
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 70 source.kotlin
+T 72 source.kotlin storage.type.function.arrow.kotlin
+T 91 source.kotlin
+T 92 source.kotlin
+T 96 source.kotlin entity.name.function.call.kotlin
+T 100 source.kotlin
+T 114 source.kotlin entity.name.function.call.kotlin
+T 131 source.kotlin
+L         e is Column<*> || e is LiteralOp<*> -> queryBuilder.append(e)
+T 10 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.comparison.kotlin
+T 21 source.kotlin keyword.operator.arithmetic.kotlin
+T 22 source.kotlin keyword.operator.comparison.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.logical.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin keyword.operator.arithmetic.kotlin
+T 43 source.kotlin keyword.operator.comparison.kotlin
+T 44 source.kotlin
+T 46 source.kotlin storage.type.function.arrow.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+T 66 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L         else -> currentDialect.functionProvider.cast(e, columnType, queryBuilder)
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin storage.type.function.arrow.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Bitwise Operators
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 20 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that performs a bitwise `and` on [expr1] and [expr2].
+T 83 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class AndBitOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<S>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     override val columnType: IColumnType<T & Any>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+L ) : ExpressionWithColumnType<T>() {
+T 2 source.kotlin
+T 4 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 35 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         when (currentDialectIfAvailable) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+L             is OracleDialect -> append("BITAND(", expr1, ", ", expr2, ")")
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+L             is H2Dialect -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 25 source.kotlin
+T 27 source.kotlin storage.type.function.arrow.kotlin
+T 29 source.kotlin
+L                 +"BITAND("
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr1, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +", "
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr2, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +")"
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L             else -> append('(', expr1, " & ", expr2, ')')
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.single.kotlin
+T 29 source.kotlin string.quoted.single.kotlin
+T 30 source.kotlin string.quoted.single.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+T 54 source.kotlin string.quoted.single.kotlin
+T 55 source.kotlin string.quoted.single.kotlin
+T 56 source.kotlin string.quoted.single.kotlin
+T 57 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that performs a bitwise `or` on [expr1] and [expr2].
+T 82 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class OrBitOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<S>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     override val columnType: IColumnType<T & Any>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+L ) : ExpressionWithColumnType<T>() {
+T 2 source.kotlin
+T 4 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 35 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         when (currentDialectIfAvailable) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+L             // Oracle and Redshift don't natively support bitwise OR, thus emulate it with 'and'
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 96 source.kotlin comment.line.double-slash.kotlin
+L             is OracleDialect, is RedshiftDialect ->
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.hard.kotlin
+T 49 source.kotlin
+T 51 source.kotlin storage.type.function.arrow.kotlin
+L                 append("(", expr1, "+", expr2, "-", AndBitOp(expr1, expr2, columnType), ")")
+T 16 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin
+L             is H2Dialect -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 25 source.kotlin
+T 27 source.kotlin storage.type.function.arrow.kotlin
+T 29 source.kotlin
+L                 +"BITOR("
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr1, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +", "
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr2, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +")"
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L             else -> append('(', expr1, " | ", expr2, ')')
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.single.kotlin
+T 29 source.kotlin string.quoted.single.kotlin
+T 30 source.kotlin string.quoted.single.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+T 54 source.kotlin string.quoted.single.kotlin
+T 55 source.kotlin string.quoted.single.kotlin
+T 56 source.kotlin string.quoted.single.kotlin
+T 57 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that performs a bitwise `or` on [expr1] and [expr2].
+T 82 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class XorBitOp<T, S : T>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     /** The left-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The right-hand side operand. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<S>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** The column type of this expression. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     override val columnType: IColumnType<T & Any>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+L ) : ExpressionWithColumnType<T>() {
+T 2 source.kotlin
+T 4 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 35 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         when (currentDialectIfAvailable) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+L             // These dialects don't natively support bitwise XOR, thus emulate it with 'or' and 'and'
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 101 source.kotlin comment.line.double-slash.kotlin
+L             is OracleDialect, is RedshiftDialect, is SQLiteDialect -> append(
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.hard.kotlin
+T 50 source.kotlin
+T 52 source.kotlin keyword.hard.kotlin
+T 67 source.kotlin
+T 69 source.kotlin storage.type.function.arrow.kotlin
+T 70 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+L                 "(", OrBitOp(expr1, expr2, columnType), "-", AndBitOp(expr1, expr2, columnType), ")"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin
+T 69 source.kotlin entity.name.function.call.kotlin
+T 97 source.kotlin
+T 98 source.kotlin string.quoted.double.kotlin
+T 99 source.kotlin string.quoted.double.kotlin
+T 100 source.kotlin string.quoted.double.kotlin
+L             )
+T 13 source.kotlin
+L             is PostgreSQLDialect -> append('(', expr1, " # ", expr2, ')')
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 35 source.kotlin storage.type.function.arrow.kotlin
+T 36 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.single.kotlin
+T 45 source.kotlin string.quoted.single.kotlin
+T 46 source.kotlin string.quoted.single.kotlin
+T 55 source.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin
+T 70 source.kotlin string.quoted.single.kotlin
+T 71 source.kotlin string.quoted.single.kotlin
+T 72 source.kotlin string.quoted.single.kotlin
+T 73 source.kotlin
+L             is H2Dialect -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 25 source.kotlin
+T 27 source.kotlin storage.type.function.arrow.kotlin
+T 29 source.kotlin
+L                 +"BITXOR("
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr1, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +", "
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+L                 castToExpressionTypeForH2BitWiseIps(expr2, this)
+T 16 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 63 source.kotlin variable.language.this.kotlin
+T 64 source.kotlin
+L                 +")"
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L             else -> append('(', expr1, " ^ ", expr2, ')')
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.single.kotlin
+T 29 source.kotlin string.quoted.single.kotlin
+T 30 source.kotlin string.quoted.single.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+T 54 source.kotlin string.quoted.single.kotlin
+T 55 source.kotlin string.quoted.single.kotlin
+T 56 source.kotlin string.quoted.single.kotlin
+T 57 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Pattern Matching
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 19 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] matches [expr2].
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class LikeEscapeOp(expr1: Expression<*>, expr2: Expression<*>, like: Boolean, val escapeChar: Char?) :
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 18 source.kotlin entity.name.type.class.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+T 67 source.kotlin
+T 69 source.kotlin
+T 76 source.kotlin entity.name.type.kotlin
+T 78 source.kotlin
+T 81 source.kotlin keyword.hard.kotlin
+T 82 source.kotlin
+T 92 source.kotlin
+T 94 source.kotlin
+T 98 source.kotlin entity.name.type.kotlin
+T 99 source.kotlin
+T 101 source.kotlin
+T 102 source.kotlin
+L     ComparisonOp(expr1, expr2, if (like) "LIKE" else "NOT LIKE") {
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.control.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin
+T 52 source.kotlin keyword.control.kotlin
+T 53 source.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+L         super.toQueryBuilder(queryBuilder)
+T 8 source.kotlin
+T 13 source.kotlin variable.language.this.kotlin
+T 14 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         if (escapeChar != null) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin
+T 30 source.kotlin constant.language.null.kotlin
+T 33 source.kotlin
+L             with(queryBuilder) {
+T 12 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L                 +" ESCAPE "
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+L                 +stringParam(escapeChar.toString())
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.arithmetic.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr1] matches the regular expression [expr2].
+T 92 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class RegexpOp<T : String?>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     /** Returns the expression being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+T 48 source.kotlin comment.block.javadoc.kotlin
+L     val expr1: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     /** Returns the regular expression [expr1] is checked against. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 67 source.kotlin comment.block.javadoc.kotlin
+T 69 source.kotlin comment.block.javadoc.kotlin
+L     val expr2: Expression<String>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+L     /** Returns `true` if the regular expression is case sensitive, `false` otherwise. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 87 source.kotlin comment.block.javadoc.kotlin
+T 89 source.kotlin comment.block.javadoc.kotlin
+L     val caseSensitive: Boolean
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+L         currentDialect.functionProvider.regexp(expr1, expr2, caseSensitive, queryBuilder)
+T 39 source.kotlin
+T 40 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 89 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Subquery Expressions
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 23 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [query] returns at least one row.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class Exists(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.type.class.kotlin
+T 13 source.kotlin
+L     /** Returns the query being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 41 source.kotlin comment.block.javadoc.kotlin
+T 43 source.kotlin comment.block.javadoc.kotlin
+L     val query: AbstractQuery<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+L ) : Op<Boolean>(), Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         append("EXISTS (")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+L         query.prepareSQL(this)
+T 13 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 29 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L         append(")")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [query] doesn't returns any row.
+T 77 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NotExists(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 15 source.kotlin entity.name.type.class.kotlin
+T 16 source.kotlin
+L     /** Returns the query being checked. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 41 source.kotlin comment.block.javadoc.kotlin
+T 43 source.kotlin comment.block.javadoc.kotlin
+L     val query: AbstractQuery<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+L ) : Op<Boolean>(), Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         append("NOT EXISTS (")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L         query.prepareSQL(this)
+T 13 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 29 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L         append(")")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** Represents an SQL operator that compares [expr] to any row returned from [query]. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 86 source.kotlin comment.block.javadoc.kotlin
+T 88 source.kotlin comment.block.javadoc.kotlin
+L sealed class SubQueryOp<T>(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 23 source.kotlin entity.name.type.class.kotlin
+T 24 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L     /** Returns the string representation of the operator to use in the comparison. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 84 source.kotlin comment.block.javadoc.kotlin
+T 86 source.kotlin comment.block.javadoc.kotlin
+L     val operator: String,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 18 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+L     /** Returns the expression compared to each row of the query result. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 73 source.kotlin comment.block.javadoc.kotlin
+T 75 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     /** Returns the query to check against. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 44 source.kotlin comment.block.javadoc.kotlin
+T 46 source.kotlin comment.block.javadoc.kotlin
+L     val query: AbstractQuery<*>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+L ) : Op<Boolean>(), ComplexExpression, Op.OpBoolean {
+T 2 source.kotlin
+T 4 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 82 source.kotlin
+L         append(expr, " $operator (")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin
+L         query.prepareSQL(this)
+T 13 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 29 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L         +")"
+T 8 source.kotlin
+T 9 source.kotlin keyword.operator.arithmetic.kotlin
+T 10 source.kotlin string.quoted.double.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is equals to any row returned from [query].
+T 95 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class InSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("IN", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 18 source.kotlin entity.name.type.class.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 63 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+T 70 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 82 source.kotlin entity.name.type.kotlin
+T 83 source.kotlin
+T 84 source.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 102 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is not equals to any row returned from [query].
+T 99 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NotInSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("NOT IN", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 21 source.kotlin entity.name.type.class.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 73 source.kotlin
+T 83 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 109 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is equals to single value returned from [query].
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class EqSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("=", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 18 source.kotlin entity.name.type.class.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 63 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+T 70 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 82 source.kotlin entity.name.type.kotlin
+T 83 source.kotlin
+T 84 source.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 101 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is not equals to single value returned from [query].
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NotEqSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("!=", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 21 source.kotlin entity.name.type.class.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 73 source.kotlin
+T 83 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 105 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is less than the single value returned from [query].
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class LessSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("<", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 20 source.kotlin entity.name.type.class.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 68 source.kotlin
+T 70 source.kotlin
+T 72 source.kotlin
+T 82 source.kotlin entity.name.type.kotlin
+T 83 source.kotlin
+T 84 source.kotlin entity.name.type.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 103 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is less than or equal to the single value returned from [query].
+T 116 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class LessEqSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>("<=", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 22 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 84 source.kotlin entity.name.type.kotlin
+T 85 source.kotlin
+T 86 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 88 source.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 106 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is greater than the single value returned from [query].
+T 107 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class GreaterSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>(">", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 23 source.kotlin entity.name.type.class.kotlin
+T 24 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 73 source.kotlin
+T 75 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin entity.name.type.kotlin
+T 88 source.kotlin
+T 89 source.kotlin
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 106 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that checks if [expr] is greater than or equal to the single value returned from [query].
+T 119 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class GreaterEqSubQueryOp<T>(expr: Expression<T>, query: AbstractQuery<*>) : SubQueryOp<T>(">=", expr, query)
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.type.class.kotlin
+T 26 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 75 source.kotlin
+T 77 source.kotlin
+T 87 source.kotlin entity.name.type.kotlin
+T 88 source.kotlin
+T 89 source.kotlin entity.name.type.kotlin
+T 90 source.kotlin
+T 91 source.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 109 source.kotlin
+L 
+L // Value Operators
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Represents an SQL operator that doesn't perform any operation.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L  * This is mainly used to change between column types.
+T 54 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class NoOpConversion<T, S>(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 20 source.kotlin entity.name.type.class.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L     /** Returns the expression whose type is being changed. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 60 source.kotlin comment.block.javadoc.kotlin
+T 62 source.kotlin comment.block.javadoc.kotlin
+L     val expr: Expression<T>,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     override val columnType: IColumnType<S & Any>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+L ) : ExpressionWithColumnType<S>() {
+T 2 source.kotlin
+T 4 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 35 source.kotlin
+L     override fun toQueryBuilder(queryBuilder: QueryBuilder): Unit = queryBuilder { +expr }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 84 source.kotlin keyword.operator.arithmetic.kotlin
+T 90 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** Represents a pattern used for the comparison of string expressions. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 72 source.kotlin comment.block.javadoc.kotlin
+T 74 source.kotlin comment.block.javadoc.kotlin
+L data class LikePattern(
+T 4 source.kotlin storage.modifier.other.kotlin
+T 5 source.kotlin
+T 10 source.kotlin keyword.hard.class.kotlin
+T 11 source.kotlin
+T 22 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+L     /** The string representation of a pattern to match. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 57 source.kotlin comment.block.javadoc.kotlin
+T 59 source.kotlin comment.block.javadoc.kotlin
+L     val pattern: String,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 17 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+L     /** The special character to use as the escape character. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 62 source.kotlin comment.block.javadoc.kotlin
+T 64 source.kotlin comment.block.javadoc.kotlin
+L     val escapeChar: Char? = null
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 32 source.kotlin constant.language.null.kotlin
+L ) {
+T 3 source.kotlin
+L 
+L     infix operator fun plus(rhs: LikePattern): LikePattern {
+T 4 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 22 source.kotlin keyword.hard.fun.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+L         require(escapeChar == rhs.escapeChar) { "Mixing escape chars '$escapeChar' vs. '${rhs.escapeChar} is not allowed" }
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 48 source.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 104 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 105 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 120 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin string.quoted.double.kotlin
+T 123 source.kotlin
+L         return LikePattern(pattern + rhs.pattern, rhs.escapeChar)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.arithmetic.kotlin
+T 65 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     infix operator fun plus(rhs: String): LikePattern {
+T 4 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 22 source.kotlin keyword.hard.fun.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 55 source.kotlin
+L         return LikePattern(pattern + rhs, escapeChar)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.arithmetic.kotlin
+T 53 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         /** Creates a [LikePattern] from the provided [text], with any special characters escaped using [escapeChar]. */
+T 8 source.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 118 source.kotlin comment.block.javadoc.kotlin
+T 120 source.kotlin comment.block.javadoc.kotlin
+L         fun ofLiteral(text: String, escapeChar: Char = '\\'): LikePattern {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin string.quoted.single.kotlin
+T 58 source.kotlin string.quoted.single.kotlin constant.character.escape.kotlin
+T 59 source.kotlin string.quoted.single.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 75 source.kotlin
+L             val likePatternSpecialChars = currentDialect.likePatternSpecialChars
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 80 source.kotlin
+L             val nextExpectedPatternQueue = arrayListOf<Char>()
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+L             var nextCharToEscape: Char? = null
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 46 source.kotlin constant.language.null.kotlin
+L             val escapedPattern = buildString {
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L                 text.forEach {
+T 20 source.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+L                     val shouldEscape = when (it) {
+T 20 source.kotlin
+T 23 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 43 source.kotlin keyword.control.kotlin
+T 50 source.kotlin
+L                         escapeChar -> true
+T 35 source.kotlin
+T 37 source.kotlin storage.type.function.arrow.kotlin
+T 38 source.kotlin
+T 42 source.kotlin constant.language.boolean.kotlin
+L                         in likePatternSpecialChars -> {
+T 24 source.kotlin
+T 26 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+T 53 source.kotlin storage.type.function.arrow.kotlin
+T 55 source.kotlin
+L                             likePatternSpecialChars[it]?.let { nextChar ->
+T 55 source.kotlin
+T 57 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 72 source.kotlin
+T 74 source.kotlin storage.type.function.arrow.kotlin
+L                                 nextExpectedPatternQueue.add(nextChar)
+T 56 source.kotlin
+T 57 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin
+L                                 nextCharToEscape = nextChar
+T 49 source.kotlin
+T 50 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+L                             }
+T 29 source.kotlin
+L                             true
+T 28 source.kotlin
+T 32 source.kotlin constant.language.boolean.kotlin
+L                         }
+T 25 source.kotlin
+L                         nextCharToEscape -> {
+T 41 source.kotlin
+T 43 source.kotlin storage.type.function.arrow.kotlin
+T 45 source.kotlin
+L                             nextExpectedPatternQueue.removeLast()
+T 52 source.kotlin
+T 53 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 65 source.kotlin
+L                             nextCharToEscape = nextExpectedPatternQueue.lastOrNull()
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+T 82 source.kotlin entity.name.function.call.kotlin
+T 84 source.kotlin
+L                             true
+T 28 source.kotlin
+T 32 source.kotlin constant.language.boolean.kotlin
+L                         }
+T 25 source.kotlin
+L                         else -> false
+T 24 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 32 source.kotlin
+T 37 source.kotlin constant.language.boolean.kotlin
+L                     }
+T 21 source.kotlin
+L                     if (shouldEscape) {
+T 20 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 39 source.kotlin
+L                         append(escapeChar)
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L                     }
+T 21 source.kotlin
+L                     append(it)
+T 20 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L                 }
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L             return LikePattern(escapedPattern, escapeChar)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** Appends an expression that is wrapped in parentheses (if necessary by [ComplexExpression]). */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 96 source.kotlin comment.block.javadoc.kotlin
+T 98 source.kotlin comment.block.javadoc.kotlin
+L private fun QueryBuilder.appendExpression(expr: Expression<*>) {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 24 source.kotlin entity.name.type.class.extension.kotlin
+T 25 source.kotlin
+T 41 source.kotlin entity.name.function.declaration.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+T 64 source.kotlin
+L     if (expr is ComplexExpression) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 36 source.kotlin
+L         append("(", expr, ")")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L         append(expr)
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Appends a comparison string between [expr1] and [expr2] using the given SQL [op], for when an operator class
+T 111 source.kotlin comment.block.javadoc.kotlin
+L  * cannot directly extend the [ComparisonOp] class.
+T 51 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L private fun QueryBuilder.appendComparison(expr1: Expression<*>, expr2: Expression<*>, op: String) {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 24 source.kotlin entity.name.type.class.extension.kotlin
+T 25 source.kotlin
+T 41 source.kotlin entity.name.function.declaration.kotlin
+T 47 source.kotlin
+T 49 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 81 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 88 source.kotlin
+T 90 source.kotlin
+T 96 source.kotlin entity.name.type.kotlin
+T 99 source.kotlin
+L     appendExpression(expr1)
+T 4 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L     +" $op "
+T 4 source.kotlin
+T 5 source.kotlin keyword.operator.arithmetic.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 10 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+L     appendExpression(expr2)
+T 4 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L }
+T 1 source.kotlin
+L 

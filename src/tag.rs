@@ -100,6 +100,9 @@ tags! {
     /// CSS.
     #[cfg(feature = "lang-css")]
     CSS = 0x2600,
+    /// Kotlin.
+    #[cfg(feature = "lang-kotlin")]
+    KOTLIN = 0x2a00,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

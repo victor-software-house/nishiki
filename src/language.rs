@@ -189,6 +189,8 @@ languages! {
     GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql }
     /// CSS, with the scopes of Shiki's `css` grammar.
     Css { feature: "lang-css", names: ["css"], module: css }
+    /// Kotlin, with the scopes of Shiki's `kotlin` grammar.
+    Kotlin { feature: "lang-kotlin", names: ["kotlin", "kt", "kts"], module: kotlin }
 }
 
 impl Language {

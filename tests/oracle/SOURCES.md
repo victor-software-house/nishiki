@@ -142,6 +142,17 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `css/milligram` | [`dist/milligram.css`][milligram-css] in milligram/milligram | [MIT][milligram-licence] |
 | `css/highlightjs-atom-one-dark` | [`src/styles/atom-one-dark.css`][highlightjs-atom-one-dark] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
 | `markdown/highlightjs-readme` | [`README.md`][highlightjs-readme] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
+| `kotlin/sample` | [`samples/kotlin.sample`][kotlin-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `kotlin/coroutines-state-flow` | [`StateFlow.kt`][coroutines-state-flow] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
+| `kotlin/okhttp-cookie` | [`Cookie.kt`][okhttp-cookie] in square/okhttp | [Apache-2.0][okhttp-licence] |
+| `kotlin/exposed-op` | [`Op.kt`][exposed-op] in JetBrains/Exposed | [Apache-2.0][exposed-licence] |
+| `kotlin/serialization-json` | [`Json.kt`][serialization-json] in Kotlin/kotlinx.serialization | [Apache-2.0][kotlinx-serialization-licence] |
+| `kotlin/coroutines-produce` | [`Produce.kt`][coroutines-produce] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
+| `kotlin/okhttp-request` | [`Request.kt`][okhttp-request] in square/okhttp | [Apache-2.0][okhttp-licence] |
+| `kotlin/moshi-util` | [`Util.kt`][moshi-util] in square/moshi | [Apache-2.0][moshi-licence] |
+| `kotlin/turbine-flow-test` | [`FlowTest.kt`][turbine-flow-test] in cashapp/turbine | [Apache-2.0][turbine-licence] |
+| `kotlin/ktor-logging` | [`Logging.kt`][ktor-logging] in ktorio/ktor | [Apache-2.0][ktor-licence] |
+| `kotlin/okhttp-build` | [`okhttp/build.gradle.kts`][okhttp-build] in square/okhttp | [Apache-2.0][okhttp-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -218,6 +229,11 @@ Their first scores, before any fix, were 115 of 39,696 bytes different for `libu
 `ini/sample`, `ini/pytest-tox`, `ini/kafka-server` and `ini/black-tox` are the development inputs for INI.
 `ini/django-tox`, `ini/sqlalchemy-tox`, `ini/tomcat-catalina` and `ini/kafka-consumer` are held out.
 `markdown/black-other-tools` is the development input for `ini` fences, and `markdown/poetry-faq` is held out.
+The lexer matched every input on its first run, held-out ones included.
+
+`kotlin/sample`, `kotlin/coroutines-state-flow`, `kotlin/okhttp-cookie`, `kotlin/exposed-op` and `kotlin/serialization-json` are the development inputs for Kotlin.
+`kotlin/coroutines-produce`, `kotlin/okhttp-request`, `kotlin/moshi-util`, `kotlin/turbine-flow-test`, `kotlin/ktor-logging` and `kotlin/okhttp-build` (a Gradle script, which Shiki lexes as Kotlin) are held out.
+Shiki's Markdown grammar has no rule that embeds Kotlin, so no Markdown input has a Kotlin fence.
 The lexer matched every input on its first run, held-out ones included.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
@@ -471,3 +487,21 @@ The lexer matched every input on its first run, held-out ones included.
 [github-markdown-css-licence]: https://github.com/sindresorhus/github-markdown-css/blob/7f38dcb9054bc5d860fac65291f5c98fef47932c/license
 [milligram-css]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/dist/milligram.css
 [milligram-licence]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/license
+[kotlin-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/kotlin.sample
+[coroutines-state-flow]: https://github.com/Kotlin/kotlinx.coroutines/blob/7e0d1b3e9ca83652427ae00dda7d1673f058a743/kotlinx-coroutines-core/common/src/flow/StateFlow.kt
+[coroutines-produce]: https://github.com/Kotlin/kotlinx.coroutines/blob/7e0d1b3e9ca83652427ae00dda7d1673f058a743/kotlinx-coroutines-core/common/src/channels/Produce.kt
+[coroutines-licence]: https://github.com/Kotlin/kotlinx.coroutines/blob/7e0d1b3e9ca83652427ae00dda7d1673f058a743/LICENSE.txt
+[okhttp-cookie]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Cookie.kt
+[okhttp-request]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Request.kt
+[okhttp-build]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/build.gradle.kts
+[okhttp-licence]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/LICENSE.txt
+[exposed-op]: https://github.com/JetBrains/Exposed/blob/2bdb13cd7b4b511b07de3dde109878b6f8b06d48/exposed-core/src/main/kotlin/org/jetbrains/exposed/v1/core/Op.kt
+[exposed-licence]: https://github.com/JetBrains/Exposed/blob/2bdb13cd7b4b511b07de3dde109878b6f8b06d48/LICENSE.txt
+[serialization-json]: https://github.com/Kotlin/kotlinx.serialization/blob/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22/formats/json/commonMain/src/kotlinx/serialization/json/Json.kt
+[kotlinx-serialization-licence]: https://github.com/Kotlin/kotlinx.serialization/blob/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22/LICENSE.txt
+[moshi-util]: https://github.com/square/moshi/blob/889013ec2edb8d8034902662a1dc8c4f3b3f8111/moshi/src/main/java/com/squareup/moshi/internal/Util.kt
+[moshi-licence]: https://github.com/square/moshi/blob/889013ec2edb8d8034902662a1dc8c4f3b3f8111/LICENSE.txt
+[turbine-flow-test]: https://github.com/cashapp/turbine/blob/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt
+[turbine-licence]: https://github.com/cashapp/turbine/blob/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0/LICENSE.txt
+[ktor-logging]: https://github.com/ktorio/ktor/blob/b7809b1eb47ec68cbb9c78a52a23880caca710cd/ktor-client/ktor-client-plugins/ktor-client-logging/common/src/io/ktor/client/plugins/logging/Logging.kt
+[ktor-licence]: https://github.com/ktorio/ktor/blob/b7809b1eb47ec68cbb9c78a52a23880caca710cd/LICENSE

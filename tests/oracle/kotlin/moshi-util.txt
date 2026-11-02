@@ -1,0 +1,4374 @@
+L /*
+T 2 source.kotlin comment.block.kotlin
+L  * Copyright (C) 2014 Square, Inc.
+T 34 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Licensed under the Apache License, Version 2.0 (the "License");
+T 66 source.kotlin comment.block.kotlin
+L  * you may not use this file except in compliance with the License.
+T 67 source.kotlin comment.block.kotlin
+L  * You may obtain a copy of the License at
+T 42 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  *    https://www.apache.org/licenses/LICENSE-2.0
+T 49 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Unless required by applicable law or agreed to in writing, software
+T 70 source.kotlin comment.block.kotlin
+L  * distributed under the License is distributed on an "AS IS" BASIS,
+T 68 source.kotlin comment.block.kotlin
+L  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 75 source.kotlin comment.block.kotlin
+L  * See the License for the specific language governing permissions and
+T 70 source.kotlin comment.block.kotlin
+L  * limitations under the License.
+T 33 source.kotlin comment.block.kotlin
+L  */
+T 1 source.kotlin comment.block.kotlin
+T 3 source.kotlin comment.block.kotlin
+L @file:JvmName("Util")
+T 5 source.kotlin entity.name.type.annotation-site.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 15 source.kotlin
+T 19 source.kotlin entity.name.type.annotation.kotlin
+T 21 source.kotlin
+L @file:Suppress("unused", "MemberVisibilityCanBePrivate")
+T 5 source.kotlin entity.name.type.annotation-site.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.annotation.kotlin
+T 26 source.kotlin
+T 54 source.kotlin entity.name.type.annotation.kotlin
+T 56 source.kotlin
+L 
+L package com.squareup.moshi.internal
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 35 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import com.squareup.moshi.Json
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.JsonAdapter
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.JsonClass
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.JsonDataException
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.JsonQualifier
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 39 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.JsonReader
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.Moshi
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.Types
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.Types.getRawType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.asArrayType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import com.squareup.moshi.rawType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.AnnotatedElement
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.Constructor
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.GenericArrayType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.InvocationTargetException
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 50 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.ParameterizedType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.Proxy
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.Type
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.TypeVariable
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.lang.reflect.WildcardType
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.util.Collections
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import java.util.Properties
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 27 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.contracts.contract
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L @JvmField internal val NO_ANNOTATIONS: Set<Annotation> = emptySet()
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 23 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.assignment.kotlin
+T 57 source.kotlin
+T 65 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+L 
+L @JvmField internal val EMPTY_TYPE_ARRAY: Array<Type> = arrayOf()
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 23 source.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L 
+L @Suppress("UNCHECKED_CAST")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin
+L private val METADATA: Class<out Annotation>? =
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+L   try {
+T 2 source.kotlin
+T 5 source.kotlin keyword.control.kotlin
+T 7 source.kotlin
+L     Class.forName(kotlinMetadataClassName) as Class<out Annotation>
+T 9 source.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+T 52 source.kotlin keyword.operator.comparison.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.comparison.kotlin
+L   } catch (_: ClassNotFoundException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+L     null
+T 4 source.kotlin
+T 8 source.kotlin constant.language.null.kotlin
+L   }
+T 3 source.kotlin
+L 
+L // We look up the constructor marker separately because Metadata might be (justifiably)
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 87 source.kotlin comment.line.double-slash.kotlin
+L // stripped by R8/Proguard but the DefaultConstructorMarker is still present.
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 77 source.kotlin comment.line.double-slash.kotlin
+L @JvmField
+T 9 source.kotlin entity.name.type.annotation.kotlin
+L public val DEFAULT_CONSTRUCTOR_MARKER: Class<*>? =
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 11 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 50 source.kotlin keyword.operator.assignment.kotlin
+L   try {
+T 2 source.kotlin
+T 5 source.kotlin keyword.control.kotlin
+T 7 source.kotlin
+L     Class.forName("kotlin.jvm.internal.DefaultConstructorMarker")
+T 9 source.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin
+L   } catch (_: ClassNotFoundException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+L     null
+T 4 source.kotlin
+T 8 source.kotlin constant.language.null.kotlin
+L   }
+T 3 source.kotlin
+L 
+L /** A map from primitive types to their corresponding wrapper types. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 69 source.kotlin comment.block.javadoc.kotlin
+T 71 source.kotlin comment.block.javadoc.kotlin
+L private val PRIMITIVE_TO_WRAPPER_TYPE: Map<Class<*>, Class<*>> =
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin keyword.operator.assignment.kotlin
+L   buildMap(16) {
+T 2 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 13 source.kotlin constant.numeric.decimal.kotlin
+T 16 source.kotlin
+L     put(knownNotNull(Boolean::class.javaPrimitiveType), Boolean::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 35 source.kotlin entity.name.function.reference.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 70 source.kotlin entity.name.function.reference.kotlin
+T 76 source.kotlin
+L     put(knownNotNull(Byte::class.javaPrimitiveType), Byte::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.reference.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 64 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+L     put(knownNotNull(Char::class.javaPrimitiveType), Char::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.reference.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 64 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+L     put(knownNotNull(Double::class.javaPrimitiveType), Double::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 34 source.kotlin entity.name.function.reference.kotlin
+T 61 source.kotlin
+T 63 source.kotlin
+T 68 source.kotlin entity.name.function.reference.kotlin
+T 74 source.kotlin
+L     put(knownNotNull(Float::class.javaPrimitiveType), Float::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 33 source.kotlin entity.name.function.reference.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 66 source.kotlin entity.name.function.reference.kotlin
+T 72 source.kotlin
+L     put(knownNotNull(Int::class.javaPrimitiveType), Int::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 31 source.kotlin entity.name.function.reference.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 62 source.kotlin entity.name.function.reference.kotlin
+T 68 source.kotlin
+L     put(knownNotNull(Long::class.javaPrimitiveType), Long::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.reference.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 64 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+L     put(knownNotNull(Short::class.javaPrimitiveType), Short::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 33 source.kotlin entity.name.function.reference.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 66 source.kotlin entity.name.function.reference.kotlin
+T 72 source.kotlin
+L     put(Void.TYPE, Void::class.java)
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 30 source.kotlin entity.name.function.reference.kotlin
+T 36 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L // Extracted as a method with a keep rule to prevent R8 from keeping Kotlin Metadata
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 84 source.kotlin comment.line.double-slash.kotlin
+L private val kotlinMetadataClassName: String
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+L   get() = "kotlin.Metadata"
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 9 source.kotlin keyword.operator.assignment.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+L 
+L public fun AnnotatedElement.jsonName(declaredName: String): String {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 27 source.kotlin entity.name.type.class.extension.kotlin
+T 28 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 68 source.kotlin
+L   return getAnnotation(Json::class.java).jsonName(declaredName)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 34 source.kotlin entity.name.function.reference.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun Json?.jsonName(declaredName: String): String {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.function.declaration.kotlin
+T 19 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 59 source.kotlin
+L   if (this == null) return declaredName
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 11 source.kotlin
+T 13 source.kotlin keyword.operator.comparison.kotlin
+T 14 source.kotlin
+T 18 source.kotlin constant.language.null.kotlin
+T 20 source.kotlin
+T 26 source.kotlin keyword.control.kotlin
+T 39 source.kotlin
+L   val annotationName: String = name
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   return if (Json.UNSET_NAME == annotationName) declaredName else annotationName
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.comparison.kotlin
+T 61 source.kotlin
+T 65 source.kotlin keyword.control.kotlin
+T 80 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal val AnnotatedElement.jsonAnnotations: Set<Annotation>
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 13 source.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+L   get() = annotations.jsonAnnotations
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 9 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+L 
+L public val Array<Annotation>.jsonAnnotations: Set<Annotation>
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 11 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+L   get() {
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+L     var result: MutableSet<Annotation>? = null
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 46 source.kotlin constant.language.null.kotlin
+L     for (annotation in this) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 23 source.kotlin
+T 27 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L       @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+T 6 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin
+L       if (
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+L         (annotation as java.lang.annotation.Annotation)
+T 9 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 43 source.kotlin storage.modifier.other.kotlin
+T 55 source.kotlin
+L           .annotationType()
+T 10 source.kotlin
+T 11 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L           .isAnnotationPresent(JsonQualifier::class.java)
+T 10 source.kotlin
+T 11 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 51 source.kotlin entity.name.function.reference.kotlin
+T 57 source.kotlin
+L       ) {
+T 9 source.kotlin
+L         if (result == null) result = LinkedHashSet()
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin
+T 26 source.kotlin constant.language.null.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L         result.add(annotation)
+T 14 source.kotlin
+T 15 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 30 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L     return if (result != null) Collections.unmodifiableSet(result) else NO_ANNOTATIONS
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 29 source.kotlin constant.language.null.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 71 source.kotlin keyword.control.kotlin
+T 86 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L internal fun Set<Annotation>.isAnnotationPresent(annotationClass: Class<out Annotation>): Boolean {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 66 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 75 source.kotlin entity.name.type.kotlin
+T 76 source.kotlin
+T 86 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 88 source.kotlin
+T 90 source.kotlin
+T 97 source.kotlin entity.name.type.kotlin
+T 98 source.kotlin
+T 99 source.kotlin
+L   if (isEmpty()) return false // Save an iterator in the common case.
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 23 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 29 source.kotlin constant.language.boolean.kotlin
+T 30 source.kotlin
+T 32 source.kotlin comment.line.double-slash.kotlin
+T 69 source.kotlin comment.line.double-slash.kotlin
+L   for (annotation in this) {
+T 2 source.kotlin
+T 5 source.kotlin keyword.control.kotlin
+T 7 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 21 source.kotlin
+T 25 source.kotlin variable.language.this.kotlin
+T 28 source.kotlin
+L     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+T 4 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin
+L     if ((annotation as java.lang.annotation.Annotation).annotationType() == annotationClass) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 43 source.kotlin storage.modifier.other.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 70 source.kotlin entity.name.function.call.kotlin
+T 73 source.kotlin
+T 75 source.kotlin keyword.operator.comparison.kotlin
+T 94 source.kotlin
+L       return true
+T 6 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 17 source.kotlin constant.language.boolean.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L   return false
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 14 source.kotlin constant.language.boolean.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** Returns true if `annotations` has any annotation whose simple name is Nullable. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 84 source.kotlin comment.block.javadoc.kotlin
+T 86 source.kotlin comment.block.javadoc.kotlin
+L internal val Array<Annotation>.hasNullable: Boolean
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 13 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+L   get() {
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+L     for (annotation in this) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 23 source.kotlin
+T 27 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+L       @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+T 6 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin
+L       if (
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+L         (annotation as java.lang.annotation.Annotation).annotationType().simpleName == "Nullable"
+T 9 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 43 source.kotlin storage.modifier.other.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 70 source.kotlin entity.name.function.call.kotlin
+T 84 source.kotlin
+T 86 source.kotlin keyword.operator.comparison.kotlin
+T 87 source.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+L       ) {
+T 9 source.kotlin
+L         return true
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.boolean.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L     return false
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 16 source.kotlin constant.language.boolean.kotlin
+L   }
+T 3 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns true if `rawType` is built in. We don't reflect on private fields of platform types
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  * because they're unspecified and likely to be different on Java vs. Android.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public val Class<*>.isPlatformType: Boolean
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 11 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 18 source.kotlin keyword.operator.arithmetic.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+L   get() {
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+L     val name = name
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+L     return (name.startsWith("android.") ||
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+T 42 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("androidx.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("java.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("javax.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+L       // L8 desugared APIs
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 26 source.kotlin comment.line.double-slash.kotlin
+L       name.startsWith("j$.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("kotlin.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin
+T 35 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("kotlinx.") ||
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.logical.kotlin
+L       name.startsWith("scala."))
+T 10 source.kotlin
+T 11 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L /** Throws the cause of `e`, wrapping it if it is checked. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 59 source.kotlin comment.block.javadoc.kotlin
+T 61 source.kotlin comment.block.javadoc.kotlin
+L internal fun InvocationTargetException.rethrowCause(): RuntimeException {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 38 source.kotlin entity.name.type.class.extension.kotlin
+T 39 source.kotlin
+T 51 source.kotlin entity.name.function.declaration.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin
+L   val cause = targetException
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+L   if (cause is RuntimeException) throw cause
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 38 source.kotlin keyword.control.kotlin
+T 44 source.kotlin
+L   if (cause is Error) throw cause
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 22 source.kotlin
+T 27 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+L   throw RuntimeException(cause)
+T 2 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns a type that is functionally equal but not necessarily equal according to
+T 83 source.kotlin comment.block.javadoc.kotlin
+L  * [[Object.equals()]][Object.equals].
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun Type.canonicalize(): Type {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.extension.kotlin
+T 18 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+L   return when (this) {
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin variable.language.this.kotlin
+T 22 source.kotlin
+L     is Class<*> -> {
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.comparison.kotlin
+T 14 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin keyword.operator.comparison.kotlin
+T 16 source.kotlin
+T 18 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+L       if (isArray) GenericArrayTypeImpl(componentType.canonicalize()) else this
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+T 66 source.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin
+T 74 source.kotlin keyword.control.kotlin
+T 75 source.kotlin
+T 79 source.kotlin variable.language.this.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     is ParameterizedType -> {
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 25 source.kotlin
+T 27 source.kotlin storage.type.function.arrow.kotlin
+T 29 source.kotlin
+L       if (this is ParameterizedTypeImpl) return this
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 14 source.kotlin variable.language.this.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 41 source.kotlin
+T 47 source.kotlin keyword.control.kotlin
+T 48 source.kotlin
+T 52 source.kotlin variable.language.this.kotlin
+L       ParameterizedTypeImpl(ownerType, rawType, actualTypeArguments)
+T 6 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     is GenericArrayType -> {
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 26 source.kotlin storage.type.function.arrow.kotlin
+T 28 source.kotlin
+L       if (this is GenericArrayTypeImpl) return this
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 14 source.kotlin variable.language.this.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 46 source.kotlin keyword.control.kotlin
+T 47 source.kotlin
+T 51 source.kotlin variable.language.this.kotlin
+L       GenericArrayTypeImpl(genericComponentType)
+T 6 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     is WildcardType -> {
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 22 source.kotlin storage.type.function.arrow.kotlin
+T 24 source.kotlin
+L       if (this is WildcardTypeImpl) return this
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 14 source.kotlin variable.language.this.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 36 source.kotlin
+T 42 source.kotlin keyword.control.kotlin
+T 43 source.kotlin
+T 47 source.kotlin variable.language.this.kotlin
+L       WildcardTypeImpl(upperBounds, lowerBounds)
+T 6 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     else -> this // This type is unsupported!
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 11 source.kotlin storage.type.function.arrow.kotlin
+T 12 source.kotlin
+T 16 source.kotlin variable.language.this.kotlin
+T 17 source.kotlin
+T 19 source.kotlin comment.line.double-slash.kotlin
+T 45 source.kotlin comment.line.double-slash.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** If type is a "? extends X" wildcard, returns X; otherwise returns type unchanged. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 86 source.kotlin comment.block.javadoc.kotlin
+T 88 source.kotlin comment.block.javadoc.kotlin
+L internal fun Type.removeSubtypeWildcard(): Type {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.extension.kotlin
+T 18 source.kotlin
+T 39 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+L   if (this !is WildcardType) return this
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 11 source.kotlin
+T 12 source.kotlin keyword.operator.logical.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 29 source.kotlin
+T 35 source.kotlin keyword.control.kotlin
+T 36 source.kotlin
+T 40 source.kotlin variable.language.this.kotlin
+L   val lowerBounds = lowerBounds
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+L   if (lowerBounds.isNotEmpty()) return this
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 38 source.kotlin keyword.control.kotlin
+T 39 source.kotlin
+T 43 source.kotlin variable.language.this.kotlin
+L   val upperBounds = upperBounds
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+L   require(upperBounds.size == 1)
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+T 31 source.kotlin constant.numeric.decimal.kotlin
+T 32 source.kotlin
+L   return upperBounds[0]
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 23 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L public fun Type.resolve(context: Type, contextRawType: Class<*>): Type {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.class.extension.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 66 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+L   return this.resolve(context, contextRawType, LinkedHashSet())
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 13 source.kotlin variable.language.this.kotlin
+T 14 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private fun Type.resolve(
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 16 source.kotlin entity.name.type.class.extension.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+L   context: Type,
+T 9 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+L   contextRawType: Class<*>,
+T 16 source.kotlin
+T 18 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L   visitedTypeVariables: MutableCollection<TypeVariable<*>>,
+T 22 source.kotlin
+T 24 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 59 source.kotlin
+L ): Type {
+T 1 source.kotlin
+T 3 source.kotlin
+T 7 source.kotlin entity.name.type.kotlin
+T 8 source.kotlin
+T 9 source.kotlin
+L   // This implementation is made a little more complicated in an attempt to avoid object-creation.
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 98 source.kotlin comment.line.double-slash.kotlin
+L   var toResolve = this
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 22 source.kotlin variable.language.this.kotlin
+L   while (true) {
+T 2 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 13 source.kotlin constant.language.boolean.kotlin
+T 16 source.kotlin
+L     when {
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+L       toResolve is TypeVariable<*> -> {
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin keyword.operator.arithmetic.kotlin
+T 34 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+T 37 source.kotlin storage.type.function.arrow.kotlin
+T 39 source.kotlin
+L         val typeVariable = toResolve
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+L         if (typeVariable in visitedTypeVariables) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+L           // cannot reduce due to infinite recursion
+T 10 source.kotlin
+T 12 source.kotlin comment.line.double-slash.kotlin
+T 52 source.kotlin comment.line.double-slash.kotlin
+L           return toResolve
+T 10 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+L         } else {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L           visitedTypeVariables += typeVariable
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.arithmetic.kotlin
+T 46 source.kotlin
+L         }
+T 9 source.kotlin
+L         toResolve = resolveTypeVariable(context, contextRawType, typeVariable)
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+L         if (toResolve === typeVariable) return toResolve
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 46 source.kotlin keyword.control.kotlin
+T 56 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       toResolve is Class<*> && toResolve.isArray -> {
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin keyword.operator.arithmetic.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.logical.kotlin
+T 49 source.kotlin
+T 51 source.kotlin storage.type.function.arrow.kotlin
+T 53 source.kotlin
+L         val original = toResolve
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+L         val componentType: Type = original.componentType
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 56 source.kotlin
+L         val newComponentType = componentType.resolve(context, contextRawType, visitedTypeVariables)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L         return if (componentType === newComponentType) original else newComponentType.asArrayType()
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 64 source.kotlin
+T 68 source.kotlin keyword.control.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+T 97 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       toResolve is GenericArrayType -> {
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 36 source.kotlin
+T 38 source.kotlin storage.type.function.arrow.kotlin
+T 40 source.kotlin
+L         val original = toResolve
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+L         val componentType = original.genericComponentType
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 57 source.kotlin
+L         val newComponentType = componentType.resolve(context, contextRawType, visitedTypeVariables)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L         return if (componentType === newComponentType) original else newComponentType.asArrayType()
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 64 source.kotlin
+T 68 source.kotlin keyword.control.kotlin
+T 85 source.kotlin
+T 86 source.kotlin
+T 97 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       toResolve is ParameterizedType -> {
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+T 39 source.kotlin storage.type.function.arrow.kotlin
+T 41 source.kotlin
+L         val original = toResolve
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+L         val ownerType: Type? = original.ownerType
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+L         val newOwnerType = ownerType?.let {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+L           ownerType.resolve(context, contextRawType, visitedTypeVariables)
+T 19 source.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin
+L         }
+T 9 source.kotlin
+L         var changed = newOwnerType !== ownerType
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 48 source.kotlin
+L         var args = original.actualTypeArguments
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 47 source.kotlin
+L         for (t in args.indices) {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+L           val resolvedTypeArgument = args[t].resolve(context, contextRawType, visitedTypeVariables)
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L           if (resolvedTypeArgument !== args[t]) {
+T 10 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 35 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 49 source.kotlin
+L             if (!changed) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.logical.kotlin
+T 27 source.kotlin
+L               args = args.clone()
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L               changed = true
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 28 source.kotlin constant.language.boolean.kotlin
+L             }
+T 13 source.kotlin
+L             args[t] = resolvedTypeArgument
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+L           }
+T 11 source.kotlin
+L         }
+T 9 source.kotlin
+L         return if (changed) {
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+L           ParameterizedTypeImpl(newOwnerType, original.rawType, args)
+T 10 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L         } else {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L           original
+T 18 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       toResolve is WildcardType -> {
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 32 source.kotlin
+T 34 source.kotlin storage.type.function.arrow.kotlin
+T 36 source.kotlin
+L         val original = toResolve
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+L         val originalLowerBound = original.lowerBounds
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 53 source.kotlin
+L         val originalUpperBound = original.upperBounds
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 53 source.kotlin
+L         if (originalLowerBound.size == 1) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 36 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin
+T 40 source.kotlin constant.numeric.decimal.kotlin
+T 43 source.kotlin
+L           val lowerBound =
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+L             originalLowerBound[0].resolve(context, contextRawType, visitedTypeVariables)
+T 31 source.kotlin
+T 32 source.kotlin constant.numeric.decimal.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+L           if (lowerBound !== originalLowerBound[0]) {
+T 10 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 48 source.kotlin
+T 49 source.kotlin constant.numeric.decimal.kotlin
+T 53 source.kotlin
+L             return Types.supertypeOf(lowerBound)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L           }
+T 11 source.kotlin
+L         } else if (originalUpperBound.size == 1) {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 46 source.kotlin
+T 47 source.kotlin constant.numeric.decimal.kotlin
+T 50 source.kotlin
+L           val upperBound =
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+L             originalUpperBound[0].resolve(context, contextRawType, visitedTypeVariables)
+T 31 source.kotlin
+T 32 source.kotlin constant.numeric.decimal.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+L           if (upperBound !== originalUpperBound[0]) {
+T 10 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 48 source.kotlin
+T 49 source.kotlin constant.numeric.decimal.kotlin
+T 53 source.kotlin
+L             return Types.subtypeOf(upperBound)
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L           }
+T 11 source.kotlin
+L         }
+T 9 source.kotlin
+L         return original
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       else -> return toResolve
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin storage.type.function.arrow.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun resolveTypeVariable(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+L   context: Type,
+T 9 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+L   contextRawType: Class<*>,
+T 16 source.kotlin
+T 18 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L   unknown: TypeVariable<*>,
+T 9 source.kotlin
+T 11 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L ): Type {
+T 1 source.kotlin
+T 3 source.kotlin
+T 7 source.kotlin entity.name.type.kotlin
+T 8 source.kotlin
+T 9 source.kotlin
+L   val declaredByRaw = declaringClassOf(unknown) ?: return unknown
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 57 source.kotlin keyword.control.kotlin
+T 65 source.kotlin
+L 
+L   // We can't reduce this further.
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 34 source.kotlin comment.line.double-slash.kotlin
+L   val declaredBy = getGenericSupertype(context, contextRawType, declaredByRaw)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+L   if (declaredBy is ParameterizedType) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+L     val index = declaredByRaw.typeParameters.indexOf(unknown)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+L     return declaredBy.actualTypeArguments[index]
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 48 source.kotlin
+L   }
+T 3 source.kotlin
+L   return unknown
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns the generic supertype for `supertype`. For example, given a class `IntegerSet`, the
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  * result for when supertype is `Set.class` is `Set<Integer>` and the result when the supertype is
+T 98 source.kotlin comment.block.javadoc.kotlin
+L  * `Collection.class` is `Collection<Integer>`.
+T 47 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun getGenericSupertype(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+L   context: Type,
+T 9 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+L   rawTypeInitial: Class<*>,
+T 16 source.kotlin
+T 18 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+L   toResolve: Class<*>,
+T 11 source.kotlin
+T 13 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L ): Type {
+T 1 source.kotlin
+T 3 source.kotlin
+T 7 source.kotlin entity.name.type.kotlin
+T 8 source.kotlin
+T 9 source.kotlin
+L   var rawType = rawTypeInitial
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+L   if (toResolve == rawType) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 18 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin
+L     return context
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   // we skip searching through interfaces if unknown is an interface
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 68 source.kotlin comment.line.double-slash.kotlin
+L   if (toResolve.isInterface) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+L     val interfaces = rawType.interfaces
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L     for (i in interfaces.indices) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 35 source.kotlin
+L       if (interfaces[i] == toResolve) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin
+L         return rawType.genericInterfaces[i]
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 43 source.kotlin
+L       } else if (toResolve.isAssignableFrom(interfaces[i])) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+L         return getGenericSupertype(rawType.genericInterfaces[i], interfaces[i], toResolve)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 90 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   // check our supertypes
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 25 source.kotlin comment.line.double-slash.kotlin
+L   if (!rawType.isInterface) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.logical.kotlin
+T 29 source.kotlin
+L     while (rawType != Any::class.java) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.reference.kotlin
+T 40 source.kotlin
+L       val rawSupertype = rawType.superclass
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+L       if (rawSupertype == toResolve) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 38 source.kotlin
+L         return rawType.genericSuperclass
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 40 source.kotlin
+L       } else if (toResolve.isAssignableFrom(rawSupertype)) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L         return getGenericSupertype(rawType.genericSuperclass, rawSupertype, toResolve)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 86 source.kotlin
+L       }
+T 7 source.kotlin
+L       rawType = rawSupertype
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   // we can't resolve this further
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 34 source.kotlin comment.line.double-slash.kotlin
+L   return toResolve
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal val Any?.hashCodeOrZero: Int
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 13 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+L   get() {
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+L     return this?.hashCode() ?: 0
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin variable.language.this.kotlin
+T 17 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin constant.numeric.decimal.kotlin
+L   }
+T 3 source.kotlin
+L 
+L internal fun Type.typeToString(): String {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.extension.kotlin
+T 18 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+L   return if (this is Class<*>) name else toString()
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 17 source.kotlin variable.language.this.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin keyword.operator.arithmetic.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 36 source.kotlin
+T 40 source.kotlin keyword.control.kotlin
+T 41 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /** Returns the declaring class of `typeVariable`, or `null` if it was not declared by a class. */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 96 source.kotlin comment.block.javadoc.kotlin
+T 98 source.kotlin comment.block.javadoc.kotlin
+L internal fun declaringClassOf(typeVariable: TypeVariable<*>): Class<*>? {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin
+L   val genericDeclaration = typeVariable.genericDeclaration
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 58 source.kotlin
+L   return genericDeclaration as? Class<*>
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin keyword.operator.arithmetic.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun Type.checkNotPrimitive() {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.extension.kotlin
+T 18 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+L   require(this !is Class<*> || !isPrimitive) { "Unexpected primitive $this. Use the boxed type." }
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 10 source.kotlin
+T 14 source.kotlin variable.language.this.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.logical.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin keyword.operator.arithmetic.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.logical.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.logical.kotlin
+T 47 source.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 98 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun Type.toStringWithAnnotations(annotations: Set<Annotation>): String {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.extension.kotlin
+T 18 source.kotlin
+T 41 source.kotlin entity.name.function.declaration.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 71 source.kotlin
+T 73 source.kotlin
+T 79 source.kotlin entity.name.type.kotlin
+T 80 source.kotlin
+T 81 source.kotlin
+L   return when {
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+L     annotations.isEmpty() -> "$this (with no annotations)"
+T 15 source.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 28 source.kotlin storage.type.function.arrow.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+L     else -> "$this annotated $annotations"
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 11 source.kotlin storage.type.function.arrow.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns the element type of `type` if it is an array type, or null if it is not an array type.
+T 97 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun arrayComponentType(type: Type): Type? {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L   return when (type) {
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+L     is GenericArrayType -> type.genericComponentType
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 26 source.kotlin storage.type.function.arrow.kotlin
+T 52 source.kotlin
+L     is Class<*> -> type.componentType
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.comparison.kotlin
+T 14 source.kotlin keyword.operator.arithmetic.kotlin
+T 15 source.kotlin keyword.operator.comparison.kotlin
+T 16 source.kotlin
+T 18 source.kotlin storage.type.function.arrow.kotlin
+T 37 source.kotlin
+L     else -> null
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 11 source.kotlin storage.type.function.arrow.kotlin
+T 12 source.kotlin
+T 16 source.kotlin constant.language.null.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun getGenericSuperclass(type: Type): Type {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+L   val rawType = getRawType(type)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L   return rawType.genericSuperclass.resolve(type, rawType)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns a two element array containing this map's key and value types in positions 0 and 1
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * respectively.
+T 16 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun mapKeyAndValueTypes(context: Type, contextRawType: Class<*>): Array<Type> {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin
+T 75 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 88 source.kotlin
+L   // Work around a problem with the declaration of java.util.Properties. That class should extend
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 97 source.kotlin comment.line.double-slash.kotlin
+L   // Hashtable<String, String>, but it's declared to extend Hashtable<Object, Object>.
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 86 source.kotlin comment.line.double-slash.kotlin
+L   if (context === Properties::class.java) return arrayOf(String::class.java, String::class.java)
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 35 source.kotlin entity.name.function.reference.kotlin
+T 42 source.kotlin
+T 48 source.kotlin keyword.control.kotlin
+T 49 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 70 source.kotlin entity.name.function.reference.kotlin
+T 83 source.kotlin
+T 85 source.kotlin
+T 90 source.kotlin entity.name.function.reference.kotlin
+T 96 source.kotlin
+L   val mapType = getSupertype(context, contextRawType, MutableMap::class.java)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 66 source.kotlin
+T 71 source.kotlin entity.name.function.reference.kotlin
+T 77 source.kotlin
+L   if (mapType is ParameterizedType) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+L     return mapType.actualTypeArguments
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 38 source.kotlin
+L   }
+T 3 source.kotlin
+L   return arrayOf(Any::class.java, Any::class.java)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 27 source.kotlin entity.name.function.reference.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.function.reference.kotlin
+T 50 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Returns the generic form of `supertype`. For example, if this is `ArrayList<String>`, this
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * returns `Iterable<String>` given the input `Iterable.class`.
+T 63 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @param supertype a superclass of, or interface implemented by, this.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 9 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin
+T 19 source.kotlin comment.block.javadoc.kotlin variable.parameter.kotlin
+T 71 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun getSupertype(context: Type, contextRawType: Class<*>, supertype: Class<*>): Type {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+T 76 source.kotlin
+T 78 source.kotlin
+T 83 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 87 source.kotlin
+T 89 source.kotlin
+T 93 source.kotlin entity.name.type.kotlin
+T 94 source.kotlin
+T 95 source.kotlin
+L   require(supertype.isAssignableFrom(contextRawType))
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L   return getGenericSupertype(context, contextRawType, supertype).resolve(context, contextRawType)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 65 source.kotlin
+T 72 source.kotlin entity.name.function.call.kotlin
+T 97 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun <T : Annotation?> createJsonQualifierImplementation(annotationType: Class<T>): T {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 64 source.kotlin entity.name.function.declaration.kotlin
+T 79 source.kotlin
+T 81 source.kotlin
+T 86 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 88 source.kotlin entity.name.type.kotlin
+T 89 source.kotlin
+T 90 source.kotlin
+T 92 source.kotlin
+T 93 source.kotlin entity.name.type.kotlin
+T 94 source.kotlin
+T 95 source.kotlin
+L   require(annotationType.isAnnotation) { "$annotationType must be an annotation." }
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin
+L   require(annotationType.isAnnotationPresent(JsonQualifier::class.java)) {
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 60 source.kotlin
+T 65 source.kotlin entity.name.function.reference.kotlin
+T 74 source.kotlin
+L     "$annotationType must have @JsonQualifier."
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+L   }
+T 3 source.kotlin
+L   require(annotationType.declaredMethods.isEmpty()) { "$annotationType must not declare methods." }
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 99 source.kotlin
+L   @Suppress("UNCHECKED_CAST")
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L   return Proxy.newProxyInstance(annotationType.classLoader, arrayOf<Class<*>>(annotationType)) {
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 67 source.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 77 source.kotlin
+T 96 source.kotlin
+L     proxy,
+T 10 source.kotlin
+L     method,
+T 11 source.kotlin
+L     args ->
+T 9 source.kotlin
+T 11 source.kotlin storage.type.function.arrow.kotlin
+L     when (method.name) {
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+L       "annotationType" -> annotationType
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin
+T 25 source.kotlin storage.type.function.arrow.kotlin
+T 40 source.kotlin
+L 
+L       "equals" -> {
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin
+T 17 source.kotlin storage.type.function.arrow.kotlin
+T 19 source.kotlin
+L         val o = args[0]
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 23 source.kotlin
+L         annotationType.isInstance(o)
+T 22 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       "hashCode" -> 0
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 21 source.kotlin constant.numeric.decimal.kotlin
+L 
+L       "toString" -> "@${annotationType.name}()"
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 44 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+L 
+L       else -> method.invoke(proxy, *args)
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.arithmetic.kotlin
+T 41 source.kotlin
+L     }
+T 5 source.kotlin
+L   } as T
+T 4 source.kotlin
+T 6 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Loads the generated JsonAdapter for classes annotated [JsonClass]. This works because it uses the
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  * same naming conventions as `JsonClassCodeGenProcessor`.
+T 58 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public fun Moshi.generatedAdapter(type: Type, rawType: Class<*>): JsonAdapter<*>? {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 16 source.kotlin entity.name.type.class.extension.kotlin
+T 17 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 66 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 82 source.kotlin
+T 83 source.kotlin
+L   val jsonClass = rawType.getAnnotation(JsonClass::class.java)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 56 source.kotlin entity.name.function.reference.kotlin
+T 62 source.kotlin
+L   if (jsonClass == null || !jsonClass.generateAdapter) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 18 source.kotlin keyword.operator.comparison.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.operator.logical.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.logical.kotlin
+T 56 source.kotlin
+L     return null
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin constant.language.null.kotlin
+L   }
+T 3 source.kotlin
+L   val adapterClassName = Types.generatedJsonAdapterName(rawType.name)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L   var possiblyFoundAdapter: Class<out JsonAdapter<*>>? = null
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.assignment.kotlin
+T 57 source.kotlin
+T 61 source.kotlin constant.language.null.kotlin
+L   return try {
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+L     @Suppress("UNCHECKED_CAST")
+T 4 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin
+L     val adapterClass =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+L       Class.forName(adapterClassName, true, rawType.classLoader) as Class<out JsonAdapter<*>>
+T 11 source.kotlin
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 42 source.kotlin constant.language.boolean.kotlin
+T 65 source.kotlin
+T 67 source.kotlin keyword.hard.kotlin
+T 73 source.kotlin
+T 74 source.kotlin keyword.operator.comparison.kotlin
+T 89 source.kotlin
+T 90 source.kotlin keyword.operator.comparison.kotlin
+T 91 source.kotlin keyword.operator.arithmetic.kotlin
+T 92 source.kotlin keyword.operator.comparison.kotlin
+T 93 source.kotlin keyword.operator.comparison.kotlin
+L     possiblyFoundAdapter = adapterClass
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L     var constructor: Constructor<out JsonAdapter<*>>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+L     var args: Array<Any>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 20 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+L     if (type is ParameterizedType) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 36 source.kotlin
+L       val typeArgs = type.actualTypeArguments
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 45 source.kotlin
+L       try {
+T 6 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+L         // Common case first
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 28 source.kotlin comment.line.double-slash.kotlin
+L         constructor =
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+L           adapterClass.getDeclaredConstructor(Moshi::class.java, Array<Type>::class.java)
+T 22 source.kotlin
+T 23 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 58 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+T 71 source.kotlin keyword.operator.comparison.kotlin
+T 75 source.kotlin
+T 76 source.kotlin keyword.operator.comparison.kotlin
+T 78 source.kotlin
+T 83 source.kotlin entity.name.function.reference.kotlin
+T 89 source.kotlin
+L         args = arrayOf(this, typeArgs)
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 27 source.kotlin variable.language.this.kotlin
+T 38 source.kotlin
+L       } catch (_: NoSuchMethodException) {
+T 8 source.kotlin
+T 13 source.kotlin keyword.soft.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+L         constructor = adapterClass.getDeclaredConstructor(Array<Type>::class.java)
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 64 source.kotlin keyword.operator.comparison.kotlin
+T 68 source.kotlin
+T 69 source.kotlin keyword.operator.comparison.kotlin
+T 71 source.kotlin
+T 76 source.kotlin entity.name.function.reference.kotlin
+T 82 source.kotlin
+L         args = arrayOf(typeArgs)
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L       }
+T 7 source.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L       try {
+T 6 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+L         // Common case first
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 28 source.kotlin comment.line.double-slash.kotlin
+L         constructor = adapterClass.getDeclaredConstructor(Moshi::class.java)
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 70 source.kotlin entity.name.function.reference.kotlin
+T 76 source.kotlin
+L         args = arrayOf(this)
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 27 source.kotlin variable.language.this.kotlin
+T 28 source.kotlin
+L       } catch (_: NoSuchMethodException) {
+T 8 source.kotlin
+T 13 source.kotlin keyword.soft.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+L         constructor = adapterClass.getDeclaredConstructor()
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+L         args = emptyArray()
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L     constructor.isAccessible = true
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 35 source.kotlin constant.language.boolean.kotlin
+L     constructor.newInstance(*args).nullSafe()
+T 15 source.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.arithmetic.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L   } catch (e: ClassNotFoundException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+L     throw RuntimeException("Failed to find the generated JsonAdapter class for $type", e)
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin
+L   } catch (e: NoSuchMethodException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+L     if (
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+L       possiblyFoundAdapter != null &&
+T 27 source.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.null.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.logical.kotlin
+L         type !is ParameterizedType &&
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.logical.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.logical.kotlin
+L         possiblyFoundAdapter.typeParameters.isNotEmpty()
+T 43 source.kotlin
+T 44 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+L     ) {
+T 7 source.kotlin
+L       throw RuntimeException(
+T 6 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+L         "Failed to find the generated JsonAdapter constructor for '$type'. Suspiciously, the type was not parameterized but the target class '${possiblyFoundAdapter.canonicalName}' is generic. Consider using Types#newParameterizedType() to define these missing type variables.",
+T 8 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 142 source.kotlin string.quoted.double.kotlin
+T 144 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 178 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 179 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 276 source.kotlin string.quoted.double.kotlin
+T 277 source.kotlin string.quoted.double.kotlin
+T 278 source.kotlin
+L         e,
+T 10 source.kotlin
+L       )
+T 7 source.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L       throw RuntimeException("Failed to find the generated JsonAdapter constructor for $type", e)
+T 6 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 93 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin
+L     }
+T 5 source.kotlin
+L   } catch (e: IllegalAccessException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+L     throw RuntimeException("Failed to access the generated JsonAdapter for $type", e)
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin
+L   } catch (e: InstantiationException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+L     throw RuntimeException("Failed to instantiate the generated JsonAdapter for $type", e)
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin
+L   } catch (e: InvocationTargetException) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.soft.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+L     throw e.rethrowCause()
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal val Class<*>.isKotlin: Boolean
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 13 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin keyword.operator.arithmetic.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+L   get() = METADATA != null && isAnnotationPresent(METADATA)
+T 2 source.kotlin
+T 5 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 9 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin
+T 26 source.kotlin constant.language.null.kotlin
+T 27 source.kotlin
+T 29 source.kotlin keyword.operator.logical.kotlin
+T 30 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Reflectively looks up the defaults constructor of a kotlin class.
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @param T the type of `targetClass`.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 9 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin variable.parameter.kotlin
+T 38 source.kotlin comment.block.javadoc.kotlin
+L  * @return the instantiated `targetClass` instance.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 51 source.kotlin comment.block.javadoc.kotlin
+L  * @receiver the target kotlin class to instantiate.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 12 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 52 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal fun <T> Class<T>.lookupDefaultsConstructor(): Constructor<T> {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin keyword.operator.comparison.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 71 source.kotlin
+L   checkNotNull(DEFAULT_CONSTRUCTOR_MARKER) {
+T 2 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L     "DefaultConstructorMarker not on classpath. Make sure the Kotlin stdlib is on the classpath."
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+L   }
+T 3 source.kotlin
+L   val defaultConstructor = findConstructor()
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L   defaultConstructor.isAccessible = true
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+L   return defaultConstructor
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private fun <T> Class<T>.findConstructor(): Constructor<T> {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 22 source.kotlin keyword.operator.comparison.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+L   for (constructor in declaredConstructors) {
+T 2 source.kotlin
+T 5 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 21 source.kotlin keyword.hard.kotlin
+T 45 source.kotlin
+L     val paramTypes = constructor.parameterTypes
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 47 source.kotlin
+L     if (paramTypes.isNotEmpty() && paramTypes[paramTypes.size - 1] == DEFAULT_CONSTRUCTOR_MARKER) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+T 62 source.kotlin
+T 63 source.kotlin keyword.operator.arithmetic.kotlin
+T 64 source.kotlin
+T 65 source.kotlin constant.numeric.decimal.kotlin
+T 67 source.kotlin
+T 69 source.kotlin keyword.operator.comparison.kotlin
+T 99 source.kotlin
+L       @Suppress("UNCHECKED_CAST")
+T 6 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin
+L       return constructor as Constructor<T>
+T 6 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.hard.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.comparison.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L   throw IllegalStateException("No defaults constructor found for $this")
+T 2 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L public fun missingProperty(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 26 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin
+L   propertyName: String?,
+T 14 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L   jsonName: String?,
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L   reader: JsonReader,
+T 8 source.kotlin
+T 10 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+L ): JsonDataException {
+T 1 source.kotlin
+T 3 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L   val path = reader.path
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 11 source.kotlin
+T 12 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+L   val message =
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+L     if (jsonName == propertyName) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+L       "Required value '$propertyName' missing at $path"
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L       "Required value '$propertyName' (JSON name '$jsonName') missing at $path"
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L   return JsonDataException(message)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L public fun unexpectedNull(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 26 source.kotlin
+L   propertyName: String,
+T 14 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+L   jsonName: String,
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+L   reader: JsonReader,
+T 8 source.kotlin
+T 10 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+L ): JsonDataException {
+T 1 source.kotlin
+T 3 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L   val path = reader.path
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 11 source.kotlin
+T 12 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+L   val message: String =
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+L     if (jsonName == propertyName) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+L       "Non-null value '$propertyName' was null at $path"
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L       "Non-null value '$propertyName' (JSON name '$jsonName') was null at $path"
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 74 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L   return JsonDataException(message)
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Sneaky backdoor way of marking a value as non-null to the compiler and skip the null-check
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 93 source.kotlin comment.line.double-slash.kotlin
+L // intrinsic.
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 13 source.kotlin comment.line.double-slash.kotlin
+L // Safe to use (unstable) contracts since they're gone in the final bytecode
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 76 source.kotlin comment.line.double-slash.kotlin
+L @Suppress("NOTHING_TO_INLINE")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L internal inline fun <T> markNotNull(value: T?) {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 41 source.kotlin storage.modifier.other.kotlin
+T 43 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 48 source.kotlin
+L   contract { returns() implies (value != null) }
+T 2 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin
+T 37 source.kotlin storage.modifier.other.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 41 source.kotlin
+T 45 source.kotlin constant.language.null.kotlin
+T 48 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L @Suppress("NOTHING_TO_INLINE")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L internal inline fun <T> knownNotNull(value: T?): T {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 42 source.kotlin storage.modifier.other.kotlin
+T 44 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+T 49 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L   markNotNull(value)
+T 2 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+L   return value
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 9 source.kotlin
+T 14 source.kotlin storage.modifier.other.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Public due to inline access in MoshiKotlinTypesExtensions
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 60 source.kotlin comment.line.double-slash.kotlin
+L @PublishedApi
+T 13 source.kotlin entity.name.type.annotation.kotlin
+L internal fun <T> Class<T>.boxIfPrimitive(): Class<T> {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin keyword.operator.comparison.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+L   // cast is safe: long.class and Long.class are both of type Class<Long>
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 73 source.kotlin comment.line.double-slash.kotlin
+L   @Suppress("UNCHECKED_CAST") val wrapped = PRIMITIVE_TO_WRAPPER_TYPE[this] as Class<T>?
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 34 source.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 70 source.kotlin
+T 74 source.kotlin variable.language.this.kotlin
+T 76 source.kotlin
+T 78 source.kotlin keyword.hard.kotlin
+T 84 source.kotlin
+T 85 source.kotlin keyword.operator.comparison.kotlin
+T 86 source.kotlin
+T 87 source.kotlin keyword.operator.comparison.kotlin
+T 88 source.kotlin
+L   return wrapped ?: this
+T 2 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+T 24 source.kotlin variable.language.this.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal inline fun <T : Any> checkNull(value: T?, lazyMessage: (T) -> Any) {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 39 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 45 source.kotlin storage.modifier.other.kotlin
+T 47 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 62 source.kotlin
+T 65 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 74 source.kotlin entity.name.type.kotlin
+T 77 source.kotlin
+L   if (value != null) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 6 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 14 source.kotlin keyword.operator.comparison.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.null.kotlin
+T 22 source.kotlin
+L     val message = lazyMessage(value)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 35 source.kotlin storage.modifier.other.kotlin
+T 36 source.kotlin
+L     throw IllegalStateException(message.toString())
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal class ParameterizedTypeImpl(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 36 source.kotlin entity.name.type.class.kotlin
+T 37 source.kotlin
+L   ownerType: Type?,
+T 11 source.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+L   rawType: Type,
+T 9 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+L   typeArguments: Array<out Type>,
+T 15 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L ) : ParameterizedType {
+T 2 source.kotlin
+T 4 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+L   private val ownerType: Type? = ownerType?.canonicalize()
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L   private val rawType: Type = rawType.canonicalize()
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L 
+L   @JvmField
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+L   val typeArguments: Array<Type> =
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+L     Array(typeArguments.size) { index ->
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 40 source.kotlin storage.type.function.arrow.kotlin
+L       typeArguments[index].canonicalize().also { it.checkNotPrimitive() }
+T 26 source.kotlin
+T 27 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 69 source.kotlin entity.name.function.call.kotlin
+T 73 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L   init {
+T 2 source.kotlin
+T 6 source.kotlin keyword.soft.kotlin
+T 8 source.kotlin
+L     // Require an owner type if the raw type needs it.
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 54 source.kotlin comment.line.double-slash.kotlin
+L     if (rawType is Class<*>) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin keyword.operator.arithmetic.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+L       if (ownerType != null) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+T 22 source.kotlin keyword.operator.comparison.kotlin
+T 23 source.kotlin
+T 27 source.kotlin constant.language.null.kotlin
+T 30 source.kotlin
+L         require(ownerType.rawType == rawType.enclosingClass) {
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 62 source.kotlin
+L           "unexpected owner type for $rawType: $ownerType"
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+L         }
+T 9 source.kotlin
+L       } else {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+L         require(rawType.enclosingClass == null) { "unexpected owner type for $rawType: null" }
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 46 source.kotlin constant.language.null.kotlin
+T 50 source.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 77 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   override fun getActualTypeArguments() = typeArguments.clone()
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+L 
+L   override fun getRawType() = rawType
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+L 
+L   override fun getOwnerType() = ownerType
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+L 
+L   @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin
+L   override fun equals(other: Any?) =
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+L     other is ParameterizedType && Types.equals(this, other as ParameterizedType?)
+T 10 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.logical.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 51 source.kotlin variable.language.this.kotlin
+T 59 source.kotlin
+T 61 source.kotlin keyword.hard.kotlin
+T 81 source.kotlin
+L 
+L   override fun hashCode(): Int {
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin
+L     return typeArguments.contentHashCode() xor rawType.hashCode() xor ownerType.hashCodeOrZero
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+T 55 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 94 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   override fun toString(): String {
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     // TODO(jwilson): include the owner type if it's non-null.
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 62 source.kotlin comment.line.double-slash.kotlin
+L     val result = StringBuilder(30 * (typeArguments.size + 1))
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.arithmetic.kotlin
+T 56 source.kotlin
+T 57 source.kotlin keyword.operator.arithmetic.kotlin
+T 58 source.kotlin
+T 59 source.kotlin constant.numeric.decimal.kotlin
+T 61 source.kotlin
+L     result.append(rawType.typeToString())
+T 10 source.kotlin
+T 11 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L     if (typeArguments.isEmpty()) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       return result.toString()
+T 6 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L     }
+T 5 source.kotlin
+L     result.append("<").append(typeArguments[0].typeToString())
+T 10 source.kotlin
+T 11 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin constant.numeric.decimal.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+L     for (i in 1 until typeArguments.size) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 43 source.kotlin
+L       result.append(", ").append(typeArguments[i].typeToString())
+T 12 source.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 65 source.kotlin
+L     }
+T 5 source.kotlin
+L     return result.append(">").toString()
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal class GenericArrayTypeImpl(componentType: Type) : GenericArrayType {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 35 source.kotlin entity.name.type.class.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 75 source.kotlin entity.name.type.kotlin
+T 76 source.kotlin
+T 77 source.kotlin
+L   private val componentType: Type = componentType.canonicalize()
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L 
+L   override fun getGenericComponentType() = componentType
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 56 source.kotlin
+L 
+L   @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin
+L   override fun equals(other: Any?) =
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+L     other is GenericArrayType && Types.equals(this, other as GenericArrayType?)
+T 10 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.logical.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 50 source.kotlin variable.language.this.kotlin
+T 58 source.kotlin
+T 60 source.kotlin keyword.hard.kotlin
+T 79 source.kotlin
+L 
+L   override fun hashCode() = componentType.hashCode()
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L 
+L   override fun toString() = "${componentType.typeToString()}[]"
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 44 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 45 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 60 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * The WildcardType interface supports multiple upper bounds and multiple lower bounds. We only
+T 95 source.kotlin comment.block.javadoc.kotlin
+L  * support what the Java 6 language needs - at most one bound. If a lower bound is set, the upper
+T 97 source.kotlin comment.block.javadoc.kotlin
+L  * bound must be Object.class.
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal class WildcardTypeImpl(upperBound: Type, lowerBound: Type?) : WildcardType {
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 31 source.kotlin entity.name.type.class.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 83 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 85 source.kotlin
+L   private val upperBound: Type = upperBound.canonicalize()
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L   private val lowerBound: Type? = lowerBound?.canonicalize()
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L 
+L   constructor(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+L     upperBounds: Array<Type>,
+T 15 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     lowerBounds: Array<Type>,
+T 15 source.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L   ) : this(upperBounds.single(), lowerBounds.getOrNull(0)) {
+T 4 source.kotlin
+T 6 source.kotlin
+T 10 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 56 source.kotlin constant.numeric.decimal.kotlin
+T 60 source.kotlin
+L     require(lowerBounds.size <= 1)
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.comparison.kotlin
+T 32 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 34 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   init {
+T 2 source.kotlin
+T 6 source.kotlin keyword.soft.kotlin
+T 8 source.kotlin
+L     require(lowerBound == null || upperBound === Any::class.java)
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin
+T 30 source.kotlin constant.language.null.kotlin
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.logical.kotlin
+T 45 source.kotlin
+T 48 source.kotlin keyword.operator.comparison.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 59 source.kotlin entity.name.function.reference.kotlin
+T 65 source.kotlin
+L     upperBound.checkNotPrimitive()
+T 14 source.kotlin
+T 15 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L     lowerBound?.checkNotPrimitive()
+T 14 source.kotlin
+T 16 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   override fun getUpperBounds() = arrayOf(upperBound)
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L 
+L   override fun getLowerBounds() = lowerBound?.let { arrayOf(it) } ?: EMPTY_TYPE_ARRAY
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 85 source.kotlin
+L 
+L   @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+T 2 source.kotlin
+T 11 source.kotlin entity.name.type.annotation.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin
+L   override fun equals(other: Any?) =
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+L     other is WildcardType && Types.equals(this, other as WildcardType?)
+T 10 source.kotlin
+T 12 source.kotlin keyword.hard.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.logical.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 46 source.kotlin variable.language.this.kotlin
+T 54 source.kotlin
+T 56 source.kotlin keyword.hard.kotlin
+T 71 source.kotlin
+L 
+L   override fun hashCode(): Int {
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin
+L     // This equals Arrays.hashCode(getLowerBounds()) ^ Arrays.hashCode(getUpperBounds()).
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 89 source.kotlin comment.line.double-slash.kotlin
+L     return (if (lowerBound != null) 31 + lowerBound.hashCode() else 1) xor
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.null.kotlin
+T 36 source.kotlin
+T 38 source.kotlin constant.numeric.decimal.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.arithmetic.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 67 source.kotlin keyword.control.kotlin
+T 68 source.kotlin
+T 69 source.kotlin constant.numeric.decimal.kotlin
+T 74 source.kotlin
+L       31 + upperBound.hashCode()
+T 6 source.kotlin
+T 8 source.kotlin constant.numeric.decimal.kotlin
+T 9 source.kotlin
+T 10 source.kotlin keyword.operator.arithmetic.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   override fun toString(): String {
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     return when {
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+L       lowerBound != null -> "? super ${lowerBound.typeToString()}"
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin
+T 24 source.kotlin constant.language.null.kotlin
+T 25 source.kotlin
+T 27 source.kotlin storage.type.function.arrow.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 49 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 62 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 65 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 66 source.kotlin string.quoted.double.kotlin
+L       upperBound === Any::class.java -> "?"
+T 17 source.kotlin
+T 20 source.kotlin keyword.operator.comparison.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 31 source.kotlin entity.name.function.reference.kotlin
+T 37 source.kotlin
+T 39 source.kotlin storage.type.function.arrow.kotlin
+T 40 source.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+L       else -> "? extends ${upperBound.typeToString()}"
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 13 source.kotlin storage.type.function.arrow.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 37 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 54 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 

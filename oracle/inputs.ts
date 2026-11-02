@@ -212,6 +212,21 @@ const githubMarkdownCss =
 const milligram =
   "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
 
+const coroutines =
+  "https://raw.githubusercontent.com/Kotlin/kotlinx.coroutines/7e0d1b3e9ca83652427ae00dda7d1673f058a743";
+const okhttp =
+  "https://raw.githubusercontent.com/square/okhttp/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf";
+const exposed =
+  "https://raw.githubusercontent.com/JetBrains/Exposed/2bdb13cd7b4b511b07de3dde109878b6f8b06d48";
+const moshi =
+  "https://raw.githubusercontent.com/square/moshi/889013ec2edb8d8034902662a1dc8c4f3b3f8111";
+const turbine =
+  "https://raw.githubusercontent.com/cashapp/turbine/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0";
+const ktor =
+  "https://raw.githubusercontent.com/ktorio/ktor/b7809b1eb47ec68cbb9c78a52a23880caca710cd";
+const kotlinxSerialization =
+  "https://raw.githubusercontent.com/Kotlin/kotlinx.serialization/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -532,4 +547,55 @@ export const inputs: Input[] = [
   { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
   { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
   { lang: "markdown", name: "highlightjs-readme", url: `${highlightjs}/README.md` },
+  { lang: "kotlin", name: "sample", url: `${samples}/kotlin.sample` },
+  {
+    lang: "kotlin",
+    name: "coroutines-state-flow",
+    url: `${coroutines}/kotlinx-coroutines-core/common/src/flow/StateFlow.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-cookie",
+    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Cookie.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "exposed-op",
+    url: `${exposed}/exposed-core/src/main/kotlin/org/jetbrains/exposed/v1/core/Op.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "serialization-json",
+    url: `${kotlinxSerialization}/formats/json/commonMain/src/kotlinx/serialization/json/Json.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "coroutines-produce",
+    url: `${coroutines}/kotlinx-coroutines-core/common/src/channels/Produce.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-request",
+    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Request.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "moshi-util",
+    url: `${moshi}/moshi/src/main/java/com/squareup/moshi/internal/Util.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "turbine-flow-test",
+    url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "ktor-logging",
+    url: `${ktor}/ktor-client/ktor-client-plugins/ktor-client-logging/common/src/io/ktor/client/plugins/logging/Logging.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-build",
+    url: `${okhttp}/okhttp/build.gradle.kts`,
+  },
 ];

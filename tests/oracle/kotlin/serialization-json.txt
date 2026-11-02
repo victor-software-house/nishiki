@@ -1,0 +1,2543 @@
+L /*
+T 2 source.kotlin comment.block.kotlin
+L  * Copyright 2017-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+T 102 source.kotlin comment.block.kotlin
+L  */
+T 1 source.kotlin comment.block.kotlin
+T 3 source.kotlin comment.block.kotlin
+L 
+L package kotlinx.serialization.json
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 34 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import kotlinx.serialization.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.serialization.json.internal.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 44 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.serialization.modules.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 38 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.serialization.descriptors.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlin.native.concurrent.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * The main entry point to work with JSON serialization.
+T 56 source.kotlin comment.block.javadoc.kotlin
+L  * It is typically used by constructing an application-specific instance, with configured JSON-specific behaviour
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  * and, if necessary, registered in [SerializersModule] custom serializers.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  * `Json` instance can be configured in its `Json {}` factory function using [JsonBuilder].
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  * For demonstration purposes or trivial usages, Json [companion][Json.Default] can be used instead.
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Then constructed instance can be used either as regular [SerialFormat] or [StringFormat]
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  * or for converting objects to [JsonElement] back and forth.
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * This is the only serial format which has the first-class [JsonElement] support.
+T 82 source.kotlin comment.block.javadoc.kotlin
+L  * Any serializable class can be serialized to or from [JsonElement] with [Json.decodeFromJsonElement] and [Json.encodeToJsonElement] respectively or
+T 149 source.kotlin comment.block.javadoc.kotlin
+L  * serialize properties of [JsonElement] type.
+T 46 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Example of usage:
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * @Serializable
+T 16 source.kotlin comment.block.javadoc.kotlin
+L  * data class Data(val id: Int, val data: String, val extensions: JsonElement)
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * val json = Json { ignoreUnknownKeys = true }
+T 47 source.kotlin comment.block.javadoc.kotlin
+L  * val instance = Data(42, "some data", buildJsonObject { put("key", "value") })
+T 80 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * // Plain Json usage: returns '{"id": 42, "some data", "extensions": {"key": "value" } }'
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  * val jsonString: String = json.encodeToString(instance)
+T 57 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * // JsonElement serialization, specific for JSON format
+T 57 source.kotlin comment.block.javadoc.kotlin
+L  * val jsonElement: JsonElement = json.encodeToJsonElement(instance)
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * // Deserialize from string
+T 29 source.kotlin comment.block.javadoc.kotlin
+L  * val deserialized: Data = json.decodeFromString<Data>(jsonString)
+T 67 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * // Deserialize from json element, JSON-specific
+T 50 source.kotlin comment.block.javadoc.kotlin
+L  * val deserializedFromElement: Data = json.decodeFromJsonElement<Data>(jsonElement)
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  *  // Deserialize from string to JSON tree, JSON-specific
+T 58 source.kotlin comment.block.javadoc.kotlin
+L  * val deserializedElement: JsonElement = json.parseToJsonElement(jsonString)
+T 77 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * // Deserialize a stream of a single item from an input stream
+T 64 source.kotlin comment.block.javadoc.kotlin
+L  * val sequence = Json.decodeToSequence<Data>(ByteArrayInputStream(jsonString.encodeToByteArray()))
+T 99 source.kotlin comment.block.javadoc.kotlin
+L  * for (item in sequence) {
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     println(item) // Prints deserialized Data value
+T 54 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Json instance also exposes its [configuration] that can be used in custom serializers
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  * that rely on [JsonDecoder] and [JsonEncoder] for customizable behaviour.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Json format configuration can be refined using the corresponding constructor:
+T 80 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val defaultJson = Json {
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     encodeDefaults = true
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *     ignoreUnknownKeys = true
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * // Will inherit the properties of defaultJson
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  * val debugEndpointJson = Json(defaultJson) {
+T 46 source.kotlin comment.block.javadoc.kotlin
+L  *     // ignoreUnknownKeys and encodeDefaults are set to true
+T 62 source.kotlin comment.block.javadoc.kotlin
+L  *     prettyPrint = true
+T 25 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public sealed class Json(
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 19 source.kotlin keyword.hard.class.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.type.class.kotlin
+T 25 source.kotlin
+L     public val configuration: JsonConfiguration,
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+L     override val serializersModule: SerializersModule
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+L ) : StringFormat {
+T 2 source.kotlin
+T 4 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+L 
+L     @Deprecated(
+T 4 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+L         "Should not be accessed directly, use Json.schemaCache accessor instead",
+T 8 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin
+L         ReplaceWith("schemaCache"),
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin
+L         DeprecationLevel.ERROR
+T 30 source.kotlin
+L     )
+T 5 source.kotlin
+L     internal val _schemaCache: DescriptorSchemaCache = DescriptorSchemaCache()
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * The default instance of [Json] with default configuration.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * class Project(val name: String, val language: String)
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val data = Project("kotlinx.serialization", "Kotlin")
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints {"name":"kotlinx.serialization","language":"Kotlin"}
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(data))
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     @ThreadLocal // to support caching on K/N
+T 4 source.kotlin
+T 16 source.kotlin entity.name.type.annotation.kotlin
+T 17 source.kotlin
+T 19 source.kotlin comment.line.double-slash.kotlin
+T 45 source.kotlin comment.line.double-slash.kotlin
+L     @OptIn(ExperimentalSerializationApi::class)
+T 4 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 46 source.kotlin entity.name.function.reference.kotlin
+T 47 source.kotlin
+L     public companion object Default : Json(JsonConfiguration(), EmptySerializersModule())
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 27 source.kotlin keyword.hard.object.kotlin
+T 28 source.kotlin
+T 35 source.kotlin entity.name.type.object.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 86 source.kotlin entity.name.function.call.kotlin
+T 89 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Serializes the [value] into an equivalent JSON using the given [serializer].
+T 83 source.kotlin comment.block.javadoc.kotlin
+L      * This method is recommended to be used with an explicit serializer (e.g. the custom or third-party one),
+T 110 source.kotlin comment.block.javadoc.kotlin
+L      * otherwise the `encodeToString(value: T)` version might be preferred as the most concise one.
+T 99 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * class Project(val name: String, val language: String)
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val data = Project("kotlinx.serialization", "Kotlin")
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints {"name":"kotlinx.serialization","language":"Kotlin"}
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(Project.serializer(), data))
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * // The same as Json.encodeToString<T>(value: T) overload
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(data))
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given value cannot be serialized to JSON.
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 88 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public final override fun <T> encodeToString(serializer: SerializationStrategy<T>, value: T): String {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.fun.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 48 source.kotlin entity.name.function.declaration.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 82 source.kotlin entity.name.type.kotlin
+T 83 source.kotlin
+T 84 source.kotlin entity.name.type.kotlin
+T 85 source.kotlin
+T 87 source.kotlin
+T 92 source.kotlin storage.modifier.other.kotlin
+T 94 source.kotlin
+T 95 source.kotlin entity.name.type.kotlin
+T 96 source.kotlin
+T 98 source.kotlin
+T 104 source.kotlin entity.name.type.kotlin
+T 105 source.kotlin
+T 106 source.kotlin
+L         val result = StringJsonWriter()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L         try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+L             encodeByWriter(this@Json, result, serializer, value)
+T 12 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 36 source.kotlin variable.language.this.kotlin
+T 58 source.kotlin
+T 63 source.kotlin storage.modifier.other.kotlin
+T 64 source.kotlin
+L             return result.toString()
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L         } finally {
+T 10 source.kotlin
+T 17 source.kotlin keyword.soft.kotlin
+T 19 source.kotlin
+L             result.release()
+T 18 source.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Deserializes the given JSON [string] into a value of type [T] using the given [deserializer].
+T 100 source.kotlin comment.block.javadoc.kotlin
+L      * Example:
+T 15 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Project(val name: String, val language: String)
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      * //  Project(name=kotlinx.serialization, language=Kotlin)
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.decodeFromString(Project.serializer(), """{"name":"kotlinx.serialization","language":"Kotlin"}"""))
+T 119 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given JSON string is not a valid JSON input for the type [T]
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 107 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [IllegalArgumentException] if the decoded input cannot be represented as a valid instance of type [T]
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 41 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public final override fun <T> decodeFromString(deserializer: DeserializationStrategy<T>, @FormatLanguage("json", "", "") string: String): T {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.fun.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 50 source.kotlin entity.name.function.declaration.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 88 source.kotlin entity.name.type.kotlin
+T 89 source.kotlin
+T 90 source.kotlin entity.name.type.kotlin
+T 91 source.kotlin
+T 93 source.kotlin
+T 108 source.kotlin entity.name.type.annotation.kotlin
+T 109 source.kotlin
+T 110 source.kotlin string.quoted.double.kotlin
+T 114 source.kotlin string.quoted.double.kotlin
+T 115 source.kotlin string.quoted.double.kotlin
+T 117 source.kotlin
+T 119 source.kotlin string.quoted.double.kotlin
+T 121 source.kotlin
+T 123 source.kotlin string.quoted.double.kotlin
+T 131 source.kotlin
+T 133 source.kotlin
+T 139 source.kotlin entity.name.type.kotlin
+T 140 source.kotlin
+T 142 source.kotlin
+T 143 source.kotlin entity.name.type.kotlin
+T 144 source.kotlin
+T 145 source.kotlin
+L         val lexer = StringJsonLexer(this, string)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 40 source.kotlin variable.language.this.kotlin
+T 49 source.kotlin
+L         val input = StreamingJsonDecoder(this, LexerMode.OBJ, lexer, deserializer.descriptor, null)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 45 source.kotlin variable.language.this.kotlin
+T 94 source.kotlin
+T 98 source.kotlin constant.language.null.kotlin
+T 99 source.kotlin
+L         val result = input.decodeSerializableValue(deserializer)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L         lexer.expectEof()
+T 13 source.kotlin
+T 14 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+L         return result
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Serializes the given [value] into an equivalent [JsonElement] using the given [serializer]
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given value cannot be serialized to JSON
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 87 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun <T> encodeToJsonElement(serializer: SerializationStrategy<T>, value: T): JsonElement {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 72 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 74 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 77 source.kotlin
+T 82 source.kotlin storage.modifier.other.kotlin
+T 84 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 88 source.kotlin
+T 99 source.kotlin entity.name.type.kotlin
+T 100 source.kotlin
+T 101 source.kotlin
+L         return writeJson(this@Json, value, serializer)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 34 source.kotlin variable.language.this.kotlin
+T 36 source.kotlin
+T 41 source.kotlin storage.modifier.other.kotlin
+T 54 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Deserializes the given [element] into a value of type [T] using the given [deserializer].
+T 96 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given JSON element is not a valid JSON input for the type [T]
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 108 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [IllegalArgumentException] if the decoded input cannot be represented as a valid instance of type [T]
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 41 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun <T> decodeFromJsonElement(deserializer: DeserializationStrategy<T>, element: JsonElement): T {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 40 source.kotlin entity.name.function.declaration.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 78 source.kotlin entity.name.type.kotlin
+T 79 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 90 source.kotlin
+T 92 source.kotlin
+T 103 source.kotlin entity.name.type.kotlin
+T 104 source.kotlin
+T 106 source.kotlin
+T 107 source.kotlin entity.name.type.kotlin
+T 108 source.kotlin
+T 109 source.kotlin
+L         return readJson(this@Json, element, deserializer)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 33 source.kotlin variable.language.this.kotlin
+T 57 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Deserializes the given JSON [string] into a corresponding [JsonElement] representation.
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given string is not a valid JSON
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun parseToJsonElement(@FormatLanguage("json", "", "") string: String): JsonElement {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 49 source.kotlin entity.name.type.annotation.kotlin
+T 50 source.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 94 source.kotlin entity.name.type.kotlin
+T 95 source.kotlin
+T 96 source.kotlin
+L         return decodeFromString(JsonElementSerializer, string)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Following functions are copied from extensions on StringFormat
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * to streamline experience for newcomers, since IDE does not star-import kotlinx.serialization.* automatically
+T 115 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Serializes the [value] of type [T] into an equivalent JSON using serializer
+T 82 source.kotlin comment.block.javadoc.kotlin
+L      * retrieved from the reified type parameter.
+T 49 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * class Project(val name: String, val language: String)
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val data = Project("kotlinx.serialization", "Kotlin")
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints {"name":"kotlinx.serialization","language":"Kotlin"}
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(data))
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws [SerializationException] if the given value cannot be serialized to JSON.
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 88 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public inline fun <reified T> encodeToString(value: T): String =
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 18 source.kotlin
+T 21 source.kotlin keyword.hard.fun.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 48 source.kotlin entity.name.function.declaration.kotlin
+T 49 source.kotlin
+T 54 source.kotlin storage.modifier.other.kotlin
+T 56 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 68 source.kotlin keyword.operator.assignment.kotlin
+L         encodeToString(serializersModule.serializer(), value)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 60 source.kotlin storage.modifier.other.kotlin
+T 61 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Decodes and deserializes the given JSON [string] to the value of type [T] using deserializer
+T 99 source.kotlin comment.block.javadoc.kotlin
+L      * retrieved from the reified type parameter.
+T 49 source.kotlin comment.block.javadoc.kotlin
+L      * Example:
+T 15 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Project(val name: String, val language: String)
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      * //  Project(name=kotlinx.serialization, language=Kotlin)
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.decodeFromString<Project>("""{"name":"kotlinx.serialization","language":"Kotlin"}"""))
+T 106 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws SerializationException in case of any decoding-specific error
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 76 source.kotlin comment.block.javadoc.kotlin
+L      * @throws IllegalArgumentException if the decoded input is not a valid instance of [T]
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 91 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public inline fun <reified T> decodeFromString(@FormatLanguage("json", "", "") string: String): T =
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 18 source.kotlin
+T 21 source.kotlin keyword.hard.fun.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 50 source.kotlin entity.name.function.declaration.kotlin
+T 51 source.kotlin
+T 66 source.kotlin entity.name.type.annotation.kotlin
+T 67 source.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin
+T 77 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin
+T 91 source.kotlin
+T 97 source.kotlin entity.name.type.kotlin
+T 98 source.kotlin
+T 100 source.kotlin
+T 101 source.kotlin entity.name.type.kotlin
+T 102 source.kotlin
+T 103 source.kotlin keyword.operator.assignment.kotlin
+L         decodeFromString(serializersModule.serializer(), string)
+T 8 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Description of JSON input shape used for decoding to sequence.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * The sequence represents a stream of objects parsed one by one;
+T 65 source.kotlin comment.block.javadoc.kotlin
+L  * [DecodeSequenceMode] defines a separator between these objects.
+T 66 source.kotlin comment.block.javadoc.kotlin
+L  * Typically, these objects are not separated by meaningful characters ([WHITESPACE_SEPARATED]),
+T 96 source.kotlin comment.block.javadoc.kotlin
+L  * or the whole stream is a large array of objects separated with commas ([ARRAY_WRAPPED]).
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * It is used in `Json.decodeToSequence` family of functions:
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * @Serializable
+T 16 source.kotlin comment.block.javadoc.kotlin
+L  * data class Game(val name: String)
+T 36 source.kotlin comment.block.javadoc.kotlin
+L  * val input = """{"name": "Gothic"} {"name": "Planescape"} {"name": "Fallout"}"""
+T 82 source.kotlin comment.block.javadoc.kotlin
+L  * // On multiplatform, Okio's Source can be used
+T 49 source.kotlin comment.block.javadoc.kotlin
+L  * val inputStream = ByteArrayInputStream(input.encodeToByteArray())
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * val sequence = Json.decodeToSequence<Game>(inputStream, DecodeSequenceMode.WHITESPACE_SEPARATED)
+T 99 source.kotlin comment.block.javadoc.kotlin
+L  * // Prints Game(name=Gothic), Game(name=Planescape) and Game(name=Fallout)
+T 76 source.kotlin comment.block.javadoc.kotlin
+L  * for (game in sequence) {
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     println(game)
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @ExperimentalSerializationApi
+T 29 source.kotlin entity.name.type.annotation.kotlin
+L public enum class DecodeSequenceMode {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 17 source.kotlin keyword.hard.class.kotlin
+T 18 source.kotlin
+T 36 source.kotlin entity.name.type.class.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Declares that objects in the input stream are separated by whitespace characters.
+T 88 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * The stream is read as multiple JSON objects separated by any number of whitespace characters between objects. Starting and trailing whitespace characters are also permitted.
+T 180 source.kotlin comment.block.javadoc.kotlin
+L      * Each individual object is parsed lazily, when it is requested from the resulting sequence.
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Whitespace character is either ' ', '\n', '\r' or '\t'.
+T 62 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of `WHITESPACE_SEPARATED` stream content:
+T 56 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * """{"key": "value"}{"key": "value2"}   {"key2": "value2"}"""
+T 67 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     WHITESPACE_SEPARATED,
+T 25 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Declares that objects in the input stream are wrapped in the JSON array.
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      * Each individual object in the array is parsed lazily when it is requested from the resulting sequence.
+T 109 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * The stream is read as multiple JSON objects wrapped into a JSON array.
+T 77 source.kotlin comment.block.javadoc.kotlin
+L      * The stream must start with an array start character `[` and end with an array end character `]`,
+T 103 source.kotlin comment.block.javadoc.kotlin
+L      * otherwise, [JsonDecodingException] is thrown.
+T 52 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of `ARRAY_WRAPPED` stream content:
+T 49 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * """[{"key": "value"},   {"key": "value2"},{"key2": "value2"}]"""
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     ARRAY_WRAPPED,
+T 18 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Declares that parser itself should select between [WHITESPACE_SEPARATED] and [ARRAY_WRAPPED] modes.
+T 106 source.kotlin comment.block.javadoc.kotlin
+L      * The selection is performed by looking at the first meaningful character of the stream.
+T 93 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * In most cases, auto-detection is sufficient to correctly parse an input.
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      * If the input is _whitespace-separated stream of the arrays_, parser could select an incorrect mode,
+T 106 source.kotlin comment.block.javadoc.kotlin
+L      * for that [DecodeSequenceMode] must be specified explicitly.
+T 66 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of an exceptional case:
+T 38 source.kotlin comment.block.javadoc.kotlin
+L      * `[1, 2, 3]   [4, 5, 6]\n[7, 8, 9]`
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     AUTO_DETECT;
+T 16 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Creates an instance of [Json] configured from the optionally given [Json instance][from] and adjusted with [builderAction].
+T 126 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Example of usage:
+T 20 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val defaultJson = Json {
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *     encodeDefaults = true
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *     ignoreUnknownKeys = true
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * // Will inherit the properties of defaultJson
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  * val debugEndpointJson = Json(defaultJson) {
+T 46 source.kotlin comment.block.javadoc.kotlin
+L  *     // ignoreUnknownKeys and encodeDefaults are set to true
+T 62 source.kotlin comment.block.javadoc.kotlin
+L  *     prettyPrint = true
+T 25 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public fun Json(from: Json = Json.Default, builderAction: JsonBuilder.() -> Unit): Json {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 75 source.kotlin storage.type.function.arrow.kotlin
+T 81 source.kotlin
+T 83 source.kotlin
+T 87 source.kotlin entity.name.type.kotlin
+T 88 source.kotlin
+T 89 source.kotlin
+L     val builder = JsonBuilder(from)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L     builder.builderAction()
+T 11 source.kotlin
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L     val conf = builder.build()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L     return JsonImpl(conf, builder.serializersModule)
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Serializes the given [value] into an equivalent [JsonElement] using a serializer retrieved
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * from reified type parameter.
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @throws [SerializationException] if the given value cannot be serialized to JSON.
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 35 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public inline fun <reified T> Json.encodeToJsonElement(value: T): JsonElement {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.fun.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 34 source.kotlin entity.name.type.class.extension.kotlin
+T 35 source.kotlin
+T 54 source.kotlin entity.name.function.declaration.kotlin
+T 55 source.kotlin
+T 60 source.kotlin storage.modifier.other.kotlin
+T 62 source.kotlin
+T 63 source.kotlin entity.name.type.kotlin
+T 64 source.kotlin
+T 66 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 78 source.kotlin
+T 79 source.kotlin
+L     return encodeToJsonElement(serializersModule.serializer(), value)
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 68 source.kotlin storage.modifier.other.kotlin
+T 69 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Deserializes the given [json] element into a value of type [T] using a deserializer retrieved
+T 96 source.kotlin comment.block.javadoc.kotlin
+L  * from reified type parameter.
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * @throws [SerializationException] if the given JSON element is not a valid JSON input for the type [T]
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 35 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  * @throws [IllegalArgumentException] if the decoded input cannot be represented as a valid instance of type [T]
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin
+T 37 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public inline fun <reified T> Json.decodeFromJsonElement(json: JsonElement): T =
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.fun.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 34 source.kotlin entity.name.type.class.extension.kotlin
+T 35 source.kotlin
+T 56 source.kotlin entity.name.function.declaration.kotlin
+T 61 source.kotlin
+T 63 source.kotlin
+T 74 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 77 source.kotlin
+T 78 source.kotlin entity.name.type.kotlin
+T 79 source.kotlin
+T 80 source.kotlin keyword.operator.assignment.kotlin
+L     decodeFromJsonElement(serializersModule.serializer(), json)
+T 4 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Builder of the [Json] instance provided by `Json { ... }` factory function:
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val json = Json { // this: JsonBuilder
+T 41 source.kotlin comment.block.javadoc.kotlin
+L  *     encodeDefaults = true
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *     ignoreUnknownKeys = true
+T 31 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @Suppress("unused", "DeprecatedCallableAddReplaceWith")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L @OptIn(ExperimentalSerializationApi::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 42 source.kotlin entity.name.function.reference.kotlin
+T 43 source.kotlin
+L public class JsonBuilder internal constructor(json: Json) {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 24 source.kotlin entity.name.type.class.kotlin
+T 25 source.kotlin
+T 33 source.kotlin storage.modifier.other.kotlin
+T 34 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether default values of Kotlin properties should be encoded.
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example:
+T 15 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * class Project(val name: String, val language: String = "kotlin")
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints {"name":"test-project"}
+T 40 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(Project("test-project")))
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints {"name":"test-project","language":"kotlin"}
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      * val withDefaults = Json { encodeDefaults = true }
+T 56 source.kotlin comment.block.javadoc.kotlin
+L      * println(withDefaults.encodeToString(Project("test-project")))
+T 68 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This option does not affect decoding.
+T 44 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var encodeDefaults: Boolean = json.configuration.encodeDefaults
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 74 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether `null` values should be encoded for nullable properties and must be present in JSON object
+T 115 source.kotlin comment.block.javadoc.kotlin
+L      * during decoding.
+T 23 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * When this flag is disabled properties with `null` values are not encoded;
+T 80 source.kotlin comment.block.javadoc.kotlin
+L      * during decoding, the absence of a field value is treated as `null` for nullable properties without a default value.
+T 122 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * `true` by default.
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * It is possible to make decoder treat some invalid input data as the missing field to enhance the functionality of this flag.
+T 131 source.kotlin comment.block.javadoc.kotlin
+L      * See [coerceInputValues] documentation for details.
+T 57 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Project(val name: String, val description: String?)
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * val implicitNulls = Json { explicitNulls = false }
+T 57 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Encoding
+T 18 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints '{"name":"unknown","description":null}'. null is explicit
+T 74 source.kotlin comment.block.javadoc.kotlin
+L      * println(Json.encodeToString(Project("unknown", null)))
+T 61 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints '{"name":"unknown"}', null is omitted
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      * println(implicitNulls.encodeToString(Project("unknown", null)))
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * // Decoding
+T 18 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints Project(name=unknown, description=null)
+T 56 source.kotlin comment.block.javadoc.kotlin
+L      * println(implicitNulls.decodeFromString<Project>("""{"name":"unknown"}"""))
+T 81 source.kotlin comment.block.javadoc.kotlin
+L      * // Fails with "MissingFieldException: Field 'description' is required"
+T 77 source.kotlin comment.block.javadoc.kotlin
+L      * Json.decodeFromString<Project>("""{"name":"unknown"}""")
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Exercise extra caution if you want to use this flag and have non-typical classes with properties
+T 103 source.kotlin comment.block.javadoc.kotlin
+L      * that are nullable, but have default value that is not `null`. In that case, encoding and decoding will not
+T 113 source.kotlin comment.block.javadoc.kotlin
+L      * be symmetrical if `null` is omitted from the output.
+T 59 source.kotlin comment.block.javadoc.kotlin
+L      * Example of such a pitfall:
+T 33 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Example(val nullable: String? = "non-null default")
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val json = Json { explicitNulls = false }
+T 48 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val original = Example(null)
+T 35 source.kotlin comment.block.javadoc.kotlin
+L      * val s = json.encodeToString(original)
+T 44 source.kotlin comment.block.javadoc.kotlin
+L      * // prints "{}" because of explicitNulls flag
+T 51 source.kotlin comment.block.javadoc.kotlin
+L      * println(s)
+T 17 source.kotlin comment.block.javadoc.kotlin
+L      * val decoded = json.decodeFromString<Example>(s)
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints "non-null default" because default value is inserted since `nullable` field is missing in the input
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      * println(decoded.nullable)
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      * println(decoded != original) // true
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var explicitNulls: Boolean = json.configuration.explicitNulls
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether encounters of unknown properties in the input JSON
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      * should be ignored instead of throwing [SerializationException].
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Project(val name: String)
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      * val withUnknownKeys = Json { ignoreUnknownKeys = true }
+T 62 source.kotlin comment.block.javadoc.kotlin
+L      * // Project(name=unknown), "version" is ignored completely
+T 64 source.kotlin comment.block.javadoc.kotlin
+L      * println(withUnknownKeys.decodeFromString<Project>("""{"name":"unknown", "version": 2.0}"""))
+T 99 source.kotlin comment.block.javadoc.kotlin
+L      * // Fails with "Encountered an unknown key 'version'"
+T 59 source.kotlin comment.block.javadoc.kotlin
+L      * Json.decodeFromString<Project>("""{"name":"unknown", "version": 2.0}""")
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * In case you wish to allow unknown properties only for specific class(es),
+T 80 source.kotlin comment.block.javadoc.kotlin
+L      * consider using [JsonIgnoreUnknownKeys] annotation instead of this configuration flag.
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @see JsonIgnoreUnknownKeys
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 33 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var ignoreUnknownKeys: Boolean = json.configuration.ignoreUnknownKeys
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 80 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Removes JSON specification restriction (RFC-4627) and makes parser
+T 73 source.kotlin comment.block.javadoc.kotlin
+L      * more liberal to the malformed input. In lenient mode, unquoted JSON keys and string values are allowed.
+T 110 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of invalid JSON that is accepted with this flag set:
+T 67 source.kotlin comment.block.javadoc.kotlin
+L      * `{key: value}` can be parsed into `@Serializable class Data(val key: String)`.
+T 85 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Its relaxations can be expanded in the future, so that lenient parser becomes even more
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      * permissive to invalid values in the input.
+T 49 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var isLenient: Boolean = json.configuration.isLenient
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 64 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether resulting JSON should be pretty-printed: formatted and optimized for human readability.
+T 112 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * class Key(val type: String, val opens: String)
+T 53 source.kotlin comment.block.javadoc.kotlin
+L      * val pretty = Json { prettyPrint = true }
+T 47 source.kotlin comment.block.javadoc.kotlin
+L      * /*
+T 9 source.kotlin comment.block.javadoc.kotlin
+L      *  * Prints
+T 16 source.kotlin comment.block.javadoc.kotlin
+L      *  * {
+T 11 source.kotlin comment.block.javadoc.kotlin
+L      *  *     "type": "keycard",
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      *  *     "opens": "secret door"
+T 36 source.kotlin comment.block.javadoc.kotlin
+L      *  * }
+T 11 source.kotlin comment.block.javadoc.kotlin
+L      *  */
+T 8 source.kotlin comment.block.javadoc.kotlin
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * println(pretty.encodeToString(Key("keycard", "secret door")))
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin
+L      * ```
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 10 source.kotlin
+L      */
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin keyword.operator.arithmetic.kotlin
+L     public var prettyPrint: Boolean = json.configuration.prettyPrint
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies indent string to use with [prettyPrint] mode.
+T 62 source.kotlin comment.block.javadoc.kotlin
+L      * Only whitespace characters are allowed: ' ', '\n', '\r' or '\t'.
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      * 4 spaces by default.
+T 27 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var prettyPrintIndent: String = json.configuration.prettyPrintIndent
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 79 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Enables coercing incorrect JSON values in the following cases:
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      *   1. JSON value is `null` but the property type is non-nullable.
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      *   2. Property type is an enum type, but JSON value contains an unknown enum member.
+T 90 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Coerced values are treated as missing; they are replaced either with a default property value if it exists, or with a `null` if [explicitNulls] flag
+T 155 source.kotlin comment.block.javadoc.kotlin
+L      * is set to `false` and a property is nullable (for enums).
+T 64 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * enum class Choice { A, B, C }
+T 36 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Example1(val a: String = "default", b: Choice = Choice.A, c: Choice? = null)
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val coercingJson = Json { coerceInputValues = true }
+T 59 source.kotlin comment.block.javadoc.kotlin
+L      * // Decodes Example1("default", Choice.A, null) instance
+T 62 source.kotlin comment.block.javadoc.kotlin
+L      * coercingJson.decodeFromString<Example1>("""{"a": null, "b": "unknown", "c": "unknown"}""")
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Example2(val c: Choice?)
+T 42 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val coercingImplicitJson = Json(coercingJson) { explicitNulls = false }
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      * // Decodes Example2(null) instance.
+T 42 source.kotlin comment.block.javadoc.kotlin
+L      * coercingImplicitJson.decodeFromString<Example1>("""{"c": "unknown"}""")
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var coerceInputValues: Boolean = json.configuration.coerceInputValues
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 80 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Name of the class descriptor property for polymorphic serialization.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      * `type` by default.
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Note that if your class has any serial names that are equal to [classDiscriminator]
+T 90 source.kotlin comment.block.javadoc.kotlin
+L      * (e.g., `@Serializable class Foo(val type: String)`), an [IllegalArgumentException] will be thrown from `Json {}` builder.
+T 128 source.kotlin comment.block.javadoc.kotlin
+L      * You can disable this check and class discriminator inclusion with [ClassDiscriminatorMode.NONE], but kotlinx.serialization will not be
+T 141 source.kotlin comment.block.javadoc.kotlin
+L      * able to deserialize such data back.
+T 42 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @see classDiscriminatorMode
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 34 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var classDiscriminator: String = json.configuration.classDiscriminator
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 81 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Defines which classes and objects should have class discriminator added to the output.
+T 93 source.kotlin comment.block.javadoc.kotlin
+L      * [ClassDiscriminatorMode.POLYMORPHIC] by default.
+T 55 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Other modes are generally intended to produce JSON for consumption by third-party libraries,
+T 99 source.kotlin comment.block.javadoc.kotlin
+L      * therefore, this setting does not affect the deserialization process.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @see classDiscriminator
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 30 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     @ExperimentalSerializationApi
+T 4 source.kotlin
+T 33 source.kotlin entity.name.type.annotation.kotlin
+L     public var classDiscriminatorMode: ClassDiscriminatorMode = json.configuration.classDiscriminatorMode
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 63 source.kotlin keyword.operator.assignment.kotlin
+T 105 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether Json instance makes use of [JsonNames] annotation.
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Disabling this flag when one does not use [JsonNames] at all may sometimes result in better performance,
+T 111 source.kotlin comment.block.javadoc.kotlin
+L      * particularly when a large count of fields is skipped with [ignoreUnknownKeys].
+T 85 source.kotlin comment.block.javadoc.kotlin
+L      * `true` by default.
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var useAlternativeNames: Boolean = json.configuration.useAlternativeNames
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin keyword.operator.assignment.kotlin
+T 84 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies [JsonNamingStrategy] that should be used for all properties in classes for serialization and deserialization.
+T 126 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * `null` by default.
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This strategy is applied for all entities that have [StructureKind.CLASS].
+T 81 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var namingStrategy: JsonNamingStrategy? = json.configuration.namingStrategy
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin keyword.operator.assignment.kotlin
+T 86 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Enables decoding enum values in a case-insensitive manner.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      * Encoding is not affected by this option.
+T 47 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * It affects both enum serial names and alternative names (specified with the [JsonNames] annotation).
+T 107 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * enum class E { VALUE_A, @JsonNames("ALTERNATIVE") VALUE_B }
+T 66 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class Outer(val enums: List<E>)
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * val json = Json { decodeEnumsCaseInsensitive = true }
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints [VALUE_A, VALUE_B]
+T 35 source.kotlin comment.block.javadoc.kotlin
+L      * println(json.decodeFromString<Outer>("""{"enums":["Value_A", "alternative"]}""").enums)
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      * // Will fail with SerializationException: no such enum as 'Value_A'
+T 74 source.kotlin comment.block.javadoc.kotlin
+L      * Json.decodeFromString<Outer>("""{"enums":["Value_A", "alternative"]}""")
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * With this feature enabled, it is no longer possible to decode enum values that have the same name in a lowercase form.
+T 125 source.kotlin comment.block.javadoc.kotlin
+L      * The following code will throw a serialization exception:
+T 63 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * enum class CaseSensitiveEnum { One, ONE }
+T 48 source.kotlin comment.block.javadoc.kotlin
+L      * val json = Json { decodeEnumsCaseInsensitive = true }
+T 60 source.kotlin comment.block.javadoc.kotlin
+L      * // Fails with SerializationException: The suggested name 'one' for enum value ONE is already one of the names for enum value One
+T 135 source.kotlin comment.block.javadoc.kotlin
+L      * json.decodeFromString<CaseSensitiveEnum>("ONE")
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var decodeEnumsCaseInsensitive: Boolean = json.configuration.decodeEnumsCaseInsensitive
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin keyword.operator.assignment.kotlin
+T 98 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Allows parser to accept trailing (ending) commas in JSON objects and arrays,
+T 83 source.kotlin comment.block.javadoc.kotlin
+L      * making inputs like `[1, 2, 3,]` and `{"key": "value",}` valid.
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * Does not affect encoding.
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var allowTrailingComma: Boolean = json.configuration.allowTrailingComma
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.assignment.kotlin
+T 82 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Allows parser to accept C/Java-style comments in JSON input.
+T 67 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Comments are being skipped and are not stored anywhere; this setting does not affect encoding in any way.
+T 112 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * More specifically, a comment is a substring that is not a part of JSON key or value, conforming to one of those:
+T 119 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * 1. Starts with `//` characters and ends with a newline character `\n`.
+T 77 source.kotlin comment.block.javadoc.kotlin
+L      * 2. Starts with `/*` characters and ends with `*/` characters. Nesting block comments
+T 53 source.kotlin comment.block.javadoc.kotlin
+T 55 source.kotlin comment.block.javadoc.kotlin
+T 91 source.kotlin
+L      *  is not supported: no matter how many `/*` characters you have, first `*/` will end the comment.
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 8 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+T 48 source.kotlin comment.block.kotlin
+T 78 source.kotlin comment.block.kotlin
+T 80 source.kotlin comment.block.kotlin
+T 103 source.kotlin
+L      *
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+L      *  `false` by default.
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 9 source.kotlin
+T 14 source.kotlin constant.language.boolean.kotlin
+T 16 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 27 source.kotlin
+L      */
+T 5 source.kotlin
+T 6 source.kotlin keyword.operator.arithmetic.kotlin
+T 7 source.kotlin keyword.operator.arithmetic.kotlin
+L     public var allowComments: Boolean = json.configuration.allowComments
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Removes JSON specification restriction on special floating-point values such as `NaN` and `Infinity`
+T 107 source.kotlin comment.block.javadoc.kotlin
+L      * and enables their serialization and deserialization as float literals without quotes.
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      * When enabling it, please ensure that the receiving party will be able to encode and decode these special values.
+T 119 source.kotlin comment.block.javadoc.kotlin
+L      * This option affects both encoding and decoding.
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * val floats = listOf(1.0, 2.0, Double.NaN, Double.NEGATIVE_INFINITY)
+T 74 source.kotlin comment.block.javadoc.kotlin
+L      * val json = Json { allowSpecialFloatingPointValues = true }
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints [1.0,2.0,NaN,-Infinity]
+T 40 source.kotlin comment.block.javadoc.kotlin
+L      * println(json.encodeToString(floats))
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      * // Prints [1.0, 2.0, NaN, -Infinity]
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      * println(json.decodeFromString<List<Double>>("[1.0,2.0,NaN,-Infinity]"))
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var allowSpecialFloatingPointValues: Boolean = json.configuration.allowSpecialFloatingPointValues
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 57 source.kotlin keyword.operator.assignment.kotlin
+T 108 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Enables structured objects to be serialized as map keys by
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      * changing serialized form of the map from JSON object (key-value pairs) to flat array like `[k1, v1, k2, v2]`.
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var allowStructuredMapKeys: Boolean = json.configuration.allowStructuredMapKeys
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin keyword.operator.assignment.kotlin
+T 90 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Switches polymorphic serialization to the default array format.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      * This is an option for legacy JSON format and should not be generally used.
+T 81 source.kotlin comment.block.javadoc.kotlin
+L      * `false` by default.
+T 26 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This option can only be used if [classDiscriminatorMode] in a default [ClassDiscriminatorMode.POLYMORPHIC] state.
+T 120 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var useArrayPolymorphism: Boolean = json.configuration.useArrayPolymorphism
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 86 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Module with contextual and polymorphic serializers to be used in the resulting [Json] instance.
+T 102 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @see SerializersModule
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 29 source.kotlin comment.block.javadoc.kotlin
+L      * @see Contextual
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 22 source.kotlin comment.block.javadoc.kotlin
+L      * @see Polymorphic
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 23 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var serializersModule: SerializersModule = json.serializersModule
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+T 53 source.kotlin keyword.operator.assignment.kotlin
+T 76 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies whether actual input data should be included in exception messages.
+T 84 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * When `false`, exception messages will not contain sensitive input data that could be logged
+T 98 source.kotlin comment.block.javadoc.kotlin
+L      * or exposed in error reporting systems. This is the default and recommended setting for production
+T 104 source.kotlin comment.block.javadoc.kotlin
+L      * environments where input data may contain sensitive or confidential information.
+T 87 source.kotlin comment.block.javadoc.kotlin
+L      * With this setting disabled, [JsonDecodingException.input] will be null and [JsonDecodingException.path]
+T 110 source.kotlin comment.block.javadoc.kotlin
+L      * will have `<debug info disabled>` where `Map` keys are supposed to be.
+T 77 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * When `true`, exception messages will include the actual input data that caused the error,
+T 96 source.kotlin comment.block.javadoc.kotlin
+L      * which can be helpful for debugging purposes during development.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * While in experimental stage, this flag is `true` by default.
+T 67 source.kotlin comment.block.javadoc.kotlin
+L      * It will be changed to `false` when API stabilizes to assume data is sensitive and unsafe by default.
+T 107 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Example of usage:
+T 24 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * @Serializable
+T 20 source.kotlin comment.block.javadoc.kotlin
+L      * data class User(val name: String, val age: Int)
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * val json = Json { exceptionsWithDebugInfo = false }
+T 58 source.kotlin comment.block.javadoc.kotlin
+L      * // Exception message will not contain the invalid input string
+T 69 source.kotlin comment.block.javadoc.kotlin
+L      * json.decodeFromString<User>("""{"name":"John","age":"invalid"}""")
+T 73 source.kotlin comment.block.javadoc.kotlin
+L      * 
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * val debugJson = Json { exceptionsWithDebugInfo = true }
+T 62 source.kotlin comment.block.javadoc.kotlin
+L      * // Exception message will include `JSON Input: {"name":"John","age":"invalid"}` line
+T 91 source.kotlin comment.block.javadoc.kotlin
+L      * debugJson.decodeFromString<User>("""{"name":"John","age":"invalid"}""")
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     @ExperimentalSerializationApi
+T 4 source.kotlin
+T 33 source.kotlin entity.name.type.annotation.kotlin
+L     public var exceptionsWithDebugInfo: Boolean = json.configuration.exceptionsWithDebugInfo
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin keyword.operator.assignment.kotlin
+T 92 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies the maximum allowed depth for nested structures during JSON deserialization.
+T 93 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This value defines the limit up to which nested objects, arrays, or other structures can exist in JSON input.
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      * The parser will reject any JSON exceeding the specified nesting depth to prevent potential stack overflow.
+T 113 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Setting it higher than the default value requires a careful approach and testing. Remember that even if the parser
+T 121 source.kotlin comment.block.javadoc.kotlin
+L      * succeeds with a higher depth limit, created [JsonElement]s may still occasionally throw stack overflow errors
+T 116 source.kotlin comment.block.javadoc.kotlin
+L      * on operations such as `toString()`, making debugging and exception handling harder.
+T 90 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     @ExperimentalSerializationApi
+T 4 source.kotlin
+T 33 source.kotlin entity.name.type.annotation.kotlin
+L     public var maxNestingDepth: Int = json.configuration.maxNestingDepth
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 72 source.kotlin
+L 
+L     @OptIn(ExperimentalSerializationApi::class)
+T 4 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 46 source.kotlin entity.name.function.reference.kotlin
+T 47 source.kotlin
+L     internal fun build(): JsonConfiguration {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+L         if (useArrayPolymorphism) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 35 source.kotlin
+L             require(classDiscriminator == defaultDiscriminator) {
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 65 source.kotlin
+L                 "Class discriminator should not be specified when array polymorphism is specified"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+T 98 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L             require(classDiscriminatorMode == ClassDiscriminatorMode.POLYMORPHIC) {
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 83 source.kotlin
+L                 "useArrayPolymorphism option can only be used if classDiscriminatorMode in a default POLYMORPHIC state."
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 119 source.kotlin string.quoted.double.kotlin
+T 120 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (!prettyPrint) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 27 source.kotlin
+L             require(prettyPrintIndent == defaultIndent) {
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 57 source.kotlin
+L                 "Indent should not be specified when default printing mode is used"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L         } else if (prettyPrintIndent != defaultIndent) {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 37 source.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 56 source.kotlin
+L             // Values allowed by JSON specification as whitespaces
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 66 source.kotlin comment.line.double-slash.kotlin
+L             val allWhitespaces = prettyPrintIndent.all { it == ' ' || it == '\t' || it == '\r' || it == '\n' }
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 60 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.single.kotlin
+T 65 source.kotlin string.quoted.single.kotlin
+T 66 source.kotlin string.quoted.single.kotlin
+T 67 source.kotlin
+T 69 source.kotlin keyword.operator.logical.kotlin
+T 73 source.kotlin
+T 75 source.kotlin keyword.operator.comparison.kotlin
+T 76 source.kotlin
+T 77 source.kotlin string.quoted.single.kotlin
+T 79 source.kotlin string.quoted.single.kotlin constant.character.escape.kotlin
+T 80 source.kotlin string.quoted.single.kotlin
+T 81 source.kotlin
+T 83 source.kotlin keyword.operator.logical.kotlin
+T 87 source.kotlin
+T 89 source.kotlin keyword.operator.comparison.kotlin
+T 90 source.kotlin
+T 91 source.kotlin string.quoted.single.kotlin
+T 93 source.kotlin string.quoted.single.kotlin constant.character.escape.kotlin
+T 94 source.kotlin string.quoted.single.kotlin
+T 95 source.kotlin
+T 97 source.kotlin keyword.operator.logical.kotlin
+T 101 source.kotlin
+T 103 source.kotlin keyword.operator.comparison.kotlin
+T 104 source.kotlin
+T 105 source.kotlin string.quoted.single.kotlin
+T 107 source.kotlin string.quoted.single.kotlin constant.character.escape.kotlin
+T 108 source.kotlin string.quoted.single.kotlin
+T 110 source.kotlin
+L             require(allWhitespaces) {
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L                 "Only whitespace, tab, newline and carriage return are allowed as pretty print symbols. Had $prettyPrintIndent"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 108 source.kotlin string.quoted.double.kotlin
+T 126 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 127 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         return JsonConfiguration(
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L             encodeDefaults, ignoreUnknownKeys, isLenient,
+T 57 source.kotlin
+L             allowStructuredMapKeys, prettyPrint, explicitNulls, prettyPrintIndent,
+T 82 source.kotlin
+L             coerceInputValues, useArrayPolymorphism,
+T 52 source.kotlin
+L             classDiscriminator, allowSpecialFloatingPointValues, useAlternativeNames,
+T 85 source.kotlin
+L             namingStrategy, decodeEnumsCaseInsensitive, allowTrailingComma, allowComments, classDiscriminatorMode,
+T 114 source.kotlin
+L             exceptionsWithDebugInfo, maxNestingDepth
+T 52 source.kotlin
+L         )
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L @OptIn(ExperimentalSerializationApi::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 42 source.kotlin entity.name.function.reference.kotlin
+T 43 source.kotlin
+L private class JsonImpl(configuration: JsonConfiguration, module: SerializersModule) : Json(configuration, module) {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin keyword.hard.class.kotlin
+T 14 source.kotlin
+T 22 source.kotlin entity.name.type.class.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 82 source.kotlin entity.name.type.kotlin
+T 84 source.kotlin
+T 86 source.kotlin
+T 90 source.kotlin entity.name.type.kotlin
+T 91 source.kotlin
+T 104 source.kotlin entity.name.type.kotlin
+T 106 source.kotlin
+T 112 source.kotlin entity.name.type.kotlin
+T 114 source.kotlin
+T 115 source.kotlin
+L 
+L     init {
+T 4 source.kotlin
+T 8 source.kotlin keyword.soft.kotlin
+T 10 source.kotlin
+L         validateConfiguration()
+T 8 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     private fun validateConfiguration() {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+L         if (serializersModule == EmptySerializersModule()) return // Fast-path for in-place JSON allocations
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 65 source.kotlin keyword.control.kotlin
+T 66 source.kotlin
+T 68 source.kotlin comment.line.double-slash.kotlin
+T 108 source.kotlin comment.line.double-slash.kotlin
+L         val collector = JsonSerializersModuleValidator(configuration)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L         serializersModule.dumpTo(collector)
+T 25 source.kotlin
+T 26 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * This accessor should be used to workaround for freezing problems in Native, see Native source set
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L internal expect val Json.schemaCache: DescriptorSchemaCache
+T 8 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+L 
+L private const val defaultIndent = "    "
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 18 source.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+L private const val defaultDiscriminator = "type"
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.kotlin
+T 18 source.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+L 

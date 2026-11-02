@@ -1,0 +1,4133 @@
+L /*
+T 2 source.kotlin comment.block.kotlin
+L  * Copyright 2014-2025 JetBrains s.r.o and contributors. Use of this source code is governed by the Apache 2.0 license.
+T 119 source.kotlin comment.block.kotlin
+L  */
+T 1 source.kotlin comment.block.kotlin
+T 3 source.kotlin comment.block.kotlin
+L 
+L package io.ktor.client.plugins.logging
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 38 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import io.ktor.client.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 22 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 23 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.call.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 27 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.plugins.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.plugins.api.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 34 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.plugins.observer.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 39 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 40 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.request.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.request.forms.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.statement.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.client.utils.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.http.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 20 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 21 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.http.content.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.util.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 20 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 21 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.util.pipeline.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.utils.io.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 24 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 25 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import io.ktor.utils.io.charsets.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 34 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.DelicateCoroutinesApi
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 47 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.Dispatchers
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.GlobalScope
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.launch
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L private val ClientCallLogger = AttributeKey<HttpClientCallLogger>("CallLogger")
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+T 66 source.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 77 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin
+L private val DisableLogging = AttributeKey<Unit>("DisableLogging")
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin
+L 
+L public enum class LoggingFormat {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 17 source.kotlin keyword.hard.class.kotlin
+T 18 source.kotlin
+T 31 source.kotlin entity.name.type.class.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L     Default,
+T 12 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * [OkHttp logging format](https://github.com/square/okhttp/blob/parent-4.12.0/okhttp-logging-interceptor/src/main/kotlin/okhttp3/logging/HttpLoggingInterceptor.kt#L48-L105).
+T 178 source.kotlin comment.block.javadoc.kotlin
+L      * Writes only application-level logs because the low-level HTTP communication is hidden within the engine implementations.
+T 127 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingFormat.OkHttp)
+T 111 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     OkHttp
+T 10 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * A configuration for the [Logging] plugin.
+T 44 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig)
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @KtorDsl
+T 8 source.kotlin entity.name.type.annotation.kotlin
+L public class LoggingConfig {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 26 source.kotlin entity.name.type.class.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L     internal var filters = mutableListOf<(HttpRequestBuilder) -> Boolean>()
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 62 source.kotlin
+T 64 source.kotlin storage.type.function.arrow.kotlin
+T 72 source.kotlin
+T 73 source.kotlin keyword.operator.comparison.kotlin
+T 75 source.kotlin
+L     internal val sanitizedHeaders = mutableListOf<SanitizedHeader>()
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+L 
+L     private var _logger: Logger? = null
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 39 source.kotlin constant.language.null.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * A general format for logging requests and responses. See [LoggingFormat].
+T 80 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.format)
+T 111 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var format: LoggingFormat = LoggingFormat.Default
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 60 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies a [Logger] instance.
+T 37 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.logger)
+T 111 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var logger: Logger
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+L         get() = _logger ?: Logger.DEFAULT
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+L         set(value) {
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+L             _logger = value
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 27 source.kotlin storage.modifier.other.kotlin
+L         }
+T 9 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Specifies the logging level.
+T 35 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.level)
+T 110 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var level: LogLevel = LogLevel.HEADERS
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Configures the filter applied to the response body when logging.
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * The `bodyFilter` property specifies the logic used to selectively log, modify,
+T 85 source.kotlin comment.block.javadoc.kotlin
+L      * or exclude the body of HTTP responses. It uses a [LogBodyFilter] implementation
+T 86 source.kotlin comment.block.javadoc.kotlin
+L      * to determine how the response body is included in the logs. By default, the filter
+T 89 source.kotlin comment.block.javadoc.kotlin
+L      * is set to [BinaryLogBodyFilter].
+T 39 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * The associated filter can be customized to handle specific logging requirements
+T 86 source.kotlin comment.block.javadoc.kotlin
+L      * such as hiding sensitive data, truncating long responses, or modifying the
+T 81 source.kotlin comment.block.javadoc.kotlin
+L      * format of the logged body content.
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.bodyFilter)
+T 115 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public var bodyFilter: LogBodyFilter = BinaryLogBodyFilter
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Allows you to filter log messages for calls matching a [predicate].
+T 74 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.filter)
+T 111 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun filter(predicate: (HttpRequestBuilder) -> Boolean) {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 34 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 57 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+L         filters.add(predicate)
+T 15 source.kotlin
+T 16 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Allows you to sanitize sensitive headers to avoid their values appearing in the logs.
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      * In the example below, Authorization header value will be replaced with '***' when logging:
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      * ```kotlin
+T 16 source.kotlin comment.block.javadoc.kotlin
+L      * sanitizeHeader { header -> header == HttpHeaders.Authorization }
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.LoggingConfig.sanitizeHeader)
+T 119 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun sanitizeHeader(placeholder: String = "***", predicate: (String) -> Boolean) {
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin keyword.operator.assignment.kotlin
+T 52 source.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin
+T 71 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 82 source.kotlin
+T 89 source.kotlin entity.name.type.kotlin
+T 92 source.kotlin
+L         sanitizedHeaders.add(SanitizedHeader(placeholder, predicate))
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * A client's plugin that provides the capability to log HTTP calls.
+T 68 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * You can learn more from [Logging](https://ktor.io/docs/client-logging.html).
+T 79 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.Logging)
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @OptIn(InternalAPI::class, DelicateCoroutinesApi::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 25 source.kotlin entity.name.function.reference.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 55 source.kotlin entity.name.function.reference.kotlin
+T 56 source.kotlin
+L public val Logging: ClientPlugin<LoggingConfig> = createClientPlugin("Logging", ::LoggingConfig) {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 11 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin keyword.operator.assignment.kotlin
+T 50 source.kotlin
+T 68 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 77 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin
+T 82 source.kotlin
+T 95 source.kotlin entity.name.function.reference.kotlin
+T 98 source.kotlin
+L     val logger: Logger = pluginConfig.logger
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+L     val level: LogLevel = pluginConfig.level
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+L     val filters: List<(HttpRequestBuilder) -> Boolean> = pluginConfig.filters
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin keyword.operator.comparison.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.assignment.kotlin
+T 77 source.kotlin
+L     val sanitizedHeaders: List<SanitizedHeader> = pluginConfig.sanitizedHeaders
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin keyword.operator.assignment.kotlin
+T 79 source.kotlin
+L     val okHttpFormat = pluginConfig.format == LoggingFormat.OkHttp
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 66 source.kotlin
+L     val bodyFilter: LogBodyFilter = pluginConfig.bodyFilter
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+L 
+L     fun shouldBeLogged(request: HttpRequestBuilder): Boolean = filters.isEmpty() || filters.any { it(request) }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+T 62 source.kotlin keyword.operator.assignment.kotlin
+T 70 source.kotlin
+T 71 source.kotlin
+T 78 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+T 83 source.kotlin keyword.operator.logical.kotlin
+T 91 source.kotlin
+T 92 source.kotlin
+T 95 source.kotlin entity.name.function.call.kotlin
+T 96 source.kotlin
+T 98 source.kotlin
+T 100 source.kotlin entity.name.function.call.kotlin
+T 111 source.kotlin
+L 
+L     fun isNone(): Boolean = level == LogLevel.NONE
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.declaration.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 50 source.kotlin
+L     fun isInfo(): Boolean = level == LogLevel.INFO
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.declaration.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 50 source.kotlin
+L     fun isHeaders(): Boolean = level == LogLevel.HEADERS
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 17 source.kotlin entity.name.function.declaration.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 56 source.kotlin
+L     fun isBody(): Boolean = level == LogLevel.BODY || level == LogLevel.ALL
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.declaration.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 51 source.kotlin
+T 53 source.kotlin keyword.operator.logical.kotlin
+T 60 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 75 source.kotlin
+L 
+L     suspend fun logRequestBody(
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+L         url: Url,
+T 11 source.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+L         content: OutgoingContent,
+T 15 source.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+L         contentLength: Long?,
+T 21 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L         headers: Headers,
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+L         method: HttpMethod,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         logLines: MutableList<String>,
+T 16 source.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+L         body: ByteReadChannel
+T 12 source.kotlin
+T 14 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+L     ) {
+T 7 source.kotlin
+L         val filteredBody = bodyFilter.filterRequest(
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L             url,
+T 16 source.kotlin
+L             contentLength,
+T 26 source.kotlin
+L             content.contentType,
+T 32 source.kotlin
+L             headers,
+T 20 source.kotlin
+L             body,
+T 17 source.kotlin
+L         )
+T 9 source.kotlin
+L         when (filteredBody) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+L             is BodyFilterResult.Empty -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 38 source.kotlin
+T 40 source.kotlin storage.type.function.arrow.kotlin
+T 42 source.kotlin
+L                 logLines.add("--> END ${method.value} (0-byte body)")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 67 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is BodyFilterResult.Skip -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+T 39 source.kotlin storage.type.function.arrow.kotlin
+T 41 source.kotlin
+L                 logLines.add(
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+L                     buildString {
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L                         append("--> END ${method.value} (")
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 49 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L                         filteredBody.reason?.let {
+T 43 source.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L                             append("$it ")
+T 28 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+L                         }
+T 25 source.kotlin
+L                         filteredBody.byteSize?.let {
+T 45 source.kotlin
+T 47 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L                             append("$it-byte ")
+T 28 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L                         }
+T 25 source.kotlin
+L                         append("body omitted)")
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L                     }
+T 21 source.kotlin
+L                 )
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is BodyFilterResult.Content -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 42 source.kotlin storage.type.function.arrow.kotlin
+T 44 source.kotlin
+L                 logLines.add(filteredBody.read())
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L                 logLines.add("--> END ${method.value} (${filteredBody.byteSize}-byte body)")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 55 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 78 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 79 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun logOutgoingContent(
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+L         url: Url,
+T 11 source.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+L         content: OutgoingContent,
+T 15 source.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+L         method: HttpMethod,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         headers: Headers,
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+L         logLines: MutableList<String>,
+T 16 source.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+L         process: (ByteReadChannel) -> ByteReadChannel = { it }
+T 15 source.kotlin
+T 18 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 55 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+L     ): OutgoingContent? {
+T 5 source.kotlin
+T 7 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L         return when (content) {
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin keyword.control.kotlin
+T 31 source.kotlin
+L             is io.ktor.client.content.ObservableContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 56 source.kotlin
+T 58 source.kotlin storage.type.function.arrow.kotlin
+T 60 source.kotlin
+L                 logOutgoingContent(url, content.delegate, method, headers, logLines, process)
+T 16 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 93 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is MultiPartFormDataContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 42 source.kotlin storage.type.function.arrow.kotlin
+T 44 source.kotlin
+L                 for (part in content.parts) {
+T 16 source.kotlin
+T 19 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.hard.kotlin
+T 45 source.kotlin
+L                     logLines.add("--${content.boundary}")
+T 28 source.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+L                     for ((key, values) in part.headers.entries()) {
+T 20 source.kotlin
+T 23 source.kotlin keyword.control.kotlin
+T 39 source.kotlin
+T 41 source.kotlin keyword.hard.kotlin
+T 54 source.kotlin
+T 55 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+L                         logLines.add("$key: ${values.joinToString("; ")}")
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 65 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 73 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+L                     }
+T 21 source.kotlin
+L 
+L                     if (part is PartData.FormItem) {
+T 20 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.hard.kotlin
+T 52 source.kotlin
+L                         logLines.add("${HttpHeaders.ContentLength}: ${part.value.length}")
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 65 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 68 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 80 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 87 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 88 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin
+L                         logLines.add("")
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L                         logLines.add(part.value)
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 47 source.kotlin storage.modifier.other.kotlin
+T 48 source.kotlin
+L                     } else {
+T 22 source.kotlin
+T 26 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+L                         logLines.add("")
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L                         val contentLength = part.headers[HttpHeaders.ContentLength]
+T 24 source.kotlin
+T 27 source.kotlin keyword.hard.kotlin
+T 28 source.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 83 source.kotlin
+L                         if (contentLength != null) {
+T 24 source.kotlin
+T 26 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+T 44 source.kotlin keyword.operator.comparison.kotlin
+T 45 source.kotlin
+T 49 source.kotlin constant.language.null.kotlin
+T 52 source.kotlin
+L                             logLines.add("binary $contentLength-byte body omitted")
+T 36 source.kotlin
+T 37 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin
+L                         } else {
+T 26 source.kotlin
+T 30 source.kotlin keyword.control.kotlin
+T 32 source.kotlin
+L                             logLines.add("binary body omitted")
+T 36 source.kotlin
+T 37 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin
+L                         }
+T 25 source.kotlin
+L                     }
+T 21 source.kotlin
+L                 }
+T 17 source.kotlin
+L 
+L                 logLines.add("--${content.boundary}--")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L                 logLines.add("--> END ${method.value}")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L 
+L                 null
+T 16 source.kotlin
+T 20 source.kotlin constant.language.null.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.ByteArrayContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 48 source.kotlin
+T 50 source.kotlin storage.type.function.arrow.kotlin
+T 52 source.kotlin
+L                 val bytes = content.bytes()
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 36 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L                 logRequestBody(url, content, bytes.size.toLong(), headers, method, logLines, ByteReadChannel(bytes))
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 93 source.kotlin
+T 108 source.kotlin entity.name.function.call.kotlin
+T 116 source.kotlin
+L                 null
+T 16 source.kotlin
+T 20 source.kotlin constant.language.null.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.ContentWrapper -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 46 source.kotlin
+T 48 source.kotlin storage.type.function.arrow.kotlin
+T 50 source.kotlin
+L                 logOutgoingContent(url, content.delegate(), method, headers, logLines, process)
+T 16 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 95 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.NoContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 41 source.kotlin
+T 43 source.kotlin storage.type.function.arrow.kotlin
+T 45 source.kotlin
+L                 logLines.add("--> END ${method.value}")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L                 null
+T 16 source.kotlin
+T 20 source.kotlin constant.language.null.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.ProtocolUpgrade -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 47 source.kotlin
+T 49 source.kotlin storage.type.function.arrow.kotlin
+T 51 source.kotlin
+L                 logLines.add("--> END ${method.value}")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L                 null
+T 16 source.kotlin
+T 20 source.kotlin constant.language.null.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.ReadChannelContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 50 source.kotlin
+T 52 source.kotlin storage.type.function.arrow.kotlin
+T 54 source.kotlin
+L                 val (origChannel, newChannel) = content.readFrom().split(client)
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 64 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 72 source.kotlin entity.name.function.call.kotlin
+T 80 source.kotlin
+L                 logRequestBody(url, content, content.contentLength, headers, method, logLines, newChannel)
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 106 source.kotlin
+L                 LoggedContent(content, origChannel)
+T 16 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is OutgoingContent.WriteChannelContent -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 51 source.kotlin
+T 53 source.kotlin storage.type.function.arrow.kotlin
+T 55 source.kotlin
+L                 val channel = ByteChannel()
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L 
+L                 client.launch {
+T 22 source.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L                     content.writeTo(channel)
+T 27 source.kotlin
+T 28 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L                     channel.close()
+T 27 source.kotlin
+T 28 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L                 }
+T 17 source.kotlin
+L 
+L                 val (origChannel, newChannel) = channel.split(client)
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L                 logRequestBody(url, content, content.contentLength, headers, method, logLines, newChannel)
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 106 source.kotlin
+L                 LoggedContent(content, origChannel)
+T 16 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun logRequestOkHttpFormat(request: HttpRequestBuilder, logLines: MutableList<String>): OutgoingContent? {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 76 source.kotlin
+T 78 source.kotlin
+T 89 source.kotlin entity.name.type.kotlin
+T 90 source.kotlin
+T 96 source.kotlin entity.name.type.kotlin
+T 97 source.kotlin
+T 98 source.kotlin
+T 100 source.kotlin
+T 115 source.kotlin entity.name.type.kotlin
+T 117 source.kotlin
+T 118 source.kotlin
+L         if (isNone()) return null
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 33 source.kotlin constant.language.null.kotlin
+L 
+L         val uri = URLBuilder().takeFrom(request.url).build().toString()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 61 source.kotlin
+T 69 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+L         val body = request.body
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+L         val headers = HeadersBuilder().apply {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L             if (body is OutgoingContent &&
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 42 source.kotlin keyword.operator.logical.kotlin
+L                 request.method != HttpMethod.Get &&
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.comparison.kotlin
+T 49 source.kotlin
+T 51 source.kotlin keyword.operator.logical.kotlin
+L                 request.method != HttpMethod.Head &&
+T 31 source.kotlin
+T 33 source.kotlin keyword.operator.comparison.kotlin
+T 50 source.kotlin
+T 52 source.kotlin keyword.operator.logical.kotlin
+L                 body !is EmptyContent
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.logical.kotlin
+T 24 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+L             ) {
+T 15 source.kotlin
+L                 body.contentType?.let {
+T 32 source.kotlin
+T 34 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L                     appendIfNameAbsent(HttpHeaders.ContentType, it.toString())
+T 20 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 75 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+L                 }
+T 17 source.kotlin
+L                 body.contentLength?.let {
+T 34 source.kotlin
+T 36 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+L                     appendIfNameAbsent(HttpHeaders.ContentLength, it.toString())
+T 20 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin
+T 69 source.kotlin
+T 77 source.kotlin entity.name.function.call.kotlin
+T 80 source.kotlin
+L                 }
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L             appendAll(request.headers)
+T 12 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L         }.build()
+T 9 source.kotlin
+T 10 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L 
+L         val contentLength = headers[HttpHeaders.ContentLength]?.toLongOrNull()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+L         val startLine = when {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+L             (request.method == HttpMethod.Get) ||
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 47 source.kotlin
+T 49 source.kotlin keyword.operator.logical.kotlin
+L                 (request.method == HttpMethod.Head) ||
+T 32 source.kotlin
+T 34 source.kotlin keyword.operator.comparison.kotlin
+T 52 source.kotlin
+T 54 source.kotlin keyword.operator.logical.kotlin
+L                 ((isHeaders() || isBody()) && contentLength != null) ||
+T 18 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.logical.kotlin
+T 33 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.logical.kotlin
+T 60 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 63 source.kotlin
+T 67 source.kotlin constant.language.null.kotlin
+T 69 source.kotlin
+T 71 source.kotlin keyword.operator.logical.kotlin
+L                 (isHeaders() && contentLength == null) ||
+T 17 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.logical.kotlin
+T 46 source.kotlin
+T 48 source.kotlin keyword.operator.comparison.kotlin
+T 49 source.kotlin
+T 53 source.kotlin constant.language.null.kotlin
+T 55 source.kotlin
+T 57 source.kotlin keyword.operator.logical.kotlin
+L                 headers.contains(HttpHeaders.ContentEncoding) -> "--> ${request.method.value} $uri"
+T 23 source.kotlin
+T 24 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 64 source.kotlin storage.type.function.arrow.kotlin
+T 65 source.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 87 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 92 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 93 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 94 source.kotlin string.quoted.double.kotlin
+T 98 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 99 source.kotlin string.quoted.double.kotlin
+L 
+L             isInfo() && contentLength != null -> "--> ${request.method.value} $uri ($contentLength-byte body)"
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.operator.logical.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 41 source.kotlin
+T 45 source.kotlin constant.language.null.kotlin
+T 46 source.kotlin
+T 48 source.kotlin storage.type.function.arrow.kotlin
+T 49 source.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 76 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 78 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 84 source.kotlin string.quoted.double.kotlin
+T 98 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 109 source.kotlin string.quoted.double.kotlin
+T 110 source.kotlin string.quoted.double.kotlin
+L 
+L             body is OutgoingContent.WriteChannelContent ||
+T 17 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 56 source.kotlin
+T 58 source.kotlin keyword.operator.logical.kotlin
+L                 body is OutgoingContent.ReadChannelContent -> "--> ${request.method.value} $uri (unknown-byte body)"
+T 21 source.kotlin
+T 23 source.kotlin keyword.hard.kotlin
+T 59 source.kotlin
+T 61 source.kotlin storage.type.function.arrow.kotlin
+T 62 source.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 84 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 89 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 90 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 91 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 115 source.kotlin string.quoted.double.kotlin
+T 116 source.kotlin string.quoted.double.kotlin
+L 
+L             else -> {
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 21 source.kotlin
+L                 val size = computeRequestBodySize(request.body)
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+L                 "--> ${request.method.value} $uri ($size-byte body)"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 44 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 45 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         logLines.add(startLine)
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L 
+L         if (!isHeaders() && !isBody()) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.operator.logical.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.logical.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L             return null
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         for ((name, values) in headers.entries()) {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.hard.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L             if (sanitizedHeaders.find { sh -> sh.predicate(name) } == null) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 43 source.kotlin
+T 45 source.kotlin storage.type.function.arrow.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 69 source.kotlin keyword.operator.comparison.kotlin
+T 70 source.kotlin
+T 74 source.kotlin constant.language.null.kotlin
+T 77 source.kotlin
+L                 logLines.add("$name: ${values.joinToString(separator = ", ")}")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 45 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 76 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin
+L             } else {
+T 14 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L                 logLines.add("$name: ██")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (!isBody() || request.method == HttpMethod.Get || request.method == HttpMethod.Head) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.logical.kotlin
+T 40 source.kotlin
+T 42 source.kotlin keyword.operator.comparison.kotlin
+T 58 source.kotlin
+T 60 source.kotlin keyword.operator.logical.kotlin
+T 76 source.kotlin
+T 78 source.kotlin keyword.operator.comparison.kotlin
+T 97 source.kotlin
+L             logLines.add("--> END ${request.method.value}")
+T 20 source.kotlin
+T 21 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L             return null
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         logLines.add("")
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin
+L 
+L         if (body !is OutgoingContent) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.logical.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 39 source.kotlin
+L             logLines.add("--> END ${request.method.value}")
+T 20 source.kotlin
+T 21 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin storage.modifier.other.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L             return null
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         val newContent = if (request.headers[HttpHeaders.ContentEncoding] == "gzip") {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.control.kotlin
+T 74 source.kotlin
+T 76 source.kotlin keyword.operator.comparison.kotlin
+T 77 source.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin
+L             logOutgoingContent(request.url.build(), body, request.method, headers, logLines) { channel ->
+T 12 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 103 source.kotlin
+T 105 source.kotlin storage.type.function.arrow.kotlin
+L                 GZipEncoder.decode(channel)
+T 27 source.kotlin
+T 28 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L             }
+T 13 source.kotlin
+L         } else {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L             logOutgoingContent(request.url.build(), body, request.method, headers, logLines)
+T 12 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 92 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         return newContent
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun logResponseBody(response: HttpResponse, body: ByteReadChannel, logLines: MutableList<String>) {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 62 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 87 source.kotlin
+T 89 source.kotlin
+T 100 source.kotlin entity.name.type.kotlin
+T 101 source.kotlin
+T 107 source.kotlin entity.name.type.kotlin
+T 108 source.kotlin
+T 111 source.kotlin
+L         logLines.add("")
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin
+L 
+L         val filteredBody = bodyFilter.filterResponse(
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L             response.call.request.url,
+T 38 source.kotlin
+L             response.contentLength(),
+T 20 source.kotlin
+T 21 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L             response.contentType(),
+T 20 source.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L             response.headers,
+T 29 source.kotlin
+L             body,
+T 17 source.kotlin
+L         )
+T 9 source.kotlin
+L         val duration = response.responseTime.timestamp - response.requestTime.timestamp
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.arithmetic.kotlin
+T 87 source.kotlin
+L 
+L         when (filteredBody) {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+L             is BodyFilterResult.Empty -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 38 source.kotlin
+T 40 source.kotlin storage.type.function.arrow.kotlin
+T 42 source.kotlin
+L                 logLines.add("<-- END HTTP (${duration}ms, 0-byte body)")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is BodyFilterResult.Skip -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+T 39 source.kotlin storage.type.function.arrow.kotlin
+T 41 source.kotlin
+L                 logLines.add(
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+L                     buildString {
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+L                         append("<-- END HTTP (")
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin
+L                         append(duration)
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L                         append("ms, ")
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L                         filteredBody.reason?.let {
+T 43 source.kotlin
+T 45 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L                             append("$it ")
+T 28 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+L                         }
+T 25 source.kotlin
+L                         filteredBody.byteSize?.let {
+T 45 source.kotlin
+T 47 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+L                             append("$it-byte ")
+T 28 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L                         }
+T 25 source.kotlin
+L                         append("body omitted)")
+T 24 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L                     }
+T 21 source.kotlin
+L                 )
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             is BodyFilterResult.Content -> {
+T 12 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 42 source.kotlin storage.type.function.arrow.kotlin
+T 44 source.kotlin
+L                 logLines.add(filteredBody.read())
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L                 logLines.add("<-- END HTTP (${duration}ms, ${filteredBody.byteSize}-byte body)")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 59 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 82 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 83 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 94 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun logResponseOkHttpFormat(response: HttpResponse, logLines: MutableList<String>): HttpResponse {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 39 source.kotlin entity.name.function.declaration.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 85 source.kotlin entity.name.type.kotlin
+T 86 source.kotlin
+T 92 source.kotlin entity.name.type.kotlin
+T 93 source.kotlin
+T 94 source.kotlin
+T 96 source.kotlin
+T 108 source.kotlin entity.name.type.kotlin
+T 109 source.kotlin
+T 110 source.kotlin
+L         if (isNone()) return response
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 37 source.kotlin
+L 
+L         val contentLength = response.headers[HttpHeaders.ContentLength]?.toLongOrNull()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin
+T 73 source.kotlin
+T 85 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L         val request = response.request
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+L         val duration = response.responseTime.timestamp - response.requestTime.timestamp
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.arithmetic.kotlin
+T 87 source.kotlin
+L 
+L         val startLine = when {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+L             response.headers[HttpHeaders.TransferEncoding] == "chunked" &&
+T 59 source.kotlin
+T 61 source.kotlin keyword.operator.comparison.kotlin
+T 62 source.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+T 74 source.kotlin keyword.operator.logical.kotlin
+L                 (isInfo() || isHeaders()) ->
+T 17 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.logical.kotlin
+T 29 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 44 source.kotlin storage.type.function.arrow.kotlin
+L                 "<-- ${response.status} ${request.url} (${duration}ms, unknown-byte body)"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 40 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 56 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin string.quoted.double.kotlin
+L 
+L             isInfo() && contentLength != null ->
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.operator.logical.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 41 source.kotlin
+T 45 source.kotlin constant.language.null.kotlin
+T 46 source.kotlin
+T 48 source.kotlin storage.type.function.arrow.kotlin
+L                 "<-- ${response.status} ${request.url} (${duration}ms, $contentLength-byte body)"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 40 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 56 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 71 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin string.quoted.double.kotlin
+L 
+L             isBody() ||
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.operator.logical.kotlin
+L                 (isInfo() && contentLength == null) ||
+T 17 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.logical.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 46 source.kotlin
+T 50 source.kotlin constant.language.null.kotlin
+T 52 source.kotlin
+T 54 source.kotlin keyword.operator.logical.kotlin
+L                 (isHeaders() && contentLength != null) ||
+T 17 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.logical.kotlin
+T 46 source.kotlin
+T 48 source.kotlin keyword.operator.comparison.kotlin
+T 49 source.kotlin
+T 53 source.kotlin constant.language.null.kotlin
+T 55 source.kotlin
+T 57 source.kotlin keyword.operator.logical.kotlin
+L                 (response.headers[HttpHeaders.ContentEncoding] == "gzip") ->
+T 63 source.kotlin
+T 65 source.kotlin keyword.operator.comparison.kotlin
+T 66 source.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+T 76 source.kotlin storage.type.function.arrow.kotlin
+L                 "<-- ${response.status} ${request.url} (${duration}ms)"
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 40 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 54 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 56 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 70 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+L 
+L             else -> "<-- ${response.status} ${request.url} (${duration}ms, unknown-byte body)"
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin storage.type.function.arrow.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 60 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 93 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin string.quoted.double.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         logLines.add(startLine)
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L 
+L         if (!isHeaders() && !isBody()) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.operator.logical.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.logical.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L             return response
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         for ((name, values) in response.headers.entries()) {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.hard.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L             if (sanitizedHeaders.find { sh -> sh.predicate(name) } == null) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 43 source.kotlin
+T 45 source.kotlin storage.type.function.arrow.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 69 source.kotlin keyword.operator.comparison.kotlin
+T 70 source.kotlin
+T 74 source.kotlin constant.language.null.kotlin
+T 77 source.kotlin
+L                 logLines.add("$name: ${values.joinToString(separator = ", ")}")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 45 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 76 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin
+L             } else {
+T 14 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L                 logLines.add("$name: ██")
+T 24 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (!isBody()) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L             logLines.add("<-- END HTTP")
+T 20 source.kotlin
+T 21 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L             return response
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (contentLength != null && contentLength == 0L) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin
+T 33 source.kotlin constant.language.null.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.logical.kotlin
+T 51 source.kotlin
+T 53 source.kotlin keyword.operator.comparison.kotlin
+T 54 source.kotlin
+T 56 source.kotlin constant.numeric.decimal.kotlin
+T 59 source.kotlin
+L             logLines.add("<-- END HTTP (${duration}ms, $contentLength-byte body)")
+T 20 source.kotlin
+T 21 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 55 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 80 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin
+L             return response
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (response.contentType() == ContentType.Text.EventStream) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.comparison.kotlin
+T 69 source.kotlin
+L             logLines.add("<-- END HTTP (streaming)")
+T 20 source.kotlin
+T 21 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L             return response
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (response.isSaved) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 31 source.kotlin
+L             logResponseBody(response, response.rawContent, logLines)
+T 12 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin
+L             return response
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         val (origChannel, newChannel) = response.rawContent.split(response)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+T 65 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+L 
+L         logResponseBody(response, newChannel, logLines)
+T 8 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L 
+L         val call = response.call.replaceResponse { origChannel }
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 64 source.kotlin
+L         return call.response
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     @OptIn(DelicateCoroutinesApi::class)
+T 4 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 39 source.kotlin entity.name.function.reference.kotlin
+T 40 source.kotlin
+L     suspend fun logRequestBody(
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+L         content: OutgoingContent,
+T 15 source.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+L         logger: HttpClientCallLogger
+T 14 source.kotlin
+T 16 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+L     ): OutgoingContent {
+T 5 source.kotlin
+T 7 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L         val requestLog = StringBuilder()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L         requestLog.appendLine("BODY Content-Type: ${content.contentType}")
+T 18 source.kotlin
+T 19 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 73 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+L 
+L         val charset = content.contentType?.charset() ?: Charsets.UTF_8
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin
+L 
+L         val channel = ByteChannel()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L         GlobalScope.launch(Dispatchers.Default + MDCContext()) {
+T 19 source.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin keyword.operator.arithmetic.kotlin
+T 49 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L             try {
+T 12 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+L                 val text = channel.tryReadText(charset) ?: "[request body omitted]"
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+L                 requestLog.appendLine("BODY START")
+T 26 source.kotlin
+T 27 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin
+L                 requestLog.appendLine(text)
+T 26 source.kotlin
+T 27 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L                 requestLog.append("BODY END")
+T 26 source.kotlin
+T 27 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin
+L             } finally {
+T 14 source.kotlin
+T 21 source.kotlin keyword.soft.kotlin
+T 23 source.kotlin
+L                 logger.logRequest(requestLog.toString())
+T 22 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+L                 logger.closeRequestLog()
+T 22 source.kotlin
+T 23 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         return content.observe(channel)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     fun logRequestException(context: HttpRequestBuilder, cause: Throwable) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 76 source.kotlin
+L         if (level.info) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+L             logger.log("REQUEST ${Url(context.url)} failed with exception: $cause")
+T 18 source.kotlin
+T 19 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 37 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 75 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun logRequest(request: HttpRequestBuilder): OutgoingContent? {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 72 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 75 source.kotlin
+L         val content = request.body as OutgoingContent
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.hard.kotlin
+T 53 source.kotlin
+L         val callLogger = HttpClientCallLogger(logger)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         request.attributes.put(ClientCallLogger, callLogger)
+T 26 source.kotlin
+T 27 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L 
+L         val message = buildString {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L             if (level.info) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+L                 appendLine("REQUEST: ${Url(request.url)}")
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin
+L                 appendLine("METHOD: ${request.method}")
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             if (level.headers) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 32 source.kotlin
+L                 appendLine("COMMON HEADERS")
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin
+L                 logHeaders(request.headers.entries(), sanitizedHeaders)
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+L 
+L                 appendLine("CONTENT HEADERS")
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin
+L                 val contentLengthPlaceholder = sanitizedHeaders
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 63 source.kotlin
+L                     .firstOrNull { it.predicate(HttpHeaders.ContentLength) }
+T 20 source.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 76 source.kotlin
+L                     ?.placeholder
+T 33 source.kotlin
+L                 val contentTypePlaceholder = sanitizedHeaders
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.assignment.kotlin
+T 61 source.kotlin
+L                     .firstOrNull { it.predicate(HttpHeaders.ContentType) }
+T 20 source.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin
+L                     ?.placeholder
+T 33 source.kotlin
+L                 content.contentLength?.let {
+T 37 source.kotlin
+T 39 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+L                     logHeader(HttpHeaders.ContentLength, contentLengthPlaceholder ?: it.toString())
+T 20 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+T 88 source.kotlin
+T 96 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L                 }
+T 17 source.kotlin
+L                 content.contentType?.let {
+T 35 source.kotlin
+T 37 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+L                     logHeader(HttpHeaders.ContentType, contentTypePlaceholder ?: it.toString())
+T 20 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 83 source.kotlin
+T 84 source.kotlin
+T 92 source.kotlin entity.name.function.call.kotlin
+T 95 source.kotlin
+L                 }
+T 17 source.kotlin
+L                 logHeaders(content.headers.entries(), sanitizedHeaders)
+T 16 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (message.isNotEmpty()) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L             callLogger.logRequest(message)
+T 22 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (message.isEmpty() || !level.body) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.logical.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+T 47 source.kotlin
+L             callLogger.closeRequestLog()
+T 22 source.kotlin
+T 23 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L             return null
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         return logRequestBody(content, callLogger)
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     fun logResponseException(log: StringBuilder, request: HttpRequest, cause: Throwable) {
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 76 source.kotlin
+T 78 source.kotlin
+T 87 source.kotlin entity.name.type.kotlin
+T 90 source.kotlin
+L         if (!level.info) return
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 25 source.kotlin
+T 31 source.kotlin keyword.control.kotlin
+L         log.append("RESPONSE ${request.url} failed with exception: $cause")
+T 11 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 67 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 74 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     on(SendHook) { request ->
+T 4 source.kotlin
+T 6 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin storage.type.function.arrow.kotlin
+L         if (!shouldBeLogged(request)) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.logical.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L             request.attributes.put(DisableLogging, Unit)
+T 30 source.kotlin
+T 31 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+L             return@on
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         if (okHttpFormat) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L             val requestLogLines = mutableListOf<String>()
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+L             val content = logRequestOkHttpFormat(request, requestLogLines)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+T 26 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin
+L 
+L             if (requestLogLines.size > 0) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin
+T 40 source.kotlin constant.numeric.decimal.kotlin
+T 43 source.kotlin
+L                 logger.log(requestLogLines.joinToString(separator = "\n"))
+T 22 source.kotlin
+T 23 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.assignment.kotlin
+T 68 source.kotlin
+T 69 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 72 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             try {
+T 12 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+L                 if (content != null) {
+T 16 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 31 source.kotlin
+T 35 source.kotlin constant.language.null.kotlin
+T 38 source.kotlin
+L                     proceedWith(content)
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L                 } else {
+T 18 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+L                     proceed()
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+L                 }
+T 17 source.kotlin
+L             } catch (cause: Throwable) {
+T 14 source.kotlin
+T 19 source.kotlin keyword.soft.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+L                 logger.log("<-- HTTP FAILED: $cause")
+T 22 source.kotlin
+T 23 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+L                 throw cause
+T 16 source.kotlin
+T 21 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             return@on
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         val loggedRequest = try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 31 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+L             logRequest(request)
+T 12 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L         } catch (_: Throwable) {
+T 10 source.kotlin
+T 15 source.kotlin keyword.soft.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+L             null
+T 12 source.kotlin
+T 16 source.kotlin constant.language.null.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+L             proceedWith(loggedRequest ?: request.body)
+T 12 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+L         } catch (cause: Throwable) {
+T 10 source.kotlin
+T 15 source.kotlin keyword.soft.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L             logRequestException(request, cause)
+T 12 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L             throw cause
+T 12 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+L         } finally {
+T 10 source.kotlin
+T 17 source.kotlin keyword.soft.kotlin
+T 19 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     on(ResponseAfterEncodingHook) { response ->
+T 4 source.kotlin
+T 6 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 47 source.kotlin storage.type.function.arrow.kotlin
+L         if (okHttpFormat) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L             val responseLogLines = mutableListOf<String>()
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+L             val newResponse = logResponseOkHttpFormat(response, responseLogLines)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+L 
+L             if (responseLogLines.size > 0) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 41 source.kotlin constant.numeric.decimal.kotlin
+T 44 source.kotlin
+L                 logger.log(responseLogLines.joinToString(separator = "\n"))
+T 22 source.kotlin
+T 23 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 68 source.kotlin keyword.operator.assignment.kotlin
+T 69 source.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin
+L             }
+T 13 source.kotlin
+L 
+L             if (newResponse != response) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+L                 proceedWith(newResponse)
+T 16 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     on(ResponseHook) { response ->
+T 4 source.kotlin
+T 6 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 34 source.kotlin storage.type.function.arrow.kotlin
+L         if (okHttpFormat) return@on
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 32 source.kotlin keyword.control.kotlin
+T 35 source.kotlin
+L 
+L         if (level == LogLevel.NONE || response.call.attributes.contains(DisableLogging)) return@on
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.logical.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+T 71 source.kotlin entity.name.function.call.kotlin
+T 89 source.kotlin
+T 95 source.kotlin keyword.control.kotlin
+T 98 source.kotlin
+L 
+L         val callLogger = response.call.attributes[ClientCallLogger]
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 67 source.kotlin
+L         val header = StringBuilder()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L 
+L         var failed = false
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L         try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+L             logResponseHeader(header, response.call.response, level, sanitizedHeaders)
+T 12 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 86 source.kotlin
+L             proceed()
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+L         } catch (cause: Throwable) {
+T 10 source.kotlin
+T 15 source.kotlin keyword.soft.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L             logResponseException(header, response.call.request, cause)
+T 12 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin
+L             failed = true
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 25 source.kotlin constant.language.boolean.kotlin
+L             throw cause
+T 12 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+L         } finally {
+T 10 source.kotlin
+T 17 source.kotlin keyword.soft.kotlin
+T 19 source.kotlin
+L             callLogger.logResponseHeader(header.toString())
+T 22 source.kotlin
+T 23 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+L             if (failed || !level.body) {
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.logical.kotlin
+T 26 source.kotlin
+T 27 source.kotlin keyword.operator.logical.kotlin
+T 40 source.kotlin
+L                 callLogger.closeResponseLog()
+T 26 source.kotlin
+T 27 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L             } else if (level.body && response.isSaved) {
+T 14 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 21 source.kotlin keyword.control.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.logical.kotlin
+T 56 source.kotlin
+L                 // Log only saved response body here. Streaming responses are logged via ResponseObserver
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 105 source.kotlin comment.line.double-slash.kotlin
+L                 callLogger.logResponseBody(response)
+T 26 source.kotlin
+T 27 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L                 callLogger.closeResponseLog()
+T 26 source.kotlin
+T 27 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     on(ReceiveHook) { call ->
+T 4 source.kotlin
+T 6 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin storage.type.function.arrow.kotlin
+L         if (okHttpFormat) return@on
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 32 source.kotlin keyword.control.kotlin
+T 35 source.kotlin
+L 
+L         if (level == LogLevel.NONE || call.attributes.contains(DisableLogging)) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.operator.comparison.kotlin
+T 35 source.kotlin
+T 37 source.kotlin keyword.operator.logical.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+L             return@on
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+L             proceed()
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+L         } catch (cause: Throwable) {
+T 10 source.kotlin
+T 15 source.kotlin keyword.soft.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+L             val log = StringBuilder()
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L             // ClientCallLogger may be absent for cached responses (SendHook is skipped by HttpCache).
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 102 source.kotlin comment.line.double-slash.kotlin
+L             val callLogger = call.attributes.getOrNull(ClientCallLogger)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+L                 ?: HttpClientCallLogger(logger).also { it.closeRequestLog() }
+T 19 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+T 57 source.kotlin
+T 58 source.kotlin
+T 73 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+L             logResponseException(log, call.request, cause)
+T 12 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L             callLogger.logResponseException(log.toString())
+T 22 source.kotlin
+T 23 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+L             callLogger.closeResponseLog()
+T 22 source.kotlin
+T 23 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L             throw cause
+T 12 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     if (okHttpFormat) return@createClientPlugin
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 28 source.kotlin keyword.control.kotlin
+T 47 source.kotlin
+L 
+L     if (!level.body) return@createClientPlugin
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+T 9 source.kotlin keyword.operator.logical.kotlin
+T 21 source.kotlin
+T 27 source.kotlin keyword.control.kotlin
+T 46 source.kotlin
+L 
+L     val responseObserver = ResponseObserver.prepare {
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+L         // Use observer to log streaming responses (responses that aren't saved in memory)
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 90 source.kotlin comment.line.double-slash.kotlin
+L         filter { !it.response.isSaved }
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.logical.kotlin
+T 39 source.kotlin
+L 
+L         onResponse { response ->
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 30 source.kotlin
+T 32 source.kotlin storage.type.function.arrow.kotlin
+L             if (level == LogLevel.NONE || response.call.attributes.contains(DisableLogging)) return@onResponse
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 39 source.kotlin
+T 41 source.kotlin keyword.operator.logical.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 75 source.kotlin entity.name.function.call.kotlin
+T 93 source.kotlin
+T 99 source.kotlin keyword.control.kotlin
+T 110 source.kotlin
+L 
+L             val callLogger = response.call.attributes[ClientCallLogger]
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin
+L             callLogger.logResponseBody(response)
+T 22 source.kotlin
+T 23 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L             callLogger.closeResponseLog()
+T 22 source.kotlin
+T 23 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L     ResponseObserver.install(responseObserver, client)
+T 20 source.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private fun computeRequestBodySize(content: Any): Long {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+L     check(content is OutgoingContent)
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+L 
+L     return when (content) {
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+L         is OutgoingContent.ByteArrayContent -> content.bytes().size.toLong()
+T 8 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 44 source.kotlin
+T 46 source.kotlin storage.type.function.arrow.kotlin
+T 54 source.kotlin
+T 55 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 68 source.kotlin
+T 74 source.kotlin entity.name.function.call.kotlin
+T 76 source.kotlin
+L         is OutgoingContent.ContentWrapper -> computeRequestBodySize(content.delegate())
+T 8 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 42 source.kotlin
+T 44 source.kotlin storage.type.function.arrow.kotlin
+T 45 source.kotlin
+T 67 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 76 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L         is OutgoingContent.NoContent -> 0
+T 8 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 37 source.kotlin
+T 39 source.kotlin storage.type.function.arrow.kotlin
+T 40 source.kotlin
+T 41 source.kotlin constant.numeric.decimal.kotlin
+L         is OutgoingContent.ProtocolUpgrade -> 0
+T 8 source.kotlin
+T 10 source.kotlin keyword.hard.kotlin
+T 43 source.kotlin
+T 45 source.kotlin storage.type.function.arrow.kotlin
+T 46 source.kotlin
+T 47 source.kotlin constant.numeric.decimal.kotlin
+L         else -> error("Unable to calculate the size for type ${content::class.simpleName}")
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin storage.type.function.arrow.kotlin
+T 16 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.reference.kotlin
+T 88 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 89 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Configures and installs [Logging] in [HttpClient].
+T 53 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [Report a problem](https://ktor.io/feedback/?fqname=io.ktor.client.plugins.logging.Logging)
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @Suppress("FunctionName")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L public fun HttpClientConfig<*>.Logging(block: LoggingConfig.() -> Unit = {}) {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin keyword.operator.arithmetic.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin storage.type.function.arrow.kotlin
+T 71 source.kotlin
+T 72 source.kotlin keyword.operator.assignment.kotlin
+T 78 source.kotlin
+L     install(Logging, block)
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal class SanitizedHeader(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 14 source.kotlin keyword.hard.class.kotlin
+T 15 source.kotlin
+T 30 source.kotlin entity.name.type.class.kotlin
+T 31 source.kotlin
+L     val placeholder: String,
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+L     val predicate: (String) -> Boolean
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+L )
+T 1 source.kotlin
+L 
+L private object ResponseHook : ClientHook<suspend ResponseHook.Context.(response: HttpResponse) -> Unit> {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 14 source.kotlin keyword.hard.object.kotlin
+T 15 source.kotlin
+T 27 source.kotlin entity.name.type.object.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 69 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 79 source.kotlin entity.name.type.kotlin
+T 81 source.kotlin
+T 93 source.kotlin entity.name.type.kotlin
+T 98 source.kotlin
+T 102 source.kotlin entity.name.type.kotlin
+T 103 source.kotlin keyword.operator.comparison.kotlin
+T 105 source.kotlin
+L 
+L     class Context(private val context: PipelineContext<HttpResponse, Unit>) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 77 source.kotlin
+L         suspend fun proceed() = context.proceed()
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun install(
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+L         client: HttpClient,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         handler: suspend Context.(response: HttpResponse) -> Unit
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin storage.type.function.arrow.kotlin
+T 65 source.kotlin
+L     ) {
+T 7 source.kotlin
+L         client.receivePipeline.intercept(HttpReceivePipeline.State) {
+T 30 source.kotlin
+T 31 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L             handler(Context(this), subject)
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 32 source.kotlin variable.language.this.kotlin
+T 43 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private object ResponseAfterEncodingHook :
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 14 source.kotlin keyword.hard.object.kotlin
+T 15 source.kotlin
+T 40 source.kotlin entity.name.type.object.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+L     ClientHook<suspend ResponseAfterEncodingHook.Context.(response: HttpResponse) -> Unit> {
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin storage.modifier.other.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+T 80 source.kotlin entity.name.type.kotlin
+T 82 source.kotlin
+T 84 source.kotlin storage.type.function.arrow.kotlin
+T 89 source.kotlin
+T 90 source.kotlin keyword.operator.comparison.kotlin
+T 92 source.kotlin
+L 
+L     class Context(private val context: PipelineContext<HttpResponse, Unit>) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 77 source.kotlin
+L         suspend fun proceedWith(response: HttpResponse) = context.proceedWith(response)
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 57 source.kotlin keyword.operator.assignment.kotlin
+T 65 source.kotlin
+T 66 source.kotlin
+T 77 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun install(
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+L         client: HttpClient,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         handler: suspend Context.(response: HttpResponse) -> Unit
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin storage.type.function.arrow.kotlin
+T 65 source.kotlin
+L     ) {
+T 7 source.kotlin
+L         val afterState = PipelinePhase("AfterState")
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L         client.receivePipeline.insertPhaseAfter(HttpReceivePipeline.State, afterState)
+T 30 source.kotlin
+T 31 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 86 source.kotlin
+L         client.receivePipeline.intercept(afterState) {
+T 30 source.kotlin
+T 31 source.kotlin
+T 40 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+L             handler(Context(this), subject)
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 32 source.kotlin variable.language.this.kotlin
+T 43 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private object SendHook : ClientHook<suspend SendHook.Context.(response: HttpRequestBuilder) -> Unit> {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 14 source.kotlin keyword.hard.object.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.type.object.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 91 source.kotlin entity.name.type.kotlin
+T 96 source.kotlin
+T 100 source.kotlin entity.name.type.kotlin
+T 101 source.kotlin keyword.operator.comparison.kotlin
+T 103 source.kotlin
+L 
+L     class Context(private val context: PipelineContext<Any, HttpRequestBuilder>) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 78 source.kotlin entity.name.type.kotlin
+T 79 source.kotlin
+T 82 source.kotlin
+L         suspend fun proceedWith(content: Any) = context.proceedWith(content)
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin
+T 67 source.kotlin entity.name.function.call.kotlin
+T 76 source.kotlin
+L         suspend fun proceed() = context.proceed()
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun install(
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+L         client: HttpClient,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         handler: suspend Context.(request: HttpRequestBuilder) -> Unit
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin storage.type.function.arrow.kotlin
+T 70 source.kotlin
+L     ) {
+T 7 source.kotlin
+L         client.sendPipeline.intercept(HttpSendPipeline.Monitoring) {
+T 27 source.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin
+L             handler(Context(this), context)
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 32 source.kotlin variable.language.this.kotlin
+T 43 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L private object ReceiveHook : ClientHook<suspend ReceiveHook.Context.(call: HttpClientCall) -> Unit> {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 14 source.kotlin keyword.hard.object.kotlin
+T 15 source.kotlin
+T 26 source.kotlin entity.name.type.object.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 75 source.kotlin
+T 89 source.kotlin entity.name.type.kotlin
+T 94 source.kotlin
+T 98 source.kotlin entity.name.type.kotlin
+T 99 source.kotlin keyword.operator.comparison.kotlin
+T 101 source.kotlin
+L 
+L     class Context(private val context: PipelineContext<HttpResponseContainer, HttpClientCall>) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+T 18 source.kotlin
+T 25 source.kotlin storage.modifier.other.kotlin
+T 26 source.kotlin
+T 29 source.kotlin keyword.hard.kotlin
+T 30 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 76 source.kotlin entity.name.type.kotlin
+T 78 source.kotlin
+T 92 source.kotlin entity.name.type.kotlin
+T 93 source.kotlin
+T 96 source.kotlin
+L         suspend fun proceed() = context.proceed()
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.fun.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun install(
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+L         client: HttpClient,
+T 14 source.kotlin
+T 16 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+L         handler: suspend Context.(call: HttpClientCall) -> Unit
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 58 source.kotlin storage.type.function.arrow.kotlin
+T 63 source.kotlin
+L     ) {
+T 7 source.kotlin
+L         client.responsePipeline.intercept(HttpResponsePipeline.Receive) {
+T 31 source.kotlin
+T 32 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 73 source.kotlin
+L             handler(Context(this), context)
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 32 source.kotlin variable.language.this.kotlin
+T 43 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 

@@ -130,6 +130,7 @@ assert_eq!(highlighter.limits().depth, None);
 | INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
 | CSS | `Language::Css` | `lang-css` | `css` |
+| Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
 
 ### Features
 
@@ -150,7 +151,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile |
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
-  | `systems` | Rust, C, Shell, Java |
+  | `systems` | Rust, C, Shell, Java, Kotlin |
   | `docs` | Markdown and `config` |
 
 - `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
@@ -162,7 +163,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - A fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does.
 - Any other fence is plain text, as in Shiki when only these languages are loaded.
-  That includes `toml`: Shiki's Markdown grammar has no rule that embeds it.
+  That includes `toml` and `kotlin`: Shiki's Markdown grammar has no rule that embeds them.
 - YAML front matter is lexed as YAML.
 
 ## Status
@@ -332,6 +333,21 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - A Markdown fence is plain text, as Shiki's Markdown grammar has no rule that embeds GraphQL.
 - A `${...}` in a selection set is lexed as JavaScript by the JavaScript lexer.
   It carries its state across lines, up to the first `}` that no context of the code is waiting for.
+
+### Kotlin
+
+- `/**/` opens a KDoc comment, because `/**` is read before `/**/` could close, so the comment runs on until a later `*/`.
+- A KDoc tag is read anywhere inside a KDoc comment, not only at the start of a line.
+- `a==b` is a key, `a=`, and an assignment: the key pattern needs one word character, `=` and then another `=`.
+- `@a.b:` is the annotation `@a.`, because the pattern gives characters back until no `:` follows.
+- A template expression `${...}` ends at its first `}`, so a lambda inside it ends it early.
+- `in` and `out` in a type parameter list are types, not modifiers: the pattern for any word comes first.
+- A type annotation reads on over words, blanks, `?`, `->` and brackets without quotes.
+  `a: Foo, b` ends the annotation at the comma.
+- `fun Foo.` with no name after the dot makes `Foo` the function's name.
+- A line that opens a group of generics a hundred thousand times and closes it once runs into the work limit.
+  The grammar's pattern scans from each opener, and so does the lexer.
+- `\w`, `\s` and `\d` for non-ASCII characters come from the JSON table above.
 
 ## Licence
 

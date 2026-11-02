@@ -71,6 +71,8 @@ mod ini;
 mod java;
 #[cfg(feature = "lang-json")]
 mod json;
+#[cfg(feature = "lang-kotlin")]
+mod kotlin;
 mod language;
 mod limits;
 #[cfg(feature = "lang-make")]

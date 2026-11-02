@@ -1,0 +1,1305 @@
+L @file:Suppress("UnstableApiUsage")
+T 5 source.kotlin entity.name.type.annotation-site.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 32 source.kotlin entity.name.type.annotation.kotlin
+T 34 source.kotlin
+L 
+L import okhttp3.buildsupport.alpnBootVersion
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.buildsupport.platform
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.buildsupport.testJavaVersion
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 54 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import ru.vyarus.gradle.plugin.animalsniffer.AnimalSniffer
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 58 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import ru.vyarus.gradle.plugin.animalsniffer.AnimalSnifferExtension
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 67 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L plugins {
+T 7 source.kotlin entity.name.function.call.kotlin
+T 8 source.kotlin
+T 9 source.kotlin
+L   kotlin("multiplatform")
+T 2 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L   id("com.android.kotlin.multiplatform.library")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin
+L   kotlin("plugin.serialization")
+T 2 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+L   id("okhttp.publish-conventions")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+L   id("okhttp.jvm-conventions")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L   id("okhttp.quality-conventions")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+L   id("okhttp.testing-conventions")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+L   id("app.cash.burst")
+T 2 source.kotlin
+T 4 source.kotlin entity.name.function.call.kotlin
+T 5 source.kotlin
+T 6 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin
+L   alias(libs.plugins.maven.sympathy)
+T 2 source.kotlin
+T 7 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L val copyKotlinTemplates =
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+L   tasks.register<Copy>("copyKotlinTemplates") {
+T 7 source.kotlin
+T 8 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L     val kotlinTemplatesOutput = layout.buildDirectory.dir("generated/sources/kotlinTemplates")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin string.quoted.double.kotlin
+T 94 source.kotlin
+L 
+L     from("src/commonJvmAndroid/kotlinTemplates")
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin
+L     into(kotlinTemplatesOutput)
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L 
+L     filteringCharset = Charsets.UTF_8.toString()
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L 
+L     expand(
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+L       "projectVersion" to project.version.toString(),
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L // Build & use okhttp3/internal/idn/IdnaMappingTableInstance.kt
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 63 source.kotlin comment.line.double-slash.kotlin
+L val generateIdnaMappingTableConfiguration = configurations.create("generateIdnaMappingTableConfiguration")
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 58 source.kotlin
+T 59 source.kotlin
+T 65 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 104 source.kotlin string.quoted.double.kotlin
+T 105 source.kotlin string.quoted.double.kotlin
+T 106 source.kotlin
+L dependencies {
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L   generateIdnaMappingTableConfiguration(projects.okhttpIdnaMappingTable)
+T 2 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+L }
+T 1 source.kotlin
+L val generateIdnaMappingTable =
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+L   tasks.register<JavaExec>("generateIdnaMappingTable") {
+T 7 source.kotlin
+T 8 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin
+L     val idnaOutput = layout.buildDirectory.dir("generated/sources/idnaMappingTable")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin
+L 
+L     outputs.dir(idnaOutput)
+T 11 source.kotlin
+T 12 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L     mainClass.set("okhttp3.internal.idn.GenerateIdnaMappingTableCode")
+T 13 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+L     args(idnaOutput.get())
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+L     classpath = generateIdnaMappingTableConfiguration
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 53 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L kotlin {
+T 6 source.kotlin entity.name.function.call.kotlin
+T 7 source.kotlin
+T 8 source.kotlin
+L   jvmToolchain(21)
+T 2 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 17 source.kotlin constant.numeric.decimal.kotlin
+T 18 source.kotlin
+L 
+L   jvm {
+T 2 source.kotlin
+T 5 source.kotlin entity.name.function.call.kotlin
+T 6 source.kotlin
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   android {
+T 2 source.kotlin
+T 9 source.kotlin entity.name.function.call.kotlin
+T 10 source.kotlin
+T 11 source.kotlin
+L     namespace = "okhttp.okhttp3"
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+L     compileSdk {
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+L       version = release(37)
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 26 source.kotlin constant.numeric.decimal.kotlin
+T 27 source.kotlin
+L     }
+T 5 source.kotlin
+L     minSdk = 21
+T 11 source.kotlin
+T 12 source.kotlin keyword.operator.assignment.kotlin
+T 13 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+L 
+L     androidResources {
+T 4 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L       enable = true
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.boolean.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     optimization {
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+L       consumerKeepRules.publish = true
+T 32 source.kotlin
+T 33 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 38 source.kotlin constant.language.boolean.kotlin
+L       consumerKeepRules.files.add(file("okhttp3.pro"))
+T 29 source.kotlin
+T 30 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     withDeviceTest {
+T 4 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L       instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+L       execution = "HOST"
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     // SDK 35 needs 17, for now avoid trying to run on
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 54 source.kotlin comment.line.double-slash.kotlin
+L     // multiple robolectric versions, since device tests
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 56 source.kotlin comment.line.double-slash.kotlin
+L     // do that
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+L     if (testJavaVersion >= 17) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.operator.comparison.kotlin
+T 27 source.kotlin
+T 29 source.kotlin constant.numeric.decimal.kotlin
+T 32 source.kotlin
+L       withHostTest {
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L         isIncludeAndroidResources = true
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   sourceSets {
+T 2 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L     val commonJvmAndroid =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+L       create("commonJvmAndroid") {
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+L         dependsOn(commonMain.get())
+T 8 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L 
+L         kotlin.srcDir(copyKotlinTemplates.map { it.outputs })
+T 14 source.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 61 source.kotlin
+L         kotlin.srcDir(generateIdnaMappingTable.map { it.outputs })
+T 14 source.kotlin
+T 15 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 66 source.kotlin
+L 
+L         dependencies {
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L           api(libs.square.okio)
+T 10 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L           api(libs.kotlin.stdlib)
+T 10 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L 
+L           compileOnly(libs.animalsniffer.annotations)
+T 10 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     commonTest {
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+L       dependencies {
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L         implementation(projects.mockwebserver3Junit5)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         implementation(projects.okhttpTestingSupport)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         implementation(libs.assertk)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L         implementation(libs.kotlin.test.annotations)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L         implementation(libs.kotlin.test.common)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L         implementation(libs.kotlin.test.junit)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(libs.junit)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L         implementation(libs.junit.jupiter.api)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(libs.junit.jupiter.params)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     androidMain {
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+L       dependsOn(commonJvmAndroid)
+T 6 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L       dependencies {
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L         compileOnly(project.dependencies.platform(libs.bouncycastle.bom))
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 73 source.kotlin
+L         compileOnly(libs.bouncycastle.bcprov)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         compileOnly(libs.bouncycastle.bcutil)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         compileOnly(libs.bouncycastle.bctls)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L         compileOnly(libs.conscrypt.openjdk)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L         implementation(libs.androidx.annotation)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 47 source.kotlin storage.modifier.other.kotlin
+T 48 source.kotlin
+L         implementation(libs.androidx.startup.runtime)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     jvmMain {
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L       dependsOn(commonJvmAndroid)
+T 6 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L 
+L       dependencies {
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L         // These compileOnly dependencies must also be listed in applyOsgiMultiplatform() below.
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 96 source.kotlin comment.line.double-slash.kotlin
+L         compileOnly(libs.conscrypt.openjdk)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L         compileOnly(project.dependencies.platform(libs.bouncycastle.bom))
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 73 source.kotlin
+L         compileOnly(libs.bouncycastle.bcprov)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         compileOnly(libs.bouncycastle.bcutil)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         compileOnly(libs.bouncycastle.bctls)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L 
+L         // graal build support
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 30 source.kotlin comment.line.double-slash.kotlin
+L         compileOnly(libs.native.image.svm)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         compileOnly(libs.openjsse)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     jvmTest {
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L       dependencies {
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+L         implementation(libs.assertk)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L         implementation(libs.conscrypt.openjdk)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(libs.junit.jupiter.api)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(libs.junit.jupiter.engine)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L         implementation(libs.junit.jupiter.params)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L         implementation(libs.junit.vintage.engine)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L         implementation(libs.junit)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L         implementation(libs.kotlin.test.annotations)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L         implementation(libs.kotlin.test.common)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L         implementation(libs.kotlin.test.junit)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(libs.kotlinx.coroutines.core)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L         implementation(libs.kotlinx.serialization.core)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L         implementation(libs.kotlinx.serialization.json)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L         implementation(libs.openjsse)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L         implementation(libs.square.moshi.kotlin)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L         implementation(libs.square.moshi)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L         implementation(libs.square.okio.fakefilesystem)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L         implementation(projects.loggingInterceptor)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L         implementation(projects.mockwebserver)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+L         implementation(projects.mockwebserver3)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L         implementation(projects.mockwebserver3Junit4)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         implementation(projects.okhttpBrotli)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         implementation(projects.okhttpCoroutines)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L         implementation(projects.okhttpDnsoverhttps)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L         implementation(projects.okhttpIdnaMappingTable)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L         implementation(projects.okhttpJavaNetCookiejar)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L         implementation(projects.okhttpSse)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         implementation(projects.okhttpTestingSupport)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L         implementation(projects.okhttpTls)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         implementation(projects.okhttpUrlconnection)
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+L 
+L         if (platform == "conscrypt") {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin keyword.operator.comparison.kotlin
+T 24 source.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L           implementation(libs.conscrypt.openjdk)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L         } else if (platform == "openjsse") {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+T 30 source.kotlin keyword.operator.comparison.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin
+L           implementation(libs.openjsse)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     if (testJavaVersion >= 17) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.operator.comparison.kotlin
+T 27 source.kotlin
+T 29 source.kotlin constant.numeric.decimal.kotlin
+T 32 source.kotlin
+L       named("androidHostTest") {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+L         dependencies {
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L           implementation(libs.androidx.junit)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L           implementation(libs.assertk)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L           implementation(libs.junit.jupiter.engine)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L           implementation(libs.junit.vintage.engine)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L           implementation(libs.kotlin.test.annotations)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+L           implementation(libs.kotlin.test.common)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L           implementation(libs.robolectric)
+T 10 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L if (platform == "jdk8alpn") {
+T 2 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin keyword.operator.comparison.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L   // Add alpn-boot on Java 8 so we can use HTTP/2 without a stable API.
+T 2 source.kotlin
+T 4 source.kotlin comment.line.double-slash.kotlin
+T 71 source.kotlin comment.line.double-slash.kotlin
+L   val alpnBootVersion = alpnBootVersion
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L   if (alpnBootVersion != null) {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 29 source.kotlin constant.language.null.kotlin
+T 32 source.kotlin
+L     val alpnBootJar =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+L       configurations
+T 20 source.kotlin
+L         .detachedConfiguration(
+T 8 source.kotlin
+T 9 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L           dependencies.create("org.mortbay.jetty.alpn:alpn-boot:$alpnBootVersion"),
+T 22 source.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 80 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 81 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin
+L         ).singleFile
+T 20 source.kotlin
+L     tasks.withType<Test> {
+T 9 source.kotlin
+T 10 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+L       jvmArgs("-Xbootclasspath/p:$alpnBootJar")
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L project.applyJavaModules(
+T 7 source.kotlin
+T 8 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+L   moduleName = "okhttp3",
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L   enableValidation = false,
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+T 27 source.kotlin
+L )
+T 1 source.kotlin
+L 
+L project.applyOsgiMultiplatform(
+T 7 source.kotlin
+T 8 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L   "Export-Package: okhttp3,okhttp3.internal.*;okhttpinternal=true;mandatory:=okhttpinternal",
+T 2 source.kotlin
+T 3 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin string.quoted.double.kotlin
+T 92 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin
+L   "Import-Package: " +
+T 2 source.kotlin
+T 3 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.arithmetic.kotlin
+L     "com.oracle.svm.core.annotate;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+T 58 source.kotlin keyword.operator.arithmetic.kotlin
+L     "com.oracle.svm.core.configure;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin
+T 59 source.kotlin keyword.operator.arithmetic.kotlin
+L     "dalvik.system;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.arithmetic.kotlin
+L     "org.conscrypt;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.arithmetic.kotlin
+L     "org.bouncycastle.*;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+T 48 source.kotlin keyword.operator.arithmetic.kotlin
+L     "org.openjsse.*;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.arithmetic.kotlin
+L     "org.graalvm.nativeimage;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+T 53 source.kotlin keyword.operator.arithmetic.kotlin
+L     "org.graalvm.nativeimage.hosted;resolution:=optional," +
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+T 60 source.kotlin keyword.operator.arithmetic.kotlin
+L     "sun.security.ssl;resolution:=optional,*",
+T 4 source.kotlin
+T 5 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+L   "Automatic-Module-Name: okhttp3",
+T 2 source.kotlin
+T 3 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin
+L   "Bundle-SymbolicName: com.squareup.okhttp3",
+T 2 source.kotlin
+T 3 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+L )
+T 1 source.kotlin
+L 
+L val androidSignature = configurations.getByName("androidSignature")
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin
+L val jvmSignature = configurations.getByName("jvmSignature")
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L val checkstyleConfig = configurations.getByName("checkstyleConfig")
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin
+L 
+L // Animal Sniffer confirms we generally don't use APIs not on Java 8.
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 69 source.kotlin comment.line.double-slash.kotlin
+L configure<AnimalSnifferExtension> {
+T 9 source.kotlin entity.name.function.call.kotlin
+T 10 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L   annotation = "okhttp3.internal.SuppressSignatureCheck"
+T 2 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+L   defaultTargets("jvmMain", "debug")
+T 2 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L project.tasks.withType<AnimalSniffer> {
+T 13 source.kotlin
+T 14 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L   if (targetName == "animalsnifferJvmMain") {
+T 2 source.kotlin
+T 4 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin
+L     animalsnifferSignatures = jvmSignature
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+L   } else {
+T 4 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+L     animalsnifferSignatures = androidSignature
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 46 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L afterEvaluate {
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L   tasks.withType<Test> {
+T 7 source.kotlin
+T 8 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L     if (javaLauncher
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L         .get()
+T 8 source.kotlin
+T 9 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+L         .metadata.languageVersion
+T 33 source.kotlin
+L         .asInt() < 9
+T 8 source.kotlin
+T 9 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.comparison.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+L     ) {
+T 7 source.kotlin
+L       // Work around robolectric requirements and limitations
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 61 source.kotlin comment.line.double-slash.kotlin
+L       // https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:build-system/gradle-core/src/main/java/com/android/build/gradle/tasks/factory/AndroidUnitTest.java;l=339
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 197 source.kotlin comment.line.double-slash.kotlin
+L       allJvmArgs = allJvmArgs.filter { !it.startsWith("--add-opens") }
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.logical.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+L     } else {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L       // Robolectric's FileDescriptor interceptor reaches into jdk.internal.access, which isn't
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 95 source.kotlin comment.line.double-slash.kotlin
+L       // exported to the unnamed module. Android 17 (API 37) images hit it on startup.
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 86 source.kotlin comment.line.double-slash.kotlin
+L       jvmArgs("--add-exports=java.base/jdk.internal.access=ALL-UNNAMED")
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // Work around issue 8826, where the Sentry SDK assumes that OkHttp's internal-visibility symbols
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 97 source.kotlin comment.line.double-slash.kotlin
+L // will be suffixed '$okhttp' in deployable artifacts. This isn't intended to be a published API,
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 97 source.kotlin comment.line.double-slash.kotlin
+L // but it's easy enough for us to keep it working. https://github.com/lysine-dev/okhttp/issues/8826
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 99 source.kotlin comment.line.double-slash.kotlin
+L tasks.withType<KotlinCompile> {
+T 5 source.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L   compilerOptions {
+T 2 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+L     freeCompilerArgs.addAll("-module-name=okhttp", "-Xexpect-actual-classes")
+T 20 source.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin
+T 76 source.kotlin string.quoted.double.kotlin
+T 77 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 

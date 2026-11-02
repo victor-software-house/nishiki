@@ -1,0 +1,2690 @@
+L /*
+T 2 source.kotlin comment.block.kotlin
+L  * Copyright (C) 2013 Square, Inc.
+T 34 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Licensed under the Apache License, Version 2.0 (the "License");
+T 66 source.kotlin comment.block.kotlin
+L  * you may not use this file except in compliance with the License.
+T 67 source.kotlin comment.block.kotlin
+L  * You may obtain a copy of the License at
+T 42 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  *      http://www.apache.org/licenses/LICENSE-2.0
+T 50 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Unless required by applicable law or agreed to in writing, software
+T 70 source.kotlin comment.block.kotlin
+L  * distributed under the License is distributed on an "AS IS" BASIS,
+T 68 source.kotlin comment.block.kotlin
+L  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 75 source.kotlin comment.block.kotlin
+L  * See the License for the specific language governing permissions and
+T 70 source.kotlin comment.block.kotlin
+L  * limitations under the License.
+T 33 source.kotlin comment.block.kotlin
+L  */
+T 1 source.kotlin comment.block.kotlin
+T 3 source.kotlin comment.block.kotlin
+L package okhttp3
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 15 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import java.net.URL
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 19 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.reflect.KClass
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.Headers.Companion.headersOf
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.HttpUrl.Companion.toHttpUrl
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.EmptyTags
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.Tags
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 28 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.http.GzipRequestBody
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 44 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.http.HttpMethod
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 39 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.isProbablyUtf8
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 38 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okhttp3.internal.isSensitiveHeader
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import okio.Buffer
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 18 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * An HTTP request. Instances of this class are immutable if their [body] is null or itself
+T 91 source.kotlin comment.block.javadoc.kotlin
+L  * immutable.
+T 13 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L class Request internal constructor(
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+T 22 source.kotlin storage.modifier.other.kotlin
+T 23 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L   builder: Builder,
+T 9 source.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+L ) {
+T 3 source.kotlin
+L   @get:JvmName("url")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 19 source.kotlin entity.name.type.annotation.kotlin
+T 21 source.kotlin
+L   val url: HttpUrl = checkNotNull(builder.url) { "url == null" }
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 9 source.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin
+L 
+L   @get:JvmName("method")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.annotation.kotlin
+T 24 source.kotlin
+L   val method: String = builder.method
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+L 
+L   @get:JvmName("headers")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.type.annotation.kotlin
+T 25 source.kotlin
+L   val headers: Headers = builder.headers.build()
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L 
+L   @get:JvmName("body")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.type.annotation.kotlin
+T 22 source.kotlin
+L   val body: RequestBody? = builder.body
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 10 source.kotlin
+T 12 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L 
+L   @get:JvmName("cacheUrlOverride")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 32 source.kotlin entity.name.type.annotation.kotlin
+T 34 source.kotlin
+L   val cacheUrlOverride: HttpUrl? = builder.cacheUrlOverride
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+L 
+L   internal val tags = builder.tags
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+L 
+L   private var lazyCacheControl: CacheControl? = null
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.kotlin
+T 14 source.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.assignment.kotlin
+T 48 source.kotlin
+T 52 source.kotlin constant.language.null.kotlin
+L 
+L   val isHttps: Boolean
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 13 source.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+L     get() = url.isHttps
+T 4 source.kotlin
+T 7 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+L 
+L   /**
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L    * Constructs a new request.
+T 30 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * Use [Builder] for more fluent construction, including helper methods for various HTTP methods.
+T 99 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * @param method defaults to "GET" if [body] is null, and "POST" otherwise.
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 12 source.kotlin comment.block.javadoc.kotlin
+T 18 source.kotlin comment.block.javadoc.kotlin variable.parameter.kotlin
+T 77 source.kotlin comment.block.javadoc.kotlin
+L    */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L   constructor(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+L     url: HttpUrl,
+T 7 source.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+L     headers: Headers = headersOf(),
+T 11 source.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L     // '\u0000' is a sentinel value that'll choose based on what the body is:
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 77 source.kotlin comment.line.double-slash.kotlin
+L     method: String = "\u0000",
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L     body: RequestBody? = null,
+T 8 source.kotlin
+T 10 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 29 source.kotlin constant.language.null.kotlin
+T 30 source.kotlin
+L   ) : this(
+T 4 source.kotlin
+T 6 source.kotlin
+T 10 source.kotlin entity.name.type.kotlin
+T 11 source.kotlin
+L     Builder()
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+L       .url(url)
+T 6 source.kotlin
+T 7 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L       .headers(headers)
+T 6 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+L       .method(
+T 6 source.kotlin
+T 7 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+L         when {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+L           method != "\u0000" -> method
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+T 31 source.kotlin storage.type.function.arrow.kotlin
+T 38 source.kotlin
+L           body != null -> "POST"
+T 15 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 18 source.kotlin
+T 22 source.kotlin constant.language.null.kotlin
+T 23 source.kotlin
+T 25 source.kotlin storage.type.function.arrow.kotlin
+T 26 source.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+L           else -> "GET"
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin storage.type.function.arrow.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+L         },
+T 10 source.kotlin
+L         body,
+T 13 source.kotlin
+L       ),
+T 8 source.kotlin
+L   )
+T 3 source.kotlin
+L 
+L   fun header(name: String): String? = headers[name]
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.declaration.kotlin
+T 17 source.kotlin
+T 19 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 28 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+L 
+L   fun headers(name: String): List<String> = headers.values(name)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.declaration.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+L 
+L   /** Returns the tag attached with [T] as a key, or null if no tag is attached with that key. */
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 95 source.kotlin comment.block.javadoc.kotlin
+T 97 source.kotlin comment.block.javadoc.kotlin
+L   @JvmName("reifiedTag")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin
+L   inline fun <reified T : Any> tag(): T? = tag(T::class)
+T 2 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 55 source.kotlin entity.name.function.reference.kotlin
+T 56 source.kotlin
+L 
+L   /** Returns the tag attached with [type] as a key, or null if no tag is attached with that key. */
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 98 source.kotlin comment.block.javadoc.kotlin
+T 100 source.kotlin comment.block.javadoc.kotlin
+L   fun <T : Any> tag(type: KClass<T>): T? = type.java.cast(tags[type])
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 7 source.kotlin
+T 8 source.kotlin entity.name.type.kotlin
+T 11 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+L 
+L   /**
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L    * Returns the tag attached with `Object.class` as a key, or null if no tag is attached with
+T 94 source.kotlin comment.block.javadoc.kotlin
+L    * that key.
+T 14 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * Prior to OkHttp 3.11, this method never returned null if no tag was attached. Instead it
+T 93 source.kotlin comment.block.javadoc.kotlin
+L    * returned either this request, or the request upon which this request was derived with
+T 90 source.kotlin comment.block.javadoc.kotlin
+L    * [newBuilder].
+T 18 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * @suppress this method breaks Dokka! https://github.com/Kotlin/dokka/issues/2473
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 84 source.kotlin comment.block.javadoc.kotlin
+L    */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L   fun tag(): Any? = tag<Any>()
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 9 source.kotlin entity.name.function.declaration.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+L 
+L   /**
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L    * Returns the tag attached with [type] as a key, or null if no tag is attached with that
+T 91 source.kotlin comment.block.javadoc.kotlin
+L    * key.
+T 9 source.kotlin comment.block.javadoc.kotlin
+L    */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L   fun <T> tag(type: Class<out T>): T? = tag(type.kotlin)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 7 source.kotlin
+T 8 source.kotlin entity.name.type.kotlin
+T 9 source.kotlin
+T 10 source.kotlin
+T 13 source.kotlin entity.name.function.declaration.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+L 
+L   fun newBuilder(): Builder = Builder(this)
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 42 source.kotlin variable.language.this.kotlin
+T 43 source.kotlin
+L 
+L   /**
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L    * Returns the cache control directives for this response. This is never null, even if this
+T 93 source.kotlin comment.block.javadoc.kotlin
+L    * response contains no `Cache-Control` header.
+T 49 source.kotlin comment.block.javadoc.kotlin
+L    */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L   @get:JvmName("cacheControl")
+T 2 source.kotlin
+T 6 source.kotlin entity.name.type.annotation-site.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.annotation.kotlin
+T 16 source.kotlin
+T 28 source.kotlin entity.name.type.annotation.kotlin
+T 30 source.kotlin
+L   val cacheControl: CacheControl
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.kotlin
+T 6 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+L     get() {
+T 4 source.kotlin
+T 7 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+L       var result = lazyCacheControl
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L       if (result == null) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin
+T 24 source.kotlin constant.language.null.kotlin
+T 27 source.kotlin
+L         result = CacheControl.parse(headers)
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L         lazyCacheControl = result
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+L       }
+T 7 source.kotlin
+L       return result
+T 6 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L   @JvmName("-deprecated_url")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L   @Deprecated(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+L     message = "moved to val",
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L     replaceWith = ReplaceWith(expression = "url"),
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin
+L     level = DeprecationLevel.ERROR,
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   )
+T 3 source.kotlin
+L   fun url(): HttpUrl = url
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 9 source.kotlin entity.name.function.declaration.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 26 source.kotlin
+L 
+L   @JvmName("-deprecated_method")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+L   @Deprecated(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+L     message = "moved to val",
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L     replaceWith = ReplaceWith(expression = "method"),
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+L     level = DeprecationLevel.ERROR,
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   )
+T 3 source.kotlin
+L   fun method(): String = method
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.declaration.kotlin
+T 14 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+L 
+L   @JvmName("-deprecated_headers")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin
+L   @Deprecated(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+L     message = "moved to val",
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L     replaceWith = ReplaceWith(expression = "headers"),
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin
+L     level = DeprecationLevel.ERROR,
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   )
+T 3 source.kotlin
+L   fun headers(): Headers = headers
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.declaration.kotlin
+T 15 source.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+L 
+L   @JvmName("-deprecated_body")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+L   @Deprecated(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+L     message = "moved to val",
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L     replaceWith = ReplaceWith(expression = "body"),
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin
+L     level = DeprecationLevel.ERROR,
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   )
+T 3 source.kotlin
+L   fun body(): RequestBody? = body
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.declaration.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+L 
+L   @JvmName("-deprecated_cacheControl")
+T 2 source.kotlin
+T 10 source.kotlin entity.name.type.annotation.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L   @Deprecated(
+T 2 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+L     message = "moved to val",
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L     replaceWith = ReplaceWith(expression = "cacheControl"),
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L     level = DeprecationLevel.ERROR,
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L   )
+T 3 source.kotlin
+L   fun cacheControl(): CacheControl = cacheControl
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+L 
+L   override fun toString(): String =
+T 2 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+L     buildString(32) {
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 21 source.kotlin
+L       append("Request{method=")
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin
+L       append(method)
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L       append(", url=")
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin
+L       append(url)
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       if (headers.size != 0) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 26 source.kotlin
+T 27 source.kotlin constant.numeric.decimal.kotlin
+T 30 source.kotlin
+L         append(", headers=[")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin
+L         headers.forEachIndexed { index, (name, value) ->
+T 15 source.kotlin
+T 16 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 47 source.kotlin
+T 52 source.kotlin storage.modifier.other.kotlin
+T 54 source.kotlin
+T 56 source.kotlin storage.type.function.arrow.kotlin
+L           if (index > 0) {
+T 10 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 26 source.kotlin
+L             append(", ")
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin
+L           }
+T 11 source.kotlin
+L           append(name)
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L           append(':')
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.single.kotlin
+T 19 source.kotlin string.quoted.single.kotlin
+T 20 source.kotlin string.quoted.single.kotlin
+T 21 source.kotlin
+L           append(if (isSensitiveHeader(name)) "██" else value)
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+T 59 source.kotlin keyword.control.kotlin
+T 60 source.kotlin
+T 65 source.kotlin storage.modifier.other.kotlin
+T 66 source.kotlin
+L         }
+T 9 source.kotlin
+L         append(']')
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.single.kotlin
+T 17 source.kotlin string.quoted.single.kotlin
+T 18 source.kotlin string.quoted.single.kotlin
+T 19 source.kotlin
+L       }
+T 7 source.kotlin
+L       if (tags != EmptyTags) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+L         append(", tags=")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L         append(tags)
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L       }
+T 7 source.kotlin
+L       append('}')
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.single.kotlin
+T 15 source.kotlin string.quoted.single.kotlin
+T 16 source.kotlin string.quoted.single.kotlin
+T 17 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L   open class Builder {
+T 2 source.kotlin
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.type.class.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L     internal var url: HttpUrl? = null
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+L     internal var method: String
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+L     internal var headers: Headers.Builder
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+L     internal var body: RequestBody? = null
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+T 42 source.kotlin constant.language.null.kotlin
+L     internal var cacheUrlOverride: HttpUrl? = null
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin keyword.operator.assignment.kotlin
+T 46 source.kotlin
+T 50 source.kotlin constant.language.null.kotlin
+L     internal var tags: Tags = EmptyTags
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L 
+L     constructor() {
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+L       this.method = "GET"
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+L       this.headers = Headers.Builder()
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     internal constructor(request: Request) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+L       this.url = request.url
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+L       this.method = request.method
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+L       this.body = request.body
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+L       this.tags = request.tags
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+L       this.headers = request.headers.newBuilder()
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 37 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L       this.cacheUrlOverride = request.cacheUrlOverride
+T 6 source.kotlin
+T 10 source.kotlin variable.language.this.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     open fun url(url: HttpUrl): Builder =
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         this.url = url
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Sets the URL target of this request.
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws IllegalArgumentException if [url] is not a valid HTTP or HTTPS URL. Avoid this
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 93 source.kotlin comment.block.javadoc.kotlin
+L      *     exception by calling [HttpUrl.parse]; it returns null for invalid URLs.
+T 82 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun url(url: String): Builder = url(canonicalUrl(url).toHttpUrl())
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+T 72 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+L 
+L     // Silently replace web socket URLs with HTTP URLs.
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 55 source.kotlin comment.line.double-slash.kotlin
+L     private fun canonicalUrl(url: String) =
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+L       when {
+T 6 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+L         url.startsWith("ws:", ignoreCase = true) -> "http:${url.substring(3)}"
+T 11 source.kotlin
+T 12 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 47 source.kotlin constant.language.boolean.kotlin
+T 49 source.kotlin
+T 51 source.kotlin storage.type.function.arrow.kotlin
+T 52 source.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 63 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 64 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 73 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin constant.numeric.decimal.kotlin
+T 76 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 78 source.kotlin string.quoted.double.kotlin
+L         url.startsWith("wss:", ignoreCase = true) -> "https:${url.substring(4)}"
+T 11 source.kotlin
+T 12 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 48 source.kotlin constant.language.boolean.kotlin
+T 50 source.kotlin
+T 52 source.kotlin storage.type.function.arrow.kotlin
+T 53 source.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 65 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 76 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 77 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin constant.numeric.decimal.kotlin
+T 78 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 79 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 80 source.kotlin string.quoted.double.kotlin
+L         else -> url
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin storage.type.function.arrow.kotlin
+T 19 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Sets the URL target of this request.
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws IllegalArgumentException if the scheme of [url] is not `http` or `https`.
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 39 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 88 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun url(url: URL) = url(url.toString().toHttpUrl())
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 37 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Sets the header named [name] to [value]. If this request already has any headers
+T 87 source.kotlin comment.block.javadoc.kotlin
+L      * with that name, they are all replaced.
+T 45 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun header(
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+L       name: String,
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+L       value: String,
+T 6 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 20 source.kotlin
+L     ) = apply {
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.assignment.kotlin
+T 8 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L       headers[name] = value
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 27 source.kotlin storage.modifier.other.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Adds a header with [name] and [value]. Prefer this method for multiply-valued
+T 84 source.kotlin comment.block.javadoc.kotlin
+L      * headers like "Cookie".
+T 29 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Note that for some headers including `Content-Length` and `Content-Encoding`,
+T 84 source.kotlin comment.block.javadoc.kotlin
+L      * OkHttp may replace [value] with a header derived from the request body.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun addHeader(
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+L       name: String,
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+L       value: String,
+T 6 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 20 source.kotlin
+L     ) = apply {
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.assignment.kotlin
+T 8 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L       headers.add(name, value)
+T 13 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 30 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     /** Removes all headers named [name] on this builder. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 58 source.kotlin comment.block.javadoc.kotlin
+T 60 source.kotlin comment.block.javadoc.kotlin
+L     open fun removeHeader(name: String) =
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         headers.removeAll(name)
+T 15 source.kotlin
+T 16 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /** Removes all headers on this builder and adds [headers]. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 64 source.kotlin comment.block.javadoc.kotlin
+T 66 source.kotlin comment.block.javadoc.kotlin
+L     open fun headers(headers: Headers) =
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         this.headers = headers.newBuilder()
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Sets this request's `Cache-Control` header, replacing any cache control headers already
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      * present. If [cacheControl] doesn't define any directives, this clears this request's
+T 91 source.kotlin comment.block.javadoc.kotlin
+L      * cache-control headers.
+T 29 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun cacheControl(cacheControl: CacheControl): Builder {
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+L       val value = cacheControl.toString()
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L       return when {
+T 6 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+L         value.isEmpty() -> removeHeader("Cache-Control")
+T 8 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 26 source.kotlin storage.type.function.arrow.kotlin
+T 27 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin
+L         else -> header("Cache-Control", value)
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 15 source.kotlin storage.type.function.arrow.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+T 45 source.kotlin storage.modifier.other.kotlin
+T 46 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     open fun get(): Builder = method("GET", null)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin
+T 48 source.kotlin constant.language.null.kotlin
+T 49 source.kotlin
+L 
+L     open fun head(): Builder = method("HEAD", null)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.function.declaration.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+T 50 source.kotlin constant.language.null.kotlin
+T 51 source.kotlin
+L 
+L     open fun post(body: RequestBody): Builder = method("POST", body)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.function.declaration.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 45 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 47 source.kotlin keyword.operator.assignment.kotlin
+T 48 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin
+L 
+L     @JvmOverloads
+T 4 source.kotlin
+T 17 source.kotlin entity.name.type.annotation.kotlin
+L     open fun delete(body: RequestBody? = RequestBody.EMPTY): Builder = method("DELETE", body)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+T 61 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 70 source.kotlin keyword.operator.assignment.kotlin
+T 71 source.kotlin
+T 77 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 85 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 93 source.kotlin
+L 
+L     open fun put(body: RequestBody): Builder = method("PUT", body)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 47 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 54 source.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin
+L 
+L     open fun patch(body: RequestBody): Builder = method("PATCH", body)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 18 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Sets this request's method to `QUERY`.
+T 45 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * By default, `QUERY` requests are not cached. You can use [cacheUrlOverride] to specify
+T 93 source.kotlin comment.block.javadoc.kotlin
+L      * how to cache them.
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * A typical use case is to hash the request body:
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * ```kotlin
+T 16 source.kotlin comment.block.javadoc.kotlin
+L      *     val hash = body.sha256().hex()
+T 41 source.kotlin comment.block.javadoc.kotlin
+L      *     val query = Request
+T 30 source.kotlin comment.block.javadoc.kotlin
+L      *         .Builder()
+T 25 source.kotlin comment.block.javadoc.kotlin
+L      *         .query(body)
+T 27 source.kotlin comment.block.javadoc.kotlin
+L      *         .url("https://example.com/query")
+T 48 source.kotlin comment.block.javadoc.kotlin
+L      *         .cacheUrlOverride("https://example.com/query/$hash".toHttpUrl())
+T 79 source.kotlin comment.block.javadoc.kotlin
+L      *         .build()
+T 23 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @see cacheUrlOverride
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 11 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 28 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun query(body: RequestBody): Builder = method("QUERY", body)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 18 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin keyword.operator.assignment.kotlin
+T 49 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+L 
+L     open fun method(
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+L       method: String,
+T 12 source.kotlin
+T 14 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+L       body: RequestBody?,
+T 10 source.kotlin
+T 12 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+L     ): Builder =
+T 5 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         require(method.isNotEmpty()) {
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L           "method.isEmpty() == true"
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+L         }
+T 9 source.kotlin
+L         if (body == null) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 20 source.kotlin
+T 24 source.kotlin constant.language.null.kotlin
+T 27 source.kotlin
+L           require(!HttpMethod.requiresRequestBody(method)) {
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.logical.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L             "method $method must have a request body."
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+L           }
+T 11 source.kotlin
+L         } else {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L           require(HttpMethod.permitsRequestBody(method)) {
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L             "method $method must not have a request body."
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+L           }
+T 11 source.kotlin
+L         }
+T 9 source.kotlin
+L         this.method = method
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+L         this.body = body
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Attaches [tag] to the request using [T] as a key. Tags can be read from a request using
+T 94 source.kotlin comment.block.javadoc.kotlin
+L      * [Request.tag]. Use null to remove any existing tag assigned for [T].
+T 75 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Use this API to attach timing, debugging, or other application data to a request so that
+T 95 source.kotlin comment.block.javadoc.kotlin
+L      * you may read it in interceptors, event listeners, or callbacks.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     @JvmName("reifiedTag")
+T 4 source.kotlin
+T 12 source.kotlin entity.name.type.annotation.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+L     inline fun <reified T : Any> tag(tag: T?): Builder = tag(T::class, tag)
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 24 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 31 source.kotlin entity.name.type.kotlin
+T 32 source.kotlin
+T 33 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.assignment.kotlin
+T 57 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 69 source.kotlin entity.name.function.reference.kotlin
+T 75 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Attaches [tag] to the request using [type] as a key. Tags can be read from a request using
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      * [Request.tag]. Use null to remove any existing tag assigned for [type].
+T 78 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Use this API to attach timing, debugging, or other application data to a request so that
+T 95 source.kotlin comment.block.javadoc.kotlin
+L      * you may read it in interceptors, event listeners, or callbacks.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     fun <T : Any> tag(
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 9 source.kotlin
+T 10 source.kotlin entity.name.type.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 22 source.kotlin
+L       type: KClass<T>,
+T 10 source.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L       tag: T?,
+T 9 source.kotlin
+T 11 source.kotlin
+T 12 source.kotlin entity.name.type.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L     ): Builder =
+T 5 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         tags = tags.plus(type, tag)
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /** Attaches [tag] to the request using `Object.class` as a key. */
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 69 source.kotlin comment.block.javadoc.kotlin
+T 71 source.kotlin comment.block.javadoc.kotlin
+L     open fun tag(tag: Any?): Builder = tag(Any::class, tag)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 25 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 53 source.kotlin entity.name.function.reference.kotlin
+T 59 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Attaches [tag] to the request using [type] as a key. Tags can be read from a
+T 83 source.kotlin comment.block.javadoc.kotlin
+L      * request using [Request.tag]. Use null to remove any existing tag assigned for [type].
+T 92 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Use this API to attach timing, debugging, or other application data to a request so that
+T 95 source.kotlin comment.block.javadoc.kotlin
+L      * you may read it in interceptors, event listeners, or callbacks.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     open fun <T> tag(
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 20 source.kotlin entity.name.function.declaration.kotlin
+T 21 source.kotlin
+L       type: Class<in T>,
+T 10 source.kotlin
+T 12 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L       tag: T?,
+T 9 source.kotlin
+T 11 source.kotlin
+T 12 source.kotlin entity.name.type.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L     ) = tag(type.kotlin, tag)
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.assignment.kotlin
+T 8 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Override the [Request.url] for caching, if it is either polluted with
+T 76 source.kotlin comment.block.javadoc.kotlin
+L      * transient query params, or has a canonical URL possibly for a CDN.
+T 73 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Note that POST requests will not be sent to the server if this URL is set
+T 80 source.kotlin comment.block.javadoc.kotlin
+L      * and matches a cached response.
+T 37 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     fun cacheUrlOverride(cacheUrlOverride: HttpUrl?) =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         this.cacheUrlOverride = cacheUrlOverride
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 48 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Configures this request's body to be compressed when it is transmitted. This also adds the
+T 97 source.kotlin comment.block.javadoc.kotlin
+L      * 'Content-Encoding: gzip' header.
+T 39 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Only use this method if you have prior knowledge that the receiving server supports
+T 90 source.kotlin comment.block.javadoc.kotlin
+L      * gzip-compressed requests.
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * It is an error to call this multiple times on the same instance.
+T 71 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * @throws IllegalStateException if this request doesn't have a request body, or if it already
+T 7 source.kotlin comment.block.javadoc.kotlin
+T 14 source.kotlin comment.block.javadoc.kotlin keyword.other.documentation.javadoc.kotlin
+T 15 source.kotlin comment.block.javadoc.kotlin
+T 36 source.kotlin comment.block.javadoc.kotlin entity.name.type.class.kotlin
+T 98 source.kotlin comment.block.javadoc.kotlin
+L      *     has a 'Content-Encoding' header.
+T 43 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     fun gzip() =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.declaration.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       apply {
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         val identityBody =
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+L           body
+T 14 source.kotlin
+L             ?: throw IllegalStateException("cannot gzip a request that has no body")
+T 15 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin string.quoted.double.kotlin
+T 83 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin
+L 
+L         val contentEncoding = headers["Content-Encoding"]
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+L         check(contentEncoding == null) {
+T 8 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 40 source.kotlin
+L           "Content-Encoding already set: $contentEncoding"
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+L         }
+T 9 source.kotlin
+L 
+L         headers.add("Content-Encoding", "gzip")
+T 15 source.kotlin
+T 16 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin
+L         body = GzipRequestBody(identityBody)
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     open fun build(): Request = Request(this)
+T 4 source.kotlin
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 18 source.kotlin entity.name.function.declaration.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 44 source.kotlin variable.language.this.kotlin
+T 45 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   /**
+T 2 source.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L    * Returns a cURL command equivalent to this request, useful for debugging and reproducing
+T 92 source.kotlin comment.block.javadoc.kotlin
+L    * requests.
+T 14 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * This includes the HTTP method, headers, request body (if present), and URL.
+T 80 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * Example:
+T 13 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * ```
+T 8 source.kotlin comment.block.javadoc.kotlin
+L    * curl 'https://example.com/api' \
+T 37 source.kotlin comment.block.javadoc.kotlin
+L    *   -X PUT \
+T 15 source.kotlin comment.block.javadoc.kotlin
+L    *   -H 'Authorization: Bearer token' \
+T 41 source.kotlin comment.block.javadoc.kotlin
+L    *   --data '{\"key\":\"value\"}'
+T 35 source.kotlin comment.block.javadoc.kotlin
+L    * ```
+T 8 source.kotlin comment.block.javadoc.kotlin
+L    *
+T 4 source.kotlin comment.block.javadoc.kotlin
+L    * **Note:** This will consume the request body. This may have side effects if the [RequestBody]
+T 98 source.kotlin comment.block.javadoc.kotlin
+L    * is streaming or can be consumed only once.
+T 47 source.kotlin comment.block.javadoc.kotlin
+L    */
+T 3 source.kotlin comment.block.javadoc.kotlin
+T 5 source.kotlin comment.block.javadoc.kotlin
+L   @JvmOverloads
+T 2 source.kotlin
+T 15 source.kotlin entity.name.type.annotation.kotlin
+L   fun toCurl(includeBody: Boolean = true): String =
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin keyword.operator.assignment.kotlin
+L     buildString {
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+L       append("curl ${url.toString().shellEscape()}")
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 24 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 25 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 33 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 36 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 47 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 50 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin
+L 
+L       val contentType = body?.contentType()?.toString()
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L 
+L       // Add method if not the default.
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 39 source.kotlin comment.line.double-slash.kotlin
+L       val defaultMethod =
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+L         when {
+T 8 source.kotlin
+T 12 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+L           includeBody && body != null -> "POST"
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.logical.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 38 source.kotlin
+T 40 source.kotlin storage.type.function.arrow.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+L           else -> "GET"
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin storage.type.function.arrow.kotlin
+T 18 source.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+L         }
+T 9 source.kotlin
+L       if (method != defaultMethod) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+T 19 source.kotlin keyword.operator.comparison.kotlin
+T 36 source.kotlin
+L         append(" \\\n  -X ${method.shellEscape()}")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 21 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 34 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 35 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 46 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 49 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       // Append headers.
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 24 source.kotlin comment.line.double-slash.kotlin
+L       for ((name, value) in headers) {
+T 6 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 23 source.kotlin storage.modifier.other.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.hard.kotlin
+T 38 source.kotlin
+L         if (contentType != null && name.equals("Content-Type", ignoreCase = true)) continue
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+T 26 source.kotlin keyword.operator.comparison.kotlin
+T 27 source.kotlin
+T 31 source.kotlin constant.language.null.kotlin
+T 32 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin
+T 75 source.kotlin keyword.operator.assignment.kotlin
+T 76 source.kotlin
+T 80 source.kotlin constant.language.boolean.kotlin
+T 83 source.kotlin
+T 91 source.kotlin keyword.control.kotlin
+L         append(" \\\n  -H ${"$name: $value".shellEscape()}")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 21 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 29 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 36 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 59 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       if (contentType != null) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 29 source.kotlin constant.language.null.kotlin
+T 32 source.kotlin
+L         append(" \\\n  -H ${"Content-Type: $contentType".shellEscape()}")
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 21 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 29 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 68 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L       // Append body if present.
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 32 source.kotlin comment.line.double-slash.kotlin
+L       if (includeBody && body != null) {
+T 6 source.kotlin
+T 8 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.logical.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 40 source.kotlin
+L         val bodyBuffer = Buffer()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L         body.writeTo(bodyBuffer)
+T 12 source.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L 
+L         if (bodyBuffer.isProbablyUtf8()) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L           append(" \\\n  --data ${bodyBuffer.readUtf8().shellEscape()}")
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 23 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 44 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 45 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 53 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 71 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+L         } else {
+T 10 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+L           append(" \\\n  --data-binary ${bodyBuffer.readByteString().hex().shellEscape()}")
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 23 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 51 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 52 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 68 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 72 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 75 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 86 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 89 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 90 source.kotlin string.quoted.double.kotlin
+T 91 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L   private fun String.shellEscape(): String = "'${replace("'", "'\\''")}'"
+T 2 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 13 source.kotlin keyword.hard.fun.kotlin
+T 14 source.kotlin
+T 20 source.kotlin entity.name.type.class.extension.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.assignment.kotlin
+T 45 source.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 56 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 58 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 59 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 63 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 68 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin string.quoted.double.kotlin
+T 70 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 71 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 72 source.kotlin string.quoted.double.kotlin
+T 73 source.kotlin string.quoted.double.kotlin
+L }
+T 1 source.kotlin
+L 

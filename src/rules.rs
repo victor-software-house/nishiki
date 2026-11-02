@@ -8,11 +8,13 @@
 //! capture groups, the limits and the frames that carry a rule from line to
 //! line are here, once.
 
+mod chars;
 mod lexer;
 mod tables;
 
 use std::fmt::Debug;
 
+pub(crate) use chars::Chars;
 pub(crate) use lexer::{FIRST_LINE, Lexer, Scratch};
 pub(crate) use tables::{Place, Tables};
 

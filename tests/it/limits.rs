@@ -9,6 +9,7 @@ mod graphql;
 mod ini;
 mod java;
 mod json;
+mod kotlin;
 mod make;
 mod markdown;
 mod python;

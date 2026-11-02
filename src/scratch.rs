@@ -23,4 +23,7 @@ pub(crate) struct Scratch {
     /// The CSS lexer's, for CSS documents and Markdown CSS fences.
     #[cfg(feature = "lang-css")]
     pub(crate) css: crate::css::Scratch,
+    /// The Kotlin lexer's, for Kotlin documents.
+    #[cfg(feature = "lang-kotlin")]
+    pub(crate) kotlin: crate::kotlin::Scratch,
 }

@@ -1,0 +1,4423 @@
+L /*
+T 2 source.kotlin comment.block.kotlin
+L  * Copyright (C) 2020 Square, Inc.
+T 34 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Licensed under the Apache License, Version 2.0 (the "License");
+T 66 source.kotlin comment.block.kotlin
+L  * you may not use this file except in compliance with the License.
+T 67 source.kotlin comment.block.kotlin
+L  * You may obtain a copy of the License at
+T 42 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  *      http://www.apache.org/licenses/LICENSE-2.0
+T 50 source.kotlin comment.block.kotlin
+L  *
+T 2 source.kotlin comment.block.kotlin
+L  * Unless required by applicable law or agreed to in writing, software
+T 70 source.kotlin comment.block.kotlin
+L  * distributed under the License is distributed on an "AS IS" BASIS,
+T 68 source.kotlin comment.block.kotlin
+L  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 75 source.kotlin comment.block.kotlin
+L  * See the License for the specific language governing permissions and
+T 70 source.kotlin comment.block.kotlin
+L  * limitations under the License.
+T 33 source.kotlin comment.block.kotlin
+L  */
+T 1 source.kotlin comment.block.kotlin
+T 3 source.kotlin comment.block.kotlin
+L package app.cash.turbine
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 24 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import kotlin.coroutines.cancellation.CancellationException
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 59 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.Test
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 23 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertContains
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 33 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertEquals
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertFailsWith
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 34 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertFalse
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertSame
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.test.assertTrue
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.time.Duration.Companion.milliseconds
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 50 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.time.Duration.Companion.seconds
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 45 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.time.ExperimentalTime
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlin.time.measureTime
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 30 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.CompletableDeferred
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 45 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.CoroutineStart.UNDISPATCHED
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 53 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.Dispatchers.Default
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 45 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.Dispatchers.Unconfined
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 48 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.Job
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 29 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.NonCancellable
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 40 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.TimeoutCancellationException
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 54 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.channels.Channel
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 42 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.channels.Channel.Factory.RENDEZVOUS
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 61 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.currentCoroutineContext
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 49 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.delay
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.MutableSharedFlow
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 48 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.MutableStateFlow
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 47 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.emitAll
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 38 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.emptyFlow
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 40 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.flow
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.flowOf
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.map
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 34 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.onCompletion
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.flow.onStart
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 38 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.launch
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 32 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.suspendCancellableCoroutine
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 53 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.test.advanceTimeBy
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 44 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.test.runCurrent
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.test.runTest
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 38 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.withContext
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.withTimeout
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 37 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import kotlinx.coroutines.yield
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L class FlowTest {
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun exceptionsPropagate() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L     val expected = CustomThrowable("hello")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin
+L 
+L     val actual = assertFailsWith<CustomThrowable> { neverFlow().test { throw expected } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 68 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 76 source.kotlin keyword.control.kotlin
+T 89 source.kotlin
+L     assertSame(expected, actual)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun cancelStopsFlowCollection() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+L     var collecting = false
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L     neverFlow()
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L       .onStart { collecting = true }
+T 6 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.boolean.kotlin
+T 36 source.kotlin
+L       .onCompletion { collecting = false }
+T 6 source.kotlin
+T 7 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 42 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         assertTrue(collecting)
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L         cancel()
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+L         assertFalse(collecting)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun cancelAwaitsFlowCompletion() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     var collecting = false
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L     neverFlow()
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L       .onStart { collecting = true }
+T 6 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.boolean.kotlin
+T 36 source.kotlin
+L       .onCompletion {
+T 6 source.kotlin
+T 7 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+L         withContext(NonCancellable) {
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L           yield()
+T 10 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L           collecting = false
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 28 source.kotlin constant.language.boolean.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         assertTrue(collecting)
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L         cancel()
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+L         assertFalse(collecting)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun endOfBlockStopsFlowCollection() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+L     var collecting = false
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L     neverFlow()
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L       .onStart { collecting = true }
+T 6 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.boolean.kotlin
+T 36 source.kotlin
+L       .onCompletion { collecting = false }
+T 6 source.kotlin
+T 7 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 42 source.kotlin
+L       .test { assertTrue(collecting) }
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     assertFalse(collecting)
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun exceptionStopsFlowCollection() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+L     var collecting = false
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L     assertFailsWith<RuntimeException> {
+T 4 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L       neverFlow()
+T 6 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L         .onStart { collecting = true }
+T 8 source.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 36 source.kotlin constant.language.boolean.kotlin
+T 38 source.kotlin
+L         .onCompletion { collecting = false }
+T 8 source.kotlin
+T 9 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 42 source.kotlin constant.language.boolean.kotlin
+T 44 source.kotlin
+L         .test {
+T 8 source.kotlin
+T 9 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L           assertTrue(collecting)
+T 10 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L           throw RuntimeException()
+T 10 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 16 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L     assertFalse(collecting)
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun ignoreRemainingEventsStopsFlowCollection() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 46 source.kotlin entity.name.function.declaration.kotlin
+T 49 source.kotlin
+T 50 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+L     var collecting = false
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin constant.language.boolean.kotlin
+L     neverFlow()
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L       .onStart { collecting = true }
+T 6 source.kotlin
+T 7 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 34 source.kotlin constant.language.boolean.kotlin
+T 36 source.kotlin
+L       .onCompletion { collecting = false }
+T 6 source.kotlin
+T 7 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 40 source.kotlin constant.language.boolean.kotlin
+T 42 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         assertTrue(collecting)
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L         cancelAndIgnoreRemainingEvents()
+T 8 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertFalse(collecting)
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectNoEvents() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 20 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+L     neverFlow().test {
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L       expectNoEvents()
+T 6 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       cancel()
+T 6 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedItemThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 26 source.kotlin entity.name.function.declaration.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow {
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L           emit("item!")
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin string.quoted.double.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin
+L           emitAll(neverFlow()) // Avoid emitting complete
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 33 source.kotlin comment.line.double-slash.kotlin
+T 57 source.kotlin comment.line.double-slash.kotlin
+L         }
+T 9 source.kotlin
+L           .test {}
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Item(item!)
+T 21 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectNoEventsFailsOnException() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L     val expected = RuntimeException()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> { flow<Nothing> { throw expected }.test { expectNoEvents() } }
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+T 61 source.kotlin keyword.control.kotlin
+T 72 source.kotlin
+T 73 source.kotlin
+T 77 source.kotlin entity.name.function.call.kotlin
+T 78 source.kotlin
+T 80 source.kotlin
+T 94 source.kotlin entity.name.function.call.kotlin
+T 100 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Expected no events but found Error(RuntimeException)
+T 59 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L     assertSame(expected, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectNoEventsFailsOnCompletion() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { emptyFlow<Nothing>().test { expectNoEvents() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+T 79 source.kotlin
+T 93 source.kotlin entity.name.function.call.kotlin
+T 99 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Expected no events but found Complete
+T 44 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedCompleteThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { emptyFlow<Nothing>().test {} }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+T 81 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Complete
+T 18 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedErrorThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+L     val expected = RuntimeException()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { flow<Nothing> { throw expected }.test {} }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+T 63 source.kotlin entity.name.type.kotlin
+T 64 source.kotlin
+T 65 source.kotlin
+T 67 source.kotlin
+T 72 source.kotlin keyword.control.kotlin
+T 83 source.kotlin
+T 84 source.kotlin
+T 88 source.kotlin entity.name.function.call.kotlin
+T 89 source.kotlin
+T 93 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Error(RuntimeException)
+T 33 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L     assertSame(expected, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedItemThrowsWithCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow {
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L           emit("one")
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+L           emit("two")
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+L           emitAll(neverFlow()) // Avoid emitting complete
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+T 33 source.kotlin comment.line.double-slash.kotlin
+T 57 source.kotlin comment.line.double-slash.kotlin
+L         }
+T 9 source.kotlin
+L           .test {
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+L             // Expect one item to ensure we start collecting and receive both items.
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 84 source.kotlin comment.line.double-slash.kotlin
+L             assertEquals("one", awaitItem())
+T 12 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L             cancel()
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L           }
+T 11 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Item(two)
+T 19 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedCompleteThrowsWithCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 40 source.kotlin entity.name.function.declaration.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.assignment.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flowOf("one").test {
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin
+L           // Expect one item to ensure we start collecting and receive complete.
+T 10 source.kotlin
+T 12 source.kotlin comment.line.double-slash.kotlin
+T 80 source.kotlin comment.line.double-slash.kotlin
+L           assertEquals("one", awaitItem())
+T 10 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L           cancel()
+T 10 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Complete
+T 18 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedErrorThrowsWithCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+L     val expected = RuntimeException()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow {
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L           emit("one")
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 21 source.kotlin
+L           throw expected
+T 10 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+L         }
+T 9 source.kotlin
+L           .test {
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+L             // Expect one item to ensure we start collecting and receive the exception.
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 87 source.kotlin comment.line.double-slash.kotlin
+L             assertEquals("one", awaitItem())
+T 12 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L             cancel()
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L           }
+T 11 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Error(RuntimeException)
+T 33 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L     assertSame(expected, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedItemReturnedWithConsumingCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 47 source.kotlin entity.name.function.declaration.kotlin
+T 50 source.kotlin
+T 51 source.kotlin keyword.operator.assignment.kotlin
+T 52 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 61 source.kotlin
+L     flow {
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin
+L       emit("one")
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+L       emit("two")
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+L       emitAll(neverFlow()) // Avoid emitting complete
+T 6 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin comment.line.double-slash.kotlin
+T 53 source.kotlin comment.line.double-slash.kotlin
+L     }
+T 5 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         // Expect one item to ensure we start collecting and receive both items.
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 80 source.kotlin comment.line.double-slash.kotlin
+L         assertEquals("one", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L 
+L         val remaining = cancelAndConsumeRemainingEvents()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin
+L         assertEquals(listOf(Event.Item("two")), remaining)
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedCompleteReturnedWithConsumingCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 51 source.kotlin entity.name.function.declaration.kotlin
+T 54 source.kotlin
+T 55 source.kotlin keyword.operator.assignment.kotlin
+T 56 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 65 source.kotlin
+L     flowOf("one").test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+L       // Expect one item to ensure we start collecting and receive complete.
+T 6 source.kotlin
+T 8 source.kotlin comment.line.double-slash.kotlin
+T 76 source.kotlin comment.line.double-slash.kotlin
+L       assertEquals("one", awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L 
+L       val remaining = cancelAndConsumeRemainingEvents()
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 53 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+L       assertEquals(listOf(Event.Complete), remaining)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedErrorReturnedWithConsumingCancel() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 48 source.kotlin entity.name.function.declaration.kotlin
+T 51 source.kotlin
+T 52 source.kotlin keyword.operator.assignment.kotlin
+T 53 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 62 source.kotlin
+L     val expected = RuntimeException()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L     flow {
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin
+L       emit("one")
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin
+L       throw expected
+T 6 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L     }
+T 5 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         // Expect one item to ensure we start collecting and receive the exception.
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 83 source.kotlin comment.line.double-slash.kotlin
+L         assertEquals("one", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L 
+L         val remaining = cancelAndConsumeRemainingEvents()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin
+L         assertEquals(listOf(Event.Error(expected)), remaining)
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedItemCanBeIgnored() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     flowOf("item!").test { cancelAndIgnoreRemainingEvents() }
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedCompleteCanBeIgnored() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L     emptyFlow<Nothing>().test { cancelAndIgnoreRemainingEvents() }
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedErrorCanBeIgnored() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+L     flow<Nothing> { throw RuntimeException() }.test { cancelAndIgnoreRemainingEvents() }
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 25 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 88 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitItem() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 15 source.kotlin entity.name.function.declaration.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L     val item = Any()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L     flowOf(item).test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+L       assertSame(item, awaitItem())
+T 6 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L       cancelAndIgnoreRemainingEvents()
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitItemButWasCloseThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { emptyFlow<Unit>().test { awaitItem() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+T 69 source.kotlin
+T 73 source.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin
+T 76 source.kotlin
+T 85 source.kotlin entity.name.function.call.kotlin
+T 91 source.kotlin
+L     assertEquals("Expected item but found Complete", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitItemButWasErrorThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     val error = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { flow<Unit> { throw error }.test { awaitItem() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 55 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+T 60 source.kotlin entity.name.type.kotlin
+T 61 source.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 69 source.kotlin keyword.control.kotlin
+T 77 source.kotlin
+T 78 source.kotlin
+T 82 source.kotlin entity.name.function.call.kotlin
+T 83 source.kotlin
+T 85 source.kotlin
+T 94 source.kotlin entity.name.function.call.kotlin
+T 100 source.kotlin
+L     assertEquals("Expected item but found Error(CustomThrowable)", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 82 source.kotlin
+L     assertSame(error, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test fun awaitComplete() = runTest { emptyFlow<Nothing>().test { awaitComplete() } }
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 60 source.kotlin
+T 61 source.kotlin
+T 65 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+T 68 source.kotlin
+T 81 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitCompleteButWasItemThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 35 source.kotlin entity.name.function.declaration.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.assignment.kotlin
+T 40 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { flowOf("item!").test { awaitComplete() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 71 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 87 source.kotlin entity.name.function.call.kotlin
+T 93 source.kotlin
+L     assertEquals("Expected complete but found Item(item!)", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitCompleteButWasErrorThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L     val error = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> { flow<Nothing> { throw error }.test { awaitComplete() } }
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+T 61 source.kotlin keyword.control.kotlin
+T 69 source.kotlin
+T 70 source.kotlin
+T 74 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+T 77 source.kotlin
+T 90 source.kotlin entity.name.function.call.kotlin
+T 96 source.kotlin
+L     assertEquals("Expected complete but found Error(CustomThrowable)", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin
+L     assertSame(error, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitError() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 16 source.kotlin entity.name.function.declaration.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin
+L     val error = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L     flow<Nothing> { throw error }.test { assertSame(error, awaitError()) }
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 25 source.kotlin keyword.control.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 41 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 69 source.kotlin entity.name.function.call.kotlin
+T 74 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun terminalErrorAfterExpectMostRecentItemThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 50 source.kotlin entity.name.function.declaration.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+L     val error = RuntimeException("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L     val throwBarrier = Job()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+L     val message =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L           flow {
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+L             emit("item!")
+T 12 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L             throwBarrier.join()
+T 24 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L             throw error
+T 12 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+L           }
+T 11 source.kotlin
+L             .test {
+T 12 source.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+L               expectMostRecentItem()
+T 14 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L               throwBarrier.complete()
+T 26 source.kotlin
+T 27 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L         .message
+T 16 source.kotlin
+L 
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found:
+T 31 source.kotlin string.quoted.double.kotlin
+L       | - Error(RuntimeException)
+T 33 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       message,
+T 14 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitErrorButWasItemThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { flowOf("item!").test { awaitError() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 57 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 59 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 71 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+T 74 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 90 source.kotlin
+L     assertEquals("Expected error but found Item(item!)", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin string.quoted.double.kotlin
+T 72 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitErrorButWasCompleteThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L     val actual = assertFailsWith<AssertionError> { emptyFlow<Nothing>().test { awaitError() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+T 68 source.kotlin entity.name.type.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+T 76 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+T 79 source.kotlin
+T 89 source.kotlin entity.name.function.call.kotlin
+T 95 source.kotlin
+L     assertEquals("Expected error but found Complete", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitItemEvent() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 20 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+L     val item = Any()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L     flowOf(item).test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+L       val event = awaitEvent()
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L       assertEquals(Event.Item(item), event)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L       cancelAndIgnoreRemainingEvents()
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitCompleteEvent() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+L     emptyFlow<Nothing>().test {
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L       val event = awaitEvent()
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 16 source.kotlin
+T 17 source.kotlin keyword.operator.assignment.kotlin
+T 18 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L       assertEquals(Event.Complete, event)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L       cancelAndIgnoreRemainingEvents()
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitErrorEvent() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+T 26 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+L     val exception = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin
+L     flow<Nothing> { throw exception }
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 25 source.kotlin keyword.control.kotlin
+T 37 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         val event = awaitEvent()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L         assertEquals(Event.Error(exception), event)
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L         cancelAndIgnoreRemainingEvents()
+T 8 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitWaitsForEvents() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L     val flow = MutableSharedFlow<String>()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+L     val position = Channel<Int>(RENDEZVOUS)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 43 source.kotlin
+L 
+L     // Start undispatched so we suspend inside the test{} block.
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 64 source.kotlin comment.line.double-slash.kotlin
+L     launch(start = UNDISPATCHED, context = Unconfined) {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 41 source.kotlin
+T 42 source.kotlin keyword.operator.assignment.kotlin
+T 56 source.kotlin
+L       flow.test {
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+L         position.send(1)
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+L         assertEquals("one", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L         position.send(2)
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+L         assertEquals("two", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+L         position.send(3)
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+L         cancel()
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+L       }
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     assertEquals(1, position.receive())
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L 
+L     flow.emit("one")
+T 8 source.kotlin
+T 9 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin
+L     assertEquals(2, position.receive())
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L 
+L     flow.emit("two")
+T 8 source.kotlin
+T 9 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 19 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin
+L     assertEquals(3, position.receive())
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun exceptionsPropagateWhenExpectMostRecentItem() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 49 source.kotlin entity.name.function.declaration.kotlin
+T 52 source.kotlin
+T 53 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+L     val expected = CustomThrowable("hello")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin
+L 
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<CustomThrowable> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+L         flow {
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L           emit(1)
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+L           emit(2)
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+L           emit(3)
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+L           throw expected
+T 10 source.kotlin
+T 15 source.kotlin keyword.control.kotlin
+T 24 source.kotlin
+L         }
+T 9 source.kotlin
+L           .test { expectMostRecentItem() }
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertSame(expected, actual)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectMostRecentItemButNoItemWasFoundThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 49 source.kotlin entity.name.function.declaration.kotlin
+T 52 source.kotlin
+T 53 source.kotlin keyword.operator.assignment.kotlin
+T 54 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 63 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> { emptyFlow<Any>().test { expectMostRecentItem() } }
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+T 57 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 90 source.kotlin
+L     assertEquals("No item was found", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectMostRecentItem() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 26 source.kotlin entity.name.function.declaration.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 38 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+L     val onTwoSent = CompletableDeferred<Unit>()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 44 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+L     val onTwoContinue = CompletableDeferred<Unit>()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 51 source.kotlin
+L     val onCompleteSent = CompletableDeferred<Unit>()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+L     val onCompleteContinue = CompletableDeferred<Unit>()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 53 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 56 source.kotlin
+L 
+L     flowOf(1, 2, 3, 4, 5)
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 20 source.kotlin
+T 21 source.kotlin constant.numeric.decimal.kotlin
+T 23 source.kotlin
+T 24 source.kotlin constant.numeric.decimal.kotlin
+T 25 source.kotlin
+L       .map {
+T 6 source.kotlin
+T 7 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+L         if (it == 3) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 17 source.kotlin keyword.operator.comparison.kotlin
+T 18 source.kotlin
+T 19 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+L           onTwoSent.complete(Unit)
+T 19 source.kotlin
+T 20 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L           onTwoContinue.await()
+T 23 source.kotlin
+T 24 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 31 source.kotlin
+L         }
+T 9 source.kotlin
+L         it
+T 10 source.kotlin
+L       }
+T 7 source.kotlin
+L       .onCompletion {
+T 6 source.kotlin
+T 7 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+L         onCompleteSent.complete(Unit)
+T 22 source.kotlin
+T 23 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+L         onCompleteContinue.await()
+T 26 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       }
+T 7 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         onTwoSent.await()
+T 17 source.kotlin
+T 18 source.kotlin
+T 23 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+L         assertEquals(2, expectMostRecentItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L         onTwoContinue.complete(Unit)
+T 21 source.kotlin
+T 22 source.kotlin
+T 30 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+L 
+L         onCompleteSent.await()
+T 22 source.kotlin
+T 23 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+L         assertEquals(5, expectMostRecentItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L         onCompleteContinue.complete(Unit)
+T 26 source.kotlin
+T 27 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 41 source.kotlin
+L         awaitComplete()
+T 8 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun valuesDoNotConflate() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L     val flow = MutableStateFlow(0)
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 34 source.kotlin
+L     flow.test {
+T 8 source.kotlin
+T 9 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+L       flow.value = 1
+T 11 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+L       flow.value = 2
+T 11 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+L       flow.value = 3
+T 11 source.kotlin
+T 16 source.kotlin storage.modifier.other.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+L       assertEquals(0, awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       assertEquals(1, awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       assertEquals(2, awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       assertEquals(3, awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun assertNullValuesWithExpectMostRecentItem() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 46 source.kotlin entity.name.function.declaration.kotlin
+T 49 source.kotlin
+T 50 source.kotlin keyword.operator.assignment.kotlin
+T 51 source.kotlin
+T 58 source.kotlin entity.name.function.call.kotlin
+T 59 source.kotlin
+T 60 source.kotlin
+L     flowOf(1, 2, null).test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+T 21 source.kotlin constant.language.null.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L       assertEquals(null, expectMostRecentItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.null.kotlin
+T 25 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 48 source.kotlin
+L       cancelAndIgnoreRemainingEvents()
+T 6 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectItemsAreSkipped() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+L     flowOf(1, 2, 3).test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+L       skipItems(2)
+T 6 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin constant.numeric.decimal.kotlin
+T 18 source.kotlin
+L       assertEquals(3, awaitItem())
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin constant.numeric.decimal.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+L       awaitComplete()
+T 6 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun skipItemsThrowsOnComplete() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 34 source.kotlin
+T 35 source.kotlin keyword.operator.assignment.kotlin
+T 36 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+L     flowOf(1, 2).test {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 23 source.kotlin
+L       val message = assertFailsWith<AssertionError> { skipItems(3) }.message
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 65 source.kotlin constant.numeric.decimal.kotlin
+T 76 source.kotlin
+L       assertEquals("Expected 3 items but got 2 items and Complete", message)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 65 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 76 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectErrorOnCompletionBeforeAllItemsWereSkipped() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 54 source.kotlin entity.name.function.declaration.kotlin
+T 57 source.kotlin
+T 58 source.kotlin keyword.operator.assignment.kotlin
+T 59 source.kotlin
+T 66 source.kotlin entity.name.function.call.kotlin
+T 67 source.kotlin
+T 68 source.kotlin
+L     flowOf(1).test { assertFailsWith<AssertionError> { skipItems(2) } }
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 64 source.kotlin entity.name.function.call.kotlin
+T 65 source.kotlin
+T 66 source.kotlin constant.numeric.decimal.kotlin
+T 71 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun expectErrorOnErrorReceivedBeforeAllItemsWereSkipped() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 57 source.kotlin entity.name.function.declaration.kotlin
+T 60 source.kotlin
+T 61 source.kotlin keyword.operator.assignment.kotlin
+T 62 source.kotlin
+T 69 source.kotlin entity.name.function.call.kotlin
+T 70 source.kotlin
+T 71 source.kotlin
+L     val error = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L     flow {
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin
+L       emit(1)
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 13 source.kotlin
+L       throw error
+T 6 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 17 source.kotlin
+L     }
+T 5 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         val actual = assertFailsWith<AssertionError> { skipItems(2) }
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 36 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+T 55 source.kotlin
+T 64 source.kotlin entity.name.function.call.kotlin
+T 65 source.kotlin
+T 66 source.kotlin constant.numeric.decimal.kotlin
+T 69 source.kotlin
+L         assertSame(error, actual.cause)
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @OptIn(ExperimentalTime::class)
+T 2 source.kotlin
+T 8 source.kotlin entity.name.type.annotation.kotlin
+T 25 source.kotlin
+T 27 source.kotlin
+T 32 source.kotlin entity.name.function.reference.kotlin
+T 33 source.kotlin
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun turbineSkipsDelaysInRunTest() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 37 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 47 source.kotlin
+L     val took = measureTime { flow<Nothing> { delay(5.seconds) }.test { awaitComplete() } }
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 33 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 52 source.kotlin constant.numeric.decimal.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 68 source.kotlin entity.name.function.call.kotlin
+T 69 source.kotlin
+T 71 source.kotlin
+T 84 source.kotlin entity.name.function.call.kotlin
+T 90 source.kotlin
+L     assertTrue(took < 5.seconds, "$took > 5s")
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.comparison.kotlin
+T 22 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+T 33 source.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun failsOnDefaultTimeout() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+L     neverFlow().test {
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+L       val actual = assertFailsWith<AssertionError> { awaitItem() }
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+L       assertEquals("No value produced in 3s", actual.message)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin
+L       assertCallSitePresentInStackTraceOnJvm(
+T 6 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+L         throwable = actual,
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+L         entryPoint = "ChannelTurbine\$awaitItem",
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin
+L         callSite = "FlowTest\$failsOnDefaultTimeout",
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin
+L       )
+T 7 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitHonorsTestTimeoutNoTimeout() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 37 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.assignment.kotlin
+T 42 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+L     flow<Nothing> { withContext(Default) { delay(1100.milliseconds) } }
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+T 53 source.kotlin constant.numeric.decimal.kotlin
+T 71 source.kotlin
+L       .test(timeout = 1500.milliseconds) { awaitComplete() }
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 26 source.kotlin constant.numeric.decimal.kotlin
+T 43 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitHonorsCoroutineContextTimeoutTimeout() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 47 source.kotlin entity.name.function.declaration.kotlin
+T 50 source.kotlin
+T 51 source.kotlin keyword.operator.assignment.kotlin
+T 52 source.kotlin
+T 59 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+T 61 source.kotlin
+L     neverFlow().test(timeout = 10.milliseconds) {
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 49 source.kotlin
+L       val actual = assertFailsWith<AssertionError> { awaitItem() }
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+L       assertEquals("No value produced in 10ms", actual.message)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun negativeTurbineTimeoutThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<IllegalStateException> { neverFlow().test(timeout = (-10).milliseconds) {} }
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 59 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+T 73 source.kotlin keyword.operator.assignment.kotlin
+T 75 source.kotlin
+T 76 source.kotlin keyword.operator.arithmetic.kotlin
+T 78 source.kotlin constant.numeric.decimal.kotlin
+T 98 source.kotlin
+L     assertEquals("Turbine timeout must be greater than 0: -10ms", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 81 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun zeroTurbineTimeoutThrows() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<IllegalStateException> { neverFlow().test(timeout = 0.milliseconds) {} }
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+T 47 source.kotlin
+T 56 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+T 59 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+T 73 source.kotlin keyword.operator.assignment.kotlin
+T 74 source.kotlin
+T 75 source.kotlin constant.numeric.decimal.kotlin
+T 94 source.kotlin
+L     assertEquals("Turbine timeout must be greater than 0: 0s", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun awaitItemButWasErrorThrowsWithName() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 40 source.kotlin entity.name.function.declaration.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.assignment.kotlin
+T 45 source.kotlin
+T 52 source.kotlin entity.name.function.call.kotlin
+T 53 source.kotlin
+T 54 source.kotlin
+L     val error = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow<Unit> { throw error }.test(name = "unit flow") { awaitItem() }
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 26 source.kotlin keyword.control.kotlin
+T 34 source.kotlin
+T 35 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin keyword.operator.assignment.kotlin
+T 47 source.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin
+T 71 source.kotlin entity.name.function.call.kotlin
+T 75 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals("Expected item for unit flow but found Error(CustomThrowable)", actual.message)
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin string.quoted.double.kotlin
+T 79 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin
+L     assertSame(error, actual.cause)
+T 4 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun timeoutThrowsWithName() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 39 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+L     neverFlow().test(timeout = 10.milliseconds, name = "never flow") {
+T 4 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 66 source.kotlin string.quoted.double.kotlin
+T 67 source.kotlin string.quoted.double.kotlin
+T 70 source.kotlin
+L       val actual = assertFailsWith<AssertionError> { awaitItem() }
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 62 source.kotlin entity.name.function.call.kotlin
+T 66 source.kotlin
+L       assertEquals("No value produced for never flow in 10ms", actual.message)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 60 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 78 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun unconsumedItemThrowsWithName() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 46 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+T 48 source.kotlin
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow {
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+L             emit("item!")
+T 12 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L             emitAll(neverFlow()) // Avoid emitting complete
+T 12 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 35 source.kotlin comment.line.double-slash.kotlin
+T 59 source.kotlin comment.line.double-slash.kotlin
+L           }
+T 11 source.kotlin
+L           .test(name = "item flow") {}
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L       }
+T 7 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed events found for item flow:
+T 45 source.kotlin string.quoted.double.kotlin
+L       | - Item(item!)
+T 21 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin(),
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+L       actual.message,
+T 21 source.kotlin
+L     )
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun skipItemsThrowsOnCompleteWithName() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 39 source.kotlin entity.name.function.declaration.kotlin
+T 42 source.kotlin
+T 43 source.kotlin keyword.operator.assignment.kotlin
+T 44 source.kotlin
+T 51 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 53 source.kotlin
+L     flowOf(1, 2).test(name = "two item channel") {
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 15 source.kotlin constant.numeric.decimal.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin string.quoted.double.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin
+L       val message = assertFailsWith<AssertionError> { skipItems(3) }.message
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 63 source.kotlin entity.name.function.call.kotlin
+T 64 source.kotlin
+T 65 source.kotlin constant.numeric.decimal.kotlin
+T 76 source.kotlin
+L       assertEquals("Expected 3 items for two item channel but got 2 items and Complete", message)
+T 6 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 86 source.kotlin string.quoted.double.kotlin
+T 87 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin
+L     }
+T 5 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun virtualTimeCanBeControlled() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     flow {
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 10 source.kotlin
+L       delay(5000)
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 16 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+L       emit("1")
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin
+L       delay(5000)
+T 6 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 16 source.kotlin constant.numeric.decimal.kotlin
+T 17 source.kotlin
+L       emit("2")
+T 6 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 12 source.kotlin string.quoted.double.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 14 source.kotlin string.quoted.double.kotlin
+T 15 source.kotlin
+L     }
+T 5 source.kotlin
+L       .test {
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L         expectNoEvents()
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L 
+L         advanceTimeBy(5000)
+T 8 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 26 source.kotlin constant.numeric.decimal.kotlin
+T 27 source.kotlin
+L         expectNoEvents()
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L 
+L         runCurrent()
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L         assertEquals("1", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L 
+L         advanceTimeBy(5000)
+T 8 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 26 source.kotlin constant.numeric.decimal.kotlin
+T 27 source.kotlin
+L         expectNoEvents()
+T 8 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 24 source.kotlin
+L 
+L         runCurrent()
+T 8 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+L         assertEquals("2", awaitItem())
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+L 
+L         awaitComplete()
+T 8 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+L       }
+T 7 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun timeoutsAreCaptured() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 25 source.kotlin entity.name.function.declaration.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 30 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L     flow<Nothing> { withTimeout(500) { delay(2000) } }
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 32 source.kotlin
+T 35 source.kotlin constant.numeric.decimal.kotlin
+T 39 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 49 source.kotlin constant.numeric.decimal.kotlin
+T 54 source.kotlin
+L       .test { assertTrue(awaitError() is TimeoutCancellationException) }
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.hard.kotlin
+T 72 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun cancellationsAreCaptured() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 44 source.kotlin
+L     flow<Nothing> {
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.call.kotlin
+T 9 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 17 source.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+L         currentCoroutineContext()[Job]!!.cancel()
+T 8 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.logical.kotlin
+T 40 source.kotlin keyword.operator.logical.kotlin
+T 41 source.kotlin
+T 47 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L         suspendCancellableCoroutine {}
+T 8 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+L       }
+T 7 source.kotlin
+L       .test { assertTrue(awaitError() is CancellationException) }
+T 6 source.kotlin
+T 7 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.hard.kotlin
+T 65 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun outerFailingFlowIsReported() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     val expected = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L 
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         flow<Nothing> { throw expected }
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.call.kotlin
+T 13 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 29 source.kotlin keyword.control.kotlin
+T 40 source.kotlin
+L           .test(name = "outer") { Turbine<Unit>(name = "inner").awaitItem() }
+T 10 source.kotlin
+T 11 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+T 41 source.kotlin entity.name.function.call.kotlin
+T 42 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 53 source.kotlin
+T 54 source.kotlin keyword.operator.assignment.kotlin
+T 55 source.kotlin
+T 56 source.kotlin string.quoted.double.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 62 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 73 source.kotlin entity.name.function.call.kotlin
+T 77 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     val expectedPrefix =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed exception found for outer:
+T 44 source.kotlin string.quoted.double.kotlin
+L       |
+T 7 source.kotlin string.quoted.double.kotlin
+L       |Stack trace:
+T 19 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin()
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       actual.message?.startsWith(expectedPrefix),
+T 20 source.kotlin
+T 22 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L       true,
+T 6 source.kotlin
+T 10 source.kotlin constant.language.boolean.kotlin
+T 11 source.kotlin
+L       "Expected to start with:\n\n$expectedPrefix\n\nBut was:\n\n${actual.message}",
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 34 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 49 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 51 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 53 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 65 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 81 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 82 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 83 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin
+L     )
+T 5 source.kotlin
+L     assertContains(actual.message!!, "CustomThrowable: hi")
+T 4 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+T 35 source.kotlin keyword.operator.logical.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L     assertEquals(actual.cause?.message, "No value produced for inner in 3s")
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin
+T 76 source.kotlin
+L   }
+T 3 source.kotlin
+L 
+L   @Test
+T 2 source.kotlin
+T 7 source.kotlin entity.name.type.annotation.kotlin
+L   fun innerFailingFlowIsReported() = runTest {
+T 2 source.kotlin
+T 5 source.kotlin keyword.hard.fun.kotlin
+T 6 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 45 source.kotlin
+T 46 source.kotlin
+L     val expected = CustomThrowable("hi")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L 
+L     val actual =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+L       assertFailsWith<AssertionError> {
+T 6 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+T 39 source.kotlin
+L         neverFlow().test(name = "outer") {
+T 8 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 33 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin
+L           flow<Nothing> { throw expected }.testIn(backgroundScope, name = "inner failing")
+T 10 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 31 source.kotlin keyword.control.kotlin
+T 42 source.kotlin
+T 43 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 72 source.kotlin
+T 73 source.kotlin keyword.operator.assignment.kotlin
+T 74 source.kotlin
+T 75 source.kotlin string.quoted.double.kotlin
+T 88 source.kotlin string.quoted.double.kotlin
+T 89 source.kotlin string.quoted.double.kotlin
+T 90 source.kotlin
+L 
+L           Turbine<Unit>(name = "inner").awaitItem()
+T 10 source.kotlin
+T 17 source.kotlin entity.name.function.call.kotlin
+T 18 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L         }
+T 9 source.kotlin
+L       }
+T 7 source.kotlin
+L 
+L     val expectedPrefix =
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+L       """
+T 6 source.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L       |Unconsumed exception found for inner failing:
+T 52 source.kotlin string.quoted.double.kotlin
+L       |
+T 7 source.kotlin string.quoted.double.kotlin
+L       |Stack trace:
+T 19 source.kotlin string.quoted.double.kotlin
+L       """
+T 6 source.kotlin string.quoted.double.kotlin
+T 9 source.kotlin string.quoted.double.kotlin
+L         .trimMargin()
+T 8 source.kotlin
+T 9 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+L     assertEquals(
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 17 source.kotlin
+L       actual.message?.startsWith(expectedPrefix),
+T 20 source.kotlin
+T 22 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 49 source.kotlin
+L       true,
+T 6 source.kotlin
+T 10 source.kotlin constant.language.boolean.kotlin
+T 11 source.kotlin
+L       "Expected to start with:\n\n$expectedPrefix\n\nBut was:\n\n${actual.message}",
+T 6 source.kotlin
+T 7 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 34 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 49 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 51 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 53 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 61 source.kotlin string.quoted.double.kotlin
+T 63 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 65 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 67 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 81 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 82 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 83 source.kotlin string.quoted.double.kotlin
+T 84 source.kotlin
+L     )
+T 5 source.kotlin
+L     assertContains(actual.message!!, "CustomThrowable: hi")
+T 4 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 34 source.kotlin keyword.operator.logical.kotlin
+T 35 source.kotlin keyword.operator.logical.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin string.quoted.double.kotlin
+T 58 source.kotlin string.quoted.double.kotlin
+T 59 source.kotlin
+L     assertEquals(actual.cause?.message, "No value produced for inner in 3s")
+T 4 source.kotlin
+T 16 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 74 source.kotlin string.quoted.double.kotlin
+T 75 source.kotlin string.quoted.double.kotlin
+T 76 source.kotlin
+L   }
+T 3 source.kotlin
+L }
+T 1 source.kotlin
+L 

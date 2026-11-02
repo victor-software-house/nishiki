@@ -106,6 +106,8 @@ tables! {
     GRAPHQL = graphql;
     #[cfg(feature = "lang-css")]
     CSS = css;
+    #[cfg(feature = "lang-kotlin")]
+    KOTLIN = kotlin;
 }
 
 // No table is longer than its slot.

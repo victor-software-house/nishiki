@@ -1,0 +1,962 @@
+L package com.example.kotlin
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 26 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import java.util.Random as Rand
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 24 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 26 source.kotlin meta.import.kotlin entity.name.package.kotlin keyword.hard.kotlin
+T 31 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import android.support.v7.app.AppCompatActivity
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 47 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L import org.amshove.kluent.`should equal` as Type
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 43 source.kotlin meta.import.kotlin entity.name.package.kotlin keyword.hard.kotlin
+T 48 source.kotlin meta.import.kotlin entity.name.package.kotlin
+L 
+L fun main(@NonNull args: Array<String>) {
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 8 source.kotlin entity.name.function.declaration.kotlin
+T 9 source.kotlin
+T 17 source.kotlin entity.name.type.annotation.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 40 source.kotlin
+L     println("Hello Kotlin! ${/*test*/}")
+T 4 source.kotlin
+T 11 source.kotlin entity.name.function.call.kotlin
+T 12 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 31 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin comment.block.kotlin
+T 35 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin comment.block.kotlin
+T 37 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin comment.block.kotlin
+T 38 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 39 source.kotlin string.quoted.double.kotlin
+T 40 source.kotlin
+L 
+L     val map = mutableMapOf("A" to "B")
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 27 source.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+L 
+L     thing.apply("random string here \n\t\r")
+T 9 source.kotlin
+T 10 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 40 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 42 source.kotlin string.quoted.double.kotlin constant.character.escape.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin
+L     thing.let { test: ->    }
+T 9 source.kotlin
+T 10 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 14 source.kotlin
+T 20 source.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+L 
+L     val string = "${getThing()}"
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 18 source.kotlin string.quoted.double.kotlin
+T 20 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.begin
+T 28 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin
+T 31 source.kotlin string.quoted.double.kotlin meta.template.expression.kotlin punctuation.definition.template-expression.end
+T 32 source.kotlin string.quoted.double.kotlin
+L }
+T 1 source.kotlin
+L 
+L val items = listOf("apple", "banana", "kiwifruit")
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 12 source.kotlin
+T 18 source.kotlin entity.name.function.call.kotlin
+T 19 source.kotlin
+T 20 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin string.quoted.double.kotlin
+T 26 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 48 source.kotlin string.quoted.double.kotlin
+T 49 source.kotlin string.quoted.double.kotlin
+T 50 source.kotlin
+L var x = 9
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.assignment.kotlin
+T 8 source.kotlin
+T 9 source.kotlin constant.numeric.decimal.kotlin
+L const val CONSTANT = 99
+T 5 source.kotlin storage.modifier.other.kotlin
+T 6 source.kotlin
+T 9 source.kotlin keyword.hard.kotlin
+T 10 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 23 source.kotlin constant.numeric.decimal.kotlin
+L 
+L @get:Rule
+T 4 source.kotlin entity.name.type.annotation-site.kotlin
+T 5 source.kotlin
+T 9 source.kotlin entity.name.type.annotation.kotlin
+L val activityRule = ActivityTestRule(SplashActivity::class.java)
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 57 source.kotlin entity.name.function.reference.kotlin
+T 63 source.kotlin
+L 
+L val oneMillion = 1_000_000
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 17 source.kotlin
+T 26 source.kotlin constant.numeric.decimal.kotlin
+L val creditCardNumber = 1234_5678_9012_3456L
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 43 source.kotlin constant.numeric.decimal.kotlin
+L val socialSecurityNumber = 999_99_9999L
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+T 39 source.kotlin constant.numeric.decimal.kotlin
+L val hexBytes = 0xFF_EC_DE_5E
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 28 source.kotlin constant.numeric.hex.kotlin
+L val float = 0.043_331F
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 12 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+L val bytes = 0b11010010_01101001_10010100_10010010
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 12 source.kotlin
+T 49 source.kotlin constant.numeric.binary.kotlin
+L 
+L if(test == "") {
+T 2 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+T 10 source.kotlin keyword.operator.comparison.kotlin
+T 11 source.kotlin
+T 13 source.kotlin string.quoted.double.kotlin
+T 16 source.kotlin
+L     1 and 2 not 3
+T 4 source.kotlin
+T 5 source.kotlin constant.numeric.decimal.kotlin
+T 10 source.kotlin
+T 11 source.kotlin constant.numeric.decimal.kotlin
+T 16 source.kotlin
+T 17 source.kotlin constant.numeric.decimal.kotlin
+L } else {
+T 2 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 8 source.kotlin
+L     
+T 4 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L fun <T> foo() {
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 5 source.kotlin
+T 6 source.kotlin entity.name.type.kotlin
+T 7 source.kotlin
+T 8 source.kotlin
+T 11 source.kotlin entity.name.function.declaration.kotlin
+T 15 source.kotlin
+L     val x  = Bar::class
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 11 source.kotlin
+T 12 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 18 source.kotlin
+T 23 source.kotlin entity.name.function.reference.kotlin
+L     val y = hello?.test
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L suspend fun <T, U> SequenceBuilder<Int>.yieldIfOdd(x: Int) {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.fun.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 34 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin keyword.operator.comparison.kotlin
+T 38 source.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+L     if (x % 2 != 0) yield(x)
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 10 source.kotlin
+T 11 source.kotlin keyword.operator.arithmetic.kotlin
+T 12 source.kotlin
+T 13 source.kotlin constant.numeric.decimal.kotlin
+T 14 source.kotlin
+T 16 source.kotlin keyword.operator.comparison.kotlin
+T 17 source.kotlin
+T 18 source.kotlin constant.numeric.decimal.kotlin
+T 20 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 28 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L val function = fun(@Inject x: Int, y: Int, lamda: (A, B) -> Unit): Int {
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.assignment.kotlin
+T 15 source.kotlin
+T 18 source.kotlin keyword.hard.fun.kotlin
+T 19 source.kotlin
+T 26 source.kotlin entity.name.type.annotation.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 51 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 55 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+T 67 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+L     test.test()
+T 8 source.kotlin
+T 9 source.kotlin
+T 13 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+L     return x + y;
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+T 14 source.kotlin keyword.operator.arithmetic.kotlin
+T 17 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L abstract fun onCreate(savedInstanceState: Bundle?)
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 40 source.kotlin
+T 42 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 50 source.kotlin
+L 
+L fun isOdd(x: Int) = x % 2 != 0
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.declaration.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.arithmetic.kotlin
+T 24 source.kotlin
+T 25 source.kotlin constant.numeric.decimal.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.comparison.kotlin
+T 29 source.kotlin
+T 30 source.kotlin constant.numeric.decimal.kotlin
+L fun isOdd(s: String) = s == "brillig" || s == "slithy" || s == "tove"
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 9 source.kotlin entity.name.function.declaration.kotlin
+T 11 source.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.logical.kotlin
+T 43 source.kotlin
+T 45 source.kotlin keyword.operator.comparison.kotlin
+T 46 source.kotlin
+T 47 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 55 source.kotlin
+T 57 source.kotlin keyword.operator.logical.kotlin
+T 60 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 63 source.kotlin
+T 64 source.kotlin string.quoted.double.kotlin
+T 68 source.kotlin string.quoted.double.kotlin
+T 69 source.kotlin string.quoted.double.kotlin
+L 
+L val numbers = listOf(1, 2, 3)
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin keyword.operator.assignment.kotlin
+T 14 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+T 25 source.kotlin constant.numeric.decimal.kotlin
+T 27 source.kotlin
+T 28 source.kotlin constant.numeric.decimal.kotlin
+T 29 source.kotlin
+L println(numbers.filter(::isOdd))
+T 7 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 30 source.kotlin entity.name.function.reference.kotlin
+T 32 source.kotlin
+L 
+L fun foo(node: Node?): String? {
+T 3 source.kotlin keyword.hard.fun.kotlin
+T 4 source.kotlin
+T 7 source.kotlin entity.name.function.declaration.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L     val parent = node.getParent() ?: return null
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 15 source.kotlin
+T 16 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 37 source.kotlin
+T 43 source.kotlin keyword.control.kotlin
+T 44 source.kotlin
+T 48 source.kotlin constant.language.null.kotlin
+L }
+T 1 source.kotlin
+L 
+L interface Greetable {
+T 9 source.kotlin keyword.hard.class.kotlin
+T 10 source.kotlin
+T 19 source.kotlin entity.name.type.class.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+L     fun greet()
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 13 source.kotlin entity.name.function.declaration.kotlin
+T 15 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L open class Greeter: Greetable {
+T 4 source.kotlin storage.modifier.other.kotlin
+T 5 source.kotlin
+T 10 source.kotlin keyword.hard.class.kotlin
+T 11 source.kotlin
+T 18 source.kotlin entity.name.type.class.kotlin
+T 20 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         private const val GREETING = "Hello, World!"
+T 8 source.kotlin
+T 15 source.kotlin storage.modifier.other.kotlin
+T 16 source.kotlin
+T 21 source.kotlin storage.modifier.other.kotlin
+T 22 source.kotlin
+T 25 source.kotlin keyword.hard.kotlin
+T 26 source.kotlin
+T 35 source.kotlin
+T 36 source.kotlin keyword.operator.assignment.kotlin
+T 37 source.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 51 source.kotlin string.quoted.double.kotlin
+T 52 source.kotlin string.quoted.double.kotlin
+L     }
+T 5 source.kotlin
+L     
+T 4 source.kotlin
+L     override fun greet() {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 22 source.kotlin entity.name.function.declaration.kotlin
+T 26 source.kotlin
+L         println(GREETING)
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L expect class Foo(bar: String) {
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.class.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+L     fun frob() 
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 12 source.kotlin entity.name.function.declaration.kotlin
+T 15 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L actual class Foo actual constructor(val bar: String) {
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 16 source.kotlin entity.name.type.class.kotlin
+T 17 source.kotlin
+T 24 source.kotlin
+T 35 source.kotlin entity.name.function.call.kotlin
+T 36 source.kotlin
+T 39 source.kotlin keyword.hard.kotlin
+T 40 source.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+L     actual fun frob() {
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+L         println("Frobbing the $bar")
+T 8 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 16 source.kotlin
+T 17 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 34 source.kotlin string.quoted.double.kotlin variable.string-escape.kotlin
+T 35 source.kotlin string.quoted.double.kotlin
+T 36 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L expect fun formatString(source: String, vararg args: Any): String
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 46 source.kotlin storage.modifier.other.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+L expect annotation class Test
+T 7 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 18 source.kotlin
+T 23 source.kotlin keyword.hard.class.kotlin
+T 24 source.kotlin
+T 28 source.kotlin entity.name.type.class.kotlin
+L 
+L actual fun formatString(source: String, vararg args: Any) = String.format(source, args)
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 23 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 46 source.kotlin storage.modifier.other.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 56 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 59 source.kotlin keyword.operator.assignment.kotlin
+T 66 source.kotlin
+T 67 source.kotlin
+T 73 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L actual typealias Test = org.junit.Test
+T 7 source.kotlin
+T 16 source.kotlin keyword.hard.typealias.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+L 
+L sealed class Expr
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 12 source.kotlin keyword.hard.class.kotlin
+T 13 source.kotlin
+T 17 source.kotlin entity.name.type.class.kotlin
+L data class Const(val number: Double) : Expr()
+T 4 source.kotlin storage.modifier.other.kotlin
+T 5 source.kotlin
+T 10 source.kotlin keyword.hard.class.kotlin
+T 11 source.kotlin
+T 16 source.kotlin entity.name.type.class.kotlin
+T 17 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 21 source.kotlin
+T 27 source.kotlin
+T 29 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+L data class Sum(val e1: Expr, val e2: Expr) : Expr()
+T 4 source.kotlin storage.modifier.other.kotlin
+T 5 source.kotlin
+T 10 source.kotlin keyword.hard.class.kotlin
+T 11 source.kotlin
+T 14 source.kotlin entity.name.type.class.kotlin
+T 15 source.kotlin
+T 18 source.kotlin keyword.hard.kotlin
+T 19 source.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 29 source.kotlin
+T 32 source.kotlin keyword.hard.kotlin
+T 33 source.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+L object NotANumber : Expr()
+T 6 source.kotlin keyword.hard.object.kotlin
+T 7 source.kotlin
+T 17 source.kotlin entity.name.type.object.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 24 source.kotlin entity.name.type.kotlin
+T 26 source.kotlin
+L 
+L @file:JvmName("Foo")
+T 5 source.kotlin entity.name.type.annotation-site.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 15 source.kotlin
+T 18 source.kotlin entity.name.type.annotation.kotlin
+T 20 source.kotlin
+L private sealed class InjectedClass<T, U> @Inject constructor(
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 14 source.kotlin storage.modifier.other.kotlin
+T 15 source.kotlin
+T 20 source.kotlin keyword.hard.class.kotlin
+T 21 source.kotlin
+T 34 source.kotlin entity.name.type.class.kotlin
+T 35 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 39 source.kotlin entity.name.type.kotlin
+T 40 source.kotlin
+T 41 source.kotlin
+T 48 source.kotlin entity.name.type.annotation.kotlin
+T 49 source.kotlin
+T 60 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+L     val test: Int = 50, 
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 12 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+T 19 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin
+L     var anotherVar: String = "hello world"
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 18 source.kotlin
+T 20 source.kotlin
+T 26 source.kotlin entity.name.type.kotlin
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin string.quoted.double.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+L ) : SomeSuperClass(test, anotherVar) {
+T 2 source.kotlin
+T 4 source.kotlin
+T 18 source.kotlin entity.name.type.kotlin
+T 19 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+T 25 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin
+L 
+L     init {
+T 4 source.kotlin
+T 8 source.kotlin keyword.soft.kotlin
+T 10 source.kotlin
+L         //
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     constructor(param1: String, param2: Int): this(param1, param2) {
+T 4 source.kotlin
+T 15 source.kotlin entity.name.function.call.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+T 40 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 46 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 65 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 68 source.kotlin
+L         //
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     companion object {
+T 4 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 20 source.kotlin keyword.hard.object.kotlin
+T 22 source.kotlin
+L         //
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L annotation class Suspendable
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 16 source.kotlin keyword.hard.class.kotlin
+T 17 source.kotlin
+T 28 source.kotlin entity.name.type.class.kotlin
+L val f = @Suspendable { Fiber.sleep(10) }
+T 3 source.kotlin keyword.hard.kotlin
+T 4 source.kotlin
+T 6 source.kotlin
+T 7 source.kotlin keyword.operator.assignment.kotlin
+T 8 source.kotlin
+T 20 source.kotlin entity.name.type.annotation.kotlin
+T 28 source.kotlin
+T 29 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 35 source.kotlin
+T 37 source.kotlin constant.numeric.decimal.kotlin
+T 40 source.kotlin
+L 
+L 
+L private data class Foo(
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 18 source.kotlin keyword.hard.class.kotlin
+T 19 source.kotlin
+T 22 source.kotlin entity.name.type.class.kotlin
+T 23 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * ($)
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * ```
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     val variables: Map<String, String>
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.kotlin
+T 8 source.kotlin
+T 17 source.kotlin
+T 19 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 38 source.kotlin
+L )
+T 1 source.kotlin
+L 
+L data class Response(@SerializedName("param1") val param1: String,
+T 4 source.kotlin storage.modifier.other.kotlin
+T 5 source.kotlin
+T 10 source.kotlin keyword.hard.class.kotlin
+T 11 source.kotlin
+T 19 source.kotlin entity.name.type.class.kotlin
+T 20 source.kotlin
+T 35 source.kotlin entity.name.type.annotation.kotlin
+T 36 source.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+T 49 source.kotlin keyword.hard.kotlin
+T 50 source.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+L                     @SerializedName("param2") val param2: String,
+T 20 source.kotlin
+T 35 source.kotlin entity.name.type.annotation.kotlin
+T 36 source.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+T 49 source.kotlin keyword.hard.kotlin
+T 50 source.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+L                     @SerializedName("param3") val param3: String) {
+T 20 source.kotlin
+T 35 source.kotlin entity.name.type.annotation.kotlin
+T 36 source.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 43 source.kotlin string.quoted.double.kotlin
+T 44 source.kotlin string.quoted.double.kotlin
+T 46 source.kotlin
+T 49 source.kotlin keyword.hard.kotlin
+T 50 source.kotlin
+T 56 source.kotlin
+T 58 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L object DefaultListener : MouseAdapter() {
+T 6 source.kotlin keyword.hard.object.kotlin
+T 7 source.kotlin
+T 22 source.kotlin entity.name.type.object.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 37 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+L     override fun mouseClicked(e: MouseEvent) { }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+L 
+L     override fun mouseEntered(e: MouseEvent) { }
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 31 source.kotlin
+T 33 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L class Feature : Node("Title", "Content", "Description") {
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 13 source.kotlin entity.name.type.class.kotlin
+T 14 source.kotlin
+T 16 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin string.quoted.double.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 28 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin string.quoted.double.kotlin
+T 41 source.kotlin
+T 42 source.kotlin string.quoted.double.kotlin
+T 53 source.kotlin string.quoted.double.kotlin
+T 54 source.kotlin string.quoted.double.kotlin
+T 57 source.kotlin
+L 
+L }
+T 1 source.kotlin
+L 
+L class Outer {
+T 5 source.kotlin keyword.hard.class.kotlin
+T 6 source.kotlin
+T 11 source.kotlin entity.name.type.class.kotlin
+T 12 source.kotlin
+T 13 source.kotlin
+L     inner class Inner {}
+T 4 source.kotlin
+T 9 source.kotlin storage.modifier.other.kotlin
+T 10 source.kotlin
+T 15 source.kotlin keyword.hard.class.kotlin
+T 16 source.kotlin
+T 21 source.kotlin entity.name.type.class.kotlin
+T 22 source.kotlin
+T 24 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // From: https://github.com/nishtahir/language-kotlin/blob/master/snapshots/corpus.kt
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 85 source.kotlin comment.line.double-slash.kotlin

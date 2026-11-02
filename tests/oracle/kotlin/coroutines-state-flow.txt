@@ -1,0 +1,1954 @@
+L package kotlinx.coroutines.flow
+T 7 source.kotlin meta.package.kotlin keyword.hard.package.kotlin
+T 8 source.kotlin meta.package.kotlin
+T 31 source.kotlin meta.package.kotlin entity.name.package.kotlin
+L 
+L import kotlinx.atomicfu.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 24 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 25 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 26 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 27 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.channels.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.flow.internal.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 40 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 41 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlinx.coroutines.internal.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 35 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 36 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L import kotlin.coroutines.*
+T 6 source.kotlin meta.import.kotlin keyword.soft.kotlin
+T 7 source.kotlin meta.import.kotlin
+T 25 source.kotlin meta.import.kotlin entity.name.package.kotlin
+T 26 source.kotlin meta.import.kotlin entity.name.package.kotlin variable.language.wildcard.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * A [SharedFlow] that represents a read-only state with a single updatable data [value] that emits updates
+T 107 source.kotlin comment.block.javadoc.kotlin
+L  * to the value to its collectors. A state flow is a _hot_ flow because its active instance exists independently
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  * of the presence of collectors. Its current value can be retrieved via the [value] property.
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * **State flow never completes**. A call to [Flow.collect] on a state flow never completes normally, and
+T 105 source.kotlin comment.block.javadoc.kotlin
+L  * neither does a coroutine started by the [Flow.launchIn] function. An active collector of a state flow is called a _subscriber_.
+T 130 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * A [mutable state flow][MutableStateFlow] is created using `MutableStateFlow(value)` constructor function with
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  * the initial value. The value of mutable state flow can be updated by setting its [value] property.
+T 101 source.kotlin comment.block.javadoc.kotlin
+L  * Updates to the [value] are always [conflated][Flow.conflate]. So a slow collector skips fast updates,
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  * but always collects the most recently emitted value.
+T 55 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [StateFlow] is useful as a data-model class to represent any kind of state.
+T 78 source.kotlin comment.block.javadoc.kotlin
+L  * Derived values can be defined using various operators on the flows, with [combine] operator being especially
+T 111 source.kotlin comment.block.javadoc.kotlin
+L  * useful to combine values from multiple state flows using arbitrary functions.
+T 80 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * For example, the following class encapsulates an integer state and increments its value on each call to `inc`:
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * class CounterModel {
+T 23 source.kotlin comment.block.javadoc.kotlin
+L  *     private val _counter = MutableStateFlow(0) // private mutable state flow
+T 79 source.kotlin comment.block.javadoc.kotlin
+L  *     val counter = _counter.asStateFlow() // publicly exposed as read-only state flow
+T 87 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  *     fun inc() {
+T 18 source.kotlin comment.block.javadoc.kotlin
+L  *         _counter.update { count -> count + 1 } // atomic, safe for concurrent use
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  *     }
+T 8 source.kotlin comment.block.javadoc.kotlin
+L  * }
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Having two instances of the above `CounterModel` class one can define the sum of their counters like this:
+T 109 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * val aModel = CounterModel()
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  * val bModel = CounterModel()
+T 30 source.kotlin comment.block.javadoc.kotlin
+L  * val sumFlow: Flow<Int> = aModel.counter.combine(bModel.counter) { a, b -> a + b }
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * As an alternative to the above usage with the `MutableStateFlow(...)` constructor function,
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  * any _cold_ [Flow] can be converted to a state flow using the [stateIn] operator.
+T 83 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Strong equality-based conflation
+T 39 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Values in state flow are conflated using [Any.equals] comparison in a similar way to
+T 87 source.kotlin comment.block.javadoc.kotlin
+L  * [distinctUntilChanged] operator. It is used to conflate incoming updates
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  * to [value][MutableStateFlow.value] in [MutableStateFlow] and to suppress emission of the values to collectors
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  * when new value is equal to the previously emitted one. State flow behavior with classes that violate
+T 103 source.kotlin comment.block.javadoc.kotlin
+L  * the contract for [Any.equals] is unspecified.
+T 48 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### State flow is a shared flow
+T 34 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * State flow is a special-purpose, high-performance, and efficient implementation of [SharedFlow] for the narrow,
+T 114 source.kotlin comment.block.javadoc.kotlin
+L  * but widely used case of sharing a state. See the [SharedFlow] documentation for the basic rules,
+T 99 source.kotlin comment.block.javadoc.kotlin
+L  * constraints, and operators that are applicable to all shared flows.
+T 70 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * State flow always has an initial value, replays one most recent value to new subscribers, does not buffer any
+T 112 source.kotlin comment.block.javadoc.kotlin
+L  * more values, but keeps the last emitted one, and does not support [resetReplayCache][MutableSharedFlow.resetReplayCache].
+T 124 source.kotlin comment.block.javadoc.kotlin
+L  * A state flow behaves identically to a shared flow when it is created
+T 71 source.kotlin comment.block.javadoc.kotlin
+L  * with the following parameters and the [distinctUntilChanged] operator is applied to it:
+T 90 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  * // MutableStateFlow(initialValue) is a shared flow with the following parameters:
+T 84 source.kotlin comment.block.javadoc.kotlin
+L  * val shared = MutableSharedFlow(
+T 34 source.kotlin comment.block.javadoc.kotlin
+L  *     replay = 1,
+T 18 source.kotlin comment.block.javadoc.kotlin
+L  *     onBufferOverflow = BufferOverflow.DROP_OLDEST
+T 52 source.kotlin comment.block.javadoc.kotlin
+L  * )
+T 4 source.kotlin comment.block.javadoc.kotlin
+L  * shared.tryEmit(initialValue) // emit the initial value
+T 57 source.kotlin comment.block.javadoc.kotlin
+L  * val state = shared.distinctUntilChanged() // get StateFlow-like behavior
+T 75 source.kotlin comment.block.javadoc.kotlin
+L  * ```
+T 6 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Use [SharedFlow] when you need a [StateFlow] with tweaks in its behavior such as extra buffering, replaying more
+T 115 source.kotlin comment.block.javadoc.kotlin
+L  * values, or omitting the initial value.
+T 41 source.kotlin comment.block.javadoc.kotlin
+L  * 
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * ### StateFlow vs ConflatedBroadcastChannel
+T 45 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Conceptually, state flow is similar to [ConflatedBroadcastChannel]
+T 69 source.kotlin comment.block.javadoc.kotlin
+L  * and is designed to completely replace it.
+T 44 source.kotlin comment.block.javadoc.kotlin
+L  * It has the following important differences:
+T 46 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * - `StateFlow` is simpler, because it does not have to implement all the [Channel] APIs, which allows
+T 103 source.kotlin comment.block.javadoc.kotlin
+L  *   for faster, garbage-free implementation, unlike `ConflatedBroadcastChannel` implementation that
+T 100 source.kotlin comment.block.javadoc.kotlin
+L  *   allocates objects on each emitted value.
+T 45 source.kotlin comment.block.javadoc.kotlin
+L  * - `StateFlow` always has a value which can be safely read at any time via [value] property.
+T 94 source.kotlin comment.block.javadoc.kotlin
+L  *   Unlike `ConflatedBroadcastChannel`, there is no way to create a state flow without a value.
+T 96 source.kotlin comment.block.javadoc.kotlin
+L  * - `StateFlow` has a clear separation into a read-only `StateFlow` interface and a [MutableStateFlow].
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  * - `StateFlow` conflation is based on equality like [distinctUntilChanged] operator,
+T 86 source.kotlin comment.block.javadoc.kotlin
+L  *   unlike conflation in `ConflatedBroadcastChannel` that is based on reference identity.
+T 90 source.kotlin comment.block.javadoc.kotlin
+L  * - `StateFlow` cannot be closed like `ConflatedBroadcastChannel` and can never represent a failure.
+T 101 source.kotlin comment.block.javadoc.kotlin
+L  *   All errors and completion signals should be explicitly _materialized_ if needed.
+T 85 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * `StateFlow` is designed to better cover typical use-cases of keeping track of state changes in time, taking
+T 110 source.kotlin comment.block.javadoc.kotlin
+L  * more pragmatic design choices for the sake of convenience.
+T 61 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * To migrate [ConflatedBroadcastChannel] usage to [StateFlow], start by replacing usages of the `ConflatedBroadcastChannel()`
+T 126 source.kotlin comment.block.javadoc.kotlin
+L  * constructor with `MutableStateFlow(initialValue)`, using `null` as an initial value if you don't have one.
+T 109 source.kotlin comment.block.javadoc.kotlin
+L  * Replace [send][ConflatedBroadcastChannel.send] and [trySend][ConflatedBroadcastChannel.trySend] calls
+T 104 source.kotlin comment.block.javadoc.kotlin
+L  * with updates to the state flow's [MutableStateFlow.value], and convert subscribers' code to flow operators.
+T 110 source.kotlin comment.block.javadoc.kotlin
+L  * You can use the [filterNotNull] operator to mimic behavior of a `ConflatedBroadcastChannel` without initial value.
+T 117 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Concurrency
+T 18 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * All methods of state flow are **thread-safe** and can be safely invoked from concurrent coroutines without
+T 109 source.kotlin comment.block.javadoc.kotlin
+L  * external synchronization.
+T 28 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Operator fusion
+T 22 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * Application of [flowOn][Flow.flowOn], [conflate][Flow.conflate],
+T 67 source.kotlin comment.block.javadoc.kotlin
+L  * [buffer] with [CONFLATED][Channel.CONFLATED] or [RENDEZVOUS][Channel.RENDEZVOUS] capacity,
+T 93 source.kotlin comment.block.javadoc.kotlin
+L  * [distinctUntilChanged][Flow.distinctUntilChanged], or [cancellable] operators to a state flow has no effect.
+T 111 source.kotlin comment.block.javadoc.kotlin
+L  * 
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * ### Implementation notes
+T 27 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * State flow implementation is optimized for memory consumption and allocation-freedom. It uses a lock to ensure
+T 113 source.kotlin comment.block.javadoc.kotlin
+L  * thread-safety, but suspending collector coroutines are resumed outside of this lock to avoid dead-locks when
+T 111 source.kotlin comment.block.javadoc.kotlin
+L  * using unconfined coroutines. Adding new subscribers has `O(1)` amortized cost, but updating a [value] has `O(N)`
+T 115 source.kotlin comment.block.javadoc.kotlin
+L  * cost, where `N` is the number of active subscribers.
+T 55 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Not stable for inheritance
+T 33 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * **`The StateFlow` interface is not stable for inheritance in 3rd party libraries**, as new methods
+T 101 source.kotlin comment.block.javadoc.kotlin
+L  * might be added to this interface in the future, but is stable for use.
+T 73 source.kotlin comment.block.javadoc.kotlin
+L  * Use the `MutableStateFlow(value)` constructor function to create an implementation.
+T 86 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @OptIn(ExperimentalSubclassOptIn::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 39 source.kotlin entity.name.function.reference.kotlin
+T 40 source.kotlin
+L @SubclassOptInRequired(ExperimentalForInheritanceCoroutinesApi::class)
+T 22 source.kotlin entity.name.type.annotation.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 69 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+L public interface StateFlow<out T> : SharedFlow<T> {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 16 source.kotlin keyword.hard.class.kotlin
+T 17 source.kotlin
+T 26 source.kotlin entity.name.type.class.kotlin
+T 27 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+T 33 source.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * The current value of this state flow.
+T 44 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public val value: T
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.kotlin
+T 15 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 22 source.kotlin
+T 23 source.kotlin entity.name.type.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * A mutable [StateFlow] that provides a setter for [value].
+T 60 source.kotlin comment.block.javadoc.kotlin
+L  * An instance of `MutableStateFlow` with the given initial `value` can be created using
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  * `MutableStateFlow(value)` constructor function.
+T 50 source.kotlin comment.block.javadoc.kotlin
+L 
+L  * See the [StateFlow] documentation for details on state flows.
+T 64 source.kotlin comment.block.javadoc.kotlin
+L  * Note that all emission-related operators, such as [value]'s setter, [emit], and [tryEmit], are conflated using [Any.equals].
+T 127 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * ### Not stable for inheritance
+T 33 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * **The `MutableStateFlow` interface is not stable for inheritance in 3rd party libraries**, as new methods
+T 108 source.kotlin comment.block.javadoc.kotlin
+L  * might be added to this interface in the future, but is stable for use.
+T 73 source.kotlin comment.block.javadoc.kotlin
+L  * Use the `MutableStateFlow()` constructor function to create an implementation.
+T 81 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @OptIn(ExperimentalSubclassOptIn::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 39 source.kotlin entity.name.function.reference.kotlin
+T 40 source.kotlin
+L @SubclassOptInRequired(ExperimentalForInheritanceCoroutinesApi::class)
+T 22 source.kotlin entity.name.type.annotation.kotlin
+T 62 source.kotlin
+T 64 source.kotlin
+T 69 source.kotlin entity.name.function.reference.kotlin
+T 70 source.kotlin
+L public interface MutableStateFlow<T> : StateFlow<T>, MutableSharedFlow<T> {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 16 source.kotlin keyword.hard.class.kotlin
+T 17 source.kotlin
+T 33 source.kotlin entity.name.type.class.kotlin
+T 34 source.kotlin
+T 35 source.kotlin entity.name.type.kotlin
+T 36 source.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 48 source.kotlin entity.name.type.kotlin
+T 49 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 70 source.kotlin entity.name.function.call.kotlin
+T 71 source.kotlin
+T 72 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 74 source.kotlin
+T 75 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * The current value of this state flow.
+T 44 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * Setting a value that is [equal][Any.equals] to the previous one does nothing.
+T 84 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This property is **thread-safe** and can be safely updated from concurrent coroutines without
+T 100 source.kotlin comment.block.javadoc.kotlin
+L      * external synchronization.
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public override var value: T
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 23 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+L 
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Atomically compares the current [value] with [expect] and sets it to [update] if it is equal to [expect].
+T 112 source.kotlin comment.block.javadoc.kotlin
+L      * The result is `true` if the [value] was set to [update] and `false` otherwise.
+T 85 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This function use a regular comparison using [Any.equals]. If both [expect] and [update] are equal to the
+T 112 source.kotlin comment.block.javadoc.kotlin
+L      * current [value], this function returns `true`, but it does not actually change the reference that is
+T 107 source.kotlin comment.block.javadoc.kotlin
+L      * stored in the [value].
+T 29 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * This method is **thread-safe** and can be safely invoked from concurrent coroutines without
+T 98 source.kotlin comment.block.javadoc.kotlin
+L      * external synchronization.
+T 32 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     public fun compareAndSet(expect: T, update: T): Boolean
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 14 source.kotlin keyword.hard.fun.kotlin
+T 15 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 35 source.kotlin
+T 37 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 49 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 52 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Creates a [MutableStateFlow] with the given initial [value].
+T 63 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L @Suppress("FunctionName")
+T 9 source.kotlin entity.name.type.annotation.kotlin
+T 10 source.kotlin
+T 11 source.kotlin string.quoted.double.kotlin
+T 23 source.kotlin string.quoted.double.kotlin
+T 24 source.kotlin string.quoted.double.kotlin
+T 25 source.kotlin
+L public fun <T> MutableStateFlow(value: T): MutableStateFlow<T> = StateFlowImpl(value ?: NULL)
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 10 source.kotlin keyword.hard.fun.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+T 13 source.kotlin entity.name.type.kotlin
+T 14 source.kotlin
+T 15 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 37 source.kotlin storage.modifier.other.kotlin
+T 39 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 64 source.kotlin keyword.operator.assignment.kotlin
+T 65 source.kotlin
+T 78 source.kotlin entity.name.function.call.kotlin
+T 79 source.kotlin
+T 84 source.kotlin storage.modifier.other.kotlin
+T 93 source.kotlin
+L 
+L // ------------------------------------ Update methods ------------------------------------
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 91 source.kotlin comment.line.double-slash.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Updates the [MutableStateFlow.value] atomically using the specified [function] of its value, and returns the new
+T 115 source.kotlin comment.block.javadoc.kotlin
+L  * value.
+T 9 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [function] may be evaluated multiple times, if [value] is being concurrently updated.
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public inline fun <T> MutableStateFlow<T>.updateAndGet(function: (T) -> T): T {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.fun.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 66 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 76 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 78 source.kotlin
+T 79 source.kotlin
+L     while (true) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin constant.language.boolean.kotlin
+T 18 source.kotlin
+L         val prevValue = value
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+L         val nextValue = function(prevValue)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L         if (compareAndSet(prevValue, nextValue)) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+L             return nextValue
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Updates the [MutableStateFlow.value] atomically using the specified [function] of its value, and returns its
+T 111 source.kotlin comment.block.javadoc.kotlin
+L  * prior value.
+T 15 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [function] may be evaluated multiple times, if [value] is being concurrently updated.
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public inline fun <T> MutableStateFlow<T>.getAndUpdate(function: (T) -> T): T {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.fun.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 63 source.kotlin
+T 66 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 73 source.kotlin entity.name.type.kotlin
+T 74 source.kotlin
+T 76 source.kotlin
+T 77 source.kotlin entity.name.type.kotlin
+T 78 source.kotlin
+T 79 source.kotlin
+L     while (true) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin constant.language.boolean.kotlin
+T 18 source.kotlin
+L         val prevValue = value
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+L         val nextValue = function(prevValue)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L         if (compareAndSet(prevValue, nextValue)) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+L             return prevValue
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 28 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L 
+L /**
+T 3 source.kotlin comment.block.javadoc.kotlin
+L  * Updates the [MutableStateFlow.value] atomically using the specified [function] of its value.
+T 95 source.kotlin comment.block.javadoc.kotlin
+L  *
+T 2 source.kotlin comment.block.javadoc.kotlin
+L  * [function] may be evaluated multiple times, if [value] is being concurrently updated.
+T 88 source.kotlin comment.block.javadoc.kotlin
+L  */
+T 1 source.kotlin comment.block.javadoc.kotlin
+T 3 source.kotlin comment.block.javadoc.kotlin
+L public inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+T 6 source.kotlin storage.modifier.other.kotlin
+T 7 source.kotlin
+T 13 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 17 source.kotlin keyword.hard.fun.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 20 source.kotlin entity.name.type.kotlin
+T 21 source.kotlin
+T 22 source.kotlin
+T 38 source.kotlin entity.name.function.declaration.kotlin
+T 39 source.kotlin keyword.operator.comparison.kotlin
+T 40 source.kotlin
+T 41 source.kotlin keyword.operator.comparison.kotlin
+T 42 source.kotlin
+T 48 source.kotlin entity.name.function.call.kotlin
+T 57 source.kotlin
+T 60 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 66 source.kotlin
+T 67 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+L     while (true) {
+T 4 source.kotlin
+T 9 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 15 source.kotlin constant.language.boolean.kotlin
+T 18 source.kotlin
+L         val prevValue = value
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+L         val nextValue = function(prevValue)
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 22 source.kotlin
+T 23 source.kotlin keyword.operator.assignment.kotlin
+T 24 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+L         if (compareAndSet(prevValue, nextValue)) {
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 12 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 50 source.kotlin
+L             return
+T 12 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L // ------------------------------------ Implementation ------------------------------------
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 91 source.kotlin comment.line.double-slash.kotlin
+L 
+L private val NONE = Symbol("NONE")
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+T 27 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin string.quoted.double.kotlin
+T 32 source.kotlin string.quoted.double.kotlin
+T 33 source.kotlin
+L 
+L private val PENDING = Symbol("PENDING")
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.assignment.kotlin
+T 22 source.kotlin
+T 28 source.kotlin entity.name.function.call.kotlin
+T 29 source.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 37 source.kotlin string.quoted.double.kotlin
+T 38 source.kotlin string.quoted.double.kotlin
+T 39 source.kotlin
+L 
+L // StateFlow slots are allocated for its collectors
+T 2 source.kotlin comment.line.double-slash.kotlin
+T 51 source.kotlin comment.line.double-slash.kotlin
+L private class StateFlowSlot : AbstractSharedFlowSlot<StateFlowImpl<*>>() {
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin keyword.hard.class.kotlin
+T 14 source.kotlin
+T 27 source.kotlin entity.name.type.class.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 52 source.kotlin entity.name.type.kotlin
+T 53 source.kotlin
+T 66 source.kotlin entity.name.type.kotlin
+T 70 source.kotlin
+T 74 source.kotlin
+L     /**
+T 4 source.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L      * Each slot can have one of the following states:
+T 54 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * - `null` -- it is not used right now. Can [allocateLocked] to new collector.
+T 83 source.kotlin comment.block.javadoc.kotlin
+L      * - `NONE` -- used by a collector, but neither suspended nor has pending value.
+T 84 source.kotlin comment.block.javadoc.kotlin
+L      * - `PENDING` -- pending to process new value.
+T 51 source.kotlin comment.block.javadoc.kotlin
+L      * - `CancellableContinuationImpl<Unit>` -- suspended waiting for new value.
+T 80 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * It is important that default `null` value is used, because there can be a race between allocation
+T 104 source.kotlin comment.block.javadoc.kotlin
+L      * of a new slot and trying to do [makePending] on this slot.
+T 65 source.kotlin comment.block.javadoc.kotlin
+L      *
+T 6 source.kotlin comment.block.javadoc.kotlin
+L      * ===
+T 10 source.kotlin comment.block.javadoc.kotlin
+L      * This should be `atomic<Any?>(null)` instead of the atomic reference, but because of #3820
+T 96 source.kotlin comment.block.javadoc.kotlin
+L      * it is used as a **temporary** solution starting from 1.8.1 version.
+T 74 source.kotlin comment.block.javadoc.kotlin
+L      * Depending on the fix rollout on Android, it will be removed in 1.9.0 or 1.10.0.
+T 86 source.kotlin comment.block.javadoc.kotlin
+L      * See https://issuetracker.google.com/issues/325123736
+T 59 source.kotlin comment.block.javadoc.kotlin
+L      */
+T 5 source.kotlin comment.block.javadoc.kotlin
+T 7 source.kotlin comment.block.javadoc.kotlin
+L     private val _state = WorkaroundAtomicReference<Any?>(null)
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 50 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+T 54 source.kotlin entity.name.type.kotlin
+T 56 source.kotlin
+T 57 source.kotlin
+T 61 source.kotlin constant.language.null.kotlin
+T 62 source.kotlin
+L 
+L     override fun allocateLocked(flow: StateFlowImpl<*>): Boolean {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 31 source.kotlin entity.name.function.declaration.kotlin
+T 36 source.kotlin
+T 38 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 54 source.kotlin
+T 55 source.kotlin
+T 57 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 65 source.kotlin
+T 66 source.kotlin
+L         // No need for atomic check & update here, since allocated happens under StateFlow lock
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 95 source.kotlin comment.line.double-slash.kotlin
+L         if (_state.value != null) return false // not free
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 24 source.kotlin storage.modifier.other.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 32 source.kotlin constant.language.null.kotlin
+T 34 source.kotlin
+T 40 source.kotlin keyword.control.kotlin
+T 41 source.kotlin
+T 46 source.kotlin constant.language.boolean.kotlin
+T 47 source.kotlin
+T 49 source.kotlin comment.line.double-slash.kotlin
+T 58 source.kotlin comment.line.double-slash.kotlin
+L         _state.value = NONE // allocated
+T 15 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 28 source.kotlin
+T 30 source.kotlin comment.line.double-slash.kotlin
+T 40 source.kotlin comment.line.double-slash.kotlin
+L         return true
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.boolean.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun freeLocked(flow: StateFlowImpl<*>): Array<Continuation<Unit>?> {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 32 source.kotlin
+T 34 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 50 source.kotlin
+T 51 source.kotlin
+T 53 source.kotlin
+T 58 source.kotlin entity.name.type.kotlin
+T 59 source.kotlin
+T 71 source.kotlin entity.name.type.kotlin
+T 72 source.kotlin
+T 76 source.kotlin entity.name.type.kotlin
+T 80 source.kotlin
+T 81 source.kotlin
+L         _state.value = null // free now
+T 15 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 23 source.kotlin
+T 27 source.kotlin constant.language.null.kotlin
+T 28 source.kotlin
+T 30 source.kotlin comment.line.double-slash.kotlin
+T 39 source.kotlin comment.line.double-slash.kotlin
+L         return EMPTY_RESUMES // nothing more to do
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin comment.line.double-slash.kotlin
+T 50 source.kotlin comment.line.double-slash.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     @Suppress("UNCHECKED_CAST")
+T 4 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin
+L     fun makePending() {
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 23 source.kotlin
+L         _state.loop { state ->
+T 14 source.kotlin
+T 15 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 20 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin storage.type.function.arrow.kotlin
+L             when {
+T 12 source.kotlin
+T 16 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+L                 state == null -> return // this slot is free - skip it
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 25 source.kotlin
+T 29 source.kotlin constant.language.null.kotlin
+T 30 source.kotlin
+T 32 source.kotlin storage.type.function.arrow.kotlin
+T 33 source.kotlin
+T 39 source.kotlin keyword.control.kotlin
+T 40 source.kotlin
+T 42 source.kotlin comment.line.double-slash.kotlin
+T 70 source.kotlin comment.line.double-slash.kotlin
+L                 state === PENDING -> return // already pending, nothing to do
+T 22 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 34 source.kotlin
+T 36 source.kotlin storage.type.function.arrow.kotlin
+T 37 source.kotlin
+T 43 source.kotlin keyword.control.kotlin
+T 44 source.kotlin
+T 46 source.kotlin comment.line.double-slash.kotlin
+T 77 source.kotlin comment.line.double-slash.kotlin
+L                 state === NONE -> { // mark as pending
+T 22 source.kotlin
+T 25 source.kotlin keyword.operator.comparison.kotlin
+T 31 source.kotlin
+T 33 source.kotlin storage.type.function.arrow.kotlin
+T 36 source.kotlin
+T 38 source.kotlin comment.line.double-slash.kotlin
+T 54 source.kotlin comment.line.double-slash.kotlin
+L                     if (_state.compareAndSet(state, PENDING)) return
+T 20 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 68 source.kotlin keyword.control.kotlin
+L                 }
+T 17 source.kotlin
+L                 else -> { // must be a suspend continuation state
+T 16 source.kotlin
+T 20 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 23 source.kotlin storage.type.function.arrow.kotlin
+T 26 source.kotlin
+T 28 source.kotlin comment.line.double-slash.kotlin
+T 65 source.kotlin comment.line.double-slash.kotlin
+L                     // we must still use CAS here since continuation may get cancelled and free the slot at any time
+T 20 source.kotlin
+T 22 source.kotlin comment.line.double-slash.kotlin
+T 116 source.kotlin comment.line.double-slash.kotlin
+L                     if (_state.compareAndSet(state, NONE)) {
+T 20 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+T 44 source.kotlin entity.name.function.call.kotlin
+T 60 source.kotlin
+L                         (state as CancellableContinuationImpl<Unit>).resume(Unit)
+T 31 source.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 61 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 66 source.kotlin
+T 67 source.kotlin keyword.operator.comparison.kotlin
+T 68 source.kotlin
+T 69 source.kotlin
+T 75 source.kotlin entity.name.function.call.kotlin
+T 81 source.kotlin
+L                         return
+T 24 source.kotlin
+T 30 source.kotlin keyword.control.kotlin
+L                     }
+T 21 source.kotlin
+L                 }
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     fun takePending(): Boolean = _state.getAndSet(NONE)!!.let { state ->
+T 4 source.kotlin
+T 7 source.kotlin keyword.hard.fun.kotlin
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.declaration.kotlin
+T 21 source.kotlin
+T 23 source.kotlin
+T 30 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 49 source.kotlin entity.name.function.call.kotlin
+T 55 source.kotlin
+T 56 source.kotlin keyword.operator.logical.kotlin
+T 57 source.kotlin keyword.operator.logical.kotlin
+T 58 source.kotlin
+T 61 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+T 70 source.kotlin
+T 72 source.kotlin storage.type.function.arrow.kotlin
+L         assert { state !is CancellableContinuationImpl<*> }
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.logical.kotlin
+T 26 source.kotlin keyword.hard.kotlin
+T 54 source.kotlin
+T 55 source.kotlin keyword.operator.comparison.kotlin
+T 56 source.kotlin keyword.operator.arithmetic.kotlin
+T 57 source.kotlin keyword.operator.comparison.kotlin
+T 59 source.kotlin
+L         return state === PENDING
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 21 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 32 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     suspend fun awaitPending(): Unit = suspendCancellableCoroutine sc@ { cont ->
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 28 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 32 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 38 source.kotlin keyword.operator.assignment.kotlin
+T 78 source.kotlin
+T 80 source.kotlin storage.type.function.arrow.kotlin
+L         assert { _state.value !is CancellableContinuationImpl<*> } // can be NONE or PENDING
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.logical.kotlin
+T 33 source.kotlin keyword.hard.kotlin
+T 61 source.kotlin
+T 62 source.kotlin keyword.operator.comparison.kotlin
+T 63 source.kotlin keyword.operator.arithmetic.kotlin
+T 64 source.kotlin keyword.operator.comparison.kotlin
+T 67 source.kotlin
+T 69 source.kotlin comment.line.double-slash.kotlin
+T 92 source.kotlin comment.line.double-slash.kotlin
+L         if (_state.compareAndSet(NONE, cont)) return@sc // installed continuation, waiting for pending
+T 8 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 19 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 52 source.kotlin keyword.control.kotlin
+T 56 source.kotlin
+T 58 source.kotlin comment.line.double-slash.kotlin
+T 102 source.kotlin comment.line.double-slash.kotlin
+L         // CAS failed -- the only possible reason is that it is already in pending state now
+T 8 source.kotlin
+T 10 source.kotlin comment.line.double-slash.kotlin
+T 92 source.kotlin comment.line.double-slash.kotlin
+L         assert { _state.value === PENDING }
+T 8 source.kotlin
+T 14 source.kotlin entity.name.function.call.kotlin
+T 15 source.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 30 source.kotlin
+T 33 source.kotlin keyword.operator.comparison.kotlin
+T 43 source.kotlin
+L         cont.resume(Unit)
+T 12 source.kotlin
+T 13 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+L     }
+T 5 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
+T 6 source.kotlin entity.name.type.annotation.kotlin
+T 46 source.kotlin
+T 48 source.kotlin
+T 53 source.kotlin entity.name.function.reference.kotlin
+T 54 source.kotlin
+L private class StateFlowImpl<T>(
+T 7 source.kotlin storage.modifier.other.kotlin
+T 8 source.kotlin
+T 13 source.kotlin keyword.hard.class.kotlin
+T 14 source.kotlin
+T 27 source.kotlin entity.name.type.class.kotlin
+T 28 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L     initialState: Any // T | NULL
+T 16 source.kotlin
+T 18 source.kotlin
+T 21 source.kotlin entity.name.type.kotlin
+T 22 source.kotlin
+T 24 source.kotlin comment.line.double-slash.kotlin
+T 33 source.kotlin comment.line.double-slash.kotlin
+L ) : AbstractSharedFlow<StateFlowSlot>(), MutableStateFlow<T>, CancellableFlow<T>, FusibleFlow<T> {
+T 2 source.kotlin
+T 4 source.kotlin
+T 22 source.kotlin entity.name.type.kotlin
+T 23 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+T 57 source.kotlin
+T 58 source.kotlin keyword.operator.comparison.kotlin
+T 59 source.kotlin
+T 60 source.kotlin keyword.operator.comparison.kotlin
+T 77 source.kotlin
+T 78 source.kotlin keyword.operator.comparison.kotlin
+T 79 source.kotlin
+T 80 source.kotlin keyword.operator.comparison.kotlin
+T 82 source.kotlin
+T 93 source.kotlin entity.name.function.call.kotlin
+T 94 source.kotlin
+T 95 source.kotlin entity.name.type.kotlin
+T 96 source.kotlin
+T 97 source.kotlin
+T 98 source.kotlin
+L     private val _state = atomic(initialState) // T | NULL
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 23 source.kotlin
+T 24 source.kotlin keyword.operator.assignment.kotlin
+T 25 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 46 source.kotlin
+T 48 source.kotlin comment.line.double-slash.kotlin
+T 57 source.kotlin comment.line.double-slash.kotlin
+L     private var sequence = 0 // serializes updates, value update is in process when sequence is odd
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 27 source.kotlin
+T 28 source.kotlin constant.numeric.decimal.kotlin
+T 29 source.kotlin
+T 31 source.kotlin comment.line.double-slash.kotlin
+T 99 source.kotlin comment.line.double-slash.kotlin
+L 
+L     public override var value: T
+T 4 source.kotlin
+T 10 source.kotlin storage.modifier.other.kotlin
+T 11 source.kotlin
+T 19 source.kotlin storage.modifier.other.kotlin
+T 20 source.kotlin
+T 23 source.kotlin keyword.hard.kotlin
+T 24 source.kotlin
+T 29 source.kotlin storage.modifier.other.kotlin
+T 31 source.kotlin
+T 32 source.kotlin entity.name.type.kotlin
+L         get() = NULL.unbox(_state.value)
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 20 source.kotlin
+T 21 source.kotlin
+T 26 source.kotlin entity.name.function.call.kotlin
+T 34 source.kotlin
+T 39 source.kotlin storage.modifier.other.kotlin
+T 40 source.kotlin
+L         set(value) { updateState(null, value ?: NULL) }
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 17 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 32 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 39 source.kotlin
+T 44 source.kotlin storage.modifier.other.kotlin
+T 55 source.kotlin
+L 
+L     override fun compareAndSet(expect: T, update: T): Boolean =
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 30 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 40 source.kotlin entity.name.type.kotlin
+T 48 source.kotlin
+T 50 source.kotlin
+T 51 source.kotlin entity.name.type.kotlin
+T 52 source.kotlin
+T 54 source.kotlin
+T 61 source.kotlin entity.name.type.kotlin
+T 62 source.kotlin
+T 63 source.kotlin keyword.operator.assignment.kotlin
+L         updateState(expect ?: NULL, update ?: NULL)
+T 8 source.kotlin
+T 19 source.kotlin entity.name.function.call.kotlin
+T 51 source.kotlin
+L 
+L     private fun updateState(expectedState: Any?, newState: Any): Boolean {
+T 4 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.fun.kotlin
+T 16 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 41 source.kotlin
+T 43 source.kotlin
+T 46 source.kotlin entity.name.type.kotlin
+T 47 source.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 63 source.kotlin
+T 65 source.kotlin
+T 72 source.kotlin entity.name.type.kotlin
+T 73 source.kotlin
+T 74 source.kotlin
+L         var curSequence: Int
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 23 source.kotlin
+T 25 source.kotlin
+T 28 source.kotlin entity.name.type.kotlin
+L         var curSlots: Array<StateFlowSlot?>? // benign race, we will not use it
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 20 source.kotlin
+T 22 source.kotlin
+T 27 source.kotlin entity.name.type.kotlin
+T 28 source.kotlin
+T 41 source.kotlin entity.name.type.kotlin
+T 45 source.kotlin
+T 47 source.kotlin comment.line.double-slash.kotlin
+T 79 source.kotlin comment.line.double-slash.kotlin
+L         synchronized(this) {
+T 8 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 21 source.kotlin
+T 25 source.kotlin variable.language.this.kotlin
+T 28 source.kotlin
+L             val oldState = _state.value
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+T 39 source.kotlin storage.modifier.other.kotlin
+L             if (expectedState != null && oldState != expectedState) return false // CAS support
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 30 source.kotlin
+T 32 source.kotlin keyword.operator.comparison.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.logical.kotlin
+T 50 source.kotlin
+T 52 source.kotlin keyword.operator.comparison.kotlin
+T 68 source.kotlin
+T 74 source.kotlin keyword.control.kotlin
+T 75 source.kotlin
+T 80 source.kotlin constant.language.boolean.kotlin
+T 81 source.kotlin
+T 83 source.kotlin comment.line.double-slash.kotlin
+T 95 source.kotlin comment.line.double-slash.kotlin
+L             if (oldState == newState) return true // Don't do anything if value is not changing, but CAS -> true
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 25 source.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 38 source.kotlin
+T 44 source.kotlin keyword.control.kotlin
+T 45 source.kotlin
+T 49 source.kotlin constant.language.boolean.kotlin
+T 50 source.kotlin
+T 52 source.kotlin comment.line.double-slash.kotlin
+T 112 source.kotlin comment.line.double-slash.kotlin
+L             _state.value = newState
+T 19 source.kotlin
+T 24 source.kotlin storage.modifier.other.kotlin
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 35 source.kotlin
+L             curSequence = sequence
+T 24 source.kotlin
+T 25 source.kotlin keyword.operator.assignment.kotlin
+T 34 source.kotlin
+L             if (curSequence and 1 == 0) { // even sequence means quiescent state flow (no ongoing update)
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 32 source.kotlin
+T 33 source.kotlin constant.numeric.decimal.kotlin
+T 34 source.kotlin
+T 36 source.kotlin keyword.operator.comparison.kotlin
+T 37 source.kotlin
+T 38 source.kotlin constant.numeric.decimal.kotlin
+T 42 source.kotlin
+T 44 source.kotlin comment.line.double-slash.kotlin
+T 105 source.kotlin comment.line.double-slash.kotlin
+L                 curSequence++ // make it odd
+T 27 source.kotlin
+T 28 source.kotlin keyword.operator.arithmetic.kotlin
+T 29 source.kotlin keyword.operator.arithmetic.kotlin
+T 30 source.kotlin
+T 32 source.kotlin comment.line.double-slash.kotlin
+T 44 source.kotlin comment.line.double-slash.kotlin
+L                 sequence = curSequence
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+L             } else {
+T 14 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+L                 // update is already in process, notify it, and return
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 70 source.kotlin comment.line.double-slash.kotlin
+L                 sequence = curSequence + 2 // change sequence to notify, keep it odd
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+T 40 source.kotlin keyword.operator.arithmetic.kotlin
+T 41 source.kotlin
+T 42 source.kotlin constant.numeric.decimal.kotlin
+T 43 source.kotlin
+T 45 source.kotlin comment.line.double-slash.kotlin
+T 84 source.kotlin comment.line.double-slash.kotlin
+L                 return true // updated
+T 16 source.kotlin
+T 22 source.kotlin keyword.control.kotlin
+T 23 source.kotlin
+T 27 source.kotlin constant.language.boolean.kotlin
+T 28 source.kotlin
+T 30 source.kotlin comment.line.double-slash.kotlin
+T 38 source.kotlin comment.line.double-slash.kotlin
+L             }
+T 13 source.kotlin
+L             curSlots = slots // read current reference to collectors under lock
+T 21 source.kotlin
+T 22 source.kotlin keyword.operator.assignment.kotlin
+T 29 source.kotlin
+T 31 source.kotlin comment.line.double-slash.kotlin
+T 79 source.kotlin comment.line.double-slash.kotlin
+L         }
+T 9 source.kotlin
+L         /*
+T 8 source.kotlin
+T 10 source.kotlin comment.block.kotlin
+L            Fire value updates outside of the lock to avoid deadlocks with unconfined coroutines.
+T 96 source.kotlin comment.block.kotlin
+L            Loop until we're done firing all the changes. This is a sort of simple flat combining that
+T 101 source.kotlin comment.block.kotlin
+L            ensures sequential firing of concurrent updates and avoids the storm of collector resumes
+T 100 source.kotlin comment.block.kotlin
+L            when updates happen concurrently from many threads.
+T 62 source.kotlin comment.block.kotlin
+L          */
+T 9 source.kotlin comment.block.kotlin
+T 11 source.kotlin comment.block.kotlin
+L         while (true) {
+T 8 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.boolean.kotlin
+T 22 source.kotlin
+L             // Benign race on element read from array
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 53 source.kotlin comment.line.double-slash.kotlin
+L             curSlots?.forEach {
+T 20 source.kotlin
+T 22 source.kotlin
+T 29 source.kotlin entity.name.function.call.kotlin
+T 30 source.kotlin
+T 31 source.kotlin
+L                 it?.makePending()
+T 18 source.kotlin
+T 20 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L             }
+T 13 source.kotlin
+L             // check if the value was updated again while we were updating the old one
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 86 source.kotlin comment.line.double-slash.kotlin
+L             synchronized(this) {
+T 12 source.kotlin
+T 24 source.kotlin entity.name.function.call.kotlin
+T 25 source.kotlin
+T 29 source.kotlin variable.language.this.kotlin
+T 32 source.kotlin
+L                 if (sequence == curSequence) { // nothing changed, we are done
+T 16 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.comparison.kotlin
+T 47 source.kotlin
+T 49 source.kotlin comment.line.double-slash.kotlin
+T 78 source.kotlin comment.line.double-slash.kotlin
+L                     sequence = curSequence + 1 // make sequence even again
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 43 source.kotlin
+T 44 source.kotlin keyword.operator.arithmetic.kotlin
+T 45 source.kotlin
+T 46 source.kotlin constant.numeric.decimal.kotlin
+T 47 source.kotlin
+T 49 source.kotlin comment.line.double-slash.kotlin
+T 74 source.kotlin comment.line.double-slash.kotlin
+L                     return true // done, updated
+T 20 source.kotlin
+T 26 source.kotlin keyword.control.kotlin
+T 27 source.kotlin
+T 31 source.kotlin constant.language.boolean.kotlin
+T 32 source.kotlin
+T 34 source.kotlin comment.line.double-slash.kotlin
+T 48 source.kotlin comment.line.double-slash.kotlin
+L                 }
+T 17 source.kotlin
+L                 // reread everything for the next loop under the lock
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 69 source.kotlin comment.line.double-slash.kotlin
+L                 curSequence = sequence
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+L                 curSlots = slots
+T 25 source.kotlin
+T 26 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+L             }
+T 13 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override val replayCache: List<T>
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.kotlin
+T 17 source.kotlin
+T 28 source.kotlin
+T 30 source.kotlin
+T 34 source.kotlin entity.name.type.kotlin
+T 35 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+T 37 source.kotlin
+L         get() = listOf(value)
+T 8 source.kotlin
+T 11 source.kotlin storage.modifier.other.kotlin
+T 14 source.kotlin
+T 15 source.kotlin keyword.operator.assignment.kotlin
+T 16 source.kotlin
+T 22 source.kotlin entity.name.function.call.kotlin
+T 23 source.kotlin
+T 28 source.kotlin storage.modifier.other.kotlin
+T 29 source.kotlin
+L 
+L     override fun tryEmit(value: T): Boolean {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 24 source.kotlin entity.name.function.declaration.kotlin
+T 25 source.kotlin
+T 30 source.kotlin storage.modifier.other.kotlin
+T 32 source.kotlin
+T 33 source.kotlin entity.name.type.kotlin
+T 34 source.kotlin
+T 36 source.kotlin
+T 43 source.kotlin entity.name.type.kotlin
+T 44 source.kotlin
+T 45 source.kotlin
+L         this.value = value
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 13 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin storage.modifier.other.kotlin
+L         return true
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin constant.language.boolean.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override suspend fun emit(value: T) {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 24 source.kotlin keyword.hard.fun.kotlin
+T 25 source.kotlin
+T 29 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 35 source.kotlin storage.modifier.other.kotlin
+T 37 source.kotlin
+T 38 source.kotlin entity.name.type.kotlin
+T 41 source.kotlin
+L         this.value = value
+T 8 source.kotlin
+T 12 source.kotlin variable.language.this.kotlin
+T 13 source.kotlin
+T 18 source.kotlin storage.modifier.other.kotlin
+T 19 source.kotlin
+T 20 source.kotlin keyword.operator.assignment.kotlin
+T 21 source.kotlin
+T 26 source.kotlin storage.modifier.other.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     @Suppress("UNCHECKED_CAST")
+T 4 source.kotlin
+T 13 source.kotlin entity.name.type.annotation.kotlin
+T 14 source.kotlin
+T 15 source.kotlin string.quoted.double.kotlin
+T 29 source.kotlin string.quoted.double.kotlin
+T 30 source.kotlin string.quoted.double.kotlin
+T 31 source.kotlin
+L     override fun resetReplayCache() {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 33 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+L         throw UnsupportedOperationException("MutableStateFlow.resetReplayCache is not supported")
+T 8 source.kotlin
+T 13 source.kotlin keyword.control.kotlin
+T 14 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+T 45 source.kotlin string.quoted.double.kotlin
+T 95 source.kotlin string.quoted.double.kotlin
+T 96 source.kotlin string.quoted.double.kotlin
+T 97 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override suspend fun collect(collector: FlowCollector<T>): Nothing {
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 20 source.kotlin storage.modifier.other.kotlin
+T 21 source.kotlin
+T 24 source.kotlin keyword.hard.fun.kotlin
+T 25 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 42 source.kotlin
+T 44 source.kotlin
+T 57 source.kotlin entity.name.type.kotlin
+T 58 source.kotlin
+T 59 source.kotlin entity.name.type.kotlin
+T 60 source.kotlin
+T 61 source.kotlin
+T 63 source.kotlin
+T 70 source.kotlin entity.name.type.kotlin
+T 71 source.kotlin
+T 72 source.kotlin
+L         val slot = allocateSlot()
+T 8 source.kotlin
+T 11 source.kotlin keyword.hard.kotlin
+T 12 source.kotlin
+T 17 source.kotlin
+T 18 source.kotlin keyword.operator.assignment.kotlin
+T 19 source.kotlin
+T 31 source.kotlin entity.name.function.call.kotlin
+T 33 source.kotlin
+L         try {
+T 8 source.kotlin
+T 11 source.kotlin keyword.control.kotlin
+T 13 source.kotlin
+L             if (collector is SubscribedFlowCollector) collector.onSubscription()
+T 12 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.hard.kotlin
+T 63 source.kotlin
+T 64 source.kotlin
+T 78 source.kotlin entity.name.function.call.kotlin
+T 80 source.kotlin
+L             val collectorJob = currentCoroutineContext()[Job]
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 31 source.kotlin
+T 54 source.kotlin entity.name.function.call.kotlin
+T 61 source.kotlin
+L             var oldState: Any? = null // previously emitted T!! | NULL (null -- nothing emitted yet)
+T 12 source.kotlin
+T 15 source.kotlin keyword.hard.kotlin
+T 16 source.kotlin
+T 24 source.kotlin
+T 26 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 31 source.kotlin
+T 32 source.kotlin keyword.operator.assignment.kotlin
+T 33 source.kotlin
+T 37 source.kotlin constant.language.null.kotlin
+T 38 source.kotlin
+T 40 source.kotlin comment.line.double-slash.kotlin
+T 100 source.kotlin comment.line.double-slash.kotlin
+L             // The loop is arranged so that it starts delivering current value without waiting first
+T 12 source.kotlin
+T 14 source.kotlin comment.line.double-slash.kotlin
+T 100 source.kotlin comment.line.double-slash.kotlin
+L             while (true) {
+T 12 source.kotlin
+T 17 source.kotlin keyword.control.kotlin
+T 19 source.kotlin
+T 23 source.kotlin constant.language.boolean.kotlin
+T 26 source.kotlin
+L                 // Here the coroutine could have waited for a while to be dispatched,
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 85 source.kotlin comment.line.double-slash.kotlin
+L                 // so we use the most recent state here to ensure the best possible conflation of stale values
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 110 source.kotlin comment.line.double-slash.kotlin
+L                 val newState = _state.value
+T 16 source.kotlin
+T 19 source.kotlin keyword.hard.kotlin
+T 20 source.kotlin
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 38 source.kotlin
+T 43 source.kotlin storage.modifier.other.kotlin
+L                 // always check for cancellation
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 48 source.kotlin comment.line.double-slash.kotlin
+L                 collectorJob?.ensureActive()
+T 28 source.kotlin
+T 30 source.kotlin
+T 42 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L                 // Conflate value emissions using equality
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 58 source.kotlin comment.line.double-slash.kotlin
+L                 if (oldState == null || oldState != newState) {
+T 16 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 29 source.kotlin
+T 31 source.kotlin keyword.operator.comparison.kotlin
+T 32 source.kotlin
+T 36 source.kotlin constant.language.null.kotlin
+T 37 source.kotlin
+T 39 source.kotlin keyword.operator.logical.kotlin
+T 49 source.kotlin
+T 51 source.kotlin keyword.operator.comparison.kotlin
+T 63 source.kotlin
+L                     collector.emit(NULL.unbox(newState))
+T 29 source.kotlin
+T 30 source.kotlin
+T 34 source.kotlin entity.name.function.call.kotlin
+T 39 source.kotlin
+T 40 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 56 source.kotlin
+L                     oldState = newState
+T 29 source.kotlin
+T 30 source.kotlin keyword.operator.assignment.kotlin
+T 39 source.kotlin
+L                 }
+T 17 source.kotlin
+L                 // Note: if awaitPending is cancelled, then it bails out of this loop and calls freeSlot
+T 16 source.kotlin
+T 18 source.kotlin comment.line.double-slash.kotlin
+T 104 source.kotlin comment.line.double-slash.kotlin
+L                 if (!slot.takePending()) { // try fast-path without suspending first
+T 16 source.kotlin
+T 18 source.kotlin keyword.control.kotlin
+T 20 source.kotlin
+T 21 source.kotlin keyword.operator.logical.kotlin
+T 25 source.kotlin
+T 26 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 43 source.kotlin
+T 45 source.kotlin comment.line.double-slash.kotlin
+T 84 source.kotlin comment.line.double-slash.kotlin
+L                     slot.awaitPending() // only suspend for new values when needed
+T 24 source.kotlin
+T 25 source.kotlin
+T 37 source.kotlin entity.name.function.call.kotlin
+T 40 source.kotlin
+T 42 source.kotlin comment.line.double-slash.kotlin
+T 82 source.kotlin comment.line.double-slash.kotlin
+L                 }
+T 17 source.kotlin
+L             }
+T 13 source.kotlin
+L         } finally {
+T 10 source.kotlin
+T 17 source.kotlin keyword.soft.kotlin
+T 19 source.kotlin
+L             freeSlot(slot)
+T 12 source.kotlin
+T 20 source.kotlin entity.name.function.call.kotlin
+T 26 source.kotlin
+L         }
+T 9 source.kotlin
+L     }
+T 5 source.kotlin
+L 
+L     override fun createSlot() = StateFlowSlot()
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 27 source.kotlin entity.name.function.declaration.kotlin
+T 30 source.kotlin
+T 31 source.kotlin keyword.operator.assignment.kotlin
+T 32 source.kotlin
+T 45 source.kotlin entity.name.function.call.kotlin
+T 47 source.kotlin
+L     override fun createSlotArray(size: Int): Array<StateFlowSlot?> = arrayOfNulls(size)
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 32 source.kotlin entity.name.function.declaration.kotlin
+T 37 source.kotlin
+T 39 source.kotlin
+T 42 source.kotlin entity.name.type.kotlin
+T 43 source.kotlin
+T 45 source.kotlin
+T 50 source.kotlin entity.name.type.kotlin
+T 51 source.kotlin
+T 64 source.kotlin entity.name.type.kotlin
+T 67 source.kotlin
+T 68 source.kotlin keyword.operator.assignment.kotlin
+T 69 source.kotlin
+T 81 source.kotlin entity.name.function.call.kotlin
+T 87 source.kotlin
+L 
+L     override fun fuse(context: CoroutineContext, capacity: Int, onBufferOverflow: BufferOverflow) =
+T 4 source.kotlin
+T 12 source.kotlin storage.modifier.other.kotlin
+T 13 source.kotlin
+T 16 source.kotlin keyword.hard.fun.kotlin
+T 17 source.kotlin
+T 21 source.kotlin entity.name.function.declaration.kotlin
+T 29 source.kotlin
+T 31 source.kotlin
+T 47 source.kotlin entity.name.type.kotlin
+T 57 source.kotlin
+T 59 source.kotlin
+T 62 source.kotlin entity.name.type.kotlin
+T 80 source.kotlin
+T 82 source.kotlin
+T 96 source.kotlin entity.name.type.kotlin
+T 98 source.kotlin
+T 99 source.kotlin keyword.operator.assignment.kotlin
+L         fuseStateFlow(context, capacity, onBufferOverflow)
+T 8 source.kotlin
+T 21 source.kotlin entity.name.function.call.kotlin
+T 58 source.kotlin
+L }
+T 1 source.kotlin
+L 
+L internal fun <T> StateFlow<T>.fuseStateFlow(
+T 8 source.kotlin storage.modifier.other.kotlin
+T 9 source.kotlin
+T 12 source.kotlin keyword.hard.fun.kotlin
+T 13 source.kotlin
+T 14 source.kotlin
+T 15 source.kotlin entity.name.type.kotlin
+T 16 source.kotlin
+T 17 source.kotlin
+T 26 source.kotlin entity.name.function.declaration.kotlin
+T 27 source.kotlin keyword.operator.comparison.kotlin
+T 28 source.kotlin
+T 29 source.kotlin keyword.operator.comparison.kotlin
+T 30 source.kotlin
+T 43 source.kotlin entity.name.function.call.kotlin
+T 44 source.kotlin
+L     context: CoroutineContext,
+T 11 source.kotlin
+T 13 source.kotlin
+T 29 source.kotlin entity.name.type.kotlin
+T 30 source.kotlin
+L     capacity: Int,
+T 12 source.kotlin
+T 14 source.kotlin
+T 17 source.kotlin entity.name.type.kotlin
+T 18 source.kotlin
+L     onBufferOverflow: BufferOverflow
+T 20 source.kotlin
+T 22 source.kotlin
+T 36 source.kotlin entity.name.type.kotlin
+L ): Flow<T> {
+T 1 source.kotlin
+T 3 source.kotlin
+T 7 source.kotlin entity.name.type.kotlin
+T 8 source.kotlin
+T 9 source.kotlin entity.name.type.kotlin
+T 11 source.kotlin
+T 12 source.kotlin
+L     // state flow is always conflated so additional conflation does not have any effect
+T 4 source.kotlin
+T 6 source.kotlin comment.line.double-slash.kotlin
+T 87 source.kotlin comment.line.double-slash.kotlin
+L     assert { capacity != Channel.CONFLATED } // should be desugared by callers
+T 4 source.kotlin
+T 10 source.kotlin entity.name.function.call.kotlin
+T 11 source.kotlin
+T 22 source.kotlin
+T 24 source.kotlin keyword.operator.comparison.kotlin
+T 45 source.kotlin
+T 47 source.kotlin comment.line.double-slash.kotlin
+T 78 source.kotlin comment.line.double-slash.kotlin
+L     if ((capacity in 0..1 || capacity == Channel.BUFFERED) && onBufferOverflow == BufferOverflow.DROP_OLDEST) {
+T 4 source.kotlin
+T 6 source.kotlin keyword.control.kotlin
+T 18 source.kotlin
+T 20 source.kotlin keyword.hard.kotlin
+T 21 source.kotlin
+T 22 source.kotlin constant.numeric.decimal.kotlin
+T 24 source.kotlin keyword.operator.range.kotlin
+T 25 source.kotlin constant.numeric.decimal.kotlin
+T 26 source.kotlin
+T 28 source.kotlin keyword.operator.logical.kotlin
+T 38 source.kotlin
+T 40 source.kotlin keyword.operator.comparison.kotlin
+T 59 source.kotlin
+T 61 source.kotlin keyword.operator.logical.kotlin
+T 79 source.kotlin
+T 81 source.kotlin keyword.operator.comparison.kotlin
+T 111 source.kotlin
+L         return this
+T 8 source.kotlin
+T 14 source.kotlin keyword.control.kotlin
+T 15 source.kotlin
+T 19 source.kotlin variable.language.this.kotlin
+L     }
+T 5 source.kotlin
+L     return fuseSharedFlow(context, capacity, onBufferOverflow)
+T 4 source.kotlin
+T 10 source.kotlin keyword.control.kotlin
+T 11 source.kotlin
+T 25 source.kotlin entity.name.function.call.kotlin
+T 62 source.kotlin
+L }
+T 1 source.kotlin
+L 
