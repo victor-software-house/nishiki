@@ -1,32 +1,10 @@
+use crate::test_support::{self, Row};
 use crate::{Highlighter, Language, Limit, Limits, State, Work};
 
-/// One lexed line: each token's text and its scope names, outermost first,
-/// without the document's `source.sql`.
-type Row = Vec<(String, Vec<String>)>;
-
+/// Lexes `text` with `highlighter`; each token's scopes leave out the
+/// document's `source.sql`.
 fn lex_with(highlighter: &mut Highlighter, text: &str) -> Vec<Row> {
-    let mut state = State::default();
-    let mut rows = Vec::new();
-    for line in text.split('\n') {
-        let mut tokens = Vec::new();
-        let report = highlighter.line(line, &mut state, &mut tokens);
-        assert!(report.is_complete(), "{line:?} reached a limit");
-        let mut start = 0;
-        let mut row = Vec::new();
-        for token in &tokens {
-            let mut scopes: Vec<String> = highlighter
-                .scopes(token.stack())
-                .map(ToString::to_string)
-                .collect();
-            scopes.reverse();
-            scopes.remove(0);
-            row.push((line[start..token.end()].to_owned(), scopes));
-            start = token.end();
-        }
-        assert_eq!(start, line.len(), "the tokens cover the line {line:?}");
-        rows.push(row);
-    }
-    rows
+    test_support::without_root(test_support::lex_with(highlighter, text))
 }
 
 fn lex(text: &str) -> Vec<Row> {
@@ -36,12 +14,7 @@ fn lex(text: &str) -> Vec<Row> {
 /// The scopes of the first token whose text is `token`, outermost first,
 /// without `source.sql`.
 fn scopes_of(text: &str, token: &str) -> Vec<String> {
-    lex(text)
-        .into_iter()
-        .flatten()
-        .find(|(t, _)| t == token)
-        .unwrap_or_else(|| panic!("no token {token:?} in {text:?}"))
-        .1
+    test_support::scopes_in(lex(text), text, token)
 }
 
 fn names(scopes: &[&str]) -> Vec<String> {
