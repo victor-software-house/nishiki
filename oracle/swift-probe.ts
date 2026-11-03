@@ -9,6 +9,12 @@
 // `swift::tests::probe::matchers_answer_the_probe_cases`; and prints every
 // pattern on which they differ, with the first case.
 //
+// A position can stand after the line feed, one past the text: vscode-textmate
+// scans a line until no pattern matches (`_tokenizeString`), and a match that
+// takes the line feed leaves its cursor there, where a zero-width pattern such
+// as an end can still match. Byte positions past the text map to UTF-16
+// positions past it, both ways.
+//
 // Held-out fixtures are never read: the corpus is the development inputs named
 // in SWIFT_CORPUS (comma separated fixture names under tests/oracle/swift/).
 import { createOnigurumaEngine } from "@shikijs/engine-oniguruma@4.6.0";
@@ -137,9 +143,13 @@ const regexOf = new Map(rows.map((r) => [r.id, r]));
 const stats = new Map<string, { n: number; bad: number; first?: string }>();
 cases.forEach((c, i) => {
   const row = regexOf.get(c.rx)!;
-  // The case's byte position back to UTF-16 for Oniguruma.
+  // The case's byte position back to UTF-16 for Oniguruma, past the text
+  // when the case stands after the line feed.
   const bytes = enc.encode(c.text);
-  const p16 = new TextDecoder().decode(bytes.slice(0, c.p)).length;
+  const p16 =
+    c.p > bytes.length
+      ? c.text.length + (c.p - bytes.length)
+      : new TextDecoder().decode(bytes.slice(0, c.p)).length;
   const m = find(row.regex, c.text, p16, c.g);
   const hit = m && m.captureIndices[0].start === p16 ? m : null;
   const got = answers[i];
