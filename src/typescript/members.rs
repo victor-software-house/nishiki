@@ -870,12 +870,13 @@ impl<const D: u8> Lexer<'_, D> {
         let prev = self.prev_char(p);
         if prev == Some(':') {
             let j = self.ws(p);
-            let mut ends = Vec::with_capacity(2);
-            if self.starts(j, "async") {
-                ends.push(j + "async".len());
-            }
-            ends.push(j);
-            for &e in &ends {
+            let both = [j + "async".len(), j];
+            let ends = if self.starts(j, "async") {
+                &both[..]
+            } else {
+                &both[1..]
+            };
+            for &e in ends {
                 let k = self.ws(e);
                 if self.byte(k) == b'<'
                     && self
@@ -891,7 +892,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return Some(e);
                 }
             }
-            for &e in &ends {
+            for &e in ends {
                 let k = self.ws(e);
                 if self.byte(k) == b'(' && self.paren_open_after(k + 1) {
                     self.flush(p);
@@ -903,7 +904,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return Some(k + 1);
                 }
             }
-            for &e in &ends {
+            for &e in ends {
                 let k = self.ws(e);
                 if self.byte(k) == b'<' && self.eol(self.ws(k + 1)) {
                     self.flush(p);

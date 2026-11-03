@@ -18,15 +18,7 @@ static ALLOCATOR: CountingAllocator = CountingAllocator;
 /// The languages that still allocate per line, each until its owner fixes
 /// it. The test fails when one of them stops allocating, so the list only
 /// shrinks.
-const ALLOCATING: &[&str] = &[
-    "graphql",
-    "javascript",
-    "jsx",
-    "markdown",
-    "sql",
-    "tsx",
-    "typescript",
-];
+const ALLOCATING: &[&str] = &["graphql", "markdown", "sql"];
 
 /// Lexes `lines` as one document from the start.
 fn lex(highlighter: &mut Highlighter, lines: &[String], tokens: &mut Vec<Token>) {
