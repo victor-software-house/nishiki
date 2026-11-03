@@ -96,7 +96,9 @@ pub(crate) struct Scratch<G: Grammar> {
     /// The text of a scope name made from source text.
     name: String,
     /// The state the last line ended in and the open rules of it, which the
-    /// next line starts from when it continues that state.
+    /// next line starts from when it continues that state. The two frame
+    /// buffers trade places at such a line, so a line that starts afresh
+    /// takes the larger one, and lexing a document again allocates nothing.
     resume: Option<u32>,
     resume_frames: Vec<Frame<G>>,
     paths: Vec<Option<PathEntry>>,
@@ -207,6 +209,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         if scratch.resume == Some(state) {
             std::mem::swap(&mut frames, &mut scratch.resume_frames);
         } else {
+            if frames.capacity() < scratch.resume_frames.capacity() {
+                std::mem::swap(&mut frames, &mut scratch.resume_frames);
+            }
             frames.clear();
         }
         let mut spans = std::mem::take(&mut scratch.spans);

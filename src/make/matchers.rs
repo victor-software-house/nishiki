@@ -401,6 +401,10 @@ impl Lexer<'_> {
     }
 
     /// `^\s*(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)`
+    ///
+    /// The `\s*` after the name gives back one character at a time until the
+    /// operator, or nothing, is followed by white space, so the last place
+    /// that works wins: one pass keeps it, with nothing collected.
     fn define(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -421,21 +425,20 @@ impl Lexer<'_> {
         if name_end == name {
             return None;
         }
-        // `\s*` gives back one character at a time until the operator, or
-        // nothing, is followed by white space.
-        let mut stops = vec![name_end];
-        let mut i = name_end;
-        while let width @ 1.. = self.space_w(i) {
-            i += width;
-            stops.push(i);
-        }
-        let (end, op) = stops.iter().rev().find_map(|&stop| {
+        let at_stop = |stop: usize| {
             let width = self.operator(stop, false);
             if width > 0 && self.space_w(stop + width) > 0 {
                 return Some((stop + width, Some((stop, stop + width))));
             }
             (self.space_w(stop) > 0).then_some((stop, None))
-        })?;
+        };
+        let mut found = at_stop(name_end);
+        let mut i = name_end;
+        while let width @ 1.. = self.space_w(i) {
+            i += width;
+            found = at_stop(i).or(found);
+        }
+        let (end, op) = found?;
         let mut hit = Hit::new(0, end);
         if let Some((from, to)) = over {
             hit = hit.cap(0, from, to, S::KwOverride);
@@ -492,6 +495,11 @@ impl Lexer<'_> {
     }
 
     /// `^\s*else(?=\s)\s*(ifeq|ifneq|ifdef|ifndef)*(?=\s)`
+    ///
+    /// The repetition takes as many conditional words as it can and gives
+    /// them back one at a time, and so does `\s*` with its characters, so the
+    /// last end that white space follows wins: one pass keeps it, with nothing
+    /// collected.
     fn else_line(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -501,16 +509,8 @@ impl Lexer<'_> {
         if !self.starts(from, b"else") || self.space_w(word_end) == 0 {
             return None;
         }
-        let mut stops = vec![word_end];
-        let mut i = word_end;
-        while let width @ 1.. = self.space_w(i) {
-            i += width;
-            stops.push(i);
-        }
-        let end = stops.iter().rev().find_map(|&stop| {
-            // The repetition takes as many conditional words as it can, and
-            // gives them back one at a time.
-            let mut ends = vec![stop];
+        let last_end = |stop: usize| {
+            let mut last = (self.space_w(stop) > 0).then_some(stop);
             let mut at = stop;
             while let Some(len) = [&b"ifeq"[..], b"ifneq", b"ifdef", b"ifndef"]
                 .iter()
@@ -518,13 +518,19 @@ impl Lexer<'_> {
                 .map(|word| word.len())
             {
                 at += len;
-                ends.push(at);
+                if self.space_w(at) > 0 {
+                    last = Some(at);
+                }
             }
-            ends.iter()
-                .rev()
-                .find(|&&end| self.space_w(end) > 0)
-                .copied()
-        })?;
+            last
+        };
+        let mut found = last_end(word_end);
+        let mut i = word_end;
+        while let width @ 1.. = self.space_w(i) {
+            i += width;
+            found = last_end(i).or(found);
+        }
+        let end = found?;
         Some(Hit::new(0, end).cap(0, 0, end, S::KwElse))
     }
 
