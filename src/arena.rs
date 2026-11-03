@@ -188,6 +188,15 @@ impl Arena {
         Some(Scope::dynamic(index))
     }
 
+    /// The stack `stack` without its top scope; the empty stack for an id
+    /// this arena never made.
+    pub(crate) fn parent(&self, stack: u32) -> u32 {
+        usize::try_from(stack)
+            .ok()
+            .and_then(|index| self.scopes.get(index))
+            .map_or(ROOT, |node| node.parent)
+    }
+
     /// The scopes of `stack`, innermost first; empty for an id this arena
     /// never made.
     pub(crate) fn scopes(&self, stack: u32) -> Scopes<'_> {

@@ -105,10 +105,12 @@ pub(super) enum Prop {
 }
 
 /// The set a `\p{..}` or `[:..:]` name stands for.
+///
+/// The name `n\x64` is escaped so the spelling check reads it: it is the
+/// Unicode general category of decimal digits.
 pub(super) fn prop_named(name: &str) -> Option<Prop> {
     let lower = name.to_ascii_lowercase().replace(['_', ' ', '-'], "");
     Some(match lower.as_str() {
-        // The escaped name is the Unicode general category for decimal digits.
         "digit" | "n\x64" => Prop::Digit,
         "word" | "w" | "idcontinue" | "xidcontinue" => Prop::Word,
         "space" | "whitespace" => Prop::Space,
