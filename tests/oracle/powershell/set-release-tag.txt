@@ -1,0 +1,1305 @@
+L param(
+T 5 source.powershell keyword.control.powershell
+T 6 source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+L     [Parameter(HelpMessage='ReleaseTag from the job.  Set to "fromBranch" or $null to update using the branch name')]
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.begin.powershell
+T 14 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell support.function.attribute.powershell
+T 15 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.begin.powershell
+T 26 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell variable.parameter.attribute.powershell
+T 27 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell keyword.operator.assignment.powershell
+T 28 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 114 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell
+T 115 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 116 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.end.powershell
+T 117 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.end.powershell
+L     [string]$ReleaseTag,
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 11 source.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 12 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 13 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.group.simple.subexpression.powershell keyword.operator.other.powershell
+L 
+L     [Parameter(HelpMessage='The branch name used to update the release tag.')]
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.begin.powershell
+T 14 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell support.function.attribute.powershell
+T 15 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.begin.powershell
+T 26 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell variable.parameter.attribute.powershell
+T 27 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell keyword.operator.assignment.powershell
+T 28 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 75 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell
+T 76 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 77 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.end.powershell
+T 78 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.end.powershell
+L     [string]$Branch=$env:BUILD_SOURCEBRANCH,
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 11 source.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 12 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 13 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 19 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 20 source.powershell meta.group.simple.subexpression.powershell keyword.operator.assignment.powershell
+T 21 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 25 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 43 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 44 source.powershell meta.group.simple.subexpression.powershell keyword.operator.other.powershell
+L 
+L     [Parameter(HelpMessage='The variable name to put the new release tagin.')]
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.begin.powershell
+T 14 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell support.function.attribute.powershell
+T 15 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.begin.powershell
+T 26 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell variable.parameter.attribute.powershell
+T 27 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell keyword.operator.assignment.powershell
+T 28 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 75 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell
+T 76 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 77 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.end.powershell
+T 78 source.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.end.powershell
+L     [string]$Variable='ReleaseTag',
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 11 source.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 12 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 13 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 21 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 22 source.powershell meta.group.simple.subexpression.powershell keyword.operator.assignment.powershell
+T 23 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 33 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 34 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 35 source.powershell meta.group.simple.subexpression.powershell keyword.operator.other.powershell
+L 
+L     [switch]$CreateJson
+T 4 source.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 11 source.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 12 source.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 13 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+L )
+T 1 source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L 
+L function New-BuildInfoJson {
+T 8 source.powershell meta.function.powershell storage.type.powershell
+T 9 source.powershell meta.function.powershell
+T 26 source.powershell meta.function.powershell entity.name.function.powershell
+T 27 source.powershell
+T 28 source.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L     param(
+T 4 source.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+L         [parameter(Mandatory = $true)]
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.begin.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell support.function.attribute.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.begin.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell variable.parameter.attribute.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell constant.language.powershell punctuation.definition.variable.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell constant.language.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.group.end.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.attribute.powershell punctuation.section.bracket.end.powershell
+L         [string]
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+L         $ReleaseTag,
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.other.powershell
+L         [switch] $IsDaily
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+L     )
+T 4 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L 
+L     $blobName = $ReleaseTag -replace '\.', '-'
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 13 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 14 source.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 16 source.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 27 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 28 source.powershell meta.scriptblock.powershell
+T 36 source.powershell meta.scriptblock.powershell keyword.operator.comparison.powershell
+T 37 source.powershell meta.scriptblock.powershell
+T 38 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 40 source.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 41 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 42 source.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 43 source.powershell meta.scriptblock.powershell
+T 44 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 45 source.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 46 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L 
+L     $isPreview = $ReleaseTag -like '*-*'
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 14 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 15 source.powershell meta.scriptblock.powershell
+T 16 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 17 source.powershell meta.scriptblock.powershell
+T 18 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 28 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 29 source.powershell meta.scriptblock.powershell
+T 34 source.powershell meta.scriptblock.powershell keyword.operator.comparison.powershell
+T 35 source.powershell meta.scriptblock.powershell
+T 36 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 39 source.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 40 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L 
+L     $filename = 'stable.json'
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 13 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 14 source.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 16 source.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 28 source.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 29 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L     if($isPreview)
+T 4 source.powershell meta.scriptblock.powershell
+T 6 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 7 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L     {
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         $filename = 'preview.json'
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     if($IsDaily.IsPresent)
+T 4 source.powershell meta.scriptblock.powershell
+T 6 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 7 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L     {
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         $filename = 'daily.json'
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L     ## Get the UTC time and round up to the second.
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 6 source.powershell meta.scriptblock.powershell comment.line.powershell
+T 51 source.powershell meta.scriptblock.powershell comment.line.powershell
+L     $dateTime = [datetime]::UtcNow
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 13 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 14 source.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 16 source.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell punctuation.section.bracket.begin.powershell
+T 25 source.powershell meta.scriptblock.powershell storage.type.powershell
+T 26 source.powershell meta.scriptblock.powershell punctuation.section.bracket.end.powershell
+T 34 source.powershell meta.scriptblock.powershell
+L     $dateTime = [datetime]::new($dateTime.Ticks - ($dateTime.Ticks % [timespan]::TicksPerSecond), $dateTime.Kind)
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 13 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 14 source.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 16 source.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell punctuation.section.bracket.begin.powershell
+T 25 source.powershell meta.scriptblock.powershell storage.type.powershell
+T 26 source.powershell meta.scriptblock.powershell punctuation.section.bracket.end.powershell
+T 31 source.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.assignment.powershell
+T 50 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 51 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 66 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 68 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell keyword.control.powershell
+T 69 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 70 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.begin.powershell
+T 78 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell storage.type.powershell
+T 79 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.bracket.end.powershell
+T 95 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 96 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 97 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.other.powershell
+T 98 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 99 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 107 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 112 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 113 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L 
+L     @{
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.hashtable.powershell keyword.other.hashtable.begin.powershell
+T 6 source.powershell meta.scriptblock.powershell meta.hashtable.powershell punctuation.section.braces.begin.powershell
+L         ReleaseTag = $ReleaseTag
+T 8 source.powershell meta.scriptblock.powershell meta.hashtable.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell variable.other.readwrite.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell keyword.operator.assignment.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell
+L         ReleaseDate = $dateTime
+T 8 source.powershell meta.scriptblock.powershell meta.hashtable.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell variable.other.readwrite.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell keyword.operator.assignment.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell
+L         BlobName = $blobName
+T 8 source.powershell meta.scriptblock.powershell meta.hashtable.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell variable.other.readwrite.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell keyword.operator.assignment.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.hashtable.powershell variable.other.readwrite.powershell
+L         BaseUrl = 'https://powershellinfraartifacts-gkhedzdeaghdezhr.z01.azurefd.net/install'
+T 8 source.powershell meta.scriptblock.powershell meta.hashtable.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell variable.other.readwrite.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell keyword.operator.assignment.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.hashtable.powershell meta.hashtable.assignment.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.hashtable.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 92 source.powershell meta.scriptblock.powershell meta.hashtable.powershell string.quoted.single.powershell
+T 93 source.powershell meta.scriptblock.powershell meta.hashtable.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L     } | ConvertTo-Json | Out-File -Encoding ascii -Force -FilePath $filename
+T 4 source.powershell meta.scriptblock.powershell meta.hashtable.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.hashtable.powershell punctuation.section.braces.end.powershell
+T 6 source.powershell meta.scriptblock.powershell
+T 7 source.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 8 source.powershell meta.scriptblock.powershell
+T 22 source.powershell meta.scriptblock.powershell support.function.powershell
+T 23 source.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 25 source.powershell meta.scriptblock.powershell
+T 33 source.powershell meta.scriptblock.powershell support.function.powershell
+T 34 source.powershell meta.scriptblock.powershell
+T 35 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 50 source.powershell meta.scriptblock.powershell
+T 51 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 57 source.powershell meta.scriptblock.powershell
+T 58 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 67 source.powershell meta.scriptblock.powershell
+T 68 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 76 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+L 
+L     $resolvedPath = (Resolve-Path -Path $filename).ProviderPath
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell support.function.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.assignment.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 50 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 63 source.powershell meta.scriptblock.powershell
+L     $vstsCommandString = "vso[task.setvariable variable=BuildInfoPath]$resolvedPath"
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 22 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 23 source.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 25 source.powershell meta.scriptblock.powershell
+T 26 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 70 source.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 71 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 83 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 84 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L     Write-Verbose -Message "$vstsCommandString" -Verbose
+T 4 source.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell support.function.powershell
+T 18 source.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 29 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 46 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 47 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 48 source.powershell meta.scriptblock.powershell
+T 49 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 56 source.powershell meta.scriptblock.powershell
+L     Write-Host -Object "##$vstsCommandString"
+T 4 source.powershell meta.scriptblock.powershell
+T 14 source.powershell meta.scriptblock.powershell support.function.powershell
+T 15 source.powershell meta.scriptblock.powershell
+T 16 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 23 source.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 26 source.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 27 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 44 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 45 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L     # Upload for ADO pipelines
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 30 source.powershell meta.scriptblock.powershell comment.line.powershell
+L     Write-Host "##vso[artifact.upload containerfolder=BuildInfoJson;artifactname=BuildInfoJson]$resolvedPath"
+T 4 source.powershell meta.scriptblock.powershell
+T 14 source.powershell meta.scriptblock.powershell support.function.powershell
+T 15 source.powershell meta.scriptblock.powershell
+T 16 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 95 source.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 96 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 108 source.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 109 source.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L     # Copy to location where OneBranch Pipelines uploads from
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 61 source.powershell meta.scriptblock.powershell comment.line.powershell
+L 
+L     # if the environment variable does not exist, we are not in OneBranch. So just return.
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 90 source.powershell meta.scriptblock.powershell comment.line.powershell
+L     if (-not $env:ob_outputDirectory) {
+T 4 source.powershell meta.scriptblock.powershell
+T 6 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 7 source.powershell meta.scriptblock.powershell
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.logical.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 38 source.powershell meta.scriptblock.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         return
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L     if (-not (Test-Path $env:ob_outputDirectory)) {
+T 4 source.powershell meta.scriptblock.powershell
+T 6 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 7 source.powershell meta.scriptblock.powershell
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.logical.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell support.function.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 50 source.powershell meta.scriptblock.powershell
+T 51 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         $null = New-Item -Path $env:ob_outputDirectory -ItemType Directory -Force -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell constant.language.powershell punctuation.definition.variable.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell constant.language.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 56 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 75 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 76 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 82 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 83 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 90 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L     Copy-Item $resolvedPath -Destination $env:ob_outputDirectory -Force -Verbose
+T 4 source.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell support.function.powershell
+T 14 source.powershell meta.scriptblock.powershell
+T 15 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 27 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 28 source.powershell meta.scriptblock.powershell
+T 29 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 41 source.powershell meta.scriptblock.powershell
+T 42 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 46 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 64 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 65 source.powershell meta.scriptblock.powershell
+T 66 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 72 source.powershell meta.scriptblock.powershell
+T 73 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 80 source.powershell meta.scriptblock.powershell
+L }
+T 1 source.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L # Script to set the release tag based on the branch name if it is not set or it is "fromBranch"
+T 1 source.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 95 source.powershell comment.line.powershell
+L # the branch name is expected to be release-<semver> or <previewname>
+T 1 source.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 69 source.powershell comment.line.powershell
+L # VSTS passes it as 'refs/heads/release-v6.0.2'
+T 1 source.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 47 source.powershell comment.line.powershell
+L 
+L $branchOnly = $Branch -replace '^refs/heads/';
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 11 source.powershell variable.other.readwrite.powershell
+T 12 source.powershell
+T 13 source.powershell keyword.operator.assignment.powershell
+T 14 source.powershell
+T 15 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 21 source.powershell variable.other.readwrite.powershell
+T 22 source.powershell
+T 30 source.powershell keyword.operator.comparison.powershell
+T 31 source.powershell
+T 32 source.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 44 source.powershell string.quoted.single.powershell
+T 45 source.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 46 source.powershell punctuation.terminator.statement.powershell
+L $branchOnly = $branchOnly -replace '[_\-]'
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 11 source.powershell variable.other.readwrite.powershell
+T 12 source.powershell
+T 13 source.powershell keyword.operator.assignment.powershell
+T 14 source.powershell
+T 15 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 25 source.powershell variable.other.readwrite.powershell
+T 26 source.powershell
+T 34 source.powershell keyword.operator.comparison.powershell
+T 35 source.powershell
+T 36 source.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 41 source.powershell string.quoted.single.powershell
+T 42 source.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L 
+L $msixType = 'preview'
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 9 source.powershell variable.other.readwrite.powershell
+T 10 source.powershell
+T 11 source.powershell keyword.operator.assignment.powershell
+T 12 source.powershell
+T 13 source.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 20 source.powershell string.quoted.single.powershell
+T 21 source.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L 
+L $isDaily = $false
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 8 source.powershell variable.other.readwrite.powershell
+T 9 source.powershell
+T 10 source.powershell keyword.operator.assignment.powershell
+T 11 source.powershell
+T 12 source.powershell constant.language.powershell punctuation.definition.variable.powershell
+T 17 source.powershell constant.language.powershell
+L 
+L if($ReleaseTag -eq 'fromBranch' -or !$ReleaseTag)
+T 2 source.powershell keyword.control.powershell
+T 3 source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 4 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 14 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 15 source.powershell meta.group.simple.subexpression.powershell
+T 18 source.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 19 source.powershell meta.group.simple.subexpression.powershell
+T 20 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 30 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 31 source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 32 source.powershell meta.group.simple.subexpression.powershell
+T 35 source.powershell meta.group.simple.subexpression.powershell keyword.operator.logical.powershell
+T 36 source.powershell meta.group.simple.subexpression.powershell
+T 37 source.powershell meta.group.simple.subexpression.powershell keyword.operator.unary.powershell
+T 38 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 48 source.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 49 source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L {
+T 1 source.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L     # Branch is named release-<semver>
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 38 source.powershell meta.scriptblock.powershell comment.line.powershell
+L     $releaseBranchRegex = '^.*((release/|rebuild/.*rebuild))'
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.scriptblock.powershell
+T 25 source.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 26 source.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 60 source.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 61 source.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L     if($Branch -match $releaseBranchRegex)
+T 4 source.powershell meta.scriptblock.powershell
+T 6 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 7 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 8 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L     {
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         $msixType = 'release'
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L         Write-Verbose "release branch:" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         $releaseTag = $Branch -replace '^.*((release|rebuild)/)'
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.comparison.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 63 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L         $vstsCommandString = "vso[task.setvariable variable=$Variable]$releaseTag"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 61 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 69 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 70 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 71 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 81 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 82 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         Write-Verbose -Message "setting $Variable to $releaseTag" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 65 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 66 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 74 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         Write-Host -Object "##$vstsCommandString"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L         if ($CreateJson.IsPresent)
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L         {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             New-BuildInfoJson -ReleaseTag $releaseTag
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+L         }
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     elseif(($branchOnly -eq 'master' -and $env:BUILD_REASON -ne 'Manual')  -or $branchOnly -like '*dailytest*')
+T 4 source.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell keyword.operator.logical.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 59 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 63 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell
+T 65 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 71 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 72 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 73 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 75 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 78 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.logical.powershell
+T 79 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 80 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 90 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 91 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 96 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 97 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 98 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 109 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 110 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 111 source.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L     {
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         $isDaily = $true
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell constant.language.powershell punctuation.definition.variable.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell constant.language.powershell
+L         Write-Verbose "daily build" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 44 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         $jsonPath = "${env:SYSTEM_ARTIFACTSDIRECTORY}\BuildInfoJson\daily.json"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.section.braces.begin
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.section.braces.end
+T 78 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 79 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         if (test-path -Path $jsonPath) {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.assignment.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             Write-Verbose "restoring from buildinfo json..." -Verbose
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 59 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 61 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 62 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 69 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L             $buildInfo = Get-Content -Path $jsonPath | ConvertFrom-Json
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 44 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 71 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+L             $releaseTag = $buildInfo.ReleaseTag
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell variable.other.member.powershell
+L         } else {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             Write-Verbose "creating from branch counter and metadata.json..." -Verbose
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 76 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 77 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 78 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 79 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 86 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L             $metaDataJsonPath = Join-Path $PSScriptRoot -ChildPath '..\metadata.json'
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.variable.automatic.powershell punctuation.definition.variable.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.variable.automatic.powershell
+T 56 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 57 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 68 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 84 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 85 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L             $metadata = Get-Content $metaDataJsonPath | ConvertFrom-Json
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 56 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 72 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+L             $versionPart = $metadata.PreviewReleaseTag
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell variable.other.member.powershell
+L             if ($versionPart -match '-.*$') {
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 14 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 15 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 16 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 44 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 45 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L                 $versionPart = $versionPart -replace '-.*$'
+T 16 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 44 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.comparison.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 58 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 59 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L             }
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L             $releaseTag = "$versionPart-daily$((Get-Date).ToString('yyyyMMdd')).$($env:BRANCHCOUNTER)"
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 45 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 46 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell keyword.other.substatement.powershell punctuation.definition.substatement.powershell punctuation.section.embedded.substatement.begin.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.begin.powershell punctuation.section.embedded.substatement.begin.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 56 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell support.function.powershell
+T 57 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 66 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 68 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 76 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 77 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 78 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 79 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.end.powershell punctuation.section.embedded.substatement.end.powershell
+T 80 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 81 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell keyword.other.substatement.powershell punctuation.definition.substatement.powershell punctuation.section.embedded.substatement.begin.powershell
+T 82 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.begin.powershell punctuation.section.embedded.substatement.begin.powershell
+T 83 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 87 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell support.variable.drive.powershell
+T 100 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell
+T 101 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.end.powershell punctuation.section.embedded.substatement.end.powershell
+T 102 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         }
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L         $vstsCommandString = "vso[task.setvariable variable=$Variable]$releaseTag"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 61 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 69 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 70 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 71 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 81 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 82 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         Write-Verbose -Message "setting $Variable to $releaseTag" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 65 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 66 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 74 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         Write-Host -Object "##$vstsCommandString"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L         if ($CreateJson.IsPresent)
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L         {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             New-BuildInfoJson -ReleaseTag $releaseTag -IsDaily
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 62 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         }
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     else
+T 4 source.powershell meta.scriptblock.powershell
+T 8 source.powershell meta.scriptblock.powershell keyword.control.powershell
+L     {
+T 4 source.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L         Write-Verbose "non-release branch" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 44 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 51 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         # Branch is named <previewname>
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell comment.line.powershell
+L         # Get version from metadata and append -<previewname>
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 61 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell comment.line.powershell
+L         $metaDataJsonPath = Join-Path $PSScriptRoot -ChildPath '..\metadata.json'
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.variable.automatic.powershell punctuation.definition.variable.powershell
+T 51 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.variable.automatic.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 63 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 80 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 81 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L         $metadata = Get-Content $metaDataJsonPath | ConvertFrom-Json
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 17 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 50 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 51 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.other.powershell
+T 52 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 68 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+L         $versionPart = $metadata.PreviewReleaseTag
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 50 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell variable.other.member.powershell
+L         if($versionPart -match '-.*$')
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell keyword.operator.comparison.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 38 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L         {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             $versionPart = $versionPart -replace '-.*$'
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 25 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 39 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.comparison.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 50 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell
+T 55 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L         }
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L         $releaseTag = "$versionPart-$branchOnly"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 24 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 35 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 36 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 37 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 47 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         $vstsCommandString = "vso[task.setvariable variable=$Variable]$releaseTag"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 26 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 60 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 61 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 69 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 70 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 71 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 81 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 82 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L         Write-Verbose -Message "setting $Variable to $releaseTag" -Verbose
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 21 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 22 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 32 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 40 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 41 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 54 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 64 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 65 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 66 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 67 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 74 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+L         Write-Host -Object "##$vstsCommandString"
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 18 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 19 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 20 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 27 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 28 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 48 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 49 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L         if ($CreateJson.IsPresent)
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 10 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.control.powershell
+T 11 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 13 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 23 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell
+T 33 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 34 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+L         {
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.begin.powershell
+L             New-BuildInfoJson -ReleaseTag $releaseTag
+T 12 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 29 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell support.function.powershell
+T 30 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 31 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell keyword.operator.assignment.powershell
+T 42 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 43 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 53 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell variable.other.readwrite.powershell
+L         }
+T 8 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 9 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L     }
+T 4 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell
+T 5 source.powershell meta.scriptblock.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L }
+T 1 source.powershell meta.scriptblock.powershell punctuation.section.braces.end.powershell
+L 
+L $vstsCommandString = "vso[task.setvariable variable=IS_DAILY]$($isDaily.ToString().ToLowerInvariant())"
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 18 source.powershell variable.other.readwrite.powershell
+T 19 source.powershell
+T 20 source.powershell keyword.operator.assignment.powershell
+T 21 source.powershell
+T 22 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 61 source.powershell string.quoted.double.powershell
+T 62 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell keyword.other.substatement.powershell punctuation.definition.substatement.powershell punctuation.section.embedded.substatement.begin.powershell
+T 63 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.begin.powershell punctuation.section.embedded.substatement.begin.powershell
+T 64 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 71 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell
+T 80 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell variable.other.readwrite.powershell variable.other.member.powershell
+T 81 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 82 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 99 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell
+T 100 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.begin.powershell
+T 101 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell interpolated.complex.source.powershell meta.group.simple.subexpression.powershell punctuation.section.group.end.powershell
+T 102 source.powershell string.quoted.double.powershell meta.embedded.substatement.powershell punctuation.section.group.end.powershell punctuation.section.embedded.substatement.end.powershell
+T 103 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L Write-Verbose -Message "$vstsCommandString" -Verbose
+T 13 source.powershell support.function.powershell
+T 14 source.powershell
+T 15 source.powershell keyword.operator.assignment.powershell
+T 23 source.powershell
+T 24 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 25 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 42 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 43 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 44 source.powershell
+T 45 source.powershell keyword.operator.assignment.powershell
+T 52 source.powershell
+L Write-Host -Object "##$vstsCommandString"
+T 10 source.powershell support.function.powershell
+T 11 source.powershell
+T 12 source.powershell keyword.operator.assignment.powershell
+T 19 source.powershell
+T 20 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 22 source.powershell string.quoted.double.powershell
+T 23 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 40 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 41 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L $vstsCommandString = "vso[task.setvariable variable=MSIX_TYPE]$msixType"
+T 1 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 18 source.powershell variable.other.readwrite.powershell
+T 19 source.powershell
+T 20 source.powershell keyword.operator.assignment.powershell
+T 21 source.powershell
+T 22 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 62 source.powershell string.quoted.double.powershell
+T 63 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 71 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 72 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L Write-Verbose -Message "$vstsCommandString" -Verbose
+T 13 source.powershell support.function.powershell
+T 14 source.powershell
+T 15 source.powershell keyword.operator.assignment.powershell
+T 23 source.powershell
+T 24 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 25 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 42 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 43 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+T 44 source.powershell
+T 45 source.powershell keyword.operator.assignment.powershell
+T 52 source.powershell
+L Write-Host -Object "##$vstsCommandString"
+T 10 source.powershell support.function.powershell
+T 11 source.powershell
+T 12 source.powershell keyword.operator.assignment.powershell
+T 19 source.powershell
+T 20 source.powershell string.quoted.double.powershell punctuation.definition.string.begin.powershell
+T 22 source.powershell string.quoted.double.powershell
+T 23 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 40 source.powershell string.quoted.double.powershell variable.other.readwrite.powershell
+T 41 source.powershell string.quoted.double.powershell punctuation.definition.string.end.powershell
+L 
+L Write-Output $releaseTag
+T 12 source.powershell support.function.powershell
+T 13 source.powershell
+T 14 source.powershell variable.other.readwrite.powershell punctuation.definition.variable.powershell
+T 24 source.powershell variable.other.readwrite.powershell
+L 

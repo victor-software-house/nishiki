@@ -1,0 +1,928 @@
+L # PowerShell Core Releasing Process
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 35 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L ## Release Steps
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L When creating a release milestone, you should send meeting invites to maintainers to book the release day and the previous day.
+T 127 text.html.markdown meta.paragraph.markdown
+L This is to make sure they have enough time to work on the release.
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L The following release procedure should be started on the previous day of the target release day.
+T 96 text.html.markdown meta.paragraph.markdown
+L This is to make sure we have enough buffer time to publish the release on the target day.
+T 89 text.html.markdown meta.paragraph.markdown
+L 
+L Before starting the following release procedure, open an issue and list all those steps as to-do tasks.
+T 103 text.html.markdown meta.paragraph.markdown
+L Check the task when you finish one.
+T 35 text.html.markdown meta.paragraph.markdown
+L This is to help track the release preparation work.
+T 51 text.html.markdown meta.paragraph.markdown
+L 
+L > Note: Step 2, 3 and 4 can be done in parallel.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 48 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L 
+L 1. Create a branch named `release-<Release Tag>` in our private repository.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 25 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 26 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    All release related changes should happen in this branch.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 60 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. Prepare packages
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 19 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    - [Build release packages](#building-packages).
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 6 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 28 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 29 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 30 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 48 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 49 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 50 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L    - Sign the MSI packages and DEB/RPM packages.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 48 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L    - Install and verify the packages.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 37 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 1. Update documentation, scripts and Dockerfiles
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    - Summarize the changelog for the release. It should be reviewed by PM(s) to make it more user-friendly.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 107 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L    - Update [CHANGELOG.md](../../CHANGELOG.md) with the finalized changelog draft.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 12 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 13 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 25 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 26 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 27 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 45 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 46 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 82 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L    - Update other documents and scripts to use the new package names and links.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 5 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown
+T 79 text.html.markdown markup.list.numbered.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 1. Verify the release Dockerfiles.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 34 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. [Create NuGet packages](#nuget-packages) and publish them to [powershell-core feed][ps-core-feed].
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 25 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 26 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 27 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 42 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 43 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 64 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 65 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 85 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 86 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 87 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 99 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 100 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 101 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. [Create the release tag](#release-tag) and push the tag to `PowerShell/PowerShell` repository.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 26 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 27 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 28 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 40 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 41 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 62 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 63 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 85 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. Create the draft and publish the release in GitHub.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 54 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. Merge the `release-<Release Tag>` branch to `master` in `powershell/powershell` and delete the `release-<Release Tag>` branch.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 13 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 14 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 48 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 60 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 82 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+T 99 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 120 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 121 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 129 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. Publish Linux packages to Microsoft YUM/APT repositories.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 60 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 1. [Update the homebrew formula](#homebrew) for the macOS package.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 4 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 31 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 32 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 33 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 42 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 43 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 66 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    This task usually will be taken care of by the community,
+T 3 text.html.markdown markup.list.numbered.markdown
+T 60 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    so we can wait for one day or two and see if the homebrew formula has already been updated,
+T 3 text.html.markdown markup.list.numbered.markdown
+T 94 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L    and only do the update if it hasn't.
+T 3 text.html.markdown markup.list.numbered.markdown
+T 39 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L ## Building Packages
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L > Note: Linux and Windows packages are taken care of by our release build pipeline in VSTS,
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 91 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L while the macOS package needs to be built separately on a macOS.
+T 64 text.html.markdown meta.paragraph.markdown
+L 
+L The release build should be started based on the `release` branch.
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown
+L The release Git tag won't be created until all release preparation tasks are done,
+T 82 text.html.markdown meta.paragraph.markdown
+L so the to-be-used release tag should be passed to the release build as an argument.
+T 83 text.html.markdown meta.paragraph.markdown
+L 
+L > When creating the packages, please ensure that the file path does not contain user names.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 91 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L That is, clone to `/PowerShell` on Unix, and `C:\PowerShell` for Windows.
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L The debug symbols include the absolute path to the sources when built,
+T 70 text.html.markdown meta.paragraph.markdown
+L so it should appear `/PowerShell/src/powershell/System.Management.Automation`,
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+L not `/home/username/src/PowerShell/...`.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L ### Packaging Overview
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 22 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L The `tools/packaging` module contains a `Start-PSPackage` function to build packages.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L It **requires** that PowerShell Core has been built via `Start-PSBuild` from the `build.psm1` module.
+T 3 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 92 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 93 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 101 text.html.markdown meta.paragraph.markdown
+L 
+L #### Windows
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 12 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L `Start-PSPackage` supports creating ZIP and MSIX packages for Windows.
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown meta.paragraph.markdown
+L When called without `-Type` on Windows, it defaults to creating both ZIP and MSIX packages.
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 91 text.html.markdown meta.paragraph.markdown
+L The packages *must* be published in release mode,
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 49 text.html.markdown meta.paragraph.markdown
+L so make sure `-Configuration Release` is specified when running `Start-PSBuild`.
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown meta.paragraph.markdown
+L 
+L Note that PowerShell is always self-contained, thus using it does not require installing it.
+T 92 text.html.markdown meta.paragraph.markdown
+L The output of `Start-PSBuild` includes a `pwsh.exe` executable which can simply be launched.
+T 14 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 92 text.html.markdown meta.paragraph.markdown
+L 
+L #### Linux / macOS
+T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
+T 5 text.html.markdown markup.heading.markdown heading.4.markdown
+T 18 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+L 
+L The `Start-PSPackage` function delegates to `New-UnixPackage`.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 44 text.html.markdown meta.paragraph.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown
+L 
+L For **Linux** (Debian-based distributions), it relies on the [Effing Package Management][fpm] project,
+T 4 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 88 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 89 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 92 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 93 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 102 text.html.markdown meta.paragraph.markdown
+L which makes building packages a breeze.
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L For **macOS**, it uses native packaging tools (`pkgbuild` and `productbuild`) from Xcode Command Line Tools,
+T 4 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 108 text.html.markdown meta.paragraph.markdown
+L eliminating the need for Ruby or fpm.
+T 37 text.html.markdown meta.paragraph.markdown
+L 
+L For **Linux** (Red Hat-based distributions), it uses `rpmbuild` directly.
+T 4 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L 
+L The PowerShell man-page is generated from the Markdown-like file
+T 64 text.html.markdown meta.paragraph.markdown
+L [`assets/pwsh.1.ronn`][man] using [Ronn][].
+T 1 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 2 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 34 text.html.markdown meta.paragraph.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 42 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+L The function `Start-PSBootstrap -Package` will install these tools.
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L 
+L To modify any property of the packages, edit the `New-UnixPackage` function.
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L Please also refer to the function for details on the package properties
+T 71 text.html.markdown meta.paragraph.markdown
+L (such as the description, maintainer, vendor, URL,
+T 50 text.html.markdown meta.paragraph.markdown
+L license, category, dependencies, and file layout).
+T 50 text.html.markdown meta.paragraph.markdown
+L 
+L > Note that the only configuration on Linux and macOS is `Linux`,
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 57 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 58 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 64 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > which is release (i.e. not debug) configuration.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 50 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L 
+L To support side-by-side Unix packages, we use the following design:
+T 67 text.html.markdown meta.paragraph.markdown
+L 
+L We will maintain a `powershell` package
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+L which owns the `/usr/bin/pwsh` symlink,
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+L is the latest version, and is upgradeable.
+T 42 text.html.markdown meta.paragraph.markdown
+L This is the only package named `powershell`
+T 31 text.html.markdown meta.paragraph.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L and similarly is the only package owning any symlinks,
+T 54 text.html.markdown meta.paragraph.markdown
+L executables, or man-pages named `powershell`.
+T 32 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+L Until we have a package repository,
+T 35 text.html.markdown meta.paragraph.markdown
+L this package will contain actual PowerShell bits
+T 48 text.html.markdown meta.paragraph.markdown
+L (i.e. it is not a meta-package).
+T 32 text.html.markdown meta.paragraph.markdown
+L These bits are installed to `/opt/microsoft/powershell/6.0.0-alpha.8/`,
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown
+L where the version will change with each update
+T 46 text.html.markdown meta.paragraph.markdown
+L (and is the prerelease version).
+T 32 text.html.markdown meta.paragraph.markdown
+L On macOS, the prefix is `/usr/local`,
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 37 text.html.markdown meta.paragraph.markdown
+L instead of `/opt/microsoft` because it is derived from BSD.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown
+L 
+L > When we have access to package repositories where dependencies can be properly resolved,
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 90 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > this `powershell` package can become a meta-package which auto-installs the latest package,
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 7 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 8 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 93 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L > and so only owns the symlink.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 31 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L 
+L For explicitly versioned packages, say for PowerShell 6.0,
+T 58 text.html.markdown meta.paragraph.markdown
+L we will maintain separate packages named in the form `powershell6.0`,
+T 53 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L which owns the binary `powershell6.0`, the symlink `powershell6.0`,
+T 22 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L the man-page `powershell6.0`,
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown
+L and is installed to `/opt/microsoft/powershell/6.0/`.
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+L Specifically this package owns nothing named `powershell`,
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+L as only the `powershell` package owns those files.
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+L This package is upgradeable, but should only be updated with hot-fixes.
+T 71 text.html.markdown meta.paragraph.markdown
+L This is a necessary consequence of Unix package managers,
+T 57 text.html.markdown meta.paragraph.markdown
+L as files among packages *cannot* conflict.
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+L From a user-experience perspective,
+T 35 text.html.markdown meta.paragraph.markdown
+L if the user requires a specific version of PowerShell,
+T 54 text.html.markdown meta.paragraph.markdown
+L they should not be required to use an absolute path,
+T 52 text.html.markdown meta.paragraph.markdown
+L and instead should be given a binary with the version in the name.
+T 66 text.html.markdown meta.paragraph.markdown
+L This pattern is followed by many other languages
+T 48 text.html.markdown meta.paragraph.markdown
+L (Python being the most obvious example).
+T 40 text.html.markdown meta.paragraph.markdown
+L This same pattern can be followed for versions 6.1, 7.0, etc.,
+T 62 text.html.markdown meta.paragraph.markdown
+L and can be used for patch version (e.g. 6.0.1).
+T 47 text.html.markdown meta.paragraph.markdown
+L Use `Start-PSPackage -Name powershell6.0` to generate
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+L the versioned `powershell6.0` package.
+T 14 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+L Without `-Name` specified, the primary `powershell`
+T 8 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 39 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L package will instead be created.
+T 32 text.html.markdown meta.paragraph.markdown
+L 
+L [fpm]: https://github.com/jordansissel/fpm
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 4 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 5 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown
+T 42 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [man]: ../../assets/manpage/pwsh.1.ronn
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 4 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 5 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown
+T 39 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [ronn]: https://github.com/rtomayko/ronn
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 5 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown
+T 40 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ### Build and Packaging Examples
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 32 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L On macOS or a supported Linux distro, run the following commands:
+T 65 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # Install dependencies
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSBootstrap -Package
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L 
+L # Build for v6.0.0-beta.1 release
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSBuild -Clean -Crossgen -PSModuleRestore -ReleaseTag v6.0.0-beta.1
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+L 
+L # Create package for v6.0.0-beta.1 release
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSPackage -ReleaseTag v6.0.0-beta.1
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L On Windows, the `-Runtime` parameter should be specified for `Start-PSBuild` to indicate what version of OS the build is targeting.
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 131 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # Install dependencies
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSBootstrap -Package
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L 
+L # Build for v6.0.0-beta.1 release targeting Windows universal package, set -Runtime to win7-x64
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSBuild -Clean -CrossGen -PSModuleRestore -Runtime win7-x64 -Configuration Release -ReleaseTag v6.0.0-beta.1
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 104 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 107 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 108 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 113 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 114 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L # Create packages for v6.0.0-beta.1 release targeting Windows universal package.
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L # 'win7-x64' / 'win7-x86' should be used for -WindowsRuntime.
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell punctuation.definition.comment.powershell
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell comment.line.powershell
+L Start-PSPackage -Type zip -ReleaseTag v6.0.0-beta.1 -WindowsRuntime 'win7-x64'
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
+T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L Start-PSPackage -Type msix -ReleaseTag v6.0.0-beta.1 -WindowsRuntime 'win7-x64'
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell constant.numeric.integer.powershell
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
+T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## NuGet Packages
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L The NuGet packages for hosting PowerShell for Windows and non-Windows are being built-in our release build pipeline.
+T 116 text.html.markdown meta.paragraph.markdown
+L The assemblies from the individual Windows and Linux builds are consumed and packed into NuGet packages.
+T 104 text.html.markdown meta.paragraph.markdown
+L These are then released to [powershell-core feed][ps-core-feed].
+T 27 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 64 text.html.markdown meta.paragraph.markdown
+L 
+L [ps-core-feed]: https://powershell.myget.org/gallery/powershell-core
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 15 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 16 text.html.markdown meta.link.reference.def.markdown
+T 68 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Release Tag
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L PowerShell releases use [Semantic Versioning][semver].
+T 24 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+L Until we hit 6.0, each sprint results in a bump to the build number,
+T 68 text.html.markdown meta.paragraph.markdown
+L so `v6.0.0-alpha.7` goes to `v6.0.0-alpha.8`.
+T 3 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+L 
+L When a particular commit is chosen as a release,
+T 48 text.html.markdown meta.paragraph.markdown
+L we create an [annotated tag][tag] that names the release.
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 57 text.html.markdown meta.paragraph.markdown
+L An annotated tag has a message (like a commit),
+T 47 text.html.markdown meta.paragraph.markdown
+L and is *not* the same as a lightweight tag.
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+L Create one with `git tag -a v6.0.0-alpha.7 -m <message-here>`,
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown
+L and use the release changelogs as the message.
+T 46 text.html.markdown meta.paragraph.markdown
+L Our convention is to prepend the `v` to the semantic version.
+T 33 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+L The summary (first line) of the annotated tag message should be the full release title,
+T 87 text.html.markdown meta.paragraph.markdown
+L e.g. 'v6.0.0-alpha.7 release of PowerShellCore'.
+T 48 text.html.markdown meta.paragraph.markdown
+L 
+L When the annotated tag is finalized, push it with `git push --tags`.
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 67 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 68 text.html.markdown meta.paragraph.markdown
+L GitHub will see the tag and present it as an option when creating a new [release][].
+T 72 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 80 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 81 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 82 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 83 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L Start the release, use the annotated tag's summary as the title,
+T 64 text.html.markdown meta.paragraph.markdown
+L and save the release as a draft while you upload the binary packages.
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L [semver]: https://semver.org/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown
+T 29 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [tag]: https://git-scm.com/book/en/v2/Git-Basics-Tagging
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 4 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 5 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 6 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 7 text.html.markdown meta.link.reference.def.markdown
+T 56 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [release]: https://help.github.com/articles/creating-releases/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 8 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown
+T 62 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Homebrew
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 11 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L After the release, update homebrew formula.
+T 43 text.html.markdown meta.paragraph.markdown
+L You need macOS to do it.
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L There are 2 homebrew formulas: main and preview.
+T 48 text.html.markdown meta.paragraph.markdown
+L 
+L ### Main
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 8 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Update it on stable releases.
+T 29 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Wait for a PR to show up in https://github.com/powershell/homebrew-tap, review and merge it.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 95 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 
+L ### Preview
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 11 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Update it on preview releases.
+T 30 text.html.markdown meta.paragraph.markdown
+L 
+L 1. Wait for a PR to show up in https://github.com/powershell/homebrew-tap, review and merge it.
+T 2 text.html.markdown markup.list.numbered.markdown punctuation.definition.list.begin.markdown
+T 3 text.html.markdown markup.list.numbered.markdown
+T 95 text.html.markdown markup.list.numbered.markdown meta.paragraph.markdown
+L 

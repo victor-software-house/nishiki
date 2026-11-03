@@ -229,6 +229,14 @@ languages! {
     Xml { feature: "lang-xml", names: ["xml"], module: xml }
     /// Swift, with the scopes of Shiki's `swift` grammar.
     Swift { feature: "lang-swift", names: ["swift"], module: swift }
+    /// PowerShell, with the scopes of Shiki's `powershell` grammar, which
+    /// nishiki's `TextMate` engine runs.
+    PowerShell {
+        feature: "lang-powershell",
+        names: ["powershell", "ps", "ps1", "pwsh"],
+        module: powershell,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

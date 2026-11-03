@@ -76,6 +76,8 @@ crate::scope::scope_table! {
     EmbeddedXml "meta.embedded.block.xml"
     #[cfg(feature = "lang-swift")]
     EmbeddedSwift "meta.embedded.block.swift"
+    #[cfg(feature = "lang-powershell")]
+    EmbeddedPowershell "meta.embedded.block.powershell"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

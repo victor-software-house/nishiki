@@ -41,6 +41,7 @@ cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features web
 cargo check --locked --tests --no-default-features --features systems
 cargo check --locked --tests --no-default-features --features docs
+cargo check --locked --tests --no-default-features --features textmate
 RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
 # Markdown alone: its own tests, which need no other language.
 cargo test --locked --lib --no-default-features --features lang-markdown

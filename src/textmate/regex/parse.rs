@@ -26,7 +26,8 @@ pub(super) struct Parsed {
 /// Which reading of a pattern applies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Dialect {
-    /// Oniguruma's own.
+    /// Oniguruma's own, which only the tests read.
+    #[cfg(test)]
     Oniguruma,
     /// A grammar's pattern as Shiki runs it, where `\z` never matches.
     Grammar,

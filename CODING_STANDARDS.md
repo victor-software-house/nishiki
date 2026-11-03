@@ -201,6 +201,11 @@ The release rules in `AGENTS.md` decide its version.
   - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.
+- A language with no lexer of its own runs on nishiki's `TextMate` engine (`src/textmate.rs`), which interprets Shiki's grammar as Shiki does.
+  - It is a module `src/<language>.rs` whose three functions call `crate::textmate` with the tables `oracle/engine-tables.ts` writes into `src/<language>/grammar.rs`.
+  - Its scopes are named at run time, so it has no scope table, frame tag or `Scratch` field of its own.
+  - Its `lang-*` feature turns on `_textmate` and sits in the `textmate` tier, not in `all`, so the default build carries no grammar tables.
+  - The two engines are different things: `src/rules.rs` runs hand-written matchers over generated tables, and the `TextMate` engine runs the grammar's own regular expressions.
 
 ### 3.8 Shared primitives
 

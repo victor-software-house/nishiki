@@ -52,14 +52,18 @@ macro_rules! tables {
             pub(crate) const $base: u32 = base(crate::tag::$base);
         )*
 
-        /// Every language's scope names, by slot.
+        /// Every language's scope names, by slot. Each row rebinds the array
+        /// rather than writing into one mutable binding, so a build with no
+        /// language that has a table leaves nothing unused.
         const TABLES: [&[&str]; SLOTS] = {
-            let mut tables: [&[&str]; SLOTS] = [&[]; SLOTS];
+            let tables: [&[&str]; SLOTS] = [&[]; SLOTS];
             $(
                 $(#[cfg($($cfg)*)])*
-                {
+                let tables = {
+                    let mut tables = tables;
                     tables[slot(crate::tag::$base)] = crate::$module::NAMES;
-                }
+                    tables
+                };
             )*
             tables
         };

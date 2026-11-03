@@ -26,8 +26,9 @@ all-features = true
 rustdoc-args = ["--cap-lints", "warn"]
 
 [features]
-# Every language is on by default; `default-features = false` and one or more
-# `lang-*` features, or a tier, build only what a caller highlights.
+# Every language with a lexer of its own is on by default; `default-features =
+# false` and one or more `lang-*` features, or a tier, build only what a caller
+# highlights.
 default = ["all"]
 all = [
   "lang-rust",
@@ -90,6 +91,7 @@ systems = [
   "lang-swift",
 ]
 docs = ["lang-markdown", "config"]
+textmate = ["lang-powershell"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]
@@ -132,6 +134,7 @@ lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
 lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]
+lang-powershell = ["_textmate"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

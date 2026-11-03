@@ -3484,15 +3484,42 @@ L   ~~~ pwsh
 T 2 text.html.markdown markup.fenced_code.block.markdown
 T 5 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 T 6 text.html.markdown markup.fenced_code.block.markdown
-T 10 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 10 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L   echo '$Env:PYENV_ROOT="$Env:HOME/.pyenv"' >> $profile.CurrentUserAllHosts
-T 75 text.html.markdown markup.fenced_code.block.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.redirection.powershell
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell punctuation.definition.variable.powershell
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell variable.other.member.powershell
 L   echo 'if (Test-Path -LP "$Env:PYENV_ROOT/bin" -PathType Container) { 
-T 71 text.html.markdown markup.fenced_code.block.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
 L     $Env:PATH="$Env:PYENV_ROOT/bin:$Env:PATH" }' >> $profile.CurrentUserAllHosts
-T 80 text.html.markdown markup.fenced_code.block.markdown
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.redirection.powershell
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell punctuation.definition.variable.powershell
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell
+T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell variable.other.member.powershell
 L   echo 'iex ((pyenv init -) -join "`n")' >> $profile.CurrentUserAllHosts
-T 72 text.html.markdown markup.fenced_code.block.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.begin.powershell
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell string.quoted.single.powershell punctuation.definition.string.end.powershell
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.redirection.powershell
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell punctuation.definition.variable.powershell
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.variable.automatic.powershell variable.other.member.powershell
 L   ~~~
 T 2 text.html.markdown markup.fenced_code.block.markdown
 T 5 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown

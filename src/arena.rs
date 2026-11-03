@@ -190,6 +190,7 @@ impl Arena {
 
     /// The stack `stack` without its top scope; the empty stack for an id
     /// this arena never made.
+    #[cfg(feature = "_textmate")]
     pub(crate) fn parent(&self, stack: u32) -> u32 {
         usize::try_from(stack)
             .ok()

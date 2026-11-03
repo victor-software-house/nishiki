@@ -15,6 +15,8 @@ mod json;
 mod kotlin;
 mod make;
 mod markdown;
+#[cfg(feature = "lang-powershell")]
+mod powershell;
 mod python;
 mod ruby;
 mod rust;

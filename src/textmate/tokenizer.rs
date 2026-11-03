@@ -157,8 +157,13 @@ pub(crate) struct Scratch {
     locals: Vec<Vec<(u32, usize)>>,
     /// Spans of the groups of matches in progress, kept for reuse.
     caps: Vec<Vec<Option<(usize, usize)>>>,
+    /// The machine's buffers, which every search reuses.
     cur: regex::Scratch,
-    best: regex::Scratch,
+    /// The groups of the best match so far, copied out of `cur`. A copy,
+    /// rather than swapping two machine buffers, keeps each buffer in one role,
+    /// so both reach the size the document needs on its first pass and a
+    /// second pass allocates nothing.
+    best: Vec<Option<(usize, usize)>>,
     /// The scope of each name of the grammar the caches belong to.
     scopes: Vec<Option<Scope>>,
     cached_for: Option<&'static Grammar>,
@@ -628,7 +633,7 @@ impl Tokenizer<'_> {
         let Some(start) = start else { return };
         if best.is_none_or(|b| (start, tier, order) < (b.start, b.tier, b.order)) {
             if fresh {
-                std::mem::swap(&mut self.s.cur, &mut self.s.best);
+                read_caps(&self.s.cur, &mut self.s.best);
             }
             *best = Some(Best {
                 start,
@@ -1037,7 +1042,8 @@ impl Tokenizer<'_> {
         };
         let mut caps = self.s.caps.pop().unwrap_or_default();
         if best.groups_kept {
-            read_caps(&self.s.best, &mut caps);
+            caps.clear();
+            caps.extend_from_slice(&self.s.best);
         } else {
             if !self.search(best.pat, best.start, end, *anchor, *allow_a) {
                 self.s.caps.push(caps);

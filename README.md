@@ -145,10 +145,11 @@ assert_eq!(highlighter.limits().depth, None);
 | C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
 | XML | `Language::Xml` | `lang-xml` | `xml` |
 | Swift | `Language::Swift` | `lang-swift` | `swift` |
+| PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
 
 ### Features
 
-Every language is on by default.
+Every language with a lexer of its own is on by default.
 To build only some, turn off the default features and name what you highlight:
 
 ```toml
@@ -167,7 +168,10 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
+  | `textmate` | PowerShell |
 
+- `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
+  It is off by default and not in `all`, so the default build carries no grammar tables.
 - `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
 - `Language::ALL` and `Language::from_name` know only the languages that are built.
   A Markdown fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.

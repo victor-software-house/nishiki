@@ -89,6 +89,8 @@ mod limits;
 mod make;
 #[cfg(feature = "lang-markdown")]
 mod markdown;
+#[cfg(feature = "lang-powershell")]
+mod powershell;
 #[cfg(feature = "lang-python")]
 mod python;
 #[cfg(feature = "lang-ruby")]

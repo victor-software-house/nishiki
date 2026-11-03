@@ -65,4 +65,7 @@ pub(crate) struct Scratch {
     /// The GraphQL lexer's, for GraphQL documents.
     #[cfg(feature = "lang-graphql")]
     pub(crate) graphql: crate::graphql::Scratch,
+    /// The `TextMate` engine's, for every language it runs.
+    #[cfg(feature = "_textmate")]
+    pub(crate) textmate: crate::textmate::Scratch,
 }

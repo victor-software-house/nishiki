@@ -241,6 +241,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Swift,
     },
+    #[cfg(feature = "lang-powershell")]
+    Name {
+        words: &["powershell", "ps1", "psm1", "psd1", "pwsh"],
+        brace: None,
+        lang: Language::PowerShell,
+    },
 ];
 
 /// A language found in an info string.

@@ -1,0 +1,354 @@
+L # Build PowerShell on Windows for .NET Core
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 43 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L This guide will walk you through building PowerShell on Windows, targeting .NET Core.
+T 85 text.html.markdown meta.paragraph.markdown
+L We'll start by showing how to set up your environment from scratch.
+T 67 text.html.markdown meta.paragraph.markdown
+L 
+L ## Environment
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 14 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L These instructions are tested on Windows 10 and Windows Server 2012
+T 67 text.html.markdown meta.paragraph.markdown
+L R2, though they should work anywhere the dependencies work.
+T 59 text.html.markdown meta.paragraph.markdown
+L 
+L ### Git Setup
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 13 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Using Git requires it to be set up correctly; refer to the
+T 58 text.html.markdown meta.paragraph.markdown
+L [Readme](../../README.md) and
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 8 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 29 text.html.markdown meta.paragraph.markdown
+L [Contributing Guidelines](../../.github/CONTRIBUTING.md).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 57 text.html.markdown meta.paragraph.markdown
+L 
+L This guide assumes that you have recursively cloned the PowerShell repository and `cd`ed into it.
+T 82 text.html.markdown meta.paragraph.markdown
+T 83 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 86 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown
+L 
+L ### Visual Studio
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 17 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Install [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/). The Community edition is available free of charge.
+T 8 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 74 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 75 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 127 text.html.markdown meta.paragraph.markdown
+L 
+L The PowerShell/PowerShell repository requires at least Visual Studio 2019 16.7.
+T 79 text.html.markdown meta.paragraph.markdown
+L 
+L ### Visual Studio Code
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 22 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Building PowerShell using [Visual Studio Code](https://code.visualstudio.com/) depends on the PowerShell executable to be called `pwsh` which means
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 129 text.html.markdown meta.paragraph.markdown
+T 130 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 134 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 135 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 147 text.html.markdown meta.paragraph.markdown
+L that you must have PowerShell Core 6 Beta.9 (or newer) installed to successfully build this project (typically for the purpose of debugging).
+T 141 text.html.markdown meta.paragraph.markdown
+L 
+L ### .NET CLI
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 12 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L We use the [.NET command-line interface][dotnet-cli] (`dotnet`) to build PowerShell.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L The version we are currently using is mentioned in [`global.json`](../../global.json#L3) at the root of this repository.
+T 51 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 88 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 120 text.html.markdown meta.paragraph.markdown
+L The `Start-PSBootstrap` function will automatically install it and add it to your path:
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L Import-Module ./build.psm1
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L Start-PSBootstrap -Scenario Dotnet
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Or you can call `Install-Dotnet` directly:
+T 16 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L Install-Dotnet
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L It removes the previously installed version of .NET CLI and installs the version that PowerShell Core depends on.
+T 113 text.html.markdown meta.paragraph.markdown
+L If you have any problems installing `dotnet`, please see their [documentation][cli-docs].
+T 36 text.html.markdown meta.paragraph.markdown
+T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
+T 79 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
+T 88 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
+T 89 text.html.markdown meta.paragraph.markdown
+L 
+L [dotnet-cli]: https://learn.microsoft.com/dotnet/core/tools/
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 13 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 14 text.html.markdown meta.link.reference.def.markdown
+T 60 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L [cli-docs]: https://www.microsoft.com/net/core#windowscmd
+T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 9 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
+T 10 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
+T 11 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
+T 12 text.html.markdown meta.link.reference.def.markdown
+T 57 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+L 
+L ## Build using our module
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 25 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L We maintain a [PowerShell module](../../build.psm1) with the function `Start-PSBuild` to build PowerShell.
+T 14 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 70 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 106 text.html.markdown meta.paragraph.markdown
+L 
+L We do not recommend using Visual Studio Dev Environment Terminal to build the source code.
+T 90 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L Import-Module ./build.psm1
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L Start-PSBuild -Clean -PSModuleRestore -UseNuGetOrg
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L > The PowerShell project by default references packages from the private Azure Artifacts feed, which requires authentication. The `-UseNuGetOrg` flag reconfigures the build to use the public NuGet.org feed instead.
+T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
+T 2 text.html.markdown markup.quote.markdown
+T 130 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 131 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 143 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 144 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 214 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+L 
+L Congratulations! If everything went right, PowerShell is now built and executable as `./src/powershell-win-core/bin/Debug/net6.0/win7-x64/publish/pwsh.exe`.
+T 85 text.html.markdown meta.paragraph.markdown
+T 86 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 154 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 155 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 156 text.html.markdown meta.paragraph.markdown
+L 
+L This location is of the form `./[project]/bin/[configuration]/[framework]/[rid]/publish/[binary name]`,
+T 29 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 101 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 102 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 103 text.html.markdown meta.paragraph.markdown
+L and our project is `powershell`, configuration is `Debug` by default,
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L framework is `net6.0`, runtime identifier is `win7-x64` by default,
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L and binary name is `pwsh`.
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown
+L The function `Get-PSOutput` will return the path to the executable;
+T 13 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 67 text.html.markdown meta.paragraph.markdown
+L thus you can execute the development copy via `& (Get-PSOutput)`.
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown
+L 
+L The `powershell` project is the .NET Core PowerShell host.
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+L It is the top-level project, so `dotnet build` transitively builds all its dependencies,
+T 32 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L and emits a `pwsh` executable.
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown
+L The cross-platform host has built-in documentation via `--help`.
+T 55 text.html.markdown meta.paragraph.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown
+L 
+L You can run our cross-platform Pester tests with `Start-PSPester`.
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L ```powershell
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L Import-Module ./build.psm1
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L Start-PSPester -UseNuGetOrg
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell support.function.powershell
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell keyword.operator.assignment.powershell
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.powershell
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Building in Visual Studio
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L We currently have the issue [#3400](https://github.com/PowerShell/PowerShell/issues/3400) tracking this task.
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 34 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 35 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 36 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 88 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 89 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 109 text.html.markdown meta.paragraph.markdown
+L 

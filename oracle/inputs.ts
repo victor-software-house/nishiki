@@ -312,6 +312,11 @@ const thor =
 const rake =
   "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
 
+const powershell =
+  "https://raw.githubusercontent.com/PowerShell/PowerShell/2725d6aaa6e67219b6c9902adf7b74c52e0371a3";
+const dotnetInstall =
+  "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -818,4 +823,11 @@ export const inputs: Input[] = [
     name: "argument-parser-getting-started",
     url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md`,
   },
+  // PowerShell runs on the TextMate engine.
+  { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },
+  { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
+  { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
+  { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
+  { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
+  { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
 ];

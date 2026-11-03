@@ -37,7 +37,8 @@ The decisions that created nishiki live in a private planning repository:
    - Scopes and colours for every language are measured against Shiki's samples.
    - Themes are TextMate themes in Shiki's format.
 4. **Nothing is downloaded at run time.**
-   Every supported language is built in.
+   Every supported language is built in when its feature is on.
+   Languages on nishiki's TextMate engine sit in the opt-in `textmate` tier, off by default and outside `all`, because the engine adds about 1.7 MB once (operator, 2026-11-03).
 5. **Nothing private ships.**
    The repository is private, but the crate's published source is public on crates.io,
    so nothing private goes into a packaged file.

@@ -63,6 +63,7 @@ pub(crate) struct Regex {
 
 impl Regex {
     /// Compiles `pattern` as Oniguruma reads it.
+    #[cfg(test)]
     pub(crate) fn new(pattern: &str) -> Result<Regex, Error> {
         Regex::build(pattern, Dialect::Oniguruma)
     }
@@ -148,6 +149,7 @@ impl Regex {
     }
 
     /// How many capture groups the pattern has.
+    #[cfg(test)]
     pub(crate) fn groups(&self) -> usize {
         self.program.groups
     }
