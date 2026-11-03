@@ -62,10 +62,25 @@ pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
 /// node can match without consuming anything, so what follows counts too.
 ///
 /// A class may hold non-ASCII members, so every non-ASCII lead byte may start
-/// one.
+/// one. A lookahead that needs a character limits the start to the characters
+/// it can begin with.
 pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     let all = |set: &mut [bool; 256]| set.iter_mut().for_each(|b| *b = true);
     match node {
+        Node::Look {
+            ahead: true,
+            negative: false,
+            node,
+        } => {
+            let mut inner = [false; 256];
+            if first_bytes(node, &mut inner) {
+                return true;
+            }
+            for (member, wanted) in set.iter_mut().zip(inner) {
+                *member |= wanted;
+            }
+            false
+        }
         Node::Empty | Node::Anchor(_) | Node::Look { .. } => true,
         Node::Char(c, case) => {
             let mut buffer = [0; 4];
@@ -195,5 +210,83 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
         | Node::Call(_)
         | Node::NamedCall(_)
         | Node::Anchor(_) => false,
+    }
+}
+
+/// Whether a match can depend on more than the text and where the search
+/// starts: `\A` and `\G` read what the caller says about the document.
+pub(super) fn uses_context(node: &Node) -> bool {
+    match node {
+        Node::Anchor(Anchor::StartText | Anchor::Search) => true,
+        Node::Anchor(
+            Anchor::Caret
+            | Anchor::Dollar
+            | Anchor::EndText
+            | Anchor::EndTextNewline
+            | Anchor::WordBoundary
+            | Anchor::NotWordBoundary,
+        )
+        | Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_) => false,
+        Node::Seq(items) | Node::Alt(items) => items.iter().any(uses_context),
+        Node::Repeat { node, .. }
+        | Node::Group { node, .. }
+        | Node::Look { node, .. }
+        | Node::Atomic(node) => uses_context(node),
+    }
+}
+
+/// A byte every match of `node` has somewhere at or after where it starts:
+/// the rarest ASCII character the pattern needs, so that a search can give up
+/// on text without it.
+pub(super) fn required_byte(node: &Node) -> Option<u8> {
+    let mut found = Vec::new();
+    collect_required(node, &mut found);
+    found.into_iter().min_by_key(|&byte| rank(byte))
+}
+
+/// How common a byte is in source text, lower for rarer.
+fn rank(byte: u8) -> u8 {
+    match byte {
+        b'a'..=b'z' | b'A'..=b'Z' | b'0'..=b'9' | b'_' => 3,
+        b' ' | b'.' | b',' | b'(' | b')' | b'=' | b'"' | b'\'' => 2,
+        _ => 1,
+    }
+}
+
+/// Adds the bytes `node` must find in the text ahead of its start.
+fn collect_required(node: &Node, out: &mut Vec<u8>) {
+    match node {
+        Node::Char(c, Case::Sensitive) if c.is_ascii() => {
+            let mut buffer = [0; 4];
+            out.extend(c.encode_utf8(&mut buffer).bytes());
+        }
+        Node::Seq(items) => items.iter().for_each(|item| collect_required(item, out)),
+        Node::Group { node, .. }
+        | Node::Atomic(node)
+        | Node::Look {
+            ahead: true,
+            negative: false,
+            node,
+        } => collect_required(node, out),
+        Node::Repeat { node, min, .. } if *min > 0 => collect_required(node, out),
+        Node::Repeat { .. }
+        | Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Alt(_)
+        | Node::Look { .. }
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => {}
     }
 }

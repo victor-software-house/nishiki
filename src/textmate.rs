@@ -14,6 +14,7 @@
 
 mod grammar;
 mod regex;
+mod scanner;
 mod tokenizer;
 
 #[cfg(test)]

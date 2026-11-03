@@ -2,7 +2,7 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, PatternSlot, Rule, RuleKind};
+use crate::textmate::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "comment.line.number-sign.shell",
@@ -331,6 +331,135 @@ static PATTERNS: [PatternSlot; 134] = [
     ),
 ];
 
+static LISTS: [List; 60] = [
+    List::new(&[
+        2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7, 28,
+        70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 160,
+        163, 22, 23, 24, 35, 88,
+    ]),
+    List::new(&[]),
+    List::new(&[4, 5]),
+    List::new(&[
+        9, 11, 53, 54, 55, 7, 2, 56, 57, 58, 4, 5, 6, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 28,
+        31, 60, 147, 149, 152, 72, 73, 76, 82, 83, 84, 86, 88,
+    ]),
+    List::new(&[11]),
+    List::new(&[
+        14, 15, 16, 17, 42, 44, 45, 46, 47, 48, 49, 50, 51, 22, 23, 24, 35,
+    ]),
+    List::new(&[14, 15, 16, 17, 42, 44, 45, 46, 47, 48, 49, 50, 51]),
+    List::new(&[14, 15, 16, 17, 42, 44]),
+    List::new(&[18, 19, 40, 41, 14, 15, 16, 17, 42, 44, 22, 23, 24, 35]),
+    List::new(&[18, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44]),
+    List::new(&[22, 23, 24, 35]),
+    List::new(&[25, 14, 15, 16, 17, 42, 44, 28, 31]),
+    List::new(&[28, 31]),
+    List::new(&[28]),
+    List::new(&[
+        30, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
+        28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86,
+        160, 163, 22, 23, 24, 35, 88,
+    ]),
+    List::new(&[30]),
+    List::new(&[
+        32, 33, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133,
+        55, 7, 28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83,
+        84, 86, 160, 163, 22, 23, 24, 35, 88,
+    ]),
+    List::new(&[34]),
+    List::new(&[36, 37, 38, 39]),
+    List::new(&[18, 19, 43, 14, 15, 16, 17, 42, 44, 22, 23, 24, 35]),
+    List::new(&[11, 53, 54]),
+    List::new(&[60, 147, 149, 152]),
+    List::new(&[
+        62, 65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57,
+        58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82,
+        83, 84, 86, 88, 30,
+    ]),
+    List::new(&[
+        65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58,
+        22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83,
+        84, 86, 88, 30,
+    ]),
+    List::new(&[65, 90, 93]),
+    List::new(&[
+        2, 66, 67, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44,
+        31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30, 89,
+    ]),
+    List::new(&[
+        2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147,
+        149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[55, 7, 28, 70]),
+    List::new(&[72, 73, 76]),
+    List::new(&[75, 14, 15, 16, 17, 42, 44, 28, 31]),
+    List::new(&[79, 80]),
+    List::new(&[82, 83, 84]),
+    List::new(&[86]),
+    List::new(&[88]),
+    List::new(&[
+        91, 65, 92, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44,
+        31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[
+        2, 22, 23, 24, 35, 93, 94, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 14, 15, 16, 17, 42,
+        44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[95, 103, 104, 106, 22, 23, 24, 35]),
+    List::new(&[96, 97, 14, 15, 16, 17, 42, 44, 98, 99, 103, 89]),
+    List::new(&[100, 101]),
+    List::new(&[102, 14, 15, 16, 17, 42, 44, 28, 31]),
+    List::new(&[
+        55, 7, 28, 70, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76,
+        79, 80, 82, 83, 84, 86, 88,
+    ]),
+    List::new(&[
+        108, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60,
+        147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30, 103,
+    ]),
+    List::new(&[
+        108, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60,
+        147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[110, 14, 15, 16, 17, 42, 44, 58, 111]),
+    List::new(&[2, 114, 115, 128]),
+    List::new(&[
+        117, 118, 119, 120, 121, 122, 123, 124, 125, 22, 23, 24, 35, 127,
+    ]),
+    List::new(&[126]),
+    List::new(&[
+        65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58,
+        22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83,
+        84, 86, 88, 30, 2, 6, 7, 55, 112, 155, 157, 158, 159, 142, 103, 160, 163,
+    ]),
+    List::new(&[130, 131]),
+    List::new(&[
+        22, 23, 24, 35, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 14, 15, 16, 17, 42, 44, 31, 60,
+        147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[
+        133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60,
+        147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
+    ]),
+    List::new(&[133]),
+    List::new(&[135]),
+    List::new(&[
+        103, 137, 138, 139, 140, 141, 104, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24,
+        35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88,
+        30,
+    ]),
+    List::new(&[137, 138, 139, 140, 141]),
+    List::new(&[
+        143, 144, 145, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103,
+        133, 55, 7, 28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82,
+        83, 84, 86, 160, 163, 22, 23, 24, 35, 88,
+    ]),
+    List::new(&[95, 103, 104, 106, 22, 23, 24, 35, 60, 147, 149, 152]),
+    List::new(&[151, 14, 15, 16, 17, 42, 44, 28, 31]),
+    List::new(&[155, 157, 158, 159]),
+    List::new(&[162]),
+];
+
 static RULES: &[Rule] = &[
     Rule {
         kind: RuleKind::Container,
@@ -341,11 +470,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -357,11 +482,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -398,7 +519,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -410,7 +531,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[4, 5],
+        list: 2,
         apply_end_last: false,
     },
     Rule {
@@ -422,7 +543,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -434,7 +555,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -471,7 +592,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -493,10 +614,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            9, 11, 53, 54, 55, 7, 2, 56, 57, 58, 4, 5, 6, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44,
-            28, 31, 60, 147, 149, 152, 72, 73, 76, 82, 83, 84, 86, 88,
-        ],
+        list: 3,
         apply_end_last: false,
     },
     Rule {
@@ -508,10 +626,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            9, 11, 53, 54, 55, 7, 2, 56, 57, 58, 4, 5, 6, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44,
-            28, 31, 60, 147, 149, 152, 72, 73, 76, 82, 83, 84, 86, 88,
-        ],
+        list: 3,
         apply_end_last: false,
     },
     Rule {
@@ -523,7 +638,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -535,7 +650,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[11],
+        list: 4,
         apply_end_last: false,
     },
     Rule {
@@ -557,9 +672,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            14, 15, 16, 17, 42, 44, 45, 46, 47, 48, 49, 50, 51, 22, 23, 24, 35,
-        ],
+        list: 5,
         apply_end_last: false,
     },
     Rule {
@@ -571,7 +684,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[14, 15, 16, 17, 42, 44, 45, 46, 47, 48, 49, 50, 51],
+        list: 6,
         apply_end_last: false,
     },
     Rule {
@@ -583,7 +696,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[14, 15, 16, 17, 42, 44],
+        list: 7,
         apply_end_last: false,
     },
     Rule {
@@ -608,7 +721,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -633,7 +746,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -658,7 +771,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -688,7 +801,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[18, 19, 40, 41, 14, 15, 16, 17, 42, 44, 22, 23, 24, 35],
+        list: 8,
         apply_end_last: false,
     },
     Rule {
@@ -700,7 +813,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -731,7 +844,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -743,7 +856,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[18, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44],
+        list: 9,
         apply_end_last: false,
     },
     Rule {
@@ -755,7 +868,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[22, 23, 24, 35],
+        list: 10,
         apply_end_last: false,
     },
     Rule {
@@ -767,7 +880,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -789,7 +902,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -811,7 +924,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[25, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 11,
         apply_end_last: false,
     },
     Rule {
@@ -823,7 +936,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -835,7 +948,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[28, 31],
+        list: 12,
         apply_end_last: false,
     },
     Rule {
@@ -847,7 +960,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[28],
+        list: 13,
         apply_end_last: false,
     },
     Rule {
@@ -869,11 +982,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            30, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133,
-            55, 7, 28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82,
-            83, 84, 86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 14,
         apply_end_last: false,
     },
     Rule {
@@ -885,7 +994,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[30],
+        list: 15,
         apply_end_last: false,
     },
     Rule {
@@ -907,11 +1016,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -933,11 +1038,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            32, 33, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103,
-            133, 55, 7, 28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80,
-            82, 83, 84, 86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 16,
         apply_end_last: false,
     },
     Rule {
@@ -949,7 +1050,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -966,7 +1067,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[34],
+        list: 17,
         apply_end_last: false,
     },
     Rule {
@@ -983,7 +1084,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1005,7 +1106,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[36, 37, 38, 39],
+        list: 18,
         apply_end_last: false,
     },
     Rule {
@@ -1017,7 +1118,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1029,7 +1130,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1041,7 +1142,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1053,7 +1154,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1065,7 +1166,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1077,7 +1178,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1107,7 +1208,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[18, 19, 43, 14, 15, 16, 17, 42, 44, 22, 23, 24, 35],
+        list: 19,
         apply_end_last: false,
     },
     Rule {
@@ -1119,7 +1220,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1144,7 +1245,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1156,7 +1257,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1168,7 +1269,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1180,7 +1281,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1192,7 +1293,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1204,7 +1305,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1216,7 +1317,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1228,7 +1329,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1240,7 +1341,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[11, 53, 54],
+        list: 20,
         apply_end_last: false,
     },
     Rule {
@@ -1252,7 +1353,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1264,7 +1365,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1286,10 +1387,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            9, 11, 53, 54, 55, 7, 2, 56, 57, 58, 4, 5, 6, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44,
-            28, 31, 60, 147, 149, 152, 72, 73, 76, 82, 83, 84, 86, 88,
-        ],
+        list: 3,
         apply_end_last: false,
     },
     Rule {
@@ -1301,7 +1399,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1332,7 +1430,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1381,7 +1479,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1393,7 +1491,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[60, 147, 149, 152],
+        list: 21,
         apply_end_last: false,
     },
     Rule {
@@ -1441,7 +1539,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1453,11 +1551,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            62, 65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56,
-            57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79,
-            80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 22,
         apply_end_last: false,
     },
     Rule {
@@ -1482,7 +1576,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1494,11 +1588,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57,
-            58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80,
-            82, 83, 84, 86, 88, 30,
-        ],
+        list: 23,
         apply_end_last: false,
     },
     Rule {
@@ -1510,7 +1600,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[65, 90, 93],
+        list: 24,
         apply_end_last: false,
     },
     Rule {
@@ -1582,10 +1672,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 66, 67, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42,
-            44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30, 89,
-        ],
+        list: 25,
         apply_end_last: false,
     },
     Rule {
@@ -1610,7 +1697,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1647,7 +1734,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1659,10 +1746,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60,
-            147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 26,
         apply_end_last: false,
     },
     Rule {
@@ -1674,7 +1758,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[55, 7, 28, 70],
+        list: 27,
         apply_end_last: false,
     },
     Rule {
@@ -1696,11 +1780,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -1712,7 +1792,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[72, 73, 76],
+        list: 28,
         apply_end_last: false,
     },
     Rule {
@@ -1756,7 +1836,7 @@ static RULES: &[Rule] = &[
                 retokenize: usize::MAX,
             },
         ],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1800,7 +1880,7 @@ static RULES: &[Rule] = &[
                 retokenize: usize::MAX,
             },
         ],
-        patterns: &[75, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 29,
         apply_end_last: false,
     },
     Rule {
@@ -1812,7 +1892,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[75, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 29,
         apply_end_last: false,
     },
     Rule {
@@ -1824,7 +1904,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1849,7 +1929,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1861,11 +1941,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -1877,7 +1953,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[79, 80],
+        list: 30,
         apply_end_last: false,
     },
     Rule {
@@ -1899,11 +1975,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -1915,7 +1987,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1927,7 +1999,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[82, 83, 84],
+        list: 31,
         apply_end_last: false,
     },
     Rule {
@@ -1939,7 +2011,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1951,7 +2023,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -1981,11 +2053,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -1997,7 +2065,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[86],
+        list: 32,
         apply_end_last: false,
     },
     Rule {
@@ -2009,7 +2077,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2021,7 +2089,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[88],
+        list: 33,
         apply_end_last: false,
     },
     Rule {
@@ -2033,7 +2101,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2045,7 +2113,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2062,10 +2130,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[
-            91, 65, 92, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42,
-            44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 34,
         apply_end_last: false,
     },
     Rule {
@@ -2077,7 +2142,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2174,7 +2239,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2235,10 +2300,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[
-            2, 22, 23, 24, 35, 93, 94, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 14, 15, 16, 17,
-            42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 35,
         apply_end_last: false,
     },
     Rule {
@@ -2250,7 +2312,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[95, 103, 104, 106, 22, 23, 24, 35],
+        list: 36,
         apply_end_last: false,
     },
     Rule {
@@ -2262,7 +2324,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[96, 97, 14, 15, 16, 17, 42, 44, 98, 99, 103, 89],
+        list: 37,
         apply_end_last: false,
     },
     Rule {
@@ -2274,7 +2336,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2286,7 +2348,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2303,7 +2365,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2340,7 +2402,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[100, 101],
+        list: 38,
         apply_end_last: false,
     },
     Rule {
@@ -2357,7 +2419,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2374,7 +2436,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[102, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 39,
         apply_end_last: false,
     },
     Rule {
@@ -2386,7 +2448,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2398,7 +2460,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2423,10 +2485,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[
-            55, 7, 28, 70, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73,
-            76, 79, 80, 82, 83, 84, 86, 88,
-        ],
+        list: 40,
         apply_end_last: false,
     },
     Rule {
@@ -2438,10 +2497,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            55, 7, 28, 70, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73,
-            76, 79, 80, 82, 83, 84, 86, 88,
-        ],
+        list: 40,
         apply_end_last: false,
     },
     Rule {
@@ -2453,10 +2509,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            108, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31,
-            60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30, 103,
-        ],
+        list: 41,
         apply_end_last: false,
     },
     Rule {
@@ -2468,10 +2521,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            108, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31,
-            60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 42,
         apply_end_last: false,
     },
     Rule {
@@ -2488,7 +2538,7 @@ static RULES: &[Rule] = &[
             retokenize: 109,
         }],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2500,7 +2550,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[110, 14, 15, 16, 17, 42, 44, 58, 111],
+        list: 43,
         apply_end_last: false,
     },
     Rule {
@@ -2512,7 +2562,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2529,7 +2579,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2565,7 +2615,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[2, 114, 115, 128],
+        list: 44,
         apply_end_last: false,
     },
     Rule {
@@ -2577,11 +2627,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -2598,7 +2644,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2615,9 +2661,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            117, 118, 119, 120, 121, 122, 123, 124, 125, 22, 23, 24, 35, 127,
-        ],
+        list: 45,
         apply_end_last: false,
     },
     Rule {
@@ -2629,9 +2673,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            117, 118, 119, 120, 121, 122, 123, 124, 125, 22, 23, 24, 35, 127,
-        ],
+        list: 45,
         apply_end_last: false,
     },
     Rule {
@@ -2643,7 +2685,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2655,7 +2697,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2667,7 +2709,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2679,7 +2721,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2691,7 +2733,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2703,7 +2745,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2715,7 +2757,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2737,9 +2779,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            117, 118, 119, 120, 121, 122, 123, 124, 125, 22, 23, 24, 35, 127,
-        ],
+        list: 45,
         apply_end_last: false,
     },
     Rule {
@@ -2761,7 +2801,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[126],
+        list: 46,
         apply_end_last: false,
     },
     Rule {
@@ -2773,7 +2813,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2785,7 +2825,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2802,11 +2842,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57,
-            58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80,
-            82, 83, 84, 86, 88, 30, 2, 6, 7, 55, 112, 155, 157, 158, 159, 142, 103, 160, 163,
-        ],
+        list: 47,
         apply_end_last: false,
     },
     Rule {
@@ -2818,7 +2854,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[130, 131],
+        list: 48,
         apply_end_last: false,
     },
     Rule {
@@ -2849,10 +2885,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[
-            22, 23, 24, 35, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 14, 15, 16, 17, 42, 44, 31,
-            60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 49,
         apply_end_last: false,
     },
     Rule {
@@ -2869,10 +2902,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[
-            133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31,
-            60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 50,
         apply_end_last: false,
     },
     Rule {
@@ -2884,7 +2914,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[133],
+        list: 51,
         apply_end_last: false,
     },
     Rule {
@@ -2906,9 +2936,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            14, 15, 16, 17, 42, 44, 45, 46, 47, 48, 49, 50, 51, 22, 23, 24, 35,
-        ],
+        list: 5,
         apply_end_last: false,
     },
     Rule {
@@ -2920,7 +2948,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[135],
+        list: 52,
         apply_end_last: false,
     },
     Rule {
@@ -2937,11 +2965,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        patterns: &[
-            103, 137, 138, 139, 140, 141, 104, 89, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23,
-            24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 88, 30,
-        ],
+        list: 53,
         apply_end_last: false,
     },
     Rule {
@@ -2953,7 +2977,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[137, 138, 139, 140, 141],
+        list: 54,
         apply_end_last: false,
     },
     Rule {
@@ -2965,7 +2989,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2977,7 +3001,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -2989,7 +3013,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3001,7 +3025,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3013,7 +3037,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3068,11 +3092,7 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[],
-        patterns: &[
-            143, 144, 145, 2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142,
-            103, 133, 55, 7, 28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79,
-            80, 82, 83, 84, 86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 55,
         apply_end_last: true,
     },
     Rule {
@@ -3084,7 +3104,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3106,11 +3126,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3132,11 +3148,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3148,7 +3160,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[95, 103, 104, 106, 22, 23, 24, 35, 60, 147, 149, 152],
+        list: 56,
         apply_end_last: false,
     },
     Rule {
@@ -3196,7 +3208,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3208,11 +3220,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            62, 65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56,
-            57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79,
-            80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 22,
         apply_end_last: false,
     },
     Rule {
@@ -3248,7 +3256,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[151, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 57,
         apply_end_last: false,
     },
     Rule {
@@ -3260,11 +3268,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            62, 65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56,
-            57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79,
-            80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 22,
         apply_end_last: false,
     },
     Rule {
@@ -3276,7 +3280,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3312,7 +3316,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[151, 14, 15, 16, 17, 42, 44, 28, 31],
+        list: 57,
         apply_end_last: false,
     },
     Rule {
@@ -3324,11 +3328,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            62, 65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56,
-            57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79,
-            80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 22,
         apply_end_last: false,
     },
     Rule {
@@ -3340,7 +3340,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[155, 157, 158, 159],
+        list: 58,
         apply_end_last: false,
     },
     Rule {
@@ -3376,11 +3376,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3392,7 +3388,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[22, 23, 24, 35],
+        list: 10,
         apply_end_last: false,
     },
     Rule {
@@ -3414,11 +3410,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3448,11 +3440,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3474,11 +3462,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        patterns: &[
-            2, 4, 5, 6, 7, 55, 65, 90, 93, 112, 130, 131, 155, 157, 158, 159, 142, 103, 133, 55, 7,
-            28, 70, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84,
-            86, 160, 163, 22, 23, 24, 35, 88,
-        ],
+        list: 0,
         apply_end_last: false,
     },
     Rule {
@@ -3582,10 +3566,7 @@ static RULES: &[Rule] = &[
                 retokenize: usize::MAX,
             },
         ],
-        patterns: &[
-            2, 4, 5, 6, 55, 7, 28, 70, 56, 57, 58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60,
-            147, 149, 152, 72, 73, 76, 79, 80, 82, 83, 84, 86, 88, 30,
-        ],
+        list: 26,
         apply_end_last: false,
     },
     Rule {
@@ -3597,7 +3578,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[162],
+        list: 59,
         apply_end_last: false,
     },
     Rule {
@@ -3609,7 +3590,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[],
+        list: 1,
         apply_end_last: false,
     },
     Rule {
@@ -3621,11 +3602,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        patterns: &[
-            65, 90, 93, 112, 130, 131, 135, 142, 146, 103, 133, 2, 4, 5, 6, 55, 7, 28, 70, 56, 57,
-            58, 22, 23, 24, 35, 14, 15, 16, 17, 42, 44, 31, 60, 147, 149, 152, 72, 73, 76, 79, 80,
-            82, 83, 84, 86, 88, 30,
-        ],
+        list: 23,
         apply_end_last: false,
     },
 ];
@@ -3635,6 +3612,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: "source.shell",
     names: NAMES,
     rules: RULES,
+    lists: &LISTS,
     patterns: &PATTERNS,
     root: 0,
 };

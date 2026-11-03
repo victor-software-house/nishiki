@@ -15,8 +15,11 @@
 
 use std::collections::HashMap;
 
-use super::grammar::{Cap, DYNAMIC_NAME, Grammar, NONE, Rule, RuleKind};
+use regex_automata::meta::Cache;
+
+use super::grammar::{Cap, DYNAMIC_NAME, Grammar, List, NONE, Rule, RuleKind};
 use super::regex::{self, Context, Regex};
+use super::scanner::Scanner;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scope::Scope;
@@ -35,6 +38,12 @@ const MAX_END: u32 = (1 << 15) - 1;
 const FIRST: u32 = 1;
 /// A state the arena has not been given yet.
 const NEW: u32 = u32::MAX;
+/// The start a pattern has when it matches nowhere in the rest of the line.
+const NO_MATCH: u32 = u32::MAX;
+/// Machine steps per step of the work limit: the limit counts decisions of a
+/// lexer, and one decision of the engine is some dozens of the machine's
+/// instructions. Chosen so that no oracle line spends half its default budget.
+const STEP: u64 = 32;
 /// The capture groups a match keeps: more are never named by a grammar.
 const GROUPS: usize = 32;
 
@@ -82,6 +91,20 @@ struct Frame {
     content: u32,
 }
 
+/// The match that starts first so far.
+#[derive(Clone, Copy)]
+struct Best {
+    start: usize,
+    /// The rule it opens, or `None` for the `end` pattern.
+    rule: Option<usize>,
+    /// Its place in the order the rules are tried: the `end` pattern first,
+    /// then the list, or last with `applyEndPatternLast`.
+    order: usize,
+    pat: Pat,
+    /// Whether its groups are in the `best` scratch.
+    groups_kept: bool,
+}
+
 /// What a search runs.
 #[derive(Clone, Copy)]
 enum Pat {
@@ -89,6 +112,29 @@ enum Pat {
     Table(usize),
     /// A pattern built from a match, in [`Scratch::dynamic`].
     Built(usize),
+}
+
+impl Scratch {
+    /// Hands the automata's caches back to their scanners, so that the next
+    /// highlighter of the grammar does not build their states again.
+    fn release_caches(&mut self) {
+        let Some(grammar) = self.cached_for else {
+            return;
+        };
+        for (index, slot) in self.meta_caches.iter_mut().enumerate() {
+            if let Some(cache) = slot.take()
+                && let Some(list) = grammar.lists.get(index)
+            {
+                list.scanner(grammar).give_cache(cache);
+            }
+        }
+    }
+}
+
+impl Drop for Scratch {
+    fn drop(&mut self) {
+        self.release_caches();
+    }
 }
 
 /// The buffers and caches the tokenizer keeps between lines.
@@ -103,7 +149,25 @@ pub(crate) struct Scratch {
     /// The scope of each name of the grammar the caches belong to.
     scopes: Vec<Option<Scope>>,
     cached_for: Option<&'static Grammar>,
+    /// Per pattern of the grammar: the line it was searched on and where its
+    /// next match starts.
+    found: Vec<(u32, u32)>,
+    /// Per list of rules: the line it was scanned on, where its next match
+    /// starts and which rule of the list it opens.
+    list_found: Vec<(u32, u32, u32)>,
+    meta_caches: Vec<Option<Cache>>,
+    /// Whether the scanners are left out, to measure what they gain.
+    pub(crate) no_scanner: bool,
+    /// The steps the last line spent.
+    pub(crate) spent: u64,
+    epoch: u32,
+    /// The last `end` or `while` pattern filled with a match's groups, kept
+    /// so that filling the next reuses its buffer.
+    filled: String,
+    /// Each filled pattern, compiled once: its text is interned in the arena,
+    /// so the arena's node limit and [`MAX_END`] bound how many there are.
     dynamic: Vec<Option<Regex>>,
+    /// The place in `dynamic` of each interned pattern number.
     dynamic_ids: HashMap<u32, usize>,
 }
 
@@ -139,20 +203,41 @@ pub(crate) fn line(
     out: &mut Vec<Token>,
     report: &mut LineReport,
 ) -> u32 {
+    scratch.spent = 0;
     if line.is_empty() {
         return state;
     }
     if !scratch.cached_for.is_some_and(|g| std::ptr::eq(g, grammar)) {
+        scratch.release_caches();
         scratch.cached_for = Some(grammar);
         scratch.scopes.clear();
         scratch.scopes.resize(grammar.names.len(), None);
+        scratch.found.clear();
+        scratch.found.resize(grammar.patterns.len(), (0, NO_MATCH));
+        scratch.list_found.clear();
+        scratch
+            .list_found
+            .resize(grammar.lists.len(), (0, NO_MATCH, 0));
+        scratch.meta_caches.clear();
+        scratch
+            .meta_caches
+            .resize_with(grammar.lists.len(), || None);
+        scratch.epoch = 0;
+    }
+    scratch.epoch = scratch.epoch.wrapping_add(1);
+    if scratch.epoch == 0 {
+        scratch.found.iter_mut().for_each(|f| f.0 = 0);
+        scratch.list_found.iter_mut().for_each(|f| f.0 = 0);
+        scratch.epoch = 1;
     }
     scratch.text.clear();
     scratch.text.extend_from_slice(line);
     scratch.text.push(b'\n');
     let mut frames = std::mem::take(&mut scratch.frames);
     let first = rebuild(grammar, arena, state, &mut frames);
-    let steps = limits.work.map_or(u64::MAX, |work| work.steps(line.len()));
+    let steps = limits
+        .work
+        .map_or(u64::MAX, |work| work.steps(line.len()).saturating_mul(STEP));
     let out_start = out.len();
     let mut tokenizer = Tokenizer {
         grammar,
@@ -181,6 +266,7 @@ pub(crate) fn line(
     let top = frames.last().map_or(ROOT, |f| f.content);
     tokenizer.produce(top, line.len());
     let next = tokenizer.intern(&mut frames);
+    tokenizer.s.spent = steps.saturating_sub(tokenizer.steps);
     tokenizer.s.frames = frames;
     next
 }
@@ -235,9 +321,10 @@ fn rebuild(grammar: &Grammar, arena: &Arena, state: u32, frames: &mut Vec<Frame>
     first
 }
 
-/// Replaces `\1`..`\9` in `source` by the escaped text of the groups.
-fn fill_backrefs(source: &str, text: &[u8], caps: &Caps) -> String {
-    let mut out = String::with_capacity(source.len());
+/// Writes `source` into `out` with `\1`..`\9` replaced by the escaped text
+/// of the groups, reusing `out`'s buffer.
+fn fill_backrefs(source: &str, text: &[u8], caps: &Caps, out: &mut String) {
+    out.clear();
     let mut chars = source.chars();
     while let Some(c) = chars.next() {
         if c != '\\' {
@@ -253,8 +340,8 @@ fn fill_backrefs(source: &str, text: &[u8], caps: &Caps) -> String {
                 .ok()
                 .and_then(|d| caps.get(d).copied().flatten())
                 .and_then(|(s, e)| text.get(s..e))
-                .map_or_else(String::new, |t| String::from_utf8_lossy(t).into_owned());
-            for g in group.chars() {
+                .unwrap_or_default();
+            for g in String::from_utf8_lossy(group).chars() {
                 if "-\\{}*+?|^$.,[]()# \t\n".contains(g) {
                     out.push('\\');
                 }
@@ -265,7 +352,6 @@ fn fill_backrefs(source: &str, text: &[u8], caps: &Caps) -> String {
             out.push(next);
         }
     }
-    out
 }
 
 /// A scope name with `$1` replaced by the text of group 1.
@@ -378,18 +464,85 @@ impl Tokenizer<'_> {
         stack
     }
 
-    /// Keeps the search that just matched if it starts before the best so
-    /// far (the earlier rule wins a tie).
+    /// Where `pat` next matches at or after `from`, and whether the search
+    /// ran now, leaving its groups in `cur`.
+    ///
+    /// A pattern that reads nothing but the text gives the same match from
+    /// every position up to its start, and none from any later position when
+    /// it found none, so the answer is kept for the rest of the line.
+    fn probe(
+        &mut self,
+        pat: Pat,
+        from: usize,
+        end: usize,
+        anchor: usize,
+        allow_a: DocStart,
+    ) -> (Option<usize>, bool) {
+        let slot = match pat {
+            Pat::Table(index)
+                if end == self.s.text.len()
+                    && self
+                        .grammar
+                        .patterns
+                        .get(index)
+                        .and_then(|p| p.regex())
+                        .is_some_and(Regex::context_free) =>
+            {
+                Some(index)
+            }
+            Pat::Table(_) | Pat::Built(_) => None,
+        };
+        if let Some(index) = slot
+            && let Some(&(epoch, start)) = self.s.found.get(index)
+            && epoch == self.s.epoch
+        {
+            if start == NO_MATCH {
+                return (None, false);
+            }
+            if let Ok(start) = usize::try_from(start)
+                && start >= from
+            {
+                return (Some(start), false);
+            }
+        }
+        let found = self.search(pat, from, end, anchor, allow_a);
+        let start = found.then(|| self.s.cur.group(0).map_or(from, |g| g.0));
+        if let Some(index) = slot
+            && !self.stopped
+            && let Some(entry) = self.s.found.get_mut(index)
+        {
+            let stored = match start {
+                None => Some(NO_MATCH),
+                Some(at) => u32::try_from(at).ok(),
+            };
+            if let Some(stored) = stored {
+                *entry = (self.s.epoch, stored);
+            }
+        }
+        (start, true)
+    }
+
+    /// Keeps `start` as the best match if it starts before the best so far
+    /// (the earlier rule wins a tie).
     fn consider(
         &mut self,
-        pos: usize,
+        (start, fresh): (Option<usize>, bool),
         rule: Option<usize>,
-        best: &mut Option<(usize, Option<usize>)>,
+        (pat, order): (Pat, usize),
+        best: &mut Option<Best>,
     ) {
-        let start = self.s.cur.group(0).map_or(pos, |g| g.0);
-        if best.is_none_or(|(s, _)| start < s) {
-            std::mem::swap(&mut self.s.cur, &mut self.s.best);
-            *best = Some((start, rule));
+        let Some(start) = start else { return };
+        if best.is_none_or(|b| (start, order) < (b.start, b.order)) {
+            if fresh {
+                std::mem::swap(&mut self.s.cur, &mut self.s.best);
+            }
+            *best = Some(Best {
+                start,
+                rule,
+                order,
+                pat,
+                groups_kept: fresh,
+            });
         }
     }
 
@@ -402,8 +555,11 @@ impl Tokenizer<'_> {
         if !slot.backrefs {
             return 0;
         }
-        let source = fill_backrefs(slot.source, &self.s.text, caps);
-        match self.arena.intern(&source) {
+        let mut filled = std::mem::take(&mut self.s.filled);
+        fill_backrefs(slot.source, &self.s.text, caps, &mut filled);
+        let interned = self.arena.intern(&filled);
+        self.s.filled = filled;
+        match interned {
             Some(id) if id > FIRST && id <= MAX_END => id,
             _ => {
                 self.report.record(Limit::Nodes);
@@ -454,6 +610,187 @@ impl Tokenizer<'_> {
         let index = self.s.dynamic.len() - 1;
         self.s.dynamic_ids.insert(end, index);
         Pat::Built(index)
+    }
+
+    /// Offers every rule of a list to `best`, through the list's scanner
+    /// unless the scanners are off.
+    fn scan_list(
+        &mut self,
+        list_id: usize,
+        (pos, end, anchor, allow_a): (usize, usize, usize, DocStart),
+        best: &mut Option<Best>,
+    ) {
+        let list: &'static List = &self.grammar.lists[list_id];
+        let decided = |best: &Option<Best>, order: usize| {
+            best.is_some_and(|b| b.start == pos && b.order < order)
+        };
+        if self.s.no_scanner {
+            for (index, &id) in list.rules.iter().enumerate() {
+                if self.stopped || decided(best, index + 1) {
+                    return;
+                }
+                let pat = Pat::Table(self.grammar.rules[id].begin);
+                let probed = self.probe(pat, pos, end, anchor, allow_a);
+                self.consider(probed, Some(id), (pat, index + 1), best);
+            }
+            return;
+        }
+        let scanner = list.scanner(self.grammar);
+        for &index in &scanner.residual {
+            if self.stopped || decided(best, index + 1) {
+                break;
+            }
+            let id = list.rules[index];
+            let pat = Pat::Table(self.grammar.rules[id].begin);
+            let probed = self.probe(pat, pos, end, anchor, allow_a);
+            self.consider(probed, Some(id), (pat, index + 1), best);
+        }
+        if self.stopped || decided(best, 1) {
+            return;
+        }
+        let (found, fresh) = self.winner(list_id, list, scanner, pos, end);
+        if let Some((start, index)) = found {
+            let id = list.rules[index];
+            let pat = Pat::Table(self.grammar.rules[id].begin);
+            self.consider((Some(start), fresh), Some(id), (pat, index + 1), best);
+        }
+    }
+
+    /// The first rule of a list the scanner covers that matches at or after
+    /// `from`: where it starts and its place in the list, and whether the
+    /// search ran now, leaving its groups in `cur`. Kept for the rest of the
+    /// line like a pattern's match.
+    fn winner(
+        &mut self,
+        list_id: usize,
+        list: &'static List,
+        scanner: &'static Scanner,
+        from: usize,
+        end: usize,
+    ) -> (Option<(usize, usize)>, bool) {
+        let cacheable = end == self.s.text.len();
+        if cacheable
+            && let Some(&(epoch, start, index)) = self.s.list_found.get(list_id)
+            && epoch == self.s.epoch
+        {
+            if start == NO_MATCH {
+                return (None, false);
+            }
+            if let (Ok(start), Ok(index)) = (usize::try_from(start), usize::try_from(index))
+                && start >= from
+            {
+                return (Some((start, index)), false);
+            }
+        }
+        let found = self.scan(list_id, list, scanner, from, end);
+        if cacheable
+            && !self.stopped
+            && let Some(entry) = self.s.list_found.get_mut(list_id)
+        {
+            let stored = match found {
+                None => Some((NO_MATCH, 0)),
+                Some((start, index)) => u32::try_from(start).ok().zip(u32::try_from(index).ok()),
+            };
+            if let Some((start, index)) = stored {
+                *entry = (self.s.epoch, start, index);
+            }
+        }
+        (found, true)
+    }
+
+    /// Runs the automaton from `from`, and the exact machine at each place it
+    /// finds, until a pattern really matches.
+    ///
+    /// The automaton reads every byte it passes, and the work limit counts
+    /// them: a line of candidates that each read to its end would otherwise
+    /// cost the square of its length.
+    fn scan(
+        &mut self,
+        list_id: usize,
+        list: &'static List,
+        scanner: &'static Scanner,
+        from: usize,
+        end: usize,
+    ) -> Option<(usize, usize)> {
+        let mut cache = match self.s.meta_caches.get_mut(list_id)?.take() {
+            Some(cache) => cache,
+            None => scanner.take_cache()?,
+        };
+        let mut at = from;
+        let mut found = None;
+        while at < end && !self.stopped {
+            let Some(text) = self.s.text.get(..end) else {
+                break;
+            };
+            let candidate = scanner.candidate(&mut cache, text, at);
+            let read = candidate
+                .map_or(end, |(_, _, stop)| stop)
+                .saturating_sub(at);
+            self.charge(u64::try_from(read + 1).unwrap_or(u64::MAX));
+            let Some((start, first, _)) = candidate else {
+                break;
+            };
+            if self.stopped {
+                break;
+            }
+            let Some(&byte) = self.s.text.get(start) else {
+                break;
+            };
+            for index in scanner.starting_with(byte, first) {
+                let pat = Pat::Table(self.grammar.rules[list.rules[index]].begin);
+                if self.match_at(pat, start, end) {
+                    found = Some((start, index));
+                    break;
+                }
+                if self.stopped {
+                    break;
+                }
+            }
+            if found.is_some() {
+                break;
+            }
+            at = start + 1;
+            while self.s.text.get(at).is_some_and(|&b| b & 0xc0 == 0x80) {
+                at += 1;
+            }
+        }
+        if let Some(slot) = self.s.meta_caches.get_mut(list_id) {
+            *slot = Some(cache);
+        }
+        found
+    }
+
+    /// Spends `amount` steps of the line's work, and ends the line when none
+    /// are left.
+    fn charge(&mut self, amount: u64) {
+        self.steps = self.steps.saturating_sub(amount);
+        if self.steps == 0 && !self.stopped {
+            self.stopped = true;
+            self.report.record(Limit::Work);
+        }
+    }
+
+    /// Whether `pat`, a pattern of the grammar that reads only the text,
+    /// matches exactly at `at`, leaving its groups in `cur`.
+    fn match_at(&mut self, pat: Pat, at: usize, end: usize) -> bool {
+        let regex = match pat {
+            Pat::Table(index) => self.grammar.patterns.get(index).and_then(|p| p.regex()),
+            Pat::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
+        };
+        let Some(regex) = regex else { return false };
+        let Some(text) = self.s.text.get(..end) else {
+            return false;
+        };
+        let context = Context {
+            search: None,
+            text_start: false,
+        };
+        let found = regex.match_at(&mut self.s.cur, text, at, context, &mut self.steps);
+        if self.steps == 0 && !found {
+            self.stopped = true;
+            self.report.record(Limit::Work);
+        }
+        found
     }
 
     fn tokenize_string(
@@ -512,8 +849,11 @@ impl Tokenizer<'_> {
     }
 
     /// One step of the loop; true when the line is done. The match that
-    /// starts first wins, kept as where it starts and the rule it opens, or
-    /// `None` for the `end` pattern, which closes the open rule.
+    /// starts first wins, and a match of the `end` pattern closes the open
+    /// rule.
+    ///
+    /// A match kept from an earlier search holds no groups, so it is found
+    /// again from where it starts.
     fn scan_next(
         &mut self,
         end: usize,
@@ -526,38 +866,39 @@ impl Tokenizer<'_> {
             return true;
         };
         let rule: &'static Rule = &self.grammar.rules[top.rule];
-        let mut best: Option<(usize, Option<usize>)> = None;
+        let mut best: Option<Best> = None;
         let end_pat = (rule.kind == RuleKind::BeginEnd).then(|| self.end_pat(rule.end, top.end));
         if !rule.apply_end_last
             && let Some(pat) = end_pat
-            && self.search(pat, *pos, end, *anchor, *allow_a)
         {
-            self.consider(*pos, None, &mut best);
+            let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
+            self.consider(probed, None, (pat, 0), &mut best);
         }
-        for &id in rule.patterns {
-            if self.stopped || best.is_some_and(|(s, _)| s == *pos) {
-                break;
-            }
-            let child = &self.grammar.rules[id];
-            if self.search(Pat::Table(child.begin), *pos, end, *anchor, *allow_a) {
-                self.consider(*pos, Some(id), &mut best);
-            }
-        }
+        self.scan_list(rule.list, (*pos, end, *anchor, *allow_a), &mut best);
         if rule.apply_end_last
             && !self.stopped
             && let Some(pat) = end_pat
-            && self.search(pat, *pos, end, *anchor, *allow_a)
         {
-            self.consider(*pos, None, &mut best);
+            let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
+            self.consider(probed, None, (pat, usize::MAX), &mut best);
         }
         if self.stopped {
             return true;
         }
-        let Some((_, matched)) = best else {
+        let Some(best) = best else {
             self.produce(top.content, end);
             return true;
         };
-        let caps = read_caps(&self.s.best);
+        let matched = best.rule;
+        let caps = if best.groups_kept {
+            read_caps(&self.s.best)
+        } else {
+            if !self.search(best.pat, best.start, end, *anchor, *allow_a) {
+                self.produce(top.content, end);
+                return true;
+            }
+            read_caps(&self.s.cur)
+        };
         let (s, e) = caps[0].unwrap_or((*pos, *pos));
         let advanced = e > *pos;
         let depth = frames.len();

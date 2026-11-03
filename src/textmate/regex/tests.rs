@@ -127,7 +127,7 @@ fn a_search_that_spends_its_steps_gives_up() {
     let regex = Regex::new("(a*)*b").unwrap();
     let mut scratch = Scratch::default();
     let mut steps = 10_000;
-    let text = "a".repeat(40);
+    let text = format!("{}cb", "a".repeat(40));
     let context = Context {
         search: None,
         text_start: true,
@@ -154,4 +154,19 @@ fn bad_patterns_are_errors() {
     ] {
         assert!(Regex::new(pattern).is_err(), "{pattern}");
     }
+}
+
+#[test]
+fn a_lookahead_that_needs_a_character_limits_where_a_match_starts() {
+    assert_eq!(find("(?=ab)", "xxab"), Some((2, 2)));
+    assert_eq!(find("x*(?=<b)", "ccxx<b"), Some((2, 4)));
+    assert_eq!(find("(?<=c)(?=d)", "ab cd"), Some((4, 4)));
+    assert_eq!(find("a+(?=x<)", "aaxy"), None);
+}
+
+#[test]
+fn a_required_character_missing_from_the_text_ends_the_search() {
+    assert_eq!(find("a.*<", "aaa b"), None);
+    assert_eq!(find("a.*<", "aaa < b"), Some((0, 5)));
+    assert_eq!(find("(?:a|b)<", "zz<"), None);
 }

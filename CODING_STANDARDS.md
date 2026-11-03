@@ -171,7 +171,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - The crate depends on `memchr` alone.
 - A feature may add one dependency when it removes more work or risk than it adds,
-  and the change says why (`json` adds `serde_json`).
+  and the change says why (`json` adds `serde_json`, and the engine's hidden `_textmate` feature adds `regex-automata`).
 - A dependency is pure Rust.
   One that builds C or carries unsafe code needs a recorded reason.
 

@@ -142,7 +142,7 @@ _rule-engine = ["_classes"]
 _rule-tables = ["_rule-engine"]
 _space = []
 # nishiki's own TextMate engine, which runs bundled grammars.
-_textmate = []
+_textmate = ["dep:regex-automata"]
 _utf8 = []
 
 # Theme::from_json, for theme files in Shiki's JSON format. Not the JSON
@@ -151,6 +151,16 @@ json = ["dep:serde_json"]
 
 [dependencies]
 memchr = "2.8.3"
+regex-automata = { version = "0.4.18", optional = true, default-features = false, features = [
+  "std",
+  "syntax",
+  "meta",
+  "nfa-pikevm",
+  "nfa-backtrack",
+  "hybrid",
+  "dfa-onepass",
+  "perf-literal",
+] }
 serde_json = { version = "1.0.154", optional = true }
 
 [[test]]

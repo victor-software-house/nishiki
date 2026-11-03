@@ -7,6 +7,7 @@
 use std::sync::OnceLock;
 
 use super::regex::Regex;
+use super::scanner::Scanner;
 
 /// The index that stands for no rule, pattern or name.
 pub(crate) const NONE: usize = usize::MAX;
@@ -62,10 +63,36 @@ pub(crate) struct Rule {
     pub(crate) captures: &'static [Cap],
     /// The groups of the `end` or `while` pattern.
     pub(crate) end_captures: &'static [Cap],
-    /// The rules that can start inside the rule, in order, includes followed.
-    pub(crate) patterns: &'static [usize],
+    /// The rules that can start inside the rule, in order, includes
+    /// followed: an index into [`Grammar::lists`].
+    pub(crate) list: usize,
     /// Whether the `end` pattern is tried after the patterns, not before.
     pub(crate) apply_end_last: bool,
+}
+
+/// An ordered list of rules that can start at one place, and the scanner
+/// that finds the next of them in a line.
+#[derive(Debug)]
+pub(crate) struct List {
+    /// The rules, in the order of the grammar.
+    pub(crate) rules: &'static [usize],
+    scanner: OnceLock<Scanner>,
+}
+
+impl List {
+    /// A list of `rules`.
+    pub(crate) const fn new(rules: &'static [usize]) -> List {
+        List {
+            rules,
+            scanner: OnceLock::new(),
+        }
+    }
+
+    /// The list's scanner, built when first needed.
+    pub(crate) fn scanner(&self, grammar: &Grammar) -> &Scanner {
+        self.scanner
+            .get_or_init(|| Scanner::build(grammar, self.rules))
+    }
 }
 
 /// Whether `source` holds a back-reference `\1`..`\9`, which an `end` or
@@ -123,6 +150,8 @@ pub(crate) struct Grammar {
     pub(crate) names: &'static [&'static str],
     /// The rules.
     pub(crate) rules: &'static [Rule],
+    /// The lists of rules, shared by the rules that start the same ones.
+    pub(crate) lists: &'static [List],
     /// The patterns.
     pub(crate) patterns: &'static [PatternSlot],
     /// The rule of the whole grammar.

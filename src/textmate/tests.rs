@@ -21,6 +21,14 @@ mod shell_tables;
 #[path = "../../tests/engine/typescript.rs"]
 mod typescript_tables;
 
+/// Whether the engine finds where rules start with its scanners, or searches
+/// every rule alone, to check that both give one output.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Scanners {
+    On,
+    Off,
+}
+
 /// One source line of a fixture and Shiki's scope stack for each byte.
 struct Line {
     text: String,
@@ -86,7 +94,9 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
             continue;
         }
         let rule = &grammar.rules[id];
-        todo.extend(rule.patterns);
+        if let Some(list) = grammar.lists.get(rule.list) {
+            todo.extend(list.rules);
+        }
         todo.extend(
             rule.captures
                 .iter()
@@ -137,10 +147,11 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 
 /// The bytes of `lines` whose stack differs from Shiki's, with a message for
 /// each of the first few.
-fn run(grammar: &'static Grammar, lines: &[Line]) -> (usize, usize, String) {
+fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
     let mut arena = Arena::new(None);
     let limits = Limits::unlimited();
     let mut scratch = Scratch::default();
+    scratch.no_scanner = scanners == Scanners::Off;
     let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
     let mut names: HashMap<u32, String> = HashMap::new();
     let (mut checked, mut missed) = (0, 0);
@@ -205,10 +216,10 @@ fn run(grammar: &'static Grammar, lines: &[Line]) -> (usize, usize, String) {
     (checked, missed, message)
 }
 
-fn check(grammar: &'static Grammar, language: &str) {
+fn check(grammar: &'static Grammar, language: &str, scanners: Scanners) {
     let mut failures = Vec::new();
     for path in fixtures(language) {
-        let (checked, missed, message) = run(grammar, &parse(&path));
+        let (checked, missed, message) = run(grammar, &parse(&path), scanners);
         if missed > 0 {
             failures.push(format!(
                 "{}: {missed} of {checked} bytes differ{message}",
@@ -221,20 +232,168 @@ fn check(grammar: &'static Grammar, language: &str) {
 
 #[test]
 fn rust_grammar_matches_shiki() {
-    check(&rust_tables::GRAMMAR, "rust");
+    check(&rust_tables::GRAMMAR, "rust", Scanners::On);
 }
 
 #[test]
 fn shell_grammar_matches_shiki() {
-    check(&shell_tables::GRAMMAR, "shellscript");
+    check(&shell_tables::GRAMMAR, "shellscript", Scanners::On);
 }
 
 #[test]
 fn typescript_grammar_matches_shiki() {
-    check(&typescript_tables::GRAMMAR, "typescript");
+    check(&typescript_tables::GRAMMAR, "typescript", Scanners::On);
 }
 
 #[test]
 fn markdown_grammar_matches_shiki() {
-    check(&markdown_tables::GRAMMAR, "markdown");
+    check(&markdown_tables::GRAMMAR, "markdown", Scanners::On);
+}
+
+#[test]
+fn every_grammar_matches_shiki_without_the_scanners() {
+    check(&rust_tables::GRAMMAR, "rust", Scanners::Off);
+    check(&shell_tables::GRAMMAR, "shellscript", Scanners::Off);
+    check(&typescript_tables::GRAMMAR, "typescript", Scanners::Off);
+    check(&markdown_tables::GRAMMAR, "markdown", Scanners::Off);
+}
+
+/// Times the engine on the fixtures of one language, in MiB/s: the best of
+/// five passes, each with a fresh scratch (a document of its own, whose lazy
+/// automata start empty) and the best of five passes that reuse one scratch,
+/// and the slowest line's best time in the fresh passes. The first pass is
+/// not timed: it builds the scanners, which a program builds once.
+/// Run with `cargo test --release --lib engine_speed -- --ignored --nocapture`.
+#[expect(
+    clippy::cast_precision_loss,
+    clippy::as_conversions,
+    reason = "a measurement that prints its table"
+)]
+fn speed(grammar: &'static Grammar, language: &str, limits: &Limits, scanners: Scanners) {
+    use std::time::Instant;
+    for path in fixtures(language) {
+        let lines = parse(&path);
+        let bytes: usize = lines.iter().map(|l| l.text.len() + 1).sum();
+        let mut worst = vec![f64::MAX; lines.len()];
+        let pass = |scratch: &mut Scratch, worst: Option<&mut Vec<f64>>| {
+            let mut arena = Arena::new(limits.nodes);
+            scratch.no_scanner = scanners == Scanners::Off;
+            let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+            let mut out = Vec::new();
+            let mut worst = worst;
+            let begin = Instant::now();
+            for (number, line) in lines.iter().enumerate() {
+                out.clear();
+                let mut report = LineReport::default();
+                let t = Instant::now();
+                state = tokenizer::line(
+                    grammar,
+                    scratch,
+                    &mut arena,
+                    limits,
+                    line.text.as_bytes(),
+                    state,
+                    &mut out,
+                    &mut report,
+                );
+                if let Some(worst) = worst.as_deref_mut() {
+                    worst[number] = worst[number].min(t.elapsed().as_secs_f64());
+                }
+            }
+            begin.elapsed().as_secs_f64()
+        };
+        pass(&mut Scratch::default(), None);
+        let cold = (0..5)
+            .map(|_| pass(&mut Scratch::default(), Some(&mut worst)))
+            .fold(f64::MAX, f64::min);
+        let mut scratch = Scratch::default();
+        let warm = (0..5)
+            .map(|_| pass(&mut scratch, None))
+            .fold(f64::MAX, f64::min);
+        let mut sorted = worst.clone();
+        sorted.sort_by(f64::total_cmp);
+        let p99 = sorted[sorted.len() * 99 / 100];
+        let max = sorted[sorted.len() - 1];
+        let mib = |seconds: f64| bytes as f64 / seconds / 1_048_576.0;
+        eprintln!(
+            "{language:12} {:32} cold {:7.2}  warm {:7.2} MiB/s  p99 {:7.1} us  max {:7.1} us",
+            path.file_stem().and_then(|s| s.to_str()).unwrap_or(""),
+            mib(cold),
+            mib(warm),
+            p99 * 1e6,
+            max * 1e6,
+        );
+    }
+}
+
+#[test]
+#[ignore = "a measurement, run in release mode"]
+fn engine_speed() {
+    let limits = Limits::default();
+    for scanners in [Scanners::Off, Scanners::On] {
+        eprintln!(
+            "scanners {}",
+            if scanners == Scanners::Off {
+                "off"
+            } else {
+                "on"
+            }
+        );
+        speed(&rust_tables::GRAMMAR, "rust", &limits, scanners);
+        speed(&shell_tables::GRAMMAR, "shellscript", &limits, scanners);
+        speed(&typescript_tables::GRAMMAR, "typescript", &limits, scanners);
+        speed(&markdown_tables::GRAMMAR, "markdown", &limits, scanners);
+    }
+}
+
+/// The most work any oracle line costs the machine, as a share of the
+/// default budget of 64 steps a byte plus 4,096, at 32 machine steps each.
+#[test]
+#[ignore = "a measurement"]
+#[expect(
+    clippy::cast_precision_loss,
+    clippy::as_conversions,
+    reason = "a measurement that prints its table"
+)]
+fn work_per_line() {
+    let grammars: [(&str, &'static Grammar); 4] = [
+        ("rust", &rust_tables::GRAMMAR),
+        ("shellscript", &shell_tables::GRAMMAR),
+        ("typescript", &typescript_tables::GRAMMAR),
+        ("markdown", &markdown_tables::GRAMMAR),
+    ];
+    for (language, grammar) in grammars {
+        let mut worst = 0.0_f64;
+        let mut worst_line = String::new();
+        for path in fixtures(language) {
+            let lines = parse(&path);
+            let mut arena = Arena::new(None);
+            let mut scratch = Scratch::default();
+            let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+            for line in &lines {
+                let mut out = Vec::new();
+                let mut report = LineReport::default();
+                state = tokenizer::line(
+                    grammar,
+                    &mut scratch,
+                    &mut arena,
+                    &Limits::unlimited(),
+                    line.text.as_bytes(),
+                    state,
+                    &mut out,
+                    &mut report,
+                );
+                let budget = (64 * line.text.len() + 4096) * 32;
+                let ratio = scratch.spent as f64 / budget as f64;
+                if ratio > worst {
+                    worst = ratio;
+                    worst_line = format!("{} steps: {:?}", scratch.spent, line.text);
+                }
+            }
+        }
+        eprintln!(
+            "{language:12} worst line {worst:5.2} of the default budget  {}",
+            worst_line.chars().take(90).collect::<String>()
+        );
+    }
 }

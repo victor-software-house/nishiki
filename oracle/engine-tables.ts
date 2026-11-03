@@ -284,12 +284,25 @@ for (const id of ids) {
           `Cap { index: ${c.index}, name: ${refs(c.name)}, content_name: ${refs(c.contentName)}, retokenize: ${idx(c.retokenize)} }`,
       )
       .join(", ")}]`;
+  const listIds = new Map<string, number>();
+  const lists: number[][] = [];
+  const listOf = (patterns: number[]) => {
+    const key = patterns.join(",");
+    let id = listIds.get(key);
+    if (id === undefined) {
+      id = lists.length;
+      lists.push(patterns);
+      listIds.set(key, id);
+    }
+    return id;
+  };
   const rules = builder.rules
     .map(
       (r) =>
-        `    Rule { kind: RuleKind::${r.kind}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, patterns: &[${r.patterns.join(", ")}], apply_end_last: ${r.applyEndLast} },`,
+        `    Rule { kind: RuleKind::${r.kind}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns)}, apply_end_last: ${r.applyEndLast} },`,
     )
     .join("\n");
+  const listSource = () => lists.map((l) => `    List::new(&[${l.join(", ")}]),`).join("\n");
   const patterns = builder.patterns
     .map((p) => `    PatternSlot::new(${rustString(p)}),`)
     .join("\n");
@@ -297,7 +310,7 @@ for (const id of ids) {
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
 
-use crate::textmate::grammar::{Cap, Grammar, PatternSlot, Rule, RuleKind};
+use crate::textmate::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
 ${names}
@@ -305,6 +318,10 @@ ${names}
 
 static PATTERNS: [PatternSlot; ${builder.patterns.length}] = [
 ${patterns}
+];
+
+static LISTS: [List; ${lists.length}] = [
+${listSource()}
 ];
 
 static RULES: &[Rule] = &[
@@ -316,6 +333,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: ${rustString(scope)},
     names: NAMES,
     rules: RULES,
+    lists: &LISTS,
     patterns: &PATTERNS,
     root: ${root},
 };

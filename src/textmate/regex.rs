@@ -11,12 +11,13 @@ mod analysis;
 mod ast;
 mod parse;
 mod program;
+mod relax;
 mod vm;
 
 #[cfg(test)]
 mod tests;
 
-use analysis::{Starts, anchors, first_bytes, literal_prefix};
+use analysis::{Starts, anchors, first_bytes, literal_prefix, required_byte, uses_context};
 use memchr::{memchr, memchr2, memchr3, memmem};
 pub(crate) use parse::Error;
 use program::{Program, compile};
@@ -47,6 +48,15 @@ pub(crate) struct Regex {
     program: Program,
     prefilter: Prefilter,
     anchored: Option<Starts>,
+    context_free: bool,
+    /// The pattern as a plain expression that matches at least what the
+    /// pattern does, for an automaton that finds where a match can start;
+    /// `None` for a pattern that depends on the document or can match no text.
+    relaxed: Option<String>,
+    /// The bytes a match can start with; `None` when it can match nothing.
+    first: Option<Box<[bool; 256]>>,
+    /// A byte every match has at or after its start.
+    required: Option<u8>,
 }
 
 impl Regex {
@@ -59,6 +69,10 @@ impl Regex {
         let mut set = [false; 256];
         let nullable = first_bytes(&parsed.root, &mut set);
         let members: Vec<u8> = (0..=255_u8).filter(|&b| set[usize::from(b)]).collect();
+        let context_free = !uses_context(&parsed.root);
+        let widened = relax::widen(&parsed.root);
+        let relaxed =
+            (context_free && analysis::width(&widened).0 > 0).then(|| relax::source(&widened));
         let prefilter = if prefix.len() >= 2 {
             Prefilter::Literal(Box::new(memmem::Finder::new(&prefix).into_owned()))
         } else if nullable || members.len() == 256 {
@@ -75,7 +89,51 @@ impl Regex {
             program,
             prefilter,
             anchored,
+            context_free,
+            relaxed,
+            first: (!nullable).then(|| Box::new(set)),
+            required: required_byte(&parsed.root),
         })
+    }
+
+    /// Whether a match depends only on the text and where the search starts,
+    /// so that a match found from one position is the match found from any
+    /// position up to its start.
+    pub(crate) fn context_free(&self) -> bool {
+        self.context_free
+    }
+
+    /// The pattern as a plain expression that matches at least what it does.
+    pub(crate) fn relaxed(&self) -> Option<&str> {
+        self.relaxed.as_deref()
+    }
+
+    /// Whether a match can start with `byte`.
+    pub(crate) fn can_start_with(&self, byte: u8) -> bool {
+        self.first
+            .as_ref()
+            .is_none_or(|first| first[usize::from(byte)])
+    }
+
+    /// Matches `text` at exactly `at`, leaving the groups in `scratch`. Only
+    /// for a pattern that is [`context_free`](Regex::context_free).
+    pub(crate) fn match_at(
+        &self,
+        scratch: &mut Scratch,
+        text: &[u8],
+        at: usize,
+        context: Context,
+        steps: &mut u64,
+    ) -> bool {
+        scratch.reset(&self.program);
+        let mut machine = Machine {
+            program: &self.program,
+            text,
+            context,
+            steps,
+            scratch,
+        };
+        try_at(&mut machine, at)
     }
 
     /// How many capture groups the pattern has.
@@ -98,6 +156,13 @@ impl Regex {
         context: Context,
         steps: &mut u64,
     ) -> bool {
+        if let Some(byte) = self.required
+            && text
+                .get(from..)
+                .is_none_or(|rest| memchr(byte, rest).is_none())
+        {
+            return false;
+        }
         scratch.reset(&self.program);
         let mut machine = Machine {
             program: &self.program,
