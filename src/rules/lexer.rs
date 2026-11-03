@@ -458,10 +458,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         s.get(start..end).unwrap_or(&[])
     }
 
-    /// The text of capture group `group` of the last match.
+    /// The text of capture group `group` of the last match, cut at the end of
+    /// the line, and empty where the group starts past it.
     pub(crate) fn cap_text(&self, group: usize) -> &'a [u8] {
-        let s = self.s;
-        self.caps[group].map_or(&[][..], |(start, end)| &s[start..end.min(s.len())])
+        self.caps[group].map_or(&[][..], |(start, end)| {
+            self.text(start, end.min(self.s.len()))
+        })
     }
 
     // Spans.
@@ -1266,5 +1268,32 @@ mod tests {
                 (6, "close.test")
             ]
         );
+    }
+
+    #[test]
+    fn a_group_past_the_end_of_the_line_has_no_text() {
+        let mut arena = Arena::new(None);
+        let limits = Limits::default();
+        let mut tokens = Vec::new();
+        let mut report = LineReport::default();
+        let mut scratch = Scratch::<Brackets>::default();
+        let text = Text {
+            bytes: b"ab",
+            start: 0,
+            anchored: false,
+        };
+        let mut lexer = Lexer::new(
+            &mut arena,
+            &limits,
+            text,
+            &mut tokens,
+            ROOT,
+            &mut report,
+            &mut scratch,
+        );
+        lexer.caps[1] = Some((1, 3));
+        lexer.caps[2] = Some((3, 4));
+        assert_eq!(lexer.cap_text(1), b"b");
+        assert_eq!(lexer.cap_text(2), b"");
     }
 }
