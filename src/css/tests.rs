@@ -212,3 +212,15 @@ fn charset_is_the_charset_rule_on_the_first_line_only() {
     );
     assert_eq!(scope_of(&rows[1], "charset"), "keyword.control.at-rule.css");
 }
+
+/// The grammar ignores case in the lookahead that starts a selector at a name
+/// that could be a property, such as `mark`, `font` or `mask`, so an
+/// upper-case `Mark` that nothing on its line ends as a declaration starts
+/// one too.
+#[test]
+fn a_shared_name_in_upper_case_starts_a_selector() {
+    for name in ["mark", "Mark", "MARK", "Font", "Mask"] {
+        let rows = lex_lines(&["a {", &format!("  {name} it"), "}"]);
+        assert_eq!(scope_of(&rows[1], name), "entity.name.tag.css", "{name}");
+    }
+}

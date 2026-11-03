@@ -432,7 +432,9 @@ export function startOf(
     // Syntax the analysis does not read: a match can start anywhere.
     return { set: FULL(), bol: false, any: true, wb: false };
   }
-  let set = result.set;
+  // A match that starts with a lookaround starts at the bytes the lookaround
+  // reads, which `(?i)` folds like the rest.
+  let set = result.empty === null ? result.set : union(result.set, result.empty);
   if (ci || source.includes("(?i")) {
     for (let b = 65; b <= 90; b++) {
       const has = (set[b >> 6]! >> BigInt(b & 63)) & 1n || (set[(b + 32) >> 6]! >> BigInt((b + 32) & 63)) & 1n;
@@ -449,7 +451,6 @@ export function startOf(
     }
     if (has(107)) add(set, 0xe2);
   }
-  if (result.empty !== null) set = union(set, result.empty);
   return { set, bol: result.bol, any: result.any, wb: result.wb };
 }
 
