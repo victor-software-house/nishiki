@@ -9,6 +9,7 @@
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
+use super::matchers::{is_command_name, is_name, is_unquoted};
 use super::scope::S;
 use super::state::Rule;
 
@@ -328,10 +329,6 @@ fn name_or_blank(b: u8) -> bool {
     b.is_ascii_alphanumeric() || matches!(b, b'_' | b'-' | b' ' | b'\t')
 }
 
-fn name_byte(b: u8) -> bool {
-    b.is_ascii_alphanumeric() || matches!(b, b'_' | b'-')
-}
-
 fn redirect_start(b: u8) -> bool {
     b.is_ascii_digit() || matches!(b, b'&' | b'<' | b'>')
 }
@@ -340,29 +337,8 @@ fn number_start(b: u8) -> bool {
     b.is_ascii_digit() || b == b'-'
 }
 
-fn unquoted(b: u8) -> bool {
-    !matches!(
-        b,
-        b'\t'
-            | b'\n'
-            | b' '
-            | b'"'
-            | b'$'
-            | b'&'
-            | b'\''
-            | b'('
-            | b')'
-            | b';'
-            | b'<'
-            | b'>'
-            | b'\\'
-            | b'`'
-            | b'|'
-    )
-}
-
 fn blank_or_unquoted(b: u8) -> bool {
-    matches!(b, b' ' | b'\t') || unquoted(b)
+    matches!(b, b' ' | b'\t') || is_unquoted(b)
 }
 
 fn case_char(b: u8) -> bool {
@@ -399,27 +375,6 @@ fn math_name(b: u8) -> bool {
 
 fn builtin_start(b: u8) -> bool {
     b.is_ascii_alphabetic() || matches!(b, b'.' | b':')
-}
-
-fn command_name(b: u8) -> bool {
-    !matches!(
-        b,
-        b'\t'
-            | b'\n'
-            | b'\r'
-            | b' '
-            | b'"'
-            | b'&'
-            | b'\''
-            | b')'
-            | b';'
-            | b'<'
-            | b'='
-            | b'>'
-            | b'`'
-            | b'{'
-            | b'|'
-    )
 }
 
 fn command_statement_start(b: u8) -> bool {
@@ -487,7 +442,7 @@ impl Pat {
             Pat::FloatKw => Bytes(b"tedif"),
             Pat::Support => Bytes(b".:"),
             Pat::Numeric => Class(number_start),
-            Pat::Unquoted => Class(unquoted),
+            Pat::Unquoted => Class(is_unquoted),
             Pat::CaseDefault => Bytes(b" \t*"),
             Pat::CaseStar | Pat::WildcardStar => Bytes(b"*"),
             Pat::CasePlus => Bytes(b"+"),
@@ -511,11 +466,11 @@ impl Pat {
             | Pat::CaseClassB
             | Pat::LogicalDoubleB
             | Pat::LogicalSingleB => Bytes(b"["),
-            Pat::ParamName | Pat::ArrayNameEq | Pat::ModMatch => Class(name_byte),
+            Pat::ParamName | Pat::ArrayNameEq | Pat::ModMatch => Class(is_name),
             Pat::ArgMatch => Class(blank_or_unquoted),
             Pat::CmdKeyword => Bytes(b"crb"),
             Pat::CmdBuiltin => Class(builtin_start),
-            Pat::CmdName => Class(command_name),
+            Pat::CmdName => Class(is_command_name),
             Pat::ModOption | Pat::LogicalTest => Bytes(b"-"),
             Pat::LogicalOp => Bytes(b"=!<>&|"),
             Pat::RegexCompare => Bytes(b"="),
@@ -581,9 +536,9 @@ pub(crate) struct RuleInfo {
     pub(crate) end_lit: &'static [u8],
     /// For [`Pat::EndLit`]: the scopes of that text.
     pub(crate) end_scopes: &'static [S],
-    /// The patterns of the rule, in order.
-    pub(crate) pats: Box<[Pat]>,
-    /// The end pattern and the patterns, in the order they are tried.
+    /// The end pattern and the patterns, in the order they are tried. A
+    /// rule's builder leaves the patterns alone here, and [`with_tables`]
+    /// places the end among them.
     pub(crate) order: Box<[Pat]>,
     /// For the byte before a position: which zero-width patterns can match
     /// there, as a slot of [`RuleInfo::candidates`].
@@ -840,8 +795,7 @@ fn info(
         end_last: false,
         end_lit: b"",
         end_scopes: &[],
-        pats: flatten(groups),
-        order: Box::new([]),
+        order: flatten(groups),
         after: [0; 256],
         index: Vec::new(),
         arena: Vec::new(),
@@ -1312,6 +1266,13 @@ fn build(rule: Rule) -> RuleInfo {
 /// Fills the candidate lists of `info`: for each byte at a position and each
 /// byte before it, the patterns that can match there. Positions whose list is
 /// empty are skipped without trying anything.
+/// Builds the candidate tables of `info`.
+///
+/// The zero-width patterns that depend on the byte before are listed in
+/// order, and each byte before a position activates a set of them, a bit
+/// each: at most eight, and at most 256 distinct sets, which
+/// `every_rule_fits_its_tables` checks, so the fallbacks never apply. What
+/// each pattern needs is computed once, so the lists only look it up.
 fn with_tables(mut info: RuleInfo) -> RuleInfo {
     let mut order: Vec<Pat> = Vec::new();
     if let Some(end) = info.end
@@ -1319,20 +1280,18 @@ fn with_tables(mut info: RuleInfo) -> RuleInfo {
     {
         order.push(end);
     }
-    order.extend(info.pats.iter().copied());
+    order.extend(info.order.iter().copied());
     if let Some(end) = info.end
         && info.end_last
     {
         order.push(end);
     }
-    // The zero-width patterns that depend on the byte before, in order.
     let mut zero_width: Vec<(Pat, &'static [u8])> = Vec::new();
     for &pat in &order {
         if let Start::After(set) = pat.start() {
             zero_width.push((pat, set));
         }
     }
-    // Each byte before a position activates a set of them, as a bit mask.
     let mut masks: Vec<u8> = vec![0];
     for b in 0..=u8::MAX {
         let mut mask = 0_u8;
@@ -1349,7 +1308,6 @@ fn with_tables(mut info: RuleInfo) -> RuleInfo {
         };
         info.after[usize::from(b)] = u8::try_from(slot).unwrap_or_default();
     }
-    // What each pattern needs, once, so that the lists below only look up.
     let classes: Vec<([bool; 256], Option<usize>)> = order
         .iter()
         .map(|&pat| {
@@ -1416,4 +1374,27 @@ static TABLE: [OnceLock<RuleInfo>; Rule::ALL.len()] = [const { OnceLock::new() }
 /// The table of `rule`.
 pub(crate) fn rule_info(rule: Rule) -> &'static RuleInfo {
     TABLE[rule.index()].get_or_init(|| with_tables(build(rule)))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{Start, rule_info};
+    use crate::shell::state::Rule;
+
+    #[test]
+    fn every_rule_fits_its_tables() {
+        for &rule in &Rule::ALL {
+            let info = rule_info(rule);
+            let zero_width = info
+                .order
+                .iter()
+                .filter(|pat| matches!(pat.start(), Start::After(_)))
+                .count();
+            assert!(
+                zero_width <= 8,
+                "{rule:?}: {zero_width} zero-width patterns"
+            );
+            assert!(info.slots() <= 256, "{rule:?}: {} sets", info.slots());
+        }
+    }
 }

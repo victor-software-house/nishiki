@@ -71,9 +71,4 @@ for (const [name, list] of Object.entries(lists)) {
   const sorted = [...new Set(list)].sort();
   out += `pub(super) const ${name}: &[&str] = &[\n${sorted.map((w) => `    "${w}",\n`).join("")}];\n\n`;
 }
-out += `/// Whether \`word\` is in the sorted \`list\`.
-pub(super) fn has(list: &[&str], word: &[u8]) -> bool {
-    list.binary_search_by(|probe| probe.as_bytes().cmp(word)).is_ok()
-}
-`;
 await Bun.write(new URL("../src/c/words.rs", import.meta.url).pathname, out);

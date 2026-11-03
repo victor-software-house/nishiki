@@ -6,7 +6,7 @@ use super::state::R;
 
 /// The words a Doxygen command may be, in the order the grammar lists them.
 /// Each entry of a list stands for one alternative; `em??` is `e` then `em`.
-const DOXY_BARE: &[&str] = &[
+pub(super) const DOXY_BARE: &[&str] = &[
     "callergraph",
     "callgraph",
     "else",
@@ -47,7 +47,7 @@ const DOXY_BARE: &[&str] = &[
     "---",
 ];
 
-const DOXY_A: &[&str] = &[
+pub(super) const DOXY_A: &[&str] = &[
     "a",
     "anchor",
     "b",
@@ -86,7 +86,7 @@ const DOXY_A: &[&str] = &[
     "verbinclude",
 ];
 
-const DOXY_B: &[&str] = &[
+pub(super) const DOXY_B: &[&str] = &[
     "addindex",
     "addtogroup",
     "category",
@@ -127,7 +127,7 @@ const DOXY_B: &[&str] = &[
     "weakgroup",
 ];
 
-const DOXY_C: &[&str] = &[
+pub(super) const DOXY_C: &[&str] = &[
     "arg",
     "attention",
     "author",
@@ -166,7 +166,7 @@ const DOXY_C: &[&str] = &[
     "xrefitem",
 ];
 
-const DOXY_D: &[&str] = &[
+pub(super) const DOXY_D: &[&str] = &[
     "code",
     "cond",
     "docbookonly",
@@ -384,10 +384,12 @@ impl Lexer<'_> {
                 return Some((i, j + 1));
             }
             if j >= end {
+                self.spend(j - p);
                 return None;
             }
             i = j + 1;
         }
+        self.spend(i - p);
         None
     }
 
@@ -441,16 +443,9 @@ impl Lexer<'_> {
     }
 
     /// A command that is one of `list`, as a plain match.
-    pub(super) fn doxy_plain(&mut self, p: usize, which: u8) -> bool {
+    pub(super) fn doxy_plain(&mut self, p: usize, list: &[&str]) -> bool {
         let Some(q) = self.doxy_lead(p) else {
             return false;
-        };
-        let list = match which {
-            0 => DOXY_BARE,
-            1 => DOXY_A,
-            2 => DOXY_B,
-            3 => DOXY_C,
-            _ => DOXY_D,
         };
         let Some(end) = self.doxy_word(q, list) else {
             return false;
@@ -477,6 +472,7 @@ impl Lexer<'_> {
             while arg_end < self.len_all() && self.space_at(arg_end) == 0 {
                 arg_end += self.width_at(arg_end);
             }
+            self.spend(arg_end - arg_start);
             if arg_end == arg_start {
                 continue;
             }
@@ -574,6 +570,7 @@ impl Lexer<'_> {
             while matches!(self.b(e), b'_' | b'a'..=b'z') && e < self.len_all() {
                 e += 1;
             }
+            self.spend(e - p);
             return e > p + 1 && self.b(e) == b':' && self.plain(p, e + 1, &[S::StorageGtkdoc]);
         }
         if !self.b(p).is_ascii_uppercase() || self.word_before(p) {
@@ -583,6 +580,7 @@ impl Lexer<'_> {
         while self.b(e).is_ascii_uppercase() && e < self.len_all() {
             e += 1;
         }
+        self.spend(e - p);
         self.b(e) == b':' && self.plain(p, e + 1, &[S::StorageGtkdoc])
     }
 

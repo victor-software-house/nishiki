@@ -921,9 +921,3 @@ pub(super) const DEFINE_EXCL: &[&str] = &[
     "xor",
     "xor_eq",
 ];
-
-/// Whether `word` is in the sorted `list`.
-pub(super) fn has(list: &[&str], word: &[u8]) -> bool {
-    list.binary_search_by(|probe| probe.as_bytes().cmp(word))
-        .is_ok()
-}

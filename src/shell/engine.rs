@@ -16,6 +16,7 @@ use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// A scope whose name ends in text of the line, such as the digits of `2>`.
@@ -71,6 +72,72 @@ struct Find {
     valid: bool,
 }
 
+/// The searches with a lazy `.+?` that scan ahead, each answered from the
+/// last search of its kind; see [`Lexer::find_from`].
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Lazy {
+    /// The word of a `case`, up to `in`.
+    CaseWord,
+    /// The variable of a `for`, up to white space and `in`.
+    ForVariable,
+    /// The index of an array element, up to `]=`.
+    ArrayIndex,
+}
+
+/// The last search of each [`Lazy`] kind.
+#[derive(Debug)]
+struct Finds {
+    case_word: Cell<Find>,
+    for_variable: Cell<Find>,
+    array_index: Cell<Find>,
+}
+
+impl Finds {
+    fn new() -> Self {
+        Finds {
+            case_word: Cell::new(Find::NONE),
+            for_variable: Cell::new(Find::NONE),
+            array_index: Cell::new(Find::NONE),
+        }
+    }
+
+    fn of(&self, lazy: Lazy) -> &Cell<Find> {
+        match lazy {
+            Lazy::CaseWord => &self.case_word,
+            Lazy::ForVariable => &self.for_variable,
+            Lazy::ArrayIndex => &self.array_index,
+        }
+    }
+}
+
+impl Find {
+    const NONE: Find = Find {
+        from: 0,
+        lim: 0,
+        nl: false,
+        answer: None,
+        valid: false,
+    };
+}
+
+/// A run of function-name characters: where it starts and ends, and the end
+/// of the text it was found in.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct NameRun {
+    pub(crate) start: usize,
+    pub(crate) end: usize,
+    pub(crate) lim: usize,
+}
+
+/// An answer of [`Lexer::name_run`]: where it was asked, the end of the
+/// text, and the answer.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct NameAnswer {
+    pub(crate) at: usize,
+    pub(crate) lim: usize,
+    pub(crate) end: Option<usize>,
+}
+
 /// Two things that happen while a line is lexed.
 #[derive(Clone, Copy, Debug, Default)]
 struct Flags {
@@ -118,6 +185,15 @@ struct PushEntry {
 
 const PATH_ENTRIES: usize = 512;
 const PUSH_ENTRIES: usize = 256;
+
+/// Odd multipliers that spread the parts of a cache key over the slots
+/// before they are combined: the high bits of the golden ratio
+/// (`0x9e3779b9`) and of a `MurmurHash3` finaliser constant (`0x85ebca6b`),
+/// and a small prime. Any odd constants keep the caches correct; these
+/// only make collisions rarer.
+const MIX_STATE: usize = 0x9e37;
+const MIX_SCOPES: usize = 0x85eb;
+const MIX_CODE: usize = 31;
 
 /// What a highlighter keeps from line to line, so that lexing a line
 /// allocates nothing once it has grown, and the hot lookups of the arena are
@@ -197,20 +273,20 @@ pub(crate) struct Lexer<'a> {
     pushes: Vec<Option<PushEntry>>,
     flags: Flags,
     /// The searches that scan ahead, one per kind of search.
-    finds: [Cell<Find>; FINDS],
+    finds: Finds,
     /// The last run of function-name characters found: where it starts and
     /// ends, and the end of the text. A search from inside it ends where it
     /// does.
-    pub(crate) function_name_run: Cell<(usize, usize, usize)>,
+    pub(crate) function_name_run: Cell<NameRun>,
     /// The last [`Lexer::name_run`] answer: where it was asked, the end of
     /// the text, and the answer. Several rules ask about the same word.
-    pub(crate) names: Cell<(usize, usize, Option<usize>)>,
+    pub(crate) names: Cell<NameAnswer>,
 }
 
-/// The kinds of search that scan ahead; see [`Lexer::find_from`].
-pub(crate) const FINDS: usize = 4;
-
 impl<'a> Lexer<'a> {
+    /// A lexer for one line from `state`. Its open rules are the ones the
+    /// last line left in `scratch` when that line ended in `state`, and
+    /// otherwise the state's chain of frames, rebuilt from its root down.
     pub(crate) fn new(
         arena: &'a mut Arena,
         limits: &'a Limits,
@@ -254,22 +330,21 @@ impl<'a> Lexer<'a> {
             paths: std::mem::take(&mut scratch.paths),
             pushes: std::mem::take(&mut scratch.pushes),
             flags: Flags::default(),
-            finds: [const {
-                Cell::new(Find {
-                    from: 0,
-                    lim: 0,
-                    nl: false,
-                    answer: None,
-                    valid: false,
-                })
-            }; FINDS],
-            function_name_run: Cell::new((0, 0, 0)),
-            names: Cell::new((usize::MAX, 0, None)),
+            finds: Finds::new(),
+            function_name_run: Cell::new(NameRun {
+                start: 0,
+                end: 0,
+                lim: 0,
+            }),
+            names: Cell::new(NameAnswer {
+                at: usize::MAX,
+                lim: 0,
+                end: None,
+            }),
         };
         if resume {
             lexer.frames.extend_from_slice(&scratch.resume_frames);
         } else {
-            // The open rules of `state`, from its root down.
             chain.clear();
             let mut id = state;
             loop {
@@ -313,11 +388,13 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the line, returns the state after it, and gives the buffers back
     /// to `scratch`.
+    ///
+    /// The next line may resume the open rules only when they are the
+    /// state's chain: each a state of its own, which a node limit can deny,
+    /// and none that kept its begin scopes.
     pub(crate) fn run(mut self, scratch: &mut Scratch) -> u32 {
         self.tokenize();
         let state = self.top().state;
-        // The open rules are the state's chain when each is a state of its
-        // own, which a node limit can deny, and none kept begin scopes.
         let exact = !self.flags.kept
             && self
                 .frames
@@ -378,8 +455,9 @@ impl<'a> Lexer<'a> {
         i == self.lim || (self.nl && i == self.lim + 1)
     }
 
+    /// Whether the text at `i` starts with `text`. The first byte decides
+    /// almost always, so it is compared before the rest.
     pub(crate) fn starts(&self, i: usize, text: &[u8]) -> bool {
-        // The first byte decides almost always, without a call to compare.
         text.first().is_some_and(|b| self.s.get(i) == Some(b))
             && self
                 .s
@@ -417,16 +495,16 @@ impl<'a> Lexer<'a> {
     /// holds, stepping a character at a time.
     ///
     /// A pattern with a lazy `.+?` scans ahead like this, and a line made of
-    /// such tokens would scan to its end for each. `kind` names the test: the
+    /// such tokens would scan to its end for each. `lazy` names the test: the
     /// answer of the last search of that kind answers a later one that starts
     /// no earlier and no later than the answer.
     pub(crate) fn find_from(
         &self,
-        kind: usize,
+        lazy: Lazy,
         from: usize,
         test: impl Fn(&Self, usize) -> bool,
     ) -> Option<usize> {
-        let known = self.finds[kind].get();
+        let known = self.finds.of(lazy).get();
         if known.valid
             && known.lim == self.lim
             && known.nl == self.nl
@@ -446,7 +524,7 @@ impl<'a> Lexer<'a> {
             }
             e = self.char_end(e);
         };
-        self.finds[kind].set(Find {
+        self.finds.of(lazy).set(Find {
             from,
             lim: self.lim,
             nl: self.nl,
@@ -458,13 +536,7 @@ impl<'a> Lexer<'a> {
 
     /// The end of the character at `i`, which is a whole UTF-8 sequence.
     pub(crate) fn char_end(&self, i: usize) -> usize {
-        let len = match self.s[i] {
-            0xf0.. => 4,
-            0xe0.. => 3,
-            0xc0.. => 2,
-            _ => 1,
-        };
-        (i + len).min(self.lim)
+        (i + char_len(self.s[i])).min(self.lim)
     }
 
     // Spans.
@@ -550,8 +622,8 @@ impl<'a> Lexer<'a> {
             return base;
         }
         let ptr = scopes.as_ptr().addr();
-        let slot =
-            (usize::try_from(base).unwrap_or(0).wrapping_mul(0x9e37) ^ (ptr >> 3)) % PATH_ENTRIES;
+        let slot = (usize::try_from(base).unwrap_or(0).wrapping_mul(MIX_STATE) ^ (ptr >> 3))
+            % PATH_ENTRIES;
         if let Some(entry) = self.paths[slot]
             && entry.base == base
             && entry.ptr == ptr
@@ -626,11 +698,11 @@ impl<'a> Lexer<'a> {
         let code = rule.code();
         let slot = (usize::try_from(parent_state)
             .unwrap_or(0)
-            .wrapping_mul(0x9e37)
+            .wrapping_mul(MIX_STATE)
             ^ usize::try_from(parent_scopes)
                 .unwrap_or(0)
-                .wrapping_mul(0x85eb)
-            ^ usize::from(code).wrapping_mul(31)
+                .wrapping_mul(MIX_SCOPES)
+            ^ usize::from(code).wrapping_mul(MIX_CODE)
             ^ usize::try_from(payload).unwrap_or(0))
             % PUSH_ENTRIES;
         if let Some(entry) = self.pushes[slot]
@@ -714,6 +786,9 @@ impl<'a> Lexer<'a> {
         self.last = to;
     }
 
+    /// Emits the spans of the current match on `base`. An argument whose
+    /// text is a plain word is emitted whole: no pattern of the argument's
+    /// list can match in it.
     fn emit_spans(&mut self, base: u32) {
         for i in self.span_base..self.spans.len() {
             let span = self.spans[i];
@@ -732,7 +807,6 @@ impl<'a> Lexer<'a> {
             };
             match span.retok {
                 Some(Rule::RetokArgument) if is_plain_word(&self.s[span.start..span.end]) => {
-                    // No pattern of the capture can match in it.
                     self.emit(span.end, node);
                 }
                 Some(rule) => self.retokenise(rule, span.start, span.end, node),
@@ -776,14 +850,14 @@ impl<'a> Lexer<'a> {
 
     // The loop.
 
-    /// Runs from `pos` until the text ends or the line stops.
+    /// Runs from `pos` until the text ends or the line stops. When the work
+    /// runs out, the rest of the line is the innermost rule's.
     fn tokenize(&mut self) {
         let line_length = self.lim + usize::from(self.nl);
         let mut stalled = 0_u32;
         loop {
             self.spend(1);
             if self.steps.get() > self.budget {
-                // Out of work: the rest of the line is the rule's.
                 self.report.record(Limit::Work);
                 let node = self.top().content;
                 self.emit(line_length, node);
@@ -838,7 +912,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Closes the innermost rule. True when the line stops.
+    /// Closes the innermost rule. True when the line stops: a rule that
+    /// opened and closed without advancing would loop, so it stays open and
+    /// the rest of the line is its.
     fn end_rule(&mut self, start: usize, end: usize, advanced: bool, line_length: usize) -> bool {
         let top = *self.top();
         self.emit(start, top.content);
@@ -847,8 +923,6 @@ impl<'a> Lexer<'a> {
         let popped = self.pop_frame();
         self.anchor = popped.anchor;
         if !advanced && popped.enter == Some(self.pos) {
-            // The rule opened and closed without advancing: the grammar would
-            // loop, so the rest of the line is the rule's.
             self.flags.kept = true;
             self.frames.push(Frame {
                 content: popped.name,
@@ -860,7 +934,8 @@ impl<'a> Lexer<'a> {
         false
     }
 
-    /// Opens `rule`. True when the line stops.
+    /// Opens `rule`, with its content scopes after its begin tokens. True
+    /// when the line stops.
     fn begin_rule(
         &mut self,
         rule: Rule,
@@ -873,7 +948,6 @@ impl<'a> Lexer<'a> {
         self.emit(start, top_content);
         let before = self.depth();
         let payload = if rule.is_heredoc() { self.payload } else { 0 };
-        // The content scopes come after the begin tokens.
         let anchor = self.anchor;
         self.push_frame(rule, Some(self.pos), anchor, payload);
         let name = self.top().name;
@@ -912,7 +986,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Names the text of a match rule. True when the line stops.
+    /// Names the text of a match rule. True when the line stops: an empty
+    /// match that is not at an advance would loop, so the enclosing rule is
+    /// dropped and the line stops.
     fn match_rule(
         &mut self,
         name: &'static [S],
@@ -927,8 +1003,6 @@ impl<'a> Lexer<'a> {
         self.emit_spans(base);
         self.emit(end, base);
         if !advanced {
-            // A match that is empty and not at an advance: the grammar would
-            // loop, so the enclosing rule is dropped and the line stops.
             if self.depth() > 0 {
                 self.pop_frame();
             }
@@ -950,14 +1024,20 @@ impl<'a> Lexer<'a> {
 
     /// The positions of [`Lexer::scan`] one by one, counting how many it
     /// visits in `visited` so that the work is spent once, not per position.
+    ///
+    /// Each position tries only the patterns that can start there, or all
+    /// of them where the text ends without a line feed. A begin the depth
+    /// limit keeps closed leaves its text plain. A pattern that fails at a
+    /// blank fails at the blanks after it, because the blanks are consumed
+    /// first and what follows decides; the position after the first blank is
+    /// the exception, because `normal_statement` may look back over a
+    /// keyword and one space. A match starts at the start of a character.
     fn scan_positions(&mut self, visited: &mut usize) -> Option<(usize, Pat, usize)> {
         let info = rule_info(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
             *visited += 1;
-            // Only the patterns that can start here are tried; where the
-            // text ends without a line feed, all of them.
             let list: &[Pat] = if p < self.lim || self.nl {
                 let byte = if p < self.lim { self.s[p] } else { b'\n' };
                 let prev = if p > 0 { self.s[p - 1] } else { 0 };
@@ -967,7 +1047,6 @@ impl<'a> Lexer<'a> {
             };
             for &pat in list {
                 if full && matches!(pat.act(), Act::Begin(_) | Act::BeginChosen) {
-                    // A rule the depth limit keeps closed: its text is plain.
                     if self.try_pat(pat, p).is_some() {
                         self.report.record(Limit::Depth);
                     }
@@ -977,10 +1056,6 @@ impl<'a> Lexer<'a> {
                     return Some((p, pat, end));
                 }
             }
-            // A pattern that fails at a blank fails at the blanks after it:
-            // the blanks are consumed first and what follows decides. The
-            // position after the first blank is the exception, because
-            // `normal_statement` may look back over a keyword and one space.
             if info.skip_blanks
                 && p < self.lim
                 && matches!(self.s[p], b' ' | b'\t')
@@ -989,7 +1064,6 @@ impl<'a> Lexer<'a> {
             {
                 p = self.skip(p, |b| matches!(b, b' ' | b'\t'));
             } else if p < self.lim && self.s[p] >= 0x80 {
-                // A match starts at the start of a character.
                 p = self.char_end(p);
             } else {
                 p += 1;

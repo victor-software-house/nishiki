@@ -536,15 +536,14 @@ impl Lexer<'_> {
     }
 
     /// The arithmetic operators, in the grammar's order, including the `^`
-    /// that is an empty match at the start of a line.
+    /// that is an empty match at the start of a line. `\+{1,2}`, `-{1,2}` and
+    /// `\*{1,2}` come before that `^`, and `\|{1,2}` and `&{1,2}` after it.
     pub(in crate::shell) fn m_math_op(&mut self, p: usize) -> Option<usize> {
         let c = self.at(p);
         let next = self.at(p + 1);
         let live = self.avail(p);
         let len = match c {
             b'+' | b'-' | b'*' | b'&' | b'|' if live => {
-                // `\+{1,2}` and `-{1,2}` and `\*{1,2}` come before the start
-                // of line; `\|{1,2}` and `&{1,2}` after it.
                 if p == 0 && matches!(c, b'&' | b'|') {
                     0
                 } else {

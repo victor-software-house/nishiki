@@ -769,6 +769,20 @@ fn run_start_only(p: P) -> bool {
     )
 }
 
+/// Whether a pattern of [`run_start_only`] may match in a run of white space
+/// that `b` follows. `b` must start what the pattern reads after the run:
+/// `/` a comment, `#` a `#define`, `(` the parentheses of a `switch` or an
+/// `asm`, `s`, `c` and `d` the words `switch`, `case` and `default`, and `a`,
+/// `b`, `c`, `n`, `o`, `t` and `x` the operator words of an initialization
+/// (`and`, `bitor`, `compl`, `not`, `or`, `typeid`, `xor`, `alignof` and the
+/// rest). A pattern added to [`run_start_only`] adds its bytes here.
+pub(super) fn blank_run_live(b: u8) -> bool {
+    matches!(
+        b,
+        b'/' | b'#' | b'(' | b'a' | b'b' | b'c' | b'd' | b'n' | b'o' | b's' | b't' | b'x'
+    )
+}
+
 /// Whether `p` reads only the chain that follows the word it starts in, so
 /// that inside a word that starts with a letter it fails wherever it failed
 /// at the start of the word, if the search tried that.
@@ -851,6 +865,10 @@ pub(super) struct Tables {
 }
 
 impl Tables {
+    /// The tables, built once. Bytes that start the same patterns of a
+    /// context share a class, so a context's row has a column per class.
+    /// A class index fits a `u8` and a list index a `u16`, which
+    /// `tables_fit_their_indices` checks, so the fallbacks never apply.
     pub(super) fn get() -> &'static Tables {
         static TABLES: OnceLock<Tables> = OnceLock::new();
         TABLES.get_or_init(|| {
@@ -858,12 +876,11 @@ impl Tables {
             let mut seen: HashMap<Vec<P>, u16> = HashMap::new();
             let mut class_of = Vec::new();
             let mut rows: Vec<Vec<Vec<u16>>> = Vec::new();
-            for &r in R::every() {
+            for &r in R::ALL {
                 let mut flat = Vec::new();
                 for list in r.items() {
                     flatten(list, &mut flat);
                 }
-                // Bytes that start the same patterns share a class.
                 let mut classes: Vec<Vec<bool>> = Vec::new();
                 for byte in 0..=EOT {
                     let signature: Vec<bool> = flat
@@ -938,5 +955,21 @@ fn flatten(list: &[Item], out: &mut Vec<P>) {
             Item::P(p) => out.push(p),
             Item::G(group) => flatten(group, out),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Tables;
+
+    #[test]
+    fn tables_fit_their_indices() {
+        let tables = Tables::get();
+        assert!(tables.stride <= 1 << 8, "{} classes", tables.stride);
+        assert!(
+            tables.lists.len() <= 1 << 16,
+            "{} lists",
+            tables.lists.len()
+        );
     }
 }

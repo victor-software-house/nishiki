@@ -136,7 +136,6 @@ impl Lexer<'_> {
     /// any element, the other alternative, a position that is a boundary.
     fn lazy_prefix(&self, p: usize, then: impl Fn(&Self, usize) -> bool) -> Option<usize> {
         let mut q = p;
-        let mut count = 0;
         loop {
             if self.space_at(q) > 0 {
                 q = self.skip_space(q);
@@ -145,12 +144,10 @@ impl Lexer<'_> {
             } else {
                 break;
             }
-            count += 1;
             if then(self, q) {
                 return Some(q);
             }
         }
-        let _ = count;
         (self.boundary_or_edge(p) && then(self, p)).then_some(p)
     }
 

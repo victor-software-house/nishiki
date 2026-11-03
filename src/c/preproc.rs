@@ -1,10 +1,10 @@
 //! Preprocessor directives: the conditional family, `#define` and the
 //! directives that take the rest of their line.
 
-use super::engine::Lexer;
+use super::engine::{Head, Lexer};
 use super::scope::S;
 use super::state::R;
-use super::words;
+use super::wordset;
 
 /// A directive line, `^\s*(#)\s*keyword\b`.
 #[derive(Clone, Copy, Debug)]
@@ -24,6 +24,14 @@ pub(super) enum Look {
     Disabled,
 }
 
+/// Whether a conditional directive's begin scopes the directive as a
+/// whole with `meta.preprocessor`, besides its keyword and `#`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Meta {
+    Whole,
+    Omitted,
+}
+
 /// The keywords of `#if`, `#ifdef` and `#ifndef`, the longest first.
 const IF_FAMILY: &[&str] = &["ifndef", "ifdef", "if"];
 
@@ -34,19 +42,18 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let (state, hash, k) = self.head.get();
-        let (hash, k) = match state {
-            1 => return None,
-            2 => (hash, k),
-            _ => {
+        let (hash, k) = match self.head.get() {
+            Head::Plain => return None,
+            Head::Directive { hash, word } => (hash, word),
+            Head::Unknown => {
                 let hash = self.skip_space(0);
                 if hash >= self.len_all() || self.b(hash) != b'#' {
-                    self.head.set((1, 0, 0));
+                    self.head.set(Head::Plain);
                     return None;
                 }
-                let k = self.skip_space(hash + 1);
-                self.head.set((2, hash, k));
-                (hash, k)
+                let word = self.skip_space(hash + 1);
+                self.head.set(Head::Directive { hash, word });
+                (hash, word)
             }
         };
         kws.iter().find_map(|kw| {
@@ -62,9 +69,11 @@ impl Lexer<'_> {
             return true;
         }
         let mut q = self.skip_space(e);
+        let parens = q;
         while self.b(q) == b'(' && q < self.len_all() {
             q += 1;
         }
+        self.spend(q - parens);
         if !self.boundary(q) {
             return false;
         }
@@ -72,6 +81,7 @@ impl Lexer<'_> {
         while self.b(r) == b'0' && r < self.len_all() {
             r += 1;
         }
+        self.spend(r - q);
         match look {
             Look::Enabled => {
                 if self.b(r) != b'1' || r >= self.len_all() {
@@ -89,17 +99,19 @@ impl Lexer<'_> {
         if !self.boundary(r) {
             return false;
         }
+        let closes = r;
         while self.b(r) == b')' && r < self.len_all() {
             r += 1;
         }
+        self.spend(r - closes);
         let s = self.skip_space(r);
         s >= self.len_all() || self.starts(s, b"//") || self.starts(s, b"/*")
     }
 
     /// The captures of a conditional directive: the whole directive, the
     /// word and the `#`.
-    fn directive_caps(&mut self, dir: Dir, whole: bool) {
-        if whole {
+    fn directive_caps(&mut self, dir: Dir, meta: Meta) {
+        if meta == Meta::Whole {
             self.cap(0, dir.kw.1, &[S::MetaPreprocessor]);
         }
         self.cap(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
@@ -112,7 +124,7 @@ impl Lexer<'_> {
         p: usize,
         kws: &[&str],
         look: Look,
-        whole: bool,
+        meta: Meta,
         rule: R,
     ) -> bool {
         let Some(dir) = self.directive(p, kws) else {
@@ -121,18 +133,18 @@ impl Lexer<'_> {
         if !self.look_ahead(dir.kw.1, look) {
             return false;
         }
-        self.directive_caps(dir, whole);
+        self.directive_caps(dir, meta);
         self.begin(0, dir.kw.1, rule)
     }
 
     /// `#if`, `#ifdef` and `#ifndef`.
     pub(super) fn cond_if(&mut self, p: usize, rule: R) -> bool {
-        self.cond_begin(p, IF_FAMILY, Look::No, true, rule)
+        self.cond_begin(p, IF_FAMILY, Look::No, Meta::Whole, rule)
     }
 
     /// The `#if` of a branch the grammar reads as live or dead.
     pub(super) fn cond_if_look(&mut self, p: usize, look: Look, rule: R) -> bool {
-        self.cond_begin(p, &["if"], look, true, rule)
+        self.cond_begin(p, &["if"], look, Meta::Whole, rule)
     }
 
     /// `^\s*#\s*(e(?:lse|lif|ndif))\b`.
@@ -206,9 +218,11 @@ impl Lexer<'_> {
     /// The lookahead after `defined`.
     fn defined_look(&self, e: usize) -> bool {
         let mut q = self.skip_space(e);
+        let parens = q;
         while self.b(q) == b'(' && q < self.len_all() {
             q += 1;
         }
+        self.spend(q - parens);
         q = self.skip_space(q);
         if self.starts(q, b"defined") && self.word_at(q + 7) == 0 {
             return false;
@@ -221,6 +235,7 @@ impl Lexer<'_> {
         while run < self.len_all() && (self.b(run) == b'$' || self.word_at(run) > 0) {
             run += self.width_at(run);
         }
+        self.spend(run - q);
         let mut end = run;
         while end > q {
             if self.boundary(end) && self.defined_tail(end) {
@@ -237,9 +252,11 @@ impl Lexer<'_> {
     /// `\s*\)*\s*(?:\n|//|/\*|[:?]|&&|\|\||\\\s*\n)` from `i`.
     fn defined_tail(&self, i: usize) -> bool {
         let mut j = self.skip_space(i);
+        let closes = j;
         while self.b(j) == b')' && j < self.len_all() {
             j += 1;
         }
+        self.spend(j - closes);
         let s = self.skip_space(j);
         if s > self.lim && self.nl {
             return true;
@@ -340,6 +357,7 @@ impl Lexer<'_> {
         while end < self.lim {
             end += self.width_at(end);
         }
+        self.spend(end - t);
         let text_start = t.min(end);
         self.cap(dir.hash, end, &[S::MetaPreprocessorPragma]);
         self.cap(dir.hash, mark_end, &[S::DirectivePragmaMark]);
@@ -393,6 +411,7 @@ impl Lexer<'_> {
             while close < self.len_all() && !matches!(self.b(close), b'(' | b')' | b'\\') {
                 close += 1;
             }
+            self.spend(close - name_end);
             if close > name_end + 1 && self.b(close) == b')' && close < self.len_all() {
                 params = Some((name_end + 1, close));
                 end = close + 1;
@@ -427,7 +446,7 @@ impl Lexer<'_> {
     /// The lookahead that starts a call inside a macro:
     /// `(?!(?:…)\s*\()(?=name\s*\()`.
     pub(super) fn define_func(&mut self, p: usize) -> bool {
-        self.call_ahead(p, words::DEFINE_EXCL) && self.begin(p, p, R::DefineFunc)
+        self.call_target(p, wordset::DEFINE_EXCL).is_some() && self.begin(p, p, R::DefineFunc)
     }
 
     /// A `{` that opens `rule`, with `S::PunctBlockBegin` on it.

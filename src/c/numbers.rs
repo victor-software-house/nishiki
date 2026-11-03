@@ -4,7 +4,7 @@
 //! run again with six patterns, each of which must match all of it, and a
 //! seventh that marks what none of them takes.
 
-use super::engine::{Lexer, Retok, Span};
+use super::engine::{Lexer, Retok};
 use super::scope::S;
 
 /// The suffixes an integer pattern takes, which are all that follows its
@@ -13,6 +13,21 @@ const INT_SUFFIXES: &[&[u8]] = &[
     b"u", b"U", b"ul", b"ull", b"Ul", b"Ull", b"uL", b"uLL", b"UL", b"ULL", b"l", b"ll", b"lu",
     b"llu", b"lU", b"llU", b"L", b"LL", b"Lu", b"LLu", b"LU", b"LLU", b"f", b"F",
 ];
+
+/// Whether an exponent is decimal, `e` and a power of ten, or hexadecimal,
+/// `p` and a power of two.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Exp {
+    Decimal,
+    Hex,
+}
+
+/// Which suffixes a number takes: an integer's, or a float's.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Suffix {
+    Int,
+    Float,
+}
 
 /// What a number's exponent is made of, for decimal and for hexadecimal.
 struct ExpScopes {
@@ -153,17 +168,15 @@ impl Lexer<'_> {
 
     /// `(?<!')([Pp])(\+?)(-?)([0-9](?:[0-9]|(?<=\h)'(?=\h))*)`, with its
     /// captures, and where it ends.
-    fn exponent(&mut self, i: usize, hex: bool) -> Option<usize> {
+    fn exponent(&mut self, i: usize, exp: Exp) -> Option<usize> {
         let c = self.b(i);
-        let lead = if hex {
-            matches!(c, b'P' | b'p')
-        } else {
-            matches!(c, b'E' | b'e')
+        let (lead, scopes) = match exp {
+            Exp::Hex => (matches!(c, b'P' | b'p'), HEX_EXP),
+            Exp::Decimal => (matches!(c, b'E' | b'e'), DECIMAL_EXP),
         };
         if i >= self.lim || !lead || self.prev(i) == Some(b'\'') {
             return None;
         }
-        let scopes = if hex { HEX_EXP } else { DECIMAL_EXP };
         let mut j = i + 1;
         let plus = j < self.lim && self.b(j) == b'+';
         if plus {
@@ -187,18 +200,17 @@ impl Lexer<'_> {
     }
 
     /// What follows the digits, when it is all that is left: a suffix.
-    fn tail(&mut self, i: usize, b: usize, float: bool) -> bool {
+    fn tail(&mut self, i: usize, b: usize, suffix: Suffix) -> bool {
         if i == b {
             return true;
         }
         let rest = self.text(i, b);
-        let ok = if float {
-            matches!(rest, [b'F' | b'L' | b'f' | b'l'])
-        } else {
-            INT_SUFFIXES.contains(&rest)
+        let (ok, scopes) = match suffix {
+            Suffix::Float => (matches!(rest, [b'F' | b'L' | b'f' | b'l']), SUFFIX_FLOAT),
+            Suffix::Int => (INT_SUFFIXES.contains(&rest), SUFFIX_INT),
         };
         if ok {
-            self.cap(i, b, if float { SUFFIX_FLOAT } else { SUFFIX_INT });
+            self.cap(i, b, scopes);
         }
         ok
     }
@@ -206,17 +218,17 @@ impl Lexer<'_> {
     /// Tries the six patterns on `a..b` in order, leaving the captures of
     /// the one that matches from `from` on.
     fn number_patterns(&mut self, a: usize, b: usize, from: usize) -> bool {
-        for k in 0..6 {
+        let patterns: [fn(&mut Self, usize, usize) -> bool; 6] = [
+            Self::hex_float,
+            Self::dec_float,
+            Self::binary,
+            Self::octal,
+            Self::hex_int,
+            Self::dec_int,
+        ];
+        for pattern in patterns {
             self.sp.truncate(from);
-            let ok = match k {
-                0 => self.hex_float(a, b),
-                1 => self.dec_float(a, b),
-                2 => self.binary(a, b),
-                3 => self.octal(a, b),
-                4 => self.hex_int(a, b),
-                _ => self.dec_int(a, b),
-            };
-            if ok {
+            if pattern(self, a, b) {
                 return true;
             }
         }
@@ -231,15 +243,15 @@ impl Lexer<'_> {
 
     /// An exponent and then a suffix that ends the number, or a suffix
     /// alone.
-    fn exponent_tail(&mut self, i: usize, b: usize, hex: bool, float: bool) -> bool {
+    fn exponent_tail(&mut self, i: usize, b: usize, exp: Exp, suffix: Suffix) -> bool {
         let from = self.sp.len();
-        if let Some(end) = self.exponent(i, hex) {
-            if self.tail(end, b, float) {
+        if let Some(end) = self.exponent(i, exp) {
+            if self.tail(end, b, suffix) {
                 return true;
             }
             self.sp.truncate(from);
         }
-        self.tail(i, b, float)
+        self.tail(i, b, suffix)
     }
 
     /// `\G(0[Xx])(\h…)?((?<=\h)\.|\.(?=\h))(\h…)?(exponent)?([FLfl](?!\w))?$`.
@@ -266,7 +278,7 @@ impl Lexer<'_> {
             self.cap_digits(i, end, NUM_HEX);
             i = end;
         }
-        self.exponent_tail(i, b, true, true)
+        self.exponent_tail(i, b, Exp::Hex, Suffix::Float)
     }
 
     /// The first character of the decimal patterns: `(?=[.0-9])(?!0[BXbx])`.
@@ -301,7 +313,7 @@ impl Lexer<'_> {
             self.cap_digits(i, end, NUM_DECIMAL);
             i = end;
         }
-        self.exponent_tail(i, b, false, true)
+        self.exponent_tail(i, b, Exp::Decimal, Suffix::Float)
     }
 
     /// `\G(0[Bb])([01]…)(suffix(?!\w))?$`.
@@ -314,7 +326,7 @@ impl Lexer<'_> {
         };
         self.cap(a, a + 2, UNIT_BINARY);
         self.cap_digits(a + 2, end, NUM_BINARY);
-        self.tail(end, b, false)
+        self.tail(end, b, Suffix::Int)
     }
 
     /// `\G(0)((?:[0-7]|SEP)+)(suffix(?!\w))?$`.
@@ -328,7 +340,7 @@ impl Lexer<'_> {
         }
         self.cap(a, a + 1, UNIT_OCTAL);
         self.cap_digits(a + 1, end, NUM_OCTAL);
-        self.tail(end, b, false)
+        self.tail(end, b, Suffix::Int)
     }
 
     /// `\G(0[Xx])(\h…)(exponent)?(suffix(?!\w))?$`.
@@ -341,7 +353,7 @@ impl Lexer<'_> {
         };
         self.cap(a, a + 2, UNIT_HEX);
         self.cap_digits(a + 2, end, NUM_HEX);
-        self.exponent_tail(end, b, true, false)
+        self.exponent_tail(end, b, Exp::Hex, Suffix::Int)
     }
 
     /// `\G(?=[.0-9])(?!0[BXbx])([0-9]…)(exponent)?(suffix(?!\w))?$`.
@@ -353,10 +365,6 @@ impl Lexer<'_> {
             return false;
         };
         self.cap_digits(a, end, NUM_DECIMAL);
-        self.exponent_tail(end, b, false, false)
+        self.exponent_tail(end, b, Exp::Decimal, Suffix::Int)
     }
 }
-
-/// The span type, for the matchers that build captures by hand.
-#[expect(dead_code, reason = "keeps the import used by the matchers above")]
-type NumberSpan = Span;

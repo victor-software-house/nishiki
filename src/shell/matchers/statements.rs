@@ -1,7 +1,7 @@
 //! Statements, commands, arguments, options and assignments.
 
-use super::{is_blank, is_unquoted};
-use crate::shell::engine::Lexer;
+use super::{is_blank, is_command_name, is_unquoted};
+use crate::shell::engine::{Lazy, Lexer};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
@@ -131,6 +131,13 @@ const MODIFIERS: [(&[u8], &[S]); 5] = [
     (b"local", &[S::StorageModifierLocal]),
 ];
 
+/// Whether an assignment needs its operator.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::shell) enum Operator {
+    Required,
+    Optional,
+}
+
 impl Lexer<'_> {
     /// `normal_statement`'s begin: an empty match where a statement may start.
     pub(in crate::shell) fn m_normal_statement(&mut self, p: usize) -> Option<usize> {
@@ -206,7 +213,8 @@ impl Lexer<'_> {
         Some(j)
     }
 
-    /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``
+    /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``. Before a `>`, the `+`
+    /// gives back one character so that `>` does not follow.
     pub(in crate::shell) fn m_argument_word(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
         let mut e = self.skip(w, is_unquoted);
@@ -214,7 +222,6 @@ impl Lexer<'_> {
             return None;
         }
         if self.avail(e) && self.at(e) == b'>' {
-            // `+` gives back one character so that `>` does not follow.
             let mut k = e - 1;
             while k > w && self.s[k] & 0xc0 == 0x80 {
                 k -= 1;
@@ -343,26 +350,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        let e = self.skip(p, |b| {
-            !matches!(
-                b,
-                b'\t'
-                    | b'\n'
-                    | b'\r'
-                    | b' '
-                    | b'"'
-                    | b'&'
-                    | b'\''
-                    | b')'
-                    | b';'
-                    | b'<'
-                    | b'='
-                    | b'>'
-                    | b'`'
-                    | b'{'
-                    | b'|'
-            )
-        });
+        let e = self.skip(p, is_command_name);
         if e == p {
             return None;
         }
@@ -513,9 +501,13 @@ impl Lexer<'_> {
     }
 
     /// The name, optional index and operator of an assignment at `p`, which
-    /// the grammar spells in four places. `operator` says whether the
-    /// operator is required.
-    pub(in crate::shell) fn assignment_head(&mut self, p: usize, operator: bool) -> Option<usize> {
+    /// the grammar spells in four places, one of them with the operator
+    /// optional.
+    pub(in crate::shell) fn assignment_head(
+        &mut self,
+        p: usize,
+        operator: Operator,
+    ) -> Option<usize> {
         let name_end = self.name_run(p)?;
         let mut i = name_end;
         let mut index = None;
@@ -529,7 +521,7 @@ impl Lexer<'_> {
         let (len, scopes): (usize, &'static [S]) = match (self.at(i), self.at(i + 1)) {
             (b'=', _) if self.avail(i) => (1, &[S::KeywordOperatorAssignment]),
             (b'+' | b'-', b'=') if self.avail(i) => (2, &[S::KeywordOperatorAssignmentCompound]),
-            _ if !operator => (0, &[]),
+            _ if operator == Operator::Optional => (0, &[]),
             _ => return None,
         };
         self.span(p, name_end, &[S::VariableOtherAssignment]);
@@ -545,13 +537,13 @@ impl Lexer<'_> {
     /// `normal_assignment_statement`'s begin.
     pub(in crate::shell) fn m_normal_assign(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
-        self.assignment_head(w, true)
+        self.assignment_head(w, Operator::Required)
     }
 
     /// `array_value`'s begin: an assignment whose value opens a parenthesis.
     pub(in crate::shell) fn m_array_value(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
-        let e = self.assignment_head(w, true)?;
+        let e = self.assignment_head(w, Operator::Required)?;
         let open = self.blanks(e);
         if self.at(open) != b'(' || !self.avail(open) {
             return None;
@@ -560,15 +552,14 @@ impl Lexer<'_> {
         Some(open + 1)
     }
 
-    /// `alias_statement`'s begin.
+    /// `alias_statement`'s begin. The options, each `-\w+` and its blanks,
+    /// are greedy, and give back options when the rest then fails.
     pub(in crate::shell) fn m_alias(&mut self, p: usize) -> Option<usize> {
         let a = self.blanks(p);
         if !self.starts(a, b"alias") {
             return None;
         }
         let options_start = self.blanks(a + 5);
-        // The options, each `-\w+` and its blanks, greedy; fewer when the
-        // rest then fails.
         let mut ends = std::mem::take(&mut self.ends);
         ends.clear();
         ends.push(options_start);
@@ -590,7 +581,7 @@ impl Lexer<'_> {
             if used > 0 {
                 self.span_retok(options_start, name, &[], Rule::RetokOptions);
             }
-            if let Some(e) = self.assignment_head(name, true) {
+            if let Some(e) = self.assignment_head(name, Operator::Required) {
                 found = Some(e);
                 break;
             }
@@ -617,7 +608,7 @@ impl Lexer<'_> {
     /// The match of `modified_assignment_statement`: a name, perhaps an
     /// operator, perhaps a number.
     pub(in crate::shell) fn m_modified_match(&mut self, p: usize) -> Option<usize> {
-        let e = self.assignment_head(p, false)?;
+        let e = self.assignment_head(p, Operator::Optional)?;
         if self.after_number_start(e)
             && let Some((end, scopes)) = self.number_at(e)
         {
@@ -664,16 +655,16 @@ impl Lexer<'_> {
         Some(e + 1)
     }
 
-    /// `(\[)(.+?)(])(=)` in an array.
+    /// `(\[)(.+?)(])(=)` in an array. The text between the brackets is
+    /// lazy: it ends at the first `]=`.
     pub(in crate::shell) fn m_array_bracket_eq(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'[' || !self.avail(p) {
             return None;
         }
-        // The text between the brackets is lazy: it ends at the first `]=`.
         if p + 1 >= self.lim {
             return None;
         }
-        let e = self.find_from(2, self.char_end(p + 1), |lexer, e| {
+        let e = self.find_from(Lazy::ArrayIndex, self.char_end(p + 1), |lexer, e| {
             e < lexer.lim && lexer.s[e] == b']' && lexer.at(e + 1) == b'=' && lexer.avail(e + 1)
         })?;
         self.span(p, p + 1, &[S::PunctuationDefinitionBracketNamedArray]);

@@ -14,11 +14,12 @@
 
 use std::cell::Cell;
 
-use super::lists::{EOT, Item, Tables, kind};
+use super::lists::{EOT, Item, Tables, blank_run_live, kind};
 use super::scope::S;
 use super::state::{EOL, R};
 use crate::arena::{Arena, Frame};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// A scope whose name is made from the line's text.
@@ -143,20 +144,90 @@ pub(super) struct Lexer<'a> {
     stopped: bool,
     /// Scratch for the chains of member access.
     pub(super) ends: Vec<usize>,
-    /// The last run of white space, of word characters, of ASCII name
-    /// characters and of colons found: where it starts and ends. A search from
-    /// inside a run ends where the run does, so a run is scanned once.
-    pub(super) runs: [std::cell::Cell<(usize, usize)>; 4],
-    /// The last scoped name found: where its search started and where it
-    /// ended. A later search that steps onto that walk ends where it did.
-    pub(super) scoped: std::cell::Cell<(usize, usize)>,
-    /// The last word looked up: where it starts, where it ends, and the
-    /// lists it is in; an empty set where no word starts.
-    pub(super) mask: std::cell::Cell<(usize, usize, u32)>,
-    /// Where the line's first directive keyword starts: 0 before it is
-    /// looked up, 1 when the line is not a directive, 2 when it is, with the
-    /// positions of its `#` and its word.
-    pub(super) head: std::cell::Cell<(u8, usize, usize)>,
+    /// The last run of each class found.
+    pub(super) runs: Runs,
+    /// The last scoped name found. A later search that steps onto that walk
+    /// ends where it did.
+    pub(super) scoped: Cell<Run>,
+    /// The last word looked up.
+    pub(super) lists: Cell<WordLists>,
+    /// Whether the line starts with a directive.
+    pub(super) head: Cell<Head>,
+}
+
+/// A stretch of the text a search found: where it starts and ends.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Run {
+    pub(super) start: usize,
+    pub(super) end: usize,
+}
+
+impl Run {
+    /// No run: it contains no position.
+    pub(super) const NONE: Run = Run {
+        start: usize::MAX,
+        end: 0,
+    };
+
+    /// Whether a search from `i` lies in the run, and so ends where it does.
+    pub(super) fn holds(self, i: usize) -> bool {
+        self.start <= i && i <= self.end
+    }
+}
+
+/// The last run of each character class found. A search from inside a run
+/// ends where the run does, so a run is scanned once.
+#[derive(Debug)]
+pub(super) struct Runs {
+    pub(super) space: Cell<Run>,
+    pub(super) word: Cell<Run>,
+    pub(super) ascii_name: Cell<Run>,
+    pub(super) colons: Cell<Run>,
+}
+
+impl Runs {
+    fn new() -> Self {
+        Runs {
+            space: Cell::new(Run::NONE),
+            word: Cell::new(Run::NONE),
+            ascii_name: Cell::new(Run::NONE),
+            colons: Cell::new(Run::NONE),
+        }
+    }
+
+    fn reset(&self) {
+        for run in [&self.space, &self.word, &self.ascii_name, &self.colons] {
+            run.set(Run::NONE);
+        }
+    }
+}
+
+/// A word looked up in the word lists: where it starts and ends, and the
+/// lists it is in, an empty set where no word starts.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct WordLists {
+    pub(super) start: usize,
+    pub(super) end: usize,
+    pub(super) lists: u32,
+}
+
+impl WordLists {
+    const NONE: WordLists = WordLists {
+        start: usize::MAX,
+        end: 0,
+        lists: 0,
+    };
+}
+
+/// Whether the line starts with a directive, found once per line.
+#[derive(Clone, Copy, Debug)]
+pub(super) enum Head {
+    /// Not looked up yet.
+    Unknown,
+    /// The line is no directive.
+    Plain,
+    /// The line is a directive: where its `#` is and where its word starts.
+    Directive { hash: usize, word: usize },
 }
 
 impl<'a> Lexer<'a> {
@@ -207,10 +278,10 @@ impl<'a> Lexer<'a> {
             tables: Tables::get(),
             stopped: false,
             ends: cleared(&mut scratch.ends),
-            runs: [const { std::cell::Cell::new((usize::MAX, 0)) }; 4],
-            scoped: std::cell::Cell::new((usize::MAX, 0)),
-            mask: std::cell::Cell::new((usize::MAX, 0, 0)),
-            head: std::cell::Cell::new((0, 0, 0)),
+            runs: Runs::new(),
+            scoped: Cell::new(Run::NONE),
+            lists: Cell::new(WordLists::NONE),
+            head: Cell::new(Head::Unknown),
         }
     }
 
@@ -226,11 +297,9 @@ impl<'a> Lexer<'a> {
 
     /// Forgets the runs found, when the text they were found in changes.
     pub(super) fn reset_runs(&self) {
-        for run in &self.runs {
-            run.set((usize::MAX, 0));
-        }
-        self.scoped.set((usize::MAX, 0));
-        self.mask.set((usize::MAX, 0, 0));
+        self.runs.reset();
+        self.scoped.set(Run::NONE);
+        self.lists.set(WordLists::NONE);
     }
 
     /// Where the captures of the current match start.
@@ -496,10 +565,9 @@ impl<'a> Lexer<'a> {
                 break;
             }
             let rule = self.rule();
-            let Some(start) = self.find(rule, pos) else {
+            if !self.find(rule, pos) {
                 break;
-            };
-            let _ = start;
+            }
             let hit = self.hit;
             pos = self.apply(hit, pos);
         }
@@ -507,9 +575,14 @@ impl<'a> Lexer<'a> {
         self.produce(stack, top);
     }
 
-    /// The first match from `from` on: the earliest position where the
-    /// rule's end or one of its patterns matches, the end first.
-    fn find(&mut self, rule: R, from: usize) -> Option<usize> {
+    /// Finds the first match from `from` on, the earliest position where the
+    /// rule's end or one of its patterns matches, the end first, and leaves
+    /// it in `hit`. False when nothing matches or the work runs out.
+    ///
+    /// Each position tries only the patterns its kind of position allows
+    /// (`lists::kind`): inside an ASCII word the search tried at its start,
+    /// the patterns that read only the word's chain are left out.
+    fn find(&mut self, rule: R, from: usize) -> bool {
         let top = self.len_all();
         let mut p = from;
         let mut blank_end = 0;
@@ -521,7 +594,7 @@ impl<'a> Lexer<'a> {
             self.spend(1);
             if self.steps.get() > self.budget {
                 self.report.record(Limit::Work);
-                return None;
+                return false;
             }
             let index = if p >= top {
                 EOT
@@ -530,13 +603,12 @@ impl<'a> Lexer<'a> {
             };
             self.sp.truncate(self.span_base);
             if self.try_end(rule, p) {
-                return Some(p);
+                return true;
             }
             let lead = self.b(p);
             let letter = lead.is_ascii_alphabetic() || lead == b'_';
             let mut blank = false;
             let kind = if p < word_end {
-                // Inside a word that was tried at its start.
                 let mut flags = kind::AFTER_WORD | kind::IN_WORD;
                 if word_nocall {
                     flags |= kind::NO_CALL;
@@ -549,7 +621,7 @@ impl<'a> Lexer<'a> {
                 blank = p < top && self.space_at(p) > 0;
                 if blank && p >= blank_end {
                     blank_end = self.skip_space(p);
-                    blank_dead = !b"/#scd(abnotx".contains(&self.b(blank_end));
+                    blank_dead = !blank_run_live(self.b(blank_end));
                 }
                 let no_object = !letter && !matches!(self.prev(p), Some(b']' | b')'));
                 let mut flags = 0;
@@ -569,7 +641,7 @@ impl<'a> Lexer<'a> {
             };
             for &pat in self.tables.candidates(rule, kind, index) {
                 if self.try_pat(pat, p) {
-                    return Some(p);
+                    return true;
                 }
             }
             blank_dead |= blank;
@@ -581,7 +653,7 @@ impl<'a> Lexer<'a> {
                 }
             }
             if p >= top {
-                return None;
+                return false;
             }
             p += self.width_at(p);
         }
@@ -589,6 +661,11 @@ impl<'a> Lexer<'a> {
 
     /// Takes the match `hit`, found from `pos`, and returns the next
     /// position.
+    ///
+    /// A match that takes nothing would come back at the same place, so it
+    /// stops the line: an end that closes the rule entered at `pos`, a begin
+    /// of a rule already open there, a begin a limit kept closed, and a plain
+    /// match.
     fn apply(&mut self, hit: Hit, pos: usize) -> usize {
         let advanced = hit.end > pos;
         let content = self.content_stack();
@@ -638,9 +715,6 @@ impl<'a> Lexer<'a> {
                         self.produce(stack, top);
                     }
                 } else if !advanced {
-                    // A limit kept the rule closed and the match took
-                    // nothing: the same match would come back, so the line
-                    // stops.
                     self.stopped = true;
                     let stack = self.content_stack();
                     let top = self.len_all();
@@ -684,12 +758,7 @@ impl<'a> Lexer<'a> {
     /// The width of the character at `i`, at least 1.
     pub(super) fn width_at(&self, i: usize) -> usize {
         match self.s.get(i) {
-            Some(&lead) if i < self.lim => match lead {
-                0xf0.. => 4,
-                0xe0.. => 3,
-                0xc0.. => 2,
-                _ => 1,
-            },
+            Some(&lead) if i < self.lim => char_len(lead),
             _ => 1,
         }
     }

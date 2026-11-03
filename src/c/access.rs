@@ -1,9 +1,9 @@
 //! Member access, calls, function definitions and the brackets around them.
 
-use super::engine::{Lexer, Retok};
+use super::engine::{Lexer, Retok, Run};
 use super::scope::S;
 use super::state::R;
-use super::words;
+use super::wordset;
 
 /// The punctuation a call-like begin gives its `(`.
 #[derive(Clone, Copy, Debug)]
@@ -12,6 +12,15 @@ pub(super) enum CallKind {
     Args,
     /// The parameters of a function definition.
     Params,
+}
+
+/// What the last name of a member access chain is.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Last {
+    /// A method, followed by its `(`.
+    Method,
+    /// A member, not followed by `(`.
+    Member,
 }
 
 /// The pieces of `obj.chain.name`, up to the last name.
@@ -67,8 +76,8 @@ impl Lexer<'_> {
         }
     }
 
-    /// The chain at `p` that ends in a name `last` accepts.
-    fn access_chain(&mut self, p: usize, method: bool) -> Option<Chain> {
+    /// The chain at `p` that ends in a name of the kind `last`.
+    fn access_chain(&mut self, p: usize, last: Last) -> Option<Chain> {
         let object_end = self.access_object(p)?;
         let (op_end, _) = self.access_op(object_end)?;
         let arrow = self.b(object_end) == b'-';
@@ -77,10 +86,9 @@ impl Lexer<'_> {
         let mut found = None;
         for &end in ends.iter().rev() {
             let name_start = self.skip_space(end);
-            let name_end = if method {
-                self.method_name(name_start)
-            } else {
-                self.member_name(name_start)
+            let name_end = match last {
+                Last::Method => self.method_name(name_start),
+                Last::Member => self.member_name(name_start),
             };
             if let Some(name_end) = name_end {
                 found = Some(Chain {
@@ -109,7 +117,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.ident_end(q)?;
-        if words::has(words::MEMBER_EXCL, self.text(q, end)) {
+        if wordset::of(self.text(q, end)) & wordset::MEMBER_EXCL != 0 {
             return None;
         }
         (self.b(end) != b'(' || end >= self.len_all()).then_some(end)
@@ -129,7 +137,7 @@ impl Lexer<'_> {
 
     /// The begin of a method call, `object.method(`.
     pub(super) fn method_access(&mut self, p: usize) -> bool {
-        let Some(chain) = self.access_chain(p, true) else {
+        let Some(chain) = self.access_chain(p, Last::Method) else {
             return false;
         };
         self.push_chain(p, &chain);
@@ -141,7 +149,7 @@ impl Lexer<'_> {
 
     /// `object.member`.
     pub(super) fn member_access(&mut self, p: usize) -> bool {
-        let Some(chain) = self.access_chain(p, false) else {
+        let Some(chain) = self.access_chain(p, Last::Member) else {
             return false;
         };
         self.push_chain(p, &chain);
@@ -181,6 +189,7 @@ impl Lexer<'_> {
         {
             j += 1;
         }
+        self.spend(j - i);
         if j > i {
             return Some(j);
         }
@@ -209,7 +218,7 @@ impl Lexer<'_> {
         } else if self.b(i) != b':' {
             return None;
         }
-        let (from, to) = self.scoped.get();
+        let walk = self.scoped.get();
         loop {
             if let Some(end) = self.ascii_ident_end(j) {
                 j = end;
@@ -223,15 +232,15 @@ impl Lexer<'_> {
             } else {
                 break;
             }
-            if from <= j && j <= to {
-                j = to;
+            if walk.holds(j) {
+                j = walk.end;
                 break;
             }
         }
         if j == i {
             return None;
         }
-        self.scoped.set((i, j));
+        self.scoped.set(Run { start: i, end: j });
         Some(j)
     }
 
@@ -246,8 +255,8 @@ impl Lexer<'_> {
     }
 
     /// The name of a call at `p` and where its `(` is, with `exclude` the
-    /// words that may not be called: `(?!(?:…)\s*\()(name)\s*(\()`.
-    fn call_target(&self, p: usize, exclude: &[&str]) -> Option<(usize, usize)> {
+    /// word lists whose words may not be called: `(?!(?:…)\s*\()(name)\s*(\()`.
+    pub(super) fn call_target(&self, p: usize, exclude: u32) -> Option<(usize, usize)> {
         let (name_end, paren) = if let Some(end) = self.scoped_name(p) {
             (end, self.skip_space(end))
         } else {
@@ -257,12 +266,11 @@ impl Lexer<'_> {
         if !(self.b(paren) == b'(' && paren < self.len_all()) {
             return None;
         }
-        let word = self.ascii_word_run(p);
-        if let Some(word_end) = word {
+        if let Some(word_end) = self.ascii_ident_end(p) {
             let after = self.skip_space(word_end);
             if self.b(after) == b'('
                 && after < self.len_all()
-                && words::has(exclude, self.text(p, word_end))
+                && wordset::of(self.text(p, word_end)) & exclude != 0
             {
                 return None;
             }
@@ -270,21 +278,9 @@ impl Lexer<'_> {
         Some((name_end, paren))
     }
 
-    /// The end of the `[A-Za-z_][0-9A-Za-z_]*` at `p`, for the exclusion
-    /// lookahead.
-    fn ascii_word_run(&self, p: usize) -> Option<usize> {
-        self.ascii_ident_end(p)
-    }
-
-    /// Whether a call starts at `p`, as the lookahead of the grammar reads
-    /// it, with `exclude` the words that are no calls.
-    pub(super) fn call_ahead(&self, p: usize, exclude: &[&str]) -> bool {
-        self.call_target(p, exclude).is_some()
-    }
-
     /// A call at `p` that opens `rule`, with the `(` scoped `punct`.
     pub(super) fn call_like(&mut self, p: usize, rule: R, kind: CallKind) -> bool {
-        let Some((name_end, paren)) = self.call_target(p, words::CALL_EXCL) else {
+        let Some((name_end, paren)) = self.call_target(p, wordset::CALL_EXCL) else {
             return false;
         };
         let scope = match kind {
@@ -298,7 +294,7 @@ impl Lexer<'_> {
 
     /// The lookahead that starts a call: `meta.function-call.c`.
     pub(super) fn function_call(&mut self, p: usize) -> bool {
-        self.call_ahead(p, words::CALL_EXCL) && self.begin(p, p, R::FuncCall)
+        self.call_target(p, wordset::CALL_EXCL).is_some() && self.begin(p, p, R::FuncCall)
     }
 
     /// `(?<!\w)(?!\s*(?:…)\s*\()(?=[A-Za-z_]\w*\s*\()`: a function
@@ -314,7 +310,7 @@ impl Lexer<'_> {
         if !(self.b(after) == b'(' && after < self.len_all()) {
             return false;
         }
-        if words::has(words::FUNCDEF_EXCL, self.text(p, end)) {
+        if wordset::of(self.text(p, end)) & wordset::FUNCDEF_EXCL != 0 {
             return false;
         }
         self.begin(p, p, R::FuncDef)

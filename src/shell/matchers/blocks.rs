@@ -1,7 +1,7 @@
 //! Loops, `case`, functions, groups, tests, here-documents and literal ends.
 
 use super::is_blank;
-use crate::shell::engine::{DynName, Lexer};
+use crate::shell::engine::{DynName, Lazy, Lexer, NameRun};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
@@ -11,20 +11,39 @@ const TEST_PAIRS: [&[u8]; 9] = [
     b"nt", b"\x6ft", b"ef", b"eq", b"ne", b"le", b"lt", b"ge", b"gt",
 ];
 
+/// What may follow a keyword the grammar fences with separators.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::shell) enum Follow {
+    /// `(?=[\&;\s]|$)`.
+    Separator,
+    /// `(?=[\&;\s]|$|\))`.
+    SeparatorOrParen,
+}
+
+/// Which here-document operator a begin takes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::shell) enum Heredoc {
+    /// `<<-`, whose body may be indented with tabs.
+    Indented,
+    /// `<<`.
+    Plain,
+}
+
 impl Lexer<'_> {
-    /// `(?<=^|[\&;\s])WORD(?=[\&;\s]|$)`, with `|\)` when `paren`.
+    /// `(?<=^|[\&;\s])WORD` and then what `follow` allows.
     pub(in crate::shell) fn m_keyword_between(
         &mut self,
         p: usize,
         word: &[u8],
         scopes: &'static [S],
-        paren: bool,
+        follow: Follow,
     ) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, word) {
             return None;
         }
         let e = p + word.len();
-        if !(self.before_separator(e) || (paren && self.avail(e) && self.at(e) == b')')) {
+        let paren = follow == Follow::SeparatorOrParen && self.avail(e) && self.at(e) == b')';
+        if !(self.before_separator(e) || paren) {
             return None;
         }
         self.span(p, e, scopes);
@@ -47,16 +66,19 @@ impl Lexer<'_> {
 
     /// `done` ending a loop.
     pub(in crate::shell) fn m_end_done(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(p, b"done", &[S::KeywordControl], true)
+        self.m_keyword_between(p, b"done", &[S::KeywordControl], Follow::SeparatorOrParen)
     }
 
     /// `(?<=^|[\&;\s])(while|until)(?=[\&;\s]|$)`
     pub(in crate::shell) fn m_loop_while(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(p, b"while", &[S::KeywordControl], false)
-            .or_else(|| self.m_keyword_between(p, b"until", &[S::KeywordControl], false))
+        self.m_keyword_between(p, b"while", &[S::KeywordControl], Follow::Separator)
+            .or_else(|| {
+                self.m_keyword_between(p, b"until", &[S::KeywordControl], Follow::Separator)
+            })
     }
 
-    /// `(?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)`
+    /// `(?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)`. The variable is
+    /// lazy: it ends where white space and `in` follow.
     pub(in crate::shell) fn m_loop_for(&mut self, p: usize) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, b"for") {
             return None;
@@ -65,8 +87,7 @@ impl Lexer<'_> {
         if w == p + 3 || w >= self.lim {
             return None;
         }
-        // The variable is lazy: it ends where white space and `in` follow.
-        let e = self.find_from(1, self.char_end(w), |lexer, e| {
+        let e = self.find_from(Lazy::ForVariable, self.char_end(w), |lexer, e| {
             let q = lexer.skip_space(e);
             q > e && lexer.starts(q, b"in") && lexer.before_separator(q + 2)
         })?;
@@ -144,6 +165,8 @@ impl Lexer<'_> {
     // `case`.
 
     /// `\b(case)\b[\t ]*+(.+?)[\t ]*+\b(in)\b`
+    ///
+    /// The expression is lazy: it ends where `in` follows.
     pub(in crate::shell) fn m_case(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) || !self.starts(p, b"case") || self.word_at(p + 4) {
             return None;
@@ -152,8 +175,7 @@ impl Lexer<'_> {
         if w >= self.lim {
             return None;
         }
-        // The expression is lazy: it ends where `in` follows.
-        let e = self.find_from(0, self.char_end(w), |lexer, e| {
+        let e = self.find_from(Lazy::CaseWord, self.char_end(w), |lexer, e| {
             let i = lexer.skip(e, is_blank);
             lexer.starts(i, b"in") && lexer.boundary(i) && !lexer.word_at(i + 2)
         })?;
@@ -280,12 +302,16 @@ impl Lexer<'_> {
     /// remembered, so a search from inside it, as a pattern tried at every
     /// byte of a long word makes, does not scan it again.
     fn function_name_end(&self, i: usize) -> usize {
-        let (start, end, lim) = self.function_name_run.get();
-        if lim == self.lim && start <= i && i < end {
-            return end;
+        let run = self.function_name_run.get();
+        if run.lim == self.lim && run.start <= i && i < run.end {
+            return run.end;
         }
         let e = self.skip(i, Self::is_function_name);
-        self.function_name_run.set((i, e, self.lim));
+        self.function_name_run.set(NameRun {
+            start: i,
+            end: e,
+            lim: self.lim,
+        });
         e
     }
 
@@ -397,21 +423,25 @@ impl Lexer<'_> {
     // Here-documents.
 
     /// `((?<!<)<<-)` or `((?<!<)<<(?!<))`: where the operator ends.
-    fn heredoc_operator(&self, p: usize, indent: bool) -> Option<usize> {
+    fn heredoc_operator(&self, p: usize, heredoc: Heredoc) -> Option<usize> {
         if self.prev(p) == Some(b'<') {
             return None;
         }
-        if indent {
-            self.starts(p, b"<<-").then_some(p + 3)
-        } else {
-            (self.starts(p, b"<<") && !(self.avail(p + 2) && self.at(p + 2) == b'<'))
-                .then_some(p + 2)
+        match heredoc {
+            Heredoc::Indented => self.starts(p, b"<<-").then_some(p + 3),
+            Heredoc::Plain => (self.starts(p, b"<<")
+                && !(self.avail(p + 2) && self.at(p + 2) == b'<'))
+                .then_some(p + 2),
         }
     }
 
     /// `<<`, a quote, the delimiter and the quote again.
-    pub(in crate::shell) fn m_heredoc_quoted(&mut self, p: usize, indent: bool) -> Option<usize> {
-        let a = self.heredoc_operator(p, indent)?;
+    pub(in crate::shell) fn m_heredoc_quoted(
+        &mut self,
+        p: usize,
+        heredoc: Heredoc,
+    ) -> Option<usize> {
+        let a = self.heredoc_operator(p, heredoc)?;
         let b = self.blanks(a);
         let quote = self.at(b);
         if !self.avail(b) || !matches!(quote, b'"' | b'\'') {
@@ -435,16 +465,22 @@ impl Lexer<'_> {
         Some(self.lim)
     }
 
-    /// `<<` and an unquoted delimiter.
-    pub(in crate::shell) fn m_heredoc_plain(&mut self, p: usize, indent: bool) -> Option<usize> {
-        let a = self.heredoc_operator(p, indent)?;
+    /// `<<` and an unquoted delimiter. Where no line feed follows, the
+    /// lookahead after the delimiter needs one of `&;<`, so the delimiter
+    /// ends before the last of them.
+    pub(in crate::shell) fn m_heredoc_plain(
+        &mut self,
+        p: usize,
+        heredoc: Heredoc,
+    ) -> Option<usize> {
+        let a = self.heredoc_operator(p, heredoc)?;
         let d0 = self.blanks(a);
         let mut e = self.skip(d0, |b| !matches!(b, b'\t' | b' ' | b'"' | b'\''));
         if e == d0 {
             return None;
         }
         if !self.avail(e) {
-            // No line feed follows, so the lookahead needs one of `&;<`.
+            self.spend(e - d0);
             e = (d0 + 1..e)
                 .rev()
                 .find(|&k| matches!(self.s[k], b'&' | b';' | b'<'))?;

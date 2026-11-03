@@ -1,5 +1,6 @@
 //! One lookup that says which of the grammar's word lists a word is in, so
 //! the dozen patterns that test a word against a list do not each search.
+//! Every test of a word against a list goes through it.
 
 use std::collections::HashMap;
 use std::hash::{BuildHasherDefault, Hasher};
@@ -20,6 +21,10 @@ pub(super) const PTHREAD: u32 = 1 << 9;
 pub(super) const PREDEF: u32 = 1 << 10;
 pub(super) const TAG_TYPE: u32 = 1 << 11;
 pub(super) const ASM: u32 = 1 << 12;
+pub(super) const FUNCDEF_EXCL: u32 = 1 << 13;
+pub(super) const MEMBER_EXCL: u32 = 1 << 14;
+pub(super) const CALL_EXCL: u32 = 1 << 15;
+pub(super) const DEFINE_EXCL: u32 = 1 << 16;
 
 /// The words and the lists they belong to, besides the generated ones.
 const TAG_TYPES: &[&str] = &["enum", "struct", "union"];
@@ -53,7 +58,7 @@ fn map() -> &'static Map {
     static MAP: OnceLock<Map> = OnceLock::new();
     MAP.get_or_init(|| {
         let mut map = Map::default();
-        let lists: [(&[&'static str], u32); 13] = [
+        let lists: [(&[&'static str], u32); 17] = [
             (words::CONTROL, CONTROL),
             (words::MODIFIER, MODIFIER),
             (words::CONSTANT, CONSTANT),
@@ -67,6 +72,10 @@ fn map() -> &'static Map {
             (words::PREDEF, PREDEF),
             (TAG_TYPES, TAG_TYPE),
             (ASMS, ASM),
+            (words::FUNCDEF_EXCL, FUNCDEF_EXCL),
+            (words::MEMBER_EXCL, MEMBER_EXCL),
+            (words::CALL_EXCL, CALL_EXCL),
+            (words::DEFINE_EXCL, DEFINE_EXCL),
         ];
         for (list, bit) in lists {
             for word in list {

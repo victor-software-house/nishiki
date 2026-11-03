@@ -94,6 +94,7 @@ impl Lexer<'_> {
         while matches!(self.b(r), b'!' | b'*') && r < self.len_all() {
             r += 1;
         }
+        self.spend(r - p);
         r > p
             && self.b(r) == b'/'
             && r < self.len_all()

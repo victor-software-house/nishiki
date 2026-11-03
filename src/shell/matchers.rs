@@ -8,15 +8,12 @@ mod blocks;
 mod expansions;
 mod statements;
 
-use super::engine::Lexer;
+use blocks::{Follow, Heredoc};
+
+use super::engine::{Lexer, NameAnswer};
 use super::rules::Pat;
 use super::scope::S;
 use crate::classes;
-
-/// The regex class `\s`, for ASCII.
-pub(super) fn is_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | b'\r' | 0x0b | 0x0c)
-}
 
 pub(super) fn is_blank(b: u8) -> bool {
     matches!(b, b' ' | b'\t')
@@ -44,6 +41,28 @@ static NAME_BYTES: [bool; 256] = {
         b += 1;
     }
 };
+
+/// The class `` [^\t\n\r "\&');->`{|] `` of a command name, as a byte test.
+pub(super) fn is_command_name(b: u8) -> bool {
+    !matches!(
+        b,
+        b'\t'
+            | b'\n'
+            | b'\r'
+            | b' '
+            | b'"'
+            | b'&'
+            | b'\''
+            | b')'
+            | b';'
+            | b'<'
+            | b'='
+            | b'>'
+            | b'`'
+            | b'{'
+            | b'|'
+    )
+}
 
 /// The class `` [^\t\n "$\&-);<>\\`|] `` of unquoted text, as a byte test.
 pub(super) fn is_unquoted(b: u8) -> bool {
@@ -73,7 +92,9 @@ impl Lexer<'_> {
     pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
         match pat {
             Pat::Comment => self.m_comment(p),
-            Pat::PipeTime => self.m_keyword_between(p, b"time", &[S::KeywordOther], false),
+            Pat::PipeTime => {
+                self.m_keyword_between(p, b"time", &[S::KeywordOther], Follow::Separator)
+            }
             Pat::PipeOp => self.m_pipe(p),
             Pat::Sep => self.m_separator(p),
             Pat::LineCont => self.m_line_continuation(p),
@@ -165,10 +186,10 @@ impl Lexer<'_> {
                     S::PunctuationSectionFunctionDefinition,
                 ],
             ),
-            Pat::HeredocQuotedIndentB => self.m_heredoc_quoted(p, true),
-            Pat::HeredocQuotedB => self.m_heredoc_quoted(p, false),
-            Pat::HeredocIndentB => self.m_heredoc_plain(p, true),
-            Pat::HeredocB => self.m_heredoc_plain(p, false),
+            Pat::HeredocQuotedIndentB => self.m_heredoc_quoted(p, Heredoc::Indented),
+            Pat::HeredocQuotedB => self.m_heredoc_quoted(p, Heredoc::Plain),
+            Pat::HeredocIndentB => self.m_heredoc_plain(p, Heredoc::Indented),
+            Pat::HeredocB => self.m_heredoc_plain(p, Heredoc::Plain),
             Pat::HerestringSingleB => self.m_herestring_quote(
                 p,
                 b'\'',
@@ -193,7 +214,9 @@ impl Lexer<'_> {
             Pat::LoopForB => self.m_loop_for(p),
             Pat::LoopWhileB => self.m_loop_while(p),
             Pat::LoopSelectB => self.m_loop_select(p),
-            Pat::LoopIfB => self.m_keyword_between(p, b"if", &[S::KeywordControlIf], false),
+            Pat::LoopIfB => {
+                self.m_keyword_between(p, b"if", &[S::KeywordControlIf], Follow::Separator)
+            }
             Pat::GroupB => self.m_group(p),
             Pat::ModifiedB => self.m_modified(p),
             Pat::NormalAssignB => self.m_normal_assign(p),
@@ -224,7 +247,9 @@ impl Lexer<'_> {
             Pat::EndFunction => matches!(self.prev(p), Some(b')' | b'}')).then_some(p),
             Pat::EndHeredoc => self.m_end_heredoc(p),
             Pat::EndDone => self.m_end_done(p),
-            Pat::EndFi => self.m_keyword_between(p, b"fi", &[S::KeywordControlFi], false),
+            Pat::EndFi => {
+                self.m_keyword_between(p, b"fi", &[S::KeywordControlFi], Follow::Separator)
+            }
             Pat::EndBacktickComment => (!self.at_g(p)).then_some(p),
             Pat::EndBacktickCommentLine => (self.at(p) == b'`').then_some(p),
             Pat::EndLit => self.m_end_lit(p),
@@ -277,7 +302,7 @@ impl Lexer<'_> {
     /// The regex `\s` at `i`.
     pub(super) fn space_at(&self, i: usize) -> bool {
         match self.at(i) {
-            b if b < 0x80 => self.avail(i) && is_space(b),
+            b if b < 0x80 => self.avail(i) && classes::is_ascii_space(b),
             _ => self.char_at(i).is_some_and(classes::is_space),
         }
     }
@@ -286,7 +311,7 @@ impl Lexer<'_> {
     pub(super) fn space_before(&self, p: usize) -> bool {
         match p.checked_sub(1).map(|k| self.at(k)) {
             None => false,
-            Some(b) if b < 0x80 => is_space(b),
+            Some(b) if b < 0x80 => classes::is_ascii_space(b),
             Some(_) => self.char_before(p).is_some_and(classes::is_space),
         }
     }
@@ -342,21 +367,28 @@ impl Lexer<'_> {
 
     /// The regex `(?<!\w)[-0-9A-Z_a-z]+(?!\w)` at `p`: where the name ends.
     pub(super) fn name_run(&self, p: usize) -> Option<usize> {
-        let (at, lim, answer) = self.names.get();
-        if at == p && lim == self.lim {
-            return answer;
+        let known = self.names.get();
+        if known.at == p && known.lim == self.lim {
+            return known.end;
         }
-        let answer = self.scan_name_run(p);
-        self.names.set((p, self.lim, answer));
-        answer
+        let end = self.scan_name_run(p);
+        self.names.set(NameAnswer {
+            at: p,
+            lim: self.lim,
+            end,
+        });
+        end
     }
 
+    /// [`Lexer::name_run`] without the cache. An ASCII byte before decides
+    /// `(?<!\w)` without decoding. `(?!\w)` fails before a non-ASCII word
+    /// character, and then the run gives back characters until a `-`, which
+    /// is no word character, follows.
     fn scan_name_run(&self, p: usize) -> Option<usize> {
         if p >= self.lim || !is_name(self.s[p]) {
             return None;
         }
         if let Some(&before) = p.checked_sub(1).and_then(|k| self.s.get(k)) {
-            // A word character before, ASCII decided without decoding.
             if before.is_ascii_alphanumeric() || before == b'_' {
                 return None;
             }
@@ -372,8 +404,6 @@ impl Lexer<'_> {
         if e == p {
             return None;
         }
-        // `(?!\w)` fails before a non-ASCII character, and then the run gives
-        // back characters until a `-`, which is not a word character, follows.
         while self.word_at(e) {
             e -= 1;
             if e == p {

@@ -1,7 +1,9 @@
 //! The text a pattern is matched against, and the character classes of the
 //! grammar's regular expressions: `\w`, `\s`, `\d` and `\b`.
 
-use super::engine::{Act, Dyn, Hit, Lexer, Retok, Span};
+use std::cell::Cell;
+
+use super::engine::{Act, Dyn, Hit, Lexer, Retok, Run, Span};
 use super::scope::S;
 use super::state::R;
 use crate::classes;
@@ -84,14 +86,13 @@ impl Lexer<'_> {
     }
 
     /// The end of the run that starts at `i` and holds the characters
-    /// `width_of` accepts, found once per run: the cache slot `slot` keeps
-    /// the last run, and a search from inside it ends where it does.
-    fn run_end(&self, i: usize, slot: usize, width_of: impl Fn(usize) -> usize) -> usize {
-        let cache = &self.runs[slot];
-        let (from, to) = cache.get();
-        if from <= i && i <= to {
+    /// `width_of` accepts, found once per run: `cache` keeps the last run,
+    /// and a search from inside it ends where it does.
+    fn run_end(&self, i: usize, cache: &Cell<Run>, width_of: impl Fn(usize) -> usize) -> usize {
+        let run = cache.get();
+        if run.holds(i) {
             self.spend(1);
-            return to;
+            return run.end;
         }
         let mut j = i;
         loop {
@@ -102,18 +103,18 @@ impl Lexer<'_> {
             j += width;
         }
         self.spend(j - i + 1);
-        cache.set((i, j));
+        cache.set(Run { start: i, end: j });
         j
     }
 
     /// The end of `\s*` from `i`.
     pub(super) fn skip_space(&self, i: usize) -> usize {
-        self.run_end(i, 0, |j| self.space_at(j))
+        self.run_end(i, &self.runs.space, |j| self.space_at(j))
     }
 
     /// The end of `\w*` from `i`.
     pub(super) fn skip_word(&self, i: usize) -> usize {
-        self.run_end(i, 1, |j| self.word_at(j))
+        self.run_end(i, &self.runs.word, |j| self.word_at(j))
     }
 
     /// The end of `[A-Za-z_]\w*` at `i`.
@@ -129,7 +130,7 @@ impl Lexer<'_> {
         if i >= self.len_all() || !(b.is_ascii_alphabetic() || b == b'_') {
             return None;
         }
-        Some(self.run_end(i + 1, 2, |j| {
+        Some(self.run_end(i + 1, &self.runs.ascii_name, |j| {
             let c = self.b(j);
             usize::from(j < self.len_all() && (c.is_ascii_alphanumeric() || c == b'_'))
         }))
@@ -137,7 +138,7 @@ impl Lexer<'_> {
 
     /// The end of the run of colons from `i`.
     pub(super) fn colons_end(&self, i: usize) -> usize {
-        self.run_end(i, 3, |j| {
+        self.run_end(i, &self.runs.colons, |j| {
             usize::from(self.b(j) == b':' && j < self.len_all())
         })
     }

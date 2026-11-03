@@ -3,10 +3,10 @@
 use super::access::CallKind;
 use super::engine::Lexer;
 use super::lists::P;
-use super::preproc::Look;
+use super::preproc::{Look, Meta};
 use super::scope::S;
 use super::state::R;
-use super::wordset;
+use super::{comments, wordset};
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`; the match is in `hit` and `sp`.
@@ -26,15 +26,15 @@ impl Lexer<'_> {
             P::LineLeading => self.line_leading(p),
             P::LineSlash => self.line_slash(p),
             P::LineComment => self.line_comment(p),
-            P::DoxyBare => self.doxy_plain(p, 0),
+            P::DoxyBare => self.doxy_plain(p, comments::DOXY_BARE),
             P::DoxyItalic => self.doxy_arg(p, &["a", "em", "e"], &[S::MarkupItalic]),
             P::DoxyBold => self.doxy_arg(p, &["b"], &[S::MarkupBold]),
             P::DoxyRaw => self.doxy_arg(p, &["c", "p"], &[S::MarkupRaw]),
-            P::DoxyWordA => self.doxy_plain(p, 1),
-            P::DoxyWordB => self.doxy_plain(p, 2),
+            P::DoxyWordA => self.doxy_plain(p, comments::DOXY_A),
+            P::DoxyWordB => self.doxy_plain(p, comments::DOXY_B),
             P::DoxyParam => self.doxy_param(p),
-            P::DoxyWordC => self.doxy_plain(p, 3),
-            P::DoxyWordD => self.doxy_plain(p, 4),
+            P::DoxyWordC => self.doxy_plain(p, comments::DOXY_C),
+            P::DoxyWordD => self.doxy_plain(p, comments::DOXY_D),
             P::Gtkdoc => self.gtkdoc(p),
             P::InlineComment => self.inline_comment(p),
             P::InlineEnd => self.inline_end(p),
@@ -152,24 +152,36 @@ impl Lexer<'_> {
             P::Stray => self.stray(p),
             P::HeadContBegin => self.head_begin(p, R::HeadCont),
             P::HeadPlainBegin => self.head_begin(p, R::HeadPlain),
-            P::CondElifBegin => self.cond_begin(p, &["elif"], Look::No, false, R::CondElif),
-            P::LiveElifBegin => self.cond_begin(p, &["elif"], Look::Enabled, true, R::LiveElif),
-            P::LiveElifBBegin => self.cond_begin(p, &["elif"], Look::Enabled, true, R::LiveElifB),
-            P::LiveElseBegin => self.cond_begin(p, &["else"], Look::No, true, R::LiveElse),
-            P::LiveElseBBegin => self.cond_begin(p, &["else"], Look::No, true, R::LiveElseB),
+            P::CondElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Omitted, R::CondElif),
+            P::LiveElifBegin => {
+                self.cond_begin(p, &["elif"], Look::Enabled, Meta::Whole, R::LiveElif)
+            }
+            P::LiveElifBBegin => {
+                self.cond_begin(p, &["elif"], Look::Enabled, Meta::Whole, R::LiveElifB)
+            }
+            P::LiveElseBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::LiveElse),
+            P::LiveElseBBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::LiveElseB),
             P::DisabledElifBegin => {
-                self.cond_begin(p, &["elif"], Look::Disabled, true, R::DisabledElif)
+                self.cond_begin(p, &["elif"], Look::Disabled, Meta::Whole, R::DisabledElif)
             }
             P::DisabledElifOtherBegin => {
-                self.cond_begin(p, &["elif"], Look::No, true, R::DisabledElifOther)
+                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::DisabledElifOther)
             }
             P::DisabledElifOtherBBegin => {
-                self.cond_begin(p, &["elif"], Look::No, true, R::DisabledElifOtherB)
+                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::DisabledElifOtherB)
             }
-            P::ElseBranchBegin => self.cond_begin(p, &["else"], Look::No, true, R::ElseBranch),
-            P::ElseBranchBBegin => self.cond_begin(p, &["else"], Look::No, true, R::ElseBranchB),
-            P::ElifBranchBegin => self.cond_begin(p, &["elif"], Look::No, true, R::ElifBranch),
-            P::ElifBranchBBegin => self.cond_begin(p, &["elif"], Look::No, true, R::ElifBranchB),
+            P::ElseBranchBegin => {
+                self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElseBranch)
+            }
+            P::ElseBranchBBegin => {
+                self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElseBranchB)
+            }
+            P::ElifBranchBegin => {
+                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifBranch)
+            }
+            P::ElifBranchBBegin => {
+                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifBranchB)
+            }
             P::EnabledBodyBegin => self.newline_begin(p, R::EnabledBody),
             P::EnabledBodyBBegin => self.newline_begin(p, R::EnabledBodyB),
             P::DisabledBodyBegin => self.newline_begin(p, R::DisabledBody),
@@ -177,9 +189,9 @@ impl Lexer<'_> {
             P::DisabledElifBodyBegin => self.newline_begin(p, R::DisabledElifBody),
             P::ElifTailBegin => self.newline_begin(p, R::ElifTail),
             P::ElifTailBBegin => self.newline_begin(p, R::ElifTailB),
-            P::ElifElseBegin => self.cond_begin(p, &["else"], Look::No, true, R::ElifElse),
-            P::ElifElseBBegin => self.cond_begin(p, &["else"], Look::No, true, R::ElifElseB),
-            P::ElifElifBegin => self.cond_begin(p, &["elif"], Look::No, true, R::ElifElif),
+            P::ElifElseBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElifElse),
+            P::ElifElseBBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElifElseB),
+            P::ElifElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifElif),
             P::NestBegin => self.nest_begin(p),
             P::CondDefinedKeyword => self.cond_defined(p),
             P::CondDefinedInvalid => self.cond_defined_invalid(p),

@@ -76,6 +76,20 @@ pub(crate) enum Rule {
     RetokHeredocRest,
 }
 
+// `ALL` lists every rule at its own discriminant. Until the rules come
+// from `tag::frame_kinds!`, which generates the list, this check stands in.
+const _: () = {
+    let mut i = 0;
+    while i < Rule::ALL.len() {
+        assert!(Rule::ALL[i].index() == i, "Rule::ALL is out of order");
+        i += 1;
+    }
+    assert!(
+        Rule::ALL.len() == Rule::RetokHeredocRest.index() + 1,
+        "Rule::ALL misses a rule"
+    );
+};
+
 impl Rule {
     /// Every rule by discriminant.
     pub(crate) const ALL: [Rule; 59] = [

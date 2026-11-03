@@ -1,24 +1,32 @@
 //! The patterns that are a word, an operator or a punctuation mark.
 
-use super::engine::Lexer;
+use super::engine::{Lexer, WordLists};
 use super::scope::S;
 use super::wordset;
 
 impl Lexer<'_> {
     /// The end of the word at `p` when it is in the lists `bits`: `\b(…)\b`.
     pub(super) fn word_in(&self, p: usize, bits: u32) -> Option<usize> {
-        let (at, end, mask) = self.mask.get();
-        if at == p {
-            return (mask & bits != 0).then_some(end);
+        let known = self.lists.get();
+        if known.start == p {
+            return (known.lists & bits != 0).then_some(known.end);
         }
         if self.word_at(p) == 0 || self.word_before(p) {
-            self.mask.set((p, p, 0));
+            self.lists.set(WordLists {
+                start: p,
+                end: p,
+                lists: 0,
+            });
             return None;
         }
         let end = self.skip_word(p);
-        let mask = wordset::of(self.text(p, end));
-        self.mask.set((p, end, mask));
-        (mask & bits != 0).then_some(end)
+        let lists = wordset::of(self.text(p, end));
+        self.lists.set(WordLists {
+            start: p,
+            end,
+            lists,
+        });
+        (lists & bits != 0).then_some(end)
     }
 
     /// A word of the lists `bits` with `scope` on it.

@@ -23,12 +23,7 @@ macro_rules! rules {
 
         impl R {
             /// Every kind, in discriminant order.
-            const ALL: &[R] = &[$(R::$id),*];
-
-            /// Every kind, in discriminant order.
-            pub(super) const fn every() -> &'static [R] {
-                Self::ALL
-            }
+            pub(super) const ALL: &[R] = &[$(R::$id),*];
 
             /// The scopes of the rule's `name`: on its begin, its text and
             /// its end.
