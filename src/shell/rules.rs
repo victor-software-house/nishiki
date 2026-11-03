@@ -1383,7 +1383,7 @@ mod tests {
 
     #[test]
     fn every_rule_fits_its_tables() {
-        for &rule in &Rule::ALL {
+        for &rule in Rule::ALL {
             let info = rule_info(rule);
             let zero_width = info
                 .order
