@@ -62,3 +62,27 @@ fn a_markdown_fence_runs_its_makefile_lines_under_the_same_limits() {
     assert!(rows[1].1.reached(Limit::Work));
     assert!(rows[2].1.is_complete());
 }
+
+/// Each reference opens two contexts, the `$(` and the name inside it, so
+/// three open contexts above the document hold one reference and the name
+/// of a second.
+#[test]
+fn make_references_past_the_depth_limit_are_not_opened() {
+    let limits = Limits {
+        depth: Some(3),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Make, limits);
+    let (rows, _) = lex(&mut highlighter, &["$(a $(b $(c $(d x"]);
+    let (tokens, report) = &rows[0];
+    assert!(report.reached(Limit::Depth));
+    let last = tokens[tokens.len() - 1];
+    assert_eq!(
+        highlighter
+            .scopes(last.stack())
+            .filter(|name| *name == "string.interpolated.makefile")
+            .count(),
+        2,
+        "the document's own context is not counted"
+    );
+}

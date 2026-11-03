@@ -206,11 +206,7 @@ impl Grammar for Make {
                     let Some(hit_end) = lexer.hit(pat, p) else {
                         continue;
                     };
-                    if pat.opens().is_some()
-                        && lexer
-                            .depth_limit()
-                            .is_some_and(|max| lexer.frame_count() >= max)
-                    {
+                    if pat.opens().is_some() && lexer.at_depth_limit() {
                         lexer.record_depth();
                         let start = lexer.x.start;
                         let next = if hit_end > start {

@@ -557,17 +557,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Whether the depth limit keeps another rule from opening.
     pub(crate) fn at_depth_limit(&self) -> bool {
-        self.limits.depth.is_some_and(|max| self.depth() >= max)
-    }
-
-    /// The open rules, the root included.
-    pub(crate) fn frame_count(&self) -> usize {
-        self.frames.len()
-    }
-
-    /// The most rules the depth limit lets be open, when it is set.
-    pub(crate) fn depth_limit(&self) -> Option<usize> {
-        self.limits.depth
+        self.limits.depth_reached(self.depth())
     }
 
     /// Leaves the text from the cursor up to `next` plain, as the innermost
