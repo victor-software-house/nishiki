@@ -760,7 +760,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.emit(end, base);
     }
 
-    /// Emits a pattern's table of capture groups.
+    /// Emits a pattern's table of capture groups. A group that the grammar
+    /// tokenizes with patterns of its own runs them under the match's stack
+    /// `base` plus that group's name, not under the groups around it, as
+    /// vscode-textmate's `handleCaptures` does.
     fn emit_captures(&mut self, (table, nested): Captures<G>, base: u32, start: usize, end: usize) {
         self.caps[0] = Some((start, end));
         self.dirty = true;
@@ -796,7 +799,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             let outer = if depth > 0 { stack[depth - 1].1 } else { base };
             self.emit(from, outer);
             if let Some(kind) = kind {
-                self.nested(kind, from, to, outer);
+                let named = table
+                    .iter()
+                    .find(|&&(number, _)| number == group)
+                    .map_or(&[][..], |&(_, scopes)| scopes);
+                let inner = self.path(base, named);
+                self.nested(kind, from, to, inner);
                 continue;
             }
             if scopes.is_empty() {
