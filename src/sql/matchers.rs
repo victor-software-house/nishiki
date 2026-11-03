@@ -12,19 +12,10 @@ use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
+use crate::case_fold;
 use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
 use crate::language::Halt;
-use crate::utf8::{char_at, char_len, char_start};
-
-/// The ASCII lowercase letter that `c` matches without regard to case: itself,
-/// or `s` for `ſ` and `k` for the Kelvin sign, which `Onig` folds to them.
-fn fold(c: char) -> Option<u8> {
-    match c {
-        'ſ' => Some(b's'),
-        '\u{212a}' => Some(b'k'),
-        _ => u8::try_from(c).ok().map(|b| b.to_ascii_lowercase()),
-    }
-}
+use crate::utf8::{char_len, char_start};
 
 /// The length of the longest word of the keyword, function and global
 /// tables: a word longer than it is in none of them.
@@ -121,25 +112,26 @@ impl Lexer<'_> {
     }
 
     /// The end of the ASCII word `word` at `i`, matched without regard to
-    /// case, as `(?i)` reads it: `ſ` is an `s` and the Kelvin sign a `k`.
+    /// case, as `(?i)` reads it: a character above ASCII stands for the
+    /// letters it folds to, such as `ſ` for `s` and `ß` for `ss`.
     ///
-    /// An ASCII byte is compared as it is, so only a multibyte character is
-    /// decoded and folded.
+    /// An ASCII byte is compared as it is, so only a character above ASCII
+    /// goes through [`case_fold::literal_at`].
     pub(super) fn lit(&self, i: usize, word: &str) -> Option<usize> {
         let mut at = i;
-        for &expected in word.as_bytes() {
+        let mut rest = word.as_bytes();
+        while let [expected, tail @ ..] = rest {
             let &byte = self.s.get(at)?;
             if byte.is_ascii() {
-                if !byte.eq_ignore_ascii_case(&expected) {
+                if !byte.eq_ignore_ascii_case(expected) {
                     return None;
                 }
                 at += 1;
+                rest = tail;
             } else {
-                let (c, width) = char_at(self.s, at)?;
-                if fold(c)? != expected.to_ascii_lowercase() {
-                    return None;
-                }
+                let (width, read) = case_fold::literal_at(self.s, at, rest)?;
                 at += width;
+                rest = rest.get(read..)?;
             }
         }
         Some(at)
@@ -158,9 +150,9 @@ impl Lexer<'_> {
             .find_map(|word| self.lit(i, word).filter(|&end| self.bnd(end)))
     }
 
-    /// The lowercase of the word `i..j` in `buf`, or `None` when it is longer
-    /// than any word of the tables or has a character that no ASCII letter
-    /// matches without regard to case.
+    /// The word `i..j` lowered in `buf`, each character above ASCII as the
+    /// letters it folds to, or `None` when that is longer than any word of the
+    /// tables or a character above ASCII folds to no ASCII letters.
     pub(super) fn lower<'b>(
         &self,
         i: usize,
@@ -170,8 +162,17 @@ impl Lexer<'_> {
         let text = std::str::from_utf8(self.s.get(i..j)?).ok()?;
         let mut len = 0;
         for c in text.chars() {
-            *buf.get_mut(len)? = fold(c)?;
-            len += 1;
+            if let Ok(byte) = u8::try_from(c)
+                && byte.is_ascii()
+            {
+                *buf.get_mut(len)? = byte.to_ascii_lowercase();
+                len += 1;
+                continue;
+            }
+            for &letter in case_fold::letters(c)? {
+                *buf.get_mut(len)? = letter;
+                len += 1;
+            }
         }
         buf.get(..len)
     }
