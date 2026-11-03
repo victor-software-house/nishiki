@@ -191,6 +191,12 @@ impl P {
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`; the match's start and end are in `x`,
     /// and its parts in the spans.
+    ///
+    /// `#[inline]` because `find`, in another module, calls it for every
+    /// candidate pattern: at the default sixteen codegen units the two land in
+    /// different units, and a generic method that is not `#[inline]` cannot be
+    /// inlined across them (`bench/AGENTS.md` rule 13).
+    #[inline]
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per pattern: the table of what each pattern matches"

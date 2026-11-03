@@ -25,3 +25,9 @@ Rules for measuring nishiki, beside the root guide's invariants.
 12. `mise run callgrind`, which the Callgrind workflow runs on a pull request labelled `bench`, counts instructions with both sides built at one codegen unit (`CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1`, set by the task only).
     Its counts are a review signal for the change itself: at the default sixteen units, an edit that only moves engine code between units shifted them by up to a few percent (2026-11-03: Python +0.6% and Go −6% on a change that measured ±0.05% at one unit), and a gate that trips on layout alone gets ignored.
     The wall-clock figures of rule 11 keep the default profile, because that layout is what users get.
+13. A language on `crate::rules` marks `#[inline]` the dispatch its scan calls in another module: the function that tries a pattern, and the matchers that table calls at every position.
+    The engine's methods on `Lexer<G>` are generic, so each language's copies are placed in one codegen unit, and at the default sixteen units a call from another module cannot be inlined unless the callee is `#[inline]`.
+    On 2026-11-03 that alone cost C 1.1% and the SQL port 7.6% more instructions at sixteen units than at one; marking C's `match_pat` and SQL's `hit` and `pat_at` took both below their counts before the port.
+    The engine's own accessors were not the cause: marking nine of them changed nothing.
+14. A port onto `crate::rules` passes when identity is clean, its own instructions at one codegen unit (rule 12) are at parity with the lexer it replaces or better, and every other rule language stays within ±0.3% there.
+    The pull request also records the instructions at sixteen units and the wall time in the default profile, but they do not decide: they follow layout across codegen units, and rule 13 is how a port closes that gap.
