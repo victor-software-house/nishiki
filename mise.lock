@@ -204,7 +204,7 @@ backend = "core:rust"
 specifiers = ["nightly-2026-11-01"]
 
 [tools.rust.options]
-components = "rustfmt"
+components = "miri,rust-src,rustfmt"
 profile = "minimal"
 
 [[tools.taplo]]

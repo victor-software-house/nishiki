@@ -13,8 +13,8 @@ use std::path::{Path, PathBuf};
 use nishiki::{Highlighter, Language, State};
 
 /// One source line of a fixture and Shiki's scope stack for each of its bytes.
-struct Line {
-    text: String,
+pub(crate) struct Line {
+    pub(crate) text: String,
     stacks: Vec<String>,
 }
 
@@ -34,7 +34,7 @@ const SHOWN: usize = 20;
     clippy::expect_used,
     reason = "a test helper; a bad fixture fails the test"
 )]
-fn fixtures(language: &str) -> Vec<PathBuf> {
+pub(crate) fn fixtures(language: &str) -> Vec<PathBuf> {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("tests/oracle")
         .join(language);
@@ -52,7 +52,7 @@ fn fixtures(language: &str) -> Vec<PathBuf> {
     clippy::expect_used,
     reason = "a test helper; a bad fixture fails the test"
 )]
-fn parse(path: &Path) -> Vec<Line> {
+pub(crate) fn parse(path: &Path) -> Vec<Line> {
     let content = fs::read_to_string(path).expect("a readable fixture");
     let mut lines: Vec<Line> = Vec::new();
     let mut start = 0;
@@ -280,7 +280,7 @@ fn colour_failures(language: Language) -> Vec<String> {
     clippy::expect_used,
     reason = "a test helper; a panicking language fails the test"
 )]
-fn every_language(failures: fn(Language) -> Vec<String>) {
+pub(crate) fn every_language(failures: fn(Language) -> Vec<String>) {
     let reports: Vec<String> = std::thread::scope(|scope| {
         let runs: Vec<_> = Language::ALL
             .iter()

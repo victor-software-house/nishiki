@@ -29,8 +29,13 @@ version = "0.1.0"
 dependencies = [
  "indoc",
  "memchr",
+ "nishiki-alloc-count",
  "serde_json",
 ]
+
+[[package]]
+name = "nishiki-alloc-count"
+version = "0.0.0"
 
 [[package]]
 name = "proc-macro2"

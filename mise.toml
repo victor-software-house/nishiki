@@ -19,8 +19,8 @@ locked = true
 rust = [
   # Pinned stable: build, lint, test.
   { version = "1.99.1", profile = "minimal", components = "clippy", mr_boxington = true },
-  # rustfmt's unstable options, and rustdoc as docs.rs builds it.
-  { version = "nightly-2026-11-01", profile = "minimal", components = "rustfmt" },
+  # rustfmt's unstable options, rustdoc as docs.rs builds it, and Miri.
+  { version = "nightly-2026-11-01", profile = "minimal", components = "rustfmt,miri,rust-src" },
 ]
 mr-boxington = "1.29.1"
 "github:EmbarkStudios/cargo-deny" = "0.20.2"
@@ -53,6 +53,7 @@ depends = [
   "check:features",
   "test",
   "test:doc",
+  "test:miri",
   "doc",
   "check:docs",
   "deny",
