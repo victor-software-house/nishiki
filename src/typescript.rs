@@ -58,12 +58,11 @@ mod typ;
 mod type_aliases;
 
 use kind::Kind;
+pub(crate) use lexer::Opened;
 pub(crate) use scope::NAMES;
 use scope::S;
 
-use crate::Token;
 use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
 
 /// Which of the grammars to follow: TypeScript, or one of the three that
 /// share a structure with it and add JSX.
@@ -190,9 +189,7 @@ fn run<const D: u8>(
     line_start: bool,
     state: u32,
 ) -> u32 {
-    let mut lexer = lexer::Lexer::<D>::new(
-        cx.arena, cx.limits, line, line_start, cx.out, state, cx.report,
-    );
+    let mut lexer = lexer::Lexer::<D>::new(cx, line, line_start, state);
     lexer.run();
     lexer.into_state()
 }
@@ -234,15 +231,7 @@ pub(crate) fn lex_interpolation(
 ) -> (u32, Option<usize>) {
     let mut close = None;
     let next = cx.lex_from_start(line, |cx, rest| {
-        let (next, at) = interpolation_line(
-            cx.arena,
-            cx.limits,
-            rest,
-            line.start == 0,
-            state,
-            cx.out,
-            cx.report,
-        );
+        let (next, at) = interpolation_line(cx, rest, line.start == 0, state);
         close = at;
         next
     });
@@ -252,18 +241,15 @@ pub(crate) fn lex_interpolation(
 /// Lexes the non-empty `line` as JavaScript up to the `}` that ends the
 /// interpolation, and returns the state after it and where that `}` is.
 fn interpolation_line(
-    arena: &mut Arena,
-    limits: &Limits,
+    cx: &mut crate::language::Context<'_>,
     line: &str,
     line_start: bool,
     state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
 ) -> (u32, Option<usize>) {
     if line.is_empty() {
         return (state, None);
     }
-    let mut lexer = lexer::Lexer::<1>::new(arena, limits, line, line_start, out, state, report);
+    let mut lexer = lexer::Lexer::<1>::new(cx, line, line_start, state);
     lexer.run();
     let close = lexer.halted_at();
     (lexer.into_state(), close)

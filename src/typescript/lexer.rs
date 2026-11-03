@@ -8,6 +8,7 @@ use super::bytes::Bytes;
 use super::kind::Kind;
 use super::scope::S;
 use crate::arena::{Arena, Frame};
+use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token};
 
@@ -33,11 +34,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
     steps: Cell<u64>,
     /// Steps this line may spend; `u64::MAX` for no limit.
     budget: u64,
-    /// Where each open context was entered on this line, by the depth of its
-    /// frame; a context opened on an earlier line has no entry.
-    enter: Depths,
-    /// The `\G` anchor in force before each open context began, by depth.
-    anchors: Depths,
+    /// The contexts opened on this line and still open, innermost last: the
+    /// top frames of the stack.
+    opened: &'a mut Vec<Opened>,
     /// The end of the last rule match, which `TextMate` calls the line
     /// position.
     pub(crate) line_pos: usize,
@@ -83,49 +82,21 @@ const CLASS: [u8; 128] = {
     table
 };
 
-/// A position per frame depth, `usize::MAX` where none was set on this line.
+/// A context opened on the current line, which `TextMate` remembers to
+/// catch a grammar that loops.
 ///
-/// The first depths live inline, so a line that opens few contexts allocates
-/// nothing.
-struct Depths {
-    inline: [usize; Self::INLINE],
-    spill: Vec<usize>,
-}
-
-impl Depths {
-    const INLINE: usize = 32;
-
-    fn new() -> Self {
-        Depths {
-            inline: [usize::MAX; Self::INLINE],
-            spill: Vec::new(),
-        }
-    }
-
-    fn get(&self, depth: u32) -> usize {
-        let index = usize::try_from(depth).unwrap_or(usize::MAX);
-        match self.inline.get(index) {
-            Some(&value) => value,
-            None => self
-                .spill
-                .get(index - Self::INLINE)
-                .copied()
-                .unwrap_or(usize::MAX),
-        }
-    }
-
-    fn set(&mut self, depth: u32, value: usize) {
-        let index = usize::try_from(depth).unwrap_or(usize::MAX);
-        if let Some(slot) = self.inline.get_mut(index) {
-            *slot = value;
-            return;
-        }
-        let spill = index - Self::INLINE;
-        if self.spill.len() <= spill {
-            self.spill.resize(spill + 1, usize::MAX);
-        }
-        self.spill[spill] = value;
-    }
+/// Only the contexts opened on the line need this, and they are always the
+/// top of the stack: a frame from an earlier line is popped only when nothing
+/// opened on the line sits above it. The highlighter keeps the stack across
+/// lines, so a line clears it rather than filling a table per depth.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Opened {
+    /// The context's kind code.
+    kind: u16,
+    /// The line position where it was entered.
+    enter: usize,
+    /// The `\G` anchor in force before it began.
+    anchor: usize,
 }
 
 pub(crate) fn is_ws(b: u8) -> bool {
@@ -147,32 +118,26 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// the type, so the TypeScript lexer compiles with no JSX branches.
     pub(crate) const DIALECT: Dialect = Dialect::of(D);
 
-    pub(crate) fn new(
-        arena: &'a mut Arena,
-        limits: &'a Limits,
-        src: &'a str,
-        bol: bool,
-        out: &'a mut Vec<Token>,
-        state: u32,
-        report: &'a mut LineReport,
-    ) -> Self {
-        let frame = arena.frame(state);
+    pub(crate) fn new(cx: &'a mut Context<'_>, src: &'a str, bol: bool, state: u32) -> Self {
+        let frame = cx.arena.frame(state);
+        let limits = cx.limits;
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(src.len()));
+        let opened = &mut cx.scratch.typescript;
+        opened.clear();
         let mut lexer = Lexer {
             src,
             s: src.as_bytes(),
             len: src.len(),
-            out,
-            arena,
+            out: &mut *cx.out,
+            arena: &mut *cx.arena,
             limits,
-            report,
+            report: &mut *cx.report,
             pos: 0,
             state,
             frame,
             steps: Cell::new(0),
             budget,
-            enter: Depths::new(),
-            anchors: Depths::new(),
+            opened,
             line_pos: 0,
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
@@ -649,11 +614,6 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     // Contexts.
 
-    /// Where the context of the frame at `depth` was entered on this line.
-    fn entered(&self, depth: u32) -> usize {
-        self.enter.get(depth)
-    }
-
     /// Opens `kind` at the end of its begin tokens; false when a limit keeps
     /// it closed. Callers emit the begin tokens first.
     pub(crate) fn push(&mut self, kind: Kind) -> bool {
@@ -666,13 +626,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
         // line has not advanced past, and gives the rest of the line to the
         // open one.
         if self.pos <= self.line_pos {
-            let mut frame = self.frame;
-            while frame.depth > 0 && self.entered(frame.depth) == self.line_pos {
-                if frame.kind == kind.code() {
-                    self.stuck = true;
-                    return false;
-                }
-                frame = self.arena.frame(frame.parent);
+            let here = self.opened.iter().rev();
+            let mut here = here.take_while(|opened| opened.enter == self.line_pos);
+            if here.any(|opened| opened.kind == kind.code()) {
+                self.stuck = true;
+                return false;
             }
         }
         if self.full() {
@@ -684,9 +642,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
             self.report.record(Limit::Nodes);
             return false;
         };
-        let depth = self.frame.depth + 1;
-        self.enter.set(depth, self.line_pos);
-        self.anchors.set(depth, self.anchor);
+        self.opened.push(Opened {
+            kind: kind.code(),
+            enter: self.line_pos,
+            anchor: self.anchor,
+        });
         self.anchor = self.pos;
         self.set_state(state);
         true
@@ -713,7 +673,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     }
 
     pub(crate) fn pop(&mut self) {
-        self.anchor = self.anchors.get(self.frame.depth);
+        self.anchor = self.opened.pop().map_or(usize::MAX, |opened| opened.anchor);
         self.set_state(self.frame.parent);
     }
 
@@ -732,7 +692,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.flush(p);
         // A context closed where it opened, without the line advancing, is a
         // loop in the grammar; TextMate leaves it open (see `stuck`).
-        if p <= self.line_pos && self.entered(self.frame.depth) == self.line_pos {
+        let here = self.opened.last().map(|opened| opened.enter);
+        if p <= self.line_pos && here == Some(self.line_pos) {
             self.stuck = true;
             return p;
         }

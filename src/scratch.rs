@@ -20,6 +20,15 @@ pub(crate) struct Scratch {
     /// The Java lexer's, for Java documents.
     #[cfg(feature = "lang-java")]
     pub(crate) java: crate::java::Scratch,
+    /// The TypeScript lexer's, for every dialect and the JavaScript of
+    /// GraphQL interpolations and Markdown fences.
+    #[cfg(any(
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    ))]
+    pub(crate) typescript: Vec<crate::typescript::Opened>,
     /// The CSS lexer's, for CSS documents and Markdown CSS fences.
     #[cfg(feature = "lang-css")]
     pub(crate) css: crate::css::Scratch,

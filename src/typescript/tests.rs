@@ -580,24 +580,26 @@ fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
 /// where the `}` that ends it is and where the last token ends.
 fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
     use crate::arena::{Arena, ROOT};
+    use crate::language::Context;
+    use crate::scratch::Scratch;
     use crate::{LineReport, Token};
 
     let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
     let mut state = super::start_interpolation(&mut arena, ROOT);
     let limits = Limits::default();
     let mut rows = Vec::new();
     for line in lines {
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
-        let (next, close) = super::interpolation_line(
-            &mut arena,
-            &limits,
-            line,
-            true,
-            state,
-            &mut out,
-            &mut report,
-        );
+        let mut cx = Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let (next, close) = super::interpolation_line(&mut cx, line, true, state);
         state = next;
         rows.push((close, out.last().map_or(0, |token| token.end())));
     }
