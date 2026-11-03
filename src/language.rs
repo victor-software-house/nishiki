@@ -237,6 +237,14 @@ languages! {
         module: powershell,
         reads_line_feed: true,
     }
+    /// Scala, with the scopes of Shiki's `scala` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Scala {
+        feature: "lang-scala",
+        names: ["scala"],
+        module: scala,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

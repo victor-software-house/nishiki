@@ -146,6 +146,7 @@ assert_eq!(highlighter.limits().depth, None);
 | XML | `Language::Xml` | `lang-xml` | `xml` |
 | Swift | `Language::Swift` | `lang-swift` | `swift` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
+| Scala | `Language::Scala` | `lang-scala` | `scala` |
 
 ### Features
 
@@ -168,7 +169,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell |
+  | `textmate` | PowerShell, Scala |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.

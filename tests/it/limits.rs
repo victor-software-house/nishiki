@@ -20,6 +20,8 @@ mod powershell;
 mod python;
 mod ruby;
 mod rust;
+#[cfg(feature = "lang-scala")]
+mod scala;
 mod shell;
 mod sql;
 mod swift;

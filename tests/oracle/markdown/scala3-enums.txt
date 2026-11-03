@@ -1,0 +1,1396 @@
+L ---
+T 3 text.html.markdown punctuation.definition.begin.frontmatter
+L layout: doc-page
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 8 text.html.markdown meta.embedded.block.frontmatter
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 16 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L title: "Enumerations"
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 6 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 7 text.html.markdown meta.embedded.block.frontmatter
+T 8 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.begin.yaml
+T 20 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml
+T 21 text.html.markdown meta.embedded.block.frontmatter string.quoted.double.yaml punctuation.definition.string.end.yaml
+L nightlyOf: https://docs.scala-lang.org/scala3/reference/enums/enums.html
+T 1 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 9 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 text.html.markdown meta.embedded.block.frontmatter punctuation.separator.key-value.mapping.yaml
+T 11 text.html.markdown meta.embedded.block.frontmatter
+T 12 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+T 72 text.html.markdown meta.embedded.block.frontmatter string.unquoted.plain.out.yaml
+L ---
+T 3 text.html.markdown punctuation.definition.end.frontmatter
+L 
+L An enumeration is used to define a type consisting of a set of named values.
+T 76 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L enum Color:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   case Red, Green, Blue
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This defines a new `sealed` class, `Color`, with three values, `Color.Red`,
+T 19 text.html.markdown meta.paragraph.markdown
+T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 75 text.html.markdown meta.paragraph.markdown
+L `Color.Green`, `Color.Blue`.  The color values are members of `Color`s
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown meta.paragraph.markdown
+L companion object.
+T 17 text.html.markdown meta.paragraph.markdown
+L 
+L ## Parameterized enums
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 22 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Enums can be parameterized.
+T 27 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-name:color
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 22 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L enum Color(val rgb: Int):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   case Red   extends Color(0xFF0000)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Green extends Color(0x00FF00)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Blue  extends Color(0x0000FF)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L As the example shows, you can define the parameter value by using an
+T 68 text.html.markdown meta.paragraph.markdown
+L explicit extends clause.
+T 24 text.html.markdown meta.paragraph.markdown
+L 
+L ## Methods defined for enums
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L The values of an enum correspond to unique integers. The integer
+T 64 text.html.markdown meta.paragraph.markdown
+L associated with an enum value is returned by its `ordinal` method:
+T 49 text.html.markdown meta.paragraph.markdown
+T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-compile-with:color
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 30 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L val red = Color.Red
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L val ord = red.ordinal
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L assert(ord == 0)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The companion object of an enum also defines three utility methods.
+T 67 text.html.markdown meta.paragraph.markdown
+L The `valueOf` method obtains an enum value
+T 4 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown
+L by its name. The `values` method returns all enum values
+T 17 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+L defined in an enumeration in an `Array`. The `fromOrdinal`
+T 32 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L method obtains an enum value from its ordinal (`Int`) value.
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-compile-with:color
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 30 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L val blue = Color.valueOf("Blue")
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L // blue: Color = Blue
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L val values = Color.values
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L // values: Array[Color] = Array(Red, Green, Blue)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L val red = Color.fromOrdinal(0)
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L // red: Color = Red
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## User-defined members of enums
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L It is possible to add your own definitions to an enum. Example:
+T 63 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-name:planet
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L enum Planet(mass: Double, radius: Double):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   private final val G = 6.67300E-11
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.access
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L   def surfaceGravity = G * mass / (radius * radius)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   def surfaceWeight(otherMass: Double) = otherMass * surfaceGravity
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L 
+L   case Mercury extends Planet(3.303e+23, 2.4397e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Venus   extends Planet(4.869e+24, 6.0518e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Earth   extends Planet(5.976e+24, 6.37814e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Mars    extends Planet(6.421e+23, 3.3972e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Jupiter extends Planet(1.9e+27,   7.1492e7)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Saturn  extends Planet(5.688e+26, 6.0268e7)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Uranus  extends Planet(8.686e+25, 2.5559e7)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   case Neptune extends Planet(1.024e+26, 2.4746e7)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L end Planet
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.end.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.type.declaration
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## User-defined companion object of enums
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 41 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L It is also possible to define an explicit companion object for an enum:
+T 71 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-compile-with:planet
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 31 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L object Planet:
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   def main(args: Array[String]) =
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+L     val earthWeight = args(0).toDouble
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L     val mass = earthWeight / Earth.surfaceGravity
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+L     for p <- values do
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+L       println(s"Your weight on $p is ${p.surfaceWeight(mass)}")
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.interpolation.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala meta.embedded.line.scala
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala meta.embedded.line.scala
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala punctuation.definition.template-expression.end.scala
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L end Planet
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.end.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.type.declaration
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Restrictions on Enum Cases
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 29 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Enum case declarations are similar to secondary constructors:
+T 61 text.html.markdown meta.paragraph.markdown
+L they are scoped outside of the enum template, despite being declared within it.
+T 79 text.html.markdown meta.paragraph.markdown
+L This means that enum case declarations cannot access inner members of the
+T 73 text.html.markdown meta.paragraph.markdown
+L enum class.
+T 11 text.html.markdown meta.paragraph.markdown
+L 
+L Similarly, enum case declarations may not directly reference members of the enum's companion object,
+T 100 text.html.markdown meta.paragraph.markdown
+L even if they are imported (directly, or by renaming). For example:
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc:nocompile
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L import Planet.*
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.import.scala keyword.other.import.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.import.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.import.scala entity.name.class.import.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.import.scala punctuation.definition.import
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.import.scala entity.name.import.scala
+L enum Planet(mass: Double, radius: Double):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   private final val (mercuryMass, mercuryRadius) = (3.303e+23, 2.4397e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.access
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L 
+L   case Mercury extends Planet(mercuryMass, mercuryRadius)             // Not found
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L   case Venus   extends Planet(venusMass, venusRadius)                 // illegal reference
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L   case Earth   extends Planet(Planet.earthMass, Planet.earthRadius)   // ok
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L object Planet:
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   private final val (venusMass, venusRadius) = (4.869e+24, 6.0518e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.access
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   private final val (earthMass, earthRadius) = (5.976e+24, 6.37814e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.access
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L end Planet
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.end.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.type.declaration
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L The fields referenced by `Mercury` are not visible, and the fields referenced by `Venus` may not
+T 25 text.html.markdown meta.paragraph.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 81 text.html.markdown meta.paragraph.markdown
+T 82 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 87 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 88 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 96 text.html.markdown meta.paragraph.markdown
+L be referenced directly (using `import Planet.*`). You must use an indirect reference,
+T 30 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L such as demonstrated with `Earth`.
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 34 text.html.markdown meta.paragraph.markdown
+L 
+L Note that it is not possible to write a companion object for an enum case,
+T 74 text.html.markdown meta.paragraph.markdown
+L either in the enum class template or the enum class companion object.
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L enum Planet(mass: Double, radius: Double):
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   case Earth extends Planet(5.976e+24, 6.37814e6)
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L   object Earth:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L     // a near-Earth object, but not a companion and not an enum value
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala punctuation.whitespace.comment.leading.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.line.double-slash.scala
+L     assert(this ne Planet.Earth)
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.language.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L     def report = assert(Planet.this.Earth eq Planet.Earth, s"I thought $this was Earth!")
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.language.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.interpolation.scala
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 72 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 76 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.template.expression.scala
+T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 84 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala
+T 88 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L end Planet
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.end.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.type.declaration
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Enum cases accept only access modifiers.
+T 40 text.html.markdown meta.paragraph.markdown
+L Enum classes accept only access modifiers and `into` or `infix`.
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown
+L 
+L ## Deprecation of Enum Cases
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 28 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L As a library author, you may want to signal that an enum case is no longer intended for use. However you could still want to gracefully handle the removal of a case from your public API, such as special casing deprecated cases.
+T 227 text.html.markdown meta.paragraph.markdown
+L 
+L To illustrate, say that the `Planet` enum originally had an additional case:
+T 28 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L 
+L ```diff
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L  enum Planet(mass: Double, radius: Double):
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L    ...
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L    case Neptune extends Planet(1.024e+26, 2.4746e7)
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L +  case Pluto   extends Planet(1.309e+22, 1.1883e3)
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff
+L  end Planet
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L We now want to deprecate the `Pluto` case. First we add the `scala.deprecated` annotation to `Pluto`:
+T 29 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 93 text.html.markdown meta.paragraph.markdown
+T 94 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 99 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 100 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 101 text.html.markdown meta.paragraph.markdown
+L 
+L ```diff
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L  enum Planet(mass: Double, radius: Double):
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L    ...
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L    case Neptune extends Planet(1.024e+26, 2.4746e7)
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L -  case Pluto   extends Planet(1.309e+22, 1.1883e3)
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff punctuation.definition.deleted.diff
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.deleted.diff
+L +
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+L +  @deprecated("refer to IAU definition of planet")
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff
+L +  case Pluto extends Planet(1.309e+22, 1.1883e3)
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff punctuation.definition.inserted.diff
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff markup.inserted.diff
+L  end Planet
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.diff
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Outside the lexical scopes of `enum Planet` or `object Planet`, references to `Planet.Pluto` will produce a deprecation warning, but within those scopes we can still reference it to implement introspection over the deprecated cases:
+T 30 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 91 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 92 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 232 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc:nocompile
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L trait Deprecations[T <: reflect.Enum]:
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   extension (t: T) def isDeprecatedCase: Boolean
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L 
+L object Planet:
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   given Deprecations[Planet]:
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L     extension (p: Planet)
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.parameter.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.colon.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L       def isDeprecatedCase = p == Pluto
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L We could imagine that a library may use [type class derivation](../contextual/derivation.md) to automatically provide an instance for `Deprecations`.
+T 40 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 64 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 92 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 134 text.html.markdown meta.paragraph.markdown
+T 135 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 147 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 148 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 149 text.html.markdown meta.paragraph.markdown
+L 
+L ## Compatibility with Java Enums
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 32 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L If you want to use the Scala-defined enums as [Java enums](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html), you can do so by extending
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 58 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 59 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 120 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 121 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 149 text.html.markdown meta.paragraph.markdown
+L the class `java.lang.Enum`, which is imported by default, as follows:
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-name:jcolor
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 23 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L enum Color extends Enum[Color]:
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   case Red, Green, Blue
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.control.flow.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L The type parameter comes from the Java enum [definition](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html) and should be the same as the type of the enum.
+T 44 text.html.markdown meta.paragraph.markdown
+T 45 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 55 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 137 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 138 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 186 text.html.markdown meta.paragraph.markdown
+L There is no need to provide constructor arguments (as defined in the Java API docs) to `java.lang.Enum` when extending it – the compiler will generate them automatically.
+T 87 text.html.markdown meta.paragraph.markdown
+T 88 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 102 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 103 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 172 text.html.markdown meta.paragraph.markdown
+L 
+L After defining `Color` like that, you can use it like you would a Java enum:
+T 15 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc-compile-with:jcolor
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 31 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L val cmp = Color.Red.compareTo(Color.Green)
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L assert(cmp == -1)
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.arithmetic.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For a more in-depth example of using Scala 3 enums from Java, see [this test](https://github.com/scala/scala3/tree/main/tests/run/enum-java). In the test, the enums are defined in the `MainScala.scala` file and used from a Java source, `Test.java`.
+T 66 text.html.markdown meta.paragraph.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 139 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 140 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 184 text.html.markdown meta.paragraph.markdown
+T 185 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 200 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 201 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 236 text.html.markdown meta.paragraph.markdown
+T 237 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 246 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 247 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 248 text.html.markdown meta.paragraph.markdown
+L 
+L ## Implementation
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Enums are represented as `sealed` classes that extend the `scala.reflect.Enum` trait.
+T 25 text.html.markdown meta.paragraph.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 58 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 85 text.html.markdown meta.paragraph.markdown
+L This trait defines a single public method, `ordinal`:
+T 43 text.html.markdown meta.paragraph.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 53 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc:nocompile
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L package scala.reflect
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.package.scala keyword.other.package.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.package.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.package.scala entity.name.package.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.package.scala punctuation.definition.package
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.package.scala entity.name.package.scala
+L 
+L /** A base trait of all Scala enum definitions */
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L transparent trait Enum extends Any, Product, Serializable:
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class.declaration
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L 
+L   /** A number uniquely identifying a case of an enum */
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def ordinal: Int
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Enum values with `extends` clauses get expanded to anonymous class instances.
+T 17 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+L For instance, the `Venus` value above would be defined like this:
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc:nocompile
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L val Venus: Planet = new Planet(4.869E24, 6051800.0):
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+L   def ordinal: Int = 1
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+L   override def productPrefix: String = "Venus"
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   override def toString: String = "Venus"
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala storage.modifier.other
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.function.declaration
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Enum values without `extends` clauses all share a single implementation
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown meta.paragraph.markdown
+L that can be instantiated using a private method that takes a tag and a name as arguments.
+T 89 text.html.markdown meta.paragraph.markdown
+L For instance, the first
+T 23 text.html.markdown meta.paragraph.markdown
+L definition of value `Color.Red` above would expand to:
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+L 
+L ```scala sc:nocompile
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 21 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L val Red: Color = $new(0, "Red")
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.stable.scala
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala variable.stable.declaration.scala
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.scala
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala entity.name.class
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.operator.comparison.scala
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala keyword.declaration.scala
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala constant.numeric.scala
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.scala meta.bracket.scala
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ## Reference
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 12 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L For more information, see [Issue #1970](https://github.com/scala/scala3/issues/1970) and
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 40 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L [PR #4003](https://github.com/scala/scala3/pull/4003).
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 9 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 10 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 52 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 53 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+L 

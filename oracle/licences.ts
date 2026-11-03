@@ -74,6 +74,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  scala: {
+    bundled: "scala/vscode-scala-syntax@672fa16c64e12b2cc8b98da011411463968de727",
+    origin: "scala/vscode-scala-syntax",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   shellscript: {
     bundled: "microsoft/vscode@9473445f7d3dcb5c579f42ece8b6c18c43c63ed3",
     origin: "jeff-hykin/better-shell-syntax",

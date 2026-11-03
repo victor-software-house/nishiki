@@ -1,0 +1,1078 @@
+L package dotty.tools
+T 7 source.scala meta.package.scala keyword.other.package.scala
+T 8 source.scala meta.package.scala
+T 13 source.scala meta.package.scala entity.name.package.scala
+T 14 source.scala meta.package.scala punctuation.definition.package
+T 19 source.scala meta.package.scala entity.name.package.scala
+L package dotc
+T 7 source.scala meta.package.scala keyword.other.package.scala
+T 8 source.scala meta.package.scala
+T 12 source.scala meta.package.scala entity.name.package.scala
+L package util
+T 7 source.scala meta.package.scala keyword.other.package.scala
+T 8 source.scala meta.package.scala
+T 12 source.scala meta.package.scala entity.name.package.scala
+L 
+L import scala.annotation.tailrec
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 12 source.scala meta.import.scala entity.name.import.scala
+T 13 source.scala meta.import.scala punctuation.definition.import
+T 23 source.scala meta.import.scala entity.name.import.scala
+T 24 source.scala meta.import.scala punctuation.definition.import
+T 31 source.scala meta.import.scala entity.name.import.scala
+L 
+L import printing.{Showable, Printer}
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 15 source.scala meta.import.scala entity.name.import.scala
+T 16 source.scala meta.import.scala punctuation.definition.import
+T 17 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+T 25 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 27 source.scala meta.import.scala meta.import.selector.scala
+T 34 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 35 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+L import printing.Texts.*
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 15 source.scala meta.import.scala entity.name.import.scala
+T 16 source.scala meta.import.scala punctuation.definition.import
+T 21 source.scala meta.import.scala entity.name.class.import.scala
+T 22 source.scala meta.import.scala punctuation.definition.import
+T 23 source.scala meta.import.scala entity.name.import.scala
+L import core.Contexts.Context
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 11 source.scala meta.import.scala entity.name.import.scala
+T 12 source.scala meta.import.scala punctuation.definition.import
+T 20 source.scala meta.import.scala entity.name.class.import.scala
+T 21 source.scala meta.import.scala punctuation.definition.import
+T 28 source.scala meta.import.scala entity.name.class.import.scala
+L import Spans.{Span, NoSpan}
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 12 source.scala meta.import.scala entity.name.class.import.scala
+T 13 source.scala meta.import.scala punctuation.definition.import
+T 14 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+T 18 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 20 source.scala meta.import.scala meta.import.selector.scala
+T 26 source.scala meta.import.scala meta.import.selector.scala entity.name.class.import.scala
+T 27 source.scala meta.import.scala meta.import.selector.scala meta.bracket.scala
+L import scala.annotation.internal.sharable
+T 6 source.scala meta.import.scala keyword.other.import.scala
+T 7 source.scala meta.import.scala
+T 12 source.scala meta.import.scala entity.name.import.scala
+T 13 source.scala meta.import.scala punctuation.definition.import
+T 23 source.scala meta.import.scala entity.name.import.scala
+T 24 source.scala meta.import.scala punctuation.definition.import
+T 32 source.scala meta.import.scala entity.name.import.scala
+T 33 source.scala meta.import.scala punctuation.definition.import
+T 41 source.scala meta.import.scala entity.name.import.scala
+L 
+L /** A source position is comprised of a span and a source file.
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 63 source.scala comment.block.documentation.scala
+L  *
+T 2 source.scala comment.block.documentation.scala
+L  *  `outer` must not be `NoSourcePosition`. It should be `null` instead (the default).
+T 86 source.scala comment.block.documentation.scala
+L  */
+T 1 source.scala comment.block.documentation.scala
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L case class SourcePosition(source: SourceFile, span: Span, outer: SourcePosition | Null = null)
+T 4 source.scala keyword.declaration.scala
+T 5 source.scala
+T 10 source.scala keyword.declaration.scala
+T 11 source.scala
+T 25 source.scala entity.name.class.declaration
+T 26 source.scala meta.bracket.scala
+T 32 source.scala variable.parameter.scala
+T 33 source.scala meta.colon.scala
+T 34 source.scala
+T 44 source.scala entity.name.class
+T 46 source.scala
+T 50 source.scala variable.parameter.scala
+T 51 source.scala meta.colon.scala
+T 52 source.scala
+T 56 source.scala entity.name.class
+T 58 source.scala
+T 63 source.scala variable.parameter.scala
+T 64 source.scala meta.colon.scala
+T 65 source.scala
+T 79 source.scala entity.name.class
+T 80 source.scala
+T 81 source.scala keyword.operator.scala
+T 82 source.scala
+T 86 source.scala entity.name.class
+T 87 source.scala
+T 88 source.scala keyword.operator.comparison.scala
+T 89 source.scala
+T 93 source.scala constant.language.scala
+T 94 source.scala meta.bracket.scala
+L extends SrcPos, interfaces.SourcePosition, Showable:
+T 7 source.scala keyword.declaration.scala
+T 8 source.scala
+T 14 source.scala entity.name.class
+T 27 source.scala
+T 41 source.scala entity.name.class
+T 43 source.scala
+T 51 source.scala entity.name.class
+T 52 source.scala keyword.operator.scala
+L 
+L   def sourcePos(using Context) = WrappedSourceFile.sourcePos(source, span)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala meta.bracket.scala
+T 21 source.scala keyword.declaration.scala
+T 22 source.scala
+T 29 source.scala entity.name.class
+T 30 source.scala meta.bracket.scala
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+T 33 source.scala
+T 50 source.scala entity.name.class
+T 60 source.scala
+T 61 source.scala meta.bracket.scala
+T 73 source.scala
+T 74 source.scala meta.bracket.scala
+L 
+L   /** Is `that` a source position contained in this source position?
+T 2 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 68 source.scala comment.block.documentation.scala
+L    *  `outer` is not taken into account. */
+T 41 source.scala comment.block.documentation.scala
+T 43 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def contains(that: SourcePosition): Boolean =
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 14 source.scala entity.name.function.declaration
+T 15 source.scala meta.bracket.scala
+T 19 source.scala variable.parameter.scala
+T 20 source.scala meta.colon.scala
+T 21 source.scala
+T 35 source.scala entity.name.class
+T 36 source.scala meta.bracket.scala
+T 37 source.scala keyword.operator.scala
+T 38 source.scala
+T 45 source.scala entity.name.class
+T 46 source.scala
+T 47 source.scala keyword.operator.comparison.scala
+L     this.source == that.source && this.span.contains(that.span)
+T 4 source.scala
+T 8 source.scala variable.language.scala
+T 16 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 31 source.scala
+T 33 source.scala keyword.operator.logical.scala
+T 34 source.scala
+T 38 source.scala variable.language.scala
+T 52 source.scala
+T 53 source.scala meta.bracket.scala
+T 62 source.scala
+T 63 source.scala meta.bracket.scala
+L 
+L   def exists: Boolean = span.exists
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 13 source.scala keyword.operator.scala
+T 14 source.scala
+T 21 source.scala entity.name.class
+T 22 source.scala
+T 23 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+L 
+L   def lineContent: String = source.lineContent(point)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 17 source.scala entity.name.function.declaration
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 25 source.scala entity.name.class
+T 26 source.scala
+T 27 source.scala keyword.operator.comparison.scala
+T 46 source.scala
+T 47 source.scala meta.bracket.scala
+T 52 source.scala
+T 53 source.scala meta.bracket.scala
+L 
+L   def point: Int = span.point
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 11 source.scala entity.name.function.declaration
+T 12 source.scala keyword.operator.scala
+T 13 source.scala
+T 16 source.scala entity.name.class
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 29 source.scala
+L 
+L   def line: Int = source.offsetToLine(point)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 10 source.scala entity.name.function.declaration
+T 11 source.scala keyword.operator.scala
+T 12 source.scala
+T 15 source.scala entity.name.class
+T 16 source.scala
+T 17 source.scala keyword.operator.comparison.scala
+T 37 source.scala
+T 38 source.scala meta.bracket.scala
+T 43 source.scala
+T 44 source.scala meta.bracket.scala
+L 
+L   /** Extracts the lines from the underlying source file as a `String`*/
+T 2 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 70 source.scala comment.block.documentation.scala
+T 72 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def linesSlice: String =
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 16 source.scala entity.name.function.declaration
+T 17 source.scala keyword.operator.scala
+T 18 source.scala
+T 24 source.scala entity.name.class
+T 25 source.scala
+T 26 source.scala keyword.operator.comparison.scala
+L     source.textContent.substring(source.startOfLine(start), source.nextLine(end))
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 51 source.scala
+T 52 source.scala meta.bracket.scala
+T 57 source.scala
+T 58 source.scala meta.bracket.scala
+T 75 source.scala
+T 76 source.scala meta.bracket.scala
+T 79 source.scala
+T 80 source.scala meta.bracket.scala
+T 81 source.scala meta.bracket.scala
+L 
+L   /** The lines of the position */
+T 2 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 32 source.scala comment.block.documentation.scala
+T 34 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def lines: Range = {
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 11 source.scala entity.name.function.declaration
+T 12 source.scala keyword.operator.scala
+T 13 source.scala
+T 18 source.scala entity.name.class
+T 19 source.scala
+T 20 source.scala keyword.operator.comparison.scala
+T 21 source.scala
+T 22 source.scala punctuation.section.block.begin.scala
+L     val startOffset = source.offsetToLine(start)
+T 4 source.scala
+T 7 source.scala keyword.declaration.stable.scala
+T 8 source.scala
+T 19 source.scala variable.stable.declaration.scala
+T 20 source.scala
+T 21 source.scala keyword.operator.comparison.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+T 47 source.scala
+T 48 source.scala meta.bracket.scala
+L     val endOffset = source.offsetToLine(end - 1) // -1 to drop a line if no chars in it form part of the position
+T 4 source.scala
+T 7 source.scala keyword.declaration.stable.scala
+T 8 source.scala
+T 17 source.scala variable.stable.declaration.scala
+T 18 source.scala
+T 19 source.scala keyword.operator.comparison.scala
+T 39 source.scala
+T 40 source.scala meta.bracket.scala
+T 44 source.scala
+T 45 source.scala keyword.operator.arithmetic.scala
+T 46 source.scala
+T 47 source.scala constant.numeric.scala
+T 48 source.scala meta.bracket.scala
+T 49 source.scala
+T 51 source.scala comment.line.double-slash.scala punctuation.definition.comment.scala
+T 113 source.scala comment.line.double-slash.scala
+L     if (startOffset >= endOffset) line to line
+T 4 source.scala
+T 6 source.scala keyword.control.flow.scala
+T 7 source.scala
+T 8 source.scala meta.bracket.scala
+T 20 source.scala
+T 22 source.scala keyword.operator.comparison.scala
+T 32 source.scala
+T 33 source.scala meta.bracket.scala
+T 46 source.scala
+L     else startOffset to endOffset
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 33 source.scala
+L   }
+T 2 source.scala
+T 3 source.scala punctuation.section.block.end.scala
+L 
+L   def lineOffsets: List[Int] =
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 17 source.scala entity.name.function.declaration
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 23 source.scala entity.name.class
+T 24 source.scala meta.bracket.scala
+T 27 source.scala entity.name.class
+T 28 source.scala meta.bracket.scala
+T 29 source.scala
+T 30 source.scala keyword.operator.comparison.scala
+L     lines.toList.map(source.lineToOffset(_))
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 40 source.scala
+T 41 source.scala meta.bracket.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 44 source.scala meta.bracket.scala
+L 
+L   def beforeAndAfterPoint: (List[Int], List[Int]) =
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 25 source.scala entity.name.function.declaration
+T 26 source.scala keyword.operator.scala
+T 27 source.scala
+T 28 source.scala meta.bracket.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+T 36 source.scala entity.name.class
+T 37 source.scala meta.bracket.scala
+T 39 source.scala
+T 43 source.scala entity.name.class
+T 44 source.scala meta.bracket.scala
+T 47 source.scala entity.name.class
+T 48 source.scala meta.bracket.scala
+T 49 source.scala meta.bracket.scala
+T 50 source.scala
+T 51 source.scala keyword.operator.comparison.scala
+L     lineOffsets.partition(_ <= point)
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+T 28 source.scala
+T 30 source.scala keyword.operator.comparison.scala
+T 36 source.scala
+T 37 source.scala meta.bracket.scala
+L 
+L   def column: Int = source.column(point)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 13 source.scala keyword.operator.scala
+T 14 source.scala
+T 17 source.scala entity.name.class
+T 18 source.scala
+T 19 source.scala keyword.operator.comparison.scala
+T 33 source.scala
+T 34 source.scala meta.bracket.scala
+T 39 source.scala
+T 40 source.scala meta.bracket.scala
+L 
+L   def start: Int = span.start
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 11 source.scala entity.name.function.declaration
+T 12 source.scala keyword.operator.scala
+T 13 source.scala
+T 16 source.scala entity.name.class
+T 17 source.scala
+T 18 source.scala keyword.operator.comparison.scala
+T 29 source.scala
+L   def startLine: Int = source.offsetToLine(start)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala keyword.operator.scala
+T 17 source.scala
+T 20 source.scala entity.name.class
+T 21 source.scala
+T 22 source.scala keyword.operator.comparison.scala
+T 42 source.scala
+T 43 source.scala meta.bracket.scala
+T 48 source.scala
+T 49 source.scala meta.bracket.scala
+L   def startColumn: Int = source.column(start)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 17 source.scala entity.name.function.declaration
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 22 source.scala entity.name.class
+T 23 source.scala
+T 24 source.scala keyword.operator.comparison.scala
+T 38 source.scala
+T 39 source.scala meta.bracket.scala
+T 44 source.scala
+T 45 source.scala meta.bracket.scala
+L   def startColumnPadding: String = source.startColumnPadding(start)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 24 source.scala entity.name.function.declaration
+T 25 source.scala keyword.operator.scala
+T 26 source.scala
+T 32 source.scala entity.name.class
+T 33 source.scala
+T 34 source.scala keyword.operator.comparison.scala
+T 60 source.scala
+T 61 source.scala meta.bracket.scala
+T 66 source.scala
+T 67 source.scala meta.bracket.scala
+L 
+L   def end: Int = span.end
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 9 source.scala entity.name.function.declaration
+T 10 source.scala keyword.operator.scala
+T 11 source.scala
+T 14 source.scala entity.name.class
+T 15 source.scala
+T 16 source.scala keyword.operator.comparison.scala
+T 25 source.scala
+L   def endLine: Int = source.offsetToLine(end)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 13 source.scala entity.name.function.declaration
+T 14 source.scala keyword.operator.scala
+T 15 source.scala
+T 18 source.scala entity.name.class
+T 19 source.scala
+T 20 source.scala keyword.operator.comparison.scala
+T 40 source.scala
+T 41 source.scala meta.bracket.scala
+T 44 source.scala
+T 45 source.scala meta.bracket.scala
+L   def endColumn: Int = source.column(end)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala keyword.operator.scala
+T 17 source.scala
+T 20 source.scala entity.name.class
+T 21 source.scala
+T 22 source.scala keyword.operator.comparison.scala
+T 36 source.scala
+T 37 source.scala meta.bracket.scala
+T 40 source.scala
+T 41 source.scala meta.bracket.scala
+L 
+L   def withOuter(outer: SourcePosition): SourcePosition = SourcePosition(source, span, outer)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala meta.bracket.scala
+T 21 source.scala variable.parameter.scala
+T 22 source.scala meta.colon.scala
+T 23 source.scala
+T 37 source.scala entity.name.class
+T 38 source.scala meta.bracket.scala
+T 39 source.scala keyword.operator.scala
+T 40 source.scala
+T 54 source.scala entity.name.class
+T 55 source.scala
+T 56 source.scala keyword.operator.comparison.scala
+T 57 source.scala
+T 71 source.scala entity.name.class
+T 72 source.scala meta.bracket.scala
+T 91 source.scala
+T 92 source.scala meta.bracket.scala
+L   def withSpan(range: Span) = SourcePosition(source, range, outer)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 14 source.scala entity.name.function.declaration
+T 15 source.scala meta.bracket.scala
+T 20 source.scala variable.parameter.scala
+T 21 source.scala meta.colon.scala
+T 22 source.scala
+T 26 source.scala entity.name.class
+T 27 source.scala meta.bracket.scala
+T 28 source.scala
+T 29 source.scala keyword.operator.comparison.scala
+T 30 source.scala
+T 44 source.scala entity.name.class
+T 45 source.scala meta.bracket.scala
+T 65 source.scala
+T 66 source.scala meta.bracket.scala
+L 
+L   def startPos: SourcePosition = withSpan(span.startPos)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 14 source.scala entity.name.function.declaration
+T 15 source.scala keyword.operator.scala
+T 16 source.scala
+T 30 source.scala entity.name.class
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+T 55 source.scala
+T 56 source.scala meta.bracket.scala
+L   def endPos  : SourcePosition = withSpan(span.endPos)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 14 source.scala
+T 15 source.scala keyword.operator.scala
+T 16 source.scala
+T 30 source.scala entity.name.class
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+T 53 source.scala
+T 54 source.scala meta.bracket.scala
+L   def focus   : SourcePosition = withSpan(span.focus)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 11 source.scala entity.name.function.declaration
+T 14 source.scala
+T 15 source.scala keyword.operator.scala
+T 16 source.scala
+T 30 source.scala entity.name.class
+T 31 source.scala
+T 32 source.scala keyword.operator.comparison.scala
+T 41 source.scala
+T 42 source.scala meta.bracket.scala
+T 52 source.scala
+T 53 source.scala meta.bracket.scala
+L   def toSynthetic: SourcePosition = withSpan(span.toSynthetic)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 17 source.scala entity.name.function.declaration
+T 18 source.scala keyword.operator.scala
+T 19 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala
+T 35 source.scala keyword.operator.comparison.scala
+T 44 source.scala
+T 45 source.scala meta.bracket.scala
+T 61 source.scala
+T 62 source.scala meta.bracket.scala
+L 
+L   @tailrec final def outermost: SourcePosition =
+T 2 source.scala
+T 3 source.scala keyword.operator.scala
+T 11 source.scala
+T 16 source.scala storage.modifier.other
+T 17 source.scala
+T 20 source.scala keyword.declaration.scala
+T 21 source.scala
+T 30 source.scala entity.name.function.declaration
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 46 source.scala entity.name.class
+T 47 source.scala
+T 48 source.scala keyword.operator.comparison.scala
+L     if outer == null then this else outer.outermost
+T 4 source.scala
+T 6 source.scala keyword.control.flow.scala
+T 13 source.scala
+T 15 source.scala keyword.operator.comparison.scala
+T 16 source.scala
+T 20 source.scala constant.language.scala
+T 21 source.scala
+T 25 source.scala keyword.control.flow.scala
+T 26 source.scala
+T 30 source.scala variable.language.scala
+T 31 source.scala
+T 35 source.scala keyword.control.flow.scala
+T 51 source.scala
+L 
+L   /** Inner most position that is contained within the `outermost` position.
+T 2 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 76 source.scala comment.block.documentation.scala
+L    *  Most precise position that comes from the call site.
+T 58 source.scala comment.block.documentation.scala
+L    */
+T 3 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def nonInlined: SourcePosition = {
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 16 source.scala entity.name.function.declaration
+T 17 source.scala keyword.operator.scala
+T 18 source.scala
+T 32 source.scala entity.name.class
+T 33 source.scala
+T 34 source.scala keyword.operator.comparison.scala
+T 35 source.scala
+T 36 source.scala punctuation.section.block.begin.scala
+L     val om = outermost
+T 4 source.scala
+T 7 source.scala keyword.declaration.stable.scala
+T 8 source.scala
+T 10 source.scala variable.stable.declaration.scala
+T 11 source.scala
+T 12 source.scala keyword.operator.comparison.scala
+T 22 source.scala
+L     def rec(self: SourcePosition): SourcePosition =
+T 4 source.scala
+T 7 source.scala keyword.declaration.scala
+T 8 source.scala
+T 11 source.scala entity.name.function.declaration
+T 12 source.scala meta.bracket.scala
+T 16 source.scala variable.parameter.scala
+T 17 source.scala meta.colon.scala
+T 18 source.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+T 34 source.scala keyword.operator.scala
+T 35 source.scala
+T 49 source.scala entity.name.class
+T 50 source.scala
+T 51 source.scala keyword.operator.comparison.scala
+L       if om.contains(self) || self.outer == null then self else rec(self.outer)
+T 6 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 20 source.scala
+T 21 source.scala meta.bracket.scala
+T 25 source.scala
+T 26 source.scala meta.bracket.scala
+T 27 source.scala
+T 29 source.scala keyword.operator.logical.scala
+T 41 source.scala
+T 43 source.scala keyword.operator.comparison.scala
+T 44 source.scala
+T 48 source.scala constant.language.scala
+T 49 source.scala
+T 53 source.scala keyword.control.flow.scala
+T 59 source.scala
+T 63 source.scala keyword.control.flow.scala
+T 67 source.scala
+T 68 source.scala meta.bracket.scala
+T 78 source.scala
+T 79 source.scala meta.bracket.scala
+L     rec(this)
+T 7 source.scala
+T 8 source.scala meta.bracket.scala
+T 12 source.scala variable.language.scala
+T 13 source.scala meta.bracket.scala
+L   }
+T 2 source.scala
+T 3 source.scala punctuation.section.block.end.scala
+L 
+L   override def toString: String =
+T 2 source.scala
+T 10 source.scala storage.modifier.other
+T 11 source.scala
+T 14 source.scala keyword.declaration.scala
+T 15 source.scala
+T 23 source.scala entity.name.function.declaration
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala
+T 33 source.scala keyword.operator.comparison.scala
+L     s"${if (source.exists) source.path else "(no source)"}:$span"
+T 4 source.scala
+T 5 source.scala keyword.interpolation.scala
+T 6 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 8 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 10 source.scala meta.template.expression.scala meta.embedded.line.scala keyword.control.flow.scala
+T 11 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 12 source.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 25 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 26 source.scala meta.template.expression.scala meta.embedded.line.scala meta.bracket.scala
+T 39 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 43 source.scala meta.template.expression.scala meta.embedded.line.scala keyword.control.flow.scala
+T 44 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 45 source.scala meta.template.expression.scala meta.embedded.line.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 56 source.scala meta.template.expression.scala meta.embedded.line.scala string.quoted.double.scala
+T 57 source.scala meta.template.expression.scala meta.embedded.line.scala string.quoted.double.scala punctuation.definition.string.end.scala
+T 58 source.scala meta.template.expression.scala punctuation.definition.template-expression.end.scala
+T 59 source.scala string.quoted.double.interpolated.scala
+T 60 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 64 source.scala meta.template.expression.scala
+T 65 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+L 
+L   /** A textual representation of this position in the format `file:line:column`.
+T 2 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 81 source.scala comment.block.documentation.scala
+L    *  Terminals in VS Code or  IntelliJ IDEA recognize this format and turn it
+T 78 source.scala comment.block.documentation.scala
+L    *  into a clickable link that jumps to the referenced location.
+T 66 source.scala comment.block.documentation.scala
+L    *  Returns `"<no position>"` if this position does not exist.
+T 64 source.scala comment.block.documentation.scala
+L    */
+T 3 source.scala comment.block.documentation.scala
+T 5 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L   def showLineColumn: String =
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 20 source.scala entity.name.function.declaration
+T 21 source.scala keyword.operator.scala
+T 22 source.scala
+T 28 source.scala entity.name.class
+T 29 source.scala
+T 30 source.scala keyword.operator.comparison.scala
+L     if exists then s"$source:${line + 1}:${column + 1}"
+T 4 source.scala
+T 6 source.scala keyword.control.flow.scala
+T 14 source.scala
+T 18 source.scala keyword.control.flow.scala
+T 19 source.scala
+T 20 source.scala keyword.interpolation.scala
+T 21 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.begin.scala
+T 22 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 28 source.scala meta.template.expression.scala
+T 29 source.scala string.quoted.double.interpolated.scala
+T 31 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 36 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 37 source.scala meta.template.expression.scala meta.embedded.line.scala keyword.operator.arithmetic.scala
+T 38 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 39 source.scala meta.template.expression.scala meta.embedded.line.scala constant.numeric.scala
+T 40 source.scala meta.template.expression.scala punctuation.definition.template-expression.end.scala
+T 41 source.scala string.quoted.double.interpolated.scala
+T 43 source.scala meta.template.expression.scala punctuation.definition.template-expression.begin.scala
+T 50 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 51 source.scala meta.template.expression.scala meta.embedded.line.scala keyword.operator.arithmetic.scala
+T 52 source.scala meta.template.expression.scala meta.embedded.line.scala
+T 53 source.scala meta.template.expression.scala meta.embedded.line.scala constant.numeric.scala
+T 54 source.scala meta.template.expression.scala punctuation.definition.template-expression.end.scala
+T 55 source.scala string.quoted.double.interpolated.scala punctuation.definition.string.end.scala
+L     else "<no position>"
+T 4 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 9 source.scala
+T 10 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 23 source.scala string.quoted.double.scala
+T 24 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L 
+L   def toText(printer: Printer): Text = printer.toText(this)
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 13 source.scala meta.bracket.scala
+T 20 source.scala variable.parameter.scala
+T 21 source.scala meta.colon.scala
+T 22 source.scala
+T 29 source.scala entity.name.class
+T 30 source.scala meta.bracket.scala
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 36 source.scala entity.name.class
+T 37 source.scala
+T 38 source.scala keyword.operator.comparison.scala
+T 53 source.scala
+T 54 source.scala meta.bracket.scala
+T 58 source.scala variable.language.scala
+T 59 source.scala meta.bracket.scala
+L 
+L object SourcePosition:
+T 6 source.scala keyword.declaration.scala
+T 7 source.scala
+T 21 source.scala entity.name.class.declaration
+T 22 source.scala keyword.operator.scala
+L   extension (pos: SourcePosition)
+T 2 source.scala
+T 11 source.scala keyword.declaration.scala
+T 12 source.scala
+T 13 source.scala meta.bracket.scala
+T 16 source.scala variable.parameter.scala
+T 17 source.scala meta.colon.scala
+T 18 source.scala
+T 32 source.scala entity.name.class
+T 33 source.scala meta.bracket.scala
+L     /** List of all the inline calls that surround the position. */
+T 4 source.scala comment.block.documentation.scala
+T 7 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 65 source.scala comment.block.documentation.scala
+T 67 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L     def inlinePosStack: List[SourcePosition] =
+T 4 source.scala
+T 7 source.scala keyword.declaration.scala
+T 8 source.scala
+T 22 source.scala entity.name.function.declaration
+T 23 source.scala keyword.operator.scala
+T 24 source.scala
+T 28 source.scala entity.name.class
+T 29 source.scala meta.bracket.scala
+T 43 source.scala entity.name.class
+T 44 source.scala meta.bracket.scala
+T 45 source.scala
+T 46 source.scala keyword.operator.comparison.scala
+L       if pos.outer != null && pos.outer.exists then pos :: pos.outer.inlinePosStack
+T 6 source.scala
+T 8 source.scala keyword.control.flow.scala
+T 19 source.scala
+T 21 source.scala keyword.operator.comparison.scala
+T 22 source.scala
+T 26 source.scala constant.language.scala
+T 27 source.scala
+T 29 source.scala keyword.operator.logical.scala
+T 47 source.scala
+T 51 source.scala keyword.control.flow.scala
+T 56 source.scala
+T 58 source.scala keyword.operator.scala
+T 83 source.scala
+L       else pos :: Nil
+T 6 source.scala
+T 10 source.scala keyword.control.flow.scala
+T 15 source.scala
+T 17 source.scala keyword.operator.scala
+T 18 source.scala
+T 21 source.scala entity.name.class
+L end SourcePosition
+T 3 source.scala keyword.declaration.end.scala
+T 4 source.scala
+T 18 source.scala entity.name.type.declaration
+L 
+L /** A sentinel for a non-existing source position */
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 50 source.scala comment.block.documentation.scala
+T 52 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L @sharable object NoSourcePosition extends SourcePosition(NoSource, NoSpan) {
+T 1 source.scala keyword.operator.scala
+T 10 source.scala
+T 16 source.scala keyword.declaration.scala
+T 17 source.scala
+T 33 source.scala entity.name.class.declaration
+T 34 source.scala
+T 41 source.scala keyword.declaration.scala
+T 42 source.scala
+T 56 source.scala entity.name.class
+T 57 source.scala meta.bracket.scala
+T 65 source.scala entity.name.class
+T 67 source.scala
+T 73 source.scala entity.name.class
+T 74 source.scala meta.bracket.scala
+T 75 source.scala
+T 76 source.scala punctuation.section.block.begin.scala
+L   override def line: Int = -1
+T 2 source.scala
+T 10 source.scala storage.modifier.other
+T 11 source.scala
+T 14 source.scala keyword.declaration.scala
+T 15 source.scala
+T 19 source.scala entity.name.function.declaration
+T 20 source.scala keyword.operator.scala
+T 21 source.scala
+T 24 source.scala entity.name.class
+T 25 source.scala
+T 26 source.scala keyword.operator.comparison.scala
+T 27 source.scala
+T 28 source.scala keyword.operator.arithmetic.scala
+T 29 source.scala constant.numeric.scala
+L   override def column: Int = -1
+T 2 source.scala
+T 10 source.scala storage.modifier.other
+T 11 source.scala
+T 14 source.scala keyword.declaration.scala
+T 15 source.scala
+T 21 source.scala entity.name.function.declaration
+T 22 source.scala keyword.operator.scala
+T 23 source.scala
+T 26 source.scala entity.name.class
+T 27 source.scala
+T 28 source.scala keyword.operator.comparison.scala
+T 29 source.scala
+T 30 source.scala keyword.operator.arithmetic.scala
+T 31 source.scala constant.numeric.scala
+L   override def toString: String = "?"
+T 2 source.scala
+T 10 source.scala storage.modifier.other
+T 11 source.scala
+T 14 source.scala keyword.declaration.scala
+T 15 source.scala
+T 23 source.scala entity.name.function.declaration
+T 24 source.scala keyword.operator.scala
+T 25 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala
+T 33 source.scala keyword.operator.comparison.scala
+T 34 source.scala
+T 35 source.scala string.quoted.double.scala punctuation.definition.string.begin.scala
+T 36 source.scala string.quoted.double.scala
+T 37 source.scala string.quoted.double.scala punctuation.definition.string.end.scala
+L   override def withOuter(outer: SourcePosition): SourcePosition = outer
+T 2 source.scala
+T 10 source.scala storage.modifier.other
+T 11 source.scala
+T 14 source.scala keyword.declaration.scala
+T 15 source.scala
+T 24 source.scala entity.name.function.declaration
+T 25 source.scala meta.bracket.scala
+T 30 source.scala variable.parameter.scala
+T 31 source.scala meta.colon.scala
+T 32 source.scala
+T 46 source.scala entity.name.class
+T 47 source.scala meta.bracket.scala
+T 48 source.scala keyword.operator.scala
+T 49 source.scala
+T 63 source.scala entity.name.class
+T 64 source.scala
+T 65 source.scala keyword.operator.comparison.scala
+T 71 source.scala
+L }
+T 1 source.scala punctuation.section.block.end.scala
+L 
+L /** Things that can produce a source position and a span */
+T 3 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+T 57 source.scala comment.block.documentation.scala
+T 59 source.scala comment.block.documentation.scala punctuation.definition.comment.scala
+L trait SrcPos:
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.class.declaration
+T 13 source.scala keyword.operator.scala
+L   def sourcePos(using ctx: Context): SourcePosition
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 15 source.scala entity.name.function.declaration
+T 16 source.scala meta.bracket.scala
+T 21 source.scala keyword.declaration.scala
+T 22 source.scala
+T 25 source.scala variable.parameter.scala
+T 26 source.scala meta.colon.scala
+T 27 source.scala
+T 34 source.scala entity.name.class
+T 35 source.scala meta.bracket.scala
+T 36 source.scala keyword.operator.scala
+T 37 source.scala
+T 51 source.scala entity.name.class
+L   def span: Span
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 10 source.scala entity.name.function.declaration
+T 11 source.scala keyword.operator.scala
+T 12 source.scala
+T 16 source.scala entity.name.class
+L   def startPos(using ctx: Context): SourcePosition = sourcePos.startPos
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 14 source.scala entity.name.function.declaration
+T 15 source.scala meta.bracket.scala
+T 20 source.scala keyword.declaration.scala
+T 21 source.scala
+T 24 source.scala variable.parameter.scala
+T 25 source.scala meta.colon.scala
+T 26 source.scala
+T 33 source.scala entity.name.class
+T 34 source.scala meta.bracket.scala
+T 35 source.scala keyword.operator.scala
+T 36 source.scala
+T 50 source.scala entity.name.class
+T 51 source.scala
+T 52 source.scala keyword.operator.comparison.scala
+T 71 source.scala
+L   def endPos(using ctx: Context): SourcePosition = sourcePos.endPos
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 13 source.scala meta.bracket.scala
+T 18 source.scala keyword.declaration.scala
+T 19 source.scala
+T 22 source.scala variable.parameter.scala
+T 23 source.scala meta.colon.scala
+T 24 source.scala
+T 31 source.scala entity.name.class
+T 32 source.scala meta.bracket.scala
+T 33 source.scala keyword.operator.scala
+T 34 source.scala
+T 48 source.scala entity.name.class
+T 49 source.scala
+T 50 source.scala keyword.operator.comparison.scala
+T 67 source.scala
+L   def focus(using ctx: Context): SourcePosition = sourcePos.focus
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 11 source.scala entity.name.function.declaration
+T 12 source.scala meta.bracket.scala
+T 17 source.scala keyword.declaration.scala
+T 18 source.scala
+T 21 source.scala variable.parameter.scala
+T 22 source.scala meta.colon.scala
+T 23 source.scala
+T 30 source.scala entity.name.class
+T 31 source.scala meta.bracket.scala
+T 32 source.scala keyword.operator.scala
+T 33 source.scala
+T 47 source.scala entity.name.class
+T 48 source.scala
+T 49 source.scala keyword.operator.comparison.scala
+T 65 source.scala
+L   def line(using ctx: Context): Int = sourcePos.line
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 10 source.scala entity.name.function.declaration
+T 11 source.scala meta.bracket.scala
+T 16 source.scala keyword.declaration.scala
+T 17 source.scala
+T 20 source.scala variable.parameter.scala
+T 21 source.scala meta.colon.scala
+T 22 source.scala
+T 29 source.scala entity.name.class
+T 30 source.scala meta.bracket.scala
+T 31 source.scala keyword.operator.scala
+T 32 source.scala
+T 35 source.scala entity.name.class
+T 36 source.scala
+T 37 source.scala keyword.operator.comparison.scala
+T 52 source.scala
+L   def orElse(other: SrcPos): SrcPos = if span.exists then this else other
+T 2 source.scala
+T 5 source.scala keyword.declaration.scala
+T 6 source.scala
+T 12 source.scala entity.name.function.declaration
+T 13 source.scala meta.bracket.scala
+T 18 source.scala variable.parameter.scala
+T 19 source.scala meta.colon.scala
+T 20 source.scala
+T 26 source.scala entity.name.class
+T 27 source.scala meta.bracket.scala
+T 28 source.scala keyword.operator.scala
+T 29 source.scala
+T 35 source.scala entity.name.class
+T 36 source.scala
+T 37 source.scala keyword.operator.comparison.scala
+T 38 source.scala
+T 40 source.scala keyword.control.flow.scala
+T 53 source.scala
+T 57 source.scala keyword.control.flow.scala
+T 58 source.scala
+T 62 source.scala variable.language.scala
+T 63 source.scala
+T 67 source.scala keyword.control.flow.scala
+T 73 source.scala
+L 
