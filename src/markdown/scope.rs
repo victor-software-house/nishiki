@@ -68,6 +68,8 @@ crate::scope::scope_table! {
     EmbeddedGo "meta.embedded.block.go"
     #[cfg(feature = "lang-ruby")]
     EmbeddedRuby "meta.embedded.block.ruby"
+    #[cfg(feature = "lang-csharp")]
+    EmbeddedCsharp "meta.embedded.block.csharp"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

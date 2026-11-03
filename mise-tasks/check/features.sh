@@ -33,6 +33,7 @@ cargo check --locked --tests --no-default-features --features lang-css
 cargo check --locked --tests --no-default-features --features lang-kotlin
 cargo check --locked --tests --no-default-features --features lang-go
 cargo check --locked --tests --no-default-features --features lang-ruby
+cargo check --locked --tests --no-default-features --features lang-csharp
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features web
 cargo check --locked --tests --no-default-features --features systems

@@ -112,6 +112,8 @@ tables! {
     GO = go;
     #[cfg(feature = "lang-ruby")]
     RUBY = ruby;
+    #[cfg(feature = "lang-csharp")]
+    CSHARP = csharp;
 }
 
 // No table is longer than its slot.
@@ -137,7 +139,7 @@ macro_rules! scope_table {
     ) => {
         /// A scope name; the discriminant indexes [`NAMES`].
         #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-        #[repr(u8)]
+        #[repr(u16)]
         $(#[$meta])*
         pub(crate) enum S { $($(#[cfg($($cfg)*)])* $id),* }
 
@@ -145,7 +147,7 @@ macro_rules! scope_table {
             /// The scope in the crate's shared numbering.
             #[expect(
                 clippy::as_conversions,
-                reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
+                reason = "a fieldless `repr(u16)` enum has no `From` impl for its discriminant"
             )]
             pub(crate) const fn scope(self) -> crate::scope::Scope {
                 crate::scope::Scope::new(crate::scope::$base, self as u16)

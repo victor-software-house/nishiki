@@ -5,8 +5,8 @@
 //!
 //! The engine runs the grammar's rules the way a `TextMate` engine does, with
 //! those matchers instead of regular expressions: the per-line loop, `\G`,
-//! capture groups, the limits and the frames that carry a rule from line to
-//! line are here, once.
+//! capture groups, `while` rules, the limits and the frames that carry a rule
+//! from line to line are here, once.
 
 mod chars;
 mod lexer;
@@ -18,7 +18,7 @@ use std::fmt::Debug;
 
 #[cfg(feature = "_rule-tables")]
 pub(crate) use chars::Chars;
-#[cfg(feature = "lang-css")]
+#[cfg(any(feature = "lang-css", feature = "lang-csharp"))]
 pub(crate) use lexer::FIRST_LINE;
 pub(crate) use lexer::{Lexer, Scratch};
 #[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
@@ -67,6 +67,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_name(rule: Self::Rule) -> &'static [Self::Scope];
     /// The scopes of what lies between a rule's begin and end text.
     fn rule_content(rule: Self::Rule) -> &'static [Self::Scope];
+    /// The `while` pattern of a rule that has one: the rule stays open on a
+    /// later line only when the pattern matches at its start.
+    fn rule_while(_rule: Self::Rule) -> Option<Self::Pat> {
+        None
+    }
     /// What a rule carries from line to line.
     fn rule_payload(_rule: Self::Rule) -> Payload {
         Payload::None

@@ -44,6 +44,9 @@ pub(crate) struct Scratch {
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,
+    /// The C# lexer's, for C# documents and Markdown C# fences.
+    #[cfg(feature = "lang-csharp")]
+    pub(crate) csharp: crate::csharp::Scratch,
     /// The Makefile lexer's.
     #[cfg(feature = "lang-make")]
     pub(crate) make: crate::make::Scratch,

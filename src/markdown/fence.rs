@@ -214,6 +214,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Ruby,
     },
+    #[cfg(feature = "lang-csharp")]
+    Name {
+        words: &["cs", "csharp", "c#"],
+        brace: None,
+        lang: Language::CSharp,
+    },
 ];
 
 /// A language found in an info string.

@@ -242,6 +242,14 @@ const viper =
   "https://raw.githubusercontent.com/spf13/viper/528f7416c4b56a4948673984b190bf8713f0c3c4";
 const prometheusGo =
   "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
+const dotnetRuntime =
+  "https://raw.githubusercontent.com/dotnet/runtime/6375d63af99b6812f11b4dd8c4a18d227e277d73";
+const newtonsoft =
+  "https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa";
+const roslyn =
+  "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a";
+const aspnetcore =
+  "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
 
 const rack =
   "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
@@ -665,4 +673,9 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rake-task", url: `${rake}/lib/rake/task.rb` },
   { lang: "markdown", name: "rack-readme", url: `${rack}/README.md` },
   { lang: "markdown", name: "devise-readme", url: `${devise}/README.md` },
+  { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
+  { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
+  { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
+  { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
+  { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
 ];

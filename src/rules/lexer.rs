@@ -323,6 +323,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     #[inline]
     pub(crate) fn run(mut self) -> u32 {
         self.open();
+        self.check_while();
         self.tokenize();
         let state = self.top().state;
         let exact = !self.flags.kept
@@ -450,6 +451,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     pub(crate) fn cap(&mut self, group: usize, start: usize, end: usize) {
         self.caps[group] = Some((start, end));
         self.dirty = true;
+    }
+
+    /// The span of capture group `group` of the last match, for a test that
+    /// compares the matchers with another regex engine.
+    #[cfg(test)]
+    pub(crate) fn cap_span(&self, group: usize) -> Option<(usize, usize)> {
+        self.caps[group]
     }
 
     /// The bytes `start..end` of the line, empty where they lie outside it.
@@ -968,6 +976,28 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     self.pos
                 );
             }
+        }
+    }
+
+    /// Tries the `while` pattern of each open rule that has one, from the
+    /// root up, at the start of the line, as vscode-textmate does. A match
+    /// names its text under that rule's content scopes, not those of the rules
+    /// above it, and moves the cursor and `\G` past it. The first rule whose
+    /// pattern fails closes, with every rule above it.
+    fn check_while(&mut self) {
+        for i in 1..self.frames.len() {
+            let frame = self.frames[i];
+            let Some(pat) = G::rule_while(frame.rule) else {
+                continue;
+            };
+            self.g = self.anchor == Some(self.pos);
+            let Some(end) = self.try_pat(pat, self.pos) else {
+                self.frames.truncate(i);
+                return;
+            };
+            self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
+            self.anchor = Some(end);
+            self.pos = end;
         }
     }
 

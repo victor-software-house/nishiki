@@ -196,6 +196,8 @@ languages! {
     Go { feature: "lang-go", names: ["go", "golang"], module: go }
     /// Ruby, with the scopes of Shiki's `ruby` grammar.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }
+    /// C#, with the scopes of Shiki's `csharp` grammar.
+    CSharp { feature: "lang-csharp", names: ["csharp", "c#", "cs"], module: csharp }
 }
 
 impl Language {

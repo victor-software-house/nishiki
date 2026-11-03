@@ -28,7 +28,10 @@ async function fetchText(input: Input): Promise<string> {
  * with many font styles. */
 const themes = ["github-dark", "one-light", "catppuccin-mocha"] as const;
 
-const languages = [...new Set(inputs.map((input) => input.lang))];
+// `ORACLE_LANG=<id>` writes the fixtures of one language only.
+const only = Bun.env["ORACLE_LANG"];
+const selected = only === undefined ? inputs : inputs.filter((input) => input.lang === only);
+const languages = [...new Set(selected.map((input) => input.lang))];
 const highlighter = await createHighlighter({
   langs: languages,
   themes: [...themes],
@@ -40,7 +43,7 @@ for (const theme of themes) {
   await Bun.write(`${root}tests/oracle/themes/${theme}.json`, `${JSON.stringify(raw, null, 2)}\n`);
 }
 
-for (const input of inputs) {
+for (const input of selected) {
   const text = await fetchText(input);
   const lines = highlighter.codeToTokens(text, {
     lang: input.lang,

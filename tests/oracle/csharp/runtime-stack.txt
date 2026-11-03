@@ -1,0 +1,2958 @@
+L // Licensed to the .NET Foundation under one or more agreements.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 64 source.cs comment.line.double-slash.cs
+L // The .NET Foundation licenses this file to you under the MIT license.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L 
+L /*=============================================================================
+T 2 source.cs comment.block.cs punctuation.definition.comment.cs
+T 79 source.cs comment.block.cs
+L **
+T 2 source.cs comment.block.cs
+L **
+T 2 source.cs comment.block.cs
+L ** Purpose: An array implementation of a generic stack.
+T 55 source.cs comment.block.cs
+L **
+T 2 source.cs comment.block.cs
+L **
+T 2 source.cs comment.block.cs
+L =============================================================================*/
+T 77 source.cs comment.block.cs
+T 79 source.cs comment.block.cs punctuation.definition.comment.cs
+L 
+L using System.Diagnostics;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L using System.Diagnostics.CodeAnalysis;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.accessor.cs
+T 37 source.cs entity.name.type.namespace.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L using System.Runtime.CompilerServices;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 20 source.cs entity.name.type.namespace.cs
+T 21 source.cs punctuation.accessor.cs
+T 37 source.cs entity.name.type.namespace.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L 
+L namespace System.Collections.Generic
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 16 source.cs entity.name.type.namespace.cs
+T 17 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.type.namespace.cs
+T 29 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     // A simple stack of objects.  Internally it is implemented as an array,
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 76 source.cs comment.line.double-slash.cs
+L     // so Push can be O(n).  Pop is O(1).
+T 4 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 6 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L 
+L     [DebuggerTypeProxy(typeof(StackDebugView<>))]
+T 4 source.cs
+T 5 source.cs punctuation.squarebracket.open.cs
+T 22 source.cs entity.name.type.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs keyword.operator.expression.typeof.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 46 source.cs punctuation.definition.typeparameters.end.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.squarebracket.close.cs
+L     [DebuggerDisplay("Count = {Count}")]
+T 4 source.cs
+T 5 source.cs punctuation.squarebracket.open.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 37 source.cs string.quoted.double.cs
+T 38 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs punctuation.squarebracket.close.cs
+L     [Serializable]
+T 4 source.cs
+T 5 source.cs punctuation.squarebracket.open.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs punctuation.squarebracket.close.cs
+L     [System.Runtime.CompilerServices.TypeForwardedFrom("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
+T 4 source.cs
+T 5 source.cs punctuation.squarebracket.open.cs
+T 11 source.cs entity.name.type.cs
+T 12 source.cs punctuation.accessor.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.type.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 56 source.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 129 source.cs string.quoted.double.cs
+T 130 source.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 131 source.cs punctuation.parenthesis.close.cs
+T 132 source.cs punctuation.squarebracket.close.cs
+L     public class Stack<T> : IEnumerable<T>,
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 22 source.cs entity.name.type.class.cs
+T 23 source.cs punctuation.definition.typeparameters.begin.cs
+T 24 source.cs entity.name.type.type-parameter.cs
+T 25 source.cs punctuation.definition.typeparameters.end.cs
+T 26 source.cs
+T 27 source.cs punctuation.separator.colon.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+T 43 source.cs punctuation.separator.comma.cs
+L         System.Collections.ICollection,
+T 8 source.cs
+T 14 source.cs entity.name.type.cs
+T 15 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.accessor.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.separator.comma.cs
+L         IReadOnlyCollection<T>
+T 8 source.cs
+T 27 source.cs entity.name.type.cs
+T 28 source.cs punctuation.definition.typeparameters.begin.cs
+T 29 source.cs entity.name.type.cs
+T 30 source.cs punctuation.definition.typeparameters.end.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         private T[] _array; // Storage for stack elements. Do not rename (binary serialization)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs punctuation.squarebracket.open.cs
+T 19 source.cs punctuation.squarebracket.close.cs
+T 20 source.cs
+T 26 source.cs entity.name.variable.field.cs
+T 27 source.cs punctuation.terminator.statement.cs
+T 28 source.cs
+T 30 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 95 source.cs comment.line.double-slash.cs
+L         private int _size; // Number of items in the stack. Do not rename (binary serialization)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 25 source.cs entity.name.variable.field.cs
+T 26 source.cs punctuation.terminator.statement.cs
+T 27 source.cs
+T 29 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 96 source.cs comment.line.double-slash.cs
+L         private int _version; // Used to keep enumerator in sync w/ collection. Do not rename (binary serialization)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 28 source.cs entity.name.variable.field.cs
+T 29 source.cs punctuation.terminator.statement.cs
+T 30 source.cs
+T 32 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 116 source.cs comment.line.double-slash.cs
+L 
+L         private const int DefaultCapacity = 4;
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 21 source.cs storage.modifier.const.cs
+T 22 source.cs
+T 25 source.cs keyword.type.int.cs
+T 26 source.cs
+T 41 source.cs entity.name.variable.field.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.assignment.cs
+T 44 source.cs
+T 45 source.cs constant.numeric.decimal.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L 
+L         public Stack()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             _array = Array.Empty<T>();
+T 12 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.object.cs
+T 27 source.cs punctuation.accessor.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.definition.typeparameters.begin.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.end.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Create a stack with a specific initial capacity.  The initial capacity
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 81 source.cs comment.line.double-slash.cs
+L         // must be a non-negative number.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 41 source.cs comment.line.double-slash.cs
+L         public Stack(int capacity)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs keyword.type.int.cs
+T 25 source.cs
+T 33 source.cs entity.name.variable.parameter.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+T 12 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs variable.other.readwrite.cs
+T 65 source.cs punctuation.parenthesis.close.cs
+T 66 source.cs punctuation.terminator.statement.cs
+L             _array = new T[capacity];
+T 12 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 24 source.cs keyword.operator.expression.new.cs
+T 25 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.squarebracket.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Fills a Stack with the contents of a particular collection.  The items are
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 85 source.cs comment.line.double-slash.cs
+L         // pushed onto the stack in the same order they are read by the enumerator.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 83 source.cs comment.line.double-slash.cs
+L         public Stack(IEnumerable<T> collection)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.definition.typeparameters.begin.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.end.cs
+T 36 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentNullException.ThrowIfNull(collection);
+T 12 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.function.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 56 source.cs variable.other.readwrite.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L 
+L             _array = EnumerableHelpers.ToArray(collection, out _size);
+T 12 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 38 source.cs variable.other.object.cs
+T 39 source.cs punctuation.accessor.cs
+T 46 source.cs entity.name.function.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.separator.comma.cs
+T 59 source.cs
+T 62 source.cs storage.modifier.out.cs
+T 63 source.cs
+T 68 source.cs variable.other.readwrite.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public int Count => _size;
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 18 source.cs keyword.type.int.cs
+T 19 source.cs
+T 24 source.cs entity.name.variable.property.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.arrow.cs
+T 28 source.cs meta.accessor.getter.cs
+T 33 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L 
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Gets the total numbers of elements the internal data structure can hold without resizing.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 101 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public int Capacity => _array.Length;
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 18 source.cs keyword.type.int.cs
+T 19 source.cs
+T 27 source.cs entity.name.variable.property.cs
+T 28 source.cs
+T 30 source.cs keyword.operator.arrow.cs
+T 31 source.cs meta.accessor.getter.cs
+T 37 source.cs meta.accessor.getter.cs variable.other.object.cs
+T 38 source.cs meta.accessor.getter.cs punctuation.accessor.cs
+T 44 source.cs meta.accessor.getter.cs variable.other.object.property.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L 
+L         /// <inheritdoc cref="ICollection.IsSynchronized" />
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 30 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 56 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 58 source.cs comment.block.documentation.cs meta.tag.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         bool ICollection.IsSynchronized => false;
+T 8 source.cs
+T 12 source.cs keyword.type.bool.cs
+T 13 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.accessor.cs
+T 39 source.cs entity.name.variable.property.cs
+T 40 source.cs
+T 42 source.cs keyword.operator.arrow.cs
+T 43 source.cs meta.accessor.getter.cs
+T 48 source.cs meta.accessor.getter.cs constant.language.boolean.false.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L 
+L         object ICollection.SyncRoot => this;
+T 8 source.cs
+T 14 source.cs keyword.type.object.cs
+T 15 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.variable.property.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.arrow.cs
+T 39 source.cs meta.accessor.getter.cs
+T 43 source.cs meta.accessor.getter.cs variable.language.this.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L 
+L         // Removes all Objects from the Stack.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 46 source.cs comment.line.double-slash.cs
+L         public void Clear()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.definition.typeparameters.begin.cs
+T 64 source.cs entity.name.type.cs
+T 65 source.cs punctuation.definition.typeparameters.end.cs
+T 66 source.cs punctuation.parenthesis.open.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Array.Clear(_array, 0, _size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 27 source.cs entity.name.function.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.separator.comma.cs
+T 36 source.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.terminator.statement.cs
+T 47 source.cs
+T 49 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 141 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             _size = 0;
+T 12 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 21 source.cs constant.numeric.decimal.cs
+T 22 source.cs punctuation.terminator.statement.cs
+L             _version++;
+T 12 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 22 source.cs keyword.operator.increment.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public bool Contains(T item)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.bool.cs
+T 20 source.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs entity.name.type.cs
+T 31 source.cs
+T 35 source.cs entity.name.variable.parameter.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             // Compare items using the default equality comparer
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 64 source.cs comment.line.double-slash.cs
+L 
+L             // PERF: Internally Array.LastIndexOf calls
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 55 source.cs comment.line.double-slash.cs
+L             // EqualityComparer<T>.Default.LastIndexOf, which
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 61 source.cs comment.line.double-slash.cs
+L             // is specialized for different types. This
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 55 source.cs comment.line.double-slash.cs
+L             // boosts performance since instead of making a
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 59 source.cs comment.line.double-slash.cs
+L             // virtual method call each iteration of the loop,
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 62 source.cs comment.line.double-slash.cs
+L             // via EqualityComparer<T>.Default.Equals, we
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 57 source.cs comment.line.double-slash.cs
+L             // only make one virtual call to EqualityComparer.LastIndexOf.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 74 source.cs comment.line.double-slash.cs
+L 
+L             return _size != 0 && Array.LastIndexOf(_array, item, _size - 1) >= 0;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.comparison.cs
+T 28 source.cs
+T 29 source.cs constant.numeric.decimal.cs
+T 30 source.cs
+T 32 source.cs keyword.operator.logical.cs
+T 33 source.cs
+T 38 source.cs variable.other.object.cs
+T 39 source.cs punctuation.accessor.cs
+T 50 source.cs entity.name.function.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.separator.comma.cs
+T 59 source.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs
+T 72 source.cs keyword.operator.arithmetic.cs
+T 73 source.cs
+T 74 source.cs constant.numeric.decimal.cs
+T 75 source.cs punctuation.parenthesis.close.cs
+T 76 source.cs
+T 78 source.cs keyword.operator.relational.cs
+T 79 source.cs
+T 80 source.cs constant.numeric.decimal.cs
+T 81 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Copies the stack into an array.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 42 source.cs comment.line.double-slash.cs
+L         public void CopyTo(T[] array, int arrayIndex)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.squarebracket.open.cs
+T 30 source.cs punctuation.squarebracket.close.cs
+T 31 source.cs
+T 36 source.cs entity.name.variable.parameter.cs
+T 37 source.cs punctuation.separator.comma.cs
+T 38 source.cs
+T 41 source.cs keyword.type.int.cs
+T 42 source.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentNullException.ThrowIfNull(array);
+T 12 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.function.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs variable.other.readwrite.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L 
+L             if (arrayIndex < 0 || arrayIndex > array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.relational.cs
+T 29 source.cs
+T 30 source.cs constant.numeric.decimal.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.logical.cs
+T 34 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs
+T 46 source.cs keyword.operator.relational.cs
+T 47 source.cs
+T 52 source.cs variable.other.object.cs
+T 53 source.cs punctuation.accessor.cs
+T 59 source.cs variable.other.object.property.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 60 source.cs keyword.operator.expression.nameof.cs
+T 61 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.parenthesis.close.cs
+T 73 source.cs punctuation.separator.comma.cs
+T 74 source.cs
+T 84 source.cs variable.other.readwrite.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 88 source.cs variable.other.object.cs
+T 89 source.cs punctuation.accessor.cs
+T 130 source.cs variable.other.object.property.cs
+T 131 source.cs punctuation.parenthesis.close.cs
+T 132 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (array.Length - arrayIndex < _size)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs variable.other.object.property.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.relational.cs
+T 44 source.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentException(SR.Argument_InvalidOffLen);
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs variable.other.object.cs
+T 47 source.cs punctuation.accessor.cs
+T 69 source.cs variable.other.object.property.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             Debug.Assert(array != _array);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.comparison.cs
+T 34 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L             int srcIndex = 0;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 28 source.cs constant.numeric.decimal.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             int dstIndex = arrayIndex + _size;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs
+T 39 source.cs keyword.operator.arithmetic.cs
+T 40 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.terminator.statement.cs
+L             while (srcIndex < _size)
+T 12 source.cs
+T 17 source.cs keyword.control.loop.while.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 array[--dstIndex] = _array[srcIndex++];
+T 16 source.cs
+T 21 source.cs variable.other.object.property.cs
+T 22 source.cs punctuation.squarebracket.open.cs
+T 24 source.cs keyword.operator.decrement.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.squarebracket.close.cs
+T 34 source.cs
+T 35 source.cs keyword.operator.assignment.cs
+T 36 source.cs
+T 42 source.cs variable.other.object.property.cs
+T 43 source.cs punctuation.squarebracket.open.cs
+T 51 source.cs variable.other.readwrite.cs
+T 53 source.cs keyword.operator.increment.cs
+T 54 source.cs punctuation.squarebracket.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         void ICollection.CopyTo(Array array, int arrayIndex)
+T 8 source.cs
+T 12 source.cs keyword.type.void.cs
+T 13 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.accessor.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs
+T 43 source.cs entity.name.variable.parameter.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 48 source.cs keyword.type.int.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.parameter.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentNullException.ThrowIfNull(array);
+T 12 source.cs
+T 33 source.cs variable.other.object.cs
+T 34 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.function.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs variable.other.readwrite.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L 
+L             if (array.Rank != 1)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs
+T 29 source.cs keyword.operator.comparison.cs
+T 30 source.cs
+T 31 source.cs constant.numeric.decimal.cs
+T 32 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs variable.other.object.cs
+T 47 source.cs punctuation.accessor.cs
+T 75 source.cs variable.other.object.property.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 83 source.cs keyword.operator.expression.nameof.cs
+T 84 source.cs punctuation.parenthesis.open.cs
+T 89 source.cs variable.other.readwrite.cs
+T 90 source.cs punctuation.parenthesis.close.cs
+T 91 source.cs punctuation.parenthesis.close.cs
+T 92 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (array.GetLowerBound(0) != 0)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.comparison.cs
+T 42 source.cs
+T 43 source.cs constant.numeric.decimal.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentException(SR.Arg_NonZeroLowerBound, nameof(array));
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs variable.other.object.cs
+T 47 source.cs punctuation.accessor.cs
+T 68 source.cs variable.other.object.property.cs
+T 69 source.cs punctuation.separator.comma.cs
+T 70 source.cs
+T 76 source.cs keyword.operator.expression.nameof.cs
+T 77 source.cs punctuation.parenthesis.open.cs
+T 82 source.cs variable.other.readwrite.cs
+T 83 source.cs punctuation.parenthesis.close.cs
+T 84 source.cs punctuation.parenthesis.close.cs
+T 85 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (arrayIndex < 0 || arrayIndex > array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.relational.cs
+T 29 source.cs
+T 30 source.cs constant.numeric.decimal.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.logical.cs
+T 34 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs
+T 46 source.cs keyword.operator.relational.cs
+T 47 source.cs
+T 52 source.cs variable.other.object.cs
+T 53 source.cs punctuation.accessor.cs
+T 59 source.cs variable.other.object.property.cs
+T 60 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 60 source.cs keyword.operator.expression.nameof.cs
+T 61 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.parenthesis.close.cs
+T 73 source.cs punctuation.separator.comma.cs
+T 74 source.cs
+T 84 source.cs variable.other.readwrite.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 88 source.cs variable.other.object.cs
+T 89 source.cs punctuation.accessor.cs
+T 130 source.cs variable.other.object.property.cs
+T 131 source.cs punctuation.parenthesis.close.cs
+T 132 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (array.Length - arrayIndex < _size)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs variable.other.object.property.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 43 source.cs keyword.operator.relational.cs
+T 44 source.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentException(SR.Argument_InvalidOffLen);
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs variable.other.object.cs
+T 47 source.cs punctuation.accessor.cs
+T 69 source.cs variable.other.object.property.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             try
+T 12 source.cs
+T 15 source.cs keyword.control.exception.try.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Array.Copy(_array, 0, array, arrayIndex, _size);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs punctuation.separator.comma.cs
+T 35 source.cs
+T 36 source.cs constant.numeric.decimal.cs
+T 37 source.cs punctuation.separator.comma.cs
+T 38 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs punctuation.separator.comma.cs
+T 45 source.cs
+T 55 source.cs variable.other.readwrite.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 62 source.cs variable.other.readwrite.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+T 64 source.cs punctuation.terminator.statement.cs
+L                 Array.Reverse(array, arrayIndex, _size);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.separator.comma.cs
+T 37 source.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.separator.comma.cs
+T 49 source.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs punctuation.parenthesis.close.cs
+T 56 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             catch (ArrayTypeMismatchException)
+T 12 source.cs
+T 17 source.cs keyword.control.exception.catch.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 throw new ArgumentException(SR.Argument_IncompatibleArrayType, nameof(array));
+T 16 source.cs
+T 21 source.cs keyword.control.flow.throw.cs
+T 22 source.cs
+T 25 source.cs keyword.operator.expression.new.cs
+T 26 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 46 source.cs variable.other.object.cs
+T 47 source.cs punctuation.accessor.cs
+T 77 source.cs variable.other.object.property.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 85 source.cs keyword.operator.expression.nameof.cs
+T 86 source.cs punctuation.parenthesis.open.cs
+T 91 source.cs variable.other.readwrite.cs
+T 92 source.cs punctuation.parenthesis.close.cs
+T 93 source.cs punctuation.parenthesis.close.cs
+T 94 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Returns an IEnumerator for this Stack.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 49 source.cs comment.line.double-slash.cs
+L         public Enumerator GetEnumerator() => new Enumerator(this);
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 25 source.cs entity.name.type.cs
+T 26 source.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.arrow.cs
+T 45 source.cs
+T 48 source.cs keyword.operator.expression.new.cs
+T 49 source.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs variable.language.this.cs
+T 65 source.cs punctuation.parenthesis.close.cs
+T 66 source.cs punctuation.terminator.statement.cs
+L 
+L         /// <internalonly/>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
+T 8 source.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs punctuation.definition.typeparameters.begin.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs punctuation.definition.typeparameters.end.cs
+T 23 source.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.begin.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.definition.typeparameters.end.cs
+T 38 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs
+T 56 source.cs keyword.operator.arrow.cs
+L             Count == 0 ? EnumerableHelpers.GetEmptyEnumerator<T>() :
+T 12 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 20 source.cs keyword.operator.comparison.cs
+T 21 source.cs
+T 22 source.cs constant.numeric.decimal.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.conditional.question-mark.cs
+T 25 source.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 61 source.cs entity.name.function.cs
+T 62 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs punctuation.parenthesis.open.cs
+T 66 source.cs punctuation.parenthesis.close.cs
+T 67 source.cs
+T 68 source.cs keyword.operator.conditional.colon.cs
+L             GetEnumerator();
+T 12 source.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L 
+L         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<T>)this).GetEnumerator();
+T 8 source.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs
+T 31 source.cs entity.name.type.cs
+T 32 source.cs punctuation.accessor.cs
+T 45 source.cs entity.name.function.cs
+T 46 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs
+T 50 source.cs keyword.operator.arrow.cs
+T 51 source.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs entity.name.type.cs
+T 65 source.cs punctuation.definition.typeparameters.begin.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs punctuation.definition.typeparameters.end.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+T 72 source.cs variable.language.this.cs
+T 73 source.cs punctuation.parenthesis.close.cs
+T 74 source.cs punctuation.accessor.cs
+T 87 source.cs entity.name.function.cs
+T 88 source.cs punctuation.parenthesis.open.cs
+T 89 source.cs punctuation.parenthesis.close.cs
+T 90 source.cs punctuation.terminator.statement.cs
+L 
+L         public void TrimExcess()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int threshold = (int)(_array.Length * 0.9);
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs keyword.type.int.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs
+T 49 source.cs keyword.operator.arithmetic.cs
+T 50 source.cs
+T 51 source.cs constant.numeric.decimal.cs
+T 52 source.cs constant.numeric.other.separator.decimals.cs
+T 53 source.cs constant.numeric.decimal.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L             if (_size < threshold)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.relational.cs
+T 24 source.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Array.Resize(ref _array, _size);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 32 source.cs storage.modifier.ref.cs
+T 33 source.cs
+T 39 source.cs variable.other.readwrite.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Sets the capacity of a <see cref="Stack{T}"/> object to a specified number of entries.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 35 source.cs comment.block.documentation.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 39 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 40 source.cs comment.block.documentation.cs meta.tag.cs
+T 44 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 45 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 46 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 55 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 98 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="capacity">The new capacity.</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 33 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 34 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 52 source.cs comment.block.documentation.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 59 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 60 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <exception cref="ArgumentOutOfRangeException">Passed capacity is lower than 0 or entries count.</exception>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 56 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 58 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 107 source.cs comment.block.documentation.cs
+T 109 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 118 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 119 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public void TrimExcess(int capacity)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs keyword.type.int.cs
+T 35 source.cs
+T 43 source.cs entity.name.variable.parameter.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+T 12 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs variable.other.readwrite.cs
+T 65 source.cs punctuation.parenthesis.close.cs
+T 66 source.cs punctuation.terminator.statement.cs
+L             ArgumentOutOfRangeException.ThrowIfLessThan(capacity, _size);
+T 12 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs variable.other.readwrite.cs
+T 65 source.cs punctuation.separator.comma.cs
+T 66 source.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.parenthesis.close.cs
+T 73 source.cs punctuation.terminator.statement.cs
+L 
+L             if (capacity == _array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs
+T 27 source.cs keyword.operator.comparison.cs
+T 28 source.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+L                 return;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L 
+L             Array.Resize(ref _array, capacity);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs storage.modifier.ref.cs
+T 29 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.separator.comma.cs
+T 37 source.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Returns the top object on the stack without removing it.  If the stack
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 81 source.cs comment.line.double-slash.cs
+L         // is empty, Peek throws an InvalidOperationException.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 62 source.cs comment.line.double-slash.cs
+L         public T Peek()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs
+T 21 source.cs entity.name.function.cs
+T 22 source.cs punctuation.parenthesis.open.cs
+T 23 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int size = _size - 1;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             T[] array = _array;
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L             if ((uint)size >= (uint)array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.uint.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowForEmptyStack();
+T 16 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             return array[size];
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 24 source.cs variable.other.object.property.cs
+T 25 source.cs punctuation.squarebracket.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs punctuation.squarebracket.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public bool TryPeek([MaybeNullWhen(false)] out T result)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.bool.cs
+T 20 source.cs
+T 27 source.cs entity.name.function.cs
+T 28 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs punctuation.squarebracket.open.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs constant.language.boolean.false.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.squarebracket.close.cs
+T 51 source.cs
+T 54 source.cs storage.modifier.out.cs
+T 55 source.cs
+T 56 source.cs entity.name.type.cs
+T 57 source.cs
+T 63 source.cs entity.name.variable.parameter.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int size = _size - 1;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             T[] array = _array;
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L             if ((uint)size >= (uint)array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.uint.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 result = default!;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 32 source.cs keyword.operator.expression.default.cs
+T 33 source.cs keyword.operator.logical.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             result = array[size];
+T 12 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs punctuation.squarebracket.close.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             return true;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 23 source.cs constant.language.boolean.true.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Pops an item from the top of the stack.  If the stack is empty, Pop
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 78 source.cs comment.line.double-slash.cs
+L         // throws an InvalidOperationException.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 47 source.cs comment.line.double-slash.cs
+L         public T Pop()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int size = _size - 1;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             T[] array = _array;
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L             // if (_size == 0) is equivalent to if (size == -1), and this case
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 78 source.cs comment.line.double-slash.cs
+L             // is covered with (uint)size, thus allowing bounds check elimination
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 81 source.cs comment.line.double-slash.cs
+L             // https://github.com/dotnet/coreclr/pull/9773
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 58 source.cs comment.line.double-slash.cs
+L             if ((uint)size >= (uint)array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.uint.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowForEmptyStack();
+T 16 source.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             _version++;
+T 12 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 22 source.cs keyword.operator.increment.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L             _size = size;
+T 12 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L             T item = array[size];
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs
+T 18 source.cs entity.name.variable.local.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs punctuation.squarebracket.close.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.definition.typeparameters.begin.cs
+T 64 source.cs entity.name.type.cs
+T 65 source.cs punctuation.definition.typeparameters.end.cs
+T 66 source.cs punctuation.parenthesis.open.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 array[size] = default!;     // Free memory quicker.
+T 16 source.cs
+T 21 source.cs variable.other.object.property.cs
+T 22 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 37 source.cs keyword.operator.expression.default.cs
+T 38 source.cs keyword.operator.logical.cs
+T 39 source.cs punctuation.terminator.statement.cs
+T 44 source.cs
+T 46 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 67 source.cs comment.line.double-slash.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             return item;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public bool TryPop([MaybeNullWhen(false)] out T result)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.bool.cs
+T 20 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.squarebracket.open.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs constant.language.boolean.false.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.squarebracket.close.cs
+T 50 source.cs
+T 53 source.cs storage.modifier.out.cs
+T 54 source.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs
+T 62 source.cs entity.name.variable.parameter.cs
+T 63 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int size = _size - 1;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             T[] array = _array;
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L             if ((uint)size >= (uint)array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs keyword.type.uint.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 result = default!;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 32 source.cs keyword.operator.expression.default.cs
+T 33 source.cs keyword.operator.logical.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             _version++;
+T 12 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 22 source.cs keyword.operator.increment.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L             _size = size;
+T 12 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L             result = array[size];
+T 12 source.cs
+T 18 source.cs variable.other.readwrite.cs
+T 19 source.cs
+T 20 source.cs keyword.operator.assignment.cs
+T 21 source.cs
+T 26 source.cs variable.other.object.property.cs
+T 27 source.cs punctuation.squarebracket.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs punctuation.squarebracket.close.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.definition.typeparameters.begin.cs
+T 64 source.cs entity.name.type.cs
+T 65 source.cs punctuation.definition.typeparameters.end.cs
+T 66 source.cs punctuation.parenthesis.open.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 array[size] = default!;
+T 16 source.cs
+T 21 source.cs variable.other.object.property.cs
+T 22 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 37 source.cs keyword.operator.expression.default.cs
+T 38 source.cs keyword.operator.logical.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             return true;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 23 source.cs constant.language.boolean.true.cs
+T 24 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Pushes an item to the top of the stack.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 50 source.cs comment.line.double-slash.cs
+L         public void Push(T item)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 19 source.cs keyword.type.void.cs
+T 20 source.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs
+T 31 source.cs entity.name.variable.parameter.cs
+T 32 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int size = _size;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             T[] array = _array;
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L 
+L             if ((uint)size < (uint)array.Length)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.relational.cs
+T 29 source.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs keyword.type.uint.cs
+T 35 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 array[size] = item;
+T 16 source.cs
+T 21 source.cs variable.other.object.property.cs
+T 22 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                 _version++;
+T 16 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 26 source.cs keyword.operator.increment.cs
+T 27 source.cs punctuation.terminator.statement.cs
+L                 _size = size + 1;
+T 16 source.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.arithmetic.cs
+T 31 source.cs
+T 32 source.cs constant.numeric.decimal.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             else
+T 12 source.cs
+T 16 source.cs keyword.control.conditional.else.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 PushWithResize(item);
+T 16 source.cs
+T 30 source.cs entity.name.function.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Non-inline from Stack.Push to improve its code quality as uncommon path
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 82 source.cs comment.line.double-slash.cs
+L         [MethodImpl(MethodImplOptions.NoInlining)]
+T 8 source.cs
+T 9 source.cs punctuation.squarebracket.open.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.object.cs
+T 38 source.cs punctuation.accessor.cs
+T 48 source.cs variable.other.object.property.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.squarebracket.close.cs
+L         private void PushWithResize(T item)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 20 source.cs keyword.type.void.cs
+T 21 source.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs
+T 42 source.cs entity.name.variable.parameter.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Debug.Assert(_size == _array.Length);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.comparison.cs
+T 34 source.cs
+T 40 source.cs variable.other.object.cs
+T 41 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L             Grow(_size + 1);
+T 12 source.cs
+T 16 source.cs entity.name.function.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.arithmetic.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L             _array[_size] = item;
+T 12 source.cs
+T 18 source.cs variable.other.object.property.cs
+T 19 source.cs punctuation.squarebracket.open.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs punctuation.squarebracket.close.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L             _version++;
+T 12 source.cs
+T 20 source.cs variable.other.readwrite.cs
+T 22 source.cs keyword.operator.increment.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L             _size++;
+T 12 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 19 source.cs keyword.operator.increment.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// Ensures that the capacity of this Stack is at least the specified <paramref name="capacity"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 78 source.cs comment.block.documentation.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 87 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 88 source.cs comment.block.documentation.cs meta.tag.cs
+T 92 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 93 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 94 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 102 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 103 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 105 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 106 source.cs comment.block.documentation.cs
+L         /// If the current capacity of the Stack is less than specified <paramref name="capacity"/>,
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 72 source.cs comment.block.documentation.cs
+T 73 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 81 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 82 source.cs comment.block.documentation.cs meta.tag.cs
+T 86 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 87 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 88 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 96 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 97 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 99 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 100 source.cs comment.block.documentation.cs
+L         /// the capacity is increased by continuously twice current capacity until it is at least the specified <paramref name="capacity"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 112 source.cs comment.block.documentation.cs
+T 113 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 121 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 122 source.cs comment.block.documentation.cs meta.tag.cs
+T 126 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 127 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 128 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 136 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 137 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 139 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 140 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <param name="capacity">The minimum capacity to ensure.</param>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 18 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 19 source.cs comment.block.documentation.cs meta.tag.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 24 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 25 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 33 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 34 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 35 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 66 source.cs comment.block.documentation.cs
+T 68 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 73 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <returns>The new capacity of this stack.</returns>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 52 source.cs comment.block.documentation.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 61 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 62 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         public int EnsureCapacity(int capacity)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 18 source.cs keyword.type.int.cs
+T 19 source.cs
+T 33 source.cs entity.name.function.cs
+T 34 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs keyword.type.int.cs
+T 38 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+T 12 source.cs
+T 39 source.cs variable.other.object.cs
+T 40 source.cs punctuation.accessor.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs variable.other.readwrite.cs
+T 65 source.cs punctuation.parenthesis.close.cs
+T 66 source.cs punctuation.terminator.statement.cs
+L 
+L             if (_array.Length < capacity)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.object.cs
+T 23 source.cs punctuation.accessor.cs
+T 29 source.cs variable.other.object.property.cs
+T 30 source.cs
+T 31 source.cs keyword.operator.relational.cs
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Grow(capacity);
+T 16 source.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs variable.other.readwrite.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             return _array.Length;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 25 source.cs variable.other.object.cs
+T 26 source.cs punctuation.accessor.cs
+T 32 source.cs variable.other.object.property.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         private void Grow(int capacity)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 20 source.cs keyword.type.void.cs
+T 21 source.cs
+T 25 source.cs entity.name.function.cs
+T 26 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs keyword.type.int.cs
+T 30 source.cs
+T 38 source.cs entity.name.variable.parameter.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Debug.Assert(_array.Length < capacity);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 38 source.cs variable.other.object.property.cs
+T 39 source.cs
+T 40 source.cs keyword.operator.relational.cs
+T 41 source.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L 
+L             int newcapacity = _array.Length == 0 ? DefaultCapacity : 2 * _array.Length;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 27 source.cs entity.name.variable.local.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 36 source.cs variable.other.object.cs
+T 37 source.cs punctuation.accessor.cs
+T 43 source.cs variable.other.object.property.cs
+T 44 source.cs
+T 46 source.cs keyword.operator.comparison.cs
+T 47 source.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs
+T 50 source.cs keyword.operator.conditional.question-mark.cs
+T 51 source.cs
+T 66 source.cs variable.other.readwrite.cs
+T 67 source.cs
+T 68 source.cs keyword.operator.conditional.colon.cs
+T 69 source.cs
+T 70 source.cs constant.numeric.decimal.cs
+T 71 source.cs
+T 72 source.cs keyword.operator.arithmetic.cs
+T 73 source.cs
+T 79 source.cs variable.other.object.cs
+T 80 source.cs punctuation.accessor.cs
+T 86 source.cs variable.other.object.property.cs
+T 87 source.cs punctuation.terminator.statement.cs
+L 
+L             // Allow the list to grow to maximum possible capacity (~2G elements) before encountering overflow.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 111 source.cs comment.line.double-slash.cs
+L             // Note that this check works even when _items.Length overflowed thanks to the (uint) cast.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 103 source.cs comment.line.double-slash.cs
+L             if ((uint)newcapacity > Array.MaxLength) newcapacity = Array.MaxLength;
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 17 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs keyword.type.uint.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 33 source.cs variable.other.readwrite.cs
+T 34 source.cs
+T 35 source.cs keyword.operator.relational.cs
+T 36 source.cs
+T 41 source.cs variable.other.object.cs
+T 42 source.cs punctuation.accessor.cs
+T 51 source.cs variable.other.object.property.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs
+T 64 source.cs variable.other.readwrite.cs
+T 65 source.cs
+T 66 source.cs keyword.operator.assignment.cs
+T 67 source.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 82 source.cs variable.other.object.property.cs
+T 83 source.cs punctuation.terminator.statement.cs
+L 
+L             // If computed capacity is still less than specified, set to the original argument.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 95 source.cs comment.line.double-slash.cs
+L             // Capacities exceeding Array.MaxLength will be surfaced as OutOfMemoryException by Array.Resize.
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 109 source.cs comment.line.double-slash.cs
+L             if (newcapacity < capacity) newcapacity = capacity;
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.relational.cs
+T 30 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs
+T 51 source.cs variable.other.readwrite.cs
+T 52 source.cs
+T 53 source.cs keyword.operator.assignment.cs
+T 54 source.cs
+T 62 source.cs variable.other.readwrite.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L 
+L             Array.Resize(ref _array, newcapacity);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs storage.modifier.ref.cs
+T 29 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.separator.comma.cs
+T 37 source.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+T 50 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         // Copies the Stack to an array, in the same order Pop would return the items.
+T 8 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 10 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L         public T[] ToArray()
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 16 source.cs entity.name.type.cs
+T 17 source.cs punctuation.squarebracket.open.cs
+T 18 source.cs punctuation.squarebracket.close.cs
+T 19 source.cs
+T 26 source.cs entity.name.function.cs
+T 27 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (_size == 0)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs variable.other.readwrite.cs
+T 22 source.cs
+T 24 source.cs keyword.operator.comparison.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.parenthesis.close.cs
+L                 return Array.Empty<T>();
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs variable.other.object.cs
+T 29 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.definition.typeparameters.begin.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.definition.typeparameters.end.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs punctuation.parenthesis.close.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L 
+L             T[] objArray = new T[_size];
+T 12 source.cs
+T 13 source.cs entity.name.type.cs
+T 14 source.cs punctuation.squarebracket.open.cs
+T 15 source.cs punctuation.squarebracket.close.cs
+T 16 source.cs
+T 24 source.cs entity.name.variable.local.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 30 source.cs keyword.operator.expression.new.cs
+T 31 source.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.squarebracket.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.squarebracket.close.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L             int i = 0;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 17 source.cs entity.name.variable.local.cs
+T 18 source.cs
+T 19 source.cs keyword.operator.assignment.cs
+T 20 source.cs
+T 21 source.cs constant.numeric.decimal.cs
+T 22 source.cs punctuation.terminator.statement.cs
+L             while (i < _size)
+T 12 source.cs
+T 17 source.cs keyword.control.loop.while.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 20 source.cs variable.other.readwrite.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.relational.cs
+T 23 source.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 objArray[i] = _array[_size - i - 1];
+T 16 source.cs
+T 24 source.cs variable.other.object.property.cs
+T 25 source.cs punctuation.squarebracket.open.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs punctuation.squarebracket.close.cs
+T 28 source.cs
+T 29 source.cs keyword.operator.assignment.cs
+T 30 source.cs
+T 36 source.cs variable.other.object.property.cs
+T 37 source.cs punctuation.squarebracket.open.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs
+T 44 source.cs keyword.operator.arithmetic.cs
+T 45 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs
+T 48 source.cs keyword.operator.arithmetic.cs
+T 49 source.cs
+T 50 source.cs constant.numeric.decimal.cs
+T 51 source.cs punctuation.squarebracket.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 i++;
+T 16 source.cs
+T 17 source.cs variable.other.readwrite.cs
+T 19 source.cs keyword.operator.increment.cs
+T 20 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L             return objArray;
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 27 source.cs variable.other.readwrite.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         private void ThrowForEmptyStack()
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 20 source.cs keyword.type.void.cs
+T 21 source.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             Debug.Assert(_size == 0);
+T 12 source.cs
+T 17 source.cs variable.other.object.cs
+T 18 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.function.cs
+T 25 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 33 source.cs keyword.operator.comparison.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             throw new InvalidOperationException(SR.InvalidOperation_EmptyStack);
+T 12 source.cs
+T 17 source.cs keyword.control.flow.throw.cs
+T 18 source.cs
+T 21 source.cs keyword.operator.expression.new.cs
+T 22 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.parenthesis.open.cs
+T 50 source.cs variable.other.object.cs
+T 51 source.cs punctuation.accessor.cs
+T 78 source.cs variable.other.object.property.cs
+T 79 source.cs punctuation.parenthesis.close.cs
+T 80 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public struct Enumerator : IEnumerator<T>, System.Collections.IEnumerator
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.type.struct.cs
+T 22 source.cs
+T 32 source.cs entity.name.type.struct.cs
+T 33 source.cs
+T 34 source.cs punctuation.separator.colon.cs
+T 35 source.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs punctuation.separator.comma.cs
+T 51 source.cs
+T 57 source.cs entity.name.type.cs
+T 58 source.cs punctuation.accessor.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.accessor.cs
+T 81 source.cs entity.name.type.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly Stack<T> _stack;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.begin.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.definition.typeparameters.end.cs
+T 38 source.cs
+T 44 source.cs entity.name.variable.field.cs
+T 45 source.cs punctuation.terminator.statement.cs
+L             private readonly int _version;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 32 source.cs keyword.type.int.cs
+T 33 source.cs
+T 41 source.cs entity.name.variable.field.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L             private int _index;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 23 source.cs keyword.type.int.cs
+T 24 source.cs
+T 30 source.cs entity.name.variable.field.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L             private T? _currentElement;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 21 source.cs entity.name.type.cs
+T 22 source.cs punctuation.separator.question-mark.cs
+T 23 source.cs
+T 38 source.cs entity.name.variable.field.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L 
+L             internal Enumerator(Stack<T> stack)
+T 12 source.cs
+T 20 source.cs storage.modifier.internal.cs
+T 21 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.definition.typeparameters.begin.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.end.cs
+T 41 source.cs
+T 46 source.cs entity.name.variable.parameter.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 _stack = stack;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L                 _version = stack._version;
+T 16 source.cs
+T 24 source.cs variable.other.readwrite.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.assignment.cs
+T 27 source.cs
+T 32 source.cs variable.other.object.cs
+T 33 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 _index = stack.Count;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 36 source.cs variable.other.object.property.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L                 _currentElement = default;
+T 16 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.assignment.cs
+T 34 source.cs
+T 41 source.cs keyword.operator.expression.default.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public void Dispose() => _index = -1;
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 23 source.cs keyword.type.void.cs
+T 24 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs
+T 36 source.cs keyword.operator.arrow.cs
+T 37 source.cs
+T 43 source.cs variable.other.readwrite.cs
+T 44 source.cs
+T 45 source.cs keyword.operator.assignment.cs
+T 46 source.cs
+T 47 source.cs keyword.operator.arithmetic.cs
+T 48 source.cs constant.numeric.decimal.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L 
+L             public bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 23 source.cs keyword.type.bool.cs
+T 24 source.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 if (_version != _stack._version)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.comparison.cs
+T 32 source.cs
+T 38 source.cs variable.other.object.cs
+T 39 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     ThrowInvalidVersion();
+T 20 source.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 T[] array = _stack._array;
+T 16 source.cs
+T 17 source.cs entity.name.type.cs
+T 18 source.cs punctuation.squarebracket.open.cs
+T 19 source.cs punctuation.squarebracket.close.cs
+T 20 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.object.cs
+T 35 source.cs punctuation.accessor.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 int index = _index - 1;
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.arithmetic.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 if ((uint)index < (uint)array.Length)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs keyword.type.uint.cs
+T 26 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.relational.cs
+T 34 source.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs keyword.type.uint.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 52 source.cs variable.other.object.property.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     Debug.Assert(index < _stack.Count);
+T 20 source.cs
+T 25 source.cs variable.other.object.cs
+T 26 source.cs punctuation.accessor.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 40 source.cs keyword.operator.relational.cs
+T 41 source.cs
+T 47 source.cs variable.other.object.cs
+T 48 source.cs punctuation.accessor.cs
+T 53 source.cs variable.other.object.property.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L                     _currentElement = array[index];
+T 20 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 37 source.cs keyword.operator.assignment.cs
+T 38 source.cs
+T 43 source.cs variable.other.object.property.cs
+T 44 source.cs punctuation.squarebracket.open.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.squarebracket.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                     _index = index;
+T 20 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                     return true;
+T 20 source.cs
+T 26 source.cs keyword.control.flow.return.cs
+T 27 source.cs
+T 31 source.cs constant.language.boolean.true.cs
+T 32 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 _currentElement = default;
+T 16 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.assignment.cs
+T 34 source.cs
+T 41 source.cs keyword.operator.expression.default.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 _index = -1;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 26 source.cs keyword.operator.arithmetic.cs
+T 27 source.cs constant.numeric.decimal.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public T Current => _currentElement!;
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 20 source.cs entity.name.type.cs
+T 21 source.cs
+T 28 source.cs entity.name.variable.property.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.arrow.cs
+T 32 source.cs meta.accessor.getter.cs
+T 47 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 48 source.cs meta.accessor.getter.cs keyword.operator.logical.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L 
+L             object? System.Collections.IEnumerator.Current => Current;
+T 12 source.cs
+T 18 source.cs keyword.type.object.cs
+T 19 source.cs punctuation.separator.question-mark.cs
+T 20 source.cs
+T 26 source.cs entity.name.type.cs
+T 27 source.cs punctuation.accessor.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.accessor.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.accessor.cs
+T 58 source.cs entity.name.variable.property.cs
+T 59 source.cs
+T 61 source.cs keyword.operator.arrow.cs
+T 62 source.cs meta.accessor.getter.cs
+T 69 source.cs meta.accessor.getter.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L 
+L             void IEnumerator.Reset()
+T 12 source.cs
+T 16 source.cs keyword.type.void.cs
+T 17 source.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 if (_version != _stack._version)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs variable.other.readwrite.cs
+T 29 source.cs
+T 31 source.cs keyword.operator.comparison.cs
+T 32 source.cs
+T 38 source.cs variable.other.object.cs
+T 39 source.cs punctuation.accessor.cs
+T 47 source.cs variable.other.object.property.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     ThrowInvalidVersion();
+T 20 source.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 _index = _stack.Count;
+T 16 source.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 37 source.cs variable.other.object.property.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L                 _currentElement = default;
+T 16 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.assignment.cs
+T 34 source.cs
+T 41 source.cs keyword.operator.expression.default.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private static void ThrowInvalidVersion() => throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 26 source.cs storage.modifier.static.cs
+T 27 source.cs
+T 31 source.cs keyword.type.void.cs
+T 32 source.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs
+T 56 source.cs keyword.operator.arrow.cs
+T 57 source.cs
+T 62 source.cs keyword.control.flow.throw.cs
+T 63 source.cs
+T 66 source.cs keyword.operator.expression.new.cs
+T 67 source.cs
+T 92 source.cs entity.name.type.cs
+T 93 source.cs punctuation.parenthesis.open.cs
+T 95 source.cs variable.other.object.cs
+T 96 source.cs punctuation.accessor.cs
+T 130 source.cs variable.other.object.property.cs
+T 131 source.cs punctuation.parenthesis.close.cs
+T 132 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

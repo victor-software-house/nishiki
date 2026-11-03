@@ -1,0 +1,228 @@
+L using KCTest.Infrastructure.Database;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 27 source.cs entity.name.type.namespace.cs
+T 28 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.type.namespace.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L using Microsoft.AspNetCore.Hosting;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 15 source.cs entity.name.type.namespace.cs
+T 16 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.type.namespace.cs
+T 27 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.type.namespace.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L using Microsoft.EntityFrameworkCore;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 15 source.cs entity.name.type.namespace.cs
+T 16 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.type.namespace.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L using Microsoft.Extensions.DependencyInjection;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 15 source.cs entity.name.type.namespace.cs
+T 16 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.type.namespace.cs
+T 27 source.cs punctuation.accessor.cs
+T 46 source.cs entity.name.type.namespace.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L using Microsoft.Extensions.Hosting;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 15 source.cs entity.name.type.namespace.cs
+T 16 source.cs punctuation.accessor.cs
+T 26 source.cs entity.name.type.namespace.cs
+T 27 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.type.namespace.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L 
+L namespace KCTest.API
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 16 source.cs entity.name.type.namespace.cs
+T 17 source.cs punctuation.accessor.cs
+T 20 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public class Program
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 16 source.cs storage.type.class.cs
+T 17 source.cs
+T 24 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static void Main(string[] args)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 26 source.cs keyword.type.void.cs
+T 27 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs keyword.type.string.cs
+T 39 source.cs punctuation.squarebracket.open.cs
+T 40 source.cs punctuation.squarebracket.close.cs
+T 41 source.cs
+T 45 source.cs entity.name.variable.parameter.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             var host = CreateHostBuilder(args).Build();
+T 12 source.cs
+T 15 source.cs storage.type.var.cs
+T 16 source.cs
+T 20 source.cs entity.name.variable.local.cs
+T 21 source.cs
+T 22 source.cs keyword.operator.assignment.cs
+T 23 source.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs variable.other.readwrite.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+T 47 source.cs punctuation.accessor.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+T 55 source.cs punctuation.terminator.statement.cs
+L 
+L             using (var scope = host.Services.CreateScope())
+T 12 source.cs
+T 17 source.cs keyword.control.context.using.cs
+T 18 source.cs
+T 19 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs storage.type.var.cs
+T 23 source.cs
+T 28 source.cs entity.name.variable.local.cs
+T 29 source.cs
+T 30 source.cs keyword.operator.assignment.cs
+T 31 source.cs
+T 35 source.cs variable.other.object.cs
+T 36 source.cs punctuation.accessor.cs
+T 44 source.cs variable.other.object.property.cs
+T 45 source.cs punctuation.accessor.cs
+T 56 source.cs entity.name.function.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 var db = scope.ServiceProvider.GetRequiredService<KCTestContext>();
+T 16 source.cs
+T 19 source.cs storage.type.var.cs
+T 20 source.cs
+T 22 source.cs entity.name.variable.local.cs
+T 23 source.cs
+T 24 source.cs keyword.operator.assignment.cs
+T 25 source.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 46 source.cs variable.other.object.property.cs
+T 47 source.cs punctuation.accessor.cs
+T 65 source.cs entity.name.function.cs
+T 66 source.cs punctuation.definition.typeparameters.begin.cs
+T 79 source.cs entity.name.type.cs
+T 80 source.cs punctuation.definition.typeparameters.end.cs
+T 81 source.cs punctuation.parenthesis.open.cs
+T 82 source.cs punctuation.parenthesis.close.cs
+T 83 source.cs punctuation.terminator.statement.cs
+L                 db.Database.Migrate();
+T 16 source.cs
+T 18 source.cs variable.other.object.cs
+T 19 source.cs punctuation.accessor.cs
+T 27 source.cs variable.other.object.property.cs
+T 28 source.cs punctuation.accessor.cs
+T 35 source.cs entity.name.function.cs
+T 36 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+T 38 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             host.Run();
+T 12 source.cs
+T 16 source.cs variable.other.object.cs
+T 17 source.cs punctuation.accessor.cs
+T 20 source.cs entity.name.function.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs punctuation.parenthesis.close.cs
+T 23 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public static IHostBuilder CreateHostBuilder(string[] args) =>
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 59 source.cs keyword.type.string.cs
+T 60 source.cs punctuation.squarebracket.open.cs
+T 61 source.cs punctuation.squarebracket.close.cs
+T 62 source.cs
+T 66 source.cs entity.name.variable.parameter.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs
+T 70 source.cs keyword.operator.arrow.cs
+L             Host.CreateDefaultBuilder(args)
+T 12 source.cs
+T 16 source.cs variable.other.object.cs
+T 17 source.cs punctuation.accessor.cs
+T 37 source.cs entity.name.function.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L                 .ConfigureWebHostDefaults(webBuilder =>
+T 16 source.cs
+T 17 source.cs punctuation.accessor.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs entity.name.variable.parameter.cs
+T 53 source.cs
+T 55 source.cs keyword.operator.arrow.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     webBuilder.UseStartup<Startup>();
+T 20 source.cs
+T 30 source.cs variable.other.object.cs
+T 31 source.cs punctuation.accessor.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.definition.typeparameters.begin.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.definition.typeparameters.end.cs
+T 51 source.cs punctuation.parenthesis.open.cs
+T 52 source.cs punctuation.parenthesis.close.cs
+T 53 source.cs punctuation.terminator.statement.cs
+L                 });
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+T 18 source.cs punctuation.parenthesis.close.cs
+T 19 source.cs punctuation.terminator.statement.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 
+L // From https://github.com/Jadhielv/KCTest/blob/master/Backend/src/KCTest.API/Program.cs
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 88 source.cs comment.line.double-slash.cs

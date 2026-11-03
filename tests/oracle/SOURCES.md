@@ -216,6 +216,11 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `graphql/graphiql-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`][graphiql-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphiql-merged-query` | [`packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`][graphiql-merged-query] in graphql/graphiql | [MIT][graphiql-licence] |
+| `csharp/sample` | [`samples/csharp.sample`][csharp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `csharp/runtime-linq-where` | [`Where.cs`][runtime-linq-where] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
+| `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
+| `csharp/newtonsoft-json-convert` | [`JsonConvert.cs`][newtonsoft-json-convert] in JamesNK/Newtonsoft.Json | [MIT][newtonsoft-licence] |
+| `csharp/roslyn-text-span` | [`TextSpan.cs`][roslyn-text-span] in dotnet/roslyn | [MIT][roslyn-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -578,3 +583,11 @@ The lexer matched every input on its first run, held-out ones included.
 [thor-licence]: https://github.com/rails/thor/blob/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d/LICENSE.md
 [rake-task]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/lib/rake/task.rb
 [rake-licence]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/MIT-LICENSE
+[csharp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/csharp.sample
+[runtime-linq-where]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/src/libraries/System.Linq/src/System/Linq/Where.cs
+[runtime-stack]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs
+[dotnet-runtime-licence]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/LICENSE.TXT
+[newtonsoft-json-convert]: https://github.com/JamesNK/Newtonsoft.Json/blob/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa/Src/Newtonsoft.Json/JsonConvert.cs
+[newtonsoft-licence]: https://github.com/JamesNK/Newtonsoft.Json/blob/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa/LICENSE.md
+[roslyn-text-span]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/Core/Portable/Text/TextSpan.cs
+[roslyn-licence]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt

@@ -1,0 +1,3661 @@
+L // Licensed to the .NET Foundation under one or more agreements.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 64 source.cs comment.line.double-slash.cs
+L // The .NET Foundation licenses this file to you under the MIT license.
+T 2 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 71 source.cs comment.line.double-slash.cs
+L 
+L using System.Collections.Generic;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.accessor.cs
+T 32 source.cs entity.name.type.namespace.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L using System.Diagnostics;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs entity.name.type.namespace.cs
+T 13 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.namespace.cs
+T 25 source.cs punctuation.terminator.statement.cs
+L using static System.Linq.Utilities;
+T 5 source.cs keyword.other.directive.using.cs
+T 6 source.cs
+T 12 source.cs keyword.other.directive.static.cs
+T 13 source.cs
+T 19 source.cs entity.name.type.cs
+T 20 source.cs punctuation.accessor.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.accessor.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L 
+L namespace System.Linq
+T 9 source.cs storage.type.namespace.cs
+T 10 source.cs
+T 16 source.cs entity.name.type.namespace.cs
+T 17 source.cs punctuation.accessor.cs
+T 21 source.cs entity.name.type.namespace.cs
+L {
+T 1 source.cs punctuation.curlybrace.open.cs
+L     public static partial class Enumerable
+T 4 source.cs
+T 10 source.cs storage.modifier.public.cs
+T 11 source.cs
+T 17 source.cs storage.modifier.static.cs
+T 18 source.cs
+T 25 source.cs storage.modifier.partial.cs
+T 26 source.cs
+T 31 source.cs storage.type.class.cs
+T 32 source.cs
+T 42 source.cs entity.name.type.class.cs
+L     {
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.open.cs
+L         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+T 43 source.cs
+T 48 source.cs entity.name.function.cs
+T 49 source.cs punctuation.definition.typeparameters.begin.cs
+T 56 source.cs entity.name.type.type-parameter.cs
+T 57 source.cs punctuation.definition.typeparameters.end.cs
+T 58 source.cs punctuation.parenthesis.open.cs
+T 62 source.cs storage.modifier.this.cs
+T 63 source.cs
+T 74 source.cs entity.name.type.cs
+T 75 source.cs punctuation.definition.typeparameters.begin.cs
+T 82 source.cs entity.name.type.cs
+T 83 source.cs punctuation.definition.typeparameters.end.cs
+T 84 source.cs
+T 90 source.cs entity.name.variable.parameter.cs
+T 91 source.cs punctuation.separator.comma.cs
+T 92 source.cs
+T 96 source.cs entity.name.type.cs
+T 97 source.cs punctuation.definition.typeparameters.begin.cs
+T 104 source.cs entity.name.type.cs
+T 105 source.cs punctuation.separator.comma.cs
+T 106 source.cs
+T 110 source.cs keyword.type.bool.cs
+T 111 source.cs punctuation.definition.typeparameters.end.cs
+T 112 source.cs
+T 121 source.cs entity.name.variable.parameter.cs
+T 122 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (source is null)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.expression.pattern.is.cs
+T 26 source.cs
+T 30 source.cs constant.language.null.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.source);
+T 16 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 79 source.cs variable.other.object.property.cs
+T 80 source.cs punctuation.parenthesis.close.cs
+T 81 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (predicate is null)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.pattern.is.cs
+T 29 source.cs
+T 33 source.cs constant.language.null.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.predicate);
+T 16 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 82 source.cs variable.other.object.property.cs
+T 83 source.cs punctuation.parenthesis.close.cs
+T 84 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (source is Iterator<TSource> iterator)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.expression.pattern.is.cs
+T 26 source.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.begin.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.definition.typeparameters.end.cs
+T 44 source.cs
+T 52 source.cs entity.name.variable.local.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 return iterator.Where(predicate);
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 37 source.cs entity.name.function.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             // Only use IList when size-optimizing (no array or List specializations).
+T 12 source.cs comment.line.double-slash.cs punctuation.whitespace.comment.leading.cs
+T 14 source.cs comment.line.double-slash.cs punctuation.definition.comment.cs
+T 86 source.cs comment.line.double-slash.cs
+L             if (IsSizeOptimized && source is IList<TSource> sourceList)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 34 source.cs keyword.operator.logical.cs
+T 35 source.cs
+T 41 source.cs variable.other.readwrite.cs
+T 42 source.cs
+T 44 source.cs keyword.operator.expression.pattern.is.cs
+T 45 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.begin.cs
+T 58 source.cs entity.name.type.cs
+T 59 source.cs punctuation.definition.typeparameters.end.cs
+T 60 source.cs
+T 70 source.cs entity.name.variable.local.cs
+T 71 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 return new SizeOptIListWhereIterator<TSource>(sourceList, predicate);
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 26 source.cs keyword.operator.expression.new.cs
+T 27 source.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.definition.typeparameters.begin.cs
+T 60 source.cs entity.name.type.cs
+T 61 source.cs punctuation.definition.typeparameters.end.cs
+T 62 source.cs punctuation.parenthesis.open.cs
+T 72 source.cs variable.other.readwrite.cs
+T 73 source.cs punctuation.separator.comma.cs
+T 74 source.cs
+T 83 source.cs variable.other.readwrite.cs
+T 84 source.cs punctuation.parenthesis.close.cs
+T 85 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (source is TSource[] array)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.expression.pattern.is.cs
+T 26 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.squarebracket.open.cs
+T 35 source.cs punctuation.squarebracket.close.cs
+T 36 source.cs
+T 41 source.cs entity.name.variable.local.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 if (array.Length == 0)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs variable.other.object.cs
+T 26 source.cs punctuation.accessor.cs
+T 32 source.cs variable.other.object.property.cs
+T 33 source.cs
+T 35 source.cs keyword.operator.comparison.cs
+T 36 source.cs
+T 37 source.cs constant.numeric.decimal.cs
+T 38 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     return [];
+T 20 source.cs
+T 26 source.cs keyword.control.flow.return.cs
+T 27 source.cs
+T 28 source.cs punctuation.squarebracket.open.cs
+T 29 source.cs punctuation.squarebracket.close.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 return new ArrayWhereIterator<TSource>(array, predicate);
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 26 source.cs keyword.operator.expression.new.cs
+T 27 source.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.definition.typeparameters.begin.cs
+T 53 source.cs entity.name.type.cs
+T 54 source.cs punctuation.definition.typeparameters.end.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 60 source.cs variable.other.readwrite.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.parenthesis.close.cs
+T 73 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (source is List<TSource> list)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.expression.pattern.is.cs
+T 26 source.cs
+T 30 source.cs entity.name.type.cs
+T 31 source.cs punctuation.definition.typeparameters.begin.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.definition.typeparameters.end.cs
+T 40 source.cs
+T 44 source.cs entity.name.variable.local.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 return new ListWhereIterator<TSource>(list, predicate);
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 26 source.cs keyword.operator.expression.new.cs
+T 27 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.definition.typeparameters.end.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 58 source.cs variable.other.readwrite.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.parenthesis.close.cs
+T 71 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             return new IEnumerableWhereIterator<TSource>(source, predicate);
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 22 source.cs keyword.operator.expression.new.cs
+T 23 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs punctuation.parenthesis.open.cs
+T 63 source.cs variable.other.readwrite.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 74 source.cs variable.other.readwrite.cs
+T 75 source.cs punctuation.parenthesis.close.cs
+T 76 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
+T 8 source.cs
+T 14 source.cs storage.modifier.public.cs
+T 15 source.cs
+T 21 source.cs storage.modifier.static.cs
+T 22 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+T 43 source.cs
+T 48 source.cs entity.name.function.cs
+T 49 source.cs punctuation.definition.typeparameters.begin.cs
+T 56 source.cs entity.name.type.type-parameter.cs
+T 57 source.cs punctuation.definition.typeparameters.end.cs
+T 58 source.cs punctuation.parenthesis.open.cs
+T 62 source.cs storage.modifier.this.cs
+T 63 source.cs
+T 74 source.cs entity.name.type.cs
+T 75 source.cs punctuation.definition.typeparameters.begin.cs
+T 82 source.cs entity.name.type.cs
+T 83 source.cs punctuation.definition.typeparameters.end.cs
+T 84 source.cs
+T 90 source.cs entity.name.variable.parameter.cs
+T 91 source.cs punctuation.separator.comma.cs
+T 92 source.cs
+T 96 source.cs entity.name.type.cs
+T 97 source.cs punctuation.definition.typeparameters.begin.cs
+T 104 source.cs entity.name.type.cs
+T 105 source.cs punctuation.separator.comma.cs
+T 106 source.cs
+T 109 source.cs keyword.type.int.cs
+T 110 source.cs punctuation.separator.comma.cs
+T 111 source.cs
+T 115 source.cs keyword.type.bool.cs
+T 116 source.cs punctuation.definition.typeparameters.end.cs
+T 117 source.cs
+T 126 source.cs entity.name.variable.parameter.cs
+T 127 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             if (source is null)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 22 source.cs variable.other.readwrite.cs
+T 23 source.cs
+T 25 source.cs keyword.operator.expression.pattern.is.cs
+T 26 source.cs
+T 30 source.cs constant.language.null.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.source);
+T 16 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 79 source.cs variable.other.object.property.cs
+T 80 source.cs punctuation.parenthesis.close.cs
+T 81 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (predicate is null)
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 28 source.cs keyword.operator.expression.pattern.is.cs
+T 29 source.cs
+T 33 source.cs constant.language.null.cs
+T 34 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.predicate);
+T 16 source.cs
+T 27 source.cs variable.other.object.cs
+T 28 source.cs punctuation.accessor.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 82 source.cs variable.other.object.property.cs
+T 83 source.cs punctuation.parenthesis.close.cs
+T 84 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             if (IsEmptyArray(source))
+T 12 source.cs
+T 14 source.cs keyword.control.conditional.if.cs
+T 15 source.cs
+T 16 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs punctuation.parenthesis.close.cs
+T 37 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 return [];
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 24 source.cs punctuation.squarebracket.open.cs
+T 25 source.cs punctuation.squarebracket.close.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             return WhereIterator(source, predicate);
+T 12 source.cs
+T 18 source.cs keyword.control.flow.return.cs
+T 19 source.cs
+T 32 source.cs entity.name.function.cs
+T 33 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs variable.other.readwrite.cs
+T 40 source.cs punctuation.separator.comma.cs
+T 41 source.cs
+T 50 source.cs variable.other.readwrite.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         private static IEnumerable<TSource> WhereIterator<TSource>(IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.static.cs
+T 23 source.cs
+T 34 source.cs entity.name.type.cs
+T 35 source.cs punctuation.definition.typeparameters.begin.cs
+T 42 source.cs entity.name.type.cs
+T 43 source.cs punctuation.definition.typeparameters.end.cs
+T 44 source.cs
+T 57 source.cs entity.name.function.cs
+T 58 source.cs punctuation.definition.typeparameters.begin.cs
+T 65 source.cs entity.name.type.type-parameter.cs
+T 66 source.cs punctuation.definition.typeparameters.end.cs
+T 67 source.cs punctuation.parenthesis.open.cs
+T 78 source.cs entity.name.type.cs
+T 79 source.cs punctuation.definition.typeparameters.begin.cs
+T 86 source.cs entity.name.type.cs
+T 87 source.cs punctuation.definition.typeparameters.end.cs
+T 88 source.cs
+T 94 source.cs entity.name.variable.parameter.cs
+T 95 source.cs punctuation.separator.comma.cs
+T 96 source.cs
+T 100 source.cs entity.name.type.cs
+T 101 source.cs punctuation.definition.typeparameters.begin.cs
+T 108 source.cs entity.name.type.cs
+T 109 source.cs punctuation.separator.comma.cs
+T 110 source.cs
+T 113 source.cs keyword.type.int.cs
+T 114 source.cs punctuation.separator.comma.cs
+T 115 source.cs
+T 119 source.cs keyword.type.bool.cs
+T 120 source.cs punctuation.definition.typeparameters.end.cs
+T 121 source.cs
+T 130 source.cs entity.name.variable.parameter.cs
+T 131 source.cs punctuation.parenthesis.close.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             int index = -1;
+T 12 source.cs
+T 15 source.cs keyword.type.int.cs
+T 16 source.cs
+T 21 source.cs entity.name.variable.local.cs
+T 22 source.cs
+T 23 source.cs keyword.operator.assignment.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.arithmetic.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.terminator.statement.cs
+L             foreach (TSource element in source)
+T 12 source.cs
+T 19 source.cs keyword.control.loop.foreach.cs
+T 20 source.cs
+T 21 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs entity.name.type.cs
+T 29 source.cs
+T 36 source.cs entity.name.variable.local.cs
+T 37 source.cs
+T 39 source.cs keyword.control.loop.in.cs
+T 40 source.cs
+T 46 source.cs variable.other.readwrite.cs
+T 47 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 checked
+T 16 source.cs
+T 23 source.cs keyword.control.context.checked.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     index++;
+T 20 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 27 source.cs keyword.operator.increment.cs
+T 28 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 if (predicate(element, index))
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 29 source.cs entity.name.function.cs
+T 30 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs punctuation.separator.comma.cs
+T 39 source.cs
+T 44 source.cs variable.other.readwrite.cs
+T 45 source.cs punctuation.parenthesis.close.cs
+T 46 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     yield return element;
+T 20 source.cs
+T 25 source.cs keyword.control.flow.yield.cs
+T 26 source.cs
+T 32 source.cs keyword.control.flow.return.cs
+T 33 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters each item of an <see cref="IEnumerable{TSource}"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 53 source.cs comment.block.documentation.cs
+T 54 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 58 source.cs comment.block.documentation.cs meta.tag.cs
+T 62 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 64 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 84 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 85 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 87 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 88 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source enumerable.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 72 source.cs comment.block.documentation.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 83 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 84 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class IEnumerableWhereIterator<TSource> : Iterator<TSource>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 61 source.cs entity.name.type.class.cs
+T 62 source.cs punctuation.definition.typeparameters.begin.cs
+T 69 source.cs entity.name.type.type-parameter.cs
+T 70 source.cs punctuation.definition.typeparameters.end.cs
+T 71 source.cs
+T 72 source.cs punctuation.separator.colon.cs
+T 73 source.cs
+T 81 source.cs entity.name.type.cs
+T 82 source.cs punctuation.definition.typeparameters.begin.cs
+T 89 source.cs entity.name.type.cs
+T 90 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly IEnumerable<TSource> _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 40 source.cs entity.name.type.cs
+T 41 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs
+T 57 source.cs entity.name.variable.field.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             private IEnumerator<TSource>? _enumerator;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 31 source.cs entity.name.type.cs
+T 32 source.cs punctuation.definition.typeparameters.begin.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.end.cs
+T 41 source.cs punctuation.separator.question-mark.cs
+T 42 source.cs
+T 53 source.cs entity.name.variable.field.cs
+T 54 source.cs punctuation.terminator.statement.cs
+L 
+L             public IEnumerableWhereIterator(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs
+T 71 source.cs entity.name.variable.parameter.cs
+T 72 source.cs punctuation.separator.comma.cs
+T 73 source.cs
+T 77 source.cs entity.name.type.cs
+T 78 source.cs punctuation.definition.typeparameters.begin.cs
+T 85 source.cs entity.name.type.cs
+T 86 source.cs punctuation.separator.comma.cs
+T 87 source.cs
+T 91 source.cs keyword.type.bool.cs
+T 92 source.cs punctuation.definition.typeparameters.end.cs
+T 93 source.cs
+T 102 source.cs entity.name.variable.parameter.cs
+T 103 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TSource> Clone() => new IEnumerableWhereIterator<TSource>(_source, _predicate);
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+T 68 source.cs
+T 71 source.cs keyword.operator.expression.new.cs
+T 72 source.cs
+T 96 source.cs entity.name.type.cs
+T 97 source.cs punctuation.definition.typeparameters.begin.cs
+T 104 source.cs entity.name.type.cs
+T 105 source.cs punctuation.definition.typeparameters.end.cs
+T 106 source.cs punctuation.parenthesis.open.cs
+T 113 source.cs variable.other.readwrite.cs
+T 114 source.cs punctuation.separator.comma.cs
+T 115 source.cs
+T 125 source.cs variable.other.readwrite.cs
+T 126 source.cs punctuation.parenthesis.close.cs
+T 127 source.cs punctuation.terminator.statement.cs
+L 
+L             public override void Dispose()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.void.cs
+T 33 source.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 if (_enumerator is not null)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 34 source.cs keyword.operator.expression.pattern.is.cs
+T 35 source.cs
+T 38 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 39 source.cs
+T 43 source.cs constant.language.null.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     _enumerator.Dispose();
+T 20 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                     _enumerator = null;
+T 20 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.assignment.cs
+T 34 source.cs
+T 38 source.cs constant.language.null.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 base.Dispose();
+T 16 source.cs
+T 20 source.cs variable.language.base.cs
+T 21 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 switch (_state)
+T 16 source.cs
+T 22 source.cs keyword.control.conditional.switch.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     case 1:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         _enumerator = _source.GetEnumerator();
+T 24 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 37 source.cs keyword.operator.assignment.cs
+T 38 source.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 59 source.cs entity.name.function.cs
+T 60 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         _state = 2;
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                         goto case 2;
+T 24 source.cs
+T 28 source.cs keyword.control.flow.goto.cs
+T 29 source.cs
+T 33 source.cs keyword.control.conditional.case.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     case 2:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         Debug.Assert(_enumerator is not null);
+T 24 source.cs
+T 29 source.cs variable.other.object.cs
+T 30 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.function.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs
+T 51 source.cs keyword.operator.expression.pattern.is.cs
+T 52 source.cs
+T 55 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 56 source.cs
+T 60 source.cs constant.language.null.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         while (_enumerator.MoveNext())
+T 24 source.cs
+T 29 source.cs keyword.control.loop.while.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+L                         {
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.open.cs
+L                             TSource item = _enumerator.Current;
+T 28 source.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 40 source.cs entity.name.variable.local.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 54 source.cs variable.other.object.cs
+T 55 source.cs punctuation.accessor.cs
+T 62 source.cs variable.other.object.property.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L                             if (_predicate(item))
+T 28 source.cs
+T 30 source.cs keyword.control.conditional.if.cs
+T 31 source.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                             {
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+L                                 _current = item;
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L                                 return true;
+T 32 source.cs
+T 38 source.cs keyword.control.flow.return.cs
+T 39 source.cs
+T 43 source.cs constant.language.boolean.true.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L                             }
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.close.cs
+L                         }
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.close.cs
+L 
+L                         Dispose();
+T 24 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                         break;
+T 24 source.cs
+T 29 source.cs keyword.control.flow.break.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult> Select<TResult>(Func<TSource, TResult> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.type-parameter.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.begin.cs
+T 77 source.cs entity.name.type.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 86 source.cs entity.name.type.cs
+T 87 source.cs punctuation.definition.typeparameters.end.cs
+T 88 source.cs
+T 96 source.cs entity.name.variable.parameter.cs
+T 97 source.cs punctuation.parenthesis.close.cs
+T 98 source.cs
+T 100 source.cs keyword.operator.arrow.cs
+L                 new IEnumerableWhereSelectIterator<TSource, TResult>(_source, _predicate, selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.begin.cs
+T 58 source.cs entity.name.type.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.definition.typeparameters.end.cs
+T 69 source.cs punctuation.parenthesis.open.cs
+T 76 source.cs variable.other.readwrite.cs
+T 77 source.cs punctuation.separator.comma.cs
+T 78 source.cs
+T 88 source.cs variable.other.readwrite.cs
+T 89 source.cs punctuation.separator.comma.cs
+T 90 source.cs
+T 98 source.cs variable.other.readwrite.cs
+T 99 source.cs punctuation.parenthesis.close.cs
+T 100 source.cs punctuation.terminator.statement.cs
+L 
+L             public override IEnumerable<TSource> Where(Func<TSource, bool> predicate) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs punctuation.definition.typeparameters.begin.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 73 source.cs keyword.type.bool.cs
+T 74 source.cs punctuation.definition.typeparameters.end.cs
+T 75 source.cs
+T 84 source.cs entity.name.variable.parameter.cs
+T 85 source.cs punctuation.parenthesis.close.cs
+T 86 source.cs
+T 88 source.cs keyword.operator.arrow.cs
+L                 new IEnumerableWhereIterator<TSource>(_source, Utilities.CombinePredicates(_predicate, predicate));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.definition.typeparameters.end.cs
+T 54 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs variable.other.readwrite.cs
+T 62 source.cs punctuation.separator.comma.cs
+T 63 source.cs
+T 72 source.cs variable.other.object.cs
+T 73 source.cs punctuation.accessor.cs
+T 90 source.cs entity.name.function.cs
+T 91 source.cs punctuation.parenthesis.open.cs
+T 101 source.cs variable.other.readwrite.cs
+T 102 source.cs punctuation.separator.comma.cs
+T 103 source.cs
+T 112 source.cs variable.other.readwrite.cs
+T 113 source.cs punctuation.parenthesis.close.cs
+T 114 source.cs punctuation.parenthesis.close.cs
+T 115 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters each item of an array.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 59 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source array.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class ArrayWhereIterator<TSource> : Iterator<TSource>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 55 source.cs entity.name.type.class.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.type-parameter.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs
+T 66 source.cs punctuation.separator.colon.cs
+T 67 source.cs
+T 75 source.cs entity.name.type.cs
+T 76 source.cs punctuation.definition.typeparameters.begin.cs
+T 83 source.cs entity.name.type.cs
+T 84 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly TSource[] _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.squarebracket.open.cs
+T 38 source.cs punctuation.squarebracket.close.cs
+T 39 source.cs
+T 46 source.cs entity.name.variable.field.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L 
+L             public ArrayWhereIterator(TSource[] source, Func<TSource, bool> predicate)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 37 source.cs entity.name.function.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.squarebracket.open.cs
+T 47 source.cs punctuation.squarebracket.close.cs
+T 48 source.cs
+T 54 source.cs entity.name.variable.parameter.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 60 source.cs entity.name.type.cs
+T 61 source.cs punctuation.definition.typeparameters.begin.cs
+T 68 source.cs entity.name.type.cs
+T 69 source.cs punctuation.separator.comma.cs
+T 70 source.cs
+T 74 source.cs keyword.type.bool.cs
+T 75 source.cs punctuation.definition.typeparameters.end.cs
+T 76 source.cs
+T 85 source.cs entity.name.variable.parameter.cs
+T 86 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null && source.Length > 0);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs
+T 50 source.cs keyword.operator.logical.cs
+T 51 source.cs
+T 57 source.cs variable.other.object.cs
+T 58 source.cs punctuation.accessor.cs
+T 64 source.cs variable.other.object.property.cs
+T 65 source.cs
+T 66 source.cs keyword.operator.relational.cs
+T 67 source.cs
+T 68 source.cs constant.numeric.decimal.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TSource> Clone() =>
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+L                 new ArrayWhereIterator<TSource>(_source, _predicate);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.definition.typeparameters.begin.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.definition.typeparameters.end.cs
+T 48 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs variable.other.readwrite.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 67 source.cs variable.other.readwrite.cs
+T 68 source.cs punctuation.parenthesis.close.cs
+T 69 source.cs punctuation.terminator.statement.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 int index = _state - 1;
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.arithmetic.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 TSource[] source = _source;
+T 16 source.cs
+T 23 source.cs entity.name.type.cs
+T 24 source.cs punctuation.squarebracket.open.cs
+T 25 source.cs punctuation.squarebracket.close.cs
+T 26 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L 
+L                 while ((uint)index < (uint)source.Length)
+T 16 source.cs
+T 21 source.cs keyword.control.loop.while.cs
+T 22 source.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs keyword.type.uint.cs
+T 29 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.relational.cs
+T 37 source.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs keyword.type.uint.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs variable.other.object.cs
+T 50 source.cs punctuation.accessor.cs
+T 56 source.cs variable.other.object.property.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     TSource item = source[index];
+T 20 source.cs
+T 27 source.cs entity.name.type.cs
+T 28 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.squarebracket.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.squarebracket.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                     index = _state++;
+T 20 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 36 source.cs keyword.operator.increment.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L                     if (_predicate(item))
+T 20 source.cs
+T 22 source.cs keyword.control.conditional.if.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs variable.other.readwrite.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+L                     {
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.open.cs
+L                         _current = item;
+T 24 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 39 source.cs variable.other.readwrite.cs
+T 40 source.cs punctuation.terminator.statement.cs
+L                         return true;
+T 24 source.cs
+T 30 source.cs keyword.control.flow.return.cs
+T 31 source.cs
+T 35 source.cs constant.language.boolean.true.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     }
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.close.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 Dispose();
+T 16 source.cs
+T 23 source.cs entity.name.function.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult> Select<TResult>(Func<TSource, TResult> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.type-parameter.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.begin.cs
+T 77 source.cs entity.name.type.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 86 source.cs entity.name.type.cs
+T 87 source.cs punctuation.definition.typeparameters.end.cs
+T 88 source.cs
+T 96 source.cs entity.name.variable.parameter.cs
+T 97 source.cs punctuation.parenthesis.close.cs
+T 98 source.cs
+T 100 source.cs keyword.operator.arrow.cs
+L                 new ArrayWhereSelectIterator<TSource, TResult>(_source, _predicate, selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 61 source.cs entity.name.type.cs
+T 62 source.cs punctuation.definition.typeparameters.end.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs punctuation.separator.comma.cs
+T 72 source.cs
+T 82 source.cs variable.other.readwrite.cs
+T 83 source.cs punctuation.separator.comma.cs
+T 84 source.cs
+T 92 source.cs variable.other.readwrite.cs
+T 93 source.cs punctuation.parenthesis.close.cs
+T 94 source.cs punctuation.terminator.statement.cs
+L 
+L             public override IEnumerable<TSource> Where(Func<TSource, bool> predicate) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs punctuation.definition.typeparameters.begin.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 73 source.cs keyword.type.bool.cs
+T 74 source.cs punctuation.definition.typeparameters.end.cs
+T 75 source.cs
+T 84 source.cs entity.name.variable.parameter.cs
+T 85 source.cs punctuation.parenthesis.close.cs
+T 86 source.cs
+T 88 source.cs keyword.operator.arrow.cs
+L                 new ArrayWhereIterator<TSource>(_source, CombinePredicates(_predicate, predicate));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 38 source.cs entity.name.type.cs
+T 39 source.cs punctuation.definition.typeparameters.begin.cs
+T 46 source.cs entity.name.type.cs
+T 47 source.cs punctuation.definition.typeparameters.end.cs
+T 48 source.cs punctuation.parenthesis.open.cs
+T 55 source.cs variable.other.readwrite.cs
+T 56 source.cs punctuation.separator.comma.cs
+T 57 source.cs
+T 74 source.cs entity.name.function.cs
+T 75 source.cs punctuation.parenthesis.open.cs
+T 85 source.cs variable.other.readwrite.cs
+T 86 source.cs punctuation.separator.comma.cs
+T 87 source.cs
+T 96 source.cs variable.other.readwrite.cs
+T 97 source.cs punctuation.parenthesis.close.cs
+T 98 source.cs punctuation.parenthesis.close.cs
+T 99 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters each item of a <see cref="List{TSource}"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 52 source.cs comment.block.documentation.cs
+T 53 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 56 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 57 source.cs comment.block.documentation.cs meta.tag.cs
+T 61 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 62 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 63 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 76 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 77 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 80 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source list.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 66 source.cs comment.block.documentation.cs
+T 68 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 77 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class ListWhereIterator<TSource> : Iterator<TSource>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 54 source.cs entity.name.type.class.cs
+T 55 source.cs punctuation.definition.typeparameters.begin.cs
+T 62 source.cs entity.name.type.type-parameter.cs
+T 63 source.cs punctuation.definition.typeparameters.end.cs
+T 64 source.cs
+T 65 source.cs punctuation.separator.colon.cs
+T 66 source.cs
+T 74 source.cs entity.name.type.cs
+T 75 source.cs punctuation.definition.typeparameters.begin.cs
+T 82 source.cs entity.name.type.cs
+T 83 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly List<TSource> _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+T 43 source.cs
+T 50 source.cs entity.name.variable.field.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             private List<TSource>.Enumerator _enumerator;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs
+T 56 source.cs entity.name.variable.field.cs
+T 57 source.cs punctuation.terminator.statement.cs
+L 
+L             public ListWhereIterator(List<TSource> source, Func<TSource, bool> predicate)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 36 source.cs entity.name.function.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.begin.cs
+T 49 source.cs entity.name.type.cs
+T 50 source.cs punctuation.definition.typeparameters.end.cs
+T 51 source.cs
+T 57 source.cs entity.name.variable.parameter.cs
+T 58 source.cs punctuation.separator.comma.cs
+T 59 source.cs
+T 63 source.cs entity.name.type.cs
+T 64 source.cs punctuation.definition.typeparameters.begin.cs
+T 71 source.cs entity.name.type.cs
+T 72 source.cs punctuation.separator.comma.cs
+T 73 source.cs
+T 77 source.cs keyword.type.bool.cs
+T 78 source.cs punctuation.definition.typeparameters.end.cs
+T 79 source.cs
+T 88 source.cs entity.name.variable.parameter.cs
+T 89 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TSource> Clone() =>
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+L                 new ListWhereIterator<TSource>(_source, _predicate);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.definition.typeparameters.begin.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.definition.typeparameters.end.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 66 source.cs variable.other.readwrite.cs
+T 67 source.cs punctuation.parenthesis.close.cs
+T 68 source.cs punctuation.terminator.statement.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 switch (_state)
+T 16 source.cs
+T 22 source.cs keyword.control.conditional.switch.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     case 1:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         _enumerator = _source.GetEnumerator();
+T 24 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 37 source.cs keyword.operator.assignment.cs
+T 38 source.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 59 source.cs entity.name.function.cs
+T 60 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         _state = 2;
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                         goto case 2;
+T 24 source.cs
+T 28 source.cs keyword.control.flow.goto.cs
+T 29 source.cs
+T 33 source.cs keyword.control.conditional.case.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     case 2:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         while (_enumerator.MoveNext())
+T 24 source.cs
+T 29 source.cs keyword.control.loop.while.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+L                         {
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.open.cs
+L                             TSource item = _enumerator.Current;
+T 28 source.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 40 source.cs entity.name.variable.local.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 54 source.cs variable.other.object.cs
+T 55 source.cs punctuation.accessor.cs
+T 62 source.cs variable.other.object.property.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L                             if (_predicate(item))
+T 28 source.cs
+T 30 source.cs keyword.control.conditional.if.cs
+T 31 source.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                             {
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+L                                 _current = item;
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.terminator.statement.cs
+L                                 return true;
+T 32 source.cs
+T 38 source.cs keyword.control.flow.return.cs
+T 39 source.cs
+T 43 source.cs constant.language.boolean.true.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L                             }
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.close.cs
+L                         }
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.close.cs
+L 
+L                         Dispose();
+T 24 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                         break;
+T 24 source.cs
+T 29 source.cs keyword.control.flow.break.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult> Select<TResult>(Func<TSource, TResult> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 55 source.cs entity.name.function.cs
+T 56 source.cs punctuation.definition.typeparameters.begin.cs
+T 63 source.cs entity.name.type.type-parameter.cs
+T 64 source.cs punctuation.definition.typeparameters.end.cs
+T 65 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.begin.cs
+T 77 source.cs entity.name.type.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 86 source.cs entity.name.type.cs
+T 87 source.cs punctuation.definition.typeparameters.end.cs
+T 88 source.cs
+T 96 source.cs entity.name.variable.parameter.cs
+T 97 source.cs punctuation.parenthesis.close.cs
+T 98 source.cs
+T 100 source.cs keyword.operator.arrow.cs
+L                 new ListWhereSelectIterator<TSource, TResult>(_source, _predicate, selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.definition.typeparameters.begin.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 60 source.cs entity.name.type.cs
+T 61 source.cs punctuation.definition.typeparameters.end.cs
+T 62 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.separator.comma.cs
+T 71 source.cs
+T 81 source.cs variable.other.readwrite.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 91 source.cs variable.other.readwrite.cs
+T 92 source.cs punctuation.parenthesis.close.cs
+T 93 source.cs punctuation.terminator.statement.cs
+L 
+L             public override IEnumerable<TSource> Where(Func<TSource, bool> predicate) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 54 source.cs entity.name.function.cs
+T 55 source.cs punctuation.parenthesis.open.cs
+T 59 source.cs entity.name.type.cs
+T 60 source.cs punctuation.definition.typeparameters.begin.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.separator.comma.cs
+T 69 source.cs
+T 73 source.cs keyword.type.bool.cs
+T 74 source.cs punctuation.definition.typeparameters.end.cs
+T 75 source.cs
+T 84 source.cs entity.name.variable.parameter.cs
+T 85 source.cs punctuation.parenthesis.close.cs
+T 86 source.cs
+T 88 source.cs keyword.operator.arrow.cs
+L                 new ListWhereIterator<TSource>(_source, CombinePredicates(_predicate, predicate));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 37 source.cs entity.name.type.cs
+T 38 source.cs punctuation.definition.typeparameters.begin.cs
+T 45 source.cs entity.name.type.cs
+T 46 source.cs punctuation.definition.typeparameters.end.cs
+T 47 source.cs punctuation.parenthesis.open.cs
+T 54 source.cs variable.other.readwrite.cs
+T 55 source.cs punctuation.separator.comma.cs
+T 56 source.cs
+T 73 source.cs entity.name.function.cs
+T 74 source.cs punctuation.parenthesis.open.cs
+T 84 source.cs variable.other.readwrite.cs
+T 85 source.cs punctuation.separator.comma.cs
+T 86 source.cs
+T 95 source.cs variable.other.readwrite.cs
+T 96 source.cs punctuation.parenthesis.close.cs
+T 97 source.cs punctuation.parenthesis.close.cs
+T 98 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters, then maps, each item of an array.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 71 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source array.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TResult">The type of the mapped items.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class ArrayWhereSelectIterator<TSource, TResult> : Iterator<TResult>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 61 source.cs entity.name.type.class.cs
+T 62 source.cs punctuation.definition.typeparameters.begin.cs
+T 69 source.cs entity.name.type.type-parameter.cs
+T 70 source.cs punctuation.separator.comma.cs
+T 71 source.cs
+T 78 source.cs entity.name.type.type-parameter.cs
+T 79 source.cs punctuation.definition.typeparameters.end.cs
+T 80 source.cs
+T 81 source.cs punctuation.separator.colon.cs
+T 82 source.cs
+T 90 source.cs entity.name.type.cs
+T 91 source.cs punctuation.definition.typeparameters.begin.cs
+T 98 source.cs entity.name.type.cs
+T 99 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly TSource[] _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 36 source.cs entity.name.type.cs
+T 37 source.cs punctuation.squarebracket.open.cs
+T 38 source.cs punctuation.squarebracket.close.cs
+T 39 source.cs
+T 46 source.cs entity.name.variable.field.cs
+T 47 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, TResult> _selector;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.end.cs
+T 52 source.cs
+T 61 source.cs entity.name.variable.field.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L 
+L             public ArrayWhereSelectIterator(TSource[] source, Func<TSource, bool> predicate, Func<TSource, TResult> selector)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 43 source.cs entity.name.function.cs
+T 44 source.cs punctuation.parenthesis.open.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs punctuation.squarebracket.open.cs
+T 53 source.cs punctuation.squarebracket.close.cs
+T 54 source.cs
+T 60 source.cs entity.name.variable.parameter.cs
+T 61 source.cs punctuation.separator.comma.cs
+T 62 source.cs
+T 66 source.cs entity.name.type.cs
+T 67 source.cs punctuation.definition.typeparameters.begin.cs
+T 74 source.cs entity.name.type.cs
+T 75 source.cs punctuation.separator.comma.cs
+T 76 source.cs
+T 80 source.cs keyword.type.bool.cs
+T 81 source.cs punctuation.definition.typeparameters.end.cs
+T 82 source.cs
+T 91 source.cs entity.name.variable.parameter.cs
+T 92 source.cs punctuation.separator.comma.cs
+T 93 source.cs
+T 97 source.cs entity.name.type.cs
+T 98 source.cs punctuation.definition.typeparameters.begin.cs
+T 105 source.cs entity.name.type.cs
+T 106 source.cs punctuation.separator.comma.cs
+T 107 source.cs
+T 114 source.cs entity.name.type.cs
+T 115 source.cs punctuation.definition.typeparameters.end.cs
+T 116 source.cs
+T 124 source.cs entity.name.variable.parameter.cs
+T 125 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null && source.Length > 0);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs
+T 50 source.cs keyword.operator.logical.cs
+T 51 source.cs
+T 57 source.cs variable.other.object.cs
+T 58 source.cs punctuation.accessor.cs
+T 64 source.cs variable.other.object.property.cs
+T 65 source.cs
+T 66 source.cs keyword.operator.relational.cs
+T 67 source.cs
+T 68 source.cs constant.numeric.decimal.cs
+T 69 source.cs punctuation.parenthesis.close.cs
+T 70 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(selector is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs
+T 40 source.cs keyword.operator.expression.pattern.is.cs
+T 41 source.cs
+T 44 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 45 source.cs
+T 49 source.cs constant.language.null.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 _selector = selector;
+T 16 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TResult> Clone() =>
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+L                 new ArrayWhereSelectIterator<TSource, TResult>(_source, _predicate, _selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 61 source.cs entity.name.type.cs
+T 62 source.cs punctuation.definition.typeparameters.end.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs punctuation.separator.comma.cs
+T 72 source.cs
+T 82 source.cs variable.other.readwrite.cs
+T 83 source.cs punctuation.separator.comma.cs
+T 84 source.cs
+T 93 source.cs variable.other.readwrite.cs
+T 94 source.cs punctuation.parenthesis.close.cs
+T 95 source.cs punctuation.terminator.statement.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 int index = _state - 1;
+T 16 source.cs
+T 19 source.cs keyword.type.int.cs
+T 20 source.cs
+T 25 source.cs entity.name.variable.local.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.arithmetic.cs
+T 37 source.cs
+T 38 source.cs constant.numeric.decimal.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 TSource[] source = _source;
+T 16 source.cs
+T 23 source.cs entity.name.type.cs
+T 24 source.cs punctuation.squarebracket.open.cs
+T 25 source.cs punctuation.squarebracket.close.cs
+T 26 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 42 source.cs variable.other.readwrite.cs
+T 43 source.cs punctuation.terminator.statement.cs
+L 
+L                 while ((uint)index < (uint)source.Length)
+T 16 source.cs
+T 21 source.cs keyword.control.loop.while.cs
+T 22 source.cs
+T 23 source.cs punctuation.parenthesis.open.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 28 source.cs keyword.type.uint.cs
+T 29 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs variable.other.readwrite.cs
+T 35 source.cs
+T 36 source.cs keyword.operator.relational.cs
+T 37 source.cs
+T 38 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs keyword.type.uint.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs variable.other.object.cs
+T 50 source.cs punctuation.accessor.cs
+T 56 source.cs variable.other.object.property.cs
+T 57 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     TSource item = source[index];
+T 20 source.cs
+T 27 source.cs entity.name.type.cs
+T 28 source.cs
+T 32 source.cs entity.name.variable.local.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 41 source.cs variable.other.object.property.cs
+T 42 source.cs punctuation.squarebracket.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.squarebracket.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                     index = _state++;
+T 20 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 34 source.cs variable.other.readwrite.cs
+T 36 source.cs keyword.operator.increment.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L                     if (_predicate(item))
+T 20 source.cs
+T 22 source.cs keyword.control.conditional.if.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 34 source.cs entity.name.function.cs
+T 35 source.cs punctuation.parenthesis.open.cs
+T 39 source.cs variable.other.readwrite.cs
+T 40 source.cs punctuation.parenthesis.close.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+L                     {
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.open.cs
+L                         _current = _selector(item);
+T 24 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs
+T 34 source.cs keyword.operator.assignment.cs
+T 35 source.cs
+T 44 source.cs entity.name.function.cs
+T 45 source.cs punctuation.parenthesis.open.cs
+T 49 source.cs variable.other.readwrite.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                         return true;
+T 24 source.cs
+T 30 source.cs keyword.control.flow.return.cs
+T 31 source.cs
+T 35 source.cs constant.language.boolean.true.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     }
+T 20 source.cs
+T 21 source.cs punctuation.curlybrace.close.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 Dispose();
+T 16 source.cs
+T 23 source.cs entity.name.function.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 25 source.cs punctuation.parenthesis.close.cs
+T 26 source.cs punctuation.terminator.statement.cs
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult2> Select<TResult2>(Func<TResult, TResult2> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs
+T 56 source.cs entity.name.function.cs
+T 57 source.cs punctuation.definition.typeparameters.begin.cs
+T 65 source.cs entity.name.type.type-parameter.cs
+T 66 source.cs punctuation.definition.typeparameters.end.cs
+T 67 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs entity.name.type.cs
+T 72 source.cs punctuation.definition.typeparameters.begin.cs
+T 79 source.cs entity.name.type.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 89 source.cs entity.name.type.cs
+T 90 source.cs punctuation.definition.typeparameters.end.cs
+T 91 source.cs
+T 99 source.cs entity.name.variable.parameter.cs
+T 100 source.cs punctuation.parenthesis.close.cs
+T 101 source.cs
+T 103 source.cs keyword.operator.arrow.cs
+L                 new ArrayWhereSelectIterator<TSource, TResult2>(_source, _predicate, CombineSelectors(_selector, selector));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs punctuation.definition.typeparameters.begin.cs
+T 52 source.cs entity.name.type.cs
+T 53 source.cs punctuation.separator.comma.cs
+T 54 source.cs
+T 62 source.cs entity.name.type.cs
+T 63 source.cs punctuation.definition.typeparameters.end.cs
+T 64 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs variable.other.readwrite.cs
+T 72 source.cs punctuation.separator.comma.cs
+T 73 source.cs
+T 83 source.cs variable.other.readwrite.cs
+T 84 source.cs punctuation.separator.comma.cs
+T 85 source.cs
+T 101 source.cs entity.name.function.cs
+T 102 source.cs punctuation.parenthesis.open.cs
+T 111 source.cs variable.other.readwrite.cs
+T 112 source.cs punctuation.separator.comma.cs
+T 113 source.cs
+T 121 source.cs variable.other.readwrite.cs
+T 122 source.cs punctuation.parenthesis.close.cs
+T 123 source.cs punctuation.parenthesis.close.cs
+T 124 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters, then maps, each item of a <see cref="List{TSource}"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 64 source.cs comment.block.documentation.cs
+T 65 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 68 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs
+T 73 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 75 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 88 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 89 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 91 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 92 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source list.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 66 source.cs comment.block.documentation.cs
+T 68 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 77 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TResult">The type of the mapped items.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class ListWhereSelectIterator<TSource, TResult> : Iterator<TResult>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 60 source.cs entity.name.type.class.cs
+T 61 source.cs punctuation.definition.typeparameters.begin.cs
+T 68 source.cs entity.name.type.type-parameter.cs
+T 69 source.cs punctuation.separator.comma.cs
+T 70 source.cs
+T 77 source.cs entity.name.type.type-parameter.cs
+T 78 source.cs punctuation.definition.typeparameters.end.cs
+T 79 source.cs
+T 80 source.cs punctuation.separator.colon.cs
+T 81 source.cs
+T 89 source.cs entity.name.type.cs
+T 90 source.cs punctuation.definition.typeparameters.begin.cs
+T 97 source.cs entity.name.type.cs
+T 98 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly List<TSource> _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.definition.typeparameters.end.cs
+T 43 source.cs
+T 50 source.cs entity.name.variable.field.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, TResult> _selector;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.end.cs
+T 52 source.cs
+T 61 source.cs entity.name.variable.field.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L             private List<TSource>.Enumerator _enumerator;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 24 source.cs entity.name.type.cs
+T 25 source.cs punctuation.definition.typeparameters.begin.cs
+T 32 source.cs entity.name.type.cs
+T 33 source.cs punctuation.definition.typeparameters.end.cs
+T 34 source.cs punctuation.accessor.cs
+T 44 source.cs entity.name.type.cs
+T 45 source.cs
+T 56 source.cs entity.name.variable.field.cs
+T 57 source.cs punctuation.terminator.statement.cs
+L 
+L             public ListWhereSelectIterator(List<TSource> source, Func<TSource, bool> predicate, Func<TSource, TResult> selector)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 63 source.cs entity.name.variable.parameter.cs
+T 64 source.cs punctuation.separator.comma.cs
+T 65 source.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.begin.cs
+T 77 source.cs entity.name.type.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 83 source.cs keyword.type.bool.cs
+T 84 source.cs punctuation.definition.typeparameters.end.cs
+T 85 source.cs
+T 94 source.cs entity.name.variable.parameter.cs
+T 95 source.cs punctuation.separator.comma.cs
+T 96 source.cs
+T 100 source.cs entity.name.type.cs
+T 101 source.cs punctuation.definition.typeparameters.begin.cs
+T 108 source.cs entity.name.type.cs
+T 109 source.cs punctuation.separator.comma.cs
+T 110 source.cs
+T 117 source.cs entity.name.type.cs
+T 118 source.cs punctuation.definition.typeparameters.end.cs
+T 119 source.cs
+T 127 source.cs entity.name.variable.parameter.cs
+T 128 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(selector is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs
+T 40 source.cs keyword.operator.expression.pattern.is.cs
+T 41 source.cs
+T 44 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 45 source.cs
+T 49 source.cs constant.language.null.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 _selector = selector;
+T 16 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TResult> Clone() =>
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+L                 new ListWhereSelectIterator<TSource, TResult>(_source, _predicate, _selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.definition.typeparameters.begin.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 60 source.cs entity.name.type.cs
+T 61 source.cs punctuation.definition.typeparameters.end.cs
+T 62 source.cs punctuation.parenthesis.open.cs
+T 69 source.cs variable.other.readwrite.cs
+T 70 source.cs punctuation.separator.comma.cs
+T 71 source.cs
+T 81 source.cs variable.other.readwrite.cs
+T 82 source.cs punctuation.separator.comma.cs
+T 83 source.cs
+T 92 source.cs variable.other.readwrite.cs
+T 93 source.cs punctuation.parenthesis.close.cs
+T 94 source.cs punctuation.terminator.statement.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 switch (_state)
+T 16 source.cs
+T 22 source.cs keyword.control.conditional.switch.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     case 1:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         _enumerator = _source.GetEnumerator();
+T 24 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 37 source.cs keyword.operator.assignment.cs
+T 38 source.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 59 source.cs entity.name.function.cs
+T 60 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         _state = 2;
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                         goto case 2;
+T 24 source.cs
+T 28 source.cs keyword.control.flow.goto.cs
+T 29 source.cs
+T 33 source.cs keyword.control.conditional.case.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     case 2:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         while (_enumerator.MoveNext())
+T 24 source.cs
+T 29 source.cs keyword.control.loop.while.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+L                         {
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.open.cs
+L                             TSource item = _enumerator.Current;
+T 28 source.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 40 source.cs entity.name.variable.local.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 54 source.cs variable.other.object.cs
+T 55 source.cs punctuation.accessor.cs
+T 62 source.cs variable.other.object.property.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L                             if (_predicate(item))
+T 28 source.cs
+T 30 source.cs keyword.control.conditional.if.cs
+T 31 source.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                             {
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+L                                 _current = _selector(item);
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L                                 return true;
+T 32 source.cs
+T 38 source.cs keyword.control.flow.return.cs
+T 39 source.cs
+T 43 source.cs constant.language.boolean.true.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L                             }
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.close.cs
+L                         }
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.close.cs
+L 
+L                         Dispose();
+T 24 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                         break;
+T 24 source.cs
+T 29 source.cs keyword.control.flow.break.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult2> Select<TResult2>(Func<TResult, TResult2> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs
+T 56 source.cs entity.name.function.cs
+T 57 source.cs punctuation.definition.typeparameters.begin.cs
+T 65 source.cs entity.name.type.type-parameter.cs
+T 66 source.cs punctuation.definition.typeparameters.end.cs
+T 67 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs entity.name.type.cs
+T 72 source.cs punctuation.definition.typeparameters.begin.cs
+T 79 source.cs entity.name.type.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 89 source.cs entity.name.type.cs
+T 90 source.cs punctuation.definition.typeparameters.end.cs
+T 91 source.cs
+T 99 source.cs entity.name.variable.parameter.cs
+T 100 source.cs punctuation.parenthesis.close.cs
+T 101 source.cs
+T 103 source.cs keyword.operator.arrow.cs
+L                 new ListWhereSelectIterator<TSource, TResult2>(_source, _predicate, CombineSelectors(_selector, selector));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 43 source.cs entity.name.type.cs
+T 44 source.cs punctuation.definition.typeparameters.begin.cs
+T 51 source.cs entity.name.type.cs
+T 52 source.cs punctuation.separator.comma.cs
+T 53 source.cs
+T 61 source.cs entity.name.type.cs
+T 62 source.cs punctuation.definition.typeparameters.end.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 70 source.cs variable.other.readwrite.cs
+T 71 source.cs punctuation.separator.comma.cs
+T 72 source.cs
+T 82 source.cs variable.other.readwrite.cs
+T 83 source.cs punctuation.separator.comma.cs
+T 84 source.cs
+T 100 source.cs entity.name.function.cs
+T 101 source.cs punctuation.parenthesis.open.cs
+T 110 source.cs variable.other.readwrite.cs
+T 111 source.cs punctuation.separator.comma.cs
+T 112 source.cs
+T 120 source.cs variable.other.readwrite.cs
+T 121 source.cs punctuation.parenthesis.close.cs
+T 122 source.cs punctuation.parenthesis.close.cs
+T 123 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L 
+L         /// <summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 20 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// An iterator that filters, then maps, each item of an <see cref="IEnumerable{TSource}"/>.
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 65 source.cs comment.block.documentation.cs
+T 66 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 70 source.cs comment.block.documentation.cs meta.tag.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 75 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 76 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 96 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 97 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 99 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 100 source.cs comment.block.documentation.cs
+L         /// </summary>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 14 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 21 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TSource">The type of the source enumerable.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 72 source.cs comment.block.documentation.cs
+T 74 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 83 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 84 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         /// <typeparam name="TResult">The type of the mapped items.</typeparam>
+T 8 source.cs comment.block.documentation.cs punctuation.whitespace.comment.leading.cs
+T 11 source.cs comment.block.documentation.cs punctuation.definition.comment.cs
+T 12 source.cs comment.block.documentation.cs
+T 13 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 22 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 23 source.cs comment.block.documentation.cs meta.tag.cs
+T 27 source.cs comment.block.documentation.cs meta.tag.cs entity.other.attribute-name.cs entity.other.attribute-name.localname.cs
+T 28 source.cs comment.block.documentation.cs meta.tag.cs punctuation.separator.equals.cs
+T 29 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.begin.cs
+T 36 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs
+T 37 source.cs comment.block.documentation.cs meta.tag.cs string.quoted.double.cs punctuation.definition.string.end.cs
+T 38 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 67 source.cs comment.block.documentation.cs
+T 69 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+T 78 source.cs comment.block.documentation.cs meta.tag.cs entity.name.tag.cs entity.name.tag.localname.cs
+T 79 source.cs comment.block.documentation.cs meta.tag.cs punctuation.definition.tag.cs
+L         private sealed partial class IEnumerableWhereSelectIterator<TSource, TResult> : Iterator<TResult>
+T 8 source.cs
+T 15 source.cs storage.modifier.private.cs
+T 16 source.cs
+T 22 source.cs storage.modifier.sealed.cs
+T 23 source.cs
+T 30 source.cs storage.modifier.partial.cs
+T 31 source.cs
+T 36 source.cs storage.type.class.cs
+T 37 source.cs
+T 67 source.cs entity.name.type.class.cs
+T 68 source.cs punctuation.definition.typeparameters.begin.cs
+T 75 source.cs entity.name.type.type-parameter.cs
+T 76 source.cs punctuation.separator.comma.cs
+T 77 source.cs
+T 84 source.cs entity.name.type.type-parameter.cs
+T 85 source.cs punctuation.definition.typeparameters.end.cs
+T 86 source.cs
+T 87 source.cs punctuation.separator.colon.cs
+T 88 source.cs
+T 96 source.cs entity.name.type.cs
+T 97 source.cs punctuation.definition.typeparameters.begin.cs
+T 104 source.cs entity.name.type.cs
+T 105 source.cs punctuation.definition.typeparameters.end.cs
+L         {
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.open.cs
+L             private readonly IEnumerable<TSource> _source;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 40 source.cs entity.name.type.cs
+T 41 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs
+T 57 source.cs entity.name.variable.field.cs
+T 58 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, bool> _predicate;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 47 source.cs keyword.type.bool.cs
+T 48 source.cs punctuation.definition.typeparameters.end.cs
+T 49 source.cs
+T 59 source.cs entity.name.variable.field.cs
+T 60 source.cs punctuation.terminator.statement.cs
+L             private readonly Func<TSource, TResult> _selector;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 28 source.cs storage.modifier.readonly.cs
+T 29 source.cs
+T 33 source.cs entity.name.type.cs
+T 34 source.cs punctuation.definition.typeparameters.begin.cs
+T 41 source.cs entity.name.type.cs
+T 42 source.cs punctuation.separator.comma.cs
+T 43 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.end.cs
+T 52 source.cs
+T 61 source.cs entity.name.variable.field.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L             private IEnumerator<TSource>? _enumerator;
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 31 source.cs entity.name.type.cs
+T 32 source.cs punctuation.definition.typeparameters.begin.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.end.cs
+T 41 source.cs punctuation.separator.question-mark.cs
+T 42 source.cs
+T 53 source.cs entity.name.variable.field.cs
+T 54 source.cs punctuation.terminator.statement.cs
+L 
+L             public IEnumerableWhereSelectIterator(IEnumerable<TSource> source, Func<TSource, bool> predicate, Func<TSource, TResult> selector)
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 49 source.cs entity.name.function.cs
+T 50 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs entity.name.type.cs
+T 62 source.cs punctuation.definition.typeparameters.begin.cs
+T 69 source.cs entity.name.type.cs
+T 70 source.cs punctuation.definition.typeparameters.end.cs
+T 71 source.cs
+T 77 source.cs entity.name.variable.parameter.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 83 source.cs entity.name.type.cs
+T 84 source.cs punctuation.definition.typeparameters.begin.cs
+T 91 source.cs entity.name.type.cs
+T 92 source.cs punctuation.separator.comma.cs
+T 93 source.cs
+T 97 source.cs keyword.type.bool.cs
+T 98 source.cs punctuation.definition.typeparameters.end.cs
+T 99 source.cs
+T 108 source.cs entity.name.variable.parameter.cs
+T 109 source.cs punctuation.separator.comma.cs
+T 110 source.cs
+T 114 source.cs entity.name.type.cs
+T 115 source.cs punctuation.definition.typeparameters.begin.cs
+T 122 source.cs entity.name.type.cs
+T 123 source.cs punctuation.separator.comma.cs
+T 124 source.cs
+T 131 source.cs entity.name.type.cs
+T 132 source.cs punctuation.definition.typeparameters.end.cs
+T 133 source.cs
+T 141 source.cs entity.name.variable.parameter.cs
+T 142 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 Debug.Assert(source is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 38 source.cs keyword.operator.expression.pattern.is.cs
+T 39 source.cs
+T 42 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 43 source.cs
+T 47 source.cs constant.language.null.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(predicate is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs
+T 41 source.cs keyword.operator.expression.pattern.is.cs
+T 42 source.cs
+T 45 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 46 source.cs
+T 50 source.cs constant.language.null.cs
+T 51 source.cs punctuation.parenthesis.close.cs
+T 52 source.cs punctuation.terminator.statement.cs
+L                 Debug.Assert(selector is not null);
+T 16 source.cs
+T 21 source.cs variable.other.object.cs
+T 22 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 37 source.cs variable.other.readwrite.cs
+T 38 source.cs
+T 40 source.cs keyword.operator.expression.pattern.is.cs
+T 41 source.cs
+T 44 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 45 source.cs
+T 49 source.cs constant.language.null.cs
+T 50 source.cs punctuation.parenthesis.close.cs
+T 51 source.cs punctuation.terminator.statement.cs
+L                 _source = source;
+T 16 source.cs
+T 23 source.cs variable.other.readwrite.cs
+T 24 source.cs
+T 25 source.cs keyword.operator.assignment.cs
+T 26 source.cs
+T 32 source.cs variable.other.readwrite.cs
+T 33 source.cs punctuation.terminator.statement.cs
+L                 _predicate = predicate;
+T 16 source.cs
+T 26 source.cs variable.other.readwrite.cs
+T 27 source.cs
+T 28 source.cs keyword.operator.assignment.cs
+T 29 source.cs
+T 38 source.cs variable.other.readwrite.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 _selector = selector;
+T 16 source.cs
+T 25 source.cs variable.other.readwrite.cs
+T 26 source.cs
+T 27 source.cs keyword.operator.assignment.cs
+T 28 source.cs
+T 36 source.cs variable.other.readwrite.cs
+T 37 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             private protected override Iterator<TResult> Clone() =>
+T 12 source.cs
+T 19 source.cs storage.modifier.private.cs
+T 20 source.cs
+T 29 source.cs storage.modifier.protected.cs
+T 30 source.cs
+T 38 source.cs storage.modifier.override.cs
+T 39 source.cs
+T 47 source.cs entity.name.type.cs
+T 48 source.cs punctuation.definition.typeparameters.begin.cs
+T 55 source.cs entity.name.type.cs
+T 56 source.cs punctuation.definition.typeparameters.end.cs
+T 57 source.cs
+T 62 source.cs entity.name.function.cs
+T 63 source.cs punctuation.parenthesis.open.cs
+T 64 source.cs punctuation.parenthesis.close.cs
+T 65 source.cs
+T 67 source.cs keyword.operator.arrow.cs
+L                 new IEnumerableWhereSelectIterator<TSource, TResult>(_source, _predicate, _selector);
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.begin.cs
+T 58 source.cs entity.name.type.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 67 source.cs entity.name.type.cs
+T 68 source.cs punctuation.definition.typeparameters.end.cs
+T 69 source.cs punctuation.parenthesis.open.cs
+T 76 source.cs variable.other.readwrite.cs
+T 77 source.cs punctuation.separator.comma.cs
+T 78 source.cs
+T 88 source.cs variable.other.readwrite.cs
+T 89 source.cs punctuation.separator.comma.cs
+T 90 source.cs
+T 99 source.cs variable.other.readwrite.cs
+T 100 source.cs punctuation.parenthesis.close.cs
+T 101 source.cs punctuation.terminator.statement.cs
+L 
+L             public override void Dispose()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.void.cs
+T 33 source.cs
+T 40 source.cs entity.name.function.cs
+T 41 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 if (_enumerator is not null)
+T 16 source.cs
+T 18 source.cs keyword.control.conditional.if.cs
+T 19 source.cs
+T 20 source.cs punctuation.parenthesis.open.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 34 source.cs keyword.operator.expression.pattern.is.cs
+T 35 source.cs
+T 38 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 39 source.cs
+T 43 source.cs constant.language.null.cs
+T 44 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     _enumerator.Dispose();
+T 20 source.cs
+T 31 source.cs variable.other.object.cs
+T 32 source.cs punctuation.accessor.cs
+T 39 source.cs entity.name.function.cs
+T 40 source.cs punctuation.parenthesis.open.cs
+T 41 source.cs punctuation.parenthesis.close.cs
+T 42 source.cs punctuation.terminator.statement.cs
+L                     _enumerator = null;
+T 20 source.cs
+T 31 source.cs variable.other.readwrite.cs
+T 32 source.cs
+T 33 source.cs keyword.operator.assignment.cs
+T 34 source.cs
+T 38 source.cs constant.language.null.cs
+T 39 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 base.Dispose();
+T 16 source.cs
+T 20 source.cs variable.language.base.cs
+T 21 source.cs punctuation.accessor.cs
+T 28 source.cs entity.name.function.cs
+T 29 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs punctuation.parenthesis.close.cs
+T 31 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override bool MoveNext()
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 32 source.cs keyword.type.bool.cs
+T 33 source.cs
+T 41 source.cs entity.name.function.cs
+T 42 source.cs punctuation.parenthesis.open.cs
+T 43 source.cs punctuation.parenthesis.close.cs
+L             {
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.open.cs
+L                 switch (_state)
+T 16 source.cs
+T 22 source.cs keyword.control.conditional.switch.cs
+T 23 source.cs
+T 24 source.cs punctuation.parenthesis.open.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs punctuation.parenthesis.close.cs
+L                 {
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.open.cs
+L                     case 1:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         _enumerator = _source.GetEnumerator();
+T 24 source.cs
+T 35 source.cs variable.other.readwrite.cs
+T 36 source.cs
+T 37 source.cs keyword.operator.assignment.cs
+T 38 source.cs
+T 45 source.cs variable.other.object.cs
+T 46 source.cs punctuation.accessor.cs
+T 59 source.cs entity.name.function.cs
+T 60 source.cs punctuation.parenthesis.open.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         _state = 2;
+T 24 source.cs
+T 30 source.cs variable.other.readwrite.cs
+T 31 source.cs
+T 32 source.cs keyword.operator.assignment.cs
+T 33 source.cs
+T 34 source.cs constant.numeric.decimal.cs
+T 35 source.cs punctuation.terminator.statement.cs
+L                         goto case 2;
+T 24 source.cs
+T 28 source.cs keyword.control.flow.goto.cs
+T 29 source.cs
+T 33 source.cs keyword.control.conditional.case.cs
+T 34 source.cs
+T 35 source.cs constant.numeric.decimal.cs
+T 36 source.cs punctuation.terminator.statement.cs
+L                     case 2:
+T 20 source.cs
+T 24 source.cs keyword.control.conditional.case.cs
+T 25 source.cs
+T 26 source.cs constant.numeric.decimal.cs
+T 27 source.cs punctuation.separator.colon.cs
+L                         Debug.Assert(_enumerator is not null);
+T 24 source.cs
+T 29 source.cs variable.other.object.cs
+T 30 source.cs punctuation.accessor.cs
+T 36 source.cs entity.name.function.cs
+T 37 source.cs punctuation.parenthesis.open.cs
+T 48 source.cs variable.other.readwrite.cs
+T 49 source.cs
+T 51 source.cs keyword.operator.expression.pattern.is.cs
+T 52 source.cs
+T 55 source.cs keyword.operator.expression.pattern.combinator.not.cs
+T 56 source.cs
+T 60 source.cs constant.language.null.cs
+T 61 source.cs punctuation.parenthesis.close.cs
+T 62 source.cs punctuation.terminator.statement.cs
+L                         while (_enumerator.MoveNext())
+T 24 source.cs
+T 29 source.cs keyword.control.loop.while.cs
+T 30 source.cs
+T 31 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs variable.other.object.cs
+T 43 source.cs punctuation.accessor.cs
+T 51 source.cs entity.name.function.cs
+T 52 source.cs punctuation.parenthesis.open.cs
+T 53 source.cs punctuation.parenthesis.close.cs
+T 54 source.cs punctuation.parenthesis.close.cs
+L                         {
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.open.cs
+L                             TSource item = _enumerator.Current;
+T 28 source.cs
+T 35 source.cs entity.name.type.cs
+T 36 source.cs
+T 40 source.cs entity.name.variable.local.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 54 source.cs variable.other.object.cs
+T 55 source.cs punctuation.accessor.cs
+T 62 source.cs variable.other.object.property.cs
+T 63 source.cs punctuation.terminator.statement.cs
+L                             if (_predicate(item))
+T 28 source.cs
+T 30 source.cs keyword.control.conditional.if.cs
+T 31 source.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 42 source.cs entity.name.function.cs
+T 43 source.cs punctuation.parenthesis.open.cs
+T 47 source.cs variable.other.readwrite.cs
+T 48 source.cs punctuation.parenthesis.close.cs
+T 49 source.cs punctuation.parenthesis.close.cs
+L                             {
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.open.cs
+L                                 _current = _selector(item);
+T 32 source.cs
+T 40 source.cs variable.other.readwrite.cs
+T 41 source.cs
+T 42 source.cs keyword.operator.assignment.cs
+T 43 source.cs
+T 52 source.cs entity.name.function.cs
+T 53 source.cs punctuation.parenthesis.open.cs
+T 57 source.cs variable.other.readwrite.cs
+T 58 source.cs punctuation.parenthesis.close.cs
+T 59 source.cs punctuation.terminator.statement.cs
+L                                 return true;
+T 32 source.cs
+T 38 source.cs keyword.control.flow.return.cs
+T 39 source.cs
+T 43 source.cs constant.language.boolean.true.cs
+T 44 source.cs punctuation.terminator.statement.cs
+L                             }
+T 28 source.cs
+T 29 source.cs punctuation.curlybrace.close.cs
+L                         }
+T 24 source.cs
+T 25 source.cs punctuation.curlybrace.close.cs
+L 
+L                         Dispose();
+T 24 source.cs
+T 31 source.cs entity.name.function.cs
+T 32 source.cs punctuation.parenthesis.open.cs
+T 33 source.cs punctuation.parenthesis.close.cs
+T 34 source.cs punctuation.terminator.statement.cs
+L                         break;
+T 24 source.cs
+T 29 source.cs keyword.control.flow.break.cs
+T 30 source.cs punctuation.terminator.statement.cs
+L                 }
+T 16 source.cs
+T 17 source.cs punctuation.curlybrace.close.cs
+L 
+L                 return false;
+T 16 source.cs
+T 22 source.cs keyword.control.flow.return.cs
+T 23 source.cs
+T 28 source.cs constant.language.boolean.false.cs
+T 29 source.cs punctuation.terminator.statement.cs
+L             }
+T 12 source.cs
+T 13 source.cs punctuation.curlybrace.close.cs
+L 
+L             public override IEnumerable<TResult2> Select<TResult2>(Func<TResult, TResult2> selector) =>
+T 12 source.cs
+T 18 source.cs storage.modifier.public.cs
+T 19 source.cs
+T 27 source.cs storage.modifier.override.cs
+T 28 source.cs
+T 39 source.cs entity.name.type.cs
+T 40 source.cs punctuation.definition.typeparameters.begin.cs
+T 48 source.cs entity.name.type.cs
+T 49 source.cs punctuation.definition.typeparameters.end.cs
+T 50 source.cs
+T 56 source.cs entity.name.function.cs
+T 57 source.cs punctuation.definition.typeparameters.begin.cs
+T 65 source.cs entity.name.type.type-parameter.cs
+T 66 source.cs punctuation.definition.typeparameters.end.cs
+T 67 source.cs punctuation.parenthesis.open.cs
+T 71 source.cs entity.name.type.cs
+T 72 source.cs punctuation.definition.typeparameters.begin.cs
+T 79 source.cs entity.name.type.cs
+T 80 source.cs punctuation.separator.comma.cs
+T 81 source.cs
+T 89 source.cs entity.name.type.cs
+T 90 source.cs punctuation.definition.typeparameters.end.cs
+T 91 source.cs
+T 99 source.cs entity.name.variable.parameter.cs
+T 100 source.cs punctuation.parenthesis.close.cs
+T 101 source.cs
+T 103 source.cs keyword.operator.arrow.cs
+L                 new IEnumerableWhereSelectIterator<TSource, TResult2>(_source, _predicate, CombineSelectors(_selector, selector));
+T 16 source.cs
+T 19 source.cs keyword.operator.expression.new.cs
+T 20 source.cs
+T 50 source.cs entity.name.type.cs
+T 51 source.cs punctuation.definition.typeparameters.begin.cs
+T 58 source.cs entity.name.type.cs
+T 59 source.cs punctuation.separator.comma.cs
+T 60 source.cs
+T 68 source.cs entity.name.type.cs
+T 69 source.cs punctuation.definition.typeparameters.end.cs
+T 70 source.cs punctuation.parenthesis.open.cs
+T 77 source.cs variable.other.readwrite.cs
+T 78 source.cs punctuation.separator.comma.cs
+T 79 source.cs
+T 89 source.cs variable.other.readwrite.cs
+T 90 source.cs punctuation.separator.comma.cs
+T 91 source.cs
+T 107 source.cs entity.name.function.cs
+T 108 source.cs punctuation.parenthesis.open.cs
+T 117 source.cs variable.other.readwrite.cs
+T 118 source.cs punctuation.separator.comma.cs
+T 119 source.cs
+T 127 source.cs variable.other.readwrite.cs
+T 128 source.cs punctuation.parenthesis.close.cs
+T 129 source.cs punctuation.parenthesis.close.cs
+T 130 source.cs punctuation.terminator.statement.cs
+L         }
+T 8 source.cs
+T 9 source.cs punctuation.curlybrace.close.cs
+L     }
+T 4 source.cs
+T 5 source.cs punctuation.curlybrace.close.cs
+L }
+T 1 source.cs punctuation.curlybrace.close.cs
+L 

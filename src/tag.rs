@@ -108,6 +108,9 @@ tags! {
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,
+    /// C#.
+    #[cfg(feature = "lang-csharp")]
+    CSHARP = 0x2c00,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

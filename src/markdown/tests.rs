@@ -464,6 +464,39 @@ fn java_fences_embed_the_java_lexer_without_its_root() {
 }
 
 #[test]
+fn csharp_fences_embed_the_csharp_lexer_without_its_root() {
+    for info in ["cs", "csharp", "c#", "C#", "csharp title=x"] {
+        let text = formatdoc! {"
+            ```{info}
+            int x;
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "int"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.csharp",
+                "keyword.type.int.cs",
+            ],
+            "{info}"
+        );
+    }
+    for info in ["csx", "c-sharp"] {
+        let text = formatdoc! {"
+            ```{info}
+            int x;
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "int x;"),
+            ["text.html.markdown", "markup.fenced_code.block.markdown"],
+            "{info}"
+        );
+    }
+}
+
+#[test]
 fn css_fences_embed_the_css_lexer_without_its_root() {
     for info in ["css", "CSS", "css.erb", "css title=x"] {
         let text = formatdoc! {"

@@ -420,6 +420,8 @@ const EMBEDDED: &[(Language, S)] = &[
     (Language::Go, S::EmbeddedGo),
     #[cfg(feature = "lang-ruby")]
     (Language::Ruby, S::EmbeddedRuby),
+    #[cfg(feature = "lang-csharp")]
+    (Language::CSharp, S::EmbeddedCsharp),
 ];
 
 /// The scope a container adds to the text between its opening and closing.

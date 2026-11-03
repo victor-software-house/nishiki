@@ -133,6 +133,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
 | Go | `Language::Go` | `lang-go` | `go`, `golang` |
 | Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
+| C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
 
 ### Features
 
@@ -370,6 +371,20 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - A here document named for another language, such as `<<~SQL` or `<<~RUBY`, is lexed as an ordinary here document.
   Shiki lexes its lines in that language.
 - The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
+
+### C\#
+
+- A `///` or `//` comment continues through each later line that starts with the same marker after blanks, as one comment.
+- A `(` opens a tuple when a `,` or `:` follows anywhere later on the line, as the grammar's lookahead reads the whole line.
+- A `/**` comment's lines are checked with `^`, which matches only at column 0.
+  In a Markdown fence indented by a list item or a quote, the comment loses its line prefixes.
+- Numeric literals follow the grammar's five nested patterns, so `5.` and `1_a` are invalid numbers.
+- A type nested more than 64 deep in angle brackets or parentheses reads as no type.
+  A type with more than 64 dotted names, pointer marks and array suffixes reads as its first 64.
+  A base-class constructor call with more than 32 dotted names reads as its first 32.
+  These bounds are constants in `src/csharp/limits.rs`; Oniguruma has larger ones of its own.
+- A Markdown fence names the language `cs`, `csharp` or `c#`.
+  The `csx` and `c-sharp` fences are plain text, as in Shiki.
 
 ## Licence
 
