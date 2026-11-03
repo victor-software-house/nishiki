@@ -5,6 +5,7 @@
 use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
+use crate::language::Halt;
 use crate::rules::{self, Act, Captures, DynName, Grammar};
 use crate::utf8::char_len;
 
@@ -185,50 +186,12 @@ impl Grammar for Make {
         (&[], &[])
     }
 
-    /// The first match from the position: the end pattern of the innermost
-    /// rule first at each position, then its patterns in order. A rule the
-    /// depth limit keeps closed leaves its text plain, and since a rule that
-    /// matched nothing would match again where it did, the search goes on
-    /// one character later.
+    /// The first match from the position (see [`scan`]).
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        let rule = lexer.top_rule();
-        let end = lexer.lim() + usize::from(lexer.nl);
-        let mut p = lexer.pos;
-        'search: while p <= end {
-            lexer.spend(1);
-            if lexer.over_budget() {
-                return None;
-            }
-            if p >= lexer.lim() || lexer.s[p] & 0xc0 != 0x80 {
-                if let Some(end) = lexer.hit(Pat::End, p) {
-                    return Some((lexer.x.start, Pat::End, end));
-                }
-                for &pat in patterns(rule) {
-                    let Some(hit_end) = lexer.hit(pat, p) else {
-                        continue;
-                    };
-                    if pat.opens().is_some() && lexer.at_depth_limit() {
-                        lexer.record_depth();
-                        let start = lexer.x.start;
-                        let next = if hit_end > start {
-                            hit_end
-                        } else {
-                            start + lexer.s.get(start).map_or(1, |&lead| char_len(lead))
-                        };
-                        lexer.skip_plain(start, next);
-                        lexer.spend(1);
-                        if lexer.over_budget() {
-                            return None;
-                        }
-                        p = lexer.pos;
-                        continue 'search;
-                    }
-                    return Some((lexer.x.start, pat, hit_end));
-                }
-            }
-            p += 1;
+        match lexer.root_halt() {
+            Some(halt) => scan::<true>(lexer, halt),
+            None => scan::<false>(lexer, |_, _| false),
         }
-        None
     }
 
     fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
@@ -238,4 +201,55 @@ impl Grammar for Make {
     fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
         match kind {}
     }
+}
+
+/// The first match from the position: the end pattern of the innermost rule
+/// first at each position, then its patterns in order. A rule the depth limit
+/// keeps closed leaves its text plain, and since a rule that matched nothing
+/// would match again where it did, the search goes on one character later.
+/// The halt test is compiled in only when `HALTING`, so a Makefile that no
+/// other grammar embeds pays nothing for it.
+fn scan<const HALTING: bool>(lexer: &mut Lexer<'_>, halt: Halt) -> Option<(usize, Pat, usize)> {
+    let rule = lexer.top_rule();
+    let end = lexer.lim() + usize::from(lexer.nl);
+    let mut p = lexer.pos;
+    'search: while p <= end {
+        if HALTING && halt(lexer.s, p) {
+            lexer.halt_here(p);
+            return None;
+        }
+        lexer.spend(1);
+        if lexer.over_budget() {
+            return None;
+        }
+        if p >= lexer.lim() || lexer.s[p] & 0xc0 != 0x80 {
+            if let Some(end) = lexer.hit(Pat::End, p) {
+                return Some((lexer.x.start, Pat::End, end));
+            }
+            for &pat in patterns(rule) {
+                let Some(hit_end) = lexer.hit(pat, p) else {
+                    continue;
+                };
+                if pat.opens().is_some() && lexer.at_depth_limit() {
+                    lexer.record_depth();
+                    let start = lexer.x.start;
+                    let next = if hit_end > start {
+                        hit_end
+                    } else {
+                        start + lexer.s.get(start).map_or(1, |&lead| char_len(lead))
+                    };
+                    lexer.skip_plain(start, next);
+                    lexer.spend(1);
+                    if lexer.over_budget() {
+                        return None;
+                    }
+                    p = lexer.pos;
+                    continue 'search;
+                }
+                return Some((lexer.x.start, pat, hit_end));
+            }
+        }
+        p += 1;
+    }
+    None
 }

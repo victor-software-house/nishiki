@@ -1,0 +1,2372 @@
+L <?xml version="1.0" encoding="UTF-8"?>
+T 2 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 13 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 14 text.xml meta.tag.preprocessor.xml
+T 15 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 19 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 28 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 29 text.xml meta.tag.preprocessor.xml
+T 30 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 35 text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 36 text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 38 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:syn="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0">
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 5 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 15 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 19 text.xml meta.tag.xml
+T 20 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 63 text.xml meta.tag.xml string.quoted.double.xml
+T 64 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 65 text.xml meta.tag.xml
+T 70 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 71 text.xml meta.tag.xml
+T 72 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 96 text.xml meta.tag.xml string.quoted.double.xml
+T 97 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 98 text.xml meta.tag.xml
+T 103 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 104 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 109 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 110 text.xml meta.tag.xml
+T 111 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 149 text.xml meta.tag.xml string.quoted.double.xml
+T 150 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 151 text.xml meta.tag.xml
+T 156 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 157 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 161 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 162 text.xml meta.tag.xml
+T 163 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 204 text.xml meta.tag.xml string.quoted.double.xml
+T 205 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 206 text.xml meta.tag.xml
+T 211 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 212 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 214 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 215 text.xml meta.tag.xml
+T 216 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 248 text.xml meta.tag.xml string.quoted.double.xml
+T 249 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 250 text.xml meta.tag.xml
+T 255 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 256 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 259 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 260 text.xml meta.tag.xml
+T 261 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 305 text.xml meta.tag.xml string.quoted.double.xml
+T 306 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 307 text.xml meta.tag.xml
+T 312 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 313 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 318 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 319 text.xml meta.tag.xml
+T 320 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 342 text.xml meta.tag.xml string.quoted.double.xml
+T 343 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 344 text.xml meta.tag.xml
+T 349 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 350 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 360 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 361 text.xml meta.tag.xml
+T 362 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 404 text.xml meta.tag.xml string.quoted.double.xml
+T 405 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 406 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <channel rdf:about="http://slashdot.org/">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 15 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 21 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 42 text.xml meta.tag.xml string.quoted.double.xml
+T 43 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 44 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Slashdot</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://slashdot.org/</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>News for nerds, stuff that matters</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 51 text.xml
+T 53 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:language>en-us</dc:language>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:rights>Copyright 1997-2005, OSTG - Open Source Technology Group, Inc.  All Rights Reserved.</dc:rights>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 99 text.xml
+T 101 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 103 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 104 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 110 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 111 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-20T01:11:49+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:publisher>OSTG</dc:publisher>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>pater@slashdot.org</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 46 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 47 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>Technology</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <syn:updatePeriod>hourly</syn:updatePeriod>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml
+T 30 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 33 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 34 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 46 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 47 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <syn:updateFrequency>1</syn:updateFrequency>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <syn:updateBase>1970-01-01T00:00+00:00</syn:updateBase>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml
+T 44 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 48 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 58 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <items>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L       <rdf:Seq>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=05/11/19/2014233&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 81 text.xml meta.tag.xml string.quoted.double.xml
+T 82 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 94 text.xml meta.tag.xml string.quoted.double.xml
+T 95 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 96 text.xml meta.tag.xml
+T 98 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://games.slashdot.org/article.pl?sid=05/11/19/224214&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml
+T 87 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 99 text.xml meta.tag.xml string.quoted.double.xml
+T 100 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 101 text.xml meta.tag.xml
+T 103 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://apache.slashdot.org/article.pl?sid=05/11/19/2010223&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 88 text.xml meta.tag.xml string.quoted.double.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 92 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 93 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 101 text.xml meta.tag.xml string.quoted.double.xml
+T 102 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 103 text.xml meta.tag.xml
+T 105 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://yro.slashdot.org/article.pl?sid=05/11/19/208219&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 97 text.xml meta.tag.xml string.quoted.double.xml
+T 98 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 99 text.xml meta.tag.xml
+T 101 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://hardware.slashdot.org/article.pl?sid=05/11/19/1810238&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 94 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 95 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 103 text.xml meta.tag.xml string.quoted.double.xml
+T 104 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 105 text.xml meta.tag.xml
+T 107 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://games.slashdot.org/article.pl?sid=05/11/18/156253&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml
+T 87 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 99 text.xml meta.tag.xml string.quoted.double.xml
+T 100 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 101 text.xml meta.tag.xml
+T 103 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://hardware.slashdot.org/article.pl?sid=05/11/19/186252&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 93 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 94 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml meta.tag.xml string.quoted.double.xml
+T 103 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 104 text.xml meta.tag.xml
+T 106 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=05/11/19/1534223&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 81 text.xml meta.tag.xml string.quoted.double.xml
+T 82 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 94 text.xml meta.tag.xml string.quoted.double.xml
+T 95 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 96 text.xml meta.tag.xml
+T 98 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=05/11/19/149242&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 80 text.xml meta.tag.xml string.quoted.double.xml
+T 81 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 93 text.xml meta.tag.xml string.quoted.double.xml
+T 94 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 95 text.xml meta.tag.xml
+T 97 text.xml meta.tag.xml punctuation.definition.tag.xml
+L         <rdf:li rdf:resource="http://yro.slashdot.org/article.pl?sid=05/11/19/143247&amp;from=rss" />
+T 8 text.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 13 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 20 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 28 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 29 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 97 text.xml meta.tag.xml string.quoted.double.xml
+T 98 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 99 text.xml meta.tag.xml
+T 101 text.xml meta.tag.xml punctuation.definition.tag.xml
+L       </rdf:Seq>
+T 6 text.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     </items>
+T 4 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <image rdf:resource="http://images.slashdot.org/topics/topicslashdot.gif" />
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 15 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 23 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 24 text.xml meta.tag.xml
+T 25 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 76 text.xml meta.tag.xml string.quoted.double.xml
+T 77 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 78 text.xml meta.tag.xml
+T 80 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <textinput rdf:resource="http://slashdot.org/search.pl" />
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 19 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 28 text.xml meta.tag.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 58 text.xml meta.tag.xml string.quoted.double.xml
+T 59 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 60 text.xml meta.tag.xml
+T 62 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </channel>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <image rdf:about="http://images.slashdot.org/topics/topicslashdot.gif">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 13 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 19 text.xml meta.tag.xml
+T 20 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 71 text.xml meta.tag.xml string.quoted.double.xml
+T 72 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 73 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Slashdot</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <url>http://images.slashdot.org/topics/topicslashdot.gif</url>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 62 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 66 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://slashdot.org/</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </image>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://slashdot.org/article.pl?sid=05/11/19/2014233&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 70 text.xml meta.tag.xml string.quoted.double.xml
+T 71 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 74 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 75 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 83 text.xml meta.tag.xml string.quoted.double.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 85 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>The Prisoner To Be Remade On U.K. TV</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 54 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 55 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1961</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>An anonymous reader writes "Various UK news sites are reporting that Sky One is to commission a remake of the cult 60s UK TV series, The Prisoner. See u.tv and This is London." From the This Is London story: "The series, which made its debut 1967, is today credited by its fans as being ahead of its time. Featuring McGoohan as a former secret agent trapped in an isolated seaside village, it was shown in more than 60 countries. The new version will not be placed in the original setting, the north Wales village of Portmeirion, or have the arty, 'pop' feel of the original, according to the magazine Broadcast. Damien Timmer, who has been lined up to executive produce the show, told the television and radio industry magazine that the new series 'takes liberties with the original'."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1961"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 803 text.xml
+T 804 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 806 text.xml constant.character.entity.xml
+T 807 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 866 text.xml
+T 867 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 869 text.xml constant.character.entity.xml
+T 870 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 872 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 883 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 884 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-20T00:43:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>tv</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 23 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>now-we-need-more-red-dwarf</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml
+T 50 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 55 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 56 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 66 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 67 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>mainpage</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml
+T 29 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>25</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>25,22,19,12,2,0,0</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 text.xml
+T 41 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 57 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 58 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://slashdot.org/article.pl?sid=05/11/19/2014233&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 76 text.xml
+T 77 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml
+T 81 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 89 text.xml
+T 91 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 101 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 102 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 110 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 111 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://games.slashdot.org/article.pl?sid=05/11/19/224214&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 75 text.xml meta.tag.xml string.quoted.double.xml
+T 76 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 79 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 80 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml meta.tag.xml string.quoted.double.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 90 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Spike TV Video Game Award Winners</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.xml
+T 46 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 51 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1960</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>Gamespot reports on the results from Friday's Spike TV Video Game Awards. Top Game honor went to RE4, while King Kong and World of Warcraft both took home several category nods. From the article: "As much as Spike might have refined the show over its past pair of efforts, it was clear the network had not yet found a way to perfectly merge the subject matter, the celebrities, and the audience. Nowhere was evidence of this more pronounced than in the significant number of audience members heading for the exits right after Missy Elliott's climactic performance, having seen all they came for and not caring to find out who was going to take home the Game of the Year award. Winners for Best Gaming Publication, Best Gaming Website, and Best Gaming Blog were not announced at the show. "
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 806 text.xml
+L &lt;p&gt;&lt;a href="http://rss.slashdot.org/~c/Slashdot/slashdot?a=dJ24JB"&gt;&lt;img src="http://rss.slashdot.org/~c/Slashdot/slashdot?i=dJ24JB" border="0"&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1960"/&gt;</description>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 5 text.xml
+T 6 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 8 text.xml constant.character.entity.xml
+T 9 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 75 text.xml
+T 76 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml constant.character.entity.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 157 text.xml
+T 158 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 160 text.xml constant.character.entity.xml
+T 161 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 162 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 164 text.xml constant.character.entity.xml
+T 165 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 169 text.xml
+T 170 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 172 text.xml constant.character.entity.xml
+T 173 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 174 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 176 text.xml constant.character.entity.xml
+T 177 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 179 text.xml
+T 180 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 182 text.xml constant.character.entity.xml
+T 183 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 184 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 186 text.xml constant.character.entity.xml
+T 187 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 189 text.xml
+T 190 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 192 text.xml constant.character.entity.xml
+T 193 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 194 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 196 text.xml constant.character.entity.xml
+T 197 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 256 text.xml
+T 257 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 259 text.xml constant.character.entity.xml
+T 260 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 262 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 273 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 274 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T23:40:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>tv</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 23 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>at-least-there-was-some-jack-black</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 56 text.xml
+T 58 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 63 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 64 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 74 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 75 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>games</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>38</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>38,36,29,21,6,4,1</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 text.xml
+T 41 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 57 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 58 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://games.slashdot.org/article.pl?sid=05/11/19/224214&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 81 text.xml
+T 82 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 85 text.xml constant.character.entity.xml
+T 86 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 94 text.xml
+T 96 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 106 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 107 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 115 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 116 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://apache.slashdot.org/article.pl?sid=05/11/19/2010223&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 77 text.xml meta.tag.xml string.quoted.double.xml
+T 78 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 81 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 82 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 92 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Apache Comes With Too Much Community Overhead?</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 57 text.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1959</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>drizzle writes "There's an interesting story on the Apache Marketing blog about whether or not Apache projects come with too much overhead, especially compared with other services or a roll-your-own approach. The article states, 'It's true that compared with SourceForge, Apache has a more rigorous management structure. The ASF has formalized processes and procedures that we believe represent best practices governance. All new projects must pass through an incubation period to ensure that all of the project's members have internalized these processes. However, each project's leadership has a tremendous amount of discretion in managing within this framework.' There is also a follow up article written by one of the httpd developers about 'What Apache brings to the table.' The article cites community, experience, legal framework, diversity, brand strength, and networking as reasons why developers and companies should consider bringing their projects over to Apache."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1959"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 993 text.xml
+T 994 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 996 text.xml constant.character.entity.xml
+T 997 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 1056 text.xml
+T 1057 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 1059 text.xml constant.character.entity.xml
+T 1060 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 1062 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1073 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 1074 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T22:39:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>software</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>many-hands-make-light-work</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml
+T 50 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 55 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 56 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 66 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 67 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>apache</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 25 text.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 32 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 33 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 40 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 41 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>62</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>62,60,40,30,18,12,8</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 49 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://apache.slashdot.org/article.pl?sid=05/11/19/2010223&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 83 text.xml
+T 84 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 87 text.xml constant.character.entity.xml
+T 88 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 96 text.xml
+T 98 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 109 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 117 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 118 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://yro.slashdot.org/article.pl?sid=05/11/19/208219&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 73 text.xml meta.tag.xml string.quoted.double.xml
+T 74 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 77 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 78 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml
+T 87 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 88 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>The Guardian On Intellectual Property</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml
+T 50 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 55 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 56 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1958</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>mykdavies writes "The Guardian has an excellent article giving lay readers an overview of some of the problems being caused by the concept of 'intellectual property', including references to stories familiar to Slashdot readers, such as DVD Jon, the Sony rootkit, Amazon and Google business patents." From the article: "Even facts about the world can, in some cases, become the property of commercial companies. It was the promise of gaining patents on the human genome that lured investors into the private consortium that attempted to sequence it in competition with the public effort. Laboratory animals have already been patented, starting with the OncoMouse, an animal whose genome has been manipulated to ensure that it develops cancer."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1958"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 760 text.xml
+T 761 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 763 text.xml constant.character.entity.xml
+T 764 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 823 text.xml
+T 824 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 826 text.xml constant.character.entity.xml
+T 827 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 829 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 840 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 841 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T21:27:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>patents</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 28 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>ins-and-outs</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 52 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 53 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>yro</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>110</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>110,105,76,45,20,7,2</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml
+T 44 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 49 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 60 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 61 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://yro.slashdot.org/article.pl?sid=05/11/19/208219&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 79 text.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 83 text.xml constant.character.entity.xml
+T 84 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 92 text.xml
+T 94 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 104 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 105 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 113 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 114 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://hardware.slashdot.org/article.pl?sid=05/11/19/1810238&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 79 text.xml meta.tag.xml string.quoted.double.xml
+T 80 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 83 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 92 text.xml meta.tag.xml string.quoted.double.xml
+T 93 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 94 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Cisco Moving On Set-Top Boxes</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1957</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>nevermindme writes "Cisco has agreed to plunk down a whopping $6.9bn for Scientific-Atlanta, hoping to take a major share of the set-top-box market and push video efforts. The networking giant will pay $43 per share in cash for Scientific-Atlanta ($5.3bn) and swallow $1.6bn in debt. With the buy, Cisco acquires one of the more dominant set-top-box makers. In addition, it pushes well beyond the data center to touch consumers where they live."
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 462 text.xml
+L &lt;p&gt;&lt;a href="http://rss.slashdot.org/~c/Slashdot/slashdot?a=UAEMGp"&gt;&lt;img src="http://rss.slashdot.org/~c/Slashdot/slashdot?i=UAEMGp" border="0"&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1957"/&gt;</description>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 5 text.xml
+T 6 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 8 text.xml constant.character.entity.xml
+T 9 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 75 text.xml
+T 76 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml constant.character.entity.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 157 text.xml
+T 158 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 160 text.xml constant.character.entity.xml
+T 161 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 162 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 164 text.xml constant.character.entity.xml
+T 165 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 169 text.xml
+T 170 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 172 text.xml constant.character.entity.xml
+T 173 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 174 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 176 text.xml constant.character.entity.xml
+T 177 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 179 text.xml
+T 180 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 182 text.xml constant.character.entity.xml
+T 183 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 184 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 186 text.xml constant.character.entity.xml
+T 187 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 189 text.xml
+T 190 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 192 text.xml constant.character.entity.xml
+T 193 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 194 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 196 text.xml constant.character.entity.xml
+T 197 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 256 text.xml
+T 257 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 259 text.xml constant.character.entity.xml
+T 260 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 262 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 273 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 274 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T20:30:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>tv</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 23 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>new-horizons</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 52 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 53 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>hardware</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml
+T 29 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>72</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>72,68,51,35,16,9,5</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 48 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 58 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://hardware.slashdot.org/article.pl?sid=05/11/19/1810238&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 85 text.xml
+T 86 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 89 text.xml constant.character.entity.xml
+T 90 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 98 text.xml
+T 100 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 110 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 111 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 119 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 120 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://games.slashdot.org/article.pl?sid=05/11/18/156253&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 75 text.xml meta.tag.xml string.quoted.double.xml
+T 76 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 79 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 80 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml meta.tag.xml string.quoted.double.xml
+T 89 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 90 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Getting All 1,700 Parts of the Xbox 360 to Market</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 62 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 67 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 68 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1956</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>Carl Bialik from the WSJ writes "Microsoft is hoping its Xbox 360 will further the company's goal to 'link the Web and entertainment of all forms in consumers' living rooms,' the Wall Street Journal reports, but 'one manufacturing misstep -- a shortage of graphics chips or a recalled hard drive -- could derail those ambitions and drag Microsoft's unprofitable videogame business even deeper into the red.' The WSJ traces the 1,700 parts that go into the device through the supply chain -- from two southern China factories, Rotterdam, and on to Toledo, Memphis, and ultimately, retailers in the U.S. -- and looks at what could go wrong along the way."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1956"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 670 text.xml
+T 671 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 673 text.xml constant.character.entity.xml
+T 674 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 733 text.xml
+T 734 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 736 text.xml constant.character.entity.xml
+T 737 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 739 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 750 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 751 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T19:36:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>xbox</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>complicated-process</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 49 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>games</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>141</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>141,140,103,73,19,12,8</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.xml
+T 46 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 51 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 52 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 62 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 63 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://games.slashdot.org/article.pl?sid=05/11/18/156253&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 81 text.xml
+T 82 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 85 text.xml constant.character.entity.xml
+T 86 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 94 text.xml
+T 96 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 106 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 107 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 115 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 116 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://hardware.slashdot.org/article.pl?sid=05/11/19/186252&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 78 text.xml meta.tag.xml string.quoted.double.xml
+T 79 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 83 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml
+T 92 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 93 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Is Wi-Fi Ruining College?</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 44 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1955</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>theodp writes "Over at Slate, Avi Zenilman has seen the real classroom of the future firsthand: Students use class time to read the Drudge Report, send e-mail, play Legend of Zelda, or update profiles on Facebook.com. But not to worry - replace laptops with crumpled notes, and the classroom of the future looks a lot like the classroom of the past." From the article: "... when Cornell University researchers outfitted classrooms with wireless Internet and monitored students' browsing habits, they concluded, 'Longer browsing sessions during class tend to lead to lower grades, but there's a hint that a greater number of browsing sessions during class may actually lead to higher grades.' It seems a bit of a stretch to impute a causal relationship, but it's certainly possible that the kind of brain that can handle multiple channels of information is also the kind of brain that earns A's."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1955"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 912 text.xml
+T 913 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 915 text.xml constant.character.entity.xml
+T 916 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 975 text.xml
+T 976 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 978 text.xml constant.character.entity.xml
+T 979 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 981 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 992 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 993 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>Zonk</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T18:46:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>ed</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 23 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>no</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>hardware</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml
+T 29 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>279</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>279,272,210,140,43,23,13</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 53 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 54 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://hardware.slashdot.org/article.pl?sid=05/11/19/186252&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 84 text.xml
+T 85 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml constant.character.entity.xml
+T 89 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 97 text.xml
+T 99 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 109 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 110 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 118 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 119 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://slashdot.org/article.pl?sid=05/11/19/1534223&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 70 text.xml meta.tag.xml string.quoted.double.xml
+T 71 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 74 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 75 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 83 text.xml meta.tag.xml string.quoted.double.xml
+T 84 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 85 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Sony Completes First Full-Length Blu-ray Disc</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 56 text.xml
+T 58 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 63 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 64 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1954</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>john writes "Sony Pictures Home Entertainment announced that authoring has been completed on the first Blu-ray Disc (BD) to contain a full-length, high-definition feature film. Charlie's Angels: Full Throttle was compressed and authored in MPEG 2 full high-definition (1920 x 1080) and is now being shipped to BD hardware companies for player testing."
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 369 text.xml
+L &lt;p&gt;&lt;a href="http://rss.slashdot.org/~c/Slashdot/slashdot?a=OZPTC3"&gt;&lt;img src="http://rss.slashdot.org/~c/Slashdot/slashdot?i=OZPTC3" border="0"&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1954"/&gt;</description>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 5 text.xml
+T 6 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 8 text.xml constant.character.entity.xml
+T 9 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 75 text.xml
+T 76 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml constant.character.entity.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 157 text.xml
+T 158 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 160 text.xml constant.character.entity.xml
+T 161 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 162 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 164 text.xml constant.character.entity.xml
+T 165 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 169 text.xml
+T 170 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 172 text.xml constant.character.entity.xml
+T 173 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 174 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 176 text.xml constant.character.entity.xml
+T 177 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 179 text.xml
+T 180 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 182 text.xml constant.character.entity.xml
+T 183 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 184 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 186 text.xml constant.character.entity.xml
+T 187 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 189 text.xml
+T 190 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 192 text.xml constant.character.entity.xml
+T 193 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 194 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 196 text.xml constant.character.entity.xml
+T 197 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 256 text.xml
+T 257 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 259 text.xml constant.character.entity.xml
+T 260 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 262 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 273 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 274 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>CowboyNeal</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T17:13:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>sony</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 25 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>hot-off-the-presses</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 49 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>mainpage</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml
+T 29 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>210</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>210,200,156,106,32,21,13</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 53 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 54 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://slashdot.org/article.pl?sid=05/11/19/1534223&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 76 text.xml
+T 77 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml
+T 81 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 89 text.xml
+T 91 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 101 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 102 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 110 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 111 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://slashdot.org/article.pl?sid=05/11/19/149242&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 69 text.xml meta.tag.xml string.quoted.double.xml
+T 70 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 73 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 74 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml meta.tag.xml string.quoted.double.xml
+T 83 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 84 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Richard Stallman Accosted For Tinfoil Hat</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 52 text.xml
+T 54 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1953</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>ndansmith writes "Bruce Perens posts in his blog about an amusing encounter between Richard Stallman and United Nations security at the World Summit on the Information Society in Tunis. It seems that RFID technology, which Stallman opposes for privacy reasons, was used in the identification badges for the conference. From the blog: 'You can't give Richard a visible RF ID strip without expecting him to protest. Richard acquired an entire roll of aluminum foil and wore his foil-shielded pass prominently.' During a keynote speech, Stallman also passed around the tinfoil for other to use as well. It seems that UN security was not amused, however, as they would not let him leave the room for some time." What makes this even funnier, of course, is that tin foil hats won't stop them.&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1953"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 804 text.xml
+T 805 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 807 text.xml constant.character.entity.xml
+T 808 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 867 text.xml
+T 868 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 870 text.xml constant.character.entity.xml
+T 871 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 873 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 884 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 885 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>CowboyNeal</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T16:04:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>humor</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 21 text.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 25 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 26 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 33 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 34 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>of-all-the-reasons</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 48 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 58 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>mainpage</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml
+T 29 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>425</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>425,412,333,250,97,57,42</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 53 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 54 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://slashdot.org/article.pl?sid=05/11/19/149242&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 75 text.xml
+T 76 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 79 text.xml constant.character.entity.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 88 text.xml
+T 90 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 100 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 101 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 109 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 110 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <item rdf:about="http://yro.slashdot.org/article.pl?sid=05/11/19/143247&amp;from=rss">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 73 text.xml meta.tag.xml string.quoted.double.xml
+T 74 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 77 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 78 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml
+T 87 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 88 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Baltimore to Test Cell Phone Traffic Monitoring</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 66 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://rss.slashdot.org/Slashdot/slashdot?m=1952</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>Momoru writes "The Baltimore Sun is reporting that a Canadian company, Delcan NET, will begin testing a technology that determines the flow of automobile traffic by monitoring cell phone traffic. The company promises a revolutionary way to determine backups, but privacy advocates fear the implications of a third party tracking users by their cell phones."&lt;img src="http://rss.slashdot.org/Slashdot/slashdot?g=1952"/&gt;</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 374 text.xml
+T 375 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 377 text.xml constant.character.entity.xml
+T 378 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 437 text.xml
+T 438 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 440 text.xml constant.character.entity.xml
+T 441 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 443 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 454 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 455 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:creator>CowboyNeal</dc:creator>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:date>2005-11-19T15:10:00+00:00</dc:date>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <dc:subject>privacy</dc:subject>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 28 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:department>big-brother-is-listening</slash:department>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 53 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 54 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:section>yro</slash:section>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 30 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:comments>118</slash:comments>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <slash:hit_parade>118,114,75,49,23,20,14</slash:hit_parade>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 11 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.xml
+T 46 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 51 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 52 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 62 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 63 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <feedburner:origLink>http://yro.slashdot.org/article.pl?sid=05/11/19/143247&amp;from=rss</feedburner:origLink>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 25 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 79 text.xml
+T 80 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 83 text.xml constant.character.entity.xml
+T 84 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 92 text.xml
+T 94 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 104 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 105 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 113 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 114 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </item>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <textinput rdf:about="http://slashdot.org/search.pl">
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 53 text.xml meta.tag.xml string.quoted.double.xml
+T 54 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 55 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Search Slashdot</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 33 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 34 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <description>Search Slashdot stories</description>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 53 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 54 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <name>query</name>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://slashdot.org/search.pl</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 text.xml
+T 41 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 45 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 46 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </textinput>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </rdf:RDF>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 6 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 
+L 

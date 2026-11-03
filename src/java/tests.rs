@@ -218,3 +218,70 @@ fn the_nesting_limit_keeps_the_text_plain() {
     assert!(report.reached(Limit::Depth));
     assert_eq!(tokens.last().map(|token| token.end()), Some(line.len()));
 }
+
+/// Each line lexed with [`super::lex_until`] and the end `%>`, the state
+/// carried from line to line: where the line halted and where its last token
+/// ends.
+fn until(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
+    use crate::arena::{Arena, ROOT};
+    use crate::language::{Context, Line};
+    use crate::scratch::Scratch;
+    use crate::{LineReport, Token};
+
+    let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
+    let mut state = super::start_embedded(&mut arena, ROOT);
+    let limits = Limits::default();
+    let mut rows = Vec::new();
+    for text in lines {
+        let mut out: Vec<Token> = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = Line {
+            text,
+            start: 0,
+            embedded: false,
+        };
+        let (next, halted) = super::lex_until(&mut cx, line, state, |s, p| {
+            s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))
+        });
+        state = next;
+        rows.push((halted, out.last().map_or(0, |token| token.end())));
+    }
+    rows
+}
+
+#[test]
+fn embedded_java_halts_at_its_end_only_where_no_rule_is_open() {
+    for (line, halt) in [
+        ("int a = 1; %> b", Some(11)),
+        ("%>", Some(0)),
+        ("a %= 2 %> b", Some(7)),
+        ("String s = \"%>\"; %> b", Some(17)),
+        ("/* %> */ %> b", Some(9)),
+        ("// %> b %>", None),
+        ("int a = 1;", None),
+    ] {
+        let rows = until(&[line]);
+        assert_eq!(rows[0].0, halt, "{line:?}");
+        let covered = halt.unwrap_or(line.len());
+        assert_eq!(
+            rows[0].1, covered,
+            "the tokens stop at the halt in {line:?}"
+        );
+    }
+}
+
+#[test]
+fn embedded_java_halts_after_the_rules_of_earlier_lines_close() {
+    let rows = until(&["if (a) {", "// %> b %>", "} %> c"]);
+    assert_eq!(rows[0].0, None);
+    assert_eq!(rows[1].0, None);
+    assert_eq!(rows[2].0, Some(2));
+}

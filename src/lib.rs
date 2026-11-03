@@ -116,6 +116,8 @@ mod toml;
 mod typescript;
 #[cfg(feature = "_utf8")]
 mod utf8;
+#[cfg(feature = "lang-xml")]
+mod xml;
 #[cfg(feature = "lang-yaml")]
 mod yaml;
 

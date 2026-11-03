@@ -27,7 +27,7 @@ pub(crate) use tables::Tables;
 pub(crate) use tables::table_scan;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::scope::Scope;
 
 /// One language's grammar: its rules and patterns, by type, and the
@@ -112,8 +112,10 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
         (Self::pat_act(pat), Self::pat_captures(pat))
     }
     /// The first pattern of the innermost rule that matches at or after the
-    /// cursor, with where its match starts and ends. A language that keeps
-    /// the candidate tables of [`Tabled`] calls [`table_scan`].
+    /// cursor, with where its match starts and ends. At the first place where
+    /// [`Lexer::root_halt`] holds it calls [`Lexer::halt_here`] and returns
+    /// `None`. A language that keeps the candidate tables of [`Tabled`] calls
+    /// [`table_scan`].
     fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Self::Pat, usize)>;
     /// Whether `pat` matches at `p`, and where it ends.
     fn matcher(lexer: &mut Lexer<'_, Self>, pat: Self::Pat, p: usize) -> Option<usize>;
@@ -175,6 +177,32 @@ pub(crate) fn lex<G: Grammar>(
     };
     let scratch = scratch(cx.scratch);
     Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch).run()
+}
+
+/// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
+/// to its end: the line halts at the first place where `end` holds that the
+/// scan reaches with only the root rule open (see [`Halt`]), and the second
+/// value is where. Without one, the state resumes on the next line.
+#[inline]
+pub(crate) fn lex_until<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    end: Halt,
+) -> (u32, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (state, None);
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+    };
+    let scratch = scratch(cx.scratch);
+    Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch)
+        .halting_at(end)
+        .run_halting()
 }
 
 /// The scopes of a pattern's capture groups by group number, and the groups

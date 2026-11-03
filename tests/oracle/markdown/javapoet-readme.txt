@@ -6001,17 +6001,42 @@ T 30 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown pun
 T 51 text.html.markdown meta.paragraph.markdown
 L ```xml
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L <dependency>
-T 12 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
 L   <groupId>com.squareup</groupId>
-T 33 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
 L   <artifactId>javapoet</artifactId>
-T 35 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
 L   <version>1.13.0</version>
-T 27 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
 L </dependency>
-T 13 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.xml meta.tag.xml punctuation.definition.tag.xml
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L or Gradle:

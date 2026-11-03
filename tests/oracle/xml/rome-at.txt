@@ -1,0 +1,2100 @@
+L <rss xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd" version="2.0">
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 5 text.xml meta.tag.xml
+T 10 text.xml meta.tag.xml entity.other.attribute-name.namespace.xml
+T 11 text.xml meta.tag.xml entity.other.attribute-name.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 text.xml meta.tag.xml
+T 19 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 61 text.xml meta.tag.xml string.quoted.double.xml
+T 62 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 63 text.xml meta.tag.xml
+T 70 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 71 text.xml meta.tag.xml
+T 72 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 75 text.xml meta.tag.xml string.quoted.double.xml
+T 76 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 77 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <channel>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <title>KCRW's Art Talk</title>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 30 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <itunes:author>Edward Goldman</itunes:author>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 37 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 45 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <link>http://www.kcrw.com/show/at</link>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 33 text.xml
+T 35 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <description>Art reviews, news and announcements from Edward Goldman.&lt;P&gt;Edward Goldman is an art consultant for private and corporate collectors. Email him at &lt;a href=mailto:edwardgoldman@earthlink.net&gt;edwardgoldman@earthlink.net&lt;/a&gt;. Or call him at  310-314-4660 ext 280.</description>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 69 text.xml
+T 70 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 72 text.xml constant.character.entity.xml
+T 73 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 74 text.xml
+T 75 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 77 text.xml constant.character.entity.xml
+T 78 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 165 text.xml
+T 166 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 168 text.xml constant.character.entity.xml
+T 169 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 210 text.xml
+T 211 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 213 text.xml constant.character.entity.xml
+T 214 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 241 text.xml
+T 242 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 244 text.xml constant.character.entity.xml
+T 245 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 247 text.xml
+T 248 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 250 text.xml constant.character.entity.xml
+T 251 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 290 text.xml
+T 292 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 303 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 304 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <itunes:subtitle>Insightful commentary on LA's art scene.</itunes:subtitle>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 57 text.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 66 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 74 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 75 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <itunes:summary>Art reviews, news and announcements from Edward Goldman.&lt;P&gt;Edward Goldman is an art consultant for private and corporate collectors. Email him at &lt;a href=mailto:edwardgoldman@earthlink.net&gt;edwardgoldman@earthlink.net&lt;/a&gt;. Or call him at  310-314-4660 ext 280.</itunes:summary>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 72 text.xml
+T 73 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 75 text.xml constant.character.entity.xml
+T 76 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 77 text.xml
+T 78 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 80 text.xml constant.character.entity.xml
+T 81 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 168 text.xml
+T 169 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 171 text.xml constant.character.entity.xml
+T 172 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 213 text.xml
+T 214 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 216 text.xml constant.character.entity.xml
+T 217 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 244 text.xml
+T 245 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 247 text.xml constant.character.entity.xml
+T 248 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 250 text.xml
+T 251 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 253 text.xml constant.character.entity.xml
+T 254 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 293 text.xml
+T 295 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 301 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 302 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 309 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 310 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <language>en-us</language>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 25 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <copyright>KCRW 2005</copyright>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:owner>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		<itunes:name>KCRW Podmaster</itunes:name>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 37 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 38 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		<itunes:email>podmaster@kcrw.org</itunes:email>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 43 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:owner>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <lastBuildDate>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 14 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.xml meta.tag.xml punctuation.definition.tag.xml
+L Tue,  2 Aug 2005 12:09:14 -0700</lastBuildDate>
+T 31 text.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 46 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 47 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <ttl>720</ttl>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <image>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <url>http://www.kcrw.com/images/kcrw_logo_small.gif</url>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 55 text.xml
+T 57 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 61 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>KCRW.com</title>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <link>http://www.kcrw.com/</link>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <height>59</height>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 14 text.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <width>144</width>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 14 text.xml
+T 16 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </image>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L <itunes:link rel="image" type="video/jpeg" href="http://www.kcrw.com/podcast/images/at.jpg">Art Talk</itunes:link>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 8 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 23 text.xml meta.tag.xml string.quoted.double.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 25 text.xml meta.tag.xml
+T 29 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 30 text.xml meta.tag.xml
+T 31 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 41 text.xml meta.tag.xml string.quoted.double.xml
+T 42 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 43 text.xml meta.tag.xml
+T 47 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 48 text.xml meta.tag.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 90 text.xml meta.tag.xml string.quoted.double.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 92 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 100 text.xml
+T 102 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 109 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 113 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 114 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 
+L <category>Arts &amp; Entertainment</category>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml
+T 16 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 19 text.xml constant.character.entity.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 45 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>In Memory of Kathy Reges</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 44 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=07/26/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>Los Angeles has been shaped by untold contributions of millions of people.  Some sad events of recent days have made me think of those special people who left a wonderful and lasting legacy on our city of angels.&lt;br&gt;
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 230 text.xml
+T 231 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 233 text.xml constant.character.entity.xml
+T 234 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 236 text.xml
+T 237 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 239 text.xml constant.character.entity.xml
+T 240 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L </description>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>Los Angeles has been shaped by untold contributions of millions of people.  Some sad events of recent days have made me think of those special people who left a wonderful and lasting legacy on our city of angels.&lt;br&gt;
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 235 text.xml
+T 236 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 238 text.xml constant.character.entity.xml
+T 239 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 241 text.xml
+T 242 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 244 text.xml constant.character.entity.xml
+T 245 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L </itunes:subtitle>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>Los Angeles has been shaped by untold contributions of millions of people.  Some sad events of recent days have made me think of those special people who left a wonderful and lasting legacy on our city of angels.&lt;br&gt;
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 234 text.xml
+T 235 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 237 text.xml constant.character.entity.xml
+T 238 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 240 text.xml
+T 241 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 243 text.xml constant.character.entity.xml
+T 244 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L </itunes:summary>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    		    <itunes:duration>
+T 11 text.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 				00:04:12			</itunes:duration>
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		<enclosure url="http://66.186.18.80/podcast/mp3/at/at050726In_Memory_of_Kathy_R.mp3"
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    length="1518563"
+T 6 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 13 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.double.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    type="audio/mpeg" />
+T 6 text.xml meta.tag.xml
+T 10 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 11 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml
+T 23 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 26 Jul 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>L.A. Embarrassment of Riches</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=07/19/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>From King Tut's archaeological artifacts and 17th century paintings by Rembrandt and Ruisdael to early 20th century photographs by Hungarian born Andr- Kert-sz and to graffiti inspired American art by Jean-Michel Basquiat -- these hot summer months, love it or hate it, Los Angeles is the place to be for those who like their art to be all over the map.
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 371 text.xml
+L </description>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>From King Tut's archaeological artifacts and 17th century paintings by Rembrandt and Ruisdael to early 20th century photographs by Hungarian born Andr- Kert-sz and to graffiti inspired American art by Jean-Michel Basquiat -- these hot summer months, love it or hate it, Los Angeles is the place to be for those who like their art to be all over the map.
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 376 text.xml
+L </itunes:subtitle>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>From King Tut's archaeological artifacts and 17th century paintings by Rembrandt and Ruisdael to early 20th century photographs by Hungarian born Andr- Kert-sz and to graffiti inspired American art by Jean-Michel Basquiat -- these hot summer months, love it or hate it, Los Angeles is the place to be for those who like their art to be all over the map.
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 375 text.xml
+L </itunes:summary>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    		    <itunes:duration>
+T 11 text.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 				00:04:13			</itunes:duration>
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		<enclosure url="http://66.186.18.80/podcast/mp3/at/at050719LA_Embarrassment_of_.mp3"
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    length="1521384"
+T 6 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 13 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.double.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    type="audio/mpeg" />
+T 6 text.xml meta.tag.xml
+T 10 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 11 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml
+T 23 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 19 Jul 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>The Comeuppance Smart Critic</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 48 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=07/12/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L My late mother used to tell me affectionately, &amp;quotEdward, you are smart,&amp;quot but then she would say, &amp;quotBut not enough.&amp;quot  Truth be told, there were a number of occasions of late where she proved to be right, but we're talking here about art, not my personal life---aren't we?
+T 47 text.xml
+T 48 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 51 text.xml constant.character.entity.xml
+T 52 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 112 text.xml
+T 113 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 116 text.xml constant.character.entity.xml
+T 117 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 136 text.xml
+T 137 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 140 text.xml constant.character.entity.xml
+T 141 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 300 text.xml
+L &lt;br&gt;</description>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L My late mother used to tell me affectionately, &amp;quotEdward, you are smart,&amp;quot but then she would say, &amp;quotBut not enough.&amp;quot  Truth be told, there were a number of occasions of late where she proved to be right, but we're talking here about art, not my personal life---aren't we?
+T 47 text.xml
+T 48 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 51 text.xml constant.character.entity.xml
+T 52 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 112 text.xml
+T 113 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 116 text.xml constant.character.entity.xml
+T 117 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 136 text.xml
+T 137 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 140 text.xml constant.character.entity.xml
+T 141 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 300 text.xml
+L &lt;br&gt;</itunes:subtitle>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L My late mother used to tell me affectionately, &amp;quotEdward, you are smart,&amp;quot but then she would say, &amp;quotBut not enough.&amp;quot  Truth be told, there were a number of occasions of late where she proved to be right, but we're talking here about art, not my personal life---aren't we?
+T 47 text.xml
+T 48 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 51 text.xml constant.character.entity.xml
+T 52 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 78 text.xml
+T 79 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml constant.character.entity.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 112 text.xml
+T 113 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 116 text.xml constant.character.entity.xml
+T 117 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 136 text.xml
+T 137 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 140 text.xml constant.character.entity.xml
+T 141 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 300 text.xml
+L &lt;br&gt;</itunes:summary>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 26 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    		    <itunes:duration>
+T 11 text.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 				00:04:21			</itunes:duration>
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 24 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		<enclosure url="http://66.186.18.80/podcast/mp3/at/at050712The_Comeuppance_Smar.mp3"
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 85 text.xml meta.tag.xml string.quoted.double.xml
+T 86 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    length="1570129"
+T 6 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 13 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.double.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L 		    type="audio/mpeg" />
+T 6 text.xml meta.tag.xml
+T 10 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 11 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.double.xml
+T 23 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 12 Jul 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>Does Tim Hawkinson Have Multiple Personalities?</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml
+T 61 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 66 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 67 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=07/05/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>The opening of Tim Hawkinson's exhibition at LACMA a couple of weeks ago turned into an event memorable not only as a chance to celebrate the work of one of the most inventive artists working today, but also an occasion to observe a crowd behaving in a most unusual way: with goofy smiles on their faces, adult men and women were giggling or intently staring in total disbelief.   And let me admit for the record that, as for myself, I was guilty on both counts.
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 480 text.xml
+L &lt;br&gt;</description>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 23 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>The opening of Tim Hawkinson's exhibition at LACMA a couple of weeks ago turned into an event memorable not only as a chance to celebrate the work of one of the most inventive artists working today, but also an occasion to observe a crowd behaving in a most unusual way: with goofy smiles on their faces, adult men and women were giggling or intently staring in total disbelief.   And let me admit for the record that, as for myself, I was guilty on both counts.
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 485 text.xml
+L &lt;br&gt;</itunes:subtitle>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 27 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>The opening of Tim Hawkinson's exhibition at LACMA a couple of weeks ago turned into an event memorable not only as a chance to celebrate the work of one of the most inventive artists working today, but also an occasion to observe a crowd behaving in a most unusual way: with goofy smiles on their faces, adult men and women were giggling or intently staring in total disbelief.   And let me admit for the record that, as for myself, I was guilty on both counts.
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 484 text.xml
+L &lt;br&gt;</itunes:summary>
+T 1 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 3 text.xml constant.character.entity.xml
+T 4 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 6 text.xml
+T 7 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 9 text.xml constant.character.entity.xml
+T 10 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 19 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 26 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue,  5 Jul 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>The Explosion of New Museums: Too Much of a Good Thing?</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 67 text.xml
+T 69 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 74 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 75 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=06/28/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>If you've lived long enough to make it around the block once or twice, then you know that it's possible to have too much of a good thing.  For example, I would never complain that there are too many museums in Rome or in Paris.   But I would be wary of a phenomenon of a hundred new museums springing up in a short period of time in one country...  </description>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 367 text.xml
+T 369 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 380 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 381 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>If you've lived long enough to make it around the block once or twice, then you know that it's possible to have too much of a good thing.  For example, I would never complain that there are too many museums in Rome or in Paris.   But I would be wary of a phenomenon of a hundred new museums springing up in a short period of time in one country...  </itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 372 text.xml
+T 374 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 380 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 381 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 389 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 390 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>If you've lived long enough to make it around the block once or twice, then you know that it's possible to have too much of a good thing.  For example, I would never complain that there are too many museums in Rome or in Paris.   But I would be wary of a phenomenon of a hundred new museums springing up in a short period of time in one country...  </itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 371 text.xml
+T 373 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 379 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 380 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 387 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 388 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 28 Jun 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>King Tut: First Time's A Charm, The Second Time A Travesty</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 70 text.xml
+T 72 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 77 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 78 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=06/21/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>So much has been said and written about the whirlwind King Tut exhibition--launched last week here at LACMA--that I hesitated initially to talk about it. I thought, &amp;quotWhy add to all this white noise?&amp;quot But after the totally disagreeable experience of attending the gala opening, followed, a few days later, by walking through the exhibition with the curator, I am filled with conflicting emotions.</description>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 183 text.xml
+T 184 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 187 text.xml constant.character.entity.xml
+T 188 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 224 text.xml
+T 225 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 228 text.xml constant.character.entity.xml
+T 229 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 429 text.xml
+T 431 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 442 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 443 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>So much has been said and written about the whirlwind King Tut exhibition--launched last week here at LACMA--that I hesitated initially to talk about it. I thought, &amp;quotWhy add to all this white noise?&amp;quot But after the totally disagreeable experience of attending the gala opening, followed, a few days later, by walking through the exhibition with the curator, I am filled with conflicting emotions.</itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 188 text.xml
+T 189 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 192 text.xml constant.character.entity.xml
+T 193 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 229 text.xml
+T 230 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 233 text.xml constant.character.entity.xml
+T 234 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 434 text.xml
+T 436 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 442 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 443 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 451 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 452 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>So much has been said and written about the whirlwind King Tut exhibition--launched last week here at LACMA--that I hesitated initially to talk about it. I thought, &amp;quotWhy add to all this white noise?&amp;quot But after the totally disagreeable experience of attending the gala opening, followed, a few days later, by walking through the exhibition with the curator, I am filled with conflicting emotions.</itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 187 text.xml
+T 188 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 191 text.xml constant.character.entity.xml
+T 192 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 228 text.xml
+T 229 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 232 text.xml constant.character.entity.xml
+T 233 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 433 text.xml
+T 435 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 441 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 442 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 449 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 450 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 21 Jun 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>16 Rembrandt Portraits Burning the Getty Walls</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 66 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=06/14/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </description>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </itunes:subtitle>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </itunes:summary>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 14 Jun 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>What was Jennifer Steinkamp Smoking?</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml
+T 50 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 55 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 56 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=06/07/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description></description>
+T 5 text.xml
+T 6 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 32 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle></itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 25 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 31 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 32 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 40 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 41 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 		    <itunes:summary></itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 24 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 30 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 31 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 38 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 39 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue,  7 Jun 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<item>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 6 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <title>How to Translate L.A. Art &amp; Culture into a Waterfall of Green Dollars</title>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 text.xml
+T 39 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 42 text.xml constant.character.entity.xml
+T 43 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 85 text.xml
+T 87 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 92 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 93 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	<itunes:author>Edward Goldman</itunes:author>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 20 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 21 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 44 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 50 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 51 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <link>		http://kcrw.com/cgi-bin/db/kcrw.pl?show_code=at&amp;air_date=05/31/05&amp;tmplt_type=Show</link>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 61 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 64 text.xml constant.character.entity.xml
+T 65 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 82 text.xml
+T 83 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 86 text.xml constant.character.entity.xml
+T 87 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 102 text.xml
+T 104 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 108 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 109 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    <description>
+T 5 text.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </description>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:subtitle>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </itunes:subtitle>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 		    <itunes:summary>
+T 6 text.xml
+T 7 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 14 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 21 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </itunes:summary>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 16 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	    	   <pubDate>Tue, 31 May 2005 09:00:00 -0700 </pubDate>
+T 9 text.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	   
+T 4 text.xml
+L 	   <category>Arts &amp; Entertainment</category>
+T 4 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 19 text.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 23 text.xml constant.character.entity.xml
+T 24 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 38 text.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 48 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:category text="Arts &amp; Entertainment" />
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml
+T 22 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 23 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.double.xml
+T 30 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 33 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml
+T 34 text.xml meta.tag.xml string.quoted.double.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 48 text.xml meta.tag.xml string.quoted.double.xml
+T 49 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	</itunes:category>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 10 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 18 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:explicit>no</itunes:explicit>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 text.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml meta.tag.xml entity.name.tag.namespace.xml
+T 29 text.xml meta.tag.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 	<itunes:keywords></itunes:keywords>
+T 1 text.xml
+T 2 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 9 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 17 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 18 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 20 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+T 26 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.namespace.xml
+T 27 text.xml meta.tag.no-content.xml entity.name.tag.xml punctuation.separator.namespace.xml
+T 35 text.xml meta.tag.no-content.xml entity.name.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.no-content.xml punctuation.definition.tag.xml
+L 	</item>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 
+L </channel>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </rss>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  
+T 1 text.xml
+L 

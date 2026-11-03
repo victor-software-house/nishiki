@@ -21,6 +21,7 @@ mod shell;
 mod sql;
 mod toml;
 mod typescript;
+mod xml;
 mod yaml;
 
 use nishiki::{Highlighter, Language, Limit, Limits, LineReport, State, Token, Work};

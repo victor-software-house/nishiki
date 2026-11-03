@@ -16,6 +16,7 @@ use std::cell::Cell;
 
 use super::{Act, Captures, DynName, Grammar, Payload, Span, Text};
 use crate::arena::{Arena, ROOT};
+use crate::language::Halt;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token};
 
@@ -193,6 +194,11 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     state: u32,
     /// What the language's matchers remember about this line.
     pub(crate) x: G::Extra,
+    /// The end of the rule that embeds the grammar, for a grammar that
+    /// another one embeds (see [`Halt`]).
+    halt: Option<Halt>,
+    /// Where the line halted.
+    halted: Option<usize>,
 }
 
 impl<'a, G: Grammar> Lexer<'a, G> {
@@ -253,7 +259,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             flags: Flags::default(),
             state,
             x,
+            halt: None,
+            halted: None,
         }
+    }
+
+    /// Ends the line before the first place where `halt` holds that the
+    /// scan reaches while only the root rule is open. The patterns still see
+    /// the whole line, so a lookahead reads past the halt as the grammar's
+    /// does.
+    pub(crate) fn halting_at(mut self, halt: Halt) -> Self {
+        self.halt = Some(halt);
+        self
     }
 
     /// Opens the rules of the state the line starts in, unless the frames
@@ -330,7 +347,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// are the state's chain, and the next line takes them over as the
     /// frames it starts with.
     #[inline]
-    pub(crate) fn run(mut self) -> u32 {
+    pub(crate) fn run(self) -> u32 {
+        self.run_halting().0
+    }
+
+    /// Lexes the line like [`Lexer::run`], and returns where it halted too:
+    /// the tokens end there, and the embedding lexer goes on from there.
+    #[inline]
+    pub(crate) fn run_halting(mut self) -> (u32, Option<usize>) {
         self.open();
         self.check_while();
         self.tokenize();
@@ -354,7 +378,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.scratch.spans = self.spans;
         self.scratch.caps = self.caps;
         self.scratch.kept = G::keep(self.x);
-        state
+        (state, self.halted)
     }
 
     // Bytes.
@@ -382,6 +406,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The end of the text, where the line feed stands.
     pub(crate) fn lim(&self) -> usize {
         self.s.len()
+    }
+
+    /// The halt a scan tests at each place before it tries the patterns
+    /// there: the line's halt while only the root rule is open, and `None`
+    /// otherwise. A scan does not open or close rules, so it asks once.
+    pub(crate) fn root_halt(&self) -> Option<Halt> {
+        self.halt.filter(|_| self.frames.len() == 1)
+    }
+
+    /// Records that the scan stopped at the halt at `p`, where the line ends.
+    pub(crate) fn halt_here(&mut self, p: usize) {
+        self.halted = Some(p);
     }
 
     /// Whether `\G` matches at `p`.
@@ -938,6 +974,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             }
             self.g = self.anchor == Some(self.pos);
             let Some((start, pat, end)) = G::scan(self) else {
+                if let Some(at) = self.halted {
+                    let node = self.top().content;
+                    self.emit(at, node);
+                    return;
+                }
                 if self.steps.get() > self.budget {
                     self.report.record(Limit::Work);
                 }

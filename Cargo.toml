@@ -54,6 +54,7 @@ all = [
   "lang-go",
   "lang-ruby",
   "lang-csharp",
+  "lang-xml",
 ]
 
 # Tiers, which overlap.
@@ -65,6 +66,7 @@ config = [
   "lang-diff",
   "lang-dockerfile",
   "lang-make",
+  "lang-xml",
 ]
 web = [
   "lang-typescript",
@@ -123,6 +125,7 @@ lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
 lang-go = ["_scope-table", "_rule-tables", "_classes"]
 lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
+lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

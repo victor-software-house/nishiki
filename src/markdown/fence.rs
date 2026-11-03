@@ -220,6 +220,15 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::CSharp,
     },
+    // The grammar has two rules, `xml` and `xsl`, which embed the same grammar.
+    #[cfg(feature = "lang-xml")]
+    Name {
+        words: &[
+            "xml", "xsd", "tld", "jsp", "pt", "cpt", "dtml", "rss", "opml", "xsl", "xslt",
+        ],
+        brace: None,
+        lang: Language::Xml,
+    },
 ];
 
 /// A language found in an info string.

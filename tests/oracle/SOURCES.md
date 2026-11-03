@@ -221,6 +221,22 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `csharp/runtime-stack` | [`Stack.cs`][runtime-stack] in dotnet/runtime | [MIT][dotnet-runtime-licence] |
 | `csharp/newtonsoft-json-convert` | [`JsonConvert.cs`][newtonsoft-json-convert] in JamesNK/Newtonsoft.Json | [MIT][newtonsoft-licence] |
 | `csharp/roslyn-text-span` | [`TextSpan.cs`][roslyn-text-span] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `xml/sample` | [`samples/xml.sample`][xml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `xml/ant-build` | [`build.xml`][ant-build] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/commons-lang-pom` | [`pom.xml`][commons-lang-pom] in apache/commons-lang | [Apache-2.0][commons-lang-licence] |
+| `xml/views-lots-of-cards` | [`lots_of_cards.xml`][views-lots-of-cards] in android/views-widgets-samples | [Apache-2.0][views-licence] |
+| `xml/ant-junit-frames` | [`src/etc/junit-frames.xsl`][ant-junit-frames] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/rome-slashdot` | [`xml/slashdot.xml`][rome-slashdot] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/xerces-design` | [`design/xml/design.xml`][xerces-design] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
+| `xml/xerces-xni-config` | [`docs/xni-config.xml`][xerces-xni-config] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
+| `xml/foundation-keyed-archive` | [`NSKeyedUnarchiver-ConcreteValueTest.plist`][foundation-keyed-archive] in apple/swift-corelibs-foundation | [Apache-2.0][foundation-licence] |
+| `xml/bootstrap-logo` | [`bootstrap-logo.svg`][bootstrap-logo] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `xml/xerces-schedule` | [`design/xml/schedule.xml`][xerces-schedule] in apache/xerces2-j | [Apache-2.0][xerces-licence] |
+| `xml/ant-checkstyle-frames` | [`src/etc/checkstyle/checkstyle-frames.xsl`][ant-checkstyle-frames] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/rome-at` | [`xml/at.xml`][rome-at] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/rome-yahoo-top-songs` | [`data/YahooTopSongs.xml`][rome-yahoo-top-songs] in rometools/rome | [Apache-2.0][rome-licence] |
+| `xml/ant-junit-noframes` | [`src/etc/junit-noframes.xsl`][ant-junit-noframes] in apache/ant | [Apache-2.0][ant-licence] |
+| `xml/views-activity-entrance` | [`activity_entrance.xml`][views-activity-entrance] in android/views-widgets-samples | [Apache-2.0][views-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -256,6 +272,12 @@ Their first scores, before any fix, were 351 of 709, 6,316 of 6,338 and 12 of 70
 `docker/moby`, `docker/postgres-bookworm` and `docker/buildx` are held out.
 `markdown/fastapi-docker` is the development input for `dockerfile` fences, and `markdown/next-with-docker-readme` and `markdown/next-with-docker-export-readme` are held out.
 The lexer matched every input on its first run, held-out ones included.
+`xml/sample`, `xml/ant-build`, `xml/commons-lang-pom`, `xml/views-lots-of-cards`, `xml/ant-junit-frames`, `xml/rome-slashdot`, `xml/xerces-design` and `xml/xerces-xni-config` are the development inputs for XML.
+They cover an Ant build, a Maven POM, an Android layout, two XSLT stylesheets, an RSS 1.0 feed, and DOCTYPE declarations with and without an internal subset.
+`xml/foundation-keyed-archive`, `xml/bootstrap-logo`, `xml/xerces-schedule`, `xml/ant-checkstyle-frames`, `xml/rome-at`, `xml/rome-yahoo-top-songs`, `xml/ant-junit-noframes` and `xml/views-activity-entrance` are held out.
+They cover a property list, an SVG file, entity declarations, CDATA sections and namespaces.
+The lexer matched every input on its first run, held-out ones included.
+The Markdown fixtures `markdown/gson-user-guide` and `markdown/javapoet-readme` hold `xml` fences, and were regenerated once the `xml` grammar was loaded, because Shiki's Markdown grammar embeds it.
 
 `c/sample`, `c/cjson` and `c/linenoise` are the development inputs for C, and `markdown/cjson-readme` is the development input for C fences.
 `c/libuv-core`, `c/jq-print`, `c/lua-vm`, `c/zlib-inflate`, `markdown/unity-assertions` and `markdown/unity-getting-started` are held out.
@@ -591,3 +613,25 @@ The lexer matched every input on its first run, held-out ones included.
 [newtonsoft-licence]: https://github.com/JamesNK/Newtonsoft.Json/blob/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa/LICENSE.md
 [roslyn-text-span]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/Core/Portable/Text/TextSpan.cs
 [roslyn-licence]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt
+[xml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/xml.sample
+[ant-build]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/build.xml
+[ant-junit-frames]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/junit-frames.xsl
+[ant-checkstyle-frames]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/checkstyle/checkstyle-frames.xsl
+[ant-junit-noframes]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/src/etc/junit-noframes.xsl
+[ant-licence]: https://github.com/apache/ant/blob/dbb01a2d528568b1d7ba0c2d84e533577f7f0876/LICENSE
+[commons-lang-pom]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/pom.xml
+[views-lots-of-cards]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml
+[views-activity-entrance]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml
+[views-licence]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/LICENSE
+[rome-slashdot]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/rome-modules/src/test/resources/xml/slashdot.xml
+[rome-at]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/rome-modules/src/test/resources/xml/at.xml
+[rome-yahoo-top-songs]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/rome-modules/src/test/resources/data/YahooTopSongs.xml
+[rome-licence]: https://github.com/rometools/rome/blob/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75/LICENSE
+[xerces-design]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/design.xml
+[xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml
+[xerces-xni-config]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/docs/xni-config.xml
+[xerces-licence]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/LICENSE
+[foundation-keyed-archive]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist
+[foundation-licence]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/LICENSE
+[bootstrap-logo]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg
+[bootstrap-licence]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/LICENSE

@@ -38,5 +38,17 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Java>(cx, line, state, |scratch| &mut scratch.java)
 }
 
+/// Lexes `line` like [`lex`], for Java that another grammar embeds up to its
+/// end (see [`rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: crate::language::Halt,
+) -> (u32, Option<usize>) {
+    rules::lex_until::<Java>(cx, line, state, |scratch| &mut scratch.java, end)
+}
+
 #[cfg(test)]
 mod tests;

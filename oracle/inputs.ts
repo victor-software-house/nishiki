@@ -195,6 +195,18 @@ const kafka =
 const tomcat =
   "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
 
+const ant =
+  "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
+const viewsWidgets =
+  "https://raw.githubusercontent.com/android/views-widgets-samples/2238cc873501f9cda63605051de11832bb736a8a";
+const rome =
+  "https://raw.githubusercontent.com/rometools/rome/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75";
+const xerces =
+  "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
+const foundation =
+  "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/cbfe1c7376ffe869d08b1b5f643d747ef0a16069";
+const bootstrap =
+  "https://raw.githubusercontent.com/twbs/bootstrap/2871f2a55ccf18af64045b8fc37529391b285900";
 const graphqlJs =
   "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
 const graphiql =
@@ -678,4 +690,20 @@ export const inputs: Input[] = [
   { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
   { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
   { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
+  { lang: "xml", name: "sample", url: `${samples}/xml.sample` },
+  { lang: "xml", name: "ant-build", url: `${ant}/build.xml` },
+  { lang: "xml", name: "commons-lang-pom", url: `${commonsLang}/pom.xml` },
+  { lang: "xml", name: "views-lots-of-cards", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml` },
+  { lang: "xml", name: "ant-junit-frames", url: `${ant}/src/etc/junit-frames.xsl` },
+  { lang: "xml", name: "rome-slashdot", url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml` },
+  { lang: "xml", name: "xerces-design", url: `${xerces}/design/xml/design.xml` },
+  { lang: "xml", name: "xerces-xni-config", url: `${xerces}/docs/xni-config.xml` },
+  { lang: "xml", name: "foundation-keyed-archive", url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist` },
+  { lang: "xml", name: "bootstrap-logo", url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg` },
+  { lang: "xml", name: "xerces-schedule", url: `${xerces}/design/xml/schedule.xml` },
+  { lang: "xml", name: "ant-checkstyle-frames", url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl` },
+  { lang: "xml", name: "rome-at", url: `${rome}/rome-modules/src/test/resources/xml/at.xml` },
+  { lang: "xml", name: "rome-yahoo-top-songs", url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml` },
+  { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
+  { lang: "xml", name: "views-activity-entrance", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml` },
 ];

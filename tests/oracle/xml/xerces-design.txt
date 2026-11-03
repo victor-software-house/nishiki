@@ -1,0 +1,254 @@
+L <?xml version='1.0' encoding='US-ASCII'?>
+T 2 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 13 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 14 text.xml meta.tag.preprocessor.xml
+T 15 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.preprocessor.xml string.quoted.single.xml
+T 19 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 28 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 29 text.xml meta.tag.preprocessor.xml
+T 30 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 38 text.xml meta.tag.preprocessor.xml string.quoted.single.xml
+T 39 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 41 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L <!-- $Id$ -->
+T 4 text.xml comment.block.xml punctuation.definition.comment.xml
+T 10 text.xml comment.block.xml
+T 13 text.xml comment.block.xml punctuation.definition.comment.xml
+L <!DOCTYPE design SYSTEM 'design.dtd' [
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.sgml.doctype.xml keyword.other.doctype.xml
+T 10 text.xml meta.tag.sgml.doctype.xml
+T 16 text.xml meta.tag.sgml.doctype.xml variable.language.documentroot.xml
+T 37 text.xml meta.tag.sgml.doctype.xml
+T 38 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+L <!ENTITY package 'org.apache.xerces'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 16 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 17 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 18 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 36 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 37 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY types-java SYSTEM 'types-java.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 19 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 27 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 28 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 42 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 43 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 44 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY types-dom  SYSTEM 'types-dom.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 18 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 27 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 28 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 41 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 42 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 43 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY types-sax  SYSTEM 'types-sax.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 18 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 27 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 28 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 41 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 42 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 43 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-xni        SYSTEM 'design-xni.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 19 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 49 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 50 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 51 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-impl       SYSTEM 'design-impl.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 20 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 50 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 51 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 52 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-parsers    SYSTEM 'design-parsers.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 23 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 53 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 54 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 55 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-util       SYSTEM 'design-util.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 20 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 50 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 51 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 52 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-validation SYSTEM 'design-validation.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 26 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 56 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 57 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 58 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-models     SYSTEM 'design-models.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 22 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 52 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 53 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 54 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-datatypes  SYSTEM 'design-datatypes.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 25 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 55 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 56 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 57 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-grammars   SYSTEM 'design-grammars.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 24 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 54 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 55 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 56 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L <!ENTITY design-identity   SYSTEM 'design-identity.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 24 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 54 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 55 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 56 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L ]>
+T 1 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+L <design name='Xerces-J 2.0' date='$Date$'>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 13 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 26 text.xml meta.tag.xml string.quoted.single.xml
+T 27 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 28 text.xml meta.tag.xml
+T 32 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 33 text.xml meta.tag.xml
+T 34 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 40 text.xml meta.tag.xml string.quoted.single.xml
+T 41 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  
+T 1 text.xml
+L  <types>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   &types-java;
+T 2 text.xml
+T 3 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 13 text.xml constant.character.entity.xml
+T 14 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L   &types-dom;
+T 2 text.xml
+T 3 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L   &types-sax;
+T 2 text.xml
+T 3 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  </types>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  
+T 1 text.xml
+L  &design-xni;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 12 text.xml constant.character.entity.xml
+T 13 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-impl;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 13 text.xml constant.character.entity.xml
+T 14 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-validation;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 19 text.xml constant.character.entity.xml
+T 20 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-models;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 15 text.xml constant.character.entity.xml
+T 16 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-datatypes;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 18 text.xml constant.character.entity.xml
+T 19 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-grammars;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 17 text.xml constant.character.entity.xml
+T 18 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-identity;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 17 text.xml constant.character.entity.xml
+T 18 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-parsers;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 16 text.xml constant.character.entity.xml
+T 17 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  &design-util;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 13 text.xml constant.character.entity.xml
+T 14 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  
+T 1 text.xml
+L </design>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml

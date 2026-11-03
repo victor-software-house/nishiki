@@ -134,6 +134,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Go | `Language::Go` | `lang-go` | `go`, `golang` |
 | Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
 | C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
+| XML | `Language::Xml` | `lang-xml` | `xml` |
 
 ### Features
 
@@ -146,13 +147,13 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - Each language is a `lang-*` feature, named in the table above.
   One module lexes TypeScript, JavaScript, JSX and TSX, so each of the four is its own feature and a build pays for the copies it turns on.
-- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`.
+- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, and `lang-xml` turns on `lang-java`.
 - Tiers turn on several at once, and overlap:
 
   | Feature | Languages |
   |:--|:--|
   | `all` (the default) | Every language |
-  | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile |
+  | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
   | `systems` | Rust, C, Shell, Java, Kotlin, Go |
   | `docs` | Markdown and `config` |
@@ -385,6 +386,20 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   These bounds are constants in `src/csharp/limits.rs`; Oniguruma has larger ones of its own.
 - A Markdown fence names the language `cs`, `csharp` or `c#`.
   The `csx` and `c-sharp` fences are plain text, as in Shiki.
+
+### XML
+
+- A `--` inside a comment opens a rule that has no end.
+  The rest of the document is then a comment, and `-->` ends nothing.
+- `<%--` opens a rule that has no end and no scope.
+  The rest of the document has the scope of the document alone.
+- An attribute is read only after white space or at the start of a line, so `a="b"c="d"` has one.
+  An attribute's name takes the white space before it, not the `=`.
+- A `&` that does not start an entity, as in `&a b`, is an illegal ampersand.
+- A tag whose first line holds its closing tag, as in `<a b></a>`, is one rule, and the closing tag must repeat the name.
+- `<% ... %>` is Java, lexed by the Java lexer.
+  A `%>` ends the code only when Java has no context open, so one inside a string, a block or a `//` comment belongs to Java.
+- A Markdown fence names the languages `xml`, `xsd`, `tld`, `jsp`, `pt`, `cpt`, `dtml`, `rss`, `opml`, `xsl` and `xslt`.
 
 ## Licence
 

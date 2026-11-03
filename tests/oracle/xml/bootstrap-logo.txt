@@ -1,0 +1,353 @@
+L <svg xmlns="http://www.w3.org/2000/svg" width="512" height="408"><defs><linearGradient id="bs-logo-a" x1="76.079" x2="523.48" y1="10.798" y2="365.945" gradientUnits="userSpaceOnUse"><stop stop-color="#9013fe"/><stop offset="1" stop-color="#6610f2"/></linearGradient><linearGradient id="bs-logo-b" x1="193.508" x2="293.514" y1="109.74" y2="278.872" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#f1e5fc"/></linearGradient><filter xmlns="http://www.w3.org/2000/svg" id="bs-logo-c" width="197" height="249" x="161.901" y="83.457" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="4"/><feGaussianBlur stdDeviation="8"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter></defs><path fill="url(#bs-logo-a)" d="M56.481 53.32C55.515 25.58 77.128 0 106.342 0h299.353c29.214 0 50.827 25.58 49.861 53.32-.928 26.647.277 61.165 8.964 89.31 8.715 28.232 23.411 46.077 47.48 48.37v26c-24.069 2.293-38.765 20.138-47.48 48.37-8.687 28.145-9.892 62.663-8.964 89.311.966 27.739-20.647 53.319-49.861 53.319H106.342c-29.214 0-50.827-25.58-49.86-53.319.927-26.648-.278-61.166-8.966-89.311C38.802 237.138 24.07 219.293 0 217v-26c24.069-2.293 38.802-20.138 47.516-48.37 8.688-28.145 9.893-62.663 8.965-89.31z"/><path fill="url(#bs-logo-b)" filter="url(#bs-logo-c)" stroke="#fff" d="M267.103 312.457c47.297 0 75.798-23.158 75.798-61.355 0-28.873-20.336-49.776-50.532-53.085v-1.203c22.185-3.609 39.594-24.211 39.594-47.219 0-32.783-25.882-54.138-65.322-54.138h-88.74v217h89.202zm-54.692-189.48h45.911c24.958 0 39.131 11.128 39.131 31.279 0 21.505-16.484 33.535-46.372 33.535h-38.67v-64.814zm0 161.961v-71.431h45.602c32.661 0 49.608 12.03 49.608 35.49 0 23.459-16.484 35.941-47.605 35.941h-47.605z"/></svg>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 5 text.xml meta.tag.xml
+T 10 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 11 text.xml meta.tag.xml
+T 12 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 38 text.xml meta.tag.xml string.quoted.double.xml
+T 39 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 40 text.xml meta.tag.xml
+T 45 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 46 text.xml meta.tag.xml
+T 47 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 50 text.xml meta.tag.xml string.quoted.double.xml
+T 51 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 52 text.xml meta.tag.xml
+T 58 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 59 text.xml meta.tag.xml
+T 60 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 63 text.xml meta.tag.xml string.quoted.double.xml
+T 64 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 66 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 70 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 71 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 72 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 86 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 87 text.xml meta.tag.xml
+T 89 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 90 text.xml meta.tag.xml
+T 91 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 100 text.xml meta.tag.xml string.quoted.double.xml
+T 101 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 102 text.xml meta.tag.xml
+T 104 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 105 text.xml meta.tag.xml
+T 106 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 112 text.xml meta.tag.xml string.quoted.double.xml
+T 113 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 114 text.xml meta.tag.xml
+T 116 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 117 text.xml meta.tag.xml
+T 118 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 124 text.xml meta.tag.xml string.quoted.double.xml
+T 125 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 126 text.xml meta.tag.xml
+T 128 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 129 text.xml meta.tag.xml
+T 130 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 136 text.xml meta.tag.xml string.quoted.double.xml
+T 137 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 138 text.xml meta.tag.xml
+T 140 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 141 text.xml meta.tag.xml
+T 142 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 149 text.xml meta.tag.xml string.quoted.double.xml
+T 150 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 151 text.xml meta.tag.xml
+T 164 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 165 text.xml meta.tag.xml
+T 166 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 180 text.xml meta.tag.xml string.quoted.double.xml
+T 181 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 182 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 183 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 187 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 188 text.xml meta.tag.xml
+T 198 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 199 text.xml meta.tag.xml
+T 200 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 207 text.xml meta.tag.xml string.quoted.double.xml
+T 208 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 210 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 211 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 215 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 216 text.xml meta.tag.xml
+T 222 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 223 text.xml meta.tag.xml
+T 224 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 225 text.xml meta.tag.xml string.quoted.double.xml
+T 226 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 227 text.xml meta.tag.xml
+T 237 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 238 text.xml meta.tag.xml
+T 239 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 246 text.xml meta.tag.xml string.quoted.double.xml
+T 247 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 249 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 251 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 265 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 266 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 267 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 281 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 282 text.xml meta.tag.xml
+T 284 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 285 text.xml meta.tag.xml
+T 286 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 295 text.xml meta.tag.xml string.quoted.double.xml
+T 296 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 297 text.xml meta.tag.xml
+T 299 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 300 text.xml meta.tag.xml
+T 301 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 308 text.xml meta.tag.xml string.quoted.double.xml
+T 309 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 310 text.xml meta.tag.xml
+T 312 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 313 text.xml meta.tag.xml
+T 314 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 321 text.xml meta.tag.xml string.quoted.double.xml
+T 322 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 323 text.xml meta.tag.xml
+T 325 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 326 text.xml meta.tag.xml
+T 327 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 333 text.xml meta.tag.xml string.quoted.double.xml
+T 334 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 335 text.xml meta.tag.xml
+T 337 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 338 text.xml meta.tag.xml
+T 339 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 346 text.xml meta.tag.xml string.quoted.double.xml
+T 347 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 348 text.xml meta.tag.xml
+T 361 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 362 text.xml meta.tag.xml
+T 363 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 377 text.xml meta.tag.xml string.quoted.double.xml
+T 378 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 379 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 380 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 384 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 385 text.xml meta.tag.xml
+T 395 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 396 text.xml meta.tag.xml
+T 397 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 401 text.xml meta.tag.xml string.quoted.double.xml
+T 402 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 404 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 405 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 409 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 410 text.xml meta.tag.xml
+T 416 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 417 text.xml meta.tag.xml
+T 418 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 419 text.xml meta.tag.xml string.quoted.double.xml
+T 420 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 421 text.xml meta.tag.xml
+T 431 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 432 text.xml meta.tag.xml
+T 433 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 440 text.xml meta.tag.xml string.quoted.double.xml
+T 441 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 443 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 445 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 459 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 460 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 461 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 467 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 468 text.xml meta.tag.xml
+T 473 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 474 text.xml meta.tag.xml
+T 475 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 501 text.xml meta.tag.xml string.quoted.double.xml
+T 502 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 503 text.xml meta.tag.xml
+T 505 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 506 text.xml meta.tag.xml
+T 507 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 516 text.xml meta.tag.xml string.quoted.double.xml
+T 517 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 518 text.xml meta.tag.xml
+T 523 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 524 text.xml meta.tag.xml
+T 525 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 528 text.xml meta.tag.xml string.quoted.double.xml
+T 529 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 530 text.xml meta.tag.xml
+T 536 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 537 text.xml meta.tag.xml
+T 538 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 541 text.xml meta.tag.xml string.quoted.double.xml
+T 542 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 543 text.xml meta.tag.xml
+T 544 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 545 text.xml meta.tag.xml
+T 546 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 553 text.xml meta.tag.xml string.quoted.double.xml
+T 554 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 555 text.xml meta.tag.xml
+T 556 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 557 text.xml meta.tag.xml
+T 558 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 564 text.xml meta.tag.xml string.quoted.double.xml
+T 565 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 566 text.xml meta.tag.xml
+T 593 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 594 text.xml meta.tag.xml
+T 595 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 599 text.xml meta.tag.xml string.quoted.double.xml
+T 600 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 601 text.xml meta.tag.xml
+T 612 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 613 text.xml meta.tag.xml
+T 614 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 628 text.xml meta.tag.xml string.quoted.double.xml
+T 629 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 630 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 631 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 638 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 639 text.xml meta.tag.xml
+T 652 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 653 text.xml meta.tag.xml
+T 654 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 655 text.xml meta.tag.xml string.quoted.double.xml
+T 656 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 657 text.xml meta.tag.xml
+T 663 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 664 text.xml meta.tag.xml
+T 665 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 683 text.xml meta.tag.xml string.quoted.double.xml
+T 684 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 686 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 687 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 700 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 701 text.xml meta.tag.xml
+T 703 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 704 text.xml meta.tag.xml
+T 705 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 716 text.xml meta.tag.xml string.quoted.double.xml
+T 717 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 718 text.xml meta.tag.xml
+T 724 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 725 text.xml meta.tag.xml
+T 726 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 767 text.xml meta.tag.xml string.quoted.double.xml
+T 768 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 770 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 771 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 779 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 780 text.xml meta.tag.xml
+T 782 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 783 text.xml meta.tag.xml
+T 784 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 785 text.xml meta.tag.xml string.quoted.double.xml
+T 786 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 788 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 789 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 803 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 804 text.xml meta.tag.xml
+T 816 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 817 text.xml meta.tag.xml
+T 818 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 819 text.xml meta.tag.xml string.quoted.double.xml
+T 820 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 822 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 823 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 836 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 837 text.xml meta.tag.xml
+T 843 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 844 text.xml meta.tag.xml
+T 845 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 887 text.xml meta.tag.xml string.quoted.double.xml
+T 888 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 890 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 891 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 898 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 899 text.xml meta.tag.xml
+T 902 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 903 text.xml meta.tag.xml
+T 904 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 922 text.xml meta.tag.xml string.quoted.double.xml
+T 923 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 924 text.xml meta.tag.xml
+T 930 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 931 text.xml meta.tag.xml
+T 932 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 950 text.xml meta.tag.xml string.quoted.double.xml
+T 951 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 953 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 954 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 961 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 962 text.xml meta.tag.xml
+T 964 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 965 text.xml meta.tag.xml
+T 966 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 979 text.xml meta.tag.xml string.quoted.double.xml
+T 980 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 981 text.xml meta.tag.xml
+T 984 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 985 text.xml meta.tag.xml
+T 986 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1004 text.xml meta.tag.xml string.quoted.double.xml
+T 1005 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1006 text.xml meta.tag.xml
+T 1012 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1013 text.xml meta.tag.xml
+T 1014 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1019 text.xml meta.tag.xml string.quoted.double.xml
+T 1020 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1022 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1024 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1030 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 1031 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1033 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1037 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 1038 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1039 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1043 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 1044 text.xml meta.tag.xml
+T 1048 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1049 text.xml meta.tag.xml
+T 1050 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1065 text.xml meta.tag.xml string.quoted.double.xml
+T 1066 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1067 text.xml meta.tag.xml
+T 1068 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1069 text.xml meta.tag.xml
+T 1070 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1551 text.xml meta.tag.xml string.quoted.double.xml
+T 1552 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1554 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1555 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 1559 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 1560 text.xml meta.tag.xml
+T 1564 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1565 text.xml meta.tag.xml
+T 1566 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1581 text.xml meta.tag.xml string.quoted.double.xml
+T 1582 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1583 text.xml meta.tag.xml
+T 1589 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1590 text.xml meta.tag.xml
+T 1591 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1606 text.xml meta.tag.xml string.quoted.double.xml
+T 1607 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1608 text.xml meta.tag.xml
+T 1614 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1615 text.xml meta.tag.xml
+T 1616 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 1620 text.xml meta.tag.xml string.quoted.double.xml
+T 1621 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 1622 text.xml meta.tag.xml
+T 1623 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 1624 text.xml meta.tag.xml
+T 1625 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 2037 text.xml meta.tag.xml string.quoted.double.xml
+T 2038 text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 2040 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2042 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2045 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 2046 text.xml meta.tag.xml punctuation.definition.tag.xml
+L 

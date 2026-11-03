@@ -2,6 +2,7 @@
 //! grammar tries them, so the engine tries only those where a byte stands.
 
 use super::{Act, Lexer, RuleData, Tabled};
+use crate::language::Halt;
 
 /// Where a position lies, for the patterns that need a word boundary or the
 /// start of the line.
@@ -80,13 +81,27 @@ impl<G: Tabled> Tables<G> {
 /// byte there.
 ///
 /// The text a pattern sees ends after the line feed, where `$` and
-/// lookaheads can still match. A begin pattern of a rule the depth limit
-/// keeps closed is tried only to record the limit, and its text stays plain.
+/// lookaheads can still match, and the search stops at a halt
+/// ([`Lexer::root_halt`]), to which a match starting there would lose. A
+/// begin pattern of a rule the depth limit keeps closed is tried only to
+/// record the limit, and its text stays plain.
 /// A pattern that fails at a blank fails at the blanks after it, since the
 /// blanks are consumed first, what follows decides, and no lookbehind or
 /// boundary holds between two of them; so the search skips a run of blanks
 /// at once.
 pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
+    match lexer.root_halt() {
+        Some(halt) => scan::<G, true>(lexer, halt),
+        None => scan::<G, false>(lexer, |_, _| false),
+    }
+}
+
+/// [`table_scan`], with the halt test compiled in only when `HALTING`, so a
+/// grammar that no other embeds pays nothing for it.
+fn scan<G: Tabled, const HALTING: bool>(
+    lexer: &mut Lexer<'_, G>,
+    halt: Halt,
+) -> Option<(usize, G::Pat, usize)> {
     let tables = G::tables(lexer.top_rule());
     let full = lexer.at_depth_limit();
     let s = lexer.s;
@@ -96,6 +111,10 @@ pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, 
     let mut visited = 0;
     let found = loop {
         if p > lim + nl {
+            break None;
+        }
+        if HALTING && halt(s, p) {
+            lexer.halt_here(p);
             break None;
         }
         visited += 1;

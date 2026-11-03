@@ -50,4 +50,7 @@ pub(crate) struct Scratch {
     /// The Makefile lexer's.
     #[cfg(feature = "lang-make")]
     pub(crate) make: crate::make::Scratch,
+    /// The XML lexer's, for XML documents and Markdown XML fences.
+    #[cfg(feature = "lang-xml")]
+    pub(crate) xml: crate::xml::Scratch,
 }

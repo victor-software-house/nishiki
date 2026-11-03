@@ -1,0 +1,966 @@
+L <?xml version='1.0' encoding='US-ASCII'?>
+T 2 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 5 text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 13 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 14 text.xml meta.tag.preprocessor.xml
+T 15 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.preprocessor.xml string.quoted.single.xml
+T 19 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 28 text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 29 text.xml meta.tag.preprocessor.xml
+T 30 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 38 text.xml meta.tag.preprocessor.xml string.quoted.single.xml
+T 39 text.xml meta.tag.preprocessor.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 41 text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L <!-- $Id$ -->
+T 4 text.xml comment.block.xml punctuation.definition.comment.xml
+T 10 text.xml comment.block.xml
+T 13 text.xml comment.block.xml punctuation.definition.comment.xml
+L <!DOCTYPE schedule SYSTEM 'schedule.dtd' [
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.sgml.doctype.xml keyword.other.doctype.xml
+T 10 text.xml meta.tag.sgml.doctype.xml
+T 18 text.xml meta.tag.sgml.doctype.xml variable.language.documentroot.xml
+T 41 text.xml meta.tag.sgml.doctype.xml
+T 42 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+L <!ENTITY people SYSTEM 'people.ent'>
+T 2 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entity.xml
+T 9 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml
+T 15 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml variable.language.entity.xml
+T 23 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml keyword.other.entitytype.xml
+T 24 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 34 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml
+T 35 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 36 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.tag.xml
+L ]>
+T 1 text.xml meta.tag.sgml.doctype.xml meta.internalsubset.xml punctuation.definition.constant.xml
+T 2 text.xml meta.tag.sgml.doctype.xml punctuation.definition.tag.xml
+L <schedule date='$Date$'>
+T 1 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <!-- People -->
+T 1 text.xml
+T 5 text.xml comment.block.xml punctuation.definition.comment.xml
+T 13 text.xml comment.block.xml
+T 16 text.xml comment.block.xml punctuation.definition.comment.xml
+L  &people;
+T 1 text.xml
+T 2 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 8 text.xml constant.character.entity.xml
+T 9 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L  
+T 1 text.xml
+L  <!-- Milestones -->
+T 1 text.xml
+T 5 text.xml comment.block.xml punctuation.definition.comment.xml
+T 17 text.xml comment.block.xml
+T 20 text.xml comment.block.xml punctuation.definition.comment.xml
+L  <milestone id='M1' date='Friday, 29 Sep 2000'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml
+T 19 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 20 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 25 text.xml meta.tag.xml
+T 26 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 45 text.xml meta.tag.xml string.quoted.single.xml
+T 46 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 47 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Parser without DTD support</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='andyc' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml
+T 29 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 30 text.xml meta.tag.xml
+T 31 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 35 text.xml meta.tag.xml string.quoted.single.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Document design based on Xerces community feedback</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 60 text.xml
+T 62 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 67 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 68 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='ericye' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 31 text.xml meta.tag.xml
+T 32 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml
+T 37 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Support classes</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 25 text.xml
+T 27 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 32 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 33 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following classes: 
+T 40 text.xml
+L     XMLString, XMLStringBuffer, XMLChar, EncodingMap, SymbolTable, QName.
+T 73 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='jeffreyr' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 24 text.xml meta.tag.xml string.quoted.single.xml
+T 25 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 26 text.xml meta.tag.xml
+T 32 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 33 text.xml meta.tag.xml
+T 34 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 38 text.xml meta.tag.xml string.quoted.single.xml
+T 39 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Basic entity managment</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 32 text.xml
+T 34 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 40 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following classes: XMLEntityManager, XMLEntityScanner.
+T 75 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='ericye' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 31 text.xml meta.tag.xml
+T 32 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml
+T 37 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Basic error handling</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 30 text.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 37 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following interfaces &amp; classes:
+T 42 text.xml
+T 43 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 46 text.xml constant.character.entity.xml
+T 47 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 56 text.xml
+L     XMLErrorReporter, some MessageFormatter.
+T 44 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='andyc' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml
+T 29 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 30 text.xml meta.tag.xml
+T 31 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 35 text.xml meta.tag.xml string.quoted.single.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Parsing of elements and attributes using internal interface</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 69 text.xml
+T 71 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 76 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 77 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following classes: XMLAttributes, XMLDocumentScanner.
+T 74 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='lehors' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml
+T 30 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 31 text.xml meta.tag.xml
+T 32 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml
+T 37 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 38 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Implement a SAX2 parser from internal callbacks</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 57 text.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 65 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following classes: 
+T 40 text.xml
+L     XMLParser, XMLDocumentParser, SAXParser.
+T 44 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <milestone id='M2' date='Friday, 6 October 2000'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml
+T 19 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 20 text.xml meta.tag.xml
+T 24 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 25 text.xml meta.tag.xml
+T 26 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 48 text.xml meta.tag.xml string.quoted.single.xml
+T 49 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 50 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Parser with DTD scanning without validation</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 52 text.xml
+T 54 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 59 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 60 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <depends idref='M1'/>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 20 text.xml meta.tag.xml string.quoted.single.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='jeffreyr'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 24 text.xml meta.tag.xml string.quoted.single.xml
+T 25 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>More documentation</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml
+T 30 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Parser initialization and the validation system needs to be
+T 63 text.xml
+L     documented.
+T 15 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <contributor idref='lehors'/>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 21 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 22 text.xml meta.tag.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.single.xml
+T 30 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='andyc' status='done'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml
+T 29 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 30 text.xml meta.tag.xml
+T 31 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 35 text.xml meta.tag.xml string.quoted.single.xml
+T 36 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Re-organize package structure to separate core interfaces and
+T 65 text.xml
+L     classes from implementation
+T 31 text.xml
+L    </title>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <contributor idref='lehors'/>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 16 text.xml meta.tag.xml
+T 21 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 22 text.xml meta.tag.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 29 text.xml meta.tag.xml string.quoted.single.xml
+T 30 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 32 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='andyc'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Improve entity manager and scanner</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.xml
+T 46 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 51 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Must support external entities, including the DTD entity and
+T 64 text.xml
+L     pre-defined general entities (e.g. &amp;amp;).
+T 39 text.xml
+T 40 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 43 text.xml constant.character.entity.xml
+T 44 text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 50 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='ericye'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Improve document scanner</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Handle trailing miscellaneous section; premature end of file; use
+T 69 text.xml
+L     the error reporter; etc.
+T 28 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='lehors'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Parsing of DOCTYPE line and DTD markup declarations</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 61 text.xml
+T 63 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 68 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 69 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='jeffreyr'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 24 text.xml meta.tag.xml string.quoted.single.xml
+T 25 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Storing basic DTD grammar information</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 47 text.xml
+T 49 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 54 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 55 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <milestone id='M3'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml
+T 19 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Parser with DTD scanning + datatypes and content model validation</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 74 text.xml
+T 76 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 81 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 82 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <depends idref='M2'/>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 20 text.xml meta.tag.xml string.quoted.single.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='andyc'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Ever more documentation</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 33 text.xml
+T 35 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 40 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 41 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Document parser configurations and how new components and 
+T 62 text.xml
+L     configurations would be written and connected.
+T 50 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='jeffreyr'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 24 text.xml meta.tag.xml string.quoted.single.xml
+T 25 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Datatype validators</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 29 text.xml
+T 31 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Only those datatype validators needed for DTD grammars need to be
+T 69 text.xml
+L     added. All DTD datatypes should work: CDATA, ENTITY, ENTITIES, ID,
+T 70 text.xml
+L     IDREF, IDREFS, NMTOKEN, NMTOKENS, and NOTATION.
+T 51 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='ericye'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Content model validators</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 34 text.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 41 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 42 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     This affects the following classes: 
+T 40 text.xml
+L     SimpleContentModel, MixedContentModel, DFAContentModel.
+T 59 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <milestone id='M4'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml
+T 19 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 20 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Parser with DTD scanning and Schema parsing + validation</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml
+T 67 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 72 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 73 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <depends idref='M3'/>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.xml meta.tag.xml
+T 18 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 20 text.xml meta.tag.xml string.quoted.single.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='lehors'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>DOM implementation</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml
+T 30 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+L     Write the DOMParser to populate the DOM tree. Decide what should
+T 68 text.xml
+L     be done with the "deferred" DOM implementation.
+T 51 text.xml
+L    </detail>
+T 3 text.xml
+T 5 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='ericye'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml
+T 23 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 24 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Schema structures updated to current spec (22 Sep 2000)</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 65 text.xml
+T 67 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 72 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 73 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <detail>Can this be done without using the DOM?</detail>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 50 text.xml
+T 52 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 58 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 59 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <task driver='jeffreyr'>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 24 text.xml meta.tag.xml string.quoted.single.xml
+T 25 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 26 text.xml meta.tag.xml punctuation.definition.tag.xml
+L    <title>Schema datatypes updated to current spec (22 Sep 2000)</title>
+T 3 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 64 text.xml
+T 66 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 71 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 72 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </task>
+T 2 text.xml
+T 4 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <milestone id='M666'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 20 text.xml meta.tag.xml string.quoted.single.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 22 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Full Schema support</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 28 text.xml
+T 30 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  <milestone id='M9999'>
+T 1 text.xml
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.xml meta.tag.xml
+T 14 text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 15 text.xml meta.tag.xml
+T 16 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.begin.xml
+T 21 text.xml meta.tag.xml string.quoted.single.xml
+T 22 text.xml meta.tag.xml string.quoted.single.xml punctuation.definition.string.end.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L   <title>Party!</title>
+T 2 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 text.xml
+T 17 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 22 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 23 text.xml meta.tag.xml punctuation.definition.tag.xml
+L  </milestone>
+T 1 text.xml
+T 3 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 text.xml meta.tag.xml punctuation.definition.tag.xml
+L </schedule>
+T 2 text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.xml meta.tag.xml punctuation.definition.tag.xml

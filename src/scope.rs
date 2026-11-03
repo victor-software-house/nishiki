@@ -114,6 +114,8 @@ tables! {
     RUBY = ruby;
     #[cfg(feature = "lang-csharp")]
     CSHARP = csharp;
+    #[cfg(feature = "lang-xml")]
+    XML = xml;
 }
 
 // No table is longer than its slot.

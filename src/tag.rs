@@ -111,6 +111,9 @@ tags! {
     /// C#.
     #[cfg(feature = "lang-csharp")]
     CSHARP = 0x2c00,
+    /// XML.
+    #[cfg(feature = "lang-xml")]
+    XML = 0x2900,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

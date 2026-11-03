@@ -198,6 +198,8 @@ languages! {
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }
     /// C#, with the scopes of Shiki's `csharp` grammar.
     CSharp { feature: "lang-csharp", names: ["csharp", "c#", "cs"], module: csharp }
+    /// XML, with the scopes of Shiki's `xml` grammar.
+    Xml { feature: "lang-xml", names: ["xml"], module: xml }
 }
 
 impl Language {
@@ -231,6 +233,14 @@ pub(crate) struct Context<'a> {
     pub(crate) out: &'a mut Vec<Token>,
     pub(crate) report: &'a mut LineReport,
 }
+
+/// The end of the rule that embeds a language, as a test of the line's bytes
+/// at a place: a `TextMate` engine tries that end at each position while no
+/// rule of the embedded grammar is open, before the embedded patterns, so a
+/// match that starts before it still wins and one that starts at it loses.
+/// It never holds at a space or tab, because the rule engine's scan skips
+/// runs of them.
+pub(crate) type Halt = fn(&[u8], usize) -> bool;
 
 /// The line a lexer reads: all of it, and the byte where its own text starts,
 /// which is past the containers when a Markdown fence embeds it.

@@ -520,6 +520,28 @@ fn css_fences_embed_the_css_lexer_without_its_root() {
 }
 
 #[test]
+fn xml_fences_embed_the_xml_lexer_without_its_root() {
+    for info in ["xml", "XSD", "jsp", "rss", "xsl", "xslt title=x"] {
+        let text = formatdoc! {r#"
+            ```{info}
+            <a b="c"/>
+            ```
+        "#};
+        assert_eq!(
+            stack_of(&text, "a"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.xml",
+                "meta.tag.xml",
+                "entity.name.tag.localname.xml",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
 fn css_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```css
