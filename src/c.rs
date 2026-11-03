@@ -1,7 +1,8 @@
 //! C, with the scopes of the `c` grammar that Shiki bundles.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module). The rules left open at the end of a
+//! The lexer runs the grammar's begin/end rules on the shared rule engine
+//! ([`crate::rules`]), with C's hand-written pattern lists and matchers (see
+//! the `engine` module). The rules left open at the end of a
 //! line (comments, strings, blocks, macros with a backslash at the end) are
 //! frames of the highlighter's interned state.
 //!
@@ -28,93 +29,28 @@ mod wordset;
 
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
-use scope::S;
-use state::R;
 
-use crate::Token;
-use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
+use crate::arena::Arena;
+use crate::language::{Context, Line};
 
 /// The state at the start of a C document whose scopes sit on the stack
-/// `base`: one context with `source.c` on top of it.
+/// `base`: one rule with `source.c` on top of it.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
-    let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena
-        .push(ROOT, R::Top.code(), stack, stack)
-        .unwrap_or(ROOT)
+    crate::rules::start::<engine::C>(arena, base)
 }
 
 /// The state at the start of the C lines of a fenced code block, whose text
 /// sits on the stack `base` with no `source.c` of its own, as in Shiki's
 /// embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, R::Top.code(), base, base).unwrap_or(ROOT)
+    crate::rules::start_embedded::<engine::C>(arena, base)
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because the grammar looks at them: `^` matches
-/// only at 0, so a directive that follows indentation is not at the start of
-/// the line.
-///
-/// `anchored` is set for a Markdown fence line: the fence's `while` rule has
-/// matched the container prefix just before `start`, which is where `\G`
-/// stays for the line, as it does in Shiki. A C document has no such rule, so
-/// `\G` matches at the start of a line only after a begin that ran to the end
-/// of the one before.
-#[derive(Clone, Copy, Debug)]
-pub(crate) struct Text<'a> {
-    pub(crate) bytes: &'a [u8],
-    pub(crate) start: usize,
-    pub(crate) anchored: bool,
-}
-
-/// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
-///
-/// An empty line appends nothing and leaves the state as it is: Shiki does
-/// not tokenize empty lines.
-pub(crate) fn line(
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-    scratch: &mut Scratch,
-) -> u32 {
-    if line.bytes.is_empty() {
-        return state;
-    }
-    let mut lexer = engine::Lexer::new(arena, limits, line, out, state, report, scratch);
-    lexer.run();
-    lexer.into_state(scratch)
+/// Lexes one line under the crate's lexer contract.
+#[inline]
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    crate::rules::lex::<engine::C>(cx, line, state, |scratch| &mut scratch.c)
 }
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    let text = Text {
-        bytes: line.text.as_bytes(),
-        start: line.start,
-        anchored: line.embedded,
-    };
-    self::line(
-        cx.arena,
-        cx.limits,
-        text,
-        state,
-        cx.out,
-        cx.report,
-        &mut cx.scratch.c,
-    )
-}

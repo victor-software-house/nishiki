@@ -1,6 +1,6 @@
 //! The end patterns of the grammar's rules.
 
-use super::engine::{Act, Hit, Lexer};
+use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
 
@@ -8,14 +8,9 @@ impl Lexer<'_> {
     /// An end that matches `start..end`, with `cap` on it.
     pub(super) fn end_at(&mut self, start: usize, end: usize, cap: Option<&'static [S]>) -> bool {
         if let Some(scopes) = cap {
-            self.cap(start, end, scopes);
+            self.span(start, end, scopes);
         }
-        self.hit = Hit {
-            start,
-            end,
-            act: Act::End,
-        };
-        true
+        self.plain(start, end)
     }
 
     /// One byte `c` that ends the rule, with `cap` on it.
@@ -25,15 +20,15 @@ impl Lexer<'_> {
 
     /// `(?<!\\)(?=\n)`.
     fn end_line(&mut self, p: usize) -> bool {
-        self.nl && p == self.lim && self.prev(p) != Some(b'\\') && self.end_at(p, p, None)
+        self.nl && p == self.lim() && self.prev(p) != Some(b'\\') && self.end_at(p, p, None)
     }
 
     /// `(?<!\\)(?=\s*\n)`.
     fn end_blank(&mut self, p: usize) -> bool {
         self.nl
-            && p <= self.lim
+            && p <= self.lim()
             && self.prev(p) != Some(b'\\')
-            && self.skip_space(p) > self.lim
+            && self.skip_space(p) > self.lim()
             && self.end_at(p, p, None)
     }
 
@@ -69,9 +64,9 @@ impl Lexer<'_> {
         let Some(dir) = self.directive(p, &["endif"]) else {
             return false;
         };
-        self.cap(0, dir.kw.1, &[S::MetaPreprocessor]);
-        self.cap(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
-        self.cap(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(0, dir.kw.1, &[S::MetaPreprocessor]);
+        self.span(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
+        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
         self.end_at(0, dir.kw.1, None)
     }
 
@@ -106,8 +101,8 @@ impl Lexer<'_> {
     /// line.
     fn end_after_line(&mut self, p: usize) -> bool {
         self.nl
-            && p == self.lim + 1
-            && !(self.lim > 0 && self.b(self.lim - 1) == b'\\')
+            && p == self.lim() + 1
+            && !(self.lim() > 0 && self.b(self.lim() - 1) == b'\\')
             && self.end_at(p, p, None)
     }
 
@@ -121,9 +116,22 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm per rule: the table of end patterns"
     )]
+    #[expect(
+        clippy::inline_always,
+        reason = "the search tries it at every position, and a call there costs C 3% of its instructions"
+    )]
+    #[inline(always)]
     pub(super) fn try_end(&mut self, r: R, p: usize) -> bool {
         match r {
-            R::Top => false,
+            R::Top
+            | R::Doxy
+            | R::Inline
+            | R::InlineClose
+            | R::Access
+            | R::DefineParams
+            | R::ParamDir
+            | R::NumSep
+            | R::Number => false,
             R::Block | R::BlockInner => self.end_brace(p, false),
             R::Parens | R::ParensBlock | R::FuncParens | R::CallParens => {
                 self.end_paren(p, &[S::PunctParensEnd], false)
@@ -134,15 +142,15 @@ impl Lexer<'_> {
             R::Init => self.end_paren(p, &[S::PunctParensEndInit], false),
             R::Bracket => self.end_byte(p, b']', &[S::PunctEndSquare]),
             R::Ternary | R::CondTernary => self.end_byte(p, b':', &[S::OpTernary]),
-            R::FuncDef => self.anchor != Some(p) && self.end_after_paren(p, false),
+            R::FuncDef => !self.at_g(p) && self.end_after_paren(p, false),
             R::FuncCall => self.end_after_paren(p, true),
             R::DocLine | R::LineComment => self.end_after_line(p),
             R::DocBlock => self.end_doc_block(p),
             R::BlockComment => {
                 self.starts(p, b"*/") && self.end_at(p, p + 2, Some(&[S::PunctCommentEnd]))
             }
-            R::LineLeading | R::Asm => self.anchor != Some(p) && self.end_at(p, p, None),
-            R::LineSlash => self.nl && p == self.lim && self.end_at(p, p, None),
+            R::LineLeading | R::Asm => !self.at_g(p) && self.end_at(p, p, None),
+            R::LineSlash => self.nl && p == self.lim() && self.end_at(p, p, None),
             R::DQuote | R::IncludeDQ => self.end_byte(p, b'"', &[S::PunctStringEnd]),
             R::SQuote => self.end_byte(p, b'\'', &[S::PunctStringEnd]),
             R::IncludeLt => self.end_byte(p, b'>', &[S::PunctStringEnd]),

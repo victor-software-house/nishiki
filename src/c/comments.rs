@@ -1,6 +1,6 @@
 //! Comments, and the Doxygen commands inside documentation comments.
 
-use super::engine::{Lexer, Retok};
+use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
 
@@ -218,8 +218,8 @@ impl Lexer<'_> {
         if e == q + 2 {
             return false;
         }
-        self.cap(q, e, &[S::PunctCommentDoc]);
-        self.begin(p, e, R::DocLine)
+        self.span(q, e, &[S::PunctCommentDoc]);
+        self.begin(p, e)
     }
 
     /// `(/\*[!*]+(?=\s))(.+)([!*]*\*/)`: a documentation comment that ends
@@ -235,7 +235,7 @@ impl Lexer<'_> {
         if k == p + 2 || self.space_at(k) == 0 {
             return false;
         }
-        let Some(body) = self.text(k, self.lim).get(1..) else {
+        let Some(body) = self.text(k, self.lim()).get(1..) else {
             return false;
         };
         self.spend(body.len());
@@ -243,10 +243,10 @@ impl Lexer<'_> {
             return false;
         };
         let m = k + 1 + at;
-        self.cap(p, k, &[S::PunctCommentBeginDoc]);
-        self.cap_retok(k, m, &[], Retok::Doxy);
-        self.cap(m, m + 2, &[S::PunctCommentEndDoc]);
-        self.plain(p, m + 2, &[S::CommentBlockDoc])
+        self.span(p, k, &[S::PunctCommentBeginDoc]);
+        self.span_retok(k, m, &[], R::Doxy);
+        self.span(m, m + 2, &[S::PunctCommentEndDoc]);
+        self.plain(p, m + 2)
     }
 
     /// `((?>\s*)/\*[!*]+(?:(?:\n|$)|(?=\s)))`: the start of a documentation
@@ -260,19 +260,19 @@ impl Lexer<'_> {
         while matches!(self.b(e), b'!' | b'*') && e < self.len_all() {
             e += 1;
         }
-        if e == q + 2 || !(e == self.lim || self.space_at(e) > 0) {
+        if e == q + 2 || !(e == self.lim() || self.space_at(e) > 0) {
             return false;
         }
-        let end = if e == self.lim && self.nl { e + 1 } else { e };
-        self.cap(p, end, &[S::PunctCommentBeginDoc]);
-        self.begin(p, end, R::DocBlock)
+        let end = if e == self.lim() && self.nl { e + 1 } else { e };
+        self.span(p, end, &[S::PunctCommentBeginDoc]);
+        self.begin(p, end)
     }
 
     /// The start of the whitespace run that ends at `end`, not before `floor`.
     fn space_run_start(&self, end: usize, floor: usize) -> usize {
         let mut g = end;
         while g > floor {
-            match self.char_before(g) {
+            match self.char_ending(g) {
                 Some(c) if self.space_at(g - c.len_utf8()) > 0 => g -= c.len_utf8(),
                 _ => break,
             }
@@ -285,15 +285,15 @@ impl Lexer<'_> {
         if p != 0 || !self.starts(0, b"/* =") || !self.nl {
             return false;
         }
-        let n = self.lim;
+        let n = self.lim();
         if n < 8 || !self.text(n - 4, n).eq(b"= */") {
             return false;
         }
         let suffix = n - 4;
         let lead = self.skip_space(4).min(suffix);
         let end = lead.max(self.space_run_start(suffix, 4));
-        self.cap(4, end, &[S::MetaTocBlock]);
-        self.plain(0, n + 1, &[S::CommentBlockBanner])
+        self.span(4, end, &[S::MetaTocBlock]);
+        self.plain(0, n + 1)
     }
 
     /// `^// =(\s*.*?)\s*=$\n?`.
@@ -301,15 +301,15 @@ impl Lexer<'_> {
         if p != 0 || !self.starts(0, b"// =") || !self.nl {
             return false;
         }
-        let n = self.lim;
+        let n = self.lim();
         if n < 5 || self.b(n - 1) != b'=' {
             return false;
         }
         let suffix = n - 1;
         let lead = self.skip_space(4).min(suffix);
         let end = lead.max(self.space_run_start(suffix, 4));
-        self.cap(4, end, &[S::MetaTocLine]);
-        self.plain(0, n + 1, &[S::CommentLineBanner])
+        self.span(4, end, &[S::MetaTocLine]);
+        self.plain(0, n + 1)
     }
 
     /// `(/\*)` and `\s*+(/\*)`: a block comment.
@@ -318,15 +318,15 @@ impl Lexer<'_> {
         if !self.starts(q, b"/*") {
             return false;
         }
-        self.cap(q, q + 2, &[S::PunctCommentBegin]);
-        self.begin(p, q + 2, R::BlockComment)
+        self.span(q, q + 2, &[S::PunctCommentBegin]);
+        self.begin(p, q + 2)
     }
 
     /// `((?:^[\t ]+)?)(?=//)`: the start of a line comment, with the
     /// indentation of the line it starts.
     pub(super) fn line_leading(&mut self, p: usize) -> bool {
         if self.starts(p, b"//") {
-            return self.begin(p, p, R::LineLeading);
+            return self.begin(p, p);
         }
         if p != 0 || !matches!(self.b(0), b' ' | b'\t') {
             return false;
@@ -338,8 +338,8 @@ impl Lexer<'_> {
         if !self.starts(k, b"//") {
             return false;
         }
-        self.cap(0, k, &[S::PunctWhitespaceLeading]);
-        self.begin(0, k, R::LineLeading)
+        self.span(0, k, &[S::PunctWhitespaceLeading]);
+        self.begin(0, k)
     }
 
     /// `(//)` inside the start of a line comment.
@@ -347,8 +347,8 @@ impl Lexer<'_> {
         if !self.starts(p, b"//") {
             return false;
         }
-        self.cap(p, p + 2, &[S::PunctComment]);
-        self.begin(p, p + 2, R::LineSlash)
+        self.span(p, p + 2, &[S::PunctComment]);
+        self.begin(p, p + 2)
     }
 
     /// `\s*+(//)`: a line comment.
@@ -357,8 +357,8 @@ impl Lexer<'_> {
         if !self.starts(q, b"//") {
             return false;
         }
-        self.cap(q, q + 2, &[S::PunctComment]);
-        self.begin(p, q + 2, R::LineComment)
+        self.span(q, q + 2, &[S::PunctComment]);
+        self.begin(p, q + 2)
     }
 
     /// The end of a complete `/* … */` comment at `p`:
@@ -399,10 +399,10 @@ impl Lexer<'_> {
         let Some((close, end)) = self.inline_comment_at(p) else {
             return false;
         };
-        self.cap(p, p + 2, &[S::CommentBlock, S::PunctCommentBegin]);
-        self.cap(p + 2, end, &[S::CommentBlock]);
-        self.cap_retok(close, end, &[], Retok::InlineClose);
-        self.plain(p, end, &[])
+        self.span(p, p + 2, &[S::CommentBlock, S::PunctCommentBegin]);
+        self.span(p + 2, end, &[S::CommentBlock]);
+        self.span_retok(close, end, &[], R::InlineClose);
+        self.plain(p, end)
     }
 
     /// `(?<=[!*/\s])[@\\]`: where a Doxygen command starts.
@@ -414,7 +414,7 @@ impl Lexer<'_> {
             None => false,
             Some(b'!' | b'*' | b'/') => true,
             Some(_) => {
-                let width = self.char_before(p).map_or(1, char::len_utf8);
+                let width = self.char_ending(p).map_or(1, char::len_utf8);
                 self.space_at(p - width) > 0
             }
         };
@@ -451,7 +451,7 @@ impl Lexer<'_> {
             return false;
         };
         let end = self.doxy_braces(end);
-        self.plain(p, end, &[S::StorageDoxygen])
+        self.plain(p, end)
     }
 
     /// A command of `words`, whitespace and the argument that follows.
@@ -476,9 +476,9 @@ impl Lexer<'_> {
             if arg_end == arg_start {
                 continue;
             }
-            self.cap(p, word_end, &[S::StorageDoxygen]);
-            self.cap(arg_start, arg_end, scope);
-            return self.plain(p, arg_end, &[]);
+            self.span(p, word_end, &[S::StorageDoxygen]);
+            self.span(arg_start, arg_end, scope);
+            return self.plain(p, arg_end);
         }
         false
     }
@@ -496,17 +496,17 @@ impl Lexer<'_> {
         if let Some((open, close, after)) = self.param_directions(e)
             && let Some((ws_end, word_end)) = self.param_name(after)
         {
-            self.cap(p, e, &[S::StorageDoxygen]);
-            self.cap_retok(open, close, &[], Retok::ParamDir);
-            self.cap(ws_end, word_end, &[S::VariableParameter]);
-            return self.plain(p, word_end, &[]);
+            self.span(p, e, &[S::StorageDoxygen]);
+            self.span_retok(open, close, &[], R::ParamDir);
+            self.span(ws_end, word_end, &[S::VariableParameter]);
+            return self.plain(p, word_end);
         }
         let Some((ws_end, word_end)) = self.param_name(e) else {
             return false;
         };
-        self.cap(p, e, &[S::StorageDoxygen]);
-        self.cap(ws_end, word_end, &[S::VariableParameter]);
-        self.plain(p, word_end, &[])
+        self.span(p, e, &[S::StorageDoxygen]);
+        self.span(ws_end, word_end, &[S::VariableParameter]);
+        self.plain(p, word_end)
     }
 
     /// `\s*\[((?:,?\s*(?:in|out)\s*)+)]`: where the directions start and
@@ -557,7 +557,7 @@ impl Lexer<'_> {
                     "keyword.other.parameter.direction.",
                     (p, p + word.len()),
                 );
-                return self.plain(p, p + word.len(), &[]);
+                return self.plain(p, p + word.len());
             }
         }
         false
@@ -571,7 +571,7 @@ impl Lexer<'_> {
                 e += 1;
             }
             self.spend(e - p);
-            return e > p + 1 && self.b(e) == b':' && self.plain(p, e + 1, &[S::StorageGtkdoc]);
+            return e > p + 1 && self.b(e) == b':' && self.plain(p, e + 1);
         }
         if !self.b(p).is_ascii_uppercase() || self.word_before(p) {
             return false;
@@ -581,16 +581,11 @@ impl Lexer<'_> {
             e += 1;
         }
         self.spend(e - p);
-        self.b(e) == b':' && self.plain(p, e + 1, &[S::StorageGtkdoc])
+        self.b(e) == b':' && self.plain(p, e + 1)
     }
 
     /// `\*/` in a closing of an inline comment.
     pub(super) fn inline_end(&mut self, p: usize) -> bool {
-        self.starts(p, b"*/") && self.plain(p, p + 2, &[S::CommentBlock, S::PunctCommentEnd])
-    }
-
-    /// `\*` in a closing of an inline comment.
-    pub(super) fn inline_star(&mut self, p: usize) -> bool {
-        self.byte_rule(p, b'*', &[S::CommentBlock])
+        self.starts(p, b"*/") && self.plain(p, p + 2)
     }
 }

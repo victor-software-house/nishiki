@@ -2,16 +2,15 @@
 
 use super::engine::Lexer;
 use super::scope::S;
-use super::state::R;
 
 impl Lexer<'_> {
-    /// A quote that opens `rule` and has `begin` on it.
-    pub(super) fn quote(&mut self, p: usize, q: u8, rule: R) -> bool {
+    /// The quote `q`, with `punctuation.definition.string.begin` on it.
+    pub(super) fn quote(&mut self, p: usize, q: u8) -> bool {
         if p >= self.len_all() || self.b(p) != q {
             return false;
         }
-        self.cap(p, p + 1, &[S::PunctStringBegin]);
-        self.begin(p, p + 1, rule)
+        self.span(p, p + 1, &[S::PunctStringBegin]);
+        self.begin(p, p + 1)
     }
 
     fn hex_at(&self, i: usize) -> bool {
@@ -96,7 +95,7 @@ impl Lexer<'_> {
     /// A valid escape sequence.
     pub(super) fn esc_char(&mut self, p: usize) -> bool {
         match self.escape_end(p, false) {
-            Some(end) => self.plain(p, end, &[S::EscapeChar]),
+            Some(end) => self.plain(p, end),
             None => false,
         }
     }
@@ -104,7 +103,7 @@ impl Lexer<'_> {
     /// A valid escape sequence of an assembly string.
     pub(super) fn esc_backslash(&mut self, p: usize) -> bool {
         match self.escape_end(p, true) {
-            Some(end) => self.plain(p, end, &[S::EscapeChar]),
+            Some(end) => self.plain(p, end),
             None => false,
         }
     }
@@ -115,7 +114,7 @@ impl Lexer<'_> {
             return false;
         }
         match self.char_at(p + 1) {
-            Some((c, width)) if c != '\n' => self.plain(p, p + 1 + width, &[S::InvalidEscape]),
+            Some((c, end)) if c != '\n' => self.plain(p, end),
             _ => false,
         }
     }
@@ -128,7 +127,7 @@ impl Lexer<'_> {
             return false;
         }
         match self.ph_arg(p + 1) {
-            Some(end) => self.plain(p, end, &[S::Placeholder]),
+            Some(end) => self.plain(p, end),
             None => false,
         }
     }
@@ -153,7 +152,7 @@ impl Lexer<'_> {
             if let Some(found) = then(end) {
                 return Some(found);
             }
-            let width = self.char_before(end)?.len_utf8();
+            let width = self.char_ending(end)?.len_utf8();
             end -= width;
         }
         None
@@ -276,7 +275,7 @@ impl Lexer<'_> {
                 return false;
             }
         }
-        self.cap(p, p + 1, &[S::InvalidPlaceholder]);
-        self.plain(p, p + 1, &[])
+        self.span(p, p + 1, &[S::InvalidPlaceholder]);
+        self.plain(p, p + 1)
     }
 }

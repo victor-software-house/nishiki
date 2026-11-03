@@ -42,17 +42,17 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let (hash, k) = match self.head.get() {
+        let (hash, k) = match self.x.head.get() {
             Head::Plain => return None,
             Head::Directive { hash, word } => (hash, word),
             Head::Unknown => {
                 let hash = self.skip_space(0);
                 if hash >= self.len_all() || self.b(hash) != b'#' {
-                    self.head.set(Head::Plain);
+                    self.x.head.set(Head::Plain);
                     return None;
                 }
                 let word = self.skip_space(hash + 1);
-                self.head.set(Head::Directive { hash, word });
+                self.x.head.set(Head::Directive { hash, word });
                 (hash, word)
             }
         };
@@ -112,21 +112,14 @@ impl Lexer<'_> {
     /// word and the `#`.
     fn directive_caps(&mut self, dir: Dir, meta: Meta) {
         if meta == Meta::Whole {
-            self.cap(0, dir.kw.1, &[S::MetaPreprocessor]);
+            self.span(0, dir.kw.1, &[S::MetaPreprocessor]);
         }
-        self.cap(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
-        self.cap(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(dir.hash, dir.kw.1, &[S::DirectiveConditional]);
+        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
     }
 
     /// The begin of a conditional rule.
-    pub(super) fn cond_begin(
-        &mut self,
-        p: usize,
-        kws: &[&str],
-        look: Look,
-        meta: Meta,
-        rule: R,
-    ) -> bool {
+    pub(super) fn cond_begin(&mut self, p: usize, kws: &[&str], look: Look, meta: Meta) -> bool {
         let Some(dir) = self.directive(p, kws) else {
             return false;
         };
@@ -134,17 +127,17 @@ impl Lexer<'_> {
             return false;
         }
         self.directive_caps(dir, meta);
-        self.begin(0, dir.kw.1, rule)
+        self.begin(0, dir.kw.1)
     }
 
     /// `#if`, `#ifdef` and `#ifndef`.
-    pub(super) fn cond_if(&mut self, p: usize, rule: R) -> bool {
-        self.cond_begin(p, IF_FAMILY, Look::No, Meta::Whole, rule)
+    pub(super) fn cond_if(&mut self, p: usize) -> bool {
+        self.cond_begin(p, IF_FAMILY, Look::No, Meta::Whole)
     }
 
     /// The `#if` of a branch the grammar reads as live or dead.
-    pub(super) fn cond_if_look(&mut self, p: usize, look: Look, rule: R) -> bool {
-        self.cond_begin(p, &["if"], look, Meta::Whole, rule)
+    pub(super) fn cond_if_look(&mut self, p: usize, look: Look) -> bool {
+        self.cond_begin(p, &["if"], look, Meta::Whole)
     }
 
     /// `^\s*#\s*(e(?:lse|lif|ndif))\b`.
@@ -153,17 +146,17 @@ impl Lexer<'_> {
             return false;
         };
         self.cap_dyn(0, dir.kw.1, "invalid.illegal.stray-", dir.kw);
-        self.plain(0, dir.kw.1, &[])
+        self.plain(0, dir.kw.1)
     }
 
     /// `^\s*#\s*if(n?def)?\b.*$`: a conditional inside a dead branch.
     pub(super) fn nest_begin(&mut self, p: usize) -> bool {
-        self.directive(p, IF_FAMILY).is_some() && self.begin(0, self.lim, R::Nest)
+        self.directive(p, IF_FAMILY).is_some() && self.begin(0, self.lim())
     }
 
     /// A line feed that starts the body of a branch.
-    pub(super) fn newline_begin(&mut self, p: usize, rule: R) -> bool {
-        self.nl && p == self.lim && self.begin(p, p + 1, rule)
+    pub(super) fn newline_begin(&mut self, p: usize) -> bool {
+        self.nl && p == self.lim() && self.begin(p, p + 1)
     }
 
     /// Whether a comment starts at `p` that the head of a conditional line
@@ -177,9 +170,9 @@ impl Lexer<'_> {
         if !self.nl {
             return false;
         }
-        let mut e = self.lim;
+        let mut e = self.lim();
         while e > q {
-            match self.char_before(e) {
+            match self.char_ending(e) {
                 Some(c) if self.space_at(e - c.len_utf8()) > 0 => e -= c.len_utf8(),
                 _ => break,
             }
@@ -188,14 +181,14 @@ impl Lexer<'_> {
     }
 
     /// `\G(?=.)(?!/(?:/|\*(?!.*\\\s*\n)))`: the head of a conditional line.
-    pub(super) fn head_begin(&mut self, p: usize, rule: R) -> bool {
-        self.anchor == Some(p) && p < self.lim && !self.comment_starts(p) && self.begin(p, p, rule)
+    pub(super) fn head_begin(&mut self, p: usize) -> bool {
+        self.at_g(p) && p < self.lim() && !self.comment_starts(p) && self.begin(p, p)
     }
 
     /// The end of the head of a conditional line: a comment, or the end of
     /// the line that no backslash continues.
     pub(super) fn head_end(&mut self, p: usize, continued: bool) -> bool {
-        let line_end = self.nl && p == self.lim && !(continued && self.prev(p) == Some(b'\\'));
+        let line_end = self.nl && p == self.lim() && !(continued && self.prev(p) == Some(b'\\'));
         (self.comment_starts(p) || line_end) && self.end_at(p, p, None)
     }
 
@@ -207,10 +200,10 @@ impl Lexer<'_> {
         let e = p + 7;
         let s = self.skip_space(e);
         if s >= self.len_all() {
-            return self.plain(p, s, &[S::DirectiveConditional]);
+            return self.plain(p, s);
         }
         if self.defined_look(e) {
-            return self.plain(p, e, &[S::DirectiveConditional]);
+            return self.plain(p, e);
         }
         false
     }
@@ -241,7 +234,7 @@ impl Lexer<'_> {
             if self.boundary(end) && self.defined_tail(end) {
                 return true;
             }
-            let Some(c) = self.char_before(end) else {
+            let Some(c) = self.char_ending(end) else {
                 break;
             };
             end -= c.len_utf8();
@@ -258,7 +251,7 @@ impl Lexer<'_> {
         }
         self.spend(j - closes);
         let s = self.skip_space(j);
-        if s > self.lim && self.nl {
+        if s > self.lim() && self.nl {
             return true;
         }
         if self.starts(s, b"//")
@@ -269,7 +262,7 @@ impl Lexer<'_> {
         {
             return true;
         }
-        self.b(s) == b'\\' && s < self.len_all() && self.skip_space(s + 1) > self.lim
+        self.b(s) == b'\\' && s < self.len_all() && self.skip_space(s + 1) > self.lim()
     }
 
     /// `\bdefined\b` that no directive keyword lookahead takes.
@@ -277,7 +270,7 @@ impl Lexer<'_> {
         self.starts(p, b"defined")
             && !self.word_before(p)
             && self.word_at(p + 7) == 0
-            && self.plain(p, p + 7, &[S::InvalidMacroName])
+            && self.plain(p, p + 7)
     }
 
     /// `[$A-Z_a-z][$\w]*`, with `extra` the other characters the name has.
@@ -296,46 +289,34 @@ impl Lexer<'_> {
     }
 
     /// A macro name, with `scope`.
-    pub(super) fn macro_name(&mut self, p: usize, extra: u8, scope: &'static [S]) -> bool {
+    pub(super) fn macro_name(&mut self, p: usize, extra: u8) -> bool {
         match self.name_end(p, extra) {
-            Some(end) => self.plain(p, end, scope),
+            Some(end) => self.plain(p, end),
             None => false,
         }
     }
 
-    /// A one-word directive that opens `rule` and has `scope` on its word:
+    /// A one-word directive with `scope` on its word:
     /// `^\s*((#)\s*word)\b`.
-    pub(super) fn line_directive(
-        &mut self,
-        p: usize,
-        word: &str,
-        scope: &'static [S],
-        rule: R,
-    ) -> bool {
+    pub(super) fn line_directive(&mut self, p: usize, word: &str, scope: &'static [S]) -> bool {
         let Some(dir) = self.directive(p, &[word]) else {
             return false;
         };
-        self.cap(dir.hash, dir.kw.1, scope);
-        self.cap(dir.hash, dir.hash + 1, &[S::PunctDirective]);
-        self.begin(0, dir.kw.1, rule)
+        self.span(dir.hash, dir.kw.1, scope);
+        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.begin(0, dir.kw.1)
     }
 
     /// `^\s*((#)\s*(error|warning))\b\s*` and the include directives, whose
     /// word names the scope.
-    pub(super) fn named_directive(
-        &mut self,
-        p: usize,
-        kws: &[&str],
-        prefix: &'static str,
-        rule: R,
-    ) -> bool {
+    pub(super) fn named_directive(&mut self, p: usize, kws: &[&str], prefix: &'static str) -> bool {
         let Some(dir) = self.directive(p, kws) else {
             return false;
         };
         self.cap_dyn(dir.hash, dir.kw.1, prefix, dir.kw);
-        self.cap(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
         let end = self.skip_space(dir.kw.1);
-        self.begin(0, end, rule)
+        self.begin(0, end)
     }
 
     /// `^\s*(((#)\s*pragma\s+mark)\s+(.*))`.
@@ -354,16 +335,16 @@ impl Lexer<'_> {
             return false;
         }
         let mut end = t;
-        while end < self.lim {
+        while end < self.lim() {
             end += self.width_at(end);
         }
         self.spend(end - t);
         let text_start = t.min(end);
-        self.cap(dir.hash, end, &[S::MetaPreprocessorPragma]);
-        self.cap(dir.hash, mark_end, &[S::DirectivePragmaMark]);
-        self.cap(dir.hash, dir.hash + 1, &[S::PunctDirective]);
-        self.cap(text_start, end, &[S::EntityTagPragmaMark]);
-        self.plain(0, end.max(t), &[S::MetaSection])
+        self.span(dir.hash, end, &[S::MetaPreprocessorPragma]);
+        self.span(dir.hash, mark_end, &[S::DirectivePragmaMark]);
+        self.span(dir.hash, dir.hash + 1, &[S::PunctDirective]);
+        self.span(text_start, end, &[S::EntityTagPragmaMark]);
+        self.plain(0, end.max(t))
     }
 
     /// The prefix of a `#define`: white space and comments, as the
@@ -417,16 +398,16 @@ impl Lexer<'_> {
                 end = close + 1;
             }
         }
-        self.cap_retok(p, q, &[], super::engine::Retok::Inline);
-        self.cap(q, keyword_end, &[S::DirectiveDefine]);
-        self.cap(q, q + 1, &[S::PunctDirective]);
-        self.cap(ws, name_end, &[S::EntityFunctionPre]);
+        self.span_retok(p, q, &[], R::Inline);
+        self.span(q, keyword_end, &[S::DirectiveDefine]);
+        self.span(q, q + 1, &[S::PunctDirective]);
+        self.span(ws, name_end, &[S::EntityFunctionPre]);
         if let Some((open, close)) = params {
-            self.cap(open - 1, open, &[S::PunctParamsBegin]);
-            self.cap_retok(open, close, &[], super::engine::Retok::DefineParams);
-            self.cap(close, close + 1, &[S::PunctParamsEnd]);
+            self.span(open - 1, open, &[S::PunctParamsBegin]);
+            self.span_retok(open, close, &[], R::DefineParams);
+            self.span(close, close + 1, &[S::PunctParamsEnd]);
         }
-        self.begin(p, end, R::Define)
+        self.begin(p, end)
     }
 
     /// `(?<=[(,])\s*(name)\s*` in the parameters of a macro.
@@ -439,50 +420,49 @@ impl Lexer<'_> {
             return false;
         };
         let r = self.skip_space(end);
-        self.cap(q, end, &[S::VariableParamPre]);
-        self.plain(p, r, &[])
+        self.span(q, end, &[S::VariableParamPre]);
+        self.plain(p, r)
     }
 
     /// The lookahead that starts a call inside a macro:
     /// `(?!(?:…)\s*\()(?=name\s*\()`.
     pub(super) fn define_func(&mut self, p: usize) -> bool {
-        self.call_target(p, wordset::DEFINE_EXCL).is_some() && self.begin(p, p, R::DefineFunc)
+        self.call_target(p, wordset::DEFINE_EXCL).is_some() && self.begin(p, p)
     }
 
-    /// A `{` that opens `rule`, with `S::PunctBlockBegin` on it.
-    pub(super) fn brace(&mut self, p: usize, rule: R) -> bool {
+    /// A `{`, with `S::PunctBlockBegin` on it.
+    pub(super) fn brace(&mut self, p: usize) -> bool {
         if self.b(p) != b'{' || p >= self.len_all() {
             return false;
         }
-        self.cap(p, p + 1, &[S::PunctBlockBegin]);
-        self.begin(p, p + 1, rule)
+        self.span(p, p + 1, &[S::PunctBlockBegin]);
+        self.begin(p, p + 1)
     }
 
-    /// A `(` that opens `rule`, with `S::PunctParensBegin` on it.
-    pub(super) fn paren(&mut self, p: usize, rule: R) -> bool {
+    /// A `(`, with `S::PunctParensBegin` on it.
+    pub(super) fn paren(&mut self, p: usize) -> bool {
         if self.b(p) != b'(' || p >= self.len_all() {
             return false;
         }
-        self.cap(p, p + 1, &[S::PunctParensBegin]);
-        self.begin(p, p + 1, rule)
+        self.span(p, p + 1, &[S::PunctParensBegin]);
+        self.begin(p, p + 1)
     }
 
     /// A single `?` that opens a ternary of a conditional line.
-    pub(super) fn ternary_begin(&mut self, p: usize, rule: R) -> bool {
+    pub(super) fn ternary_begin(&mut self, p: usize) -> bool {
         if self.b(p) != b'?' || p >= self.len_all() {
             return false;
         }
-        self.cap(p, p + 1, &[S::OpTernary]);
-        self.begin(p, p + 1, rule)
+        self.span(p, p + 1, &[S::OpTernary]);
+        self.begin(p, p + 1)
     }
 
     /// `[^"']`: any one character but a quote.
-    pub(super) fn any_but_quote(&mut self, p: usize, rule: R) -> bool {
+    pub(super) fn any_but_quote(&mut self, p: usize) -> bool {
         if p >= self.len_all() || matches!(self.b(p), b'"' | b'\'') {
             return false;
         }
-        let width = self.char_at(p).map_or(1, |(_, width)| width);
-        self.begin(p, p + width, rule)
+        self.begin(p, p + self.width_at(p))
     }
 
     /// `<`: the start of a header name.
@@ -490,7 +470,7 @@ impl Lexer<'_> {
         if self.b(p) != b'<' || p >= self.len_all() {
             return false;
         }
-        self.cap(p, p + 1, &[S::PunctStringBegin]);
-        self.begin(p, p + 1, R::IncludeLt)
+        self.span(p, p + 1, &[S::PunctStringBegin]);
+        self.begin(p, p + 1)
     }
 }

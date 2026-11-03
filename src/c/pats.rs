@@ -1,21 +1,201 @@
-//! The patterns of the grammar, by name: what each one matches at a byte.
+//! The patterns of the grammar, by name: what each one does when it matches,
+//! and what decides where it matches.
 
 use super::access::CallKind;
-use super::engine::Lexer;
+use super::engine::{C, Lexer};
 use super::lists::P;
 use super::preproc::{Look, Meta};
 use super::scope::S;
 use super::state::R;
 use super::{comments, wordset};
+use crate::rules::Act;
+
+impl P {
+    /// What the pattern does when it matches: the scopes it names its text
+    /// with, the rule it opens, or the end of the innermost rule. The
+    /// matchers record only where a match lies and the scopes of its parts.
+    #[expect(
+        clippy::too_many_lines,
+        reason = "one arm per pattern: the table of what each pattern does"
+    )]
+    pub(super) fn act(self) -> Act<C> {
+        match self {
+            P::End => Act::End,
+            P::DocLine => Act::Begin(R::DocLine),
+            P::DocBlockBegin => Act::Begin(R::DocBlock),
+            P::BlockComment => Act::Begin(R::BlockComment),
+            P::LineLeading => Act::Begin(R::LineLeading),
+            P::LineSlash => Act::Begin(R::LineSlash),
+            P::LineComment => Act::Begin(R::LineComment),
+            P::DQuote => Act::Begin(R::DQuote),
+            P::SQuote => Act::Begin(R::SQuote),
+            P::Ternary => Act::Begin(R::Ternary),
+            P::AsmBegin => Act::Begin(R::Asm),
+            P::BracketBegin => Act::Begin(R::Bracket),
+            P::BlockBegin => Act::Begin(R::Block),
+            P::BlockInnerBegin => Act::Begin(R::BlockInner),
+            P::ParensBegin => Act::Begin(R::Parens),
+            P::ParensBlockBegin => Act::Begin(R::ParensBlock),
+            P::FuncDefBegin => Act::Begin(R::FuncDef),
+            P::FuncParamsBegin => Act::Begin(R::FuncParams),
+            P::FuncParensBegin => Act::Begin(R::FuncParens),
+            P::CallBegin => Act::Begin(R::CallArgs),
+            P::CallParensBegin => Act::Begin(R::CallParens),
+            P::CFunctionCall => Act::Begin(R::FuncCall),
+            P::MethodAccess => Act::Begin(R::Method),
+            P::InitBegin => Act::Begin(R::Init),
+            P::DefineBegin => Act::Begin(R::Define),
+            P::DiagBegin => Act::Begin(R::Diag),
+            P::IncludeBegin => Act::Begin(R::Include),
+            P::LineDirBegin => Act::Begin(R::LineDir),
+            P::UndefBegin => Act::Begin(R::Undef),
+            P::PragmaDirBegin => Act::Begin(R::PragmaDir),
+            P::DefineBlockBegin => Act::Begin(R::DefineBlock),
+            P::DefineBlockInnerBegin => Act::Begin(R::DefineBlockInner),
+            P::DefineFuncBegin => Act::Begin(R::DefineFunc),
+            P::DefineCallBegin => Act::Begin(R::DefineCall),
+            P::DefineParensBegin => Act::Begin(R::DefineParens),
+            P::DefineDQuoteBegin => Act::Begin(R::DefineDQuote),
+            P::DefineSQuoteBegin => Act::Begin(R::DefineSQuote),
+            P::DiagDQuoteBegin => Act::Begin(R::DiagDQuote),
+            P::DiagSQuoteBegin => Act::Begin(R::DiagSQuote),
+            P::DiagTextBegin => Act::Begin(R::DiagText),
+            P::IncludeDQBegin => Act::Begin(R::IncludeDQ),
+            P::IncludeLtBegin => Act::Begin(R::IncludeLt),
+            P::CondIfBegin => Act::Begin(R::CondIf),
+            P::CondIfBBegin => Act::Begin(R::CondIfB),
+            P::EnabledIfBegin => Act::Begin(R::EnabledIf),
+            P::EnabledIfBBegin => Act::Begin(R::EnabledIfB),
+            P::DisabledIfBegin => Act::Begin(R::DisabledIf),
+            P::DisabledIfBBegin => Act::Begin(R::DisabledIfB),
+            P::HeadContBegin => Act::Begin(R::HeadCont),
+            P::HeadPlainBegin => Act::Begin(R::HeadPlain),
+            P::CondElifBegin => Act::Begin(R::CondElif),
+            P::LiveElifBegin => Act::Begin(R::LiveElif),
+            P::LiveElifBBegin => Act::Begin(R::LiveElifB),
+            P::LiveElseBegin => Act::Begin(R::LiveElse),
+            P::LiveElseBBegin => Act::Begin(R::LiveElseB),
+            P::DisabledElifBegin => Act::Begin(R::DisabledElif),
+            P::DisabledElifOtherBegin => Act::Begin(R::DisabledElifOther),
+            P::DisabledElifOtherBBegin => Act::Begin(R::DisabledElifOtherB),
+            P::ElseBranchBegin => Act::Begin(R::ElseBranch),
+            P::ElseBranchBBegin => Act::Begin(R::ElseBranchB),
+            P::ElifBranchBegin => Act::Begin(R::ElifBranch),
+            P::ElifBranchBBegin => Act::Begin(R::ElifBranchB),
+            P::EnabledBodyBegin => Act::Begin(R::EnabledBody),
+            P::EnabledBodyBBegin => Act::Begin(R::EnabledBodyB),
+            P::DisabledBodyBegin => Act::Begin(R::DisabledBody),
+            P::DisabledBodyBBegin => Act::Begin(R::DisabledBodyB),
+            P::DisabledElifBodyBegin => Act::Begin(R::DisabledElifBody),
+            P::ElifTailBegin => Act::Begin(R::ElifTail),
+            P::ElifTailBBegin => Act::Begin(R::ElifTailB),
+            P::ElifElseBegin => Act::Begin(R::ElifElse),
+            P::ElifElseBBegin => Act::Begin(R::ElifElseB),
+            P::ElifElifBegin => Act::Begin(R::ElifElif),
+            P::NestBegin => Act::Begin(R::Nest),
+            P::CondTernaryBegin => Act::Begin(R::CondTernary),
+            P::CondParensBegin => Act::Begin(R::CondParens),
+            P::SwitchBegin => Act::Begin(R::Switch),
+            P::SwitchHeadBegin => Act::Begin(R::SwitchHead),
+            P::SwitchBodyBegin => Act::Begin(R::SwitchBody),
+            P::SwitchTailBegin => Act::Begin(R::SwitchTail),
+            P::SwitchParensBegin => Act::Begin(R::SwitchParens),
+            P::CaseBegin => Act::Begin(R::Case),
+            P::DefaultBegin => Act::Begin(R::Default),
+            P::AsmParensBegin => Act::Begin(R::AsmParens),
+            P::AsmStringBegin => Act::Begin(R::AsmString),
+            P::AsmInnerBegin => Act::Begin(R::AsmInner),
+            P::DocBlockOne => Act::Match(&[S::CommentBlockDoc]),
+            P::BannerBlock => Act::Match(&[S::CommentBlockBanner]),
+            P::BannerLine => Act::Match(&[S::CommentLineBanner]),
+            P::DoxyBare | P::DoxyWordA | P::DoxyWordB | P::DoxyWordC | P::DoxyWordD => {
+                Act::Match(&[S::StorageDoxygen])
+            }
+            P::Gtkdoc => Act::Match(&[S::StorageGtkdoc]),
+            P::InlineEnd => Act::Match(&[S::CommentBlock, S::PunctCommentEnd]),
+            P::InlineStar => Act::Match(&[S::CommentBlock]),
+            P::EscChar | P::EscBackslash => Act::Match(&[S::EscapeChar]),
+            P::EscInvalid => Act::Match(&[S::InvalidEscape]),
+            P::Placeholder => Act::Match(&[S::Placeholder]),
+            P::NumSep => Act::Match(&[S::PunctSeparatorNumeric]),
+            P::Sizeof => Act::Match(&[S::OpSizeof]),
+            P::Decrement => Act::Match(&[S::OpDecrement]),
+            P::Increment => Act::Match(&[S::OpIncrement]),
+            P::CompoundAssign => Act::Match(&[S::OpAssignCompound]),
+            P::BitwiseAssign => Act::Match(&[S::OpAssignBitwise]),
+            P::Shift => Act::Match(&[S::OpShift]),
+            P::Compare => Act::Match(&[S::OpCompare]),
+            P::Logical => Act::Match(&[S::OpLogical]),
+            P::BitOp | P::Arith => Act::Match(&[S::Operator]),
+            P::Assign => Act::Match(&[S::OpAssign]),
+            P::KeywordControl => Act::Match(&[S::KeywordControl]),
+            P::Primitive => Act::Match(&[S::StoragePrimitive]),
+            P::BuiltIn => Act::Match(&[S::StorageBuiltin]),
+            P::Typedef => Act::Match(&[S::KeywordTypedef]),
+            P::Modifier => Act::Match(&[S::StorageModifier]),
+            P::MacK => Act::Match(&[S::ConstantMacClassic]),
+            P::MacG => Act::Match(&[S::VariableMacGlobal]),
+            P::MacS => Act::Match(&[S::VariableMacStatic]),
+            P::ConstLang | P::CondConstant => Act::Match(&[S::ConstantLanguage]),
+            P::SysTypes => Act::Match(&[S::SupportSysTypes]),
+            P::Pthread => Act::Match(&[S::SupportPthread]),
+            P::Stdint => Act::Match(&[S::SupportStdint]),
+            P::MacConst => Act::Match(&[S::SupportMacConstant]),
+            P::MacType => Act::Match(&[S::SupportMacType]),
+            P::PosixReserved => Act::Match(&[S::SupportPosix]),
+            P::Semi => Act::Match(&[S::PunctTerminator]),
+            P::Comma => Act::Match(&[S::PunctDelimiter]),
+            P::BracketEmpty => Act::Match(&[S::StorageArray]),
+            P::Vararg => Act::Match(&[S::PunctVararg]),
+            P::RangeColon => Act::Match(&[S::PunctRangeBased]),
+            P::DefineParamComma => Act::Match(&[S::PunctParameters]),
+            P::DefineParamEllipsis => Act::Match(&[S::Ellipses, S::PunctVarargParam]),
+            P::PragmaMark => Act::Match(&[S::MetaSection]),
+            P::DefineLParen => Act::Match(&[S::PunctParensBegin]),
+            P::DefineRParen => Act::Match(&[S::PunctParensEnd]),
+            P::UndefName | P::CondNamed => Act::Match(&[S::EntityFunctionPre]),
+            P::PragmaName => Act::Match(&[S::EntityAttrPragma]),
+            P::CondDefinedKeyword => Act::Match(&[S::DirectiveConditional]),
+            P::CondDefinedInvalid => Act::Match(&[S::InvalidMacroName]),
+            P::AsmColon => Act::Match(&[S::PunctColonAsm]),
+            P::InvalidNumber => Act::Match(&[S::InvalidNumeric]),
+            P::DoxyItalic
+            | P::DoxyBold
+            | P::DoxyRaw
+            | P::DoxyParam
+            | P::InlineComment
+            | P::PlaceholderBad
+            | P::LineCont
+            | P::Number
+            | P::EnumStructUnion
+            | P::Predefined
+            | P::PredefinedProbably
+            | P::Probably
+            | P::MemberAccess
+            | P::PlainAccess
+            | P::DefineParamName
+            | P::Stray
+            | P::AsmLineEnd
+            | P::AsmLabel
+            | P::ParamDir
+            | P::HexFloat
+            | P::DecFloat
+            | P::Binary
+            | P::Octal
+            | P::HexInt
+            | P::DecInt => Act::Match(&[]),
+        }
+    }
+}
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`; the match is in `hit` and `sp`.
+    /// Whether `pat` matches at `p`; the match's start and end are in `x`,
+    /// and its parts in the spans.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per pattern: the table of what each pattern matches"
     )]
-    pub(super) fn try_pat(&mut self, pat: P, p: usize) -> bool {
-        self.sp.truncate(self.span_base());
+    pub(super) fn match_pat(&mut self, pat: P, p: usize) -> bool {
         match pat {
             P::DocLine => self.doc_line(p),
             P::DocBlockOne => self.doc_block_one(p),
@@ -38,9 +218,11 @@ impl Lexer<'_> {
             P::Gtkdoc => self.gtkdoc(p),
             P::InlineComment => self.inline_comment(p),
             P::InlineEnd => self.inline_end(p),
-            P::InlineStar => self.inline_star(p),
-            P::DQuote => self.quote(p, b'"', R::DQuote),
-            P::SQuote => self.quote(p, b'\'', R::SQuote),
+            P::InlineStar => self.byte_rule(p, b'*'),
+            P::DQuote | P::DefineDQuoteBegin | P::DiagDQuoteBegin | P::IncludeDQBegin => {
+                self.quote(p, b'"')
+            }
+            P::SQuote | P::DefineSQuoteBegin | P::DiagSQuoteBegin => self.quote(p, b'\''),
             P::EscChar => self.esc_char(p),
             P::EscBackslash => self.esc_backslash(p),
             P::EscInvalid => self.esc_invalid(p),
@@ -48,7 +230,7 @@ impl Lexer<'_> {
             P::PlaceholderBad => self.placeholder_bad(p),
             P::LineCont => self.line_cont(p),
             P::Number => self.number_match(p),
-            P::NumSep => self.digit_sep(p) && self.plain(p, p + 1, &[S::PunctSeparatorNumeric]),
+            P::NumSep => self.digit_sep(p) && self.plain(p, p + 1),
             P::Sizeof => self.sizeof(p),
             P::Decrement => self.op_dec(p),
             P::Increment => self.op_inc(p),
@@ -60,44 +242,45 @@ impl Lexer<'_> {
             P::BitOp => self.op_bit(p),
             P::Assign => self.op_assign(p),
             P::Arith => self.op_arith(p),
-            P::Ternary => self.ternary_begin(p, R::Ternary),
-            P::KeywordControl => self.word_rule(p, wordset::CONTROL, &[S::KeywordControl]),
-            P::Primitive => self.word_rule(p, wordset::PRIMITIVE, &[S::StoragePrimitive]),
-            P::BuiltIn => self.word_rule(p, wordset::BUILTIN, &[S::StorageBuiltin]),
+            P::Ternary | P::CondTernaryBegin => self.ternary_begin(p),
+            P::KeywordControl => self.word_rule(p, wordset::CONTROL),
+            P::Primitive => self.word_rule(p, wordset::PRIMITIVE),
+            P::BuiltIn => self.word_rule(p, wordset::BUILTIN),
             P::EnumStructUnion => self.enum_struct_union(p),
             P::AsmBegin => self.asm_begin(p),
             P::Typedef => self.typedef(p),
-            P::Modifier => self.word_rule(p, wordset::MODIFIER, &[S::StorageModifier]),
-            P::MacK => self.mac_classic(p, b'k', &[S::ConstantMacClassic]),
-            P::MacG => self.mac_classic(p, b'g', &[S::VariableMacGlobal]),
-            P::MacS => self.mac_classic(p, b's', &[S::VariableMacStatic]),
-            P::ConstLang | P::CondConstant => {
-                self.word_rule(p, wordset::CONSTANT, &[S::ConstantLanguage])
-            }
-            P::SysTypes => self.word_rule(p, wordset::SYS_TYPES, &[S::SupportSysTypes]),
-            P::Pthread => self.word_rule(p, wordset::PTHREAD, &[S::SupportPthread]),
-            P::Stdint => self.word_rule(p, wordset::STDINT, &[S::SupportStdint]),
-            P::MacConst => self.word_rule(p, wordset::MAC_CONSTANT, &[S::SupportMacConstant]),
-            P::MacType => self.word_rule(p, wordset::MAC_TYPE, &[S::SupportMacType]),
+            P::Modifier => self.word_rule(p, wordset::MODIFIER),
+            P::MacK => self.mac_classic(p, b'k'),
+            P::MacG => self.mac_classic(p, b'g'),
+            P::MacS => self.mac_classic(p, b's'),
+            P::ConstLang | P::CondConstant => self.word_rule(p, wordset::CONSTANT),
+            P::SysTypes => self.word_rule(p, wordset::SYS_TYPES),
+            P::Pthread => self.word_rule(p, wordset::PTHREAD),
+            P::Stdint => self.word_rule(p, wordset::STDINT),
+            P::MacConst => self.word_rule(p, wordset::MAC_CONSTANT),
+            P::MacType => self.word_rule(p, wordset::MAC_TYPE),
             P::PosixReserved => self.posix_reserved(p),
             P::Predefined => self.predefined(p),
             P::PredefinedProbably => self.predefined_probably(p),
-            P::Semi => self.byte_rule(p, b';', &[S::PunctTerminator]),
-            P::Comma => self.byte_rule(p, b',', &[S::PunctDelimiter]),
+            P::Semi => self.byte_rule(p, b';'),
+            P::Comma | P::DefineParamComma => self.byte_rule(p, b','),
             P::BracketBegin => self.bracket_begin(p),
             P::BracketEmpty => self.bracket_empty(p),
             P::Vararg => self.vararg(p),
-            P::BlockBegin => self.brace(p, R::Block),
-            P::BlockInnerBegin => self.brace(p, R::BlockInner),
-            P::ParensBegin => self.paren(p, R::Parens),
-            P::ParensBlockBegin => self.paren(p, R::ParensBlock),
+            P::BlockBegin | P::BlockInnerBegin | P::DefineBlockBegin | P::DefineBlockInnerBegin => {
+                self.brace(p)
+            }
+            P::ParensBegin
+            | P::ParensBlockBegin
+            | P::FuncParensBegin
+            | P::CallParensBegin
+            | P::DefineParensBegin
+            | P::CondParensBegin => self.paren(p),
             P::RangeColon => self.range_colon(p),
             P::FuncDefBegin => self.func_def(p),
-            P::FuncParamsBegin => self.call_like(p, R::FuncParams, CallKind::Params),
-            P::FuncParensBegin => self.paren(p, R::FuncParens),
+            P::FuncParamsBegin => self.call_like(p, CallKind::Params),
             P::Probably => self.probably(p),
-            P::CallBegin => self.call_like(p, R::CallArgs, CallKind::Args),
-            P::CallParensBegin => self.paren(p, R::CallParens),
+            P::CallBegin | P::DefineCallBegin => self.call_like(p, CallKind::Args),
             P::CFunctionCall => self.function_call(p),
             P::MethodAccess => self.method_access(p),
             P::MemberAccess => self.member_access(p),
@@ -105,112 +288,81 @@ impl Lexer<'_> {
             P::InitBegin => self.init_begin(p),
             P::DefineBegin => self.define_begin(p),
             P::DefineParamName => self.define_param(p),
-            P::DefineParamComma => self.byte_rule(p, b',', &[S::PunctParameters]),
-            P::DefineParamEllipsis => {
-                self.starts(p, b"...") && self.plain(p, p + 3, &[S::Ellipses, S::PunctVarargParam])
-            }
+            P::DefineParamEllipsis => self.starts(p, b"...") && self.plain(p, p + 3),
             P::DiagBegin => self.named_directive(
                 p,
                 &["error", "warning"],
                 "keyword.control.directive.diagnostic.",
-                R::Diag,
             ),
             P::IncludeBegin => self.named_directive(
                 p,
                 &["include_next", "include", "import"],
                 "keyword.control.directive.",
-                R::Include,
             ),
             P::PragmaMark => self.pragma_mark(p),
-            P::LineDirBegin => self.line_directive(p, "line", &[S::DirectiveLine], R::LineDir),
-            P::UndefBegin => self.line_directive(p, "undef", &[S::DirectiveUndef], R::Undef),
-            P::PragmaDirBegin => {
-                self.line_directive(p, "pragma", &[S::DirectivePragma], R::PragmaDir)
-            }
-            P::DefineBlockBegin => self.brace(p, R::DefineBlock),
-            P::DefineBlockInnerBegin => self.brace(p, R::DefineBlockInner),
-            P::DefineLParen => self.byte_rule(p, b'(', &[S::PunctParensBegin]),
-            P::DefineRParen => self.byte_rule(p, b')', &[S::PunctParensEnd]),
+            P::LineDirBegin => self.line_directive(p, "line", &[S::DirectiveLine]),
+            P::UndefBegin => self.line_directive(p, "undef", &[S::DirectiveUndef]),
+            P::PragmaDirBegin => self.line_directive(p, "pragma", &[S::DirectivePragma]),
+            P::DefineLParen => self.byte_rule(p, b'('),
+            P::DefineRParen => self.byte_rule(p, b')'),
             P::DefineFuncBegin => self.define_func(p),
-            P::DefineCallBegin => self.call_like(p, R::DefineCall, CallKind::Args),
-            P::DefineParensBegin => self.paren(p, R::DefineParens),
-            P::DefineDQuoteBegin => self.quote(p, b'"', R::DefineDQuote),
-            P::DefineSQuoteBegin => self.quote(p, b'\'', R::DefineSQuote),
-            P::DiagDQuoteBegin => self.quote(p, b'"', R::DiagDQuote),
-            P::DiagSQuoteBegin => self.quote(p, b'\'', R::DiagSQuote),
-            P::DiagTextBegin => self.any_but_quote(p, R::DiagText),
-            P::IncludeDQBegin => self.quote(p, b'"', R::IncludeDQ),
+            P::DiagTextBegin => self.any_but_quote(p),
             P::IncludeLtBegin => self.angle_begin(p),
-            P::UndefName | P::CondNamed => self.macro_name(p, b'$', &[S::EntityFunctionPre]),
-            P::PragmaName => self.macro_name(p, b'-', &[S::EntityAttrPragma]),
-            P::CondIfBegin => self.cond_if(p, R::CondIf),
-            P::CondIfBBegin => self.cond_if(p, R::CondIfB),
-            P::EnabledIfBegin => self.cond_if_look(p, Look::Enabled, R::EnabledIf),
-            P::EnabledIfBBegin => self.cond_if_look(p, Look::Enabled, R::EnabledIfB),
-            P::DisabledIfBegin => self.cond_if_look(p, Look::Disabled, R::DisabledIf),
-            P::DisabledIfBBegin => self.cond_if_look(p, Look::Disabled, R::DisabledIfB),
+            P::UndefName | P::CondNamed => self.macro_name(p, b'$'),
+            P::PragmaName => self.macro_name(p, b'-'),
+            P::CondIfBegin | P::CondIfBBegin => self.cond_if(p),
+            P::EnabledIfBegin | P::EnabledIfBBegin => self.cond_if_look(p, Look::Enabled),
+            P::DisabledIfBegin | P::DisabledIfBBegin => self.cond_if_look(p, Look::Disabled),
             P::Stray => self.stray(p),
-            P::HeadContBegin => self.head_begin(p, R::HeadCont),
-            P::HeadPlainBegin => self.head_begin(p, R::HeadPlain),
-            P::CondElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Omitted, R::CondElif),
-            P::LiveElifBegin => {
-                self.cond_begin(p, &["elif"], Look::Enabled, Meta::Whole, R::LiveElif)
+            P::HeadContBegin | P::HeadPlainBegin => self.head_begin(p),
+            P::CondElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Omitted),
+            P::LiveElifBegin | P::LiveElifBBegin => {
+                self.cond_begin(p, &["elif"], Look::Enabled, Meta::Whole)
             }
-            P::LiveElifBBegin => {
-                self.cond_begin(p, &["elif"], Look::Enabled, Meta::Whole, R::LiveElifB)
-            }
-            P::LiveElseBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::LiveElse),
-            P::LiveElseBBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::LiveElseB),
-            P::DisabledElifBegin => {
-                self.cond_begin(p, &["elif"], Look::Disabled, Meta::Whole, R::DisabledElif)
-            }
-            P::DisabledElifOtherBegin => {
-                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::DisabledElifOther)
-            }
-            P::DisabledElifOtherBBegin => {
-                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::DisabledElifOtherB)
-            }
-            P::ElseBranchBegin => {
-                self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElseBranch)
-            }
-            P::ElseBranchBBegin => {
-                self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElseBranchB)
-            }
-            P::ElifBranchBegin => {
-                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifBranch)
-            }
-            P::ElifBranchBBegin => {
-                self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifBranchB)
-            }
-            P::EnabledBodyBegin => self.newline_begin(p, R::EnabledBody),
-            P::EnabledBodyBBegin => self.newline_begin(p, R::EnabledBodyB),
-            P::DisabledBodyBegin => self.newline_begin(p, R::DisabledBody),
-            P::DisabledBodyBBegin => self.newline_begin(p, R::DisabledBodyB),
-            P::DisabledElifBodyBegin => self.newline_begin(p, R::DisabledElifBody),
-            P::ElifTailBegin => self.newline_begin(p, R::ElifTail),
-            P::ElifTailBBegin => self.newline_begin(p, R::ElifTailB),
-            P::ElifElseBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElifElse),
-            P::ElifElseBBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole, R::ElifElseB),
-            P::ElifElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Whole, R::ElifElif),
+            P::DisabledElifBegin => self.cond_begin(p, &["elif"], Look::Disabled, Meta::Whole),
+            P::DisabledElifOtherBegin
+            | P::DisabledElifOtherBBegin
+            | P::ElifBranchBegin
+            | P::ElifBranchBBegin
+            | P::ElifElifBegin => self.cond_begin(p, &["elif"], Look::No, Meta::Whole),
+            P::LiveElseBegin
+            | P::LiveElseBBegin
+            | P::ElseBranchBegin
+            | P::ElseBranchBBegin
+            | P::ElifElseBegin
+            | P::ElifElseBBegin => self.cond_begin(p, &["else"], Look::No, Meta::Whole),
+            P::EnabledBodyBegin
+            | P::EnabledBodyBBegin
+            | P::DisabledBodyBegin
+            | P::DisabledBodyBBegin
+            | P::DisabledElifBodyBegin
+            | P::ElifTailBegin
+            | P::ElifTailBBegin => self.newline_begin(p),
             P::NestBegin => self.nest_begin(p),
             P::CondDefinedKeyword => self.cond_defined(p),
             P::CondDefinedInvalid => self.cond_defined_invalid(p),
-            P::CondTernaryBegin => self.ternary_begin(p, R::CondTernary),
-            P::CondParensBegin => self.paren(p, R::CondParens),
             P::SwitchBegin => self.switch_begin(p),
             P::SwitchHeadBegin => self.switch_head(p),
             P::SwitchBodyBegin => self.switch_body(p),
             P::SwitchTailBegin => self.switch_tail(p),
             P::SwitchParensBegin => self.switch_parens(p),
-            P::CaseBegin => self.label_begin(p, "case", &[S::KeywordCase], R::Case),
-            P::DefaultBegin => self.label_begin(p, "default", &[S::KeywordDefault], R::Default),
+            P::CaseBegin => self.label_begin(p, "case", &[S::KeywordCase]),
+            P::DefaultBegin => self.label_begin(p, "default", &[S::KeywordDefault]),
             P::AsmLineEnd => self.asm_line_end(p),
             P::AsmParensBegin => self.asm_parens(p),
             P::AsmStringBegin => self.asm_string(p),
             P::AsmInnerBegin => self.asm_inner(p),
             P::AsmLabel => self.asm_label(p),
-            P::AsmColon => self.byte_rule(p, b':', &[S::PunctColonAsm]),
+            P::AsmColon => self.byte_rule(p, b':'),
             P::ParamDir => self.param_dir(p),
+            P::End => self.try_end(self.top_rule(), p),
+            P::HexFloat => self.number_pattern(p, Self::hex_float),
+            P::DecFloat => self.number_pattern(p, Self::dec_float),
+            P::Binary => self.number_pattern(p, Self::binary),
+            P::Octal => self.number_pattern(p, Self::octal),
+            P::HexInt => self.number_pattern(p, Self::hex_int),
+            P::DecInt => self.number_pattern(p, Self::dec_int),
+            P::InvalidNumber => self.invalid_number(p),
         }
     }
 }

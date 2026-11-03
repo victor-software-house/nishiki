@@ -3,41 +3,42 @@
 
 use std::cell::Cell;
 
-use super::engine::{Act, Dyn, Hit, Lexer, Retok, Run, Span};
-use super::scope::S;
-use super::state::R;
+use super::engine::{Lexer, Run};
 use crate::classes;
 use crate::classes::is_ascii_space;
+use crate::rules::DynName;
 use crate::utf8::char_len;
 
 impl Lexer<'_> {
-    /// The character at `i` and its width; the line feed after the text
-    /// counts as a character.
-    pub(super) fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        if i >= self.len_all() {
-            return None;
-        }
-        let lead = self.b(i);
-        if lead < 0x80 {
-            return Some((char::from(lead), 1));
-        }
-        let width = char_len(lead);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
+    /// The number of characters the text has: the line, and its line feed.
+    pub(super) fn len_all(&self) -> usize {
+        self.s.len() + usize::from(self.nl)
     }
 
-    /// The character that ends at `i`.
-    pub(super) fn char_before(&self, i: usize) -> Option<char> {
-        let mut start = i.checked_sub(1)?;
-        if start >= self.s.len() {
-            return Some('\n');
+    /// The byte at `i`; the line feed after the text, and 0 past it.
+    #[inline]
+    pub(super) fn b(&self, i: usize) -> u8 {
+        self.at(i)
+    }
+
+    /// The width of the character at `i`, at least 1.
+    pub(super) fn width_at(&self, i: usize) -> usize {
+        self.s.get(i).map_or(1, |&lead| char_len(lead))
+    }
+
+    /// The character that ends at `i`, counting the line feed after the
+    /// text as one.
+    pub(super) fn char_ending(&self, i: usize) -> Option<char> {
+        if i > self.lim() {
+            Some('\n')
+        } else {
+            self.char_before(i)
         }
-        while start > 0 && self.s.get(start).is_some_and(|b| b & 0xc0 == 0x80) {
-            start -= 1;
-        }
-        let lead = *self.s.get(start)?;
-        let text = std::str::from_utf8(self.s.get(start..start + char_len(lead))?).ok()?;
-        text.chars().next()
+    }
+
+    /// The character at `i` and its width, for a byte that is not ASCII.
+    fn wide_char_at(&self, i: usize) -> Option<(char, usize)> {
+        self.char_at(i).map(|(c, end)| (c, end - i))
     }
 
     /// The width of the `\w` character at `i`, or 0.
@@ -46,7 +47,7 @@ impl Lexer<'_> {
         if b < 0x80 {
             return usize::from(i < self.len_all() && (b.is_ascii_alphanumeric() || b == b'_'));
         }
-        match self.char_at(i) {
+        match self.wide_char_at(i) {
             Some((c, width)) if classes::is_word(c) => width,
             _ => 0,
         }
@@ -57,7 +58,7 @@ impl Lexer<'_> {
         match self.prev(i) {
             None => false,
             Some(b) if b < 0x80 => b.is_ascii_alphanumeric() || b == b'_',
-            Some(_) => self.char_before(i).is_some_and(classes::is_word),
+            Some(_) => self.char_ending(i).is_some_and(classes::is_word),
         }
     }
 
@@ -67,7 +68,7 @@ impl Lexer<'_> {
         if b < 0x80 {
             return usize::from(i < self.len_all() && is_ascii_space(b));
         }
-        match self.char_at(i) {
+        match self.wide_char_at(i) {
             Some((c, width)) if classes::is_space(c) => width,
             _ => 0,
         }
@@ -79,7 +80,7 @@ impl Lexer<'_> {
         if b < 0x80 {
             return usize::from(i < self.len_all() && b.is_ascii_digit());
         }
-        match self.char_at(i) {
+        match self.wide_char_at(i) {
             Some((c, width)) if classes::is_digit(c) => width,
             _ => 0,
         }
@@ -109,12 +110,12 @@ impl Lexer<'_> {
 
     /// The end of `\s*` from `i`.
     pub(super) fn skip_space(&self, i: usize) -> usize {
-        self.run_end(i, &self.runs.space, |j| self.space_at(j))
+        self.run_end(i, &self.x.runs.space, |j| self.space_at(j))
     }
 
     /// The end of `\w*` from `i`.
     pub(super) fn skip_word(&self, i: usize) -> usize {
-        self.run_end(i, &self.runs.word, |j| self.word_at(j))
+        self.run_end(i, &self.x.runs.word, |j| self.word_at(j))
     }
 
     /// The end of `[A-Za-z_]\w*` at `i`.
@@ -130,7 +131,7 @@ impl Lexer<'_> {
         if i >= self.len_all() || !(b.is_ascii_alphabetic() || b == b'_') {
             return None;
         }
-        Some(self.run_end(i + 1, &self.runs.ascii_name, |j| {
+        Some(self.run_end(i + 1, &self.x.runs.ascii_name, |j| {
             let c = self.b(j);
             usize::from(j < self.len_all() && (c.is_ascii_alphanumeric() || c == b'_'))
         }))
@@ -138,7 +139,7 @@ impl Lexer<'_> {
 
     /// The end of the run of colons from `i`.
     pub(super) fn colons_end(&self, i: usize) -> usize {
-        self.run_end(i, &self.runs.colons, |j| {
+        self.run_end(i, &self.x.runs.colons, |j| {
             usize::from(self.b(j) == b':' && j < self.len_all())
         })
     }
@@ -148,24 +149,23 @@ impl Lexer<'_> {
         self.word_before(i) != (self.word_at(i) > 0)
     }
 
-    /// The text from `start` to `end`.
-    pub(super) fn text(&self, start: usize, end: usize) -> &[u8] {
-        self.s.get(start..end.min(self.s.len())).unwrap_or(&[])
-    }
-
     // Hits.
 
-    /// A `match` rule with `scopes` on the whole match.
-    pub(super) fn plain(&mut self, start: usize, end: usize, scopes: &'static [S]) -> bool {
-        self.hit = Hit {
-            start,
-            end,
-            act: Act::Plain(scopes, None),
-        };
+    /// A match from `start` to `end`. Its pattern's [`super::lists::P::act`]
+    /// says what it does and names it.
+    pub(super) fn plain(&mut self, start: usize, end: usize) -> bool {
+        self.x.start = start;
+        self.x.end = end;
         true
     }
 
-    /// A `match` rule whose name is `prefix` and the text `from..to` and `.c`.
+    /// A begin match from `start` to `end`; its pattern names the rule it
+    /// opens.
+    pub(super) fn begin(&mut self, start: usize, end: usize) -> bool {
+        self.plain(start, end)
+    }
+
+    /// A match whose name is `prefix`, the text `text` and `.c`.
     pub(super) fn plain_dyn(
         &mut self,
         start: usize,
@@ -173,40 +173,8 @@ impl Lexer<'_> {
         prefix: &'static str,
         text: (usize, usize),
     ) -> bool {
-        self.hit = Hit {
-            start,
-            end,
-            act: Act::Plain(
-                &[],
-                Some(Dyn {
-                    prefix,
-                    start: text.0,
-                    end: text.1,
-                }),
-            ),
-        };
-        true
-    }
-
-    /// The begin of `rule`.
-    pub(super) fn begin(&mut self, start: usize, end: usize, rule: R) -> bool {
-        self.hit = Hit {
-            start,
-            end,
-            act: Act::Begin(rule),
-        };
-        true
-    }
-
-    /// A capture with `scopes`.
-    pub(super) fn cap(&mut self, start: usize, end: usize, scopes: &'static [S]) {
-        self.sp.push(Span {
-            start,
-            end,
-            scopes,
-            dynamic: None,
-            retok: Retok::No,
-        });
+        self.cap_dyn(start, end, prefix, text);
+        self.plain(start, end)
     }
 
     /// A capture whose name is `prefix`, the text `text` and `.c`.
@@ -217,33 +185,16 @@ impl Lexer<'_> {
         prefix: &'static str,
         text: (usize, usize),
     ) {
-        self.sp.push(Span {
+        self.span_dyn(
             start,
             end,
-            scopes: &[],
-            dynamic: Some(Dyn {
+            &[],
+            DynName {
                 prefix,
                 start: text.0,
                 end: text.1,
-            }),
-            retok: Retok::No,
-        });
-    }
-
-    /// A capture lexed again with `retok`, under `scopes`.
-    pub(super) fn cap_retok(
-        &mut self,
-        start: usize,
-        end: usize,
-        scopes: &'static [S],
-        retok: Retok,
-    ) {
-        self.sp.push(Span {
-            start,
-            end,
-            scopes,
-            dynamic: None,
-            retok,
-        });
+                suffix: ".c",
+            },
+        );
     }
 }

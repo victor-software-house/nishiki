@@ -4,8 +4,9 @@
 //! run again with six patterns, each of which must match all of it, and a
 //! seventh that marks what none of them takes.
 
-use super::engine::{Lexer, Retok};
+use super::engine::Lexer;
 use super::scope::S;
+use super::state::R;
 
 /// The suffixes an integer pattern takes, which are all that follows its
 /// digits: the grammar's alternation, spelled out.
@@ -80,50 +81,31 @@ impl Lexer<'_> {
             i += 1;
         }
         self.spend(i - p);
-        self.cap_retok(p, i, &[], Retok::Number);
-        self.plain(p, i, &[])
+        self.span_retok(p, i, &[], R::Number);
+        self.plain(p, i)
     }
 
-    /// Lexes the number-like run `a..b` again, under `base`.
-    pub(super) fn number(&mut self, a: usize, b: usize, base: u32) {
-        let saved = (self.lim, self.nl, self.anchor);
-        self.lim = b;
-        self.nl = false;
-        self.anchor = None;
-        self.reset_runs();
-        let from = self.sp.len();
-        if self.number_patterns(a, b, from) {
-            self.emit_spans(base, b, from);
-            self.produce(base, b);
-        } else {
-            self.invalid_number(a, b, base);
-        }
-        self.sp.truncate(from);
-        (self.lim, self.nl, self.anchor) = saved;
-        self.reset_runs();
+    /// One of the six patterns of a number-like run, `pattern`, tried at
+    /// `p`: each is anchored with `\G` at the start of the run and must take
+    /// all of it, so it matches only where the search of the run began, and
+    /// up to its end.
+    pub(super) fn number_pattern(
+        &mut self,
+        p: usize,
+        pattern: fn(&mut Self, usize, usize) -> bool,
+    ) -> bool {
+        let b = self.lim();
+        p == self.pos && pattern(self, p, b) && self.plain(p, b)
     }
 
-    /// The seventh pattern: `(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+`, which takes
-    /// the run from its first byte of that class on.
-    fn invalid_number(&mut self, a: usize, b: usize, base: u32) {
-        let mut i = a;
-        while i < b {
-            let mut start = i;
-            while start < b && !self.number_char(start) {
-                start += self.width_at(start);
-            }
-            self.produce(base, start);
-            let mut end = start;
-            while end < b && self.number_char(end) {
-                end += 1;
-            }
-            if end > start {
-                let stack = self.push_scopes(base, &[S::InvalidNumeric]);
-                self.produce(stack, end);
-            }
-            i = end.max(start);
+    /// The seventh pattern: `(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+`.
+    pub(super) fn invalid_number(&mut self, p: usize) -> bool {
+        let mut end = p;
+        while end < self.lim() && self.number_char(end) {
+            end += 1;
         }
-        self.produce(base, b);
+        self.spend(end - p);
+        end > p && self.plain(p, end)
     }
 
     /// `['.0-9A-Z_a-z]` or `(?<=[EPep])[-+]` at `i`.
@@ -137,7 +119,7 @@ impl Lexer<'_> {
     /// Whether `i` holds `'` between two hex digits: `(?<=\h)'(?=\h)`.
     pub(super) fn digit_sep(&self, i: usize) -> bool {
         self.b(i) == b'\''
-            && i + 1 < self.lim
+            && i + 1 < self.lim()
             && self.prev(i).is_some_and(|c| c.is_ascii_hexdigit())
             && self.b(i + 1).is_ascii_hexdigit()
     }
@@ -145,7 +127,7 @@ impl Lexer<'_> {
     /// `digit(?:digit|SEP)*` from `i`: its end, or `None` when the first
     /// digit is not there.
     fn run_digits(&self, i: usize, digit: fn(u8) -> bool) -> Option<usize> {
-        if i >= self.lim || !digit(self.b(i)) {
+        if i >= self.lim() || !digit(self.b(i)) {
             return None;
         }
         Some(self.run_more(i + 1, digit))
@@ -154,7 +136,7 @@ impl Lexer<'_> {
     /// `(?:digit|SEP)*` from `i`.
     fn run_more(&self, i: usize, digit: fn(u8) -> bool) -> usize {
         let mut j = i;
-        while (j < self.lim && digit(self.b(j))) || self.digit_sep(j) {
+        while (j < self.lim() && digit(self.b(j))) || self.digit_sep(j) {
             j += 1;
         }
         self.spend(j - i);
@@ -163,116 +145,105 @@ impl Lexer<'_> {
 
     /// Digits with their separators, lexed again for the separators.
     fn cap_digits(&mut self, start: usize, end: usize, scopes: &'static [S]) {
-        self.cap_retok(start, end, scopes, Retok::NumSep);
+        self.span_retok(start, end, scopes, R::NumSep);
     }
 
-    /// `(?<!')([Pp])(\+?)(-?)([0-9](?:[0-9]|(?<=\h)'(?=\h))*)`, with its
-    /// captures, and where it ends.
-    fn exponent(&mut self, i: usize, exp: Exp) -> Option<usize> {
+    /// `(?<!')([Pp])(\+?)(-?)([0-9](?:[0-9]|(?<=\h)'(?=\h))*)` at `i`, with
+    /// `[Ee]` for a decimal exponent: where it ends.
+    fn exponent_end(&self, i: usize, exp: Exp) -> Option<usize> {
         let c = self.b(i);
-        let (lead, scopes) = match exp {
-            Exp::Hex => (matches!(c, b'P' | b'p'), HEX_EXP),
-            Exp::Decimal => (matches!(c, b'E' | b'e'), DECIMAL_EXP),
+        let lead = match exp {
+            Exp::Hex => matches!(c, b'P' | b'p'),
+            Exp::Decimal => matches!(c, b'E' | b'e'),
         };
-        if i >= self.lim || !lead || self.prev(i) == Some(b'\'') {
+        if i >= self.lim() || !lead || self.prev(i) == Some(b'\'') {
             return None;
         }
         let mut j = i + 1;
-        let plus = j < self.lim && self.b(j) == b'+';
-        if plus {
+        if j < self.lim() && self.b(j) == b'+' {
             j += 1;
         }
-        let minus = j < self.lim && self.b(j) == b'-';
-        if minus {
+        if j < self.lim() && self.b(j) == b'-' {
             j += 1;
         }
-        let end = self.run_digits(j, |c| c.is_ascii_digit())?;
-        self.cap(i, i + 1, scopes.unit);
-        if plus {
-            self.cap(i + 1, i + 2, scopes.plus);
-        }
-        if minus {
-            let at = i + 1 + usize::from(plus);
-            self.cap(at, at + 1, scopes.minus);
-        }
-        self.cap_digits(j, end, scopes.digits);
-        Some(end)
+        self.run_digits(j, |c| c.is_ascii_digit())
     }
 
-    /// What follows the digits, when it is all that is left: a suffix.
-    fn tail(&mut self, i: usize, b: usize, suffix: Suffix) -> bool {
-        if i == b {
-            return true;
+    /// The captures of the exponent `i..end`.
+    fn exponent_spans(&mut self, i: usize, end: usize, exp: Exp) {
+        let scopes = match exp {
+            Exp::Hex => HEX_EXP,
+            Exp::Decimal => DECIMAL_EXP,
+        };
+        self.span(i, i + 1, scopes.unit);
+        let mut j = i + 1;
+        if self.b(j) == b'+' {
+            self.span(j, j + 1, scopes.plus);
+            j += 1;
         }
+        if self.b(j) == b'-' {
+            self.span(j, j + 1, scopes.minus);
+            j += 1;
+        }
+        self.cap_digits(j, end, scopes.digits);
+    }
+
+    /// Whether what follows the digits from `i` to `b` is nothing, or a
+    /// suffix the number takes; with its scopes when it is a suffix.
+    fn suffix(&self, i: usize, b: usize, suffix: Suffix) -> Option<&'static [S]> {
         let rest = self.text(i, b);
         let (ok, scopes) = match suffix {
             Suffix::Float => (matches!(rest, [b'F' | b'L' | b'f' | b'l']), SUFFIX_FLOAT),
             Suffix::Int => (INT_SUFFIXES.contains(&rest), SUFFIX_INT),
         };
-        if ok {
-            self.cap(i, b, scopes);
-        }
-        ok
+        (i == b || ok).then_some(scopes)
     }
 
-    /// Tries the six patterns on `a..b` in order, leaving the captures of
-    /// the one that matches from `from` on.
-    fn number_patterns(&mut self, a: usize, b: usize, from: usize) -> bool {
-        let patterns: [fn(&mut Self, usize, usize) -> bool; 6] = [
-            Self::hex_float,
-            Self::dec_float,
-            Self::binary,
-            Self::octal,
-            Self::hex_int,
-            Self::dec_int,
-        ];
-        for pattern in patterns {
-            self.sp.truncate(from);
-            if pattern(self, a, b) {
-                return true;
-            }
-        }
-        self.sp.truncate(from);
-        false
+    /// What follows the digits, when it is all that is left: a suffix.
+    fn tail(&mut self, i: usize, b: usize, suffix: Suffix) -> bool {
+        let Some(scopes) = self.suffix(i, b, suffix) else {
+            return false;
+        };
+        self.span(i, b, scopes);
+        true
     }
 
     /// `0` and one of the letters in `second`.
     fn at_prefix(&self, a: usize, second: [u8; 2]) -> bool {
-        self.b(a) == b'0' && a + 1 < self.lim && second.contains(&self.b(a + 1))
+        self.b(a) == b'0' && a + 1 < self.lim() && second.contains(&self.b(a + 1))
     }
 
     /// An exponent and then a suffix that ends the number, or a suffix
     /// alone.
     fn exponent_tail(&mut self, i: usize, b: usize, exp: Exp, suffix: Suffix) -> bool {
-        let from = self.sp.len();
-        if let Some(end) = self.exponent(i, exp) {
-            if self.tail(end, b, suffix) {
-                return true;
-            }
-            self.sp.truncate(from);
+        if let Some(end) = self.exponent_end(i, exp)
+            && self.suffix(end, b, suffix).is_some()
+        {
+            self.exponent_spans(i, end, exp);
+            return self.tail(end, b, suffix);
         }
         self.tail(i, b, suffix)
     }
 
     /// `\G(0[Xx])(\h…)?((?<=\h)\.|\.(?=\h))(\h…)?(exponent)?([FLfl](?!\w))?$`.
-    fn hex_float(&mut self, a: usize, b: usize) -> bool {
+    pub(super) fn hex_float(&mut self, a: usize, b: usize) -> bool {
         if !self.at_prefix(a, *b"Xx") {
             return false;
         }
-        self.cap(a, a + 2, UNIT_HEX);
+        self.span(a, a + 2, UNIT_HEX);
         let mut i = a + 2;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
             self.cap_digits(i, end, NUM_HEX);
             i = end;
         }
-        let dot = i < self.lim
+        let dot = i < self.lim()
             && self.b(i) == b'.'
             && (self.prev(i).is_some_and(|c| c.is_ascii_hexdigit())
-                || (i + 1 < self.lim && self.b(i + 1).is_ascii_hexdigit()));
+                || (i + 1 < self.lim() && self.b(i + 1).is_ascii_hexdigit()));
         if !dot {
             return false;
         }
-        self.cap(i, i + 1, NUM_HEX);
+        self.span(i, i + 1, NUM_HEX);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
             self.cap_digits(i, end, NUM_HEX);
@@ -283,7 +254,7 @@ impl Lexer<'_> {
 
     /// The first character of the decimal patterns: `(?=[.0-9])(?!0[BXbx])`.
     fn decimal_start(&self, a: usize) -> bool {
-        if a >= self.lim || !(self.b(a) == b'.' || self.b(a).is_ascii_digit()) {
+        if a >= self.lim() || !(self.b(a) == b'.' || self.b(a).is_ascii_digit()) {
             return false;
         }
         !(self.at_prefix(a, *b"Bb") || self.at_prefix(a, *b"Xx"))
@@ -291,7 +262,7 @@ impl Lexer<'_> {
 
     /// `\G(?=[.0-9])(?!0[BXbx])([0-9]…)?((?<=[0-9])\.|\.(?=[0-9]))([0-9]…)?
     /// (exponent)?([FLfl](?!\w))?$`.
-    fn dec_float(&mut self, a: usize, b: usize) -> bool {
+    pub(super) fn dec_float(&mut self, a: usize, b: usize) -> bool {
         if !self.decimal_start(a) {
             return false;
         }
@@ -300,14 +271,14 @@ impl Lexer<'_> {
             self.cap_digits(i, end, NUM_DECIMAL);
             i = end;
         }
-        let dot = i < self.lim
+        let dot = i < self.lim()
             && self.b(i) == b'.'
             && (self.prev(i).is_some_and(|c| c.is_ascii_digit())
-                || (i + 1 < self.lim && self.b(i + 1).is_ascii_digit()));
+                || (i + 1 < self.lim() && self.b(i + 1).is_ascii_digit()));
         if !dot {
             return false;
         }
-        self.cap(i, i + 1, POINT);
+        self.span(i, i + 1, POINT);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_digit()) {
             self.cap_digits(i, end, NUM_DECIMAL);
@@ -317,47 +288,47 @@ impl Lexer<'_> {
     }
 
     /// `\G(0[Bb])([01]…)(suffix(?!\w))?$`.
-    fn binary(&mut self, a: usize, b: usize) -> bool {
+    pub(super) fn binary(&mut self, a: usize, b: usize) -> bool {
         if !self.at_prefix(a, *b"Bb") {
             return false;
         }
         let Some(end) = self.run_digits(a + 2, |c| c == b'0' || c == b'1') else {
             return false;
         };
-        self.cap(a, a + 2, UNIT_BINARY);
+        self.span(a, a + 2, UNIT_BINARY);
         self.cap_digits(a + 2, end, NUM_BINARY);
         self.tail(end, b, Suffix::Int)
     }
 
     /// `\G(0)((?:[0-7]|SEP)+)(suffix(?!\w))?$`.
-    fn octal(&mut self, a: usize, b: usize) -> bool {
-        if a >= self.lim || self.b(a) != b'0' {
+    pub(super) fn octal(&mut self, a: usize, b: usize) -> bool {
+        if a >= self.lim() || self.b(a) != b'0' {
             return false;
         }
         let end = self.run_more(a + 1, |c| (b'0'..=b'7').contains(&c));
         if end == a + 1 {
             return false;
         }
-        self.cap(a, a + 1, UNIT_OCTAL);
+        self.span(a, a + 1, UNIT_OCTAL);
         self.cap_digits(a + 1, end, NUM_OCTAL);
         self.tail(end, b, Suffix::Int)
     }
 
     /// `\G(0[Xx])(\h…)(exponent)?(suffix(?!\w))?$`.
-    fn hex_int(&mut self, a: usize, b: usize) -> bool {
+    pub(super) fn hex_int(&mut self, a: usize, b: usize) -> bool {
         if !self.at_prefix(a, *b"Xx") {
             return false;
         }
         let Some(end) = self.run_digits(a + 2, |c| c.is_ascii_hexdigit()) else {
             return false;
         };
-        self.cap(a, a + 2, UNIT_HEX);
+        self.span(a, a + 2, UNIT_HEX);
         self.cap_digits(a + 2, end, NUM_HEX);
         self.exponent_tail(end, b, Exp::Hex, Suffix::Int)
     }
 
     /// `\G(?=[.0-9])(?!0[BXbx])([0-9]…)(exponent)?(suffix(?!\w))?$`.
-    fn dec_int(&mut self, a: usize, b: usize) -> bool {
+    pub(super) fn dec_int(&mut self, a: usize, b: usize) -> bool {
         if !self.decimal_start(a) {
             return false;
         }

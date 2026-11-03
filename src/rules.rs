@@ -1,5 +1,5 @@
 //! The rule engine that the languages written from a `TextMate` grammar share:
-//! Python, Java, CSS, Make, Kotlin, Go, Ruby and Swift run on it, and each
+//! Python, Java, CSS, Make, Kotlin, Go, Ruby, Swift and C run on it, and each
 //! language supplies a [`Grammar`], the generated tables of its rules and
 //! patterns, and the hand-written matchers that decide where each pattern
 //! matches.
@@ -66,6 +66,10 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     const MARKS_FIRST_LINE: bool = false;
     /// The scope that names a whole document, such as `source.python`.
     const SOURCE: Scope;
+    /// Whether a matcher's span can lie inside one it recorded before for
+    /// the same match, and so takes that span's scopes too, as nested
+    /// capture groups do. Off, every span sits directly under the match.
+    const NESTED_SPANS: bool = false;
 
     /// The scope in the crate's shared numbering, or the name it makes
     /// from a capture group's text.

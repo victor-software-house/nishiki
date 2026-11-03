@@ -4,14 +4,14 @@
 //! grammar lexes again as comments; it has two spellings, one that takes a
 //! run of white space only after a non-space, and one that is lazy.
 
-use super::engine::{Lexer, Retok};
+use super::engine::Lexer;
 use super::scope::S;
 use super::state::R;
 
 impl Lexer<'_> {
     /// Whether the character before `q` is white space.
     fn space_before(&self, q: usize) -> bool {
-        match self.char_before(q) {
+        match self.char_ending(q) {
             Some(c) => self.space_at(q - c.len_utf8()) > 0,
             None => false,
         }
@@ -48,13 +48,12 @@ impl Lexer<'_> {
         self.starts(q, word) && !self.word_before(q) && self.word_at(q + word.len()) == 0
     }
 
-    /// `(prefix)(word)` that opens `rule`, with `scope` on the word.
+    /// `(prefix)(word)`, with `scope` on the word.
     pub(super) fn label_begin(
         &mut self,
         p: usize,
         word: &'static str,
         scope: &'static [S],
-        rule: R,
     ) -> bool {
         let Some(q) = self.switch_prefix(p) else {
             return false;
@@ -62,9 +61,9 @@ impl Lexer<'_> {
         if !self.keyword_at(q, word.as_bytes()) {
             return false;
         }
-        self.cap_retok(p, q, &[], Retok::Inline);
-        self.cap(q, q + word.len(), scope);
-        self.begin(p, q + word.len(), rule)
+        self.span_retok(p, q, &[], R::Inline);
+        self.span(q, q + word.len(), scope);
+        self.begin(p, q + word.len())
     }
 
     /// `(((prefix)(?<!\w)switch(?!\w))`.
@@ -75,19 +74,19 @@ impl Lexer<'_> {
         if !self.keyword_at(q, b"switch") {
             return false;
         }
-        self.cap(p, q + 6, &[S::MetaHeadSwitch]);
-        self.cap_retok(p, q, &[], Retok::Inline);
-        self.cap(q, q + 6, &[S::KeywordSwitch]);
-        self.begin(p, q + 6, R::Switch)
+        self.span(p, q + 6, &[S::MetaHeadSwitch]);
+        self.span_retok(p, q, &[], R::Inline);
+        self.span(q, q + 6, &[S::KeywordSwitch]);
+        self.begin(p, q + 6)
     }
 
     /// `\G ?`: the head of a `switch`, right after its keyword.
     pub(super) fn switch_head(&mut self, p: usize) -> bool {
-        if self.anchor != Some(p) {
+        if !self.at_g(p) {
             return false;
         }
         let end = p + usize::from(self.b(p) == b' ' && p < self.len_all());
-        self.begin(p, end, R::SwitchHead)
+        self.begin(p, end)
     }
 
     /// Whether `{`, `<%` or `??<` ends right before `p`.
@@ -106,7 +105,7 @@ impl Lexer<'_> {
 
     /// `(?<=\{|<%|\?\?<)`: the body of a `switch`.
     pub(super) fn switch_body(&mut self, p: usize) -> bool {
-        self.after_open(p) && self.begin(p, p, R::SwitchBody)
+        self.after_open(p) && self.begin(p, p)
     }
 
     /// `(?<=}|%>|\?\?>)[\n\s]*`: what follows a `switch` body.
@@ -115,7 +114,7 @@ impl Lexer<'_> {
             return false;
         }
         let end = self.skip_space(p);
-        self.begin(p, end, R::SwitchTail)
+        self.begin(p, end)
     }
 
     /// The parentheses of a `switch`: a prefix and `(`.
@@ -126,9 +125,9 @@ impl Lexer<'_> {
         if self.b(q) != b'(' || q >= self.len_all() {
             return false;
         }
-        self.cap_retok(p, q, &[], Retok::Inline);
-        self.cap(q, q + 1, &[S::PunctParensBeginSwitch]);
-        self.begin(p, q + 1, R::SwitchParens)
+        self.span_retok(p, q, &[], R::Inline);
+        self.span(q, q + 1, &[S::PunctParensBeginSwitch]);
+        self.begin(p, q + 1)
     }
 
     /// The end of the lazy prefix `(?:(?>\s+)|(/\*)(…))+?` at `p`, with the
@@ -157,13 +156,13 @@ impl Lexer<'_> {
             return false;
         };
         let ws = self.skip_space(end);
-        self.cap(p, end, &[S::StorageAsm]);
+        self.span(p, end, &[S::StorageAsm]);
         let mut stop = ws;
         if self.starts(ws, b"volatile") {
-            self.cap(ws, ws + 8, &[S::StorageModifier]);
+            self.span(ws, ws + 8, &[S::StorageModifier]);
             stop = ws + 8;
         }
-        self.begin(p, stop, R::Asm)
+        self.begin(p, stop)
     }
 
     /// `^(prefix)(?:\n|$)`: a line of white space and comments.
@@ -171,12 +170,12 @@ impl Lexer<'_> {
         if p != 0 {
             return false;
         }
-        let Some(q) = self.lazy_prefix(0, |lexer, q| q >= lexer.lim) else {
+        let Some(q) = self.lazy_prefix(0, |lexer, q| q >= lexer.lim()) else {
             return false;
         };
-        self.cap_retok(0, q, &[], Retok::Inline);
-        let end = if q == self.lim && self.nl { q + 1 } else { q };
-        self.plain(0, end, &[])
+        self.span_retok(0, q, &[], R::Inline);
+        let end = if q == self.lim() && self.nl { q + 1 } else { q };
+        self.plain(0, end)
     }
 
     /// The parentheses of an assembly statement: a prefix and `(`.
@@ -185,23 +184,23 @@ impl Lexer<'_> {
         else {
             return false;
         };
-        self.cap(p, q + 1, &[S::PunctParensBeginAsm]);
-        self.cap_retok(p, q, &[], Retok::Inline);
-        self.begin(p, q + 1, R::AsmParens)
+        self.span(p, q + 1, &[S::PunctParensBeginAsm]);
+        self.span_retok(p, q, &[], R::Inline);
+        self.begin(p, q + 1)
     }
 
     /// `(R?)(")`: a string of assembly.
     pub(super) fn asm_string(&mut self, p: usize) -> bool {
         let mut q = p;
         if self.b(p) == b'R' && p < self.len_all() {
-            self.cap(p, p + 1, &[S::MetaEncoding]);
+            self.span(p, p + 1, &[S::MetaEncoding]);
             q = p + 1;
         }
         if self.b(q) != b'"' || q >= self.len_all() {
             return false;
         }
-        self.cap(q, q + 1, &[S::PunctStringBeginAsm]);
-        self.begin(p, q + 1, R::AsmString)
+        self.span(q, q + 1, &[S::PunctStringBeginAsm]);
+        self.begin(p, q + 1)
     }
 
     /// `(\()`: an inner parenthesis of assembly.
@@ -209,8 +208,8 @@ impl Lexer<'_> {
         if self.b(p) != b'(' || p >= self.len_all() {
             return false;
         }
-        self.cap(p, p + 1, &[S::PunctParensBeginAsmInner]);
-        self.begin(p, p + 1, R::AsmInner)
+        self.span(p, p + 1, &[S::PunctParensBeginAsmInner]);
+        self.begin(p, p + 1)
     }
 
     /// `\[(prefix)([A-Z_a-z]\w*)(prefix)]`: an operand name.
@@ -228,9 +227,9 @@ impl Lexer<'_> {
         else {
             return false;
         };
-        self.cap_retok(p + 1, a, &[], Retok::Inline);
-        self.cap(a, id, &[S::VariableAsmLabel]);
-        self.cap_retok(id, b, &[], Retok::Inline);
-        self.plain(p, b + 1, &[])
+        self.span_retok(p + 1, a, &[], R::Inline);
+        self.span(a, id, &[S::VariableAsmLabel]);
+        self.span_retok(id, b, &[], R::Inline);
+        self.plain(p, b + 1)
     }
 }

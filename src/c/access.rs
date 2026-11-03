@@ -1,6 +1,6 @@
 //! Member access, calls, function definitions and the brackets around them.
 
-use super::engine::{Lexer, Retok, Run};
+use super::engine::{Lexer, Run};
 use super::scope::S;
 use super::state::R;
 use super::wordset;
@@ -59,32 +59,19 @@ impl Lexer<'_> {
         matches!(self.prev(p), Some(b']' | b')')).then(|| self.skip_space(p))
     }
 
-    /// `((?:[A-Za-z_]\w*\s*(?:\.\*?|->\*?)\s*)*)`: where the chain after the
-    /// first operator ends after each repetition it can take, the fewest
-    /// first.
-    fn access_reps(&self, from: usize, ends: &mut Vec<usize>) {
-        let mut i = from;
-        ends.clear();
-        ends.push(i);
-        while let Some(name_end) = self.ident_end(i) {
-            let after = self.skip_space(name_end);
-            let Some((op_end, _)) = self.access_op(after) else {
-                break;
-            };
-            i = self.skip_space(op_end);
-            ends.push(i);
-        }
-    }
-
     /// The chain at `p` that ends in a name of the kind `last`.
+    ///
+    /// The repeated objects `((?:[A-Za-z_]\w*\s*(?:\.\*?|->\*?)\s*)*)` after
+    /// the first operator are greedy, and give one repetition back at a time
+    /// until the last name matches: the match is the last repetition, in
+    /// order, after which the name matches, so one walk forward finds it.
     fn access_chain(&mut self, p: usize, last: Last) -> Option<Chain> {
         let object_end = self.access_object(p)?;
         let (op_end, _) = self.access_op(object_end)?;
         let arrow = self.b(object_end) == b'-';
-        let mut ends = std::mem::take(&mut self.ends);
-        self.access_reps(op_end, &mut ends);
         let mut found = None;
-        for &end in ends.iter().rev() {
+        let mut end = op_end;
+        loop {
             let name_start = self.skip_space(end);
             let name_end = match last {
                 Last::Method => self.method_name(name_start),
@@ -97,10 +84,16 @@ impl Lexer<'_> {
                     middle: (op_end, end),
                     name: (name_start, name_end),
                 });
-                break;
             }
+            let Some(next) = self.ident_end(end) else {
+                break;
+            };
+            let after = self.skip_space(next);
+            let Some((rep_end, _)) = self.access_op(after) else {
+                break;
+            };
+            end = self.skip_space(rep_end);
         }
-        self.ends = ends;
         found
     }
 
@@ -125,14 +118,14 @@ impl Lexer<'_> {
 
     fn push_chain(&mut self, p: usize, chain: &Chain) {
         let (op_start, op_end, arrow) = chain.op;
-        self.cap(p, chain.object_end, &[S::VariableObjectAccess]);
+        self.span(p, chain.object_end, &[S::VariableObjectAccess]);
         let scope = if arrow {
             &[S::PunctPointerAccess]
         } else {
             &[S::PunctDotAccess]
         };
-        self.cap(op_start, op_end, scope);
-        self.cap_retok(chain.middle.0, chain.middle.1, &[], Retok::Access);
+        self.span(op_start, op_end, scope);
+        self.span_retok(chain.middle.0, chain.middle.1, &[], R::Access);
     }
 
     /// The begin of a method call, `object.method(`.
@@ -142,9 +135,9 @@ impl Lexer<'_> {
         };
         self.push_chain(p, &chain);
         let (a, b) = chain.name;
-        self.cap(a, b, &[S::EntityFunctionMember]);
-        self.cap(b, b + 1, &[S::PunctArgsBeginMember]);
-        self.begin(p, b + 1, R::Method)
+        self.span(a, b, &[S::EntityFunctionMember]);
+        self.span(b, b + 1, &[S::PunctArgsBeginMember]);
+        self.begin(p, b + 1)
     }
 
     /// `object.member`.
@@ -154,8 +147,8 @@ impl Lexer<'_> {
         };
         self.push_chain(p, &chain);
         let (a, b) = chain.name;
-        self.cap(a, b, &[S::VariableMember]);
-        self.plain(p, b, &[])
+        self.span(a, b, &[S::VariableMember]);
+        self.plain(p, b)
     }
 
     /// `object.`: the object and its operator.
@@ -166,14 +159,14 @@ impl Lexer<'_> {
         let Some((op_end, arrow)) = self.access_op(object_end) else {
             return false;
         };
-        self.cap(p, object_end, &[S::VariableObjectAccess]);
+        self.span(p, object_end, &[S::VariableObjectAccess]);
         let scope = if arrow {
             &[S::PunctPointerAccess]
         } else {
             &[S::PunctDotAccess]
         };
-        self.cap(object_end, op_end, scope);
-        self.plain(p, op_end, &[])
+        self.span(object_end, op_end, scope);
+        self.plain(p, op_end)
     }
 
     /// `(?<=operator)(?:[-!&*+<=>]+|\(\)|\[])` at `i`: where it ends.
@@ -218,7 +211,7 @@ impl Lexer<'_> {
         } else if self.b(i) != b':' {
             return None;
         }
-        let walk = self.scoped.get();
+        let walk = self.x.scoped.get();
         loop {
             if let Some(end) = self.ascii_ident_end(j) {
                 j = end;
@@ -240,7 +233,7 @@ impl Lexer<'_> {
         if j == i {
             return None;
         }
-        self.scoped.set(Run { start: i, end: j });
+        self.x.scoped.set(Run { start: i, end: j });
         Some(j)
     }
 
@@ -278,8 +271,8 @@ impl Lexer<'_> {
         Some((name_end, paren))
     }
 
-    /// A call at `p` that opens `rule`, with the `(` scoped `punct`.
-    pub(super) fn call_like(&mut self, p: usize, rule: R, kind: CallKind) -> bool {
+    /// A call at `p`, with its `(` scoped as `kind` says.
+    pub(super) fn call_like(&mut self, p: usize, kind: CallKind) -> bool {
         let Some((name_end, paren)) = self.call_target(p, wordset::CALL_EXCL) else {
             return false;
         };
@@ -287,14 +280,14 @@ impl Lexer<'_> {
             CallKind::Args => &[S::PunctArgsBegin],
             CallKind::Params => &[S::PunctParamBegin],
         };
-        self.cap(p, name_end, &[S::EntityFunction]);
-        self.cap(paren, paren + 1, scope);
-        self.begin(p, paren + 1, rule)
+        self.span(p, name_end, &[S::EntityFunction]);
+        self.span(paren, paren + 1, scope);
+        self.begin(p, paren + 1)
     }
 
     /// The lookahead that starts a call: `meta.function-call.c`.
     pub(super) fn function_call(&mut self, p: usize) -> bool {
-        self.call_target(p, wordset::CALL_EXCL).is_some() && self.begin(p, p, R::FuncCall)
+        self.call_target(p, wordset::CALL_EXCL).is_some() && self.begin(p, p)
     }
 
     /// `(?<!\w)(?!\s*(?:…)\s*\()(?=[A-Za-z_]\w*\s*\()`: a function
@@ -313,7 +306,7 @@ impl Lexer<'_> {
         if wordset::of(self.text(p, end)) & wordset::FUNCDEF_EXCL != 0 {
             return false;
         }
-        self.begin(p, p, R::FuncDef)
+        self.begin(p, p)
     }
 
     /// `(?<=[0-9A-Z_a-z] |[]&)*>])\s*([A-Z_a-z]\w*)\s*(?=(?:\[]\s*)?[),])`.
@@ -340,8 +333,8 @@ impl Lexer<'_> {
         if !(matches!(self.b(look), b')' | b',') && look < self.len_all()) {
             return false;
         }
-        self.cap(q, end, &[S::VariableParamProbably]);
-        self.plain(p, r, &[])
+        self.span(q, end, &[S::VariableParamProbably]);
+        self.plain(p, r)
     }
 
     /// `([A-Z_a-z][0-9A-Z_a-z]*|(?<=[])]))?(\[)(?!])`: the start of an
@@ -352,13 +345,13 @@ impl Lexer<'_> {
             && end < self.len_all()
             && self.b(end + 1) != b']'
         {
-            self.cap(p, end, &[S::VariableObject]);
-            self.cap(end, end + 1, &[S::PunctBeginSquare]);
-            return self.begin(p, end + 1, R::Bracket);
+            self.span(p, end, &[S::VariableObject]);
+            self.span(end, end + 1, &[S::PunctBeginSquare]);
+            return self.begin(p, end + 1);
         }
         if self.b(p) == b'[' && p < self.len_all() && self.b(p + 1) != b']' {
-            self.cap(p, p + 1, &[S::PunctBeginSquare]);
-            return self.begin(p, p + 1, R::Bracket);
+            self.span(p, p + 1, &[S::PunctBeginSquare]);
+            return self.begin(p, p + 1);
         }
         false
     }
@@ -369,7 +362,7 @@ impl Lexer<'_> {
             return false;
         }
         let q = self.skip_space(p + 1);
-        self.b(q) == b']' && q < self.len_all() && self.plain(p, q + 1, &[S::StorageArray])
+        self.b(q) == b']' && q < self.len_all() && self.plain(p, q + 1)
     }
 
     /// The begin of an initialization, `x or_eq(`: after a word and
@@ -401,9 +394,9 @@ impl Lexer<'_> {
             if self.b(paren) != b'(' || paren >= self.len_all() {
                 continue;
             }
-            self.cap(q, g1_end, &[S::VariableOther]);
-            self.cap(g1_end, g2_end, &[S::PunctParensBeginInit]);
-            return self.begin(p, paren + 1, R::Init);
+            self.span(q, g1_end, &[S::VariableOther]);
+            self.span(g1_end, g2_end, &[S::PunctParensBeginInit]);
+            return self.begin(p, paren + 1);
         }
         false
     }

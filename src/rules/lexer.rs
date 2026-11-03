@@ -88,6 +88,9 @@ struct Flags {
 pub(crate) struct Scratch<G: Grammar> {
     frames: Vec<Frame<G>>,
     spans: Vec<Span<G>>,
+    /// The spans being emitted that later spans of their match lie inside:
+    /// where each ends and its stack, the innermost last.
+    open_spans: Vec<(usize, u32)>,
     /// The capture groups of the last match, kept clear between lines.
     caps: Vec<Option<(usize, usize)>>,
     /// The capture groups of the matches whose nested groups are being
@@ -113,6 +116,7 @@ impl<G: Grammar> Default for Scratch<G> {
         Scratch {
             frames: Vec::new(),
             spans: Vec::new(),
+            open_spans: Vec::new(),
             caps: Vec::new(),
             saved_caps: Vec::new(),
             chain: Vec::new(),
@@ -524,6 +528,39 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     // Spans.
 
+    /// Names `start..end` with `scopes`.
+    pub(crate) fn span(&mut self, start: usize, end: usize, scopes: &'static [G::Scope]) {
+        self.spans.push(Span {
+            start,
+            end,
+            scopes,
+            single: None,
+            dynamic: None,
+            retok: None,
+        });
+        self.dirty = true;
+    }
+
+    /// Lexes `start..end` again with the patterns of `rule`, under the
+    /// match's stack and `scopes`.
+    pub(crate) fn span_retok(
+        &mut self,
+        start: usize,
+        end: usize,
+        scopes: &'static [G::Scope],
+        rule: G::Rule,
+    ) {
+        self.spans.push(Span {
+            start,
+            end,
+            scopes,
+            single: None,
+            dynamic: None,
+            retok: Some(rule),
+        });
+        self.dirty = true;
+    }
+
     /// Names `start..end` with `scopes` and then one scope that ends in
     /// `dynamic`.
     pub(crate) fn span_dyn(
@@ -923,15 +960,33 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.dirty = dirty;
     }
 
-    /// Emits the spans the matcher recorded, in order.
+    /// Emits the spans the matcher recorded, in order. In a grammar with
+    /// [`Grammar::NESTED_SPANS`], a span that lies inside one recorded before
+    /// it takes that span's scopes too, as capture groups do. A span lexed
+    /// again does not, and runs under the match's stack `base` and its own
+    /// scopes, as vscode-textmate's `handleCaptures` does.
     fn emit_spans(&mut self, base: u32) {
+        let mut open = 0;
         for i in self.span_base..self.spans.len() {
             let span = self.spans[i];
             if span.start == span.end {
                 continue;
             }
-            self.emit(span.start, base);
-            let mut named = self.path(base, span.scopes);
+            let mut outer = base;
+            while open > 0 {
+                let Some(&(end, node)) = self.scratch.open_spans.last() else {
+                    break;
+                };
+                if end > span.start {
+                    outer = node;
+                    break;
+                }
+                self.emit(end, node);
+                self.scratch.open_spans.pop();
+                open -= 1;
+            }
+            self.emit(span.start, outer);
+            let mut named = self.path(if span.retok.is_some() { base } else { outer }, span.scopes);
             if let Some(scope) = span.single {
                 named = self.path_one(named, scope);
             }
@@ -952,7 +1007,21 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     self.emit(span.end, node);
                 }
                 Some(rule) => self.retokenise(rule, span.start, span.end, node),
+                None if G::NESTED_SPANS
+                    && self
+                        .spans
+                        .get(i + 1)
+                        .is_some_and(|next| next.start < span.end) =>
+                {
+                    self.scratch.open_spans.push((span.end, node));
+                    open += 1;
+                }
                 None => self.emit(span.end, node),
+            }
+        }
+        for _ in 0..open {
+            if let Some((end, node)) = self.scratch.open_spans.pop() {
+                self.emit(end, node);
             }
         }
     }

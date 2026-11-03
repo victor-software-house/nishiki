@@ -7,12 +7,12 @@ use super::wordset;
 impl Lexer<'_> {
     /// The end of the word at `p` when it is in the lists `bits`: `\b(…)\b`.
     pub(super) fn word_in(&self, p: usize, bits: u32) -> Option<usize> {
-        let known = self.lists.get();
+        let known = self.x.lists.get();
         if known.start == p {
             return (known.lists & bits != 0).then_some(known.end);
         }
         if self.word_at(p) == 0 || self.word_before(p) {
-            self.lists.set(WordLists {
+            self.x.lists.set(WordLists {
                 start: p,
                 end: p,
                 lists: 0,
@@ -21,7 +21,7 @@ impl Lexer<'_> {
         }
         let end = self.skip_word(p);
         let lists = wordset::of(self.text(p, end));
-        self.lists.set(WordLists {
+        self.x.lists.set(WordLists {
             start: p,
             end,
             lists,
@@ -30,21 +30,21 @@ impl Lexer<'_> {
     }
 
     /// A word of the lists `bits` with `scope` on it.
-    pub(super) fn word_rule(&mut self, p: usize, bits: u32, scope: &'static [S]) -> bool {
+    pub(super) fn word_rule(&mut self, p: usize, bits: u32) -> bool {
         match self.word_in(p, bits) {
-            Some(end) => self.plain(p, end, scope),
+            Some(end) => self.plain(p, end),
             None => false,
         }
     }
 
     /// `\bk[A-Z]\w*\b` and its siblings: a word of lead letter `lead` and
     /// an upper-case letter.
-    pub(super) fn mac_classic(&mut self, p: usize, lead: u8, scope: &'static [S]) -> bool {
+    pub(super) fn mac_classic(&mut self, p: usize, lead: u8) -> bool {
         if self.b(p) != lead || self.word_before(p) || !self.b(p + 1).is_ascii_uppercase() {
             return false;
         }
         let end = self.skip_word(p + 1);
-        self.plain(p, end, scope)
+        self.plain(p, end)
     }
 
     /// `\b([0-9A-Z_a-z]+_t)\b`.
@@ -58,12 +58,12 @@ impl Lexer<'_> {
         }
         self.spend(end - p);
         let ok = end - p >= 3 && self.text(p, end).ends_with(b"_t") && self.word_at(end) == 0;
-        ok && self.plain(p, end, &[S::SupportPosix])
+        ok && self.plain(p, end)
     }
 
     /// `typedef`: no boundary before or after, as the grammar has none.
     pub(super) fn typedef(&mut self, p: usize) -> bool {
-        self.starts(p, b"typedef") && self.plain(p, p + 7, &[S::KeywordTypedef])
+        self.starts(p, b"typedef") && self.plain(p, p + 7)
     }
 
     /// `\b(enum|struct|union)\b`, named `storage.type.$1.c`.
@@ -114,16 +114,16 @@ impl Lexer<'_> {
         let end = p + 6;
         let before = self.prev(p) == Some(b'$') || self.word_before(p);
         let after = self.b(end) == b'$' && end < self.len_all() || self.word_at(end) > 0;
-        !before && !after && self.plain(p, end, &[S::OpSizeof])
+        !before && !after && self.plain(p, end)
     }
 
     /// An operator at `p`: the scope of the first alternative that matches.
     pub(super) fn op_dec(&mut self, p: usize) -> bool {
-        self.starts(p, b"--") && self.plain(p, p + 2, &[S::OpDecrement])
+        self.starts(p, b"--") && self.plain(p, p + 2)
     }
 
     pub(super) fn op_inc(&mut self, p: usize) -> bool {
-        self.starts(p, b"++") && self.plain(p, p + 2, &[S::OpIncrement])
+        self.starts(p, b"++") && self.plain(p, p + 2)
     }
 
     /// `(?:[-%*+]|(?<!\()/)=`.
@@ -131,7 +131,7 @@ impl Lexer<'_> {
         let lead = self.b(p);
         let ok = matches!(lead, b'-' | b'%' | b'*' | b'+')
             || (lead == b'/' && self.prev(p) != Some(b'('));
-        ok && self.b(p + 1) == b'=' && self.plain(p, p + 2, &[S::OpAssignCompound])
+        ok && self.b(p + 1) == b'=' && self.plain(p, p + 2)
     }
 
     /// `(?:[&^]|<<|>>|\|)=`.
@@ -143,46 +143,45 @@ impl Lexer<'_> {
         } else {
             return false;
         };
-        self.b(p + len) == b'=' && self.plain(p, p + len + 1, &[S::OpAssignBitwise])
+        self.b(p + len) == b'=' && self.plain(p, p + len + 1)
     }
 
     pub(super) fn op_shift(&mut self, p: usize) -> bool {
-        (self.starts(p, b"<<") || self.starts(p, b">>")) && self.plain(p, p + 2, &[S::OpShift])
+        (self.starts(p, b"<<") || self.starts(p, b">>")) && self.plain(p, p + 2)
     }
 
     /// `!=|<=|>=|==|[<>]`.
     pub(super) fn op_compare(&mut self, p: usize) -> bool {
         let lead = self.b(p);
         if matches!(lead, b'!' | b'<' | b'>' | b'=') && self.b(p + 1) == b'=' {
-            return self.plain(p, p + 2, &[S::OpCompare]);
+            return self.plain(p, p + 2);
         }
-        matches!(lead, b'<' | b'>') && self.plain(p, p + 1, &[S::OpCompare])
+        matches!(lead, b'<' | b'>') && self.plain(p, p + 1)
     }
 
     /// `&&|!|\|\|`.
     pub(super) fn op_logical(&mut self, p: usize) -> bool {
         if self.starts(p, b"&&") || self.starts(p, b"||") {
-            return self.plain(p, p + 2, &[S::OpLogical]);
+            return self.plain(p, p + 2);
         }
-        self.b(p) == b'!' && self.plain(p, p + 1, &[S::OpLogical])
+        self.b(p) == b'!' && self.plain(p, p + 1)
     }
 
     pub(super) fn op_bit(&mut self, p: usize) -> bool {
-        matches!(self.b(p), b'&' | b'^' | b'|' | b'~') && self.plain(p, p + 1, &[S::Operator])
+        matches!(self.b(p), b'&' | b'^' | b'|' | b'~') && self.plain(p, p + 1)
     }
 
     pub(super) fn op_assign(&mut self, p: usize) -> bool {
-        self.b(p) == b'=' && self.plain(p, p + 1, &[S::OpAssign])
+        self.b(p) == b'=' && self.plain(p, p + 1)
     }
 
     pub(super) fn op_arith(&mut self, p: usize) -> bool {
-        matches!(self.b(p), b'-' | b'%' | b'*' | b'+' | b'/')
-            && self.plain(p, p + 1, &[S::Operator])
+        matches!(self.b(p), b'-' | b'%' | b'*' | b'+' | b'/') && self.plain(p, p + 1)
     }
 
     /// One byte `c` with `scope`.
-    pub(super) fn byte_rule(&mut self, p: usize, c: u8, scope: &'static [S]) -> bool {
-        p < self.len_all() && self.b(p) == c && self.plain(p, p + 1, scope)
+    pub(super) fn byte_rule(&mut self, p: usize, c: u8) -> bool {
+        p < self.len_all() && self.b(p) == c && self.plain(p, p + 1)
     }
 
     /// `(?<!\.)\.\.\.(?!\.)`.
@@ -190,7 +189,7 @@ impl Lexer<'_> {
         self.starts(p, b"...")
             && self.prev(p) != Some(b'.')
             && self.b(p + 3) != b'.'
-            && self.plain(p, p + 3, &[S::PunctVararg])
+            && self.plain(p, p + 3)
     }
 
     /// `(?-im:(?<!:):(?!:))`.
@@ -199,19 +198,22 @@ impl Lexer<'_> {
             && p < self.len_all()
             && self.prev(p) != Some(b':')
             && self.b(p + 1) != b':'
-            && self.plain(p, p + 1, &[S::PunctRangeBased])
+            && self.plain(p, p + 1)
     }
 
     /// `(\\)\n`: a backslash at the end of the line.
     pub(super) fn line_cont(&mut self, p: usize) -> bool {
-        if self.b(p) != b'\\' || p >= self.len_all() || self.b(p + 1) != b'\n' || p + 1 != self.lim
+        if self.b(p) != b'\\'
+            || p >= self.len_all()
+            || self.b(p + 1) != b'\n'
+            || p + 1 != self.lim()
         {
             return false;
         }
         if !self.nl {
             return false;
         }
-        self.cap(p, p + 1, &[S::EscapeContinuation]);
-        self.plain(p, p + 2, &[])
+        self.span(p, p + 1, &[S::EscapeContinuation]);
+        self.plain(p, p + 2)
     }
 }

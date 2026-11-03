@@ -1,25 +1,18 @@
-//! The contexts the C lexer opens, which are frames of the interned state.
-//!
-//! A context is a begin/end rule of the grammar. Its frame carries the kind,
-//! the scope stack of the rule's own text (its begin and end) as the payload,
-//! and the stack of the text inside it as the frame's stack.
+//! The rules the C lexer opens, which are frames of the interned state, and
+//! the pattern lists that lex a capture group again.
 
 use super::scope::S;
 
-/// The bits that mark a frame as one of C's: the high byte but for its
-/// lowest bit, which [`EOL`] uses.
+/// The high byte that marks a frame as one of C's.
 const TAG: u16 = crate::tag::C;
-
-/// Set in a frame whose begin ran to the end of the line, as the next line
-/// starts with `\G` matching at its first byte.
-pub(super) const EOL: u16 = 0x0100;
 
 macro_rules! rules {
     ($($id:ident $name:tt $content:tt;)*) => {
-        /// An open context: a begin/end rule of the grammar.
+        /// A begin/end rule of the grammar, or a list of patterns that lexes
+        /// a capture group again.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u8)]
-        pub(super) enum R { $($id),* }
+        pub(crate) enum R { $($id),* }
 
         impl R {
             /// Every kind, in discriminant order.
@@ -125,10 +118,18 @@ rules! {
     AsmParens [] [];
     AsmString [S::StringDouble] [S::MetaEmbeddedAsm];
     AsmInner [] [];
+    Doxy [] [];
+    Inline [] [];
+    InlineClose [] [];
+    Access [] [];
+    DefineParams [] [];
+    ParamDir [] [];
+    NumSep [] [];
+    Number [] [];
 }
 
 impl R {
-    /// The kind's position in [`R::every`].
+    /// The kind's position in [`R::ALL`].
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"

@@ -9,7 +9,7 @@ use super::state::R;
 /// A pattern of the grammar: a `match` rule or the begin of a begin/end rule.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
-pub(super) enum P {
+pub(crate) enum P {
     DocLine,
     DocBlockOne,
     DocBlockBegin,
@@ -172,6 +172,15 @@ pub(super) enum P {
     AsmLabel,
     AsmColon,
     ParamDir,
+    /// The end pattern of the innermost rule, which `ends` matches by rule.
+    End,
+    HexFloat,
+    DecFloat,
+    Binary,
+    Octal,
+    HexInt,
+    DecInt,
+    InvalidNumber,
 }
 
 /// One entry of a pattern list: a pattern, or a group of entries a rule
@@ -242,6 +251,17 @@ pub(super) const DEFINE_PARAMS: &[Item] = &[
 ];
 pub(super) const PARAM_DIR: &[Item] = &[I(P::ParamDir)];
 pub(super) const NUM_SEP: &[Item] = &[I(P::NumSep)];
+/// The patterns a number-like run is lexed again with: each of the first six
+/// must take the whole run from its start, and the last marks what none takes.
+const NUMBER: &[Item] = &[
+    I(P::HexFloat),
+    I(P::DecFloat),
+    I(P::Binary),
+    I(P::Octal),
+    I(P::HexInt),
+    I(P::DecInt),
+    I(P::InvalidNumber),
+];
 
 const DISABLED_ITEMS: &[Item] = &[I(P::NestBegin), I(P::PragmaMark)];
 
@@ -383,7 +403,7 @@ impl R {
             }
             R::Ternary | R::AsmInner => &[CALL_INNARDS, SELF],
             R::DocLine => &[&[I(P::LineCont)], DOXY],
-            R::DocBlock => &[DOXY],
+            R::DocBlock | R::Doxy => &[DOXY],
             R::BlockComment | R::IncludeDQ | R::IncludeLt => &[],
             R::LineLeading => &[&[I(P::LineSlash)]],
             R::LineSlash | R::LineComment | R::DiagDQuote | R::DiagSQuote => &[&[I(P::LineCont)]],
@@ -513,6 +533,13 @@ impl R {
                 COMMENTS,
             ],
             R::AsmString => &[&[I(P::EscBackslash), I(P::EscChar), I(P::EscInvalid)]],
+            R::Inline => &[INLINE],
+            R::InlineClose => &[INLINE_CLOSE],
+            R::Access => &[ACCESS],
+            R::DefineParams => &[DEFINE_PARAMS],
+            R::ParamDir => &[PARAM_DIR],
+            R::NumSep => &[NUM_SEP],
+            R::Number => &[NUMBER],
         }
     }
 }
@@ -673,7 +700,14 @@ fn starts(p: P, b: u8) -> bool {
         | P::SwitchHeadBegin
         | P::SwitchBodyBegin
         | P::SwitchTailBegin
-        | P::AsmLineEnd => true,
+        | P::AsmLineEnd
+        | P::End => true,
+        P::HexFloat | P::Binary | P::Octal | P::HexInt => b == b'0',
+        P::DecFloat => b == b'.' || b.is_ascii_digit(),
+        P::DecInt => b.is_ascii_digit(),
+        P::InvalidNumber => {
+            b.is_ascii_alphanumeric() || matches!(b, b'\'' | b'.' | b'_' | b'-' | b'+')
+        }
     }
 }
 
