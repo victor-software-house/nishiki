@@ -1,3 +1,5 @@
 # Local work loads the dev profile by default. CI never loads it: workflows
-# set MISE_ENV=ci, or ci,release for release jobs.
+# set MISE_ENV=ci, or ci,release for release jobs. The bench profile
+# (valgrind) is never a default: the Callgrind workflow sets MISE_ENV=ci,bench,
+# and a local run sets MISE_ENV=dev,bench.
 env = ["dev"]

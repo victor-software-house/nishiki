@@ -1,0 +1,8 @@
+# Loaded only when MISE_ENV names `bench`: the Callgrind workflow
+# (MISE_ENV=ci,bench), or a person benching locally (MISE_ENV=dev,bench).
+# .miserc.toml leaves it out of the default, so verify, dev and release never
+# install it. mise's registry has no valgrind; conda-forge builds it for
+# Linux only.
+
+[tools]
+"conda:valgrind" = "3.27.1"

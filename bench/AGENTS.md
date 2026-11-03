@@ -22,3 +22,6 @@ Rules for measuring nishiki, beside the root guide's invariants.
 11. `mise run bench` builds with Cargo's default release profile on purpose.
     A downstream binary builds nishiki that way, so the figures are what it sees.
     Do not add LTO or `codegen-units` to the root profile to improve them.
+12. `mise run callgrind`, which the Callgrind workflow runs on a pull request labelled `bench`, counts instructions with both sides built at one codegen unit (`CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1`, set by the task only).
+    Its counts are a review signal for the change itself: at the default sixteen units, an edit that only moves engine code between units shifted them by up to a few percent (2026-11-03: Python +0.6% and Go −6% on a change that measured ±0.05% at one unit), and a gate that trips on layout alone gets ignored.
+    The wall-clock figures of rule 11 keep the default profile, because that layout is what users get.

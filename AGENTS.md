@@ -71,6 +71,12 @@ The decisions that created nishiki live in a private planning repository:
 
    The Identity workflow (`.github/workflows/identity.yml`) runs `mise run identity` against the pull request's base: it fails when a fixture or an edited copy of one lexes differently.
    A pull request that means to change output says so with a body line `identity: changes <languages>`, such as `identity: changes python java`.
+
+   The Callgrind workflow (`.github/workflows/callgrind.yml`) runs on a pull request labelled `bench`.
+   It runs `mise run callgrind` against the base: instruction counts of lexing the oracle fixtures of the rule-engine languages and Markdown, as a table in the job summary.
+   Both sides build at one codegen unit, so the counts follow the code and not its layout (`bench/AGENTS.md` rule 12); it fails when a language rises more than 0.5%.
+   Label a pull request that touches a hot path.
+   valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`); a local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
 2. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
    - Before a push, run only the cheap checks: `typos`, `mise run lint:md`, `mise run format` (rustfmt) and `mise run format:toml` (taplo).
