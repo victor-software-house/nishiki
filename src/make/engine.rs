@@ -6,7 +6,7 @@ use super::rules::{Pat, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::language::Halt;
-use crate::rules::{self, Act, Captures, DynName, Grammar};
+use crate::rules::{self, Act, Captures, DynName, Grammar, ScopeName};
 use crate::utf8::char_len;
 
 /// The Makefile lexer for one line.
@@ -152,10 +152,10 @@ impl Grammar for Make {
 
     const NAME: &'static str = "Makefile";
     const ROOT: Rule = Rule::Root;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn rule_code(rule: Rule) -> u16 {

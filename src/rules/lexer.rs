@@ -14,7 +14,7 @@
 use std::borrow::Cow;
 use std::cell::Cell;
 
-use super::{Act, Captures, DynName, Grammar, Payload, Span, Text};
+use super::{Act, Captures, DynName, Grammar, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 use crate::language::Halt;
 use crate::limits::{Limit, Limits, LineReport};
@@ -138,6 +138,8 @@ enum NameSource {
     Line { start: usize, end: usize },
     /// A string the arena interned, such as a rule's payload.
     Interned(u32),
+    /// The text of a capture group of the match.
+    Group(u8),
 }
 
 /// The payload of a root frame that is the start of a document: its first
@@ -328,7 +330,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             }
             let rule = G::rule_from_code(frame.kind);
             let parent = self.top().content;
-            let name = self.path(parent, G::rule_name(rule));
+            let name = self.rule_name_path(parent, rule, frame.payload);
             self.frames.push(Frame {
                 rule,
                 enter: None,
@@ -620,7 +622,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// The stack `base` with `scopes` on top. A scope the node limit keeps
-    /// from being made is left out.
+    /// from being made is left out. The path is cached by the slice's
+    /// address unless a scope of it is named from a capture group, which
+    /// depends on the match.
     pub(crate) fn path(&mut self, base: u32, scopes: &[G::Scope]) -> u32 {
         if scopes.is_empty() {
             return base;
@@ -637,8 +641,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         let mut stack = base;
         let mut whole = true;
+        let mut fixed = true;
         for &scope in scopes {
-            let Some(child) = self.arena.child(stack, G::scope(scope)) else {
+            let fixed_scope = match G::scope(scope) {
+                ScopeName::Fixed(fixed_scope) => fixed_scope,
+                ScopeName::Capture { .. } => {
+                    fixed = false;
+                    stack = self.path_one(stack, scope);
+                    continue;
+                }
+            };
+            let Some(child) = self.arena.child(stack, fixed_scope) else {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
                 whole = false;
@@ -646,7 +659,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             };
             stack = child;
         }
-        if whole {
+        if whole && fixed {
             self.scratch.paths[slot] = Some(PathEntry {
                 base,
                 ptr,
@@ -660,11 +673,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The stack `base` with one scope on top, which is not cached: it is the
     /// scope of a run-time choice, with no slice of its own to key a cache.
     fn path_one(&mut self, base: u32, scope: G::Scope) -> u32 {
-        self.arena.child(base, G::scope(scope)).unwrap_or_else(|| {
-            self.report.record(Limit::Nodes);
-            self.flags.failed = true;
-            base
-        })
+        match G::scope(scope) {
+            ScopeName::Fixed(fixed) => self.arena.child(base, fixed).unwrap_or_else(|| {
+                self.report.record(Limit::Nodes);
+                self.flags.failed = true;
+                base
+            }),
+            ScopeName::Capture {
+                prefix,
+                group,
+                suffix,
+            } => self.dynamic_path(base, prefix, NameSource::Group(group), suffix),
+        }
     }
 
     /// The stack `base` with the scopes `prefix`, the text of `source` and
@@ -682,6 +702,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     String::from_utf8_lossy(s.get(start..end).unwrap_or_default())
                 }
                 NameSource::Interned(id) => Cow::Borrowed(self.arena.string(id)),
+                NameSource::Group(group) => String::from_utf8_lossy(self.cap_text(group.into())),
             };
             name.push_str(text.trim_start_matches('.'));
         }
@@ -701,6 +722,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         self.scratch.name = name;
         stack
+    }
+
+    /// The stack `parent` with the name scopes of `rule`, which carries
+    /// `payload`, on top.
+    fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
+        let name = self.path(parent, G::rule_name(rule));
+        match G::rule_name_delimiter(rule) {
+            Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
+            None => name,
+        }
     }
 
     fn push_frame(
@@ -741,7 +772,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         self.flags.failed = false;
         let parent = self.top().content;
-        let name = self.path(parent, G::rule_name(rule));
+        let name = self.rule_name_path(parent, rule, payload);
         let content = match G::rule_content_delimiter(rule) {
             Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
             None => self.path(name, G::rule_content(rule)),
@@ -809,7 +840,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Emits a pattern's table of capture groups. A group that the grammar
     /// tokenizes with patterns of its own runs them under the match's stack
     /// `base` plus that group's name, not under the groups around it, as
-    /// vscode-textmate's `handleCaptures` does.
+    /// vscode-textmate's `handleCaptures` does. A group that starts past the
+    /// match, in a lookahead, ends the groups, as in vscode-textmate.
     fn emit_captures(&mut self, (table, nested): Captures<G>, base: u32, start: usize, end: usize) {
         self.caps[0] = Some((start, end));
         self.dirty = true;
@@ -835,7 +867,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             let Some((from, to)) = self.caps[usize::from(group)] else {
                 continue;
             };
-            if to <= from || from > self.s.len() {
+            if to <= from {
+                continue;
+            }
+            if from > end {
+                break;
+            }
+            if from > self.s.len() {
                 continue;
             }
             while depth > 0 && stack[depth - 1].0 <= from {
@@ -959,7 +997,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     // The loop.
 
-    /// Runs from `pos` until the text ends or the line stops.
+    /// Runs from `pos` until the text ends or the line stops. Group 0 of
+    /// each match is set before its scopes are made, for a name that repeats
+    /// the whole match (`$0`). It does not mark the groups for clearing: each
+    /// match sets it before anything reads it, so the next try need not
+    /// clear the groups for it.
     fn tokenize(&mut self) {
         let line_length = self.s.len() + usize::from(self.nl);
         let mut stalled = 0_u32;
@@ -986,6 +1028,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 self.emit(line_length, node);
                 return;
             };
+            self.caps[0] = Some((start, end));
             let advanced = end > self.pos;
             let (act, captures) = G::pat_data(pat);
             let stop = match act {
@@ -1098,8 +1141,6 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             Payload::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
             Payload::None => 0,
             Payload::Backref(group) => {
-                self.caps[0] = Some((start, end));
-                self.dirty = true;
                 let text = std::str::from_utf8(self.cap_text(usize::from(group))).unwrap_or("");
                 self.arena.intern(text).unwrap_or_else(|| {
                     self.report.record(Limit::Nodes);
@@ -1179,7 +1220,7 @@ mod tests {
     use super::{Lexer, Scratch};
     use crate::arena::{Arena, ROOT};
     use crate::limits::{Limits, LineReport};
-    use crate::rules::{Act, Captures, Grammar, Text};
+    use crate::rules::{Act, Captures, Grammar, Payload, ScopeName, Text};
     use crate::scope::Scope;
 
     #[derive(Clone, Copy, Debug, PartialEq)]
@@ -1220,8 +1261,8 @@ mod tests {
         const SOURCE: Scope = OPEN;
         const GROUPS: usize = 4;
 
-        fn scope(scope: Scope) -> Scope {
-            scope
+        fn scope(scope: Scope) -> ScopeName {
+            ScopeName::Fixed(scope)
         }
 
         fn rule_code(_: Root) -> u16 {
@@ -1368,5 +1409,245 @@ mod tests {
         lexer.caps[2] = Some((3, 4));
         assert_eq!(lexer.cap_text(1), b"b");
         assert_eq!(lexer.cap_text(2), b"");
+    }
+
+    /// A grammar whose names repeat text of the line: a word is named
+    /// `word.<the word>.test` (`$0`), `!` and `?` are named after themselves
+    /// as group 1, with a group 2 past the match and a group 3 after it, and
+    /// `<<ab` opens a quote named `quote.ab` that the next `ab` closes.
+    #[derive(Clone, Copy, Debug)]
+    struct Named;
+
+    #[derive(Clone, Copy, Debug, PartialEq)]
+    enum Rule {
+        Root,
+        Quote,
+    }
+
+    #[derive(Clone, Copy, Debug)]
+    enum Mark {
+        Word,
+        Look,
+        Open,
+        Close,
+    }
+
+    #[derive(Clone, Copy, Debug)]
+    enum Name {
+        Fixed(Scope),
+        Group(&'static str, u8, &'static str),
+    }
+
+    #[derive(Clone, Copy, Debug)]
+    enum Never {}
+
+    const AFTER: Scope = Scope::dynamic(1);
+
+    impl Grammar for Named {
+        type Scope = Name;
+        type Rule = Rule;
+        type Pat = Mark;
+        type Nested = Never;
+        type Extra = ();
+        type Kept = ();
+
+        const NAME: &'static str = "named";
+        const ROOT: Rule = Rule::Root;
+        const SOURCE: Scope = AFTER;
+        const GROUPS: usize = 4;
+
+        fn scope(scope: Name) -> ScopeName {
+            match scope {
+                Name::Fixed(scope) => ScopeName::Fixed(scope),
+                Name::Group(prefix, group, suffix) => ScopeName::Capture {
+                    prefix,
+                    group,
+                    suffix,
+                },
+            }
+        }
+
+        fn rule_code(rule: Rule) -> u16 {
+            match rule {
+                Rule::Root => 0,
+                Rule::Quote => 1,
+            }
+        }
+
+        fn rule_from_code(code: u16) -> Rule {
+            if code == 1 { Rule::Quote } else { Rule::Root }
+        }
+
+        fn rule_name(_: Rule) -> &'static [Name] {
+            &[]
+        }
+
+        fn rule_content(_: Rule) -> &'static [Name] {
+            &[]
+        }
+
+        fn rule_payload(rule: Rule) -> Payload {
+            match rule {
+                Rule::Root => Payload::None,
+                Rule::Quote => Payload::Backref(1),
+            }
+        }
+
+        fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {
+            match rule {
+                Rule::Root => None,
+                Rule::Quote => Some("quote."),
+            }
+        }
+
+        fn pat_act(pat: Mark) -> Act<Self> {
+            match pat {
+                Mark::Word => Act::Match(&[Name::Group("word.", 0, ".test")]),
+                Mark::Look => Act::Match(&[]),
+                Mark::Open => Act::Begin(Rule::Quote),
+                Mark::Close => Act::End,
+            }
+        }
+
+        fn pat_captures(pat: Mark) -> Captures<Self> {
+            match pat {
+                Mark::Look => (
+                    &[
+                        (1, &[Name::Group("mark.", 1, "")]),
+                        (2, &[Name::Fixed(AFTER)]),
+                        (3, &[Name::Fixed(AFTER)]),
+                    ],
+                    &[],
+                ),
+                Mark::Word | Mark::Open | Mark::Close => (&[], &[]),
+            }
+        }
+
+        fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Mark, usize)> {
+            let pats: &[Mark] = match lexer.top_rule() {
+                Rule::Root => &[Mark::Open, Mark::Look, Mark::Word],
+                Rule::Quote => &[Mark::Close, Mark::Word],
+            };
+            for p in lexer.pos..lexer.lim() {
+                for &pat in pats {
+                    if let Some(end) = lexer.try_pat(pat, p) {
+                        return Some((p, pat, end));
+                    }
+                }
+            }
+            None
+        }
+
+        fn matcher(lexer: &mut Lexer<'_, Self>, pat: Mark, p: usize) -> Option<usize> {
+            match pat {
+                Mark::Word => {
+                    let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
+                    (end > p).then_some(end)
+                }
+                Mark::Look => {
+                    if !matches!(lexer.at(p), b'!' | b'?') {
+                        return None;
+                    }
+                    lexer.cap(1, p, p + 1);
+                    lexer.cap(2, p + 2, p + 3);
+                    lexer.cap(3, p, p + 1);
+                    Some(p + 1)
+                }
+                Mark::Open => {
+                    if !lexer.starts(p, b"<<") {
+                        return None;
+                    }
+                    let end = lexer.skip(p + 2, |b| b.is_ascii_alphabetic());
+                    lexer.cap(1, p + 2, end);
+                    Some(end)
+                }
+                Mark::Close => lexer.payload_at(p).map(|width| p + width),
+            }
+        }
+
+        fn tokenize_nested(_: &mut Lexer<'_, Self>, kind: Never, _: usize, _: usize, _: u32) {
+            match kind {}
+        }
+    }
+
+    /// Lexes `lines` with [`Named`] from its start state, as a language's
+    /// `start` makes it, and gives each token's end and scopes, joined by
+    /// spaces, line by line. Each line starts from a new scratch, so it
+    /// opens the rules of its state afresh.
+    fn named_tokens(arena: &mut Arena, lines: &[&[u8]]) -> Vec<Vec<(usize, String)>> {
+        let limits = Limits::default();
+        let mut state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let mut rows = Vec::new();
+        for &bytes in lines {
+            let mut scratch = Scratch::<Named>::default();
+            let mut tokens = Vec::new();
+            let mut report = LineReport::default();
+            let text = Text {
+                bytes,
+                start: 0,
+                anchored: false,
+            };
+            state = Lexer::new(
+                arena,
+                &limits,
+                text,
+                &mut tokens,
+                state,
+                &mut report,
+                &mut scratch,
+            )
+            .run();
+            rows.push(
+                tokens
+                    .iter()
+                    .map(|token| {
+                        let mut names: Vec<&str> = arena.scopes(token.stack().0).collect();
+                        names.reverse();
+                        (token.end(), names.join(" "))
+                    })
+                    .collect(),
+            );
+        }
+        rows
+    }
+
+    #[test]
+    fn a_name_repeats_the_text_of_its_group_and_the_whole_match() {
+        let mut arena = Arena::new(None);
+        assert_eq!(arena.named_scope("after.test"), Some(AFTER));
+        let rows = named_tokens(&mut arena, &[b"ab ! cd ?"]);
+        let named: Vec<&str> = rows[0].iter().map(|(_, names)| names.as_str()).collect();
+        assert_eq!(
+            named,
+            [
+                "word.ab.test",
+                "",
+                "mark.!",
+                "",
+                "word.cd.test",
+                "",
+                "mark.?"
+            ]
+        );
+    }
+
+    #[test]
+    fn a_group_past_the_match_ends_its_groups() {
+        let mut arena = Arena::new(None);
+        assert_eq!(arena.named_scope("after.test"), Some(AFTER));
+        let rows = named_tokens(&mut arena, &[b"!"]);
+        assert_eq!(rows[0], [(1, "mark.!".to_owned())]);
+    }
+
+    #[test]
+    fn a_rule_named_from_its_payload_keeps_the_name_on_the_next_line() {
+        let mut arena = Arena::new(None);
+        let rows = named_tokens(&mut arena, &[b"<<ab xy", b"zz ab"]);
+        assert_eq!(rows[0][0], (4, "quote.ab".to_owned()));
+        assert_eq!(rows[0][2], (7, "quote.ab word.xy.test".to_owned()));
+        assert_eq!(rows[1][0], (2, "quote.ab word.zz.test".to_owned()));
+        assert_eq!(rows[1][2], (5, "quote.ab".to_owned()));
     }
 }

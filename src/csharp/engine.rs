@@ -4,7 +4,7 @@ use std::cell::Cell;
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 
 /// The C# lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, CSharp>;
@@ -37,12 +37,12 @@ impl Grammar for CSharp {
     const NAME: &'static str = "C#";
     const ROOT: Rule = Rule::Root;
     const MARKS_FIRST_LINE: bool = true;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 13;
     const CAPTURED_EOL: bool = true;
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn rule_code(rule: Rule) -> u16 {

@@ -4,7 +4,7 @@ use std::cell::{Cell, OnceCell};
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 
 /// The Kotlin lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Kotlin>;
@@ -42,12 +42,12 @@ impl Grammar for Kotlin {
 
     const NAME: &'static str = "Kotlin";
     const ROOT: Rule = Rule::Root;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 6;
     const CAPTURED_EOL: bool = true;
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn rule_code(rule: Rule) -> u16 {

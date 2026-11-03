@@ -4,7 +4,7 @@ use std::cell::Cell;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
 
 /// The Ruby lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Ruby>;
@@ -42,12 +42,12 @@ impl Grammar for Ruby {
 
     const NAME: &'static str = "Ruby";
     const ROOT: Rule = Rule::Root;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 16;
     const CAPTURED_EOL: bool = true;
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn rule_code(rule: Rule) -> u16 {

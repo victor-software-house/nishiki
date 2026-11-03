@@ -6,7 +6,7 @@ use std::cell::Cell;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
 
 /// The Go lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Go>;
@@ -61,12 +61,12 @@ impl Grammar for Go {
 
     const NAME: &'static str = "Go";
     const ROOT: Rule = Rule::Root;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 54;
     const CAPTURED_EOL: bool = true;
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn rule_code(rule: Rule) -> u16 {

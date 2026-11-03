@@ -4,7 +4,7 @@
 use super::grammar::{Nested, Pat, Rule};
 use super::matchers;
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 
 /// The Swift lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Swift>;
@@ -39,12 +39,12 @@ impl Grammar for Swift {
     const NAME: &'static str = "Swift";
     const ROOT: Rule = Rule::Root;
     const MARKS_FIRST_LINE: bool = true;
-    const SOURCE: S = S::Source;
+    const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 32;
     const CAPTURED_EOL: bool = true;
 
-    fn scope(scope: S) -> crate::scope::Scope {
-        scope.scope()
+    fn scope(scope: S) -> ScopeName {
+        ScopeName::Fixed(scope.scope())
     }
 
     fn extra(kept: Vec<(usize, usize)>) -> Extra {

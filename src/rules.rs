@@ -65,10 +65,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// start of a document marks its first line.
     const MARKS_FIRST_LINE: bool = false;
     /// The scope that names a whole document, such as `source.python`.
-    const SOURCE: Self::Scope;
+    const SOURCE: Scope;
 
-    /// The scope in the crate's shared numbering.
-    fn scope(scope: Self::Scope) -> Scope;
+    /// The scope in the crate's shared numbering, or the name it makes
+    /// from a capture group's text.
+    fn scope(scope: Self::Scope) -> ScopeName;
     /// The matchers' memory for a line, given what the last line kept.
     fn extra(kept: Self::Kept) -> Self::Extra {
         drop(kept);
@@ -100,6 +101,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// The prefix of a content scope that ends in the rule's payload text,
     /// for a rule whose content scope is named by it.
     fn rule_content_delimiter(_rule: Self::Rule) -> Option<&'static str> {
+        None
+    }
+    /// The prefix of a name scope that ends in the rule's payload text, for
+    /// a rule whose name repeats the begin capture group it carries; its
+    /// [`Grammar::rule_name`] then leaves that scope out. The next line
+    /// rebuilds the name from the payload, as it has no groups.
+    fn rule_name_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
     /// What `pat` does when it matches.
@@ -139,7 +147,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
 /// The state at the start of a document of grammar `G` whose scopes sit on
 /// the stack `base`: the root rule with [`Grammar::SOURCE`] on top of it.
 pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
-    let stack = arena.child(base, G::scope(G::SOURCE)).unwrap_or(base);
+    let stack = arena.child(base, G::SOURCE).unwrap_or(base);
     let payload = if G::MARKS_FIRST_LINE { FIRST_LINE } else { 0 };
     arena
         .push(ROOT, G::rule_code(G::ROOT), payload, stack)
@@ -239,6 +247,28 @@ pub(crate) struct DynName {
     pub(crate) start: usize,
     pub(crate) end: usize,
     pub(crate) suffix: &'static str,
+}
+
+/// What a scope of a grammar names.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum ScopeName {
+    /// A scope of the crate's shared numbering.
+    Fixed(Scope),
+    /// A scope whose name repeats the text of a capture group of the match,
+    /// as `storage.type.$1.cpp` does: `prefix`, the text of group `group`
+    /// and `suffix`.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "C and C++ name scopes from capture text; until they land only the unit tests do"
+        )
+    )]
+    Capture {
+        prefix: &'static str,
+        group: u8,
+        suffix: &'static str,
+    },
 }
 
 /// A run of a match that carries scopes of its own, or is lexed again.
