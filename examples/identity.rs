@@ -5,8 +5,9 @@
 //!
 //! The edits put the lexers into states the fixtures alone do not reach: a
 //! byte that opens or closes something is inserted, a run of bytes is cut,
-//! and lines are swapped. They are drawn from a fixed seed, so every run
-//! makes the same documents.
+//! and lines are swapped. Each fixture's edits are drawn from a seed of its
+//! language and name, so every run makes the same documents, and a tree with
+//! more fixtures makes the same edits of the ones both trees share.
 //!
 //! Usage: `identity [fixtures] [--dump <language> <fixture> <edit>]`. The
 //! fixtures default to this tree's `tests/oracle`; `--dump` prints the tokens
@@ -30,6 +31,18 @@ struct Fixture {
     language: Language,
     name: String,
     text: String,
+}
+
+impl Fixture {
+    /// The seed of its edits, from its language and name alone, so that adding
+    /// or removing another fixture leaves its edits as they are.
+    fn seed(&self) -> u64 {
+        let mut seed = 0xcbf2_9ce4_8422_2325_u64;
+        hash(&mut seed, self.language.id().as_bytes());
+        hash(&mut seed, b"/");
+        hash(&mut seed, self.name.as_bytes());
+        seed
+    }
 }
 
 fn fixtures(root: &Path) -> Vec<Fixture> {
@@ -169,7 +182,8 @@ fn main() {
         && flag == "--dump"
     {
         let edit: u64 = edit.parse().unwrap_or(0);
-        for (seed, fixture) in (1..).zip(&fixtures) {
+        for fixture in &fixtures {
+            let seed = fixture.seed();
             if fixture.language.id() == language.as_str() && &fixture.name == name {
                 let text = edited(&fixture.text, seed, edit);
                 lex(fixture.language, &text, |number, piece, names| {
@@ -180,7 +194,8 @@ fn main() {
         return;
     }
     let mut documents = 0;
-    for (seed, fixture) in (1..).zip(&fixtures) {
+    for fixture in &fixtures {
+        let seed = fixture.seed();
         for edit in 0..=EDITS {
             let text = edited(&fixture.text, seed, edit);
             let mut state = 0xcbf2_9ce4_8422_2325_u64;
