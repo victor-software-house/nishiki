@@ -296,9 +296,10 @@ impl Lexer<'_> {
     }
 
     /// What lets a postfix operator end: `[]),:;}\s]|\z`, with the line feed
-    /// counted as a space.
+    /// counted as a space. `\z` holds at the end of a text that no line feed
+    /// follows, as in a capture lexed again.
     fn before_close(&self, p: usize) -> bool {
-        p > self.lim()
+        p >= self.lim()
             || matches!(self.at(p), b']' | b')' | b',' | b':' | b';' | b'}')
             || self.space_at(p) > 0
     }

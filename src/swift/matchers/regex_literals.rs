@@ -214,7 +214,7 @@ impl Lexer<'_> {
             self.cap(0, p, end);
             return Some(end);
         }
-        if p == self.lim() {
+        if p == self.lim() && self.nl {
             self.cap(0, p, p + 1);
             self.cap(1, p, p + 1);
             return Some(p + 1);

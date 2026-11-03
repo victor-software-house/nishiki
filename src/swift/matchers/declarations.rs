@@ -887,7 +887,7 @@ impl Lexer<'_> {
             return Some(p + 1);
         }
         if self.at_eol(p) {
-            return Some(if p == self.lim() { p + 1 } else { p });
+            return Some(p + usize::from(p == self.lim() && self.nl));
         }
         (self.at(p) == b'/' && matches!(self.at(p + 1), b'/' | b'*')).then_some(p)
     }

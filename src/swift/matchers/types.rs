@@ -73,11 +73,12 @@ impl Lexer<'_> {
     }
 
     /// `(?=\s*[SET])` where the set contains the line feed: `\s*` gives back
-    /// the line feed it took, so a run of blanks that reaches the end of the
-    /// line always matches.
+    /// the line feed it took, so a run of blanks that takes the line feed
+    /// always matches. Past the line feed, or where none follows the text, the
+    /// run must end at a character of the set.
     fn blanks_then(&self, p: usize, set: &[u8]) -> bool {
         let end = self.blanks_end(p);
-        end >= self.lim() || self.at_in(end, set)
+        (p..end).contains(&self.lim()) || self.at_in(end, set)
     }
 
     /// Records the groups of an identifier that starts at `p`: `whole` each
