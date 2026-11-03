@@ -80,91 +80,87 @@ pub(super) struct Class {
     pub(super) parts: Vec<Vec<Item>>,
 }
 
-/// A named set of characters.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Prop {
-    Digit,
-    Word,
-    Space,
-    Hex,
-    Alpha,
-    Alnum,
-    Upper,
-    Lower,
-    Punct,
-    Cntrl,
-    Graph,
-    Print,
-    Blank,
-    Ascii,
-    Number,
-    Mark,
-    Symbol,
-    Separator,
-    Any,
+/// A named set of characters: ranges of code points, ascending.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Prop(&'static [(u32, u32)]);
+
+impl Prop {
+    /// Every character.
+    pub(super) const ANY: Prop = Prop(&[(0, 0x10_ffff)]);
+
+    /// Whether `c` is in the set.
+    pub(super) fn matches(self, c: char) -> bool {
+        let code = u32::from(c);
+        let at = self.0.partition_point(|&(_, last)| last < code);
+        self.0.get(at).is_some_and(|&(first, _)| first <= code)
+    }
 }
 
-/// The set a `\p{..}` or `[:..:]` name stands for.
-///
-/// The name `n\x64` is escaped so the spelling check reads it: it is the
-/// Unicode general category of decimal digits.
+/// The set a `\p{..}` or `[:..:]` name stands for, as Oniguruma measures it:
+/// names ignore case, `_`, `-` and spaces.
 pub(super) fn prop_named(name: &str) -> Option<Prop> {
     let lower = name.to_ascii_lowercase().replace(['_', ' ', '-'], "");
-    Some(match lower.as_str() {
-        "digit" | "n\x64" => Prop::Digit,
-        "word" | "w" | "idcontinue" | "xidcontinue" => Prop::Word,
-        "space" | "whitespace" => Prop::Space,
-        "xdigit" | "hex" | "asciihexdigit" => Prop::Hex,
-        "alpha" | "alphabetic" | "l" | "letter" | "lo" | "lm" | "lt" | "idstart" | "xidstart" => {
-            Prop::Alpha
-        }
-        "alnum" => Prop::Alnum,
-        "upper" | "lu" | "uppercase" => Prop::Upper,
-        "lower" | "ll" | "lowercase" => Prop::Lower,
-        "punct" | "p" | "punctuation" => Prop::Punct,
-        "cntrl" | "cc" | "control" => Prop::Cntrl,
-        "graph" => Prop::Graph,
-        "print" => Prop::Print,
-        "blank" => Prop::Blank,
-        "ascii" => Prop::Ascii,
-        "n" | "number" | "nl" | "no" => Prop::Number,
-        "m" | "mark" | "mn" | "mc" | "me" => Prop::Mark,
-        "s" | "symbol" | "sm" | "sc" | "sk" | "so" => Prop::Symbol,
-        "z" | "separator" | "zs" => Prop::Separator,
-        "any" => Prop::Any,
-        _ => return None,
-    })
+    let key = match lower.as_str() {
+        "any" => return Some(Prop::ANY),
+        "letter" => "l",
+        "uppercaseletter" => "lu",
+        "lowercaseletter" => "ll",
+        "titlecaseletter" => "lt",
+        "modifierletter" => "lm",
+        "otherletter" => "lo",
+        "mark" => "m",
+        "nonspacingmark" => "mn",
+        "spacingmark" => "mc",
+        "enclosingmark" => "me",
+        "number" => "n",
+        "decimalnumber" => "nd",
+        "letternumber" => "nl",
+        "othernumber" => "no",
+        "punctuation" => "p",
+        "connectorpunctuation" => "pc",
+        "dashpunctuation" => "pd",
+        "openpunctuation" => "ps",
+        "closepunctuation" => "pe",
+        "initialpunctuation" => "pi",
+        "finalpunctuation" => "pf",
+        "otherpunctuation" => "po",
+        "symbol" => "s",
+        "mathsymbol" => "sm",
+        "currencysymbol" => "sc",
+        "modifiersymbol" => "sk",
+        "othersymbol" => "so",
+        "separator" => "z",
+        "spaceseparator" => "zs",
+        "lineseparator" => "zl",
+        "paragraphseparator" => "zp",
+        "other" => "c",
+        "control" => "cc",
+        "format" => "cf",
+        "privateuse" => "co",
+        "unassigned" => "cn",
+        "surrogate" => "cs",
+        "xids" => "xidstart",
+        "xidc" => "xidcontinue",
+        "ids" => "idstart",
+        "idc" => "idcontinue",
+        "wspace" => "whitespace",
+        "hex" | "hexdigit" | "asciihexdigit" => "xdigit",
+        other => other,
+    };
+    super::unicode::lookup(key).map(Prop)
 }
 
-/// Whether `c` is in the set, approximated with the standard library's
-/// character tests.
-pub(super) fn prop_matches(prop: Prop, c: char) -> bool {
-    match prop {
-        Prop::Digit => c.is_ascii_digit() || (!c.is_ascii() && c.is_numeric()),
-        Prop::Word => is_word(c),
-        Prop::Space => c.is_whitespace(),
-        Prop::Hex => c.is_ascii_hexdigit(),
-        Prop::Alpha => c.is_alphabetic(),
-        Prop::Alnum => c.is_alphanumeric(),
-        Prop::Upper => c.is_uppercase(),
-        Prop::Lower => c.is_lowercase(),
-        Prop::Punct => c.is_ascii_punctuation() && !"$+<=>^`|~".contains(c),
-        Prop::Cntrl => c.is_control(),
-        Prop::Graph => !c.is_whitespace() && !c.is_control(),
-        Prop::Print => !c.is_control(),
-        Prop::Blank => c == ' ' || c == '\t',
-        Prop::Ascii => c.is_ascii(),
-        Prop::Number => c.is_numeric(),
-        Prop::Mark => ('\u{300}'..='\u{36f}').contains(&c),
-        Prop::Symbol => "$+<=>^`|~".contains(c),
-        Prop::Separator => c.is_whitespace() && !c.is_control(),
-        Prop::Any => true,
-    }
+/// A set `prop_named` is known to have.
+pub(super) fn builtin(name: &str) -> Prop {
+    prop_named(name).unwrap_or(Prop::ANY)
 }
 
 /// `\w`, and what `\b` tests.
 pub(super) fn is_word(c: char) -> bool {
-    c.is_alphanumeric() || c == '_' || ('\u{300}'..='\u{36f}').contains(&c)
+    if c.is_ascii() {
+        return c.is_ascii_alphanumeric() || c == '_';
+    }
+    builtin("word").matches(c)
 }
 
 /// The case a case-insensitive comparison reads `c` in.
@@ -181,7 +177,7 @@ impl Class {
                 union.iter().any(|item| match item {
                     Item::Range(lo, hi) => (*lo..=*hi).contains(&c),
                     Item::Prop(prop, polarity) => {
-                        prop_matches(*prop, c) == (*polarity == Polarity::Positive)
+                        prop.matches(c) == (*polarity == Polarity::Positive)
                     }
                     Item::Nested(class) => class.matches(c, Case::Sensitive),
                 })

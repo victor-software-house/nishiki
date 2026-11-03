@@ -103,7 +103,6 @@ nishiki's own TextMate engine adds fixed bounds, constants in `src/textmate/`:
 | `MAX_END` (32,767) | The back-referenced `end` and `while` patterns a highlighter fills in from their `begin` matches. | The rule closes on its grammar's own pattern, and the report names the node limit. |
 | `MAX_INSTS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
 | `MAX_CALLS` (256) | The subroutine calls nested in one match. | The match fails. |
-| `GROUPS` (32) | The capture groups a match keeps. | Later groups get no scopes. |
 
 ```rust
 use nishiki::{Highlighter, Language, Limits};

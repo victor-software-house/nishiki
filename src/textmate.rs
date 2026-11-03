@@ -7,14 +7,18 @@
 //! arena's states, and the regular-expression machine in [`regex`] runs the
 //! patterns.
 
-#![expect(
-    dead_code,
-    reason = "the engine is built in stages and nothing calls it yet"
+#![cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the engine yet; only its tests call it"
+    )
 )]
 
 mod grammar;
 mod regex;
 mod scanner;
+mod selector;
 mod tokenizer;
 
 #[cfg(test)]

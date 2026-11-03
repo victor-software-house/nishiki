@@ -4,14 +4,15 @@
 //! The syntax covers classes with `&&` and POSIX brackets, lookahead and
 //! lookbehind, atomic groups, lazy and possessive quantifiers, back-references,
 //! named groups, subroutine calls (`\g<name>`), inline flags and the anchors
-//! `\A`, `\G`, `^` and `$`. Unicode properties are approximated with the
-//! standard library's character tests.
+//! `\A`, `\G`, `^` and `$`. Unicode properties are the character sets
+//! Oniguruma applies, measured into [`unicode`].
 
 mod analysis;
 mod ast;
 mod parse;
 mod program;
 mod relax;
+mod unicode;
 mod vm;
 
 #[cfg(test)]
@@ -19,6 +20,7 @@ mod tests;
 
 use analysis::{Starts, anchors, first_bytes, literal_prefix, required_byte, uses_context};
 use memchr::{memchr, memchr2, memchr3, memmem};
+use parse::Dialect;
 pub(crate) use parse::Error;
 use program::{Program, compile};
 use vm::Machine;
@@ -60,9 +62,18 @@ pub(crate) struct Regex {
 }
 
 impl Regex {
-    /// Compiles `pattern`.
+    /// Compiles `pattern` as Oniguruma reads it.
     pub(crate) fn new(pattern: &str) -> Result<Regex, Error> {
-        let parsed = parse::parse(pattern)?;
+        Regex::build(pattern, Dialect::Oniguruma)
+    }
+
+    /// Compiles `pattern` of a grammar, where `\z` never matches.
+    pub(crate) fn for_grammar(pattern: &str) -> Result<Regex, Error> {
+        Regex::build(pattern, Dialect::Grammar)
+    }
+
+    fn build(pattern: &str, dialect: Dialect) -> Result<Regex, Error> {
+        let parsed = parse::parse(pattern, dialect)?;
         let program = compile(&parsed)?;
         let anchored = anchors(&parsed.root);
         let prefix = literal_prefix(&parsed.root);

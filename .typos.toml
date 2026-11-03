@@ -1,3 +1,7 @@
 # Spelling, checked by `mise run lint:typos`.
 [files]
 extend-exclude = ["*.lock"]
+
+# Unicode general-category codes, such as Nd, which are not words.
+[default.extend-words]
+nd = "nd"

@@ -2,7 +2,7 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 
-use crate::textmate::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "comment.line.number-sign.shell",
@@ -459,6 +459,8 @@ static LISTS: [List; 60] = [
     List::new(&[155, 157, 158, 159]),
     List::new(&[162]),
 ];
+
+static INJECTIONS: &[Injection] = &[];
 
 static RULES: &[Rule] = &[
     Rule {
@@ -3613,6 +3615,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     names: NAMES,
     rules: RULES,
     lists: &LISTS,
+    injections: INJECTIONS,
     patterns: &PATTERNS,
     root: 0,
 };

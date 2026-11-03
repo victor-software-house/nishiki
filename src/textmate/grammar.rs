@@ -95,6 +95,16 @@ impl List {
     }
 }
 
+/// Rules that apply wherever a scope selector matches the scopes at the
+/// cursor, besides the rules of the open rule.
+#[derive(Debug)]
+pub(crate) struct Injection {
+    /// The scope selector, such as `L:text.html - comment`.
+    pub(crate) selector: &'static str,
+    /// The container rule whose list the injection tries.
+    pub(crate) rule: usize,
+}
+
 /// Whether `source` holds a back-reference `\1`..`\9`, which an `end` or
 /// `while` pattern fills in from the `begin` match.
 const fn has_backrefs(source: &str) -> bool {
@@ -136,7 +146,7 @@ impl PatternSlot {
     /// which never matches.
     pub(crate) fn regex(&self) -> Option<&Regex> {
         self.regex
-            .get_or_init(|| Regex::new(self.source).ok())
+            .get_or_init(|| Regex::for_grammar(self.source).ok())
             .as_ref()
     }
 }
@@ -152,6 +162,8 @@ pub(crate) struct Grammar {
     pub(crate) rules: &'static [Rule],
     /// The lists of rules, shared by the rules that start the same ones.
     pub(crate) lists: &'static [List],
+    /// The grammar's injections.
+    pub(crate) injections: &'static [Injection],
     /// The patterns.
     pub(crate) patterns: &'static [PatternSlot],
     /// The rule of the whole grammar.

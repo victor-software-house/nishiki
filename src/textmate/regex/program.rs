@@ -375,6 +375,8 @@ impl Compiler<'_> {
         Ok(())
     }
 
+    /// A group repeated no times is still there to be called, so its code is
+    /// emitted and jumped over.
     fn repeat(&mut self, node: &Node, min: u32, max: Option<u32>, kind: Kind) -> Result<(), Error> {
         if kind == Kind::Possessive {
             let at = self.push(Inst::Atomic { end: 0 })?;
@@ -382,6 +384,13 @@ impl Compiler<'_> {
             self.push(Inst::BodyEnd)?;
             let end = self.pc();
             self.patch(at, end);
+            return Ok(());
+        }
+        if max == Some(0) && self.calls {
+            let jump = self.push(Inst::Jump(0))?;
+            self.node(node)?;
+            let end = self.pc();
+            self.patch(jump, end);
             return Ok(());
         }
         let lazy = kind == Kind::Lazy;

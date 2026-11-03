@@ -20,6 +20,7 @@ use regex_automata::meta::Cache;
 use super::grammar::{Cap, DYNAMIC_NAME, Grammar, List, NONE, Rule, RuleKind};
 use super::regex::{self, Context, Regex};
 use super::scanner::Scanner;
+use super::selector::{self, Expr};
 use crate::arena::{Arena, ROOT};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scope::Scope;
@@ -44,11 +45,9 @@ const NO_MATCH: u32 = u32::MAX;
 /// lexer, and one decision of the engine is some dozens of the machine's
 /// instructions. Chosen so that no oracle line spends half its default budget.
 const STEP: u64 = 32;
-/// The capture groups a match keeps: more are never named by a grammar.
-const GROUPS: usize = 32;
 
 /// The span of each group of a match.
-type Caps = [Option<(usize, usize)>; GROUPS];
+type Caps = [Option<(usize, usize)>];
 
 /// Whether `\A` can still match: the cursor has not left the start of the
 /// document.
@@ -63,8 +62,10 @@ enum DocStart {
 /// How a run of the loop is entered.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Entry {
-    /// At the start of a line, where the open `while` rules are checked.
-    Line,
+    /// At the start of a line, where the open `while` rules are checked;
+    /// `anchored` when `\G` matches at the line's start, as a fence's
+    /// `while` rule leaves it.
+    Line { anchored: bool },
     /// Inside a capture group whose text rules lex again.
     Capture,
 }
@@ -99,6 +100,7 @@ struct Best {
     rule: Option<usize>,
     /// Its place in the order the rules are tried: the `end` pattern first,
     /// then the list, or last with `applyEndPatternLast`.
+    tier: u8,
     order: usize,
     pat: Pat,
     /// Whether its groups are in the `best` scratch.
@@ -137,6 +139,15 @@ impl Drop for Scratch {
     }
 }
 
+/// One selector of an injection, ready to test.
+#[derive(Debug)]
+struct Injected {
+    priority: i8,
+    expr: Expr,
+    /// The list of rules it tries.
+    list: usize,
+}
+
 /// The buffers and caches the tokenizer keeps between lines.
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
@@ -144,6 +155,8 @@ pub(crate) struct Scratch {
     frames: Vec<Frame>,
     pool: Vec<Vec<Frame>>,
     locals: Vec<Vec<(u32, usize)>>,
+    /// Spans of the groups of matches in progress, kept for reuse.
+    caps: Vec<Vec<Option<(usize, usize)>>>,
     cur: regex::Scratch,
     best: regex::Scratch,
     /// The scope of each name of the grammar the caches belong to.
@@ -164,11 +177,20 @@ pub(crate) struct Scratch {
     /// The last `end` or `while` pattern filled with a match's groups, kept
     /// so that filling the next reuses its buffer.
     filled: String,
+    /// The last scope name filled with a match's groups, kept so that filling
+    /// the next reuses its buffer.
+    name: String,
     /// Each filled pattern, compiled once: its text is interned in the arena,
     /// so the arena's node limit and [`MAX_END`] bound how many there are.
     dynamic: Vec<Option<Regex>>,
     /// The place in `dynamic` of each interned pattern number.
     dynamic_ids: HashMap<u32, usize>,
+    /// The grammar's injections, by priority.
+    injected: Vec<Injected>,
+    /// Per scope stack, the injections whose selector it satisfies.
+    injected_at: HashMap<u32, Vec<usize>>,
+    /// The injections that apply at the cursor, reused.
+    hits: Vec<usize>,
 }
 
 /// The state at the start of a document in `grammar`, whose text sits on the
@@ -187,24 +209,49 @@ fn pack(rule: usize, end: u32) -> u32 {
     u32::try_from(rule).unwrap_or(0) | (end << END_SHIFT)
 }
 
-/// Lexes one line of `grammar` from `state`, appending its tokens, and
-/// returns the state after it. An empty line leaves the state as it is.
-#[expect(
-    clippy::too_many_arguments,
-    reason = "the lexers of the crate all take the same shared parts"
-)]
+/// The state at the start of the body of a fence in `grammar`, whose text sits
+/// on the stack `base` with no root scope of the grammar's own, as in Shiki's
+/// embedding, and where `\A` never matches.
+pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
+    arena
+        .push(ROOT, KIND, pack(grammar.root, 0), base)
+        .unwrap_or(ROOT)
+}
+
+/// A line to lex.
+#[derive(Clone, Copy)]
+pub(crate) struct Text<'a> {
+    pub(crate) grammar: &'static Grammar,
+    /// The whole line, without its ending.
+    pub(crate) bytes: &'a [u8],
+    /// Where the grammar's own text starts: past the containers of a Markdown
+    /// fence, so that `^` and lookbehind see the whole line, as in Shiki.
+    pub(crate) start: usize,
+    /// Whether `\G` matches at `start`, as the `while` rule of a fence leaves
+    /// it.
+    pub(crate) anchored: bool,
+}
+
+/// Lexes one line of a grammar from `state`, appending its tokens, which
+/// cover the line from `text.start` with ends counted from the line's start,
+/// and returns the state after it. An empty line leaves the state as it is.
 pub(crate) fn line(
-    grammar: &'static Grammar,
     scratch: &mut Scratch,
     arena: &mut Arena,
     limits: &Limits,
-    line: &[u8],
+    text: Text<'_>,
     state: u32,
     out: &mut Vec<Token>,
     report: &mut LineReport,
 ) -> u32 {
+    let Text {
+        grammar,
+        bytes: line,
+        start,
+        anchored,
+    } = text;
     scratch.spent = 0;
-    if line.is_empty() {
+    if line.len() <= start {
         return state;
     }
     if !scratch.cached_for.is_some_and(|g| std::ptr::eq(g, grammar)) {
@@ -223,6 +270,25 @@ pub(crate) fn line(
             .meta_caches
             .resize_with(grammar.lists.len(), || None);
         scratch.epoch = 0;
+        scratch.injected = grammar
+            .injections
+            .iter()
+            .flat_map(|injection| {
+                let list = grammar
+                    .rules
+                    .get(injection.rule)
+                    .map_or(0, |rule| rule.list);
+                selector::parse(injection.selector)
+                    .into_iter()
+                    .map(move |matcher| Injected {
+                        priority: matcher.priority,
+                        expr: matcher.expr,
+                        list,
+                    })
+            })
+            .collect();
+        scratch.injected.sort_by_key(|entry| entry.priority);
+        scratch.injected_at.clear();
     }
     scratch.epoch = scratch.epoch.wrapping_add(1);
     if scratch.epoch == 0 {
@@ -247,7 +313,7 @@ pub(crate) fn line(
         out,
         s: scratch,
         len: line.len(),
-        last: 0,
+        last: start,
         steps,
         out_start,
         stopped: false,
@@ -259,9 +325,9 @@ pub(crate) fn line(
         } else {
             DocStart::Passed
         },
-        0,
+        start,
         &mut frames,
-        Entry::Line,
+        Entry::Line { anchored },
     );
     let top = frames.last().map_or(ROOT, |f| f.content);
     tokenizer.produce(top, line.len());
@@ -354,28 +420,54 @@ fn fill_backrefs(source: &str, text: &[u8], caps: &Caps, out: &mut String) {
     }
 }
 
-/// A scope name with `$1` replaced by the text of group 1.
-fn fill_name(name: &str, text: &[u8], caps: &Caps) -> String {
-    let mut out = String::with_capacity(name.len());
-    let mut chars = name.chars().peekable();
-    while let Some(c) = chars.next() {
-        let digit = (c == '$')
-            .then(|| chars.peek().and_then(|d| d.to_digit(10)))
-            .flatten();
-        if let Some(d) = digit {
-            chars.next();
-            if let Some((s, e)) = usize::try_from(d)
-                .ok()
-                .and_then(|d| caps.get(d).copied().flatten())
-                && let Some(t) = text.get(s..e)
-            {
-                out.push_str(&String::from_utf8_lossy(t));
-            }
-        } else {
-            out.push(c);
+/// Writes what a `$` in a scope name stands for into `out`: `$1` the text of
+/// group 1, `${1:/downcase}` and `${1:/upcase}` that text in one case.
+/// Returns how many characters of `rest`, which follows the `$`, it took, or
+/// `None`, writing nothing, when the `$` starts no such form.
+///
+/// Leading dots of a group's text are dropped, since they would make an invalid
+/// scope name. Case is changed a character at a time, which differs from
+/// Shiki's only for a final capital sigma.
+fn dollar(rest: &str, text: &[u8], caps: &Caps, out: &mut String) -> Option<usize> {
+    let group = |digits: &str| {
+        let (s, e) = caps.get(digits.parse::<usize>().ok()?).copied().flatten()?;
+        text.get(s..e).map(String::from_utf8_lossy)
+    };
+    if let Some(body) = rest.strip_prefix('{') {
+        let close = body.find('}')?;
+        let (digits, case) = body[..close].split_once(":/")?;
+        let found = group(digits);
+        let found = found.as_deref().unwrap_or_default().trim_start_matches('.');
+        match case {
+            "downcase" => out.extend(found.chars().flat_map(char::to_lowercase)),
+            "upcase" => out.extend(found.chars().flat_map(char::to_uppercase)),
+            _ => return None,
+        }
+        return Some(close + 2);
+    }
+    let digits = rest.bytes().take_while(u8::is_ascii_digit).count();
+    if digits == 0 {
+        return None;
+    }
+    let found = group(&rest[..digits]);
+    out.push_str(found.as_deref().unwrap_or_default().trim_start_matches('.'));
+    Some(digits)
+}
+
+/// Writes the scope name `name` into `out` with its `$` forms replaced by the
+/// text of the groups, reusing `out`'s buffer.
+fn fill_name(name: &str, text: &[u8], caps: &Caps, out: &mut String) {
+    out.clear();
+    let mut rest = name;
+    while let Some(at) = rest.find('$') {
+        out.push_str(&rest[..at]);
+        rest = &rest[at + 1..];
+        match dollar(rest, text, caps, out) {
+            Some(taken) => rest = &rest[taken..],
+            None => out.push('$'),
         }
     }
-    out
+    out.push_str(rest);
 }
 
 struct Tokenizer<'a> {
@@ -455,11 +547,13 @@ impl Tokenizer<'_> {
             let Some(name) = self.grammar.names.get(index) else {
                 continue;
             };
-            let name = fill_name(name, &self.s.text, caps);
-            for piece in name.split_whitespace() {
+            let mut filled = std::mem::take(&mut self.s.name);
+            fill_name(name, &self.s.text, caps, &mut filled);
+            for piece in filled.split_whitespace() {
                 let scope = self.arena.named_scope(piece);
                 stack = self.push_scope(stack, scope);
             }
+            self.s.name = filled;
         }
         stack
     }
@@ -528,17 +622,18 @@ impl Tokenizer<'_> {
         &mut self,
         (start, fresh): (Option<usize>, bool),
         rule: Option<usize>,
-        (pat, order): (Pat, usize),
+        (pat, tier, order): (Pat, u8, usize),
         best: &mut Option<Best>,
     ) {
         let Some(start) = start else { return };
-        if best.is_none_or(|b| (start, order) < (b.start, b.order)) {
+        if best.is_none_or(|b| (start, tier, order) < (b.start, b.tier, b.order)) {
             if fresh {
                 std::mem::swap(&mut self.s.cur, &mut self.s.best);
             }
             *best = Some(Best {
                 start,
                 rule,
+                tier,
                 order,
                 pat,
                 groups_kept: fresh,
@@ -605,11 +700,49 @@ impl Tokenizer<'_> {
         if let Some(&index) = self.s.dynamic_ids.get(&end) {
             return Pat::Built(index);
         }
-        let regex = Regex::new(self.arena.string(end)).ok();
+        let regex = Regex::for_grammar(self.arena.string(end)).ok();
         self.s.dynamic.push(regex);
         let index = self.s.dynamic.len() - 1;
         self.s.dynamic_ids.insert(end, index);
         Pat::Built(index)
+    }
+
+    /// Offers the rules of the injections that apply to the scopes of `stack`
+    /// to `best`. One that starts earlier than the rules of the open rule
+    /// wins, and so does one with `L:` that starts where they do; the others
+    /// lose a tie.
+    fn scan_injections(
+        &mut self,
+        stack: u32,
+        cursor: (usize, usize, usize, DocStart),
+        best: &mut Option<Best>,
+    ) {
+        let mut hits = std::mem::take(&mut self.s.hits);
+        hits.clear();
+        if let Some(known) = self.s.injected_at.get(&stack) {
+            hits.extend_from_slice(known);
+        } else {
+            let mut names: Vec<&str> = self.arena.scopes(stack).collect();
+            names.reverse();
+            hits.extend(
+                self.s
+                    .injected
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, entry)| entry.expr.matches(&names))
+                    .map(|(index, _)| index),
+            );
+            self.s.injected_at.insert(stack, hits.clone());
+        }
+        for &index in &hits {
+            if self.stopped {
+                break;
+            }
+            let entry = &self.s.injected[index];
+            let (list, tier) = (entry.list, if entry.priority < 0 { 0 } else { 2 });
+            self.scan_list(list, cursor, (tier, (index + 1) << 24), best);
+        }
+        self.s.hits = hits;
     }
 
     /// Offers every rule of a list to `best`, through the list's scanner
@@ -618,11 +751,12 @@ impl Tokenizer<'_> {
         &mut self,
         list_id: usize,
         (pos, end, anchor, allow_a): (usize, usize, usize, DocStart),
+        (tier, base): (u8, usize),
         best: &mut Option<Best>,
     ) {
         let list: &'static List = &self.grammar.lists[list_id];
         let decided = |best: &Option<Best>, order: usize| {
-            best.is_some_and(|b| b.start == pos && b.order < order)
+            best.is_some_and(|b| b.start == pos && (b.tier, b.order) < (tier, base + order))
         };
         if self.s.no_scanner {
             for (index, &id) in list.rules.iter().enumerate() {
@@ -631,7 +765,7 @@ impl Tokenizer<'_> {
                 }
                 let pat = Pat::Table(self.grammar.rules[id].begin);
                 let probed = self.probe(pat, pos, end, anchor, allow_a);
-                self.consider(probed, Some(id), (pat, index + 1), best);
+                self.consider(probed, Some(id), (pat, tier, base + index + 1), best);
             }
             return;
         }
@@ -643,7 +777,7 @@ impl Tokenizer<'_> {
             let id = list.rules[index];
             let pat = Pat::Table(self.grammar.rules[id].begin);
             let probed = self.probe(pat, pos, end, anchor, allow_a);
-            self.consider(probed, Some(id), (pat, index + 1), best);
+            self.consider(probed, Some(id), (pat, tier, base + index + 1), best);
         }
         if self.stopped || decided(best, 1) {
             return;
@@ -652,7 +786,12 @@ impl Tokenizer<'_> {
         if let Some((start, index)) = found {
             let id = list.rules[index];
             let pat = Pat::Table(self.grammar.rules[id].begin);
-            self.consider((Some(start), fresh), Some(id), (pat, index + 1), best);
+            self.consider(
+                (Some(start), fresh),
+                Some(id),
+                (pat, tier, base + index + 1),
+                best,
+            );
         }
     }
 
@@ -804,8 +943,10 @@ impl Tokenizer<'_> {
         let mut pos = start;
         let mut anchor = usize::MAX;
         let mut allow_a = first_line;
-        if entry == Entry::Line {
-            if frames.last().is_some_and(|f| f.eol) {
+        if let Entry::Line { anchored } = entry {
+            if anchored {
+                anchor = start;
+            } else if frames.last().is_some_and(|f| f.eol) {
                 anchor = 0;
             }
             let mut i = 0;
@@ -818,10 +959,12 @@ impl Tokenizer<'_> {
                 }
                 let pat = self.end_pat(rule.until, frame.end);
                 if self.search(pat, pos, end, anchor, allow_a) {
-                    let caps = read_caps(&self.s.cur);
+                    let mut caps = self.s.caps.pop().unwrap_or_default();
+                    read_caps(&self.s.cur, &mut caps);
                     let (s, e) = caps[0].unwrap_or((pos, pos));
                     self.produce(frame.content, s);
                     self.handle_captures(rule.end_captures, &caps, frames, i, end);
+                    self.s.caps.push(caps);
                     self.produce(frame.content, e);
                     anchor = e;
                     if e > pos {
@@ -872,15 +1015,18 @@ impl Tokenizer<'_> {
             && let Some(pat) = end_pat
         {
             let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
-            self.consider(probed, None, (pat, 0), &mut best);
+            self.consider(probed, None, (pat, 1, 0), &mut best);
         }
-        self.scan_list(rule.list, (*pos, end, *anchor, *allow_a), &mut best);
+        self.scan_list(rule.list, (*pos, end, *anchor, *allow_a), (1, 0), &mut best);
         if rule.apply_end_last
             && !self.stopped
             && let Some(pat) = end_pat
         {
             let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
-            self.consider(probed, None, (pat, usize::MAX), &mut best);
+            self.consider(probed, None, (pat, 1, usize::MAX), &mut best);
+        }
+        if !self.s.injected.is_empty() && !self.stopped {
+            self.scan_injections(top.content, (*pos, end, *anchor, *allow_a), &mut best);
         }
         if self.stopped {
             return true;
@@ -889,28 +1035,45 @@ impl Tokenizer<'_> {
             self.produce(top.content, end);
             return true;
         };
-        let matched = best.rule;
-        let caps = if best.groups_kept {
-            read_caps(&self.s.best)
+        let mut caps = self.s.caps.pop().unwrap_or_default();
+        if best.groups_kept {
+            read_caps(&self.s.best, &mut caps);
         } else {
             if !self.search(best.pat, best.start, end, *anchor, *allow_a) {
+                self.s.caps.push(caps);
                 self.produce(top.content, end);
                 return true;
             }
-            read_caps(&self.s.cur)
-        };
+            read_caps(&self.s.cur, &mut caps);
+        }
+        let finished = self.apply(best.rule, &caps, rule, end, (pos, anchor, allow_a), frames);
+        self.s.caps.push(caps);
+        finished
+    }
+
+    /// Applies the match `caps` describes, of the rule `matched` (`None` for
+    /// the `end` of `rule`); true when the line is done.
+    fn apply(
+        &mut self,
+        matched: Option<usize>,
+        caps: &Caps,
+        rule: &'static Rule,
+        end: usize,
+        (pos, anchor, allow_a): (&mut usize, &mut usize, &mut DocStart),
+        frames: &mut Vec<Frame>,
+    ) -> bool {
         let (s, e) = caps[0].unwrap_or((*pos, *pos));
         let advanced = e > *pos;
         let depth = frames.len();
         if let Some(id) = matched {
-            if self.enter(id, frames, *pos, anchor, &caps, (s, e), end) {
+            if self.enter(id, frames, *pos, anchor, caps, (s, e), end) {
                 return true;
             }
         } else {
             self.produce(frames[depth - 1].content, s);
             frames[depth - 1].content = frames[depth - 1].name;
             let name = frames[depth - 1].name;
-            self.handle_captures(rule.end_captures, &caps, frames, depth - 1, end);
+            self.handle_captures(rule.end_captures, caps, frames, depth - 1, end);
             self.produce(name, e);
             let Some(popped) = frames.pop() else {
                 return true;
@@ -1122,13 +1285,10 @@ impl Tokenizer<'_> {
     }
 }
 
-/// The span of each group of a search.
-fn read_caps(scratch: &regex::Scratch) -> Caps {
-    let mut caps = [None; GROUPS];
-    for (index, slot) in caps.iter_mut().enumerate() {
-        *slot = scratch.group(index);
-    }
-    caps
+/// The span of each group of a search, in `into`.
+fn read_caps(scratch: &regex::Scratch, into: &mut Vec<Option<(usize, usize)>>) {
+    into.clear();
+    into.extend((0..scratch.group_count()).map(|index| scratch.group(index)));
 }
 
 /// vscode-textmate's check that a rule pushed without advancing is not the

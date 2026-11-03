@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-use super::ast::{Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, prop_named};
+use super::ast::{Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, prop_named};
 
 /// A pattern that does not compile: what is wrong with it.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -23,9 +23,19 @@ pub(super) struct Parsed {
     pub(super) names: HashMap<String, usize>,
 }
 
+/// Which reading of a pattern applies.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Dialect {
+    /// Oniguruma's own.
+    Oniguruma,
+    /// A grammar's pattern as Shiki runs it, where `\z` never matches.
+    Grammar,
+}
+
 /// Parses `pattern`.
-pub(super) fn parse(pattern: &str) -> Result<Parsed> {
+pub(super) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
     let mut parser = Parser {
+        dialect,
         chars: pattern.chars().collect(),
         at: 0,
         flags: Flags {
@@ -33,6 +43,7 @@ pub(super) fn parse(pattern: &str) -> Result<Parsed> {
             dotall: false,
             extended: false,
         },
+        isolated: false,
         groups: 0,
         names: HashMap::new(),
     };
@@ -55,9 +66,13 @@ struct Flags {
 }
 
 struct Parser {
+    /// How the pattern is read.
+    dialect: Dialect,
     chars: Vec<char>,
     at: usize,
     flags: Flags,
+    /// Set when the atom just read was `(?i)` or another group of flags only.
+    isolated: bool,
     groups: usize,
     names: HashMap<String, usize>,
 }
@@ -94,6 +109,8 @@ impl Parser {
         })
     }
 
+    /// Flags with no colon hold to the end of the enclosing group, across its
+    /// alternatives: `a(?i)b|c` is `a(?i:b|c)`.
     fn sequence(&mut self) -> Result<Node> {
         let mut items = Vec::new();
         while let Some(c) = self.peek() {
@@ -115,7 +132,13 @@ impl Parser {
                     continue;
                 }
             }
-            let Some(atom) = self.atom()? else { continue };
+            let Some(atom) = self.atom()? else {
+                if std::mem::take(&mut self.isolated) {
+                    items.push(self.alternation()?);
+                    break;
+                }
+                continue;
+            };
             items.push(self.quantified(atom)?);
         }
         Ok(match items.len() {
@@ -310,6 +333,7 @@ impl Parser {
                             Some(')') => {
                                 self.at += 1;
                                 self.flags = flags;
+                                self.isolated = true;
                                 return Ok(None);
                             }
                             _ => return err("unknown group flag"),
@@ -345,6 +369,9 @@ impl Parser {
         })
     }
 
+    /// In a grammar's pattern, as Shiki runs it, `\z` never matches, not even
+    /// after a line's newline, so a rule that ends at `\z` stays open from line
+    /// to line.
     fn escape(&mut self) -> Result<Node> {
         let Some(c) = self.peek() else {
             return err("trailing backslash");
@@ -361,17 +388,34 @@ impl Parser {
             )
         };
         Ok(match c {
-            'd' => prop_class(Prop::Digit, Polarity::Positive),
-            'D' => prop_class(Prop::Digit, Polarity::Negated),
-            'w' => prop_class(Prop::Word, Polarity::Positive),
-            'W' => prop_class(Prop::Word, Polarity::Negated),
-            's' => prop_class(Prop::Space, Polarity::Positive),
-            'S' => prop_class(Prop::Space, Polarity::Negated),
-            'h' => prop_class(Prop::Hex, Polarity::Positive),
-            'H' => prop_class(Prop::Hex, Polarity::Negated),
+            'd' => prop_class(builtin("digit"), Polarity::Positive),
+            'D' => prop_class(builtin("digit"), Polarity::Negated),
+            'w' => prop_class(builtin("word"), Polarity::Positive),
+            'W' => prop_class(builtin("word"), Polarity::Negated),
+            's' => prop_class(builtin("space"), Polarity::Positive),
+            'S' => prop_class(builtin("space"), Polarity::Negated),
+            'h' => prop_class(builtin("xdigit"), Polarity::Positive),
+            'H' => prop_class(builtin("xdigit"), Polarity::Negated),
+            'N' => Node::Any(false),
+            'O' => Node::Any(true),
+            'R' => line_break(),
+            'X' => Node::Atomic(Box::new(Node::Seq(vec![
+                Node::Any(true),
+                Node::Repeat {
+                    node: Box::new(prop_class(builtin("m"), Polarity::Positive)),
+                    min: 0,
+                    max: None,
+                    kind: Kind::Greedy,
+                },
+            ]))),
             'b' => Node::Anchor(Anchor::WordBoundary),
             'B' => Node::Anchor(Anchor::NotWordBoundary),
             'A' => Node::Anchor(Anchor::StartText),
+            'z' if self.dialect == Dialect::Grammar => Node::Look {
+                ahead: true,
+                negative: true,
+                node: Box::new(Node::Empty),
+            },
             'z' => Node::Anchor(Anchor::EndText),
             'Z' => Node::Anchor(Anchor::EndTextNewline),
             'G' => Node::Anchor(Anchor::Search),
@@ -525,14 +569,14 @@ impl Parser {
                 };
                 self.at += 1;
                 match e {
-                    'd' => Item::Prop(Prop::Digit, Polarity::Positive),
-                    'D' => Item::Prop(Prop::Digit, Polarity::Negated),
-                    'w' => Item::Prop(Prop::Word, Polarity::Positive),
-                    'W' => Item::Prop(Prop::Word, Polarity::Negated),
-                    's' => Item::Prop(Prop::Space, Polarity::Positive),
-                    'S' => Item::Prop(Prop::Space, Polarity::Negated),
-                    'h' => Item::Prop(Prop::Hex, Polarity::Positive),
-                    'H' => Item::Prop(Prop::Hex, Polarity::Negated),
+                    'd' => Item::Prop(builtin("digit"), Polarity::Positive),
+                    'D' => Item::Prop(builtin("digit"), Polarity::Negated),
+                    'w' => Item::Prop(builtin("word"), Polarity::Positive),
+                    'W' => Item::Prop(builtin("word"), Polarity::Negated),
+                    's' => Item::Prop(builtin("space"), Polarity::Positive),
+                    'S' => Item::Prop(builtin("space"), Polarity::Negated),
+                    'h' => Item::Prop(builtin("xdigit"), Polarity::Positive),
+                    'H' => Item::Prop(builtin("xdigit"), Polarity::Negated),
                     'p' | 'P' => {
                         let (prop, polarity) = self.property(if e == 'P' {
                             Polarity::Negated
@@ -579,4 +623,26 @@ impl Parser {
         }
         Ok(Item::Range(lo, lo))
     }
+}
+
+/// `\R`: a line ending, `\r\n` or any one character that ends a line.
+fn line_break() -> Node {
+    let separator = |code: u32| char::from_u32(code).unwrap_or('\n');
+    Node::Atomic(Box::new(Node::Alt(vec![
+        Node::Seq(vec![
+            Node::Char('\r', Case::Sensitive),
+            Node::Char('\n', Case::Sensitive),
+        ]),
+        Node::Class(
+            Box::new(Class {
+                negated: false,
+                parts: vec![vec![
+                    Item::Range('\n', '\r'),
+                    Item::Range(separator(0x85), separator(0x85)),
+                    Item::Range(separator(0x2028), separator(0x2029)),
+                ]],
+            }),
+            Case::Sensitive,
+        ),
+    ])))
 }

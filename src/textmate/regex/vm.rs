@@ -49,6 +49,11 @@ pub(crate) struct Scratch {
 }
 
 impl Scratch {
+    /// How many groups the last pattern run had, the whole match included.
+    pub(crate) fn group_count(&self) -> usize {
+        self.slots.len() / 2
+    }
+
     /// The bytes group `index` matched in the last successful search.
     pub(crate) fn group(&self, index: usize) -> Option<(usize, usize)> {
         let start = *self.slots.get(index * 2)?;

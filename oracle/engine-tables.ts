@@ -1,11 +1,17 @@
 // Compiles Shiki's grammar for a language into the tables of nishiki's
 // TextMate engine, as one Rust source file.
 //
-// Usage: bun oracle/engine-tables.ts <out dir> <spec>...
+// Usage: bun oracle/engine-tables.ts [--json] <out dir> <spec>...
+//
+// With `--json` it writes `<id>.json` instead, the same tables as data, for
+// the survey test that runs the engine on many grammars without compiling
+// them in (src/textmate/survey.rs).
 //
 // A spec is a Shiki language id, or an id with the languages it may embed
 // joined by `+`, such as `markdown+rust+shellscript`: the grammar of the
-// first, with the others available to its includes, as Shiki loads them.
+// first, with the others available to its includes, as Shiki loads them. `*`
+// stands for every language the oracle's inputs use, which is the set the
+// oracle's Shiki highlighter loads.
 //
 // The tables hold what the engine needs and nothing it can work out later: the
 // rules with their includes already followed, the patterns as text (compiled on
@@ -13,8 +19,12 @@
 // grammar that is not loaded is dropped, as vscode-textmate drops it.
 import { bundledLanguages } from "shiki@4.6.0";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { inputs } from "./inputs.ts";
 
 type Json = Record<string, unknown>;
+/** The repositories an include can name, innermost last: a rule without a
+ * begin or match may carry its own, which shadows the outer ones. */
+type Env = Json[];
 type Cap = { index: number; name: string[]; contentName: string[]; retokenize: number };
 type Rule = {
   kind: "Match" | "BeginEnd" | "BeginWhile" | "Container";
@@ -34,15 +44,19 @@ type Rule = {
 const NONE = 0xffffffff;
 const idx = (n: number) => (n === NONE ? "usize::MAX" : String(n));
 
-const outDir = process.argv[2];
-const ids = process.argv.slice(3);
+const args = process.argv.slice(2);
+const asJson = args[0] === "--json";
+if (asJson) args.shift();
+const outDir = args[0];
+const ids = args.slice(1);
 if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out dir> <language id>...");
 
 /** Every grammar a language needs, by scope name. */
 async function load(spec: string): Promise<{ docs: Map<string, Json>; scope: string }> {
   const docs = new Map<string, Json>();
   let scope = "";
-  for (const id of spec.split("+")) {
+  const ids = spec.split("+").flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
+  for (const id of ids) {
     const loader = bundledLanguages[id as keyof typeof bundledLanguages];
     if (!loader) throw new Error(`Shiki has no language ${id}`);
     const registrations = ((await loader()) as { default: Json[] }).default;
@@ -59,7 +73,8 @@ class Builder {
   names: string[] = [];
   nameIds = new Map<string, number>();
   roots = new Map<string, number>();
-  repo = new Map<string, number>();
+  /** Each raw rule object is compiled once, as in vscode-textmate. */
+  compiled = new Map<object, number>();
 
   constructor(
     private docs: Map<string, Json>,
@@ -105,46 +120,54 @@ class Builder {
     if (!doc) return undefined;
     const id = this.reserve("Container");
     this.roots.set(scope, id);
-    const [patterns, missing] = this.list(scope, (doc.patterns as Json[]) ?? []);
+    const env: Env = [(doc.repository as Json | undefined) ?? {}];
+    const [patterns, missing] = this.list(scope, (doc.patterns as Json[]) ?? [], env);
     this.rules[id].patterns = patterns;
     this.rules[id].missing = missing;
     return id;
   }
 
-  repository(scope: string, name: string): number | undefined {
-    const key = `${scope}\u0000${name}`;
-    const known = this.repo.get(key);
+  /** The rule of a raw rule object, compiled on first use. */
+  entry(scope: string, value: Json, env: Env): number {
+    const known = this.compiled.get(value);
     if (known !== undefined) return known;
-    const entry = ((this.docs.get(scope)?.repository as Json | undefined)?.[name]) as Json | undefined;
-    if (!entry) return undefined;
     const id = this.reserve("Container");
-    this.repo.set(key, id);
-    this.rule(scope, entry, id);
+    this.compiled.set(value, id);
+    this.rule(scope, value, id, env);
     return id;
   }
 
-  include(scope: string, target: string): number | undefined {
+  include(scope: string, target: string, env: Env): number | undefined {
     if (target === "$self") return this.root(scope);
     if (target === "$base") return this.root(this.base);
-    if (target.startsWith("#")) return this.repository(scope, target.slice(1));
+    if (target.startsWith("#")) {
+      const name = target.slice(1);
+      for (let i = env.length - 1; i >= 0; i--) {
+        const found = env[i][name] as Json | undefined;
+        if (found) return this.entry(scope, found, env);
+      }
+      return undefined;
+    }
     const hash = target.indexOf("#");
     if (hash >= 0) {
       const other = target.slice(0, hash);
-      return this.docs.has(other) ? this.repository(other, target.slice(hash + 1)) : undefined;
+      const repository = this.docs.get(other)?.repository as Json | undefined;
+      const found = repository?.[target.slice(hash + 1)] as Json | undefined;
+      return found ? this.entry(other, found, [repository as Json]) : undefined;
     }
     return this.root(target);
   }
 
   /** The rules of a list, and whether any were dropped. */
-  list(scope: string, list: Json[]): [number[], boolean] {
+  list(scope: string, list: Json[], env: Env): [number[], boolean] {
     const out: number[] = [];
     for (const pattern of list) {
       let id: number | undefined;
       if (typeof pattern.include === "string") {
-        id = this.include(scope, pattern.include);
+        id = this.include(scope, pattern.include, env);
         if (id === undefined) continue;
       } else {
-        id = this.rule(scope, pattern, undefined);
+        id = this.rule(scope, pattern, undefined, env);
       }
       const rule = this.rules[id];
       if (rule.kind !== "Match" && rule.missing && rule.patterns.length === 0) continue;
@@ -153,33 +176,38 @@ class Builder {
     return [out, out.length !== list.length];
   }
 
-  captures(scope: string, value: unknown): Cap[] {
+  captures(scope: string, value: unknown, env: Env): Cap[] {
     if (typeof value !== "object" || value === null) return [];
     const out: Cap[] = [];
     for (const [key, raw] of Object.entries(value as Json)) {
       const index = Number(key);
       if (!Number.isInteger(index)) continue;
+      if (typeof raw !== "object" || raw === null) continue;
       const capture = raw as Json;
       out.push({
         index,
         name: this.scopes(capture.name),
         contentName: this.scopes(capture.contentName),
-        retokenize: capture.patterns ? this.rule(scope, capture, undefined, true) : NONE,
+        retokenize: capture.patterns ? this.rule(scope, capture, undefined, env, true) : NONE,
       });
     }
     return out.sort((a, b) => a.index - b.index);
   }
 
-  rule(scope: string, value: Json, into: number | undefined, container = false): number {
+  rule(scope: string, value: Json, into: number | undefined, outer: Env, container = false): number {
+    // As Shiki reads them: an empty `match` is no match, an empty `while` is
+    // none, and an empty or missing `end` never matches.
     const kind: Rule["kind"] = container
       ? "Container"
-      : value.begin !== undefined
-        ? value.while !== undefined
-          ? "BeginWhile"
-          : "BeginEnd"
-        : value.match !== undefined
-          ? "Match"
+      : value.match
+        ? "Match"
+        : value.begin !== undefined
+          ? value.while
+            ? "BeginWhile"
+            : "BeginEnd"
           : "Container";
+    const env: Env =
+      kind === "Container" && value.repository ? [...outer, value.repository as Json] : outer;
     const id = into ?? this.reserve(kind);
     const rule = this.rules[id];
     rule.kind = kind;
@@ -188,20 +216,20 @@ class Builder {
     rule.applyEndLast = value.applyEndPatternLast === 1 || value.applyEndPatternLast === true;
     if (kind === "Match") {
       rule.begin = this.pattern(String(value.match));
-      rule.captures = this.captures(scope, value.captures);
+      rule.captures = this.captures(scope, value.captures, env);
     } else if (kind === "BeginEnd" || kind === "BeginWhile") {
       rule.begin = this.pattern(String(value.begin));
-      rule.captures = this.captures(scope, value.beginCaptures ?? value.captures);
+      rule.captures = this.captures(scope, value.beginCaptures ?? value.captures, env);
       if (kind === "BeginEnd") {
-        rule.end = this.pattern(String(value.end));
-        rule.endCaptures = this.captures(scope, value.endCaptures ?? value.captures);
+        rule.end = value.end ? this.pattern(String(value.end)) : NONE;
+        rule.endCaptures = this.captures(scope, value.endCaptures ?? value.captures, env);
       } else {
         rule.while = this.pattern(String(value.while));
-        rule.endCaptures = this.captures(scope, value.whileCaptures ?? value.captures);
+        rule.endCaptures = this.captures(scope, value.whileCaptures ?? value.captures, env);
       }
     }
     if (kind !== "Match") {
-      const [patterns, missing] = this.list(scope, (value.patterns as Json[]) ?? []);
+      const [patterns, missing] = this.list(scope, (value.patterns as Json[]) ?? [], env);
       rule.patterns = patterns;
       rule.missing = missing;
     }
@@ -275,6 +303,31 @@ for (const id of ids) {
   const builder = new Builder(docs, scope);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
+  // The grammar's own injections, then those other grammars inject into it.
+  const rootDoc = docs.get(scope) as Json;
+  const injections: [string, number][] = Object.entries((rootDoc.injections as Json | undefined) ?? {}).map(
+    ([selector, value]) => [selector, builder.entry(scope, value as Json, [(rootDoc.repository as Json | undefined) ?? {}])],
+  );
+  // Grammars that name this one in `injectTo` inject their rules into it,
+  // where their `injectionSelector` matches.
+  // A grammar that only wraps others, as ts-tags wraps source.ts, takes the
+  // injections of those it includes whole.
+  const wrapped = new Set(
+    ((rootDoc.patterns as Json[] | undefined) ?? [])
+      .map((p) => String(p.include ?? ""))
+      .filter((include) => include !== "" && !include.startsWith("#") && !include.startsWith("$") && !include.includes("#")),
+  );
+  for (const [injectScope, doc] of docs) {
+    const targets = doc.injectTo as string[] | undefined;
+    if (
+      injectScope === scope ||
+      !doc.injectionSelector ||
+      !targets?.some((target) => target === scope || wrapped.has(target))
+    )
+      continue;
+    const injected = builder.root(injectScope);
+    if (injected !== undefined) injections.push([String(doc.injectionSelector), injected]);
+  }
   builder.flatten();
   const refs = (list: string[]) => `&[${list.map((n) => builder.nameRef(n)).join(", ")}]`;
   const caps = (list: Cap[]) =>
@@ -307,10 +360,42 @@ for (const id of ids) {
     .map((p) => `    PatternSlot::new(${rustString(p)}),`)
     .join("\n");
   const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
+  if (asJson) {
+    const none = (n: number) => (n === NONE ? -1 : n);
+    const cap = (c: Cap) => ({
+      index: c.index,
+      name: c.name.map((n) => builder.nameRef(n)),
+      contentName: c.contentName.map((n) => builder.nameRef(n)),
+      retokenize: none(c.retokenize),
+    });
+    const data = {
+      scope,
+      root,
+      names: builder.names,
+      patterns: builder.patterns.map((p) => ({ source: p, backrefs: hasBackrefs(p) })),
+      lists,
+      injections: injections.map(([selector, rule]) => ({ selector, rule })),
+      rules: builder.rules.map((r) => ({
+        kind: r.kind,
+        name: r.name.map((n) => builder.nameRef(n)),
+        contentName: r.contentName.map((n) => builder.nameRef(n)),
+        begin: none(r.begin),
+        end: none(r.end),
+        until: none(r.while),
+        captures: r.captures.map(cap),
+        endCaptures: r.endCaptures.map(cap),
+        list: listOf(r.patterns),
+        applyEndLast: r.applyEndLast,
+      })),
+    };
+    writeFileSync(`${outDir}/${id.split("+")[0]}.json`, JSON.stringify(data));
+    console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
+    continue;
+  }
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
 
-use crate::textmate::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
+use crate::textmate::grammar::{Cap, Grammar, Injection, List, PatternSlot, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
 ${names}
@@ -324,6 +409,10 @@ static LISTS: [List; ${lists.length}] = [
 ${listSource()}
 ];
 
+static INJECTIONS: &[Injection] = &[
+${injections.map(([selector, rule]) => `    Injection { selector: ${rustString(selector)}, rule: ${rule} },`).join("\n")}
+];
+
 static RULES: &[Rule] = &[
 ${rules}
 ];
@@ -334,6 +423,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     names: NAMES,
     rules: RULES,
     lists: &LISTS,
+    injections: INJECTIONS,
     patterns: &PATTERNS,
     root: ${root},
 };

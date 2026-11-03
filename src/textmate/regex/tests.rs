@@ -92,6 +92,7 @@ fn a_loop_over_an_empty_match_ends() {
     assert_eq!(find("(a|)+b", "b"), Some((0, 1)));
 }
 
+/// `^` does not match after the final newline.
 #[test]
 fn anchors_and_search_position() {
     assert!(search("(^|\\G)ab", "ab", 0, None).is_some());
@@ -99,7 +100,6 @@ fn anchors_and_search_position() {
     assert!(search("(^|\\G)ab", "xab", 0, Some(1)).is_some());
     assert_eq!(find("a$", "a\n"), Some((0, 1)));
     assert_eq!(find("^b", "a\nb"), Some((2, 3)));
-    // `^` does not match after the final newline.
     assert_eq!(find("^", "a\n"), Some((0, 0)));
     assert_eq!(search("^$", "\n", 1, None), None);
     assert_eq!(find("\\Aab", "ab"), Some((0, 2)));
@@ -169,4 +169,188 @@ fn a_required_character_missing_from_the_text_ends_the_search() {
     assert_eq!(find("a.*<", "aaa b"), None);
     assert_eq!(find("a.*<", "aaa < b"), Some((0, 5)));
     assert_eq!(find("(?:a|b)<", "zz<"), None);
+}
+
+#[test]
+fn oniguruma_escapes_for_line_breaks_and_any_character() {
+    assert_eq!(find("\\N+", "ab\ncd"), Some((0, 2)));
+    assert_eq!(find("a\\Ob", "a\nb"), Some((0, 3)));
+    assert_eq!(find("x\\R", "x\r\ny"), Some((0, 3)));
+    assert_eq!(find("x\\R", "x\ny"), Some((0, 2)));
+    assert_eq!(find("\\X", "e\u{301}x"), Some((0, 3)));
+}
+
+/// Compiles every pattern of every grammar Shiki bundles, from a file of hex
+/// lines (`NISHIKI_PATTERNS`), and lists those the machine refuses.
+#[test]
+#[ignore = "a survey over a scratch file"]
+fn survey_every_bundled_pattern() {
+    let Some(path) = std::env::var_os("NISHIKI_PATTERNS") else {
+        return;
+    };
+    let text = std::fs::read_to_string(path).unwrap();
+    let mut refused: Vec<String> = Vec::new();
+    let mut total = 0;
+    for line in text.lines() {
+        let bytes: Vec<u8> = (0..line.len() / 2)
+            .map(|i| u8::from_str_radix(&line[i * 2..i * 2 + 2], 16).unwrap())
+            .collect();
+        let source = String::from_utf8(bytes).unwrap();
+        total += 1;
+        if let Err(error) = Regex::new(&source) {
+            refused.push(format!("{error:?}  {source}"));
+        }
+    }
+    refused.sort();
+    for line in &refused {
+        eprintln!("{}", line.chars().take(200).collect::<String>());
+    }
+    eprintln!("{} of {total} patterns refused", refused.len());
+}
+
+/// Per language, how many patterns the machine refuses, from a file of
+/// `id<TAB>hex` lines (`NISHIKI_BYLANG`); patterns with back-references are
+/// left out, since they compile at run time.
+#[test]
+#[ignore = "a survey over a scratch file"]
+fn survey_refusals_by_language() {
+    let Some(path) = std::env::var_os("NISHIKI_BYLANG") else {
+        return;
+    };
+    let text = std::fs::read_to_string(path).unwrap();
+    let mut by: std::collections::BTreeMap<String, (usize, usize)> =
+        std::collections::BTreeMap::new();
+    for line in text.lines() {
+        let (id, hex) = line.split_once('\t').unwrap();
+        let bytes: Vec<u8> = (0..hex.len() / 2)
+            .map(|i| u8::from_str_radix(&hex[i * 2..i * 2 + 2], 16).unwrap())
+            .collect();
+        let source = String::from_utf8(bytes).unwrap();
+        let entry = by.entry(id.to_owned()).or_default();
+        entry.0 += 1;
+        if Regex::new(&source).is_err()
+            && !source.contains("\\1")
+            && !source.contains("\\2")
+            && !source.contains("\\3")
+        {
+            entry.1 += 1;
+        }
+    }
+    let clean = by.values().filter(|v| v.1 == 0).count();
+    eprintln!("{clean} of {} languages compile every pattern", by.len());
+    for (id, (total, refused)) in &by {
+        if *refused > 0 {
+            eprintln!("  {id}: {refused} of {total}");
+        }
+    }
+}
+
+#[test]
+fn debug_ruby_lookahead() {
+    assert_eq!(find("(?=[\\&*A-Z_a-z])", " *picks"), Some((1, 1)));
+    assert_eq!(find("(?![(,|\\s])", " *picks"), Some((1, 1)));
+}
+
+/// Compares the machine with Oniguruma's recorded answers (`NISHIKI_DIFF`
+/// names a directory with `patterns.hex`, `lines.hex`, `cases.tsv` and
+/// `expected.tsv`; see the scratch script that writes them).
+///
+/// Oniguruma reports as many groups as the pattern has, so those are the
+/// groups compared.
+#[test]
+#[ignore = "a survey over a scratch directory"]
+fn differential_against_oniguruma() {
+    let Some(dir) = std::env::var_os("NISHIKI_DIFF") else {
+        return;
+    };
+    let dir = std::path::PathBuf::from(dir);
+    let read = |name: &str| std::fs::read_to_string(dir.join(name)).unwrap();
+    let unhex = |hex: &str| -> String {
+        let bytes: Vec<u8> = (0..hex.len() / 2)
+            .map(|i| u8::from_str_radix(&hex[i * 2..i * 2 + 2], 16).unwrap())
+            .collect();
+        String::from_utf8(bytes).unwrap()
+    };
+    let patterns: Vec<String> = read("patterns.hex").lines().map(unhex).collect();
+    let lines: Vec<String> = read("lines.hex").lines().map(unhex).collect();
+    let cases = read("cases.tsv");
+    let expected = read("expected.tsv");
+    let compiled: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::new(p).ok()).collect();
+    let mut bad: std::collections::BTreeMap<usize, Vec<String>> = std::collections::BTreeMap::new();
+    let mut scratch = Scratch::default();
+    let mut total = 0;
+    for (case, want) in cases.lines().zip(expected.lines()) {
+        let mut parts = case.split('\t');
+        let pattern: usize = parts.next().unwrap().parse().unwrap();
+        let line: usize = parts.next().unwrap().parse().unwrap();
+        let from: usize = parts.next().unwrap().parse().unwrap();
+        total += 1;
+        let Some(regex) = &compiled[pattern] else {
+            bad.entry(pattern)
+                .or_default()
+                .push("did not compile".to_owned());
+            continue;
+        };
+        let text = format!("{}\n", lines[line]);
+        let mut steps = 1_000_000_000;
+        let context = Context {
+            search: Some(from),
+            text_start: true,
+        };
+        let found = regex.find(&mut scratch, text.as_bytes(), from, context, &mut steps);
+        let got = if found {
+            (0..=regex.groups())
+                .map(|g| {
+                    scratch
+                        .group(g)
+                        .map_or_else(|| "x".to_owned(), |(s, e)| format!("{s},{e}"))
+                })
+                .collect::<Vec<_>>()
+                .join(";")
+        } else {
+            "-".to_owned()
+        };
+        let want_cut: Vec<&str> = want.split(';').collect();
+        let got_cut: Vec<&str> = got.split(';').collect();
+        let same = want == got
+            || (want_cut.len() <= got_cut.len()
+                && want_cut[..] == got_cut[..want_cut.len()]
+                && got_cut[want_cut.len()..].iter().all(|g| *g == "x"));
+        if !same {
+            bad.entry(pattern).or_default().push(format!(
+                "{:?} from {from}: want {want} got {got}",
+                lines[line]
+            ));
+        }
+    }
+    eprintln!("{total} cases, {} patterns differ", bad.len());
+    for (pattern, cases) in bad.iter().take(25) {
+        eprintln!(
+            "PATTERN {}",
+            patterns[*pattern].chars().take(300).collect::<String>()
+        );
+        for case in cases.iter().take(2) {
+            eprintln!("   {case}");
+        }
+    }
+}
+
+/// `a(?i)b|c` is `a(?i:b|c)`: the `a` comes before either alternative.
+#[test]
+fn flags_without_a_colon_hold_across_the_alternatives_after_them() {
+    assert_eq!(find("a(?i)b|c", "xc"), None);
+    assert_eq!(find("a(?i)b|c", "aC"), Some((0, 2)));
+    assert_eq!(find("(?<=x)(?i)do|\\n", "ab\n"), None);
+    assert_eq!(find("(?<=x)(?i)do|\\n", "xDO"), Some((1, 3)));
+    assert_eq!(find("(?i)ab|cd", "CD"), Some((0, 2)));
+}
+
+#[test]
+fn a_group_repeated_no_times_can_still_be_called() {
+    assert_eq!(find("a\\g<n>(?<n>b+){0}", "abbb"), Some((0, 4)));
+    assert_eq!(
+        search("x(?<n>[0-9]+){0}\\g<n>-\\g<n>", "x12-345", 0, None).and_then(|groups| groups[1]),
+        Some((4, 7)),
+        "a call sets the group it calls"
+    );
 }

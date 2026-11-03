@@ -8,18 +8,28 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use super::grammar::{Grammar, NONE};
-use super::tokenizer::{self, Scratch};
+use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limits, LineReport};
 
+#[path = "../../tests/engine/javascript.rs"]
+mod javascript_tables;
+#[path = "../../tests/engine/make.rs"]
+mod make_tables;
 #[path = "../../tests/engine/markdown.rs"]
 mod markdown_tables;
+#[path = "../../tests/engine/python.rs"]
+mod python_tables;
 #[path = "../../tests/engine/rust.rs"]
 mod rust_tables;
 #[path = "../../tests/engine/shellscript.rs"]
 mod shell_tables;
+#[path = "../../tests/engine/toml.rs"]
+mod toml_tables;
 #[path = "../../tests/engine/typescript.rs"]
 mod typescript_tables;
+#[path = "../../tests/engine/yaml.rs"]
+mod yaml_tables;
 
 /// Whether the engine finds where rules start with its scanners, or searches
 /// every rule alone, to check that both give one output.
@@ -162,11 +172,15 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
         let mut out = Vec::new();
         let mut report = LineReport::default();
         state = tokenizer::line(
-            grammar,
             &mut scratch,
             &mut arena,
             &limits,
-            line.text.as_bytes(),
+            Text {
+                grammar,
+                bytes: line.text.as_bytes(),
+                start: 0,
+                anchored: false,
+            },
             state,
             &mut out,
             &mut report,
@@ -251,11 +265,41 @@ fn markdown_grammar_matches_shiki() {
 }
 
 #[test]
+fn python_grammar_matches_shiki() {
+    check(&python_tables::GRAMMAR, "python", Scanners::On);
+}
+
+#[test]
+fn yaml_grammar_matches_shiki() {
+    check(&yaml_tables::GRAMMAR, "yaml", Scanners::On);
+}
+
+#[test]
+fn make_grammar_matches_shiki() {
+    check(&make_tables::GRAMMAR, "make", Scanners::On);
+}
+
+#[test]
+fn toml_grammar_matches_shiki() {
+    check(&toml_tables::GRAMMAR, "toml", Scanners::On);
+}
+
+#[test]
+fn javascript_grammar_matches_shiki() {
+    check(&javascript_tables::GRAMMAR, "javascript", Scanners::On);
+}
+
+#[test]
 fn every_grammar_matches_shiki_without_the_scanners() {
     check(&rust_tables::GRAMMAR, "rust", Scanners::Off);
     check(&shell_tables::GRAMMAR, "shellscript", Scanners::Off);
     check(&typescript_tables::GRAMMAR, "typescript", Scanners::Off);
     check(&markdown_tables::GRAMMAR, "markdown", Scanners::Off);
+    check(&python_tables::GRAMMAR, "python", Scanners::Off);
+    check(&yaml_tables::GRAMMAR, "yaml", Scanners::Off);
+    check(&make_tables::GRAMMAR, "make", Scanners::Off);
+    check(&toml_tables::GRAMMAR, "toml", Scanners::Off);
+    check(&javascript_tables::GRAMMAR, "javascript", Scanners::Off);
 }
 
 /// Times the engine on the fixtures of one language, in MiB/s: the best of
@@ -287,11 +331,15 @@ fn speed(grammar: &'static Grammar, language: &str, limits: &Limits, scanners: S
                 let mut report = LineReport::default();
                 let t = Instant::now();
                 state = tokenizer::line(
-                    grammar,
                     scratch,
                     &mut arena,
                     limits,
-                    line.text.as_bytes(),
+                    Text {
+                        grammar,
+                        bytes: line.text.as_bytes(),
+                        start: 0,
+                        anchored: false,
+                    },
                     state,
                     &mut out,
                     &mut report,
@@ -302,7 +350,8 @@ fn speed(grammar: &'static Grammar, language: &str, limits: &Limits, scanners: S
             }
             begin.elapsed().as_secs_f64()
         };
-        pass(&mut Scratch::default(), None);
+        let first = pass(&mut Scratch::default(), None);
+        eprintln!("  first pass (builds the scanners) {:.1} ms", first * 1e3);
         let cold = (0..5)
             .map(|_| pass(&mut Scratch::default(), Some(&mut worst)))
             .fold(f64::MAX, f64::min);
@@ -343,7 +392,40 @@ fn engine_speed() {
         speed(&shell_tables::GRAMMAR, "shellscript", &limits, scanners);
         speed(&typescript_tables::GRAMMAR, "typescript", &limits, scanners);
         speed(&markdown_tables::GRAMMAR, "markdown", &limits, scanners);
+        speed(&python_tables::GRAMMAR, "python", &limits, scanners);
+        speed(&yaml_tables::GRAMMAR, "yaml", &limits, scanners);
     }
+}
+
+#[test]
+fn an_embedded_line_is_lexed_from_its_start_with_absolute_ends() {
+    let grammar: &'static Grammar = &rust_tables::GRAMMAR;
+    let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
+    let state = tokenizer::start_embedded(&mut arena, grammar, crate::arena::ROOT);
+    let mut out = Vec::new();
+    let mut report = LineReport::default();
+    let line = b"> let x = 1;";
+    tokenizer::line(
+        &mut scratch,
+        &mut arena,
+        &Limits::unlimited(),
+        Text {
+            grammar,
+            bytes: line,
+            start: 2,
+            anchored: true,
+        },
+        state,
+        &mut out,
+        &mut report,
+    );
+    let ends: Vec<usize> = out.iter().map(|t| t.end).collect();
+    assert!(ends.iter().all(|&end| end > 2), "{ends:?}");
+    assert_eq!(ends.last(), Some(&line.len()));
+    let first = arena.scopes(out[0].stack.0).collect::<Vec<_>>();
+    assert_eq!(first.first(), Some(&"storage.type.rust"), "{first:?}");
+    assert!(!first.contains(&"source.rust"), "{first:?}");
 }
 
 /// The most work any oracle line costs the machine, as a share of the
@@ -356,11 +438,13 @@ fn engine_speed() {
     reason = "a measurement that prints its table"
 )]
 fn work_per_line() {
-    let grammars: [(&str, &'static Grammar); 4] = [
+    let grammars: [(&str, &'static Grammar); 6] = [
         ("rust", &rust_tables::GRAMMAR),
         ("shellscript", &shell_tables::GRAMMAR),
         ("typescript", &typescript_tables::GRAMMAR),
         ("markdown", &markdown_tables::GRAMMAR),
+        ("python", &python_tables::GRAMMAR),
+        ("yaml", &yaml_tables::GRAMMAR),
     ];
     for (language, grammar) in grammars {
         let mut worst = 0.0_f64;
@@ -374,11 +458,15 @@ fn work_per_line() {
                 let mut out = Vec::new();
                 let mut report = LineReport::default();
                 state = tokenizer::line(
-                    grammar,
                     &mut scratch,
                     &mut arena,
                     &Limits::unlimited(),
-                    line.text.as_bytes(),
+                    Text {
+                        grammar,
+                        bytes: line.text.as_bytes(),
+                        start: 0,
+                        anchored: false,
+                    },
                     state,
                     &mut out,
                     &mut report,
@@ -396,4 +484,276 @@ fn work_per_line() {
             worst_line.chars().take(90).collect::<String>()
         );
     }
+}
+
+/// The survey over many languages: grammars read from the JSON tables
+/// `oracle/engine-tables.ts --json` writes, run on the fixtures of a
+/// directory (`NISHIKI_SURVEY`, holding `<id>.json` and `<id>.txt` for each
+/// language). Run with `--features json`; the tables are leaked, as a test
+/// may.
+#[cfg(feature = "json")]
+mod survey {
+    use serde_json::Value;
+
+    use super::{Grammar, Scanners, fixtures_in, parse, run};
+    use crate::textmate::grammar::{Cap, Injection, List, PatternSlot, Rule, RuleKind};
+
+    fn leak<T>(items: Vec<T>) -> &'static [T] {
+        Box::leak(items.into_boxed_slice())
+    }
+
+    fn index(value: &Value) -> usize {
+        value
+            .as_i64()
+            .and_then(|n| usize::try_from(n).ok())
+            .unwrap_or(usize::MAX)
+    }
+
+    fn numbers<T: TryFrom<u64>>(value: &Value) -> Vec<T> {
+        value
+            .as_array()
+            .map(|items| {
+                items
+                    .iter()
+                    .filter_map(|n| n.as_u64().and_then(|n| T::try_from(n).ok()))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
+    fn caps(value: &Value) -> &'static [Cap] {
+        leak(
+            value
+                .as_array()
+                .map(|items| {
+                    items
+                        .iter()
+                        .map(|c| Cap {
+                            index: index(&c["index"]),
+                            name: leak(numbers(&c["name"])),
+                            content_name: leak(numbers(&c["contentName"])),
+                            retokenize: index(&c["retokenize"]),
+                        })
+                        .collect()
+                })
+                .unwrap_or_default(),
+        )
+    }
+
+    fn text(value: &Value) -> &'static str {
+        Box::leak(
+            value
+                .as_str()
+                .unwrap_or_default()
+                .to_owned()
+                .into_boxed_str(),
+        )
+    }
+
+    pub(super) fn load(json: &str) -> &'static Grammar {
+        let v: Value = serde_json::from_str(json).unwrap();
+        let rules = v["rules"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|r| Rule {
+                kind: match r["kind"].as_str().unwrap() {
+                    "Match" => RuleKind::Match,
+                    "BeginEnd" => RuleKind::BeginEnd,
+                    "BeginWhile" => RuleKind::BeginWhile,
+                    _ => RuleKind::Container,
+                },
+                name: leak(numbers(&r["name"])),
+                content_name: leak(numbers(&r["contentName"])),
+                begin: index(&r["begin"]),
+                end: index(&r["end"]),
+                until: index(&r["until"]),
+                captures: caps(&r["captures"]),
+                end_captures: caps(&r["endCaptures"]),
+                list: index(&r["list"]),
+                apply_end_last: r["applyEndLast"].as_bool().unwrap_or(false),
+            })
+            .collect();
+        let lists = v["lists"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|l| List::new(leak(numbers(l))))
+            .collect();
+        let patterns = v["patterns"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|p| PatternSlot::new(text(&p["source"])))
+            .collect();
+        let injections = v["injections"]
+            .as_array()
+            .map(|items| {
+                items
+                    .iter()
+                    .map(|i| Injection {
+                        selector: text(&i["selector"]),
+                        rule: index(&i["rule"]),
+                    })
+                    .collect()
+            })
+            .unwrap_or_default();
+        let names = v["names"].as_array().unwrap().iter().map(text).collect();
+        Box::leak(Box::new(Grammar {
+            scope: text(&v["scope"]),
+            names: leak(names),
+            rules: leak(rules),
+            lists: leak(lists),
+            injections: leak(injections),
+            patterns: leak(patterns),
+            root: index(&v["root"]),
+        }))
+    }
+
+    #[test]
+    #[ignore = "a survey over a scratch directory"]
+    fn engine_against_shiki_on_many_languages() {
+        let Some(dir) = std::env::var_os("NISHIKI_SURVEY") else {
+            return;
+        };
+        let dir = std::path::PathBuf::from(dir);
+        let mut rows: Vec<(String, usize, usize, String)> = Vec::new();
+        for fixture in fixtures_in(&dir) {
+            let id = fixture.file_stem().unwrap().to_string_lossy().into_owned();
+            let Ok(json) = std::fs::read_to_string(dir.join(format!("{id}.json"))) else {
+                continue;
+            };
+            let lines = parse(&fixture);
+            let outcome = std::panic::catch_unwind(|| {
+                let grammar = load(&json);
+                run(
+                    grammar,
+                    &lines,
+                    if std::env::var_os("NISHIKI_NO_SCANNER").is_some() {
+                        Scanners::Off
+                    } else {
+                        Scanners::On
+                    },
+                )
+            });
+            match outcome {
+                Ok((checked, missed, message)) => {
+                    rows.push((
+                        id,
+                        checked,
+                        missed,
+                        message
+                            .lines()
+                            .skip(1)
+                            .take(3)
+                            .collect::<Vec<_>>()
+                            .join("\n"),
+                    ));
+                }
+                Err(_) => rows.push((id, 0, usize::MAX, "PANIC".to_owned())),
+            }
+        }
+        rows.sort_by_key(|r| r.2);
+        let exact = rows.iter().filter(|r| r.2 == 0).count();
+        eprintln!(
+            "{exact} of {} languages match Shiki on every byte of their sample",
+            rows.len()
+        );
+        for (id, checked, missed, first) in &rows {
+            if *missed > 0 {
+                eprintln!("  {id}: {missed} of {checked} bytes differ\n{first}");
+            }
+        }
+    }
+}
+
+#[cfg(feature = "json")]
+fn fixtures_in(dir: &Path) -> Vec<PathBuf> {
+    let mut paths: Vec<PathBuf> = fs::read_dir(dir)
+        .unwrap()
+        .map(|entry| entry.unwrap().path())
+        .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
+        .collect();
+    paths.sort();
+    paths
+}
+
+/// A grammar of one rule that names its forty-second group, as C++'s
+/// function definitions name a group far into their pattern.
+mod many_groups {
+    use super::super::grammar::{Cap, Grammar, List, PatternSlot, Rule, RuleKind};
+
+    static PATTERNS: [PatternSlot; 1] = [PatternSlot::new(
+        "()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()(x)",
+    )];
+    static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
+    static RULES: [Rule; 2] = [
+        Rule {
+            kind: RuleKind::Container,
+            name: &[],
+            content_name: &[],
+            begin: usize::MAX,
+            end: usize::MAX,
+            until: usize::MAX,
+            captures: &[],
+            end_captures: &[],
+            list: 0,
+            apply_end_last: false,
+        },
+        Rule {
+            kind: RuleKind::Match,
+            name: &[],
+            content_name: &[],
+            begin: 0,
+            end: usize::MAX,
+            until: usize::MAX,
+            captures: &[Cap {
+                index: 41,
+                name: &[0],
+                content_name: &[],
+                retokenize: usize::MAX,
+            }],
+            end_captures: &[],
+            list: 1,
+            apply_end_last: false,
+        },
+    ];
+    pub(super) static GRAMMAR: Grammar = Grammar {
+        scope: "source.test",
+        names: &["keyword.test"],
+        rules: &RULES,
+        lists: &LISTS,
+        injections: &[],
+        patterns: &PATTERNS,
+        root: 0,
+    };
+}
+
+#[test]
+fn a_group_far_into_a_pattern_is_named() {
+    let grammar: &'static Grammar = &many_groups::GRAMMAR;
+    let mut arena = Arena::new(None);
+    let mut scratch = Scratch::default();
+    let state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+    let mut out = Vec::new();
+    tokenizer::line(
+        &mut scratch,
+        &mut arena,
+        &Limits::unlimited(),
+        Text {
+            grammar,
+            bytes: b"ax",
+            start: 0,
+            anchored: false,
+        },
+        state,
+        &mut out,
+        &mut LineReport::default(),
+    );
+    let scopes: Vec<Vec<&str>> = out
+        .iter()
+        .map(|t| arena.scopes(t.stack.0).collect())
+        .collect();
+    assert_eq!(scopes.len(), 2, "{scopes:?}");
+    assert_eq!(scopes[1], ["keyword.test", "source.test"]);
 }
