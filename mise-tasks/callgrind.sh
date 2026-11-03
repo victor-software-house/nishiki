@@ -24,7 +24,7 @@ base="${1:-origin/main}"
 shift || true
 languages=("$@")
 if [ "${#languages[@]}" -eq 0 ]; then
-  languages=(c cmake cpp csharp css go java kotlin lua make markdown powershell python ruby scala sql swift zig)
+  languages=(c cmake cpp csharp css go java kotlin lua make markdown powershell proto python ruby scala sql swift zig)
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 dir=target/callgrind
