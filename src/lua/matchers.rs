@@ -69,12 +69,12 @@ impl Lexer<'_> {
             Pat::CommentAt0At2 => self.lit(p, b"----"),
             Pat::CommentAt0At3 => self.lit(p, b"---"),
             Pat::CommentAt0At4 => self.lit(p, b"--"),
-            Pat::CommentAt0At2End
-            | Pat::CommentAt0At3End
-            | Pat::CommentAt0At4End
-            | Pat::EmmydocAt1At0End
-            | Pat::EmmydocAt5At0End
-            | Pat::EmmydocAt19At0End => self.line_feed(p),
+            Pat::CommentAt0At2End | Pat::CommentAt0At3End | Pat::CommentAt0At4End => {
+                self.line_feed(p)
+            }
+            Pat::EmmydocAt1At0End | Pat::EmmydocAt5At0End | Pat::EmmydocAt19At0End => {
+                self.ahead_in(p, b"\n").then_some(p)
+            }
             Pat::CommentAt1 => self.lit(p, b"/*"),
             Pat::CommentAt1End => self.lit(p, b"*/"),
             Pat::LdocTag => self.ldoc_tag(p),

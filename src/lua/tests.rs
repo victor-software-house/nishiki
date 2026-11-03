@@ -87,6 +87,26 @@ fn a_documentation_comment_names_its_tags_and_types() {
     assert_eq!(leaf_in(&row, "string"), "support.type.lua");
 }
 
+/// The `@enum`, `@cast` and `@diagnostic` tags end at `(?=\n)`, which leaves
+/// the line feed to the comment, so the comment ends with its line.
+#[test]
+fn a_documentation_tag_that_ends_its_line_ends_before_the_line_feed() {
+    let rows = lex_lines(indoc! {"
+        ---@enum Color
+        local x = 1
+        ---@cast x string
+        return x
+        ---@diagnostic disable
+        local y
+    "});
+    assert_eq!(leaf_in(&rows[0], "Color"), "variable.lua");
+    assert_eq!(leaf_in(&rows[1], "local"), "keyword.local.lua");
+    assert_eq!(leaf_in(&rows[2], "string"), "support.type.lua");
+    assert_eq!(leaf_in(&rows[3], "return"), "keyword.control.lua");
+    assert_eq!(leaf_in(&rows[4], "disable"), "keyword.other.unit");
+    assert_eq!(leaf_in(&rows[5], "local"), "keyword.local.lua");
+}
+
 #[test]
 fn a_function_head_names_its_parameters() {
     let row = lex("local function f(a, ...) end");
