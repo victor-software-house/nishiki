@@ -111,20 +111,26 @@ class RegexParser {
     return info(set, empty, bol, any, wb);
   }
 
+  /** An atom and its quantifiers. An interval can be optional three ways in
+   * Oniguruma: `{0,m}`, `{,m}`, and `{n,m}` with n above m, which it reads as
+   * `{m,n}` (C++'s doc comments open with `\s+{1,0}`). */
   quantified(): Info {
     const atom = this.atom();
     let min = 1;
     for (;;) {
       const c = this.src[this.pos];
+      const interval = c === "{" ? /^\{(?:(\d+)(?:(,)(\d*))?|,(\d+))\}/.exec(this.src.slice(this.pos)) : null;
       if (c === "*" || c === "?") {
         min = 0;
         this.pos++;
       } else if (c === "+") {
         this.pos++;
-      } else if (c === "{" && /^\{\d+(,\d*)?\}/.test(this.src.slice(this.pos))) {
-        const m = /^\{(\d+)(,\d*)?\}/.exec(this.src.slice(this.pos))!;
-        if (Number(m[1]) === 0) min = 0;
-        this.pos += m[0].length;
+      } else if (interval) {
+        const [whole, low, comma, high, upTo] = interval;
+        const from = upTo === undefined ? Number(low) : 0;
+        const to = comma === undefined || high === "" ? from : Number(high);
+        if (Math.min(from, to) === 0) min = 0;
+        this.pos += whole.length;
       } else {
         break;
       }
