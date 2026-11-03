@@ -17,9 +17,15 @@
 // rules with their includes already followed, the patterns as text (compiled on
 // first use), and the scope names interned. A rule whose patterns all include a
 // grammar that is not loaded is dropped, as vscode-textmate drops it.
+//
+// Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
+// the run fails, naming the grammar, when one is missing or refused.
 import { bundledLanguages } from "shiki@4.6.0";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { inputs } from "./inputs.ts";
+import { allowed, refused } from "./licences.ts";
 
 type Json = Record<string, unknown>;
 /** The repositories an include can name, innermost last: a rule without a
@@ -75,6 +81,8 @@ class Builder {
   roots = new Map<string, number>();
   /** Each raw rule object is compiled once, as in vscode-textmate. */
   compiled = new Map<object, number>();
+  /** The Shiki names of the grammars whose rules the tables hold. */
+  used = new Set<string>();
 
   constructor(
     private docs: Map<string, Json>,
@@ -118,6 +126,7 @@ class Builder {
     if (known !== undefined) return known;
     const doc = this.docs.get(scope);
     if (!doc) return undefined;
+    this.used.add(String(doc.name));
     const id = this.reserve("Container");
     this.roots.set(scope, id);
     const env: Env = [(doc.repository as Json | undefined) ?? {}];
@@ -151,9 +160,12 @@ class Builder {
     const hash = target.indexOf("#");
     if (hash >= 0) {
       const other = target.slice(0, hash);
-      const repository = this.docs.get(other)?.repository as Json | undefined;
+      const doc = this.docs.get(other);
+      const repository = doc?.repository as Json | undefined;
       const found = repository?.[target.slice(hash + 1)] as Json | undefined;
-      return found ? this.entry(other, found, [repository as Json]) : undefined;
+      if (!found) return undefined;
+      this.used.add(String(doc?.name));
+      return this.entry(other, found, [repository as Json]);
     }
     return this.root(target);
   }
@@ -297,6 +309,25 @@ function hasBackrefs(source: string): boolean {
   return false;
 }
 
+/** Fails unless every grammar the tables hold has its licence, read at its
+ * source, in `oracle/licences.ts`, and, when the tables ship in the crate
+ * (under `src/`), its origin in the notices the crate ships. The JSON tables
+ * feed a survey and are not kept, so they skip the gate. */
+function gate(spec: string, used: Set<string>) {
+  const shipped = resolve(outDir).startsWith(fileURLToPath(new URL("../src/", import.meta.url)));
+  const notices = readFileSync(new URL("../THIRD-PARTY-NOTICES.md", import.meta.url), "utf8");
+  const problems = [...used].sort().flatMap((name) => {
+    const reason = refused[name];
+    if (reason) return [`${name} is refused: ${reason}`];
+    const entry = allowed[name];
+    if (!entry) return [`${name} has no licence in oracle/licences.ts`];
+    if (shipped && !notices.includes(`https://github.com/${entry.origin}`))
+      return [`${name}: ${entry.origin} is not in THIRD-PARTY-NOTICES.md`];
+    return [];
+  });
+  if (problems.length > 0) throw new Error(`${spec}: ${problems.join("; ")}`);
+}
+
 mkdirSync(outDir, { recursive: true });
 for (const id of ids) {
   const { docs, scope } = await load(id);
@@ -328,6 +359,7 @@ for (const id of ids) {
     const injected = builder.root(injectScope);
     if (injected !== undefined) injections.push([String(doc.injectionSelector), injected]);
   }
+  if (!asJson) gate(id, builder.used);
   builder.flatten();
   const refs = (list: string[]) => `&[${list.map((n) => builder.nameRef(n)).join(", ")}]`;
   const caps = (list: Cap[]) =>
