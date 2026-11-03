@@ -132,6 +132,8 @@ The decisions that created nishiki live in a private planning repository:
    - streaming latency per line;
    - cold start;
    - theme styling.
+
+   `mise run bench python java` measures only the languages it names.
 2. It is not part of `verify`, because timings depend on the machine.
    `bench/AGENTS.md` says where a run counts and how it is recorded.
 

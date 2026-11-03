@@ -4,13 +4,22 @@
 //! Run with `mise run bench`, in release mode. Each fixture's text is lexed
 //! line by line from a fresh highlighter, as an editor or a streamed reply
 //! lexes it. The figures are this machine's; compare runs on one machine.
+//!
+//! Language names as arguments, `mise run bench python java`, measure only
+//! those languages' fixtures, so a change to one language is compared in
+//! seconds; the theme figure then comes from their largest fixture.
 
-#![expect(clippy::print_stdout, reason = "a benchmark prints its results")]
+#![expect(
+    clippy::print_stdout,
+    clippy::print_stderr,
+    reason = "a benchmark prints its results and its usage errors"
+)]
 
-use std::fs;
 use std::hint::black_box;
 use std::path::Path;
+use std::process::ExitCode;
 use std::time::{Duration, Instant};
+use std::{env, fs};
 
 use nishiki::{Highlighter, Language, State, Theme, ThemeSource};
 
@@ -114,9 +123,20 @@ fn micros(duration: Duration) -> f64 {
     duration.as_secs_f64() * 1e6
 }
 
-fn main() {
+fn main() -> ExitCode {
+    let mut only = Vec::new();
+    for name in env::args().skip(1) {
+        let Some(language) = Language::from_name(&name) else {
+            eprintln!("unknown language: {name}");
+            return ExitCode::FAILURE;
+        };
+        only.push(language);
+    }
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
-    let documents = documents(&root);
+    let mut documents = documents(&root);
+    if !only.is_empty() {
+        documents.retain(|document| only.contains(&document.language));
+    }
     println!(
         "{:<28} {:>8} {:>10} {:>9} {:>9} {:>9} {:>10}",
         "fixture", "KiB", "MiB/s", "p50 µs", "p99 µs", "max µs", "first µs"
@@ -188,4 +208,5 @@ fn main() {
                 / f64::from(u32::try_from(all.len().max(1)).unwrap_or(u32::MAX)),
         );
     }
+    ExitCode::SUCCESS
 }
