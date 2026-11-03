@@ -300,27 +300,19 @@ impl Lexer<'_> {
         let mut best = None;
         for open in memchr::memchr_iter(b'(', self.s) {
             let mut k = open;
-            while k > 0 && self.space_at(self.char_start(k - 1)) > 0 {
-                k = self.char_start(k - 1);
+            while k > 0 && self.space_at(self.char_start_before(k)) > 0 {
+                k = self.char_start_before(k);
             }
             let mut e = k;
             while e > 0 && self.word_before(e) {
-                e = self.char_start(e - 1);
+                e = self.char_start_before(e);
             }
-            if e < k && e > 0 && self.space_at(self.char_start(e - 1)) > 0 {
+            if e < k && e > 0 && self.space_at(self.char_start_before(e)) > 0 {
                 best = Some(best.map_or(e, |b: usize| b.max(e)));
             }
         }
         self.spend(self.s.len());
         best
-    }
-
-    /// The start of the character that contains byte `i`.
-    fn char_start(&self, mut i: usize) -> usize {
-        while i > 0 && self.s.get(i).is_some_and(|b| b & 0xc0 == 0x80) {
-            i -= 1;
-        }
-        i
     }
 
     /// `(?=\s+\w+\s*\()`: blanks, a word and a `(` from `p`.
