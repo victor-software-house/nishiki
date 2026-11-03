@@ -1,6 +1,7 @@
 //! Function declarations and expressions, their parameters and return types.
 
 use super::bytes::{BLANK, Bytes, NAME_START, STRING_START};
+use super::decl::Pattern;
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -26,7 +27,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut e = j + "function".len();
         let mut star = None;
         let k = self.ws(e);
-        if self.b(k) == b'*' {
+        if self.byte(k) == b'*' {
             star = Some((k, k + 1));
             e = k + 1;
         }
@@ -50,21 +51,21 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn emit_function_head(&mut self, kind: Kind, head: &FunctionHead) {
         if let Some((a, b)) = head.async_cap {
-            self.cap(kind, a, b, &[S::StorageModifierAsync]);
+            self.capture(kind, a, b, &[S::StorageModifierAsync]);
         }
-        self.cap(kind, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
+        self.capture(kind, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
         if let Some((a, b)) = head.star {
-            self.cap(kind, a, b, &[S::KeywordGeneratorAsterisk]);
+            self.capture(kind, a, b, &[S::KeywordGeneratorAsterisk]);
         }
         if let Some((a, b)) = head.name {
-            self.cap(
+            self.capture(
                 kind,
                 a,
                 b,
                 &[S::MetaDefinitionFunction, S::EntityNameFunction],
             );
         }
-        self.fin(kind, head.end);
+        self.finish(kind, head.end);
     }
 
     pub(crate) fn function_declaration(&mut self, p: usize) -> Option<usize> {
@@ -81,7 +82,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn function_expression(&mut self, p: usize) -> Option<usize> {
-        if !self.b(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
             return None;
         }
         let head = self.function_head(p)?;
@@ -96,7 +97,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn function_name(&mut self, p: usize) -> Option<usize> {
         let e = self.ident(p)?;
-        self.one(p, e, &[S::MetaDefinitionFunction, S::EntityNameFunction]);
+        self.token(p, e, &[S::MetaDefinitionFunction, S::EntityNameFunction]);
         Some(e)
     }
 
@@ -110,15 +111,16 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.type_function_return_type(p))
             .or_else(|| self.decl_block(p))
             .or_else(|| {
-                (self.b(p) == b'*').then(|| self.tok(p, p + 1, S::KeywordGeneratorAsterisk))?
+                (self.byte(p) == b'*')
+                    .then(|| self.token_rule(p, p + 1, S::KeywordGeneratorAsterisk))?
             })
     }
 
     pub(crate) fn function_parameters(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'(' {
+        if self.byte(p) != b'(' {
             return None;
         }
-        self.open1(
+        self.open_token(
             Kind::Params,
             p,
             p + 1,
@@ -132,7 +134,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let j = self.ws(p);
-        if self.b(j) != b':' || self.full() {
+        if self.byte(j) != b':' || self.full() {
             return None;
         }
         let k = self.ws(j + 1);
@@ -142,7 +144,7 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::ReturnType1
         };
         self.flush(p);
-        self.cap(kind, j, j + 1, &[S::KeywordOperatorTypeAnnotation]);
+        self.capture(kind, j, j + 1, &[S::KeywordOperatorTypeAnnotation]);
         self.push(kind);
         Some(j + 1)
     }
@@ -179,7 +181,8 @@ impl<const D: u8> Lexer<'_, D> {
                 )
             })
             .or_else(|| {
-                (self.b(p) == b',').then(|| self.tok(p, p + 1, S::PunctuationSeparatorParameter))?
+                (self.byte(p) == b',')
+                    .then(|| self.token_rule(p, p + 1, S::PunctuationSeparatorParameter))?
             })
     }
 
@@ -194,7 +197,7 @@ impl<const D: u8> Lexer<'_, D> {
             rest = Some((j, j + 3));
             j = self.ws(j + 3);
         }
-        let (kind, scope) = match self.b(j) {
+        let (kind, scope) = match self.byte(j) {
             b'{' => (
                 Kind::ParamObjBind,
                 S::PunctuationDefinitionBindingPatternObject,
@@ -207,16 +210,17 @@ impl<const D: u8> Lexer<'_, D> {
         };
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.cap(kind, a, b, &[S::KeywordOperatorRest]);
+            self.capture(kind, a, b, &[S::KeywordOperatorRest]);
         }
-        self.cap(kind, j, j + 1, &[scope]);
+        self.capture(kind, j, j + 1, &[scope]);
         self.push(kind);
         Some(j + 1)
     }
 
     /// The name of a parameter, with the grammar's two function-aware forms.
+    ///
+    /// `public readonly x`: a modifier followed by another modifier.
     pub(crate) fn parameter_name(&mut self, p: usize) -> Option<usize> {
-        // `public readonly x`: a modifier followed by another modifier.
         if let Some(e) = self.kw_of(
             p,
             &["override", "public", "protected", "private", "readonly"],
@@ -227,7 +231,9 @@ impl<const D: u8> Lexer<'_, D> {
                     .iter()
                     .any(|w| self.starts(j, w))
             {
-                return self.tok(p, e, S::StorageModifier).map(|r| self.fin_ws(r));
+                return self
+                    .token_rule(p, e, S::StorageModifier)
+                    .map(|r| self.fin_ws(r));
             }
         }
         self.parameter_like(p, ParamStyle::Parameter)
@@ -285,7 +291,7 @@ impl<const D: u8> Lexer<'_, D> {
             (e, false)
         };
         let mut k = self.ws(name_end);
-        let opt = if self.b(k) == b'?' {
+        let opt = if self.byte(k) == b'?' {
             let at = k;
             k += 1;
             Some(at)
@@ -297,8 +303,8 @@ impl<const D: u8> Lexer<'_, D> {
             ParamStyle::Parameter => true,
             ParamStyle::ExpressionParameter => {
                 function
-                    || self.b(self.ws(k)) == b','
-                    || self.b(self.ws(k)) == b':'
+                    || self.byte(self.ws(k)) == b','
+                    || self.byte(self.ws(k)) == b':'
                     || self.eol(self.ws(k))
             }
         };
@@ -307,10 +313,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = modifier {
-            self.cap(Kind::Top, a, b, &[S::StorageModifier]);
+            self.capture(Kind::Top, a, b, &[S::StorageModifier]);
         }
         if let Some((a, b)) = rest {
-            self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let scopes: &[S] = match (function, this) {
             (true, true) => &[S::EntityNameFunction, S::VariableLanguageThis],
@@ -318,9 +324,9 @@ impl<const D: u8> Lexer<'_, D> {
             (false, true) => &[S::VariableParameter, S::VariableLanguageThis],
             (false, false) => &[S::VariableParameter],
         };
-        self.cap(Kind::Top, j, name_end, scopes);
+        self.capture(Kind::Top, j, name_end, scopes);
         if let Some(at) = opt {
-            self.cap(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
+            self.capture(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
             return Some(at + 1);
         }
         Some(name_end)
@@ -328,6 +334,76 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn kw_this(&self, j: usize) -> Option<usize> {
         (self.starts(j, "this") && self.kw_after(j + "this".len())).then_some(j + "this".len())
+    }
+
+    pub(crate) fn parameter_binding_element(&mut self, p: usize) -> Option<usize> {
+        self.comment(p)
+            .or_else(|| self.string(p))
+            .or_else(|| self.numeric_literal(p))
+            .or_else(|| self.regex(p))
+            .or_else(|| self.parameter_pattern(p, Pattern::Object))
+            .or_else(|| self.parameter_pattern(p, Pattern::Array))
+            .or_else(|| self.destructuring_parameter_rest(p))
+            .or_else(|| self.variable_initializer(p))
+    }
+
+    /// `(?:(\.\.\.)\s*)?(\{)` or `(\[)` inside a parameter pattern.
+    pub(crate) fn parameter_pattern(&mut self, p: usize, pattern: Pattern) -> Option<usize> {
+        let mut j = p;
+        let mut rest = None;
+        if self.starts(j, "...") {
+            rest = Some((j, j + 3));
+            j = self.ws(j + 3);
+        }
+        if self.byte(j) != pattern.open() || self.full() {
+            return None;
+        }
+        self.flush(p);
+        if let Some((a, b)) = rest {
+            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+        }
+        let (kind, scope) = match pattern {
+            Pattern::Object => (
+                Kind::ParamObjPattern,
+                S::PunctuationDefinitionBindingPatternObject,
+            ),
+            Pattern::Array => (
+                Kind::ParamArrPattern,
+                S::PunctuationDefinitionBindingPatternArray,
+            ),
+        };
+        self.capture(kind, j, j + 1, &[scope]);
+        self.push(kind);
+        Some(j + 1)
+    }
+
+    fn destructuring_parameter_rest(&mut self, p: usize) -> Option<usize> {
+        let mut j = p;
+        let mut rest = None;
+        if self.starts(j, "...") {
+            rest = Some((j, j + 3));
+            j = self.ws(j + 3);
+        }
+        let e = self.ident(j)?;
+        self.flush(p);
+        if let Some((a, b)) = rest {
+            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+        }
+        self.capture(Kind::Top, j, e, &[S::VariableParameter]);
+        Some(e)
+    }
+
+    pub(crate) fn parameter_object_binding_element(&mut self, p: usize) -> Option<usize> {
+        if let Some(r) = self.comment(p) {
+            return Some(r);
+        }
+        if self.key_colon_ahead(p) {
+            return self.open_empty(Kind::ParamObjElem, p);
+        }
+        self.parameter_pattern(p, Pattern::Object)
+            .or_else(|| self.destructuring_parameter_rest(p))
+            .or_else(|| self.variable_initializer(p))
+            .or_else(|| self.punctuation_comma(p))
     }
 }
 

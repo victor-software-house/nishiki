@@ -33,10 +33,10 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         self.prefix_tokens(Kind::EnumDecl, &pre);
         if let Some((a, b)) = const_cap {
-            self.cap(Kind::EnumDecl, a, b, &[S::StorageModifier]);
+            self.capture(Kind::EnumDecl, a, b, &[S::StorageModifier]);
         }
-        self.cap(Kind::EnumDecl, k, e, &[S::StorageTypeEnum]);
-        self.cap(Kind::EnumDecl, j, n, &[S::EntityNameTypeEnum]);
+        self.capture(Kind::EnumDecl, k, e, &[S::StorageTypeEnum]);
+        self.capture(Kind::EnumDecl, j, n, &[S::EntityNameTypeEnum]);
         self.push(Kind::EnumDecl);
         Some(n)
     }
@@ -45,8 +45,8 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
-        if self.b(p) == b'{' {
-            return self.open1(Kind::EnumBody, p, p + 1, &[S::PunctuationDefinitionBlock]);
+        if self.byte(p) == b'{' {
+            return self.open_token(Kind::EnumBody, p, p + 1, &[S::PunctuationDefinitionBlock]);
         }
         None
     }
@@ -57,10 +57,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.id_start(p) {
             let e = self.ident(p)?;
-            return self.open1(Kind::EnumMember, p, e, &[S::VariableOtherEnummember]);
+            return self.open_token(Kind::EnumMember, p, e, &[S::VariableOtherEnummember]);
         }
         if self.enum_key_ahead(p) {
-            return self.open0(Kind::EnumKey, p);
+            return self.open_empty(Kind::EnumKey, p);
         }
         self.punctuation_comma(p)
     }

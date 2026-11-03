@@ -20,15 +20,15 @@ impl<const D: u8> Lexer<'_, D> {
         if j == e {
             return None;
         }
-        let c = self.b(j);
+        let c = self.byte(j);
         let ok = matches!(c, b'"' | b'$' | b'\'' | b'_' | b'`' | b'[') || self.id_start(j);
         if !ok {
             return None;
         }
         self.flush(p);
         self.prefix_tokens(Kind::NamespaceDecl, &pre);
-        self.cap(Kind::NamespaceDecl, k, e, &[S::StorageTypeNamespace]);
-        self.fin(Kind::NamespaceDecl, j);
+        self.capture(Kind::NamespaceDecl, k, e, &[S::StorageTypeNamespace]);
+        self.finish(Kind::NamespaceDecl, j);
         self.push(Kind::NamespaceDecl);
         Some(j)
     }
@@ -49,7 +49,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if let Some(e) = self.ident(p) {
-            return self.tok(p, e, S::EntityNameTypeModule);
+            return self.token_rule(p, e, S::EntityNameTypeModule);
         }
         self.punctuation_accessor(p).or_else(|| self.decl_block(p))
     }

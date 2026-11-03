@@ -26,15 +26,15 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         self.prefix_tokens(Kind::ClassDecl, &pre);
         if let Some((a, b)) = abstract_cap {
-            self.cap(Kind::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Kind::ClassDecl, a, b, &[S::StorageModifier]);
         }
-        self.cap(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
+        self.capture(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
         self.push(Kind::ClassDecl);
         Some(e)
     }
 
     pub(crate) fn class_expression(&mut self, p: usize) -> Option<usize> {
-        if !self.b(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
             return None;
         }
         let mut k = p;
@@ -51,7 +51,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let e = k + "class".len();
-        let after = self.b(e);
+        let after = self.byte(e);
         let ok = self.ws(e) > e
             || matches!(after, b'<' | b'{')
             || self.starts(e, "/*")
@@ -61,9 +61,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = abstract_cap {
-            self.cap(Kind::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Kind::ClassDecl, a, b, &[S::StorageModifier]);
         }
-        self.cap(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
+        self.capture(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
         self.push(Kind::ClassDecl);
         Some(e)
     }
@@ -76,7 +76,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if let Some(e) = self.ident(p) {
-            return self.tok(p, e, S::EntityNameTypeClass);
+            return self.token_rule(p, e, S::EntityNameTypeClass);
         }
         self.type_parameters(p)
             .or_else(|| self.class_or_interface_body(p))
@@ -101,9 +101,9 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         self.prefix_tokens(Kind::InterfaceDecl, &pre);
         if let Some((a, b)) = abstract_cap {
-            self.cap(Kind::InterfaceDecl, a, b, &[S::StorageModifier]);
+            self.capture(Kind::InterfaceDecl, a, b, &[S::StorageModifier]);
         }
-        self.cap(Kind::InterfaceDecl, k, e, &[S::StorageTypeInterface]);
+        self.capture(Kind::InterfaceDecl, k, e, &[S::StorageTypeInterface]);
         self.push(Kind::InterfaceDecl);
         Some(e)
     }
@@ -116,17 +116,17 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if let Some(e) = self.ident(p) {
-            return self.tok(p, e, S::EntityNameTypeInterface);
+            return self.token_rule(p, e, S::EntityNameTypeInterface);
         }
         self.type_parameters(p)
             .or_else(|| self.class_or_interface_body(p))
     }
 
     pub(crate) fn class_or_interface_body(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'{' {
+        if self.byte(p) != b'{' {
             return None;
         }
-        self.open1(Kind::ClassBody, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Kind::ClassBody, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     pub(crate) fn class_or_interface_heritage(&mut self, p: usize) -> Option<usize> {
@@ -137,7 +137,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.boundary(p) {
             return None;
         }
-        self.open1(Kind::Heritage, p, e, &[S::StorageModifier])
+        self.open_token(Kind::Heritage, p, e, &[S::StorageModifier])
     }
 
     pub(crate) fn heritage_rules(&mut self, p: usize) -> Option<usize> {
@@ -158,12 +158,12 @@ impl<const D: u8> Lexer<'_, D> {
             if let Some(a) = self.accessor_at(j) {
                 let k = self.ws(a);
                 if self.hash_ident_member_chain(k) {
-                    self.one(p, e, &[S::EntityNameTypeModule]);
-                    self.cap(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+                    self.token(p, e, &[S::EntityNameTypeModule]);
+                    self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
                     return Some(a);
                 }
             }
-            return self.tok(p, e, S::EntityOtherInheritedClass);
+            return self.token_rule(p, e, S::EntityOtherInheritedClass);
         }
         self.expression_punctuation(p)
     }

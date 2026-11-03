@@ -31,13 +31,13 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let n = self.ident(n0)?;
         let eq = self.ws(n);
-        if self.b(eq) != b'=' {
+        if self.byte(eq) != b'=' {
             return None;
         }
         let r0 = self.ws(eq + 1);
         let external = self.starts(r0, "require") && {
             let q = self.ws(r0 + "require".len());
-            self.b(q) == b'('
+            self.byte(q) == b'('
         };
         self.flush(p);
         let kind = if external {
@@ -49,20 +49,20 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.prefix_tokens(kind, &pre);
-        self.cap(kind, k, k + 6, &[S::KeywordControlImport]);
+        self.capture(kind, k, k + 6, &[S::KeywordControlImport]);
         if let Some((a, b)) = type_cap {
-            self.cap(kind, a, b, &[S::KeywordControlType]);
+            self.capture(kind, a, b, &[S::KeywordControlType]);
         }
-        self.cap(kind, n0, n, &[S::VariableOtherReadwriteAlias]);
-        self.cap(kind, eq, eq + 1, &[S::KeywordOperatorAssignment]);
+        self.capture(kind, n0, n, &[S::VariableOtherReadwriteAlias]);
+        self.capture(kind, eq, eq + 1, &[S::KeywordOperatorAssignment]);
         if external {
             let q = self.ws(r0 + "require".len());
-            self.cap(kind, r0, r0 + "require".len(), &[S::KeywordControlRequire]);
-            self.cap(kind, q, q + 1, &[S::MetaBraceRound]);
+            self.capture(kind, r0, r0 + "require".len(), &[S::KeywordControlRequire]);
+            self.capture(kind, q, q + 1, &[S::MetaBraceRound]);
             self.push(kind);
             return Some(q + 1);
         }
-        self.fin(kind, r0);
+        self.finish(kind, r0);
         self.push(kind);
         Some(r0)
     }
@@ -77,15 +77,19 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.ident(p) {
             let j = self.ws(e);
             if let Some(a) = self.accessor_at(j) {
-                self.one(p, e, &[S::EntityNameTypeModule]);
-                self.cap(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+                self.token(p, e, &[S::EntityNameTypeModule]);
+                self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
                 return Some(a);
             }
-            return self.tok(p, e, S::VariableOtherReadwrite);
+            return self.token_rule(p, e, S::VariableOtherReadwrite);
         }
         None
     }
 
+    /// An `import` declaration.
+    ///
+    /// The keyword is not followed by `(?!\s+from)`, nor by
+    /// `(?!\s*[(:])E`.
     pub(crate) fn import_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;
@@ -97,7 +101,6 @@ impl<const D: u8> Lexer<'_, D> {
         let t = self.ws(e);
         if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
             let after = self.ws(t + "type".len());
-            // `(?!\s+from)`.
             if !(after > t + "type".len()
                 && self.starts(after, "from")
                 && self.boundary(after + "from".len()))
@@ -106,18 +109,17 @@ impl<const D: u8> Lexer<'_, D> {
                 e = t + "type".len();
             }
         }
-        // `(?!\s*[(:])E`.
         let nxt = self.ws(e);
-        if matches!(self.b(nxt), b'(' | b':') || !self.kw_after(e) {
+        if matches!(self.byte(nxt), b'(' | b':') || !self.kw_after(e) {
             return None;
         }
         self.flush(p);
         self.prefix_tokens(Kind::Import, &pre);
-        self.cap(Kind::Import, k, k + 6, &[S::KeywordControlImport]);
+        self.capture(Kind::Import, k, k + 6, &[S::KeywordControlImport]);
         if let Some((a, b)) = type_cap {
-            self.cap(Kind::Import, a, b, &[S::KeywordControlType]);
+            self.capture(Kind::Import, a, b, &[S::KeywordControlType]);
         }
-        self.fin(Kind::Import, e);
+        self.finish(Kind::Import, e);
         self.push(Kind::Import);
         Some(e)
     }
@@ -132,8 +134,8 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.string(p) {
             return Some(r);
         }
-        if self.prev_import(p) && !matches!(self.b(self.ws(p)), b'"' | b'\'') {
-            return self.open0(Kind::ImportFrom, p);
+        if self.prev_import(p) && !matches!(self.byte(self.ws(p)), b'"' | b'\'') {
+            return self.open_empty(Kind::ImportFrom, p);
         }
         self.import_export_declaration(p)
     }
@@ -150,8 +152,8 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.string(p) {
             return Some(r);
         }
-        if self.b(p) == b'{' {
-            return self.open1(
+        if self.byte(p) == b'{' {
+            return self.open_token(
                 Kind::ImportBlock,
                 p,
                 p + 1,
@@ -159,7 +161,7 @@ impl<const D: u8> Lexer<'_, D> {
             );
         }
         if self.starts(p, "from") && self.boundary(p) && self.boundary(p + "from".len()) {
-            return self.tok(p, p + "from".len(), S::KeywordControlFrom);
+            return self.token_rule(p, p + "from".len(), S::KeywordControlFrom);
         }
         if let Some(r) = self.import_export_assert_clause(p) {
             return Some(r);
@@ -179,12 +181,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         };
         let j = self.ws(e);
-        if self.b(j) != b'{' {
+        if self.byte(j) != b'{' {
             return None;
         }
         self.flush(p);
-        self.cap(Kind::AssertClause, p, e, &[scope]);
-        self.cap(
+        self.capture(Kind::AssertClause, p, e, &[scope]);
+        self.capture(
             Kind::AssertClause,
             j,
             j + 1,
@@ -203,13 +205,14 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if let Some(e) = self.ident(p) {
             let j = self.ws_comments(e);
-            if self.b(j) == b':' {
+            if self.byte(j) == b':' {
                 let end = self.ws(e);
-                self.one(p, end, &[S::MetaObjectLiteralKey]);
+                self.token(p, end, &[S::MetaObjectLiteralKey]);
                 return Some(end);
             }
         }
-        (self.b(p) == b':').then(|| self.tok(p, p + 1, S::PunctuationSeparatorKeyValue))?
+        (self.byte(p) == b':')
+            .then(|| self.token_rule(p, p + 1, S::PunctuationSeparatorKeyValue))?
     }
 
     pub(crate) fn import_export_clause(&mut self, p: usize) -> Option<usize> {
@@ -222,16 +225,18 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.punctuation_comma(p) {
             return Some(r);
         }
-        if self.b(p) == b'*' {
-            return self.tok(p, p + 1, S::ConstantLanguageImportExportAll);
+        if self.byte(p) == b'*' {
+            return self.token_rule(p, p + 1, S::ConstantLanguageImportExportAll);
         }
         if self.starts(p, "default") && self.boundary(p) && self.boundary(p + "default".len()) {
-            return self.tok(p, p + "default".len(), S::KeywordControlDefault);
+            return self.token_rule(p, p + "default".len(), S::KeywordControlDefault);
         }
         self.import_name(p)
     }
 
     /// `(type\s+)?(default|*|ID|STR)\s+as\s+(default|ID|STR)`.
+    ///
+    /// The grammar tries `type` as the optional modifier first, then as a name.
     fn import_alias(&mut self, p: usize) -> Option<usize> {
         if !self.kw_before(p) {
             return None;
@@ -246,8 +251,6 @@ impl<const D: u8> Lexer<'_, D> {
                 j = k;
             }
         }
-        // The grammar tries `type` as the optional modifier first, then as a
-        // name.
         for attempt in 0..2 {
             let (start, tcap) = if attempt == 0 {
                 (j, type_cap)
@@ -279,7 +282,7 @@ impl<const D: u8> Lexer<'_, D> {
             && self.boundary(j + "default".len())
         {
             (j + "default".len(), S::KeywordControlDefault)
-        } else if self.b(j) == b'*' {
+        } else if self.byte(j) == b'*' {
             (j + 1, S::ConstantLanguageImportExportAll)
         } else if let Some(e) = self.ident(j) {
             if !self.boundary(j) {
@@ -309,24 +312,24 @@ impl<const D: u8> Lexer<'_, D> {
             };
         self.flush(p);
         if let Some((a, b)) = type_cap {
-            self.cap(Kind::Top, a, b, &[S::KeywordControlType]);
+            self.capture(Kind::Top, a, b, &[S::KeywordControlType]);
         }
         if first_scope == S::StringQuotedAlias {
             self.quoted_alias_tokens(j, first_end);
         } else {
-            self.cap(Kind::Top, j, first_end, &[first_scope]);
+            self.capture(Kind::Top, j, first_end, &[first_scope]);
         }
-        self.cap(Kind::Top, k, k + 2, &[S::KeywordControlAs]);
+        self.capture(Kind::Top, k, k + 2, &[S::KeywordControlAs]);
         if second_scope == S::StringQuotedAlias {
             self.quoted_alias_tokens(m, second_end);
         } else {
-            self.cap(Kind::Top, m, second_end, &[second_scope]);
+            self.capture(Kind::Top, m, second_end, &[second_scope]);
         }
         Some(second_end)
     }
 
     fn quoted_alias_tokens(&mut self, a: usize, b: usize) {
-        self.cap(Kind::Top, a, b, &[S::StringQuotedAlias]);
+        self.capture(Kind::Top, a, b, &[S::StringQuotedAlias]);
     }
 
     /// `(type\s+)?(ID|STR)`.
@@ -349,9 +352,9 @@ impl<const D: u8> Lexer<'_, D> {
         };
         self.flush(p);
         if let Some((a, b)) = type_cap {
-            self.cap(Kind::Top, a, b, &[S::KeywordControlType]);
+            self.capture(Kind::Top, a, b, &[S::KeywordControlType]);
         }
-        self.cap(Kind::Top, j, e, &[scope]);
+        self.capture(Kind::Top, j, e, &[scope]);
         Some(e)
     }
 }

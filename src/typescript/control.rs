@@ -3,19 +3,19 @@
 
 use super::kind::Kind;
 use super::lexer::Lexer;
+use super::regex::RegexForm;
 use super::scope::S;
-use super::text::RegexForm;
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn control_statement(&mut self, p: usize) -> Option<usize> {
-        if !self.b(p).is_ascii_lowercase() {
+        if !self.byte(p).is_ascii_lowercase() {
             return None;
         }
         if let Some(r) = self.switch_statement(p).or_else(|| self.for_loop(p)) {
             return Some(r);
         }
         if let Some(e) = self.kw_of(p, &["catch", "finally", "throw", "try"]) {
-            return self.tok(p, e, S::KeywordControlTrycatch);
+            return self.token_rule(p, e, S::KeywordControlTrycatch);
         }
         if let Some(e) = self.kw_of(p, &["break", "continue", "goto"]) {
             let j = self.ws(e);
@@ -23,34 +23,34 @@ impl<const D: u8> Lexer<'_, D> {
                 && let Some(n) = self.ident(j)
                 && self.kw_after(n)
             {
-                self.one(p, e, &[S::KeywordControlLoop]);
-                self.cap(Kind::Top, j, n, &[S::EntityNameLabel]);
+                self.token(p, e, &[S::KeywordControlLoop]);
+                self.capture(Kind::Top, j, n, &[S::EntityNameLabel]);
                 return Some(n);
             }
         }
         if let Some(e) = self.kw_of(p, &["break", "continue", "do", "goto", "while"]) {
-            return self.tok(p, e, S::KeywordControlLoop);
+            return self.token_rule(p, e, S::KeywordControlLoop);
         }
         if let Some(e) = self.kw(p, "return") {
-            return self.open1(Kind::Return, p, e, &[S::KeywordControlFlow]);
+            return self.open_token(Kind::Return, p, e, &[S::KeywordControlFlow]);
         }
         if let Some(e) = self.kw_of(p, &["case", "default", "switch"]) {
-            return self.tok(p, e, S::KeywordControlSwitch);
+            return self.token_rule(p, e, S::KeywordControlSwitch);
         }
         if let Some(r) = self.if_statement(p) {
             return Some(r);
         }
         if let Some(e) = self.kw_of(p, &["else", "if"]) {
-            return self.tok(p, e, S::KeywordControlConditional);
+            return self.token_rule(p, e, S::KeywordControlConditional);
         }
         if let Some(e) = self.kw(p, "with") {
-            return self.tok(p, e, S::KeywordControlWith);
+            return self.token_rule(p, e, S::KeywordControlWith);
         }
         if let Some(e) = self.kw(p, "package") {
-            return self.tok(p, e, S::KeywordControl);
+            return self.token_rule(p, e, S::KeywordControl);
         }
         if let Some(e) = self.kw(p, "debugger") {
-            return self.tok(p, e, S::KeywordOtherDebugger);
+            return self.token_rule(p, e, S::KeywordOtherDebugger);
         }
         None
     }
@@ -60,10 +60,10 @@ impl<const D: u8> Lexer<'_, D> {
             .kw_before(p)
             .then(|| self.starts(p, "switch").then_some(p + "switch".len()))
             .flatten()?;
-        if !self.boundary(p) || self.b(self.ws(e)) != b'(' {
+        if !self.boundary(p) || self.byte(self.ws(e)) != b'(' {
             return None;
         }
-        self.open0(Kind::SwitchStmt, p)
+        self.open_empty(Kind::SwitchStmt, p)
     }
 
     /// The rules of a `switch` statement before its braces.
@@ -74,16 +74,16 @@ impl<const D: u8> Lexer<'_, D> {
         if self.kw_before(p) && self.starts(p, "switch") {
             let e = p + "switch".len();
             let j = self.ws(e);
-            if self.b(j) == b'(' && !self.full() {
+            if self.byte(j) == b'(' && !self.full() {
                 self.flush(p);
-                self.cap(Kind::SwitchExpr, p, e, &[S::KeywordControlSwitch]);
-                self.cap(Kind::SwitchExpr, j, j + 1, &[S::MetaBraceRound]);
+                self.capture(Kind::SwitchExpr, p, e, &[S::KeywordControlSwitch]);
+                self.capture(Kind::SwitchExpr, j, j + 1, &[S::MetaBraceRound]);
                 self.push(Kind::SwitchExpr);
                 return Some(j + 1);
             }
         }
-        if self.b(p) == b'{' {
-            return self.open1(
+        if self.byte(p) == b'{' {
+            return self.open_token(
                 Kind::SwitchBlock,
                 p,
                 p + 1,
@@ -95,19 +95,20 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn switch_block_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.kw(p, "case") {
-            return self.open1(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
+            return self.open_token(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
         }
-        if self.starts(p, "default") && self.kw_before(p) && self.b(p + "default".len()) == b':' {
+        if self.starts(p, "default") && self.kw_before(p) && self.byte(p + "default".len()) == b':'
+        {
             let e = p + "default".len();
             if self.kw_after(e) {
-                return self.open1(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
+                return self.open_token(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
             }
         }
-        if self.b(p) == b':' {
+        if self.byte(p) == b':' {
             let j = self.ws(p + 1);
-            if self.b(j) == b'{' && !self.full() {
+            if self.byte(j) == b'{' && !self.full() {
                 self.flush(p);
-                self.cap(
+                self.capture(
                     Kind::CaseBlock,
                     p,
                     p + 1,
@@ -116,7 +117,7 @@ impl<const D: u8> Lexer<'_, D> {
                         S::PunctuationDefinitionSectionCaseStatement,
                     ],
                 );
-                self.cap(
+                self.capture(
                     Kind::CaseBlock,
                     j,
                     j + 1,
@@ -125,32 +126,31 @@ impl<const D: u8> Lexer<'_, D> {
                 self.push(Kind::CaseBlock);
                 return Some(j + 1);
             }
-            return Some(self.tok2(
+            self.token(
                 p,
                 p + 1,
-                S::CaseClauseExpr,
-                S::PunctuationDefinitionSectionCaseStatement,
-            ));
+                &[
+                    S::CaseClauseExpr,
+                    S::PunctuationDefinitionSectionCaseStatement,
+                ],
+            );
+            return Some(p + 1);
         }
         self.statements(p)
     }
 
-    fn tok2(&mut self, a: usize, b: usize, s1: S, s2: S) -> usize {
-        self.one(a, b, &[s1, s2]);
-        b
-    }
-
+    /// A `for` loop, with an optional `await` after
+    /// `(\s+|(\s*/\*…\*/\s*))`.
     fn for_loop(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "for")?;
         let mut j = self.ws_comments(e);
-        // `(\s+|(\s*/\*…\*/\s*))await`
         if j > e && self.starts(j, "await") {
             j = self.ws_comments(j + "await".len());
         }
-        if self.b(j) != b'(' || self.full() {
+        if self.byte(j) != b'(' || self.full() {
             return None;
         }
-        self.open1(Kind::ForLoop, p, e, &[S::KeywordControlLoop])
+        self.open_token(Kind::ForLoop, p, e, &[S::KeywordControlLoop])
     }
 
     pub(crate) fn for_loop_rules(&mut self, p: usize) -> Option<usize> {
@@ -158,10 +158,10 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if let Some(e) = self.starts(p, "await").then_some(p + "await".len()) {
-            return self.tok(p, e, S::KeywordControlLoop);
+            return self.token_rule(p, e, S::KeywordControlLoop);
         }
-        if self.b(p) == b'(' {
-            return self.open1(Kind::ForParen, p, p + 1, &[S::MetaBraceRound]);
+        if self.byte(p) == b'(' {
+            return self.open_token(Kind::ForParen, p, p + 1, &[S::MetaBraceRound]);
         }
         None
     }
@@ -173,21 +173,22 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `if (…)` not followed directly by a brace.
+    ///
+    /// `\s*(?!\{)` backs off a blank, so only `){` fails.
     fn if_statement(&mut self, p: usize) -> Option<usize> {
         if !(self.starts(p, "if") && self.kw_before(p) && self.boundary(p)) {
             return None;
         }
         let j = self.ws(p + 2);
-        if self.b(j) != b'(' {
+        if self.byte(j) != b'(' {
             return None;
         }
         let close = self.balanced(j, b'(', b')')?;
-        // `\s*(?!\{)` backs off a blank, so only `){` fails.
-        let ok = self.ws(close) > close || self.b(close) != b'{';
+        let ok = self.ws(close) > close || self.byte(close) != b'{';
         if !ok {
             return None;
         }
-        self.open0(Kind::IfOuter, p)
+        self.open_empty(Kind::IfOuter, p)
     }
 
     pub(crate) fn if_outer_rules(&mut self, p: usize) -> Option<usize> {
@@ -196,10 +197,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.kw_before(p) && self.starts(p, "if") {
             let j = self.ws(p + 2);
-            if self.b(j) == b'(' && !self.full() {
+            if self.byte(j) == b'(' && !self.full() {
                 self.flush(p);
-                self.cap(Kind::IfParen, p, p + 2, &[S::KeywordControlConditional]);
-                self.cap(Kind::IfParen, j, j + 1, &[S::MetaBraceRound]);
+                self.capture(Kind::IfParen, p, p + 2, &[S::KeywordControlConditional]);
+                self.capture(Kind::IfParen, j, j + 1, &[S::MetaBraceRound]);
                 self.push(Kind::IfParen);
                 return Some(j + 1);
             }
@@ -216,14 +217,14 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let q = self.ws(p);
-        if self.b(q) != b'/'
-            || matches!(self.b(q + 1), b'*' | b'/')
+        if self.byte(q) != b'/'
+            || matches!(self.byte(q + 1), b'*' | b'/')
             || !self.regex_body(q, RegexForm::Loose)
         {
             return None;
         }
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::Regex,
             q,
             q + 1,

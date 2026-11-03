@@ -25,7 +25,9 @@
 
 mod bytes;
 mod calls;
+mod chars;
 mod classes;
+mod comments;
 mod control;
 mod decl;
 mod directives;
@@ -45,6 +47,7 @@ mod look;
 mod members;
 mod namespaces;
 mod num;
+mod regex;
 mod rules;
 mod scope;
 mod text;

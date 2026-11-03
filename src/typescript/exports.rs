@@ -5,6 +5,11 @@ use super::lexer::Lexer;
 use super::scope::S;
 
 impl<const D: u8> Lexer<'_, D> {
+    /// An `export` declaration: `export as namespace Name`, `export (type)?
+    /// (=|default)`, or `export type`? followed by `*`, `{` or a name list.
+    ///
+    /// The optional `type` is tried first, then skipped. The keyword is not
+    /// followed by `(?!(\$)|(\s*:))`.
     #[expect(
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
@@ -14,7 +19,6 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let e = p + "export".len();
-        // `export as namespace Name`.
         let j = self.ws(e);
         if j > e && self.starts(j, "as") && self.boundary(j + 2) {
             let k = self.ws(j + 2);
@@ -23,15 +27,15 @@ impl<const D: u8> Lexer<'_, D> {
                 if m > k + "namespace".len()
                     && let Some(n) = self.ident(m)
                 {
-                    self.one(p, e, &[S::KeywordControlExport]);
-                    self.cap(Kind::Top, j, j + 2, &[S::KeywordControlAs]);
-                    self.cap(
+                    self.token(p, e, &[S::KeywordControlExport]);
+                    self.capture(Kind::Top, j, j + 2, &[S::KeywordControlAs]);
+                    self.capture(
                         Kind::Top,
                         k,
                         k + "namespace".len(),
                         &[S::StorageTypeNamespace],
                     );
-                    self.cap(Kind::Top, m, n, &[S::EntityNameTypeModule]);
+                    self.capture(Kind::Top, m, n, &[S::EntityNameTypeModule]);
                     return Some(n);
                 }
             }
@@ -39,7 +43,6 @@ impl<const D: u8> Lexer<'_, D> {
         if self.full() {
             return None;
         }
-        // `export (type)? (=|default)`.
         let mut after = e;
         let mut type_cap = None;
         let t = self.ws(e);
@@ -49,13 +52,13 @@ impl<const D: u8> Lexer<'_, D> {
             after = t + "type".len();
         }
         let eq = self.ws(after);
-        if self.b(eq) == b'=' && self.b(eq + 1) != b'=' || self.b(eq) == b'=' {
+        if self.byte(eq) == b'=' && self.byte(eq + 1) != b'=' || self.byte(eq) == b'=' {
             self.flush(p);
-            self.cap(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
+            self.capture(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
             if let Some((a, b)) = type_cap {
-                self.cap(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
+                self.capture(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
             }
-            self.cap(
+            self.capture(
                 Kind::ExportDefault,
                 eq,
                 eq + 1,
@@ -73,11 +76,11 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if let Some(d) = default_start {
             self.flush(p);
-            self.cap(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
+            self.capture(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
             if let Some((a, b)) = type_cap {
-                self.cap(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
+                self.capture(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
             }
-            self.cap(
+            self.capture(
                 Kind::ExportDefault,
                 d,
                 d + "default".len(),
@@ -86,12 +89,10 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::ExportDefault);
             return Some(d + 7);
         }
-        // `export type`? followed by `*`, `{` or a name list.
         let mut after = e;
         let mut type_cap = None;
         let t = self.ws(e);
         if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
-            // The optional `type` is tried first, then skipped.
             let try_type = self.export_clause_ahead(t + "type".len());
             if try_type {
                 type_cap = Some((t, t + "type".len()));
@@ -101,17 +102,16 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.boundary(after) {
             return None;
         }
-        // `(?!(\$)|(\s*:))`.
-        if self.b(after) == b'$' || self.b(self.ws(after)) == b':' {
+        if self.byte(after) == b'$' || self.byte(self.ws(after)) == b':' {
             return None;
         }
         if !self.export_clause_ahead(after) {
             return None;
         }
         self.flush(p);
-        self.cap(Kind::Export, p, e, &[S::KeywordControlExport]);
+        self.capture(Kind::Export, p, e, &[S::KeywordControlExport]);
         if let Some((a, b)) = type_cap {
-            self.cap(Kind::Export, a, b, &[S::KeywordControlType]);
+            self.capture(Kind::Export, a, b, &[S::KeywordControlType]);
         }
         self.push(Kind::Export);
         Some(after)
@@ -121,13 +121,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// statement keyword.
     fn export_clause_ahead(&self, i: usize) -> bool {
         let j = self.ws(i);
-        if matches!(self.b(j), b'*' | b'{') {
+        if matches!(self.byte(j), b'*' | b'{') {
             return true;
         }
         let Some(e) = self.ident(j) else {
             return false;
         };
-        if !(self.b(e) == b',' || self.space_at(e)) {
+        if !(self.byte(e) == b',' || self.space_at(e)) {
             return false;
         }
         !self.statement_keyword_at(j)

@@ -28,9 +28,9 @@ impl<const D: u8> Lexer<'_, D> {
         let end = self.ws(n);
         self.flush(p);
         self.prefix_tokens(Kind::TypeAlias, &pre);
-        self.cap(Kind::TypeAlias, k, e, &[S::StorageTypeType]);
-        self.cap(Kind::TypeAlias, j, n, &[S::EntityNameTypeAlias]);
-        self.fin(Kind::TypeAlias, end);
+        self.capture(Kind::TypeAlias, k, e, &[S::StorageTypeType]);
+        self.capture(Kind::TypeAlias, j, n, &[S::EntityNameTypeAlias]);
+        self.finish(Kind::TypeAlias, end);
         self.push(Kind::TypeAlias);
         Some(end)
     }
@@ -42,18 +42,18 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.type_parameters(p) {
             return Some(r);
         }
-        if self.b(p) == b'=' && !self.full() {
+        if self.byte(p) == b'=' && !self.full() {
             let j = self.ws(p + 1);
             let mut intrinsic = None;
             if self.starts(j, "intrinsic") && self.kw_after(j + "intrinsic".len()) {
                 intrinsic = Some((j, j + "intrinsic".len()));
             }
             self.flush(p);
-            self.cap(Kind::TypeAliasEq, p, p + 1, &[S::KeywordOperatorAssignment]);
+            self.capture(Kind::TypeAliasEq, p, p + 1, &[S::KeywordOperatorAssignment]);
             if let Some((a, b)) = intrinsic {
-                self.cap(Kind::TypeAliasEq, a, b, &[S::KeywordControlIntrinsic]);
+                self.capture(Kind::TypeAliasEq, a, b, &[S::KeywordControlIntrinsic]);
             } else {
-                self.fin(Kind::TypeAliasEq, j);
+                self.finish(Kind::TypeAliasEq, j);
             }
             self.push(Kind::TypeAliasEq);
             return Some(intrinsic.map_or(j, |(_, e)| e));

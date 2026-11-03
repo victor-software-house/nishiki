@@ -143,7 +143,7 @@ const KNOWN_TAGS: &[&str] = &[
 impl<const D: u8> Lexer<'_, D> {
     /// The rules of a doc comment: its tags and inline tags.
     pub(crate) fn docblock(&mut self, p: usize) -> Option<usize> {
-        match self.b(p) {
+        match self.byte(p) {
             b'@' => self.doc_tag(p),
             b'[' => self.doc_bracket_link(p),
             b'{' => self.doc_inline_link(p),
@@ -156,9 +156,9 @@ impl<const D: u8> Lexer<'_, D> {
     fn doc_run(&self, i: usize, stop: impl Fn(usize) -> bool) -> usize {
         let mut j = i;
         while j <= self.len {
-            let c = self.b(j);
+            let c = self.byte(j);
             if c == b'*' {
-                if self.b(j + 1) == b'/' {
+                if self.byte(j + 1) == b'/' {
                     break;
                 }
                 j += 2;
@@ -173,7 +173,9 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(?:[^*/@\s]|\*[^/])+`, as a run from `i` of at least one item.
     fn doc_word(&self, i: usize) -> Option<usize> {
-        let e = self.doc_run(i, |j| matches!(self.b(j), b'/' | b'@') || self.space_at(j));
+        let e = self.doc_run(i, |j| {
+            matches!(self.byte(j), b'/' | b'@') || self.space_at(j)
+        });
         (e > i).then_some(e)
     }
 
@@ -185,13 +187,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// The `@tag` tokens of a rule whose context is `kind`.
     fn doc_tag_tokens_in(&mut self, kind: Kind, p: usize, end: usize) {
         self.flush(p);
-        self.cap(kind, p, p + 1, &[TAG, AT]);
-        self.cap(kind, p + 1, end, &[TAG]);
+        self.capture(kind, p, p + 1, &[TAG, AT]);
+        self.capture(kind, p + 1, end, &[TAG]);
     }
 
     /// `[$A-Z_a-z][]$.\[\w]*`: a name that may hold brackets and dots.
     fn doc_name(&self, i: usize) -> Option<usize> {
-        let c = self.b(i);
+        let c = self.byte(i);
         if !(c == b'$' || c == b'_' || c.is_ascii_alphabetic()) {
             return None;
         }
@@ -214,8 +216,9 @@ impl<const D: u8> Lexer<'_, D> {
         self.starts(p + 1, word).then(|| p + 1 + word.len())
     }
 
+    /// A block tag in a doc comment: `@access` and `@api` with a visibility,
+    /// the other known tags, and `@name` followed by blanks.
     fn doc_tag(&mut self, p: usize) -> Option<usize> {
-        // @access and @api with a visibility.
         for word in ["access", "api"] {
             let Some(e) = self.tag_end(p, word) else {
                 continue;
@@ -225,7 +228,7 @@ impl<const D: u8> Lexer<'_, D> {
                 for word in ["private", "protected", "public"] {
                     if self.starts(j, word) && self.boundary(j + word.len()) {
                         self.doc_tag_tokens(p, e);
-                        self.cap(
+                        self.capture(
                             Kind::Top,
                             j,
                             j + word.len(),
@@ -246,7 +249,7 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.doc_tag_tokens_in(Kind::JsExample, p, e);
-                self.fin(Kind::JsExample, j);
+                self.finish(Kind::JsExample, j);
                 self.push(Kind::JsExample);
                 return Some(j);
             }
@@ -275,7 +278,6 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.doc_known_tag(p) {
             return Some(r);
         }
-        // `@name` followed by blanks.
         let e = self.ident(p + 1)?;
         self.space_at(e).then(|| {
             self.doc_tag_tokens(p, e);
@@ -293,35 +295,35 @@ impl<const D: u8> Lexer<'_, D> {
         if j == e {
             return None;
         }
-        if matches!(self.b(j), b'*' | b'/' | b'<' | b'>' | b'@') || self.space_at(j) {
+        if matches!(self.byte(j), b'*' | b'/' | b'<' | b'>' | b'@') || self.space_at(j) {
             return None;
         }
         let name_end = self.doc_run(j + self.char_len(j), |k| {
-            matches!(self.b(k), b'/' | b'<' | b'>' | b'@')
+            matches!(self.byte(k), b'/' | b'<' | b'>' | b'@')
         });
         self.doc_tag_tokens(p, e);
-        self.cap(Kind::Top, j, name_end.min(self.len), &[INSTANCE]);
+        self.capture(Kind::Top, j, name_end.min(self.len), &[INSTANCE]);
         let k = self.ws(name_end);
-        if self.b(k) == b'<' {
+        if self.byte(k) == b'<' {
             let mut m = k + 1;
-            while m < self.len && self.b(m) != b'>' && !self.space_at(m) {
+            while m < self.len && self.byte(m) != b'>' && !self.space_at(m) {
                 m += self.char_len(m);
             }
             self.spend(m - k);
-            if m > k + 1 && self.b(m) == b'>' {
-                self.cap(
+            if m > k + 1 && self.byte(m) == b'>' {
+                self.capture(
                     Kind::Top,
                     k,
                     k + 1,
                     &[S::PunctuationDefinitionBracketAngleBeginJsdoc],
                 );
-                self.cap(
+                self.capture(
                     Kind::Top,
                     k + 1,
                     m,
                     &[S::ConstantOtherEmailLinkUnderlineJsdoc],
                 );
-                self.cap(
+                self.capture(
                     Kind::Top,
                     m,
                     m + 1,
@@ -354,9 +356,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let z = self.doc_word(m)?;
         self.doc_tag_tokens(p, e);
-        self.cap(Kind::Top, j, a, &[INSTANCE]);
-        self.cap(Kind::Top, k, k + 2, &[S::KeywordOperatorControlJsdoc]);
-        self.cap(Kind::Top, m, z, &[INSTANCE]);
+        self.capture(Kind::Top, j, a, &[INSTANCE]);
+        self.capture(Kind::Top, k, k + 2, &[S::KeywordOperatorControlJsdoc]);
+        self.capture(Kind::Top, m, z, &[INSTANCE]);
         Some(z)
     }
 
@@ -381,7 +383,7 @@ impl<const D: u8> Lexer<'_, D> {
         ] {
             if self.starts(j, word) && self.boundary(j + word.len()) {
                 self.doc_tag_tokens(p, e);
-                self.cap(
+                self.capture(
                     Kind::Top,
                     j,
                     j + word.len(),
@@ -403,7 +405,7 @@ impl<const D: u8> Lexer<'_, D> {
             let z = self.doc_run(j, |k| self.space_at(k));
             if z > j {
                 self.doc_tag_tokens(p, e);
-                self.cap(Kind::Top, j, z, &[S::VariableOtherLinkUnderlineJsdoc]);
+                self.capture(Kind::Top, j, z, &[S::VariableOtherLinkUnderlineJsdoc]);
                 return Some(z);
             }
         }
@@ -413,7 +415,7 @@ impl<const D: u8> Lexer<'_, D> {
             && let Some(z) = self.doc_word(j)
         {
             self.doc_tag_tokens(p, e);
-            self.cap(Kind::Top, j, z, &[INSTANCE]);
+            self.capture(Kind::Top, j, z, &[INSTANCE]);
             return Some(z);
         }
         None
@@ -422,13 +424,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?:\[[^]\[]*])?\{@(?:link|linkcode|linkplain|tutorial)\b`.
     fn inline_link_ahead(&self, i: usize) -> bool {
         let mut j = i;
-        if self.b(j) == b'[' {
+        if self.byte(j) == b'[' {
             let mut k = j + 1;
-            while k < self.len && !matches!(self.b(k), b']' | b'[') {
+            while k < self.len && !matches!(self.byte(k), b']' | b'[') {
                 k += 1;
             }
             self.spend(k - j);
-            if self.b(k) == b']' {
+            if self.byte(k) == b']' {
                 j = k + 1;
             }
         }
@@ -444,6 +446,7 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
+    /// `@template` and its names, `X, Y, Z`.
     #[expect(
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
@@ -455,11 +458,10 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         if let Some(n) = self.doc_name(j) {
-            // `X, Y, Z`
             let mut end = n;
             loop {
                 let k = self.ws(end);
-                if self.b(k) != b',' {
+                if self.byte(k) != b',' {
                     break;
                 }
                 let m = self.ws(k + 1);
@@ -469,12 +471,12 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
             self.doc_tag_tokens(p, e);
-            self.cap(Kind::Top, j, end, &[VARIABLE]);
+            self.capture(Kind::Top, j, end, &[VARIABLE]);
             return Some(end);
         }
-        if self.b(j) == b'{' && !self.full() {
+        if self.byte(j) == b'{' && !self.full() {
             self.doc_tag_tokens(p, e);
-            self.fin(Kind::Top, j);
+            self.finish(Kind::Top, j);
             self.push(Kind::JsTypeTag);
             return Some(j);
         }
@@ -501,7 +503,7 @@ impl<const D: u8> Lexer<'_, D> {
                 && let Some(n) = self.doc_name(j)
             {
                 self.doc_tag_tokens(p, e);
-                self.cap(Kind::Top, j, n, &[VARIABLE]);
+                self.capture(Kind::Top, j, n, &[VARIABLE]);
                 return Some(n);
             }
         }
@@ -554,9 +556,9 @@ impl<const D: u8> Lexer<'_, D> {
                     continue;
                 };
                 let j = self.ws(e);
-                if j > e && self.b(j) == b'{' && !self.full() {
+                if j > e && self.byte(j) == b'{' && !self.full() {
                     self.doc_tag_tokens(p, e);
-                    self.fin(Kind::Top, j);
+                    self.finish(Kind::Top, j);
                     self.push(kind);
                     return Some(j);
                 }
@@ -606,11 +608,11 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if j > e {
                 let z = self.doc_run(j, |k| {
-                    matches!(self.b(k), b'@' | b'{' | b'}') || self.space_at(k)
+                    matches!(self.byte(k), b'@' | b'{' | b'}') || self.space_at(k)
                 });
                 if z > j {
                     self.doc_tag_tokens(p, e);
-                    self.cap(Kind::Top, j, z, &[INSTANCE]);
+                    self.capture(Kind::Top, j, z, &[INSTANCE]);
                     return Some(z);
                 }
             }
@@ -627,10 +629,10 @@ impl<const D: u8> Lexer<'_, D> {
             if j == e {
                 continue;
             }
-            let q = self.b(j);
+            let q = self.byte(j);
             if (q == b'"' || q == b'\'') && !self.full() {
                 self.doc_tag_tokens(p, e);
-                self.cap(
+                self.capture(
                     Kind::Top,
                     j,
                     j + 1,
@@ -656,13 +658,13 @@ impl<const D: u8> Lexer<'_, D> {
                 continue;
             }
             let mut z = j;
-            while z <= self.len && self.b(z) != b'*' && !self.space_at(z) {
+            while z <= self.len && self.byte(z) != b'*' && !self.space_at(z) {
                 z += self.char_len(z);
             }
             self.spend(z - j);
             if z > j {
                 self.doc_tag_tokens(p, e);
-                self.cap(Kind::Top, j, z, &[VARIABLE]);
+                self.capture(Kind::Top, j, z, &[VARIABLE]);
                 return Some(z);
             }
         }
@@ -672,7 +674,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn doc_known_tag(&mut self, p: usize) -> Option<usize> {
         let word_end = {
             let mut e = p + 1;
-            while self.b(e) == b'_' || self.b(e).is_ascii_alphanumeric() {
+            while self.byte(e) == b'_' || self.byte(e).is_ascii_alphanumeric() {
                 e += 1;
             }
             self.spend(e - p);
@@ -682,8 +684,8 @@ impl<const D: u8> Lexer<'_, D> {
         if !KNOWN_TAGS.contains(&word) {
             return None;
         }
-        self.one(p, p + 1, &[TAG, AT]);
-        self.cap(Kind::Top, p + 1, word_end, &[TAG]);
+        self.token(p, p + 1, &[TAG, AT]);
+        self.capture(Kind::Top, p + 1, word_end, &[TAG]);
         Some(word_end)
     }
 
@@ -698,13 +700,13 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let d = S::ConstantOtherDescriptionJsdoc;
-        self.one(
+        self.token(
             p,
             p + 1,
             &[d, S::PunctuationDefinitionBracketSquareBeginJsdoc],
         );
-        self.cap(Kind::Top, p + 1, e, &[d]);
-        self.cap(
+        self.capture(Kind::Top, p + 1, e, &[d]);
+        self.capture(
             Kind::Top,
             e,
             after,
@@ -715,26 +717,26 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `{@link …}`.
     fn doc_inline_link(&mut self, p: usize) -> Option<usize> {
-        if self.b(p + 1) != b'@' || self.full() {
+        if self.byte(p + 1) != b'@' || self.full() {
             return None;
         }
         let name_end = self.inline_tag_name(p + 2)?;
         let e = self.ws(name_end);
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::JsInlineLink,
             p,
             p + 1,
             &[S::PunctuationDefinitionBracketCurlyBeginJsdoc],
         );
-        self.cap(
+        self.capture(
             Kind::JsInlineLink,
             p + 1,
             p + 2,
             &[TAG, S::PunctuationDefinitionInlineTagJsdoc],
         );
-        self.cap(Kind::JsInlineLink, p + 2, name_end, &[TAG]);
-        self.fin(Kind::JsInlineLink, e);
+        self.capture(Kind::JsInlineLink, p + 2, name_end, &[TAG]);
+        self.finish(Kind::JsInlineLink, e);
         self.push(Kind::JsInlineLink);
         Some(e)
     }
@@ -747,7 +749,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.starts(p, "http://") || self.starts(p, "https://") {
             let mut e = p;
             while e <= self.len {
-                let c = self.b(e);
+                let c = self.byte(e);
                 if self.starts(e, "*/") {
                     e += 2;
                 } else if c == b'*' || c == b'|' || c == b'}' || self.space_at(e) {
@@ -761,7 +763,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
         }
         let e = self.doc_run(p, |k| {
-            matches!(self.b(k), b'@' | b'{' | b'|' | b'}') || self.space_at(k)
+            matches!(self.byte(k), b'@' | b'{' | b'|' | b'}') || self.space_at(k)
         });
         if e > p {
             return Some(self.doc_link_part(p, e, S::VariableOtherDescriptionJsdoc));
@@ -771,9 +773,9 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn doc_link_part(&mut self, p: usize, e: usize, scope: S) -> usize {
         self.flush(p);
-        self.cap(Kind::Top, p, e.min(self.len), &[scope]);
-        if self.b(e) == b'|' {
-            self.cap(Kind::Top, e, e + 1, &[S::PunctuationSeparatorPipeJsdoc]);
+        self.capture(Kind::Top, p, e.min(self.len), &[scope]);
+        if self.byte(e) == b'|' {
+            self.capture(Kind::Top, e, e + 1, &[S::PunctuationSeparatorPipeJsdoc]);
             return e + 1;
         }
         e
@@ -783,25 +785,29 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn doc_example_rules(&mut self, p: usize) -> Option<usize> {
         if self.bol(p) && self.space_at(0) {
             let j = 1;
-            if self.b(j) == b'*' {
+            if self.byte(j) == b'*' {
                 let e = self.ws(j + 1);
                 if e > j + 1 {
                     return Some(e);
                 }
             }
         }
-        if p == self.anchor && self.b(p) == b'<' && self.starts(p + 1, "caption>") && !self.full() {
+        if p == self.anchor
+            && self.byte(p) == b'<'
+            && self.starts(p + 1, "caption>")
+            && !self.full()
+        {
             let e = p + 9;
             self.flush(p);
             let tag = S::EntityNameTagInlineJsdoc;
-            self.cap(
+            self.capture(
                 Kind::Top,
                 p,
                 p + 1,
                 &[tag, S::PunctuationDefinitionBracketAngleBeginJsdoc],
             );
-            self.cap(Kind::Top, p + 1, e - 1, &[tag]);
-            self.cap(
+            self.capture(Kind::Top, p + 1, e - 1, &[tag]);
+            self.capture(
                 Kind::Top,
                 e - 1,
                 e,
@@ -810,10 +816,10 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::JsCaption);
             return Some(e);
         }
-        if !(matches!(self.b(p), b'*' | b'@') || self.space_at(p)) && p <= self.len {
+        if !(matches!(self.byte(p), b'*' | b'@') || self.space_at(p)) && p <= self.len {
             let e = self.doc_run_to_star(p);
             self.flush(p);
-            self.cap(Kind::Top, p, e, &[S::SourceEmbedded]);
+            self.capture(Kind::Top, p, e, &[S::SourceEmbedded]);
             return Some(e);
         }
         None
@@ -823,8 +829,8 @@ impl<const D: u8> Lexer<'_, D> {
     fn doc_run_to_star(&self, i: usize) -> usize {
         let mut j = i;
         while j <= self.len {
-            if self.b(j) == b'*' {
-                if self.b(j + 1) == b'/' {
+            if self.byte(j) == b'*' {
+                if self.byte(j + 1) == b'/' {
                     break;
                 }
                 j += 2;
@@ -837,9 +843,9 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Inside a `{type}` of a tag: brackets nest.
     pub(crate) fn doc_type_tag_rules(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) == b'{' && p == self.anchor && !self.full() {
+        if self.byte(p) == b'{' && p == self.anchor && !self.full() {
             self.flush(p);
-            self.cap(
+            self.capture(
                 Kind::Top,
                 p,
                 p + 1,
@@ -854,14 +860,14 @@ impl<const D: u8> Lexer<'_, D> {
     /// The names inside tags that take a type and then a name.
     pub(crate) fn doc_type_tag_names(&mut self, p: usize) -> Option<usize> {
         let n = self.doc_name(p)?;
-        self.tok(p, n, VARIABLE)
+        self.token_rule(p, n, VARIABLE)
     }
 
     /// The `{`…`}` and `[`…`]` groups inside a doc type.
     pub(crate) fn doc_brackets(&mut self, p: usize) -> Option<usize> {
-        match self.b(p) {
-            b'{' => self.open1(Kind::JsBraces, p, p + 1, &[]),
-            b'[' => self.open1(Kind::JsBrackets, p, p + 1, &[]),
+        match self.byte(p) {
+            b'{' => self.open_token(Kind::JsBraces, p, p + 1, &[]),
+            b'[' => self.open_token(Kind::JsBrackets, p, p + 1, &[]),
             _ => None,
         }
     }

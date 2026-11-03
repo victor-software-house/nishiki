@@ -21,9 +21,9 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn doc_typedef_name(&mut self, p: usize) -> Option<usize> {
         let mut j = p;
         while j <= self.len {
-            let c = self.b(j);
+            let c = self.byte(j);
             if c == b'*' {
-                if self.b(j + 1) == b'/' {
+                if self.byte(j + 1) == b'/' {
                     break;
                 }
                 j += 2;
@@ -36,13 +36,19 @@ impl<const D: u8> Lexer<'_, D> {
         if j == p {
             return None;
         }
-        self.one(p, j.min(self.len), &[S::EntityNameTypeInstanceJsdoc]);
+        self.token(p, j.min(self.len), &[S::EntityNameTypeInstanceJsdoc]);
         Some(j)
     }
 
     /// `[name=default]`, an optional parameter in a doc comment, checked in
     /// full before anything is emitted: the grammar's pattern has to match to
     /// the closing bracket or to the end of the comment.
+    ///
+    /// `(?:(?:\[])?\.[$\w]+)*`
+    ///
+    /// Blanks before the closing bracket are not part of the value.
+    ///
+    /// `((?:[^*\s]|\*[^/\s])+)?`
     #[expect(
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
@@ -51,21 +57,20 @@ impl<const D: u8> Lexer<'_, D> {
         let name_char = |b: u8| b == b'$' || b == b'_' || b.is_ascii_alphanumeric();
         let mut j = self.ws(p + 1);
         let name_start = j;
-        while name_char(self.b(j)) {
+        while name_char(self.byte(j)) {
             j += 1;
         }
         self.spend(j - name_start + 1);
         if j == name_start {
             return None;
         }
-        // `(?:(?:\[])?\.[$\w]+)*`
         loop {
             let k = if self.starts(j, "[]") { j + 2 } else { j };
-            if self.b(k) != b'.' {
+            if self.byte(k) != b'.' {
                 break;
             }
             let mut e = k + 1;
-            while name_char(self.b(e)) {
+            while name_char(self.byte(e)) {
                 e += 1;
             }
             self.spend(e - k);
@@ -77,12 +82,12 @@ impl<const D: u8> Lexer<'_, D> {
         let mut end = j;
         let mut default = None;
         let k = self.ws(j);
-        if self.b(k) == b'=' {
+        if self.byte(k) == b'=' {
             let value = self.ws(k + 1);
             let mut e = value;
             let mut depth = 0usize;
             while e < self.len && !self.starts(e, "*/") {
-                match self.b(e) {
+                match self.byte(e) {
                     b'[' => depth += 1,
                     b']' if depth == 0 => break,
                     b']' => depth -= 1,
@@ -97,7 +102,6 @@ impl<const D: u8> Lexer<'_, D> {
                 e += 1;
             }
             self.spend(e - value + 1);
-            // Blanks before the closing bracket are not part of the value.
             let mut value_end = e;
             while value_end > value
                 && let Some(c) = self.prev_char(value_end)
@@ -109,10 +113,9 @@ impl<const D: u8> Lexer<'_, D> {
             end = e;
         }
         let m = self.ws(end);
-        if self.b(m) == b']' {
-            // `((?:[^*\s]|\*[^/\s])+)?`
+        if self.byte(m) == b']' {
             let mut t = m + 1;
-            while t < self.len && !self.space_at(t) && self.b(t) != b'*' {
+            while t < self.len && !self.space_at(t) && self.byte(t) != b'*' {
                 t += self.char_len(t);
             }
             self.spend(t - m);
@@ -130,13 +133,13 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn doc_optional_param(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'[' {
+        if self.byte(p) != b'[' {
             return None;
         }
         let found = self.optional_param_ahead(p)?;
         let scope = S::VariableOtherJsdoc;
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::Top,
             p,
             p + 1,
@@ -146,19 +149,19 @@ impl<const D: u8> Lexer<'_, D> {
             ],
         );
         if let Some((eq, value, value_end)) = found.default {
-            self.cap(Kind::Top, p + 1, eq, &[scope]);
-            self.cap(
+            self.capture(Kind::Top, p + 1, eq, &[scope]);
+            self.capture(
                 Kind::Top,
                 eq,
                 eq + 1,
                 &[scope, S::KeywordOperatorAssignmentJsdoc],
             );
-            self.cap(Kind::Top, eq + 1, value, &[scope]);
-            self.cap(Kind::Top, value, value_end, &[scope, S::SourceEmbedded]);
+            self.capture(Kind::Top, eq + 1, value, &[scope]);
+            self.capture(Kind::Top, value, value_end, &[scope, S::SourceEmbedded]);
         }
         if let Some(close) = found.close {
             self.fill(Kind::Top, close, &[scope]);
-            self.cap(
+            self.capture(
                 Kind::Top,
                 close,
                 close + 1,
@@ -168,7 +171,7 @@ impl<const D: u8> Lexer<'_, D> {
                 ],
             );
             if found.end > close + 1 {
-                self.cap(
+                self.capture(
                     Kind::Top,
                     close + 1,
                     found.end,

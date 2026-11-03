@@ -234,20 +234,21 @@ impl<const D: u8> Lexer<'_, D> {
         if p != 0 || !self.first_line || !self.starts(0, "#!") {
             return None;
         }
-        self.one(
+        self.token(
             0,
             2,
             &[S::CommentLineShebang, S::PunctuationDefinitionComment],
         );
-        self.cap(Kind::Top, 2, self.len, &[S::CommentLineShebang]);
+        self.capture(Kind::Top, 2, self.len, &[S::CommentLineShebang]);
         Some(self.len)
     }
 
     fn arrow_head_rules(&mut self, kind: Kind, p: usize) -> Option<usize> {
         if kind == Kind::PossArrow {
             return self.type_parameters(p).or_else(|| {
-                (self.b(p) == b'(')
-                    .then(|| self.open1(Kind::ParenArrowParams, p, p + 1, &[S::MetaBraceRound]))?
+                (self.byte(p) == b'(').then(|| {
+                    self.open_token(Kind::ParenArrowParams, p, p + 1, &[S::MetaBraceRound])
+                })?
             });
         }
         self.comment(p)
@@ -263,11 +264,11 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let j = self.ws(p);
-        if self.b(j) != b':' {
+        if self.byte(j) != b':' {
             return None;
         }
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::ArrowRet,
             j,
             j + 1,
@@ -288,19 +289,19 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         let e = self.ident(p)?;
-        self.tok(p, e, S::VariableObjectProperty)
+        self.token_rule(p, e, S::VariableObjectProperty)
     }
 
     fn indexer_mapped_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.kw(p, "as") {
-            return self.tok(p, e, S::KeywordControlAs);
+            return self.token_rule(p, e, S::KeywordControlAs);
         }
         self.type_(p)
     }
 
     fn type_conditional_rules(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) == b'?' {
-            return self.open1(Kind::TypeCondQ, p, p + 1, &[S::KeywordOperatorTernary]);
+        if self.byte(p) == b'?' {
+            return self.open_token(Kind::TypeCondQ, p, p + 1, &[S::KeywordOperatorTernary]);
         }
         self.type_(p)
     }
@@ -365,7 +366,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn template_call_rules(&mut self, p: usize) -> Option<usize> {
         if self.template_target_start(p) {
-            return self.open0(Kind::TemplateCallTarget, p);
+            return self.open_empty(Kind::TemplateCallTarget, p);
         }
         self.type_arguments(p)
     }
@@ -375,6 +376,6 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         let e = self.ident(p)?;
-        self.tok(p, e, S::EntityNameFunctionTaggedTemplate)
+        self.token_rule(p, e, S::EntityNameFunctionTaggedTemplate)
     }
 }

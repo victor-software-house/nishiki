@@ -1,8 +1,9 @@
 //! Calls, arrow functions, casts and the expression forms that open a context.
 
 use super::bytes::{Bytes, LITERAL_START, NAME_START};
+use super::chars::Before;
 use super::kind::Kind;
-use super::lexer::{Lexer, is_alnum_char};
+use super::lexer::Lexer;
 use super::look::CallKind;
 use super::scope::S;
 
@@ -26,12 +27,10 @@ const ARROW_END_WORDS: [&str; 14] = [
 ];
 
 impl<const D: u8> Lexer<'_, D> {
-    // Calls.
-
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
         match self.call_kind(p)? {
-            CallKind::Call => self.open0(Kind::CallOuter, p),
-            CallKind::Open => self.open0(Kind::Call2Outer, p),
+            CallKind::Call => self.open_empty(Kind::CallOuter, p),
+            CallKind::Open => self.open_empty(Kind::Call2Outer, p),
         }
     }
 
@@ -39,7 +38,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// type arguments and the argument list.
     pub(crate) fn call_outer_rules(&mut self, p: usize) -> Option<usize> {
         if self.call_target_start(p) {
-            return self.open0(Kind::CallTarget, p);
+            return self.open_empty(Kind::CallTarget, p);
         }
         self.comment(p)
             .or_else(|| self.call_optionals(p))
@@ -49,7 +48,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn call2_outer_rules(&mut self, p: usize) -> Option<usize> {
         if self.call_target_start(p) {
-            return self.open0(Kind::Call2Target, p);
+            return self.open_empty(Kind::Call2Target, p);
         }
         self.comment(p)
             .or_else(|| self.call_optionals(p))
@@ -58,15 +57,15 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn call_optionals(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, "?.") {
-            self.one(
+            self.token(
                 p,
                 p + 2,
                 &[S::MetaFunctionCall, S::PunctuationAccessorOptional],
             );
             return Some(p + 2);
         }
-        if self.b(p) == b'!' {
-            self.one(
+        if self.byte(p) == b'!' {
+            self.token(
                 p,
                 p + 1,
                 &[S::MetaFunctionCall, S::KeywordOperatorDefiniteassignment],
@@ -81,7 +80,7 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn call_target_rules(&mut self, p: usize) -> Option<usize> {
         self.support_function_call_identifiers(p).or_else(|| {
             let e = self.hash_ident(p)?;
-            self.tok(p, e, S::EntityNameFunction)
+            self.token_rule(p, e, S::EntityNameFunction)
         })
     }
 
@@ -115,19 +114,19 @@ impl<const D: u8> Lexer<'_, D> {
                 self.only("f.import", Bytes::of(b"i"), p, |s, p| {
                     let e = s.kw(p, "import")?;
                     let j = s.ws(e);
-                    let quoted = matches!(s.b(s.ws(j + 1)), b'"' | b'\'' | b'`');
-                    (s.b(j) == b'(' && quoted)
-                        .then(|| s.tok(p, e, S::KeywordOperatorExpressionImport))?
+                    let quoted = matches!(s.byte(s.ws(j + 1)), b'"' | b'\'' | b'`');
+                    (s.byte(j) == b'(' && quoted)
+                        .then(|| s.token_rule(p, e, S::KeywordOperatorExpressionImport))?
                 })
             })
     }
 
     /// `<` of type arguments.
     pub(crate) fn type_arguments(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'<' {
+        if self.byte(p) != b'<' {
             return None;
         }
-        self.open1(
+        self.open_token(
             Kind::TypeArgs,
             p,
             p + 1,
@@ -135,11 +134,9 @@ impl<const D: u8> Lexer<'_, D> {
         )
     }
 
-    // Arrow functions.
-
     pub(crate) fn arrow_function(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) == b'=' && self.b(p + 1) == b'>' {
-            return self.open1(Kind::ArrowBody, p, p + 2, &[S::StorageTypeFunctionArrow]);
+        if self.byte(p) == b'=' && self.byte(p + 1) == b'>' {
+            return self.open_token(Kind::ArrowBody, p, p + 2, &[S::StorageTypeFunctionArrow]);
         }
         self.arrow_single_parameter(p)
             .or_else(|| self.arrow_head(p))
@@ -156,9 +153,9 @@ impl<const D: u8> Lexer<'_, D> {
                 let k = self.ws(ie);
                 if self.starts(k, "=>") {
                     self.flush(p);
-                    self.cap(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
-                    self.cap(Kind::ArrowHead, j, ie, &[S::VariableParameter]);
-                    self.fin(Kind::ArrowHead, k);
+                    self.capture(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
+                    self.capture(Kind::ArrowHead, j, ie, &[S::VariableParameter]);
+                    self.finish(Kind::ArrowHead, k);
                     return Some(k);
                 }
             }
@@ -169,8 +166,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.cap(Kind::ArrowHead, p, ie, &[S::VariableParameter]);
-        self.fin(Kind::ArrowHead, k);
+        self.capture(Kind::ArrowHead, p, ie, &[S::VariableParameter]);
+        self.finish(Kind::ArrowHead, k);
         Some(k)
     }
 
@@ -192,9 +189,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some(e) = async_end {
-            self.cap(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
+            self.capture(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
         }
-        self.fin(Kind::ArrowHead, k);
+        self.finish(Kind::ArrowHead, k);
         self.push(Kind::ArrowHead);
         Some(k)
     }
@@ -202,7 +199,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// The end of an arrow function's head: the arrow, a brace, or a line that
     /// starts a declaration.
     pub(crate) fn arrow_end_at(&self, p: usize) -> bool {
-        if self.starts(p, "=>") || self.b(p) == b'{' {
+        if self.starts(p, "=>") || self.byte(p) == b'{' {
             return true;
         }
         if !self.bol(p) {
@@ -223,30 +220,33 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn arrow_body_end_at(&self, p: usize) -> bool {
         let prev = self.prev_char(p);
         let after_token = prev.is_some_and(|c| c == '}' || !c.is_whitespace())
-            && !(p >= 2 && self.s.get(p - 2..p) == Some(b"=>"));
-        let before_token = self.b(p) != b'{' && !self.space_at(p) && self.b(p) != 0 && p < self.len;
+            && !(p >= 2 && self.bytes.get(p - 2..p) == Some(b"=>"));
+        let before_token =
+            self.byte(p) != b'{' && !self.space_at(p) && self.byte(p) != 0 && p < self.len;
         (after_token || before_token)
-            && !(self.b(p) == b'/' && matches!(self.b(p + 1), b'*' | b'/'))
+            && !(self.byte(p) == b'/' && matches!(self.byte(p + 1), b'*' | b'/'))
     }
 
     /// `(?<=[(,=])\s*(async)?(?=…)`: a parenthesis that the line leaves open,
     /// which may be arrow parameters.
+    ///
+    /// The byte before `p` tells which of the rule's lookbehinds can hold: `(`,
+    /// `,` and `=`, the `>` of `=>`, the `n` of `return`, and the `)` of a
+    /// return type. Any other byte, anywhere but the line's start, rules them
+    /// all out.
     pub(crate) fn paren_expression_possibly_arrow(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
         }
-        // The byte before `p` tells which of the rule's lookbehinds can hold:
-        // `(`, `,` and `=`, the `>` of `=>`, the `n` of `return`, and the `)`
-        // of a return type. Any other byte, anywhere but the line's start,
-        // rules them all out.
-        let before = p.checked_sub(1).and_then(|i| self.s.get(i)).copied();
+        let before = p.checked_sub(1).and_then(|i| self.bytes.get(i)).copied();
         if p != 0 && !matches!(before, Some(b'(' | b',' | b'=' | b'>' | b'n' | b')')) {
             return None;
         }
         let prev = self.prev_char(p);
         let first = prev.is_some_and(|c| matches!(c, '(' | ',' | '='));
-        let second =
-            first || self.s.get(..p).is_some_and(|h| h.ends_with(b"=>")) || self.return_before(p);
+        let second = first
+            || self.bytes.get(..p).is_some_and(|h| h.ends_with(b"=>"))
+            || self.return_before(p);
         if !second {
             return self.possibly_arrow_return_type(p);
         }
@@ -273,7 +273,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn possibly_arrow_open(&mut self, p: usize, j: usize, e: usize) -> usize {
         self.flush(p);
         if e > j {
-            self.cap(Kind::Top, j, e, &[S::StorageModifierAsync]);
+            self.capture(Kind::Top, j, e, &[S::StorageModifierAsync]);
         }
         self.push(Kind::PossArrow);
         e
@@ -283,54 +283,15 @@ impl<const D: u8> Lexer<'_, D> {
     /// open.
     fn line_open_ahead(&self, i: usize) -> bool {
         let at_paren = self.tp_paren(i).is_some_and(|j| self.eol(self.ws(j)));
-        let lone = self.b(i) == b'<' && self.eol(self.ws(i + 1));
-        let generic = self.b(i) == b'<' && self.tpa(i).is_some_and(|e| self.eol(e));
+        let lone = self.byte(i) == b'<' && self.eol(self.ws(i + 1));
+        let generic =
+            self.byte(i) == b'<' && self.arrow_type_params(i).is_some_and(|e| self.eol(e));
         at_paren || lone || generic
     }
 
     /// `^return` or `[^$._[:alnum:]]return` ending at `p`.
     pub(crate) fn return_before(&self, p: usize) -> bool {
         self.word_before_text(p, "return")
-    }
-
-    /// Whether the text before `p` ends in what `before` accepts: one of its
-    /// bytes or operators, or one of its words as a whole word, and none of
-    /// what it refuses. The grammar spells this lookbehind, with its own sets,
-    /// before an object literal, a cast, a JSX tag and a regular expression.
-    pub(crate) fn operator_before(&self, p: usize, before: &Before) -> bool {
-        let Some(head) = self.s.get(..p) else {
-            return false;
-        };
-        if before
-            .never
-            .iter()
-            .any(|text| head.ends_with(text.as_bytes()))
-        {
-            return false;
-        }
-        head.last().is_some_and(|&b| before.bytes.has(b))
-            || before
-                .operators
-                .iter()
-                .any(|text| head.ends_with(text.as_bytes()))
-            || before
-                .words
-                .iter()
-                .any(|word| self.word_before_text(p, word))
-    }
-
-    pub(crate) fn word_before_text(&self, p: usize, word: &str) -> bool {
-        let Some(head) = self.s.get(..p) else {
-            return false;
-        };
-        if !head.ends_with(word.as_bytes()) {
-            return false;
-        }
-        let start = p - word.len();
-        start == 0
-            || self
-                .prev_char(start)
-                .is_some_and(|c| !(c == '.' || is_alnum_char(c)))
     }
 
     /// `(?<=\)|^)\s*(:)(?=\s*TYPE+\s*=>)`: the return type of arrow parameters
@@ -340,14 +301,14 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let j = self.ws(p);
-        if self.b(j) != b':' {
+        if self.byte(j) != b':' {
             return None;
         }
         if !self.arrow_return_ahead(self.ws(j + 1)) {
             return None;
         }
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::PossArrowRet,
             j,
             j + 1,
@@ -361,45 +322,45 @@ impl<const D: u8> Lexer<'_, D> {
         Some(j + 1)
     }
 
-    // Casts.
-
+    /// A cast, `<T>` or `<const>` before an expression.
+    ///
+    /// The JSX grammars replace the rule with the JSX one, which has already
+    /// been tried at this position.
     pub(crate) fn cast(&mut self, p: usize) -> Option<usize> {
-        // The JSX grammars replace the rule with the JSX one, which has
-        // already been tried at this position.
         if Self::DIALECT.jsx() {
             return None;
         }
         let j = self.ws(p);
-        if self.b(j) != b'<' {
+        if self.byte(j) != b'<' {
             return None;
         }
-        // `<const>`.
         let k = self.ws(j + 1);
         if self.starts(k, "const") {
             let m = self.ws(k + "const".len());
-            if self.b(m) == b'>' {
+            if self.byte(m) == b'>' {
                 self.flush(p);
-                self.cap(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
-                self.cap(Kind::Cast, k, k + "const".len(), &[S::StorageModifier]);
-                self.cap(Kind::Cast, m, m + 1, &[S::MetaBraceAngle]);
+                self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
+                self.capture(Kind::Cast, k, k + "const".len(), &[S::StorageModifier]);
+                self.capture(Kind::Cast, m, m + 1, &[S::MetaBraceAngle]);
                 return Some(m + 1);
             }
         }
         if self.full() {
             return None;
         }
-        let open = self.b(j + 1) != b'=' && !self.starts(j + 1, "<=") && !self.eol(self.ws(j + 1));
+        let open =
+            self.byte(j + 1) != b'=' && !self.starts(j + 1, "<=") && !self.eol(self.ws(j + 1));
         if open && self.cast_before(p) {
             self.flush(p);
-            self.cap(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
+            self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
             self.push(Kind::Cast);
             return Some(j + 1);
         }
         if self.bol(p) {
             let e = self.ident(self.ws(j + 1));
-            if e.is_some_and(|e| self.b(self.ws(e)) == b'>') {
+            if e.is_some_and(|e| self.byte(self.ws(e)) == b'>') {
                 self.flush(p);
-                self.cap(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
+                self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
                 self.push(Kind::Cast);
                 return Some(j + 1);
             }
@@ -409,6 +370,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The lookbehind of a cast: an operator, or a keyword that takes an
     /// operand, not a `++` or `--` suffix.
+    ///
+    /// `[^+]\+` and `[^-]-`: a lone plus or minus, with a character before it.
     fn cast_before(&self, p: usize) -> bool {
         const CAST: Before = Before {
             bytes: Bytes::of(b"&(*,:=>?^|"),
@@ -416,51 +379,34 @@ impl<const D: u8> Lexer<'_, D> {
             words: &["return", "throw", "yield", "await", "default"],
             never: &["++", "--"],
         };
-        // `[^+]\+` and `[^-]-`: a lone plus or minus, with a character before
-        // it.
         let lone_sign = p >= 2
-            && matches!(self.s.get(p - 1), Some(b'+' | b'-'))
-            && self.s.get(p - 2) != self.s.get(p - 1);
+            && matches!(self.bytes.get(p - 1), Some(b'+' | b'-'))
+            && self.bytes.get(p - 2) != self.bytes.get(p - 1);
         self.operator_before(p, &CAST) || lone_sign
     }
 
-    // Other expression forms.
-
     pub(crate) fn ternary_expression(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'?' || self.b(p + 1) == b'?' {
+        if self.byte(p) != b'?' || self.byte(p + 1) == b'?' {
             return None;
         }
-        if self.b(p + 1) == b'.' && !self.b(p + 2).is_ascii_digit() {
+        if self.byte(p + 1) == b'.' && !self.byte(p + 2).is_ascii_digit() {
             return None;
         }
-        self.open1(Kind::Ternary, p, p + 1, &[S::KeywordOperatorTernary])
+        self.open_token(Kind::Ternary, p, p + 1, &[S::KeywordOperatorTernary])
     }
 
     pub(crate) fn new_expr(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "new")?;
-        self.open1(Kind::NewExpr, p, e, &[S::KeywordOperatorNew])
+        self.open_token(Kind::NewExpr, p, e, &[S::KeywordOperatorNew])
     }
 
     pub(crate) fn instanceof_expr(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "instanceof")?;
-        self.open1(
+        self.open_token(
             Kind::InstanceOf,
             p,
             e,
             &[S::KeywordOperatorExpressionInstanceof],
         )
     }
-}
-
-/// What an operator lookbehind accepts before a position; see
-/// [`Lexer::operator_before`].
-pub(crate) struct Before {
-    /// Bytes that may end the text before it.
-    pub(crate) bytes: Bytes,
-    /// Longer operators that may end it, such as `&&`.
-    pub(crate) operators: &'static [&'static str],
-    /// Words that may end it, neither inside a longer name nor after a dot.
-    pub(crate) words: &'static [&'static str],
-    /// What may not end it, though a byte or operator above would match.
-    pub(crate) never: &'static [&'static str],
 }

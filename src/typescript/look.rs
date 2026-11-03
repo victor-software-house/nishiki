@@ -45,7 +45,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < end {
             self.spend(1);
-            let c = self.b(j);
+            let c = self.byte(j);
             if c == close {
                 return Some(j + 1);
             }
@@ -63,7 +63,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(…)`, `{…}` or `[…]` at `i`: its end.
     pub(crate) fn bracket_group(&self, i: usize) -> Option<usize> {
-        match self.b(i) {
+        match self.byte(i) {
             b'(' => self.balanced(i, b'(', b')'),
             b'{' => self.balanced(i, b'{', b'}'),
             b'[' => self.balanced(i, b'[', b']'),
@@ -74,7 +74,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// A quoted string or template literal at `i`, with backslash escapes and
     /// no nesting: its end.
     pub(crate) fn quoted(&self, i: usize) -> Option<usize> {
-        let quote = self.b(i);
+        let quote = self.byte(i);
         if !matches!(quote, b'\'' | b'"' | b'`') {
             return None;
         }
@@ -82,7 +82,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'\\' => j += 1 + self.char_len(j + 1),
                 c if c == quote => return Some(j + 1),
                 _ => j += self.char_len(j),
@@ -96,7 +96,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(i, "/*") {
             return None;
         }
-        let rest = self.s.get(i + 2..)?;
+        let rest = self.bytes.get(i + 2..)?;
         let end = memchr::memmem::find(rest, b"*/");
         self.spend(end.map_or(rest.len(), |at| at + 2));
         end.map(|at| i + 2 + at + 2)
@@ -128,28 +128,28 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// A `<…>` group of the arrow-function lookahead at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end after trailing blanks.
-    pub(crate) fn tpa(&self, i: usize) -> Option<usize> {
-        let e = self.tpa_group(i, 1, self.window())?;
+    pub(crate) fn arrow_type_params(&self, i: usize) -> Option<usize> {
+        let e = self.arrow_type_params_group(i, 1, self.window())?;
         Some(self.ws(e))
     }
 
-    fn tpa_group(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
-        if self.b(i) != b'<' {
+    fn arrow_type_params_group(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
+        if self.byte(i) != b'<' {
             return None;
         }
         let mut j = self.tp_first(self.ws(i + 1))?;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'>' => return Some(j + 1),
                 b'<' => {
                     if depth >= GRAMMAR_NESTING {
                         return None;
                     }
-                    j = self.tpa_group(j, depth + 1, end)?;
+                    j = self.arrow_type_params_group(j, depth + 1, end)?;
                 }
                 b'=' => {
-                    if self.b(j + 1) == b'<' || j + 1 > self.len {
+                    if self.byte(j + 1) == b'<' || j + 1 > self.len {
                         return None;
                     }
                     j += 1 + self.char_len(j + 1);
@@ -162,8 +162,12 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(<…>\s*)?\(`: the position after the `(`.
     pub(crate) fn tp_paren(&self, i: usize) -> Option<usize> {
-        let j = if self.b(i) == b'<' { self.tpa(i)? } else { i };
-        (self.b(j) == b'(').then_some(j + 1)
+        let j = if self.byte(i) == b'<' {
+            self.arrow_type_params(i)?
+        } else {
+            i
+        };
+        (self.byte(j) == b'(').then_some(j + 1)
     }
 
     /// `[^<>]` items and `<…>` groups up to `>`, as `<[^<>]*>` does.
@@ -172,7 +176,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'>' => return Some(j + 1),
                 b'<' => return None,
                 _ => j += self.char_len(j),
@@ -192,7 +196,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut items = 0;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'>' => return (items > 0).then_some(j + 1),
                 b'<' => {
                     j = if depth >= GRAMMAR_NESTING {
@@ -223,7 +227,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b')' => return (j > i + 1).then_some(j + 1),
                 b'(' => return None,
                 _ => j += self.char_len(j),
@@ -238,7 +242,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'}' => return (j > i + 1).then_some(j + 1),
                 b'{' => return None,
                 _ => j += self.char_len(j),
@@ -254,7 +258,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'(' => j = self.flat_paren(j)?,
                 b'{' => j = self.flat_curly(j)?,
                 b'<' => j = self.type_angle(j)?,
@@ -266,15 +270,16 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(\s*:\s*RETURN)?\s*=>` after the closing parenthesis at `i`.
+    ///
+    /// The type's last item may be the `=` of `=>`: it gives it back.
     fn arrow_tail(&self, i: usize) -> bool {
         let j = self.ws(i);
-        if self.b(j) == b':' {
+        if self.byte(j) == b':' {
             let start = self.ws(j + 1);
             let Some(end) = self.arrow_return_items(start) else {
                 return false;
             };
-            // The type's last item may be the `=` of `=>`: it gives it back.
-            return self.b(end) == b'>' && end > start && self.b(end - 1) == b'=';
+            return self.byte(end) == b'>' && end > start && self.byte(end - 1) == b'=';
         }
         self.starts(j, "=>")
     }
@@ -283,14 +288,14 @@ impl<const D: u8> Lexer<'_, D> {
     /// `:`, or a name then `:`, after the `(` that ends at `i`.
     fn arrow_typed(&self, i: usize) -> bool {
         let j = self.ws_comments(i);
-        if self.b(j) == b')' {
-            return self.b(self.ws(j + 1)) == b':';
+        if self.byte(j) == b')' {
+            return self.byte(self.ws(j + 1)) == b':';
         }
         let mut k = j;
         if self.starts(k, "...") {
             k = self.ws(k + 3);
         }
-        self.ident(k).is_some_and(|e| self.b(self.ws(e)) == b':')
+        self.ident(k).is_some_and(|e| self.byte(self.ws(e)) == b':')
     }
 
     /// The second form: any parameter list closed by `)` then the arrow, after
@@ -300,7 +305,7 @@ impl<const D: u8> Lexer<'_, D> {
         let end = self.window();
         let first = if self.id_start(j) {
             Some(j + self.char_len(j))
-        } else if matches!(self.b(j), b'{' | b'[') {
+        } else if matches!(self.byte(j), b'{' | b'[') {
             self.bracket_group(j)
         } else if self.starts(j, "...") {
             let k = self.ws(j + 3);
@@ -312,7 +317,7 @@ impl<const D: u8> Lexer<'_, D> {
             j = f;
             while j < end {
                 self.spend(1);
-                match self.b(j) {
+                match self.byte(j) {
                     b'"' | b'\'' | b'`' => match self.quoted(j) {
                         Some(e) => j = e,
                         None => return false,
@@ -326,7 +331,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
         }
-        self.b(j) == b')' && self.arrow_tail(j + 1)
+        self.byte(j) == b')' && self.arrow_tail(j + 1)
     }
 
     /// Whether an arrow function's parameters and `=>` start at `i`, as
@@ -340,7 +345,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `<\s*ID\s+extends\s*[^=>]`, which the JSX grammars add to the arrow
     /// function lookahead: a type parameter list that cannot be a tag.
     fn generic_extends_ahead(&self, i: usize) -> bool {
-        if self.b(i) != b'<' {
+        if self.byte(i) != b'<' {
             return false;
         }
         let Some(name_end) = self.ident(self.ws(i + 1)) else {
@@ -349,14 +354,14 @@ impl<const D: u8> Lexer<'_, D> {
         let after = self.ws(name_end);
         after > name_end
             && self.starts(after, "extends")
-            && !matches!(self.b(after + "extends".len()), b'=' | b'>')
+            && !matches!(self.byte(after + "extends".len()), b'=' | b'>')
     }
 
     /// An arrow function's return type followed by `=>`: the text after the
     /// colon.
     pub(crate) fn arrow_return_ahead(&self, i: usize) -> bool {
         self.arrow_return_items(i)
-            .is_some_and(|end| self.b(end) == b'>' && end > i && self.b(end - 1) == b'=')
+            .is_some_and(|end| self.byte(end) == b'>' && end > i && self.byte(end - 1) == b'=')
     }
 
     /// The first form only: `(<…>)?\(` then `)` or a name, then `:`.
@@ -367,9 +372,11 @@ impl<const D: u8> Lexer<'_, D> {
     /// Whether a function-valued initialiser starts at `i`, as the grammar
     /// tests after `=` or `:`: a function expression, or an arrow function
     /// whose parameters are seen, or whose line ends inside them.
+    ///
+    /// The forms are `(async\s+)?` then `function` or `name =>`, and
+    /// `(async\s*)?` then an opening, a typed arrow or an arrow.
     pub(crate) fn fn_value_ahead(&self, i: usize) -> bool {
         let async_end = self.starts(i, "async").then(|| i + "async".len());
-        // (async\s+)? then function or `name =>`.
         let after_async = async_end
             .filter(|&a| self.space_at(a) || a >= self.len)
             .map(|a| self.ws(a));
@@ -380,7 +387,6 @@ impl<const D: u8> Lexer<'_, D> {
                 return true;
             }
         }
-        // (async\s*)? then an opening, a typed arrow or an arrow.
         std::iter::once(i)
             .chain(async_end.map(|a| self.ws(a)))
             .any(|j| self.fn_open_ahead(j) || self.arrow_typed_ahead(j) || self.arrow_ahead(j))
@@ -393,7 +399,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let e = i + "function".len();
         let j = self.ws(e);
-        j > e || matches!(self.b(j), b'(' | b'*' | b'<')
+        j > e || matches!(self.byte(j), b'(' | b'*' | b'<')
     }
 
     /// `(<\s*)$`, or `(<…>)?\(` followed by a line end or by a destructured
@@ -402,9 +408,9 @@ impl<const D: u8> Lexer<'_, D> {
     /// The JSX grammars drop the type arguments before the parenthesis, which
     /// a tag would otherwise be read as.
     pub(crate) fn fn_open_ahead(&self, i: usize) -> bool {
-        (self.b(i) == b'<' && self.eol(self.ws(i + 1)))
+        (self.byte(i) == b'<' && self.eol(self.ws(i + 1)))
             || if Self::DIALECT.jsx() {
-                self.b(i) == b'(' && self.paren_open_rest(i + 1)
+                self.byte(i) == b'(' && self.paren_open_rest(i + 1)
             } else {
                 self.paren_open_ahead(i)
             }
@@ -423,10 +429,10 @@ impl<const D: u8> Lexer<'_, D> {
         if self.eol(m) {
             return true;
         }
-        if matches!(self.b(m), b'[' | b'{') && self.eol(self.ws(m + 1)) {
+        if matches!(self.byte(m), b'[' | b'{') && self.eol(self.ws(m + 1)) {
             return true;
         }
-        match self.b(m) {
+        match self.byte(m) {
             b'{' => self
                 .balanced(m, b'{', b'}')
                 .is_some_and(|e| self.param_default_tail(e, b'{')),
@@ -440,9 +446,9 @@ impl<const D: u8> Lexer<'_, D> {
     /// After a destructured parameter: `\s*((:\s*\{?)$|((\s*TYPE\s*)?=\s*))`.
     pub(crate) fn param_default_tail(&self, e: usize, open: u8) -> bool {
         let j = self.ws(e);
-        if self.b(j) == b':' {
+        if self.byte(j) == b':' {
             let mut k = self.ws(j + 1);
-            if self.b(k) == open {
+            if self.byte(k) == open {
                 k = self.ws(k + 1);
             }
             if self.eol(k) {
@@ -458,7 +464,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'=' => return true,
                 b'(' => match self.flat_paren(j) {
                     Some(e) => j = e,
@@ -482,22 +488,23 @@ impl<const D: u8> Lexer<'_, D> {
     /// The type-annotation forms of a function-valued name, at the `:` at
     /// `i`: a function type, `Function`, and with [`Annotation::OrValue`] a
     /// type followed by `=` and a function-valued initialiser.
+    ///
+    /// A function type: `<` or `(` and a parameter.
     #[expect(
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
     pub(crate) fn colon_fn_ahead(&self, i: usize, forms: Annotation) -> bool {
-        if self.b(i) != b':' {
+        if self.byte(i) != b':' {
             return false;
         }
         let j = self.ws(i + 1);
-        // A function type: `<` or `(` and a parameter.
-        if self.b(j) == b'<' {
+        if self.byte(j) == b'<' {
             return true;
         }
-        if self.b(j) == b'(' {
+        if self.byte(j) == b'(' {
             let k = self.ws(j + 1);
-            if self.b(k) == b')' || self.starts(k, "...") {
+            if self.byte(k) == b')' || self.starts(k, "...") {
                 return true;
             }
             let mut e = k;
@@ -506,8 +513,8 @@ impl<const D: u8> Lexer<'_, D> {
             }
             if e > k {
                 let m = self.ws(e);
-                if matches!(self.b(m), b',' | b':' | b'=' | b'?')
-                    || (self.b(m) == b')' && self.starts(self.ws(m + 1), "=>"))
+                if matches!(self.byte(m), b',' | b':' | b'=' | b'?')
+                    || (self.byte(m) == b')' && self.starts(self.ws(m + 1), "=>"))
                 {
                     return true;
                 }
@@ -531,8 +538,8 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i;
         while j < end {
             self.spend(1);
-            match self.b(j) {
-                b'=' if self.b(j + 1) == b'>' => j += 2,
+            match self.byte(j) {
+                b'=' if self.byte(j + 1) == b'>' => j += 2,
                 b'=' => {
                     return j > i && self.fn_value_ahead(self.ws(j + 1));
                 }
@@ -556,13 +563,11 @@ impl<const D: u8> Lexer<'_, D> {
     /// `\s*` that precedes `=`.
     pub(crate) fn named_fn_ahead(&self, eq_ws: usize) -> bool {
         let j = self.ws(eq_ws);
-        if self.b(j) == b'=' && self.fn_value_ahead(self.ws(j + 1)) {
+        if self.byte(j) == b'=' && self.fn_value_ahead(self.ws(j + 1)) {
             return true;
         }
         self.colon_fn_ahead(eq_ws, Annotation::OrValue)
     }
-
-    // Calls and type arguments.
 
     /// The first element of a type-argument list: `keyof `, `infer `,
     /// `typeof `, `readonly `, or a name, bracket group or string followed by
@@ -582,11 +587,11 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.bracket_group(i))
             .or_else(|| self.quoted(i))?;
         let k = self.ws(e);
-        let ok = match self.b(k) {
+        let ok = match self.byte(k) {
             b',' | b'.' | b'<' | b'>' | b'[' => true,
-            b'=' => self.b(k + 1) == b'>',
-            b'&' => self.b(k + 1) != b'&',
-            b'|' => self.b(k + 1) != b'|',
+            b'=' => self.byte(k + 1) == b'>',
+            b'&' => self.byte(k + 1) != b'&',
+            b'|' => self.byte(k + 1) != b'|',
             _ => false,
         };
         ok.then_some(e)
@@ -594,27 +599,27 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// A `<…>` type-argument group at `i`, as a call or tagged template
     /// spells it: its end after `>`.
-    pub(crate) fn tpb(&self, i: usize) -> Option<usize> {
-        self.tpb_at(i, 1, self.window())
+    pub(crate) fn type_args(&self, i: usize) -> Option<usize> {
+        self.type_args_at(i, 1, self.window())
     }
 
-    fn tpb_at(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
-        if self.b(i) != b'<' {
+    fn type_args_at(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
+        if self.byte(i) != b'<' {
             return None;
         }
         let mut j = self.targ_first(self.ws(i + 1))?;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b'(' => j = self.balanced(j, b'(', b')')?,
                 b'<' => {
                     if depth >= GENERIC_NESTING {
                         return None;
                     }
-                    j = self.tpb_at(j, depth + 1, end)?;
+                    j = self.type_args_at(j, depth + 1, end)?;
                 }
                 b'>' => {
-                    if j > 0 && self.s.get(j - 1) == Some(&b'=') {
+                    if j > 0 && self.bytes.get(j - 1) == Some(&b'=') {
                         j += 1;
                     } else {
                         return Some(j + 1);
@@ -631,16 +636,16 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = self.ws(i);
         if self.starts(j, "?.") {
             j = self.ws(j + 2);
-        } else if self.b(j) == b'!' {
+        } else if self.byte(j) == b'!' {
             j += 1;
         }
-        if self.b(j) == b'<' {
-            match self.tpb(j) {
+        if self.byte(j) == b'<' {
+            match self.type_args(j) {
                 Some(e) => j = self.ws(e),
                 None => return false,
             }
         }
-        self.b(j) == b'('
+        self.byte(j) == b'('
     }
 
     /// The end of the longest `ID(\s*\??\.\s*#?ID)*` at `i`.
@@ -655,10 +660,10 @@ impl<const D: u8> Lexer<'_, D> {
         while e < limit {
             self.spend(1);
             let mut j = self.ws(e);
-            if self.b(j) == b'?' {
+            if self.byte(j) == b'?' {
                 j += 1;
             }
-            if self.b(j) != b'.' {
+            if self.byte(j) != b'.' {
                 break;
             }
             j = self.ws(j + 1);
@@ -673,10 +678,10 @@ impl<const D: u8> Lexer<'_, D> {
     /// `\??\.\s*#?ID` at `i`: its end.
     fn dot_member(&self, i: usize) -> Option<usize> {
         let mut j = i;
-        if self.b(j) == b'?' {
+        if self.byte(j) == b'?' {
             j += 1;
         }
-        if self.b(j) != b'.' {
+        if self.byte(j) != b'.' {
             return None;
         }
         self.hash_ident(self.ws(j + 1))
@@ -707,9 +712,9 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn call_open_ahead_in(&self, i: usize, chain: Option<usize>) -> bool {
         let open_at = |e: usize| {
-            self.b(e) == b'<' && {
+            self.byte(e) == b'<' && {
                 let j = self.ws(e + 1);
-                matches!(self.b(j), b'(' | b'[' | b'{') && self.eol(self.ws(j + 1))
+                matches!(self.byte(j), b'(' | b'[' | b'{') && self.eol(self.ws(j + 1))
             }
         };
         chain.is_some_and(open_at)

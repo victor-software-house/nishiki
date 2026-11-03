@@ -1,7 +1,7 @@
 //! Statements and declarations.
 
 use super::bytes::{ANY, BLANK, Bytes, COMMENT_START, LOWER, NAME_START, STRING_START};
-use super::calls::Before;
+use super::chars::Before;
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -129,33 +129,33 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| {
                 self.only("d.modifier", Bytes::of(b"de"), p, |s, p| {
                     let e = s.kw_of(p, &["declare", "export"])?;
-                    s.tok(p, e, S::StorageModifier)
+                    s.token_rule(p, e, S::StorageModifier)
                 })
             })
     }
 
     pub(crate) fn decorator(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'@' || !self.kw_before(p) {
+        if self.byte(p) != b'@' || !self.kw_before(p) {
             return None;
         }
-        self.open1(Kind::Decorator, p, p + 1, &[S::PunctuationDecorator])
+        self.open_token(Kind::Decorator, p, p + 1, &[S::PunctuationDecorator])
     }
 
     pub(crate) fn decl_block(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'{' {
+        if self.byte(p) != b'{' {
             return None;
         }
-        self.open1(Kind::Block, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Kind::Block, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     /// `(?<!\+\+|--)(?<=[!(+,:=>?\[]|^await|…|&&|\|\||\*)\s*(\{)`.
     pub(crate) fn after_operator_block_as_object_literal(&mut self, p: usize) -> Option<usize> {
         let j = self.ws(p);
-        if self.b(j) != b'{' || self.full() || !self.object_literal_before(p) {
+        if self.byte(j) != b'{' || self.full() || !self.object_literal_before(p) {
             return None;
         }
         self.flush(p);
-        self.cap(Kind::ObjLit, j, j + 1, &[S::PunctuationDefinitionBlock]);
+        self.capture(Kind::ObjLit, j, j + 1, &[S::PunctuationDefinitionBlock]);
         self.push(Kind::ObjLit);
         Some(j + 1)
     }
@@ -173,23 +173,21 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn label(&mut self, p: usize) -> Option<usize> {
         let e = self.ident(p)?;
         let j = self.ws(e);
-        if self.b(j) != b':' {
+        if self.byte(j) != b':' {
             return None;
         }
         let k = self.ws(j + 1);
-        if self.b(k) == b'{' && !self.full() {
+        if self.byte(k) == b'{' && !self.full() {
             self.flush(p);
-            self.cap(Kind::LabelBlock, p, e, &[S::EntityNameLabel]);
-            self.cap(Kind::LabelBlock, j, j + 1, &[S::PunctuationSeparatorLabel]);
+            self.capture(Kind::LabelBlock, p, e, &[S::EntityNameLabel]);
+            self.capture(Kind::LabelBlock, j, j + 1, &[S::PunctuationSeparatorLabel]);
             self.push(Kind::LabelBlock);
             return Some(j + 1);
         }
-        self.one(p, e, &[S::EntityNameLabel]);
-        self.cap(Kind::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
+        self.token(p, e, &[S::EntityNameLabel]);
+        self.capture(Kind::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
         Some(j + 1)
     }
-
-    // Prefixes shared by declarations.
 
     /// `(?:\b(export)\s+)?(?:\b(declare)\s+)?` at `p`.
     pub(crate) fn decl_prefix(&self, p: usize) -> Prefix {
@@ -222,35 +220,33 @@ impl<const D: u8> Lexer<'_, D> {
     /// Emits the `export` and `declare` captures of a begin match.
     pub(crate) fn prefix_tokens(&mut self, kind: Kind, pre: &Prefix) {
         if let Some((a, b)) = pre.export {
-            self.cap(kind, a, b, &[S::KeywordControlExport]);
+            self.capture(kind, a, b, &[S::KeywordControlExport]);
         }
         if let Some((a, b)) = pre.declare {
-            self.cap(kind, a, b, &[S::StorageModifier]);
+            self.capture(kind, a, b, &[S::StorageModifier]);
         }
     }
 
     /// The prefix of a declaration begin, once the guard at `p` holds.
     pub(crate) fn declaration_start(&self, p: usize) -> Option<Prefix> {
-        if !self.b(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
             return None;
         }
         Some(self.decl_prefix(p))
     }
 
-    // Variables.
-
     pub(crate) fn var_expr(&mut self, p: usize) -> Option<usize> {
-        if !self.b(p).is_ascii_lowercase() {
+        if !self.byte(p).is_ascii_lowercase() {
             return None;
         }
         if self.var_keyword(p, VarKind::Let).is_some() {
-            return self.open0(Kind::VarLet, p);
+            return self.open_empty(Kind::VarLet, p);
         }
         if self.var_keyword(p, VarKind::Const).is_some() {
-            return self.open0(Kind::VarConst, p);
+            return self.open_empty(Kind::VarConst, p);
         }
         if self.var_keyword(p, VarKind::Using).is_some() {
-            return self.open0(Kind::VarUsing, p);
+            return self.open_empty(Kind::VarUsing, p);
         }
         None
     }
@@ -306,16 +302,16 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.prefix_tokens(Kind::VarKw, &pre);
-        self.cap(Kind::VarKw, pre.at, e, &[S::StorageType]);
+        self.capture(Kind::VarKw, pre.at, e, &[S::StorageType]);
         let j = self.ws(e);
-        self.fin(Kind::VarKw, j);
+        self.finish(Kind::VarKw, j);
         self.push(Kind::VarKw);
         Some(j)
     }
 
     /// `(,)\s*(?=$|//)` after a declaration.
     pub(crate) fn var_comma(&mut self, p: usize, kind: Kind) -> Option<usize> {
-        if self.b(p) != b',' || self.full() {
+        if self.byte(p) != b',' || self.full() {
             return None;
         }
         let j = self.ws(p + 1);
@@ -324,8 +320,8 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let end = if self.eol(j) { p + 1 } else { j };
         self.flush(p);
-        self.cap(kind, p, p + 1, &[S::PunctuationSeparatorComma]);
-        self.fin(kind, end);
+        self.capture(kind, p, p + 1, &[S::PunctuationSeparatorComma]);
+        self.finish(kind, end);
         self.push(kind);
         Some(end)
     }
@@ -338,7 +334,7 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ident(p)?;
         let mut k = e;
         let mut bang = None;
-        if self.b(k) == b'!' {
+        if self.byte(k) == b'!' {
             bang = Some(k);
             k += 1;
         }
@@ -354,7 +350,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(c) = self.constant_name(p) {
             let mut k = c;
             let mut bang = None;
-            if self.b(k) == b'!' {
+            if self.byte(k) == b'!' {
                 bang = Some(k);
                 k += 1;
             }
@@ -412,9 +408,9 @@ impl<const D: u8> Lexer<'_, D> {
         scopes: &[S],
     ) -> usize {
         self.flush(p);
-        self.cap(Kind::VarSingle, p, e, scopes);
+        self.capture(Kind::VarSingle, p, e, scopes);
         if let Some(b) = bang {
-            self.cap(
+            self.capture(
                 Kind::VarSingle,
                 b,
                 b + 1,
@@ -429,7 +425,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// its array form.
     pub(crate) fn destructuring_variable(&mut self, p: usize, binding: Binding) -> Option<usize> {
         let j = self.ws(p);
-        let open = self.b(j);
+        let open = self.byte(j);
         if !matches!(open, b'{' | b'[') || self.full() {
             return None;
         }
@@ -446,7 +442,7 @@ impl<const D: u8> Lexer<'_, D> {
             (_, Binding::Constant) => Kind::ArrBindVarConst,
         };
         self.flush(p);
-        self.fin(kind, j);
+        self.finish(kind, j);
         self.push(kind);
         Some(j)
     }
@@ -464,12 +460,12 @@ impl<const D: u8> Lexer<'_, D> {
             rest = Some((j, j + 3));
             j = self.ws(j + 3);
         }
-        if self.b(j) != pattern.open() || self.full() {
+        if self.byte(j) != pattern.open() || self.full() {
             return None;
         }
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let (kind, scope) = match (pattern, binding) {
             (Pattern::Object, Binding::Variable) => {
@@ -487,7 +483,7 @@ impl<const D: u8> Lexer<'_, D> {
                 S::PunctuationDefinitionBindingPatternArray,
             ),
         };
-        self.cap(kind, j, j + 1, &[scope]);
+        self.capture(kind, j, j + 1, &[scope]);
         self.push(kind);
         Some(j + 1)
     }
@@ -507,13 +503,13 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ident(j)?;
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let name = match binding {
             Binding::Constant => S::VariableOtherConstant,
             Binding::Variable => S::VariableOtherReadwrite,
         };
-        self.cap(Kind::Top, j, e, &[S::MetaDefinitionVariable, name]);
+        self.capture(Kind::Top, j, e, &[S::MetaDefinitionVariable, name]);
         Some(e)
     }
 
@@ -538,7 +534,7 @@ impl<const D: u8> Lexer<'_, D> {
                 Binding::Constant => Kind::ObjBindElemConst,
                 Binding::Variable => Kind::ObjBindElem,
             };
-            return self.open0(kind, p);
+            return self.open_empty(kind, p);
         }
         self.binding_pattern(p, Pattern::Object, binding)
             .or_else(|| self.destructuring_variable_rest(p, binding))
@@ -548,7 +544,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(?=(NUM|(ID)|STR|(\[…])+)\s*(:))`.
     pub(crate) fn key_colon_ahead(&self, p: usize) -> bool {
-        self.key_end(p).is_some_and(|e| self.b(self.ws(e)) == b':')
+        self.key_end(p)
+            .is_some_and(|e| self.byte(self.ws(e)) == b':')
     }
 
     /// A property key at `i`: a number, a name, a string or `[…]`.
@@ -561,7 +558,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `\[([^]\[]|\[[^]\[]*])+]`.
     pub(crate) fn computed_key(&self, i: usize) -> Option<usize> {
-        if self.b(i) != b'[' {
+        if self.byte(i) != b'[' {
             return None;
         }
         let end = self.window();
@@ -569,15 +566,15 @@ impl<const D: u8> Lexer<'_, D> {
         let mut items = 0;
         while j < end {
             self.spend(1);
-            match self.b(j) {
+            match self.byte(j) {
                 b']' => return (items > 0).then_some(j + 1),
                 b'[' => {
                     let mut k = j + 1;
-                    while k < end && !matches!(self.b(k), b']' | b'[') {
+                    while k < end && !matches!(self.byte(k), b']' | b'[') {
                         self.spend(1);
                         k += 1;
                     }
-                    if self.b(k) != b']' {
+                    if self.byte(k) != b']' {
                         return None;
                     }
                     j = k + 1;
@@ -593,13 +590,13 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.key_colon_ahead(p) {
             return None;
         }
-        self.open0(Kind::ObjBindProp, p)
+        self.open_empty(Kind::ObjBindProp, p)
     }
 
     /// `variable-initializer`: `=` and what it assigns.
     pub(crate) fn variable_initializer(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'='
-            || self.b(p + 1) == b'='
+        if self.byte(p) != b'='
+            || self.byte(p + 1) == b'='
             || matches!(self.prev_char(p), Some('!' | '='))
         {
             return None;
@@ -612,6 +609,100 @@ impl<const D: u8> Lexer<'_, D> {
         } else {
             Kind::VarInit2
         };
-        self.open1(kind, p, p + 1, &[S::KeywordOperatorAssignment])
+        self.open_token(kind, p, p + 1, &[S::KeywordOperatorAssignment])
+    }
+
+    /// `^\s*` followed by one of the statement keywords the grammar treats as
+    /// the start of a new statement, as the end rules spell it.
+    pub(crate) fn statement_start_at(&self, p: usize) -> bool {
+        if !self.bol(p) {
+            return false;
+        }
+        let j = self.ws(0);
+        self.statement_keyword(j).is_some()
+    }
+
+    /// The end of a statement keyword at `j`, with its trailing `\b`.
+    pub(crate) fn statement_keyword(&self, j: usize) -> Option<usize> {
+        const WORDS: [&str; 30] = [
+            "abstract",
+            "async",
+            "break",
+            "case",
+            "catch",
+            "class",
+            "const",
+            "continue",
+            "declare",
+            "do",
+            "else",
+            "enum",
+            "export",
+            "finally",
+            "function",
+            "for",
+            "goto",
+            "if",
+            "import",
+            "interface",
+            "let",
+            "module",
+            "namespace",
+            "switch",
+            "return",
+            "throw",
+            "try",
+            "type",
+            "var",
+            "while",
+        ];
+        if let Some(e) = self.await_using_end(j) {
+            return Some(e);
+        }
+        if let Some(e) = self.using_end(j) {
+            return Some(e);
+        }
+        for word in WORDS {
+            if self.starts(j, word) && self.boundary(j + word.len()) {
+                return Some(j + word.len());
+            }
+        }
+        None
+    }
+
+    /// `\busing(?=\s+(?!in\b|of\b(?!\s*(?:of\b|=)))[$_[:alpha:]])\b`: its end.
+    pub(crate) fn using_end(&self, j: usize) -> Option<usize> {
+        if !self.starts(j, "using") || !self.boundary(j) {
+            return None;
+        }
+        let e = j + "using".len();
+        let k = self.ws(e);
+        if k == e || !self.id_start(k) {
+            return None;
+        }
+        let word_end = self.alnum_end(k);
+        let word = self.text(k, word_end);
+        if word == "in" {
+            return None;
+        }
+        if word == "of" {
+            let m = self.ws(word_end);
+            if !(self.starts(m, "of") && self.boundary(m + 2) || self.byte(m) == b'=') {
+                return None;
+            }
+        }
+        self.boundary(e).then_some(e)
+    }
+
+    /// `\bawait\s+\busing(…)\b`: its end.
+    pub(crate) fn await_using_end(&self, j: usize) -> Option<usize> {
+        if !self.starts(j, "await") || !self.boundary(j) {
+            return None;
+        }
+        let k = self.ws(j + "await".len());
+        if k == j + "await".len() {
+            return None;
+        }
+        self.using_end(k)
     }
 }

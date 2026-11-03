@@ -34,7 +34,7 @@ pub(crate) struct Number {
 impl<const D: u8> Lexer<'_, D> {
     fn digits(&self, i: usize, valid: impl Fn(u8) -> bool) -> usize {
         let mut j = i;
-        while valid(self.b(j)) {
+        while valid(self.byte(j)) {
             j += 1;
         }
         j
@@ -42,14 +42,14 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `[0-9][0-9_]*`: its end.
     fn dec_digits(&self, i: usize) -> Option<usize> {
-        self.b(i)
+        self.byte(i)
             .is_ascii_digit()
             .then(|| self.digits(i + 1, |b| b.is_ascii_digit() || b == b'_'))
     }
 
     /// `(n)?`: the end of an optional bigint suffix, and where the `n` is.
     fn bigint(&self, i: usize) -> (usize, Option<usize>) {
-        if self.b(i) == b'n' {
+        if self.byte(i) == b'n' {
             (i + 1, Some(i))
         } else {
             (i, None)
@@ -58,10 +58,10 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `[Ee][-+]?[0-9][0-9_]*`: its end.
     fn exponent(&self, i: usize) -> Option<usize> {
-        if !matches!(self.b(i), b'e' | b'E') {
+        if !matches!(self.byte(i), b'e' | b'E') {
             return None;
         }
-        let j = if matches!(self.b(i + 1), b'-' | b'+') {
+        let j = if matches!(self.byte(i + 1), b'-' | b'+') {
             i + 2
         } else {
             i + 1
@@ -71,13 +71,13 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The numeric literal at `p`, as the grammar's alternatives match it.
     pub(crate) fn number_at(&self, p: usize) -> Option<Number> {
-        let b = self.b(p);
+        let b = self.byte(p);
         if !(b.is_ascii_digit() || b == b'.') || self.prev_char(p) == Some('$') {
             return None;
         }
         self.radix_number(p)
             .or_else(|| self.decimal(p))
-            .filter(|n| self.b(n.end) != b'$')
+            .filter(|n| self.byte(n.end) != b'$')
     }
 
     /// The end of a numeric literal at `i`.
@@ -86,15 +86,17 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The `0x`, `0b`, `0o` and legacy octal forms.
+    ///
+    /// `0` and an optional `o`, then octal digits.
     fn radix_number(&self, p: usize) -> Option<Number> {
-        if self.b(p) != b'0' || !self.boundary(p) {
+        if self.byte(p) != b'0' || !self.boundary(p) {
             return None;
         }
         for (letters, valid, scope) in RADIXES {
-            if letters.contains(&self.b(p + 1)) && valid(self.b(p + 2)) {
+            if letters.contains(&self.byte(p + 1)) && valid(self.byte(p + 2)) {
                 let e = self.digits(p + 3, |c| valid(c) || c == b'_');
                 let (end, big) = self.bigint(e);
-                if self.boundary(end) && self.b(end) != b'$' {
+                if self.boundary(end) && self.byte(end) != b'$' {
                     return Some(Number {
                         end,
                         scope,
@@ -104,16 +106,15 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
         }
-        // `0` and an optional `o`, then octal digits.
-        let start = if matches!(self.b(p + 1), b'o' | b'O') {
+        let start = if matches!(self.byte(p + 1), b'o' | b'O') {
             p + 2
         } else {
             p + 1
         };
-        if is_octal(self.b(start)) {
+        if is_octal(self.byte(start)) {
             let e = self.digits(start + 1, |c| is_octal(c) || c == b'_');
             let (end, big) = self.bigint(e);
-            if self.boundary(end) && self.b(end) != b'$' {
+            if self.boundary(end) && self.byte(end) != b'$' {
                 return Some(Number {
                     end,
                     scope: S::ConstantNumericOctal,
@@ -125,7 +126,8 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
-    /// The decimal alternatives, in the grammar's order.
+    /// The decimal alternatives, in the grammar's order: `1.5e3`, `1.e3`,
+    /// `1e3`, `1.5`, `1.`, `.5e3`, `.5` and `12`.
     fn decimal(&self, p: usize) -> Option<Number> {
         const DECIMAL: S = S::ConstantNumericDecimal;
         let number = |end: usize, period: Option<(usize, usize)>, big: Option<usize>| {
@@ -138,15 +140,13 @@ impl<const D: u8> Lexer<'_, D> {
         };
         if let Some(i_end) = self.dec_digits(p).filter(|_| self.boundary(p)) {
             let dot = (i_end, i_end + 1);
-            if self.b(i_end) == b'.' {
-                // `1.5e3`
+            if self.byte(i_end) == b'.' {
                 if let Some(x_end) = self.dec_digits(i_end + 1).and_then(|f| self.exponent(f)) {
                     let (end, big) = self.bigint(x_end);
                     if self.boundary(end) {
                         return number(end, Some(dot), big);
                     }
                 }
-                // `1.e3`
                 if let Some(x_end) = self.exponent(i_end + 1) {
                     let (end, big) = self.bigint(x_end);
                     if self.boundary(end) {
@@ -154,50 +154,44 @@ impl<const D: u8> Lexer<'_, D> {
                     }
                 }
             }
-            // `1e3`
             if let Some(x_end) = self.exponent(i_end) {
                 let (end, big) = self.bigint(x_end);
                 if self.boundary(end) {
                     return number(end, None, big);
                 }
             }
-            if self.b(i_end) == b'.' {
-                // `1.5`
+            if self.byte(i_end) == b'.' {
                 if let Some(f_end) = self.dec_digits(i_end + 1) {
                     let (end, big) = self.bigint(f_end);
                     if self.boundary(end) {
                         return number(end, Some(dot), big);
                     }
                 }
-                // `1.`
                 let (end, big) = self.bigint(i_end + 1);
                 if !self.boundary(end) {
                     return number(end, Some(dot), big);
                 }
             }
         }
-        if self.b(p) == b'.'
+        if self.byte(p) == b'.'
             && !self.boundary(p)
             && let Some(f_end) = self.dec_digits(p + 1)
         {
             let dot = (p, p + 1);
-            // `.5e3`
             if let Some(x_end) = self.exponent(f_end) {
                 let (end, big) = self.bigint(x_end);
                 if self.boundary(end) {
                     return number(end, Some(dot), big);
                 }
             }
-            // `.5`
             let (end, big) = self.bigint(f_end);
             if self.boundary(end) {
                 return number(end, Some(dot), big);
             }
         }
-        // `12`
         let i_end = self.dec_digits(p).filter(|_| self.boundary(p))?;
         let (end, big) = self.bigint(i_end);
-        (self.boundary(end) && self.b(end) != b'.').then_some(Number {
+        (self.boundary(end) && self.byte(end) != b'.').then_some(Number {
             end,
             scope: DECIMAL,
             period: None,
@@ -211,16 +205,16 @@ impl<const D: u8> Lexer<'_, D> {
         let scope = number.scope;
         let mut at = p;
         if let Some((a, b)) = number.period {
-            self.cap(Kind::Top, at, a, &[scope]);
-            self.cap(Kind::Top, a, b, &[scope, PERIOD]);
+            self.capture(Kind::Top, at, a, &[scope]);
+            self.capture(Kind::Top, a, b, &[scope, PERIOD]);
             at = b;
         }
         if let Some(a) = number.big {
-            self.cap(Kind::Top, at, a, &[scope]);
-            self.cap(Kind::Top, a, a + 1, &[scope, BIGINT]);
+            self.capture(Kind::Top, at, a, &[scope]);
+            self.capture(Kind::Top, a, a + 1, &[scope, BIGINT]);
             at = a + 1;
         }
-        self.cap(Kind::Top, at, number.end, &[scope]);
+        self.capture(Kind::Top, at, number.end, &[scope]);
         Some(number.end)
     }
 }

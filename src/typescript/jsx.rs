@@ -6,9 +6,9 @@
 //! attributes, its attributes, its children and the `{…}` code inside them.
 
 use super::bytes::Bytes;
-use super::calls::Before;
+use super::chars::{Before, is_alnum_char};
 use super::kind::Kind;
-use super::lexer::{Lexer, is_alnum_char};
+use super::lexer::Lexer;
 use super::scope::S;
 
 /// A tag name, `(?:(ns)(:))?(tag)?`, with the pieces that carry scopes.
@@ -54,7 +54,7 @@ impl<const D: u8> Lexer<'_, D> {
             e += c.len_utf8();
         }
         self.spend(e - i);
-        (!matches!(self.s.get(e - 1), Some(b'-' | b'.'))).then_some(e)
+        (!matches!(self.bytes.get(e - 1), Some(b'-' | b'.'))).then_some(e)
     }
 
     /// `(?:(ns)(:))?(tag)` at `i`, with the tag optional or required as
@@ -62,7 +62,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn tag_name(&self, i: usize, tag: TagPart) -> Option<TagName> {
         let optional = matches!(tag, TagPart::Optional);
         if let Some(ns_end) = self.tag_run(i)
-            && self.b(ns_end) == b':'
+            && self.byte(ns_end) == b':'
         {
             let with_ns = self.tag_at(ns_end + 1);
             if with_ns.is_some() || optional {
@@ -88,8 +88,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// its start, its end and whether it is a component.
     fn tag_at(&self, i: usize) -> Option<(usize, usize, bool)> {
         let e = self.tag_run(i)?;
-        let html = self.s[i].is_ascii_lowercase()
-            && self.s[i..e]
+        let html = self.bytes[i].is_ascii_lowercase()
+            && self.bytes[i..e]
                 .iter()
                 .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit());
         Some((i, e, !html))
@@ -109,38 +109,38 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(<)\s*(?:(ns)(:))?(tag)?\s*(>)` at `i`: a tag without attributes.
     fn tag_without_attributes_at(&self, i: usize) -> Option<(TagStart, usize)> {
-        if self.b(i) != b'<' {
+        if self.byte(i) != b'<' {
             return None;
         }
         let name = self.tag_name(self.ws(i + 1), TagPart::Optional)?;
         let gt = self.ws(name.end);
-        (self.b(gt) == b'>').then_some((TagStart { lt: i, name }, gt))
+        (self.byte(gt) == b'>').then_some((TagStart { lt: i, name }, gt))
     }
 
     /// `(<)\s*(?:(ns)(:))?(tag)(?=((<\s*)|(\s+))(?!\?)|/?>)` at `i`: the start
     /// of a tag that has attributes, or none.
     fn tag_start_at(&self, i: usize) -> Option<TagStart> {
-        if self.b(i) != b'<' {
+        if self.byte(i) != b'<' {
             return None;
         }
         let name = self.tag_name(self.ws(i + 1), TagPart::Required)?;
         let e = name.end;
-        let angle = self.b(e) == b'<' && {
+        let angle = self.byte(e) == b'<' && {
             let j = self.ws(e + 1);
-            self.b(j) != b'?' || j > e + 1
+            self.byte(j) != b'?' || j > e + 1
         };
         let blank = {
             let j = self.ws(e);
-            j > e && (self.b(j) != b'?' || j > e + 1)
+            j > e && (self.byte(j) != b'?' || j > e + 1)
         };
-        let close = self.b(e) == b'>' || (self.b(e) == b'/' && self.b(e + 1) == b'>');
+        let close = self.byte(e) == b'>' || (self.byte(e) == b'/' && self.byte(e + 1) == b'>');
         (angle || blank || close).then_some(TagStart { lt: i, name })
     }
 
     /// Emits the captures of a tag start: the `<`, the namespace and its
     /// colon, and the name.
     fn tag_start_tokens(&mut self, kind: Kind, tag: &TagStart) {
-        self.cap(
+        self.capture(
             kind,
             tag.lt,
             tag.lt + 1,
@@ -152,14 +152,14 @@ impl<const D: u8> Lexer<'_, D> {
     /// Emits the captures of a tag name.
     fn tag_name_tokens(&mut self, kind: Kind, name: &TagName) {
         if let Some((a, e)) = name.namespace {
-            self.cap(kind, a, e, &[S::EntityNameTagNamespace]);
-            self.cap(kind, e, e + 1, &[S::PunctuationSeparatorNamespace]);
+            self.capture(kind, a, e, &[S::EntityNameTagNamespace]);
+            self.capture(kind, e, e + 1, &[S::PunctuationSeparatorNamespace]);
         }
         if let Some((a, e, component)) = name.name {
             if component {
-                self.cap(kind, a, e, &[S::EntityNameTag, S::SupportClassComponent]);
+                self.capture(kind, a, e, &[S::EntityNameTag, S::SupportClassComponent]);
             } else {
-                self.cap(kind, a, e, &[S::EntityNameTag]);
+                self.capture(kind, a, e, &[S::EntityNameTag]);
             }
         }
     }
@@ -171,10 +171,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let q = self.ws(p);
         if self.tag_without_attributes_at(q).is_some() {
-            return self.open0(Kind::JsxExprNoAttrs, q);
+            return self.open_empty(Kind::JsxExprNoAttrs, q);
         }
         if !self.generic_head_at(q) && self.tag_start_at(q).is_some() {
-            return self.open0(Kind::JsxExprTag, q);
+            return self.open_empty(Kind::JsxExprTag, q);
         }
         None
     }
@@ -182,13 +182,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// `<\s*[$_[:alpha:]][$_[:alnum:]]*((\s+extends\s+[^=>])|,)`: a type
     /// parameter list, which an arrow function takes, not a tag.
     fn generic_head_at(&self, q: usize) -> bool {
-        if self.b(q) != b'<' {
+        if self.byte(q) != b'<' {
             return false;
         }
         let Some(e) = self.ident(self.ws(q + 1)) else {
             return false;
         };
-        if self.b(e) == b',' {
+        if self.byte(e) == b',' {
             return true;
         }
         let j = self.ws(e);
@@ -196,7 +196,7 @@ impl<const D: u8> Lexer<'_, D> {
             return false;
         }
         let k = self.ws(j + "extends".len());
-        k > j + "extends".len() && (k > j + 8 || !matches!(self.b(k), b'=' | b'>'))
+        k > j + "extends".len() && (k > j + 8 || !matches!(self.byte(k), b'=' | b'>'))
     }
 
     /// The `jsx-tag-without-attributes` rule at `p`.
@@ -207,7 +207,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.tag_start_tokens(Kind::JsxNoAttrs, &tag);
-        self.cap(
+        self.capture(
             Kind::JsxNoAttrs,
             gt,
             gt + 1,
@@ -221,7 +221,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// attributes.
     pub(crate) fn jsx_tag(&mut self, p: usize) -> Option<usize> {
         self.tag_start_at(p)?;
-        self.open0(Kind::JsxTag, p)
+        self.open_empty(Kind::JsxTag, p)
     }
 
     /// The rules of `jsx-children`.
@@ -234,10 +234,10 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `{`: the code of an attribute or a child.
     pub(crate) fn jsx_evaluated_code(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'{' {
+        if self.byte(p) != b'{' {
             return None;
         }
-        self.open1(
+        self.open_token(
             Kind::JsxEval,
             p,
             p + 1,
@@ -247,47 +247,47 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(&)([0-9A-Za-z]+|#[0-9]+|#x\h+)(;)`: a character entity.
     pub(crate) fn jsx_entities(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'&' {
+        if self.byte(p) != b'&' {
             return None;
         }
         let mut e = p + 1;
-        if self.b(e) == b'#' {
+        if self.byte(e) == b'#' {
             e += 1;
             let digits = e;
-            while self.b(e).is_ascii_digit() {
+            while self.byte(e).is_ascii_digit() {
                 e += 1;
             }
-            if e == digits || self.b(e) != b';' {
+            if e == digits || self.byte(e) != b';' {
                 e = digits;
-                if self.b(e) != b'x' {
+                if self.byte(e) != b'x' {
                     return None;
                 }
                 e += 1;
                 let hex = e;
-                while self.b(e).is_ascii_hexdigit() {
+                while self.byte(e).is_ascii_hexdigit() {
                     e += 1;
                 }
-                if e == hex || self.b(e) != b';' {
+                if e == hex || self.byte(e) != b';' {
                     return None;
                 }
             }
         } else {
-            while self.b(e).is_ascii_alphanumeric() {
+            while self.byte(e).is_ascii_alphanumeric() {
                 e += 1;
             }
-            if e == p + 1 || self.b(e) != b';' {
+            if e == p + 1 || self.byte(e) != b';' {
                 return None;
             }
         }
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::Top,
             p,
             p + 1,
             &[S::ConstantCharacterEntity, S::PunctuationDefinitionEntity],
         );
-        self.cap(Kind::Top, p + 1, e, &[S::ConstantCharacterEntity]);
-        self.cap(
+        self.capture(Kind::Top, p + 1, e, &[S::ConstantCharacterEntity]);
+        self.capture(
             Kind::Top,
             e,
             e + 1,
@@ -306,8 +306,8 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::JsxTagOpen);
             return Some(tag.name.end);
         }
-        if self.b(p) == b'>' && !self.full() {
-            return self.open1(
+        if self.byte(p) == b'>' && !self.full() {
+            return self.open_token(
                 Kind::JsxTagBody,
                 p,
                 p + 1,
@@ -329,7 +329,7 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(p);
         if j > p && !self.full() {
             self.flush(p);
-            self.cap(Kind::JsxAttributes, p, j, &[]);
+            self.capture(Kind::JsxAttributes, p, j, &[]);
             self.push(Kind::JsxAttributes);
             return Some(j);
         }
@@ -344,19 +344,19 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.jsx_attribute_name(p) {
             return Some(r);
         }
-        if self.b(p) == b'=' && self.assignment_ahead(p + 1) {
-            return self.tok(p, p + 1, S::KeywordOperatorAssignment);
+        if self.byte(p) == b'=' && self.assignment_ahead(p + 1) {
+            return self.token_rule(p, p + 1, S::KeywordOperatorAssignment);
         }
-        if self.b(p) == b'"' && !self.full() {
-            return self.open1(
+        if self.byte(p) == b'"' && !self.full() {
+            return self.open_token(
                 Kind::JsxStrDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
             );
         }
-        if self.b(p) == b'\'' && !self.full() {
-            return self.open1(
+        if self.byte(p) == b'\'' && !self.full() {
+            return self.open_token(
                 Kind::JsxStrSingle,
                 p,
                 p + 1,
@@ -371,7 +371,7 @@ impl<const D: u8> Lexer<'_, D> {
             e += self.char_len(e);
         }
         self.spend(e - p);
-        (e > p).then(|| self.tok(p, e, S::InvalidIllegalAttribute))?
+        (e > p).then(|| self.token_rule(p, e, S::InvalidIllegalAttribute))?
     }
 
     /// `=(?=\s*(?:["'{]|/\*|//|\n))`: what may follow an attribute's `=`, a
@@ -379,7 +379,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn assignment_ahead(&self, i: usize) -> bool {
         let j = self.ws(i);
         j >= self.len
-            || matches!(self.b(j), b'"' | b'\'' | b'{')
+            || matches!(self.byte(j), b'"' | b'\'' | b'{')
             || self.starts(j, "/*")
             || self.starts(j, "//")
     }
@@ -402,7 +402,7 @@ impl<const D: u8> Lexer<'_, D> {
         };
         let mut found = None;
         if let Some(ns_end) = name(self, start, true)
-            && self.b(ns_end) == b':'
+            && self.byte(ns_end) == b':'
             && let Some(e) = name(self, ns_end + 1, false)
             && self.attribute_follows(e)
         {
@@ -417,30 +417,30 @@ impl<const D: u8> Lexer<'_, D> {
         let (namespace, name_start, e) = found?;
         self.flush(p);
         if let Some((a, ns_end)) = namespace {
-            self.cap(
+            self.capture(
                 Kind::Top,
                 a,
                 ns_end,
                 &[S::EntityOtherAttributeNameNamespace],
             );
-            self.cap(
+            self.capture(
                 Kind::Top,
                 ns_end,
                 ns_end + 1,
                 &[S::PunctuationSeparatorNamespace],
             );
         }
-        self.cap(Kind::Top, name_start, e, &[S::EntityOtherAttributeName]);
+        self.capture(Kind::Top, name_start, e, &[S::EntityOtherAttributeName]);
         Some(e)
     }
 
     /// `(?=[=\s]|/?>|/\*|//)` after an attribute's name.
     fn attribute_follows(&self, e: usize) -> bool {
-        let c = self.b(e);
+        let c = self.byte(e);
         c == b'='
             || self.space_at(e)
             || c == b'>'
-            || (c == b'/' && matches!(self.b(e + 1), b'>' | b'*' | b'/'))
+            || (c == b'/' && matches!(self.byte(e + 1), b'>' | b'*' | b'/'))
     }
 
     /// The rules inside a JSX string: character entities.
@@ -467,7 +467,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let name = self.tag_name(self.ws(p + 2), TagPart::Optional)?;
         let gt = self.ws(name.end);
-        (self.b(gt) == b'>').then_some((name, gt))
+        (self.byte(gt) == b'>').then_some((name, gt))
     }
 
     /// Ends `jsx-tag-without-attributes` at a closing tag.
@@ -490,14 +490,14 @@ impl<const D: u8> Lexer<'_, D> {
         let kind = self.top();
         self.flush(p);
         self.pop();
-        self.cap(kind, p, p + 2, &[S::PunctuationDefinitionTagBegin]);
+        self.capture(kind, p, p + 2, &[S::PunctuationDefinitionTagBegin]);
         self.tag_name_tokens(kind, name);
-        self.cap(kind, gt, gt + 1, &[S::PunctuationDefinitionTagEnd]);
+        self.capture(kind, gt, gt + 1, &[S::PunctuationDefinitionTagEnd]);
         gt + 1
     }
 
     /// `(?=/?>)`.
     pub(crate) fn jsx_open_ends(&self, p: usize) -> bool {
-        self.b(p) == b'>' || (self.b(p) == b'/' && self.b(p + 1) == b'>')
+        self.byte(p) == b'>' || (self.byte(p) == b'/' && self.byte(p + 1) == b'>')
     }
 }

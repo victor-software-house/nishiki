@@ -101,39 +101,40 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn punctuation_comma(&mut self, p: usize) -> Option<usize> {
-        (self.b(p) == b',').then(|| self.tok(p, p + 1, S::PunctuationSeparatorComma))?
+        (self.byte(p) == b',').then(|| self.token_rule(p, p + 1, S::PunctuationSeparatorComma))?
     }
 
     pub(crate) fn punctuation_semicolon(&mut self, p: usize) -> Option<usize> {
-        (self.b(p) == b';').then(|| self.tok(p, p + 1, S::PunctuationTerminatorStatement))?
+        (self.byte(p) == b';')
+            .then(|| self.token_rule(p, p + 1, S::PunctuationTerminatorStatement))?
     }
 
     /// `(\.)|(\?\.(?!\s*\d))`.
     pub(crate) fn punctuation_accessor(&mut self, p: usize) -> Option<usize> {
         let e = self.accessor_at(p)?;
-        self.tok(p, e, Self::accessor_scope(p, e))
+        self.token_rule(p, e, Self::accessor_scope(p, e))
     }
 
-    // Keywords and operators.
-
+    /// The keyword and symbol operators of an expression.
+    ///
+    /// In `yield /* comment */ *` the asterisk follows a comment.
     pub(crate) fn expression_operators(&mut self, p: usize) -> Option<usize> {
-        let b = self.b(p);
+        let b = self.byte(p);
         if b.is_ascii_lowercase() {
             if let Some(e) = self.kw(p, "await") {
-                return self.tok(p, e, S::KeywordControlFlow);
+                return self.token_rule(p, e, S::KeywordControlFlow);
             }
             if let Some(e) = self.kw(p, "yield") {
-                // `yield /* comment */ *`: the asterisk follows a comment.
                 let j = self.ws(e);
                 if let Some(c) = self.block_comment(j)
-                    && self.b(self.ws(c)) == b'*'
+                    && self.byte(self.ws(c)) == b'*'
                 {
-                    return self.open1(Kind::YieldComment, p, e, &[S::KeywordControlFlow]);
+                    return self.open_token(Kind::YieldComment, p, e, &[S::KeywordControlFlow]);
                 }
-                self.one(p, e, &[S::KeywordControlFlow]);
+                self.token(p, e, &[S::KeywordControlFlow]);
                 let j = self.ws(e);
-                if self.b(j) == b'*' {
-                    self.cap(Kind::Top, j, j + 1, &[S::KeywordGeneratorAsterisk]);
+                if self.byte(j) == b'*' {
+                    self.capture(Kind::Top, j, j + 1, &[S::KeywordGeneratorAsterisk]);
                     return Some(j + 1);
                 }
                 return Some(e);
@@ -146,17 +147,17 @@ impl<const D: u8> Lexer<'_, D> {
                 ("new", S::KeywordOperatorNew),
             ] {
                 if let Some(e) = self.kw(p, word) {
-                    if (word == "in" || word == "of") && self.b(e) == b'(' {
+                    if (word == "in" || word == "of") && self.byte(e) == b'(' {
                         continue;
                     }
-                    return self.tok(p, e, scope);
+                    return self.token_rule(p, e, scope);
                 }
             }
             if let Some(r) = self.typeof_operator(p) {
                 return Some(r);
             }
             if let Some(e) = self.kw(p, "void") {
-                return self.tok(p, e, S::KeywordOperatorExpressionVoid);
+                return self.token_rule(p, e, S::KeywordOperatorExpressionVoid);
             }
             if let Some(r) = self.as_expression(p) {
                 return Some(r);
@@ -173,9 +174,11 @@ impl<const D: u8> Lexer<'_, D> {
             if j > e {
                 if let Some(c) = self.kw(j, "const") {
                     let k = self.ws(c);
-                    if matches!(self.b(k), b']' | b')' | b',' | b':' | b';' | b'}') || self.eol(k) {
-                        self.one(p, e, &[S::KeywordControlAs]);
-                        self.cap(Kind::Top, j, c, &[S::StorageModifier]);
+                    if matches!(self.byte(k), b']' | b')' | b',' | b':' | b';' | b'}')
+                        || self.eol(k)
+                    {
+                        self.token(p, e, &[S::KeywordControlAs]);
+                        self.capture(Kind::Top, j, c, &[S::StorageModifier]);
                         return Some(c);
                     }
                 }
@@ -183,8 +186,8 @@ impl<const D: u8> Lexer<'_, D> {
                     return None;
                 }
                 self.flush(p);
-                self.cap(Kind::Top, p, e, &[S::KeywordControlAs]);
-                self.fin(Kind::Top, j);
+                self.capture(Kind::Top, p, e, &[S::KeywordControlAs]);
+                self.finish(Kind::Top, j);
                 self.push(Kind::AsType);
                 return Some(j);
             }
@@ -193,8 +196,8 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.flush(p);
-                self.cap(Kind::Top, p, e, &[S::KeywordControlSatisfies]);
-                self.fin(Kind::Top, j);
+                self.capture(Kind::Top, p, e, &[S::KeywordControlSatisfies]);
+                self.finish(Kind::Top, j);
                 self.push(Kind::AsType);
                 return Some(j);
             }
@@ -202,85 +205,86 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
+    /// The operators made of symbols, in the grammar's order: the spread
+    /// `...`; the compound assignments `*=`, `/=` (not after `(`), `-=`, `%=`
+    /// and `+=`; the bitwise ones `&=`, `^=`, `<<=`, `>>=`, `>>>=` and `|=`;
+    /// `a! /= b` and `a! / b`; and the arithmetic and relational operators.
+    ///
+    /// A `/` after a name may follow blanks and comments, because the regex
+    /// and comment rules have claimed the other cases, and a `/` or `/=` after
+    /// a closing bracket or a name may have blanks before it.
     fn symbol_operators(&mut self, p: usize) -> Option<usize> {
-        let b = self.b(p);
-        let b1 = self.b(p + 1);
-        let b2 = self.b(p + 2);
+        let b = self.byte(p);
+        let b1 = self.byte(p + 1);
+        let b2 = self.byte(p + 2);
         let prev = if p > 0 {
-            self.s.get(p - 1).copied()
+            self.bytes.get(p - 1).copied()
         } else {
             None
         };
-        // A run of dots is the spread operator.
         if self.starts(p, "...") {
-            return self.tok(p, p + 3, S::KeywordOperatorSpread);
+            return self.token_rule(p, p + 3, S::KeywordOperatorSpread);
         }
-        // `*=`, `/=` (not after `(`), `-=`, `%=`, `+=`.
         if b1 == b'=' && matches!(b, b'*' | b'-' | b'%' | b'+') {
-            return self.tok(p, p + 2, S::KeywordOperatorAssignmentCompound);
+            return self.token_rule(p, p + 2, S::KeywordOperatorAssignmentCompound);
         }
         if b == b'/' && b1 == b'=' && prev != Some(b'(') {
-            return self.tok(p, p + 2, S::KeywordOperatorAssignmentCompound);
+            return self.token_rule(p, p + 2, S::KeywordOperatorAssignmentCompound);
         }
-        // `&=`, `^=`, `<<=`, `>>=`, `>>>=`, `|=`.
         if let Some(len) = self.bitwise_assign_len(p) {
-            return self.tok(p, p + len, S::KeywordOperatorAssignmentCompoundBitwise);
+            return self.token_rule(p, p + len, S::KeywordOperatorAssignmentCompoundBitwise);
         }
         if self.starts(p, "<<") || self.starts(p, ">>>") || self.starts(p, ">>") {
             let len = if self.starts(p, ">>>") { 3 } else { 2 };
-            return self.tok(p, p + len, S::KeywordOperatorBitwiseShift);
+            return self.token_rule(p, p + len, S::KeywordOperatorBitwiseShift);
         }
         if matches!(b, b'!' | b'=') && b1 == b'=' {
             let len = if b2 == b'=' { 3 } else { 2 };
-            return self.tok(p, p + len, S::KeywordOperatorComparison);
+            return self.token_rule(p, p + len, S::KeywordOperatorComparison);
         }
         if (b == b'<' || b == b'>') && b1 == b'=' {
-            return self.tok(p, p + 2, S::KeywordOperatorRelational);
+            return self.token_rule(p, p + 2, S::KeywordOperatorRelational);
         }
         if b == b'<' && b1 == b'>' {
-            return self.tok(p, p + 2, S::KeywordOperatorRelational);
+            return self.token_rule(p, p + 2, S::KeywordOperatorRelational);
         }
         if b == b'<' || b == b'>' {
-            return self.tok(p, p + 1, S::KeywordOperatorRelational);
+            return self.token_rule(p, p + 1, S::KeywordOperatorRelational);
         }
-        // `a! /= b` and `a! / b`.
         if b == b'!' && self.alnum_before(p) {
             let j = self.ws(p + 1);
             if self.starts(j, "/=") {
-                self.one(p, p + 1, &[S::KeywordOperatorLogical]);
-                self.cap(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
+                self.token(p, p + 1, &[S::KeywordOperatorLogical]);
+                self.capture(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
                 return Some(j + 2);
             }
-            if self.b(j) == b'/' && !matches!(self.b(j + 1), b'*' | b'/') {
-                self.one(p, p + 1, &[S::KeywordOperatorLogical]);
-                self.cap(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
+            if self.byte(j) == b'/' && !matches!(self.byte(j + 1), b'*' | b'/') {
+                self.token(p, p + 1, &[S::KeywordOperatorLogical]);
+                self.capture(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
                 return Some(j + 1);
             }
         }
         if b == b'!' {
-            return self.tok(p, p + 1, S::KeywordOperatorLogical);
+            return self.token_rule(p, p + 1, S::KeywordOperatorLogical);
         }
         if (b == b'&' && b1 == b'&') || (b == b'|' && b1 == b'|') || (b == b'?' && b1 == b'?') {
-            return self.tok(p, p + 2, S::KeywordOperatorLogical);
+            return self.token_rule(p, p + 2, S::KeywordOperatorLogical);
         }
         if matches!(b, b'&' | b'^' | b'|' | b'~') {
-            return self.tok(p, p + 1, S::KeywordOperatorBitwise);
+            return self.token_rule(p, p + 1, S::KeywordOperatorBitwise);
         }
         if b == b'=' {
-            return self.tok(p, p + 1, S::KeywordOperatorAssignment);
+            return self.token_rule(p, p + 1, S::KeywordOperatorAssignment);
         }
         if b == b'-' && b1 == b'-' {
-            return self.tok(p, p + 2, S::KeywordOperatorDecrement);
+            return self.token_rule(p, p + 2, S::KeywordOperatorDecrement);
         }
         if b == b'+' && b1 == b'+' {
-            return self.tok(p, p + 2, S::KeywordOperatorIncrement);
+            return self.token_rule(p, p + 2, S::KeywordOperatorIncrement);
         }
         if matches!(b, b'-' | b'%' | b'*' | b'+' | b'/') {
-            // A `/` after a name may follow blanks and comments; the regex
-            // and comment rules have claimed the other cases.
-            return self.tok(p, p + 1, S::KeywordOperatorArithmetic);
+            return self.token_rule(p, p + 1, S::KeywordOperatorArithmetic);
         }
-        // `/` or `/=` after a closing bracket or a name, with blanks before.
         if self.space_at(p) && self.divide_after_name(p) {
             return Some(self.divide_with_blanks(p));
         }
@@ -288,8 +292,8 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn bitwise_assign_len(&self, p: usize) -> Option<usize> {
-        let b = self.b(p);
-        if matches!(b, b'&' | b'^' | b'|') && self.b(p + 1) == b'=' {
+        let b = self.byte(p);
+        if matches!(b, b'&' | b'^' | b'|') && self.byte(p + 1) == b'=' {
             return Some(2);
         }
         if self.starts(p, "<<=") || self.starts(p, ">>=") {
@@ -304,32 +308,28 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?<=[]$)_[:alnum:]])\s*(?:(/=)|(/)(?![*/]))` starting at blanks.
     fn divide_after_name(&self, p: usize) -> bool {
         let before = self.prev_char(p);
-        if !before.is_some_and(|c| c == ']' || c == ')' || super::lexer::is_alnum_char(c)) {
+        if !before.is_some_and(|c| c == ']' || c == ')' || super::chars::is_alnum_char(c)) {
             return false;
         }
         let j = self.ws(p);
-        self.starts(j, "/=") || (self.b(j) == b'/' && !matches!(self.b(j + 1), b'*' | b'/'))
+        self.starts(j, "/=") || (self.byte(j) == b'/' && !matches!(self.byte(j + 1), b'*' | b'/'))
     }
 
     fn divide_with_blanks(&mut self, p: usize) -> usize {
         let j = self.ws(p);
         if self.starts(j, "/=") {
-            self.cap(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
+            self.capture(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
             return j + 2;
         }
-        self.cap(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
+        self.capture(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
         j + 1
     }
-
-    // typeof
 
     /// `typeof` up to the end of its operand.
     pub(crate) fn typeof_operator(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "typeof")?;
-        self.open1(Kind::Typeof, p, e, &[S::KeywordOperatorExpressionTypeof])
+        self.open_token(Kind::Typeof, p, e, &[S::KeywordOperatorExpressionTypeof])
     }
-
-    // Literals.
 
     pub(crate) fn literal(&mut self, p: usize) -> Option<usize> {
         self.only("l.number", DIGIT.with(b'.'), p, Self::numeric_literal)
@@ -338,7 +338,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn keyword_literal(&mut self, p: usize) -> Option<usize> {
-        if !self.b(p).is_ascii_alphabetic() {
+        if !self.byte(p).is_ascii_alphabetic() {
             return None;
         }
         for (word, scope) in [
@@ -350,19 +350,19 @@ impl<const D: u8> Lexer<'_, D> {
             ("Infinity", S::ConstantLanguageInfinity),
         ] {
             if let Some(e) = self.kw(p, word) {
-                return self.tok(p, e, scope);
+                return self.token_rule(p, e, scope);
             }
         }
         if self.starts(p, "this") {
             let e = p + "this".len();
-            if self.kw_before(p) && self.boundary(e) && self.b(e) != b'$' {
-                return self.tok(p, e, S::VariableLanguageThis);
+            if self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$' {
+                return self.token_rule(p, e, S::VariableLanguageThis);
             }
         }
         if self.starts(p, "super") {
             let e = p + "super".len();
-            if self.kw_before(p) && self.boundary(e) && self.b(e) != b'$' {
-                return self.tok(p, e, S::VariableLanguageSuper);
+            if self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$' {
+                return self.token_rule(p, e, S::VariableLanguageSuper);
             }
         }
         None
@@ -371,37 +371,43 @@ impl<const D: u8> Lexer<'_, D> {
     /// `\s*(\[)`.
     pub(crate) fn array_literal(&mut self, p: usize) -> Option<usize> {
         let j = self.ws(p);
-        if self.b(j) != b'[' || self.full() {
+        if self.byte(j) != b'[' || self.full() {
             return None;
         }
         self.flush(p);
-        self.cap(Kind::ArrLit, j, j + 1, &[S::MetaBraceSquare]);
+        self.capture(Kind::ArrLit, j, j + 1, &[S::MetaBraceSquare]);
         self.push(Kind::ArrLit);
         Some(j + 1)
     }
 
     pub(crate) fn object_literal(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'{' {
+        if self.byte(p) != b'{' {
             return None;
         }
-        self.open1(Kind::ObjLit, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Kind::ObjLit, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     pub(crate) fn paren_expression(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'(' {
+        if self.byte(p) != b'(' {
             return None;
         }
-        self.open1(Kind::ParenExpr, p, p + 1, &[S::MetaBraceRound])
+        self.open_token(Kind::ParenExpr, p, p + 1, &[S::MetaBraceRound])
     }
 
+    /// The built-in objects and their members, such as `arguments`, `Promise`
+    /// and the `Number` constants.
+    ///
+    /// For a `Number` constant the grammar maps a scope to capture 4, but
+    /// numbering counts the groups inside the negative lookahead before it, so
+    /// the constant gets none. Shiki's output has none, and so has ours.
     pub(crate) fn support_objects(&mut self, p: usize) -> Option<usize> {
-        let b = self.b(p);
+        let b = self.byte(p);
         if b.is_ascii_lowercase() || b.is_ascii_uppercase() {
             if let Some(e) = self.word_guard(p, "arguments") {
-                return self.tok(p, e, S::VariableLanguageArguments);
+                return self.token_rule(p, e, S::VariableLanguageArguments);
             }
             if let Some(e) = self.word_guard(p, "Promise") {
-                return self.tok(p, e, S::SupportClassPromise);
+                return self.token_rule(p, e, S::SupportClassPromise);
             }
             for (word, member, scope, member_scope) in [
                 (
@@ -423,11 +429,11 @@ impl<const D: u8> Lexer<'_, D> {
                         let k = self.ws(a);
                         if self.starts(k, member)
                             && self.boundary(k + member.len())
-                            && self.b(k + member.len()) != b'$'
+                            && self.byte(k + member.len()) != b'$'
                         {
-                            self.one(p, e, &[scope]);
-                            self.cap(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
-                            self.cap(Kind::Top, k, k + member.len(), &[member_scope]);
+                            self.token(p, e, &[scope]);
+                            self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+                            self.capture(Kind::Top, k, k + member.len(), &[member_scope]);
                             return Some(k + member.len());
                         }
                     }
@@ -442,11 +448,11 @@ impl<const D: u8> Lexer<'_, D> {
             for word in ["constructor", "length", "prototype", "__proto__"] {
                 if self.starts(k, word)
                     && self.boundary(k + word.len())
-                    && self.b(k + word.len()) != b'$'
+                    && self.byte(k + word.len()) != b'$'
                     && !self.call_after_type_args(k + word.len())
                 {
-                    self.one(p, a, &[Self::accessor_scope(p, a)]);
-                    self.cap(Kind::Top, k, k + word.len(), &[S::SupportVariableProperty]);
+                    self.token(p, a, &[Self::accessor_scope(p, a)]);
+                    self.capture(Kind::Top, k, k + word.len(), &[S::SupportVariableProperty]);
                     return Some(k + word.len());
                 }
             }
@@ -461,13 +467,9 @@ impl<const D: u8> Lexer<'_, D> {
             ] {
                 if self.starts(k, word)
                     && self.boundary(k + word.len())
-                    && self.b(k + word.len()) != b'$'
+                    && self.byte(k + word.len()) != b'$'
                 {
-                    // The grammar maps a scope to capture 4, but numbering
-                    // counts the groups inside the negative lookahead before
-                    // it, so the constant gets none. Shiki's output has none,
-                    // and so has ours.
-                    self.one(p, a, &[Self::accessor_scope(p, a)]);
+                    self.token(p, a, &[Self::accessor_scope(p, a)]);
                     return Some(k + word.len());
                 }
             }
@@ -485,13 +487,13 @@ impl<const D: u8> Lexer<'_, D> {
     /// `B word \b (?!\$)`.
     fn word_guard(&self, p: usize, word: &str) -> Option<usize> {
         let e = p + word.len();
-        (self.starts(p, word) && self.kw_before(p) && self.boundary(e) && self.b(e) != b'$')
+        (self.starts(p, word) && self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$')
             .then_some(e)
     }
 
     fn module_exports(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.word_guard(p, "exports") {
-            return self.tok(p, e, S::SupportTypeObjectModule);
+            return self.token_rule(p, e, S::SupportTypeObjectModule);
         }
         let e = self.word_guard(p, "module")?;
         let j = e;
@@ -501,19 +503,17 @@ impl<const D: u8> Lexer<'_, D> {
             for word in ["exports", "id", "filename", "loaded", "parent", "children"] {
                 if self.starts(k, word)
                     && self.boundary(k + word.len())
-                    && self.b(k + word.len()) != b'$'
+                    && self.byte(k + word.len()) != b'$'
                 {
-                    self.one(p, e, &[S::SupportTypeObjectModule]);
-                    self.cap(Kind::Top, at, a, &[Self::accessor_scope(at, a)]);
-                    self.cap(Kind::Top, k, k + word.len(), &[S::SupportTypeObjectModule]);
+                    self.token(p, e, &[S::SupportTypeObjectModule]);
+                    self.capture(Kind::Top, at, a, &[Self::accessor_scope(at, a)]);
+                    self.capture(Kind::Top, k, k + word.len(), &[S::SupportTypeObjectModule]);
                     return Some(k + word.len());
                 }
             }
         }
-        self.tok(p, e, S::SupportTypeObjectModule)
+        self.token_rule(p, e, S::SupportTypeObjectModule)
     }
-
-    // Names.
 
     pub(crate) fn identifiers(&mut self, p: usize) -> Option<usize> {
         self.only(
@@ -534,23 +534,22 @@ impl<const D: u8> Lexer<'_, D> {
         .or_else(|| self.only("i.variable", NAME_START, p, Self::variable_name))
     }
 
-    /// The names that start a member chain.
+    /// The names that start a member chain: `Name.prototype`, and a property
+    /// followed by another, `.property.` or `?.property.`.
     pub(crate) fn object_identifiers(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.ident(p) {
-            // `Name.prototype`.
             let j = self.ws(e);
-            let q = if self.b(j) == b'?' { j + 1 } else { j };
-            if self.b(q) == b'.' {
+            let q = if self.byte(j) == b'?' { j + 1 } else { j };
+            if self.byte(q) == b'.' {
                 let k = self.ws(q + 1);
                 if self.starts(k, "prototype")
                     && self.boundary(k + "prototype".len())
-                    && self.b(k + "prototype".len()) != b'$'
+                    && self.byte(k + "prototype".len()) != b'$'
                 {
-                    return self.tok(p, e, S::SupportClass);
+                    return self.token_rule(p, e, S::SupportClass);
                 }
             }
         }
-        // `.property.` and `?.property.`.
         if let Some(a) = self.accessor_at(p) {
             let k = self.ws(a);
             let (name_end, scope) = match self.hash_constant_name(k) {
@@ -561,8 +560,8 @@ impl<const D: u8> Lexer<'_, D> {
                 },
             };
             if self.member_ahead(name_end) {
-                self.one(p, a, &[Self::accessor_scope(p, a)]);
-                self.cap(Kind::Top, k, name_end, &[scope]);
+                self.token(p, a, &[Self::accessor_scope(p, a)]);
+                self.capture(Kind::Top, k, name_end, &[scope]);
                 return Some(name_end);
             }
             return None;
@@ -579,10 +578,12 @@ impl<const D: u8> Lexer<'_, D> {
                 (e, S::VariableOtherObject)
             }
         };
-        self.member_ahead(e).then(|| self.tok(p, e, scope))?
+        self.member_ahead(e).then(|| self.token_rule(p, e, scope))?
     }
 
     /// `name = function` and similar: a name the grammar scopes as a function.
+    ///
+    /// The regex is `\s*=\s*FUNCTION`.
     fn assigned_function_name(&mut self, p: usize) -> Option<usize> {
         let (start, accessor) = match self.accessor_at(p) {
             Some(a) => (self.ws(a), Some(a)),
@@ -590,18 +591,17 @@ impl<const D: u8> Lexer<'_, D> {
         };
         let e = self.ident(start)?;
         let j = self.ws(e);
-        if self.b(j) != b'=' {
+        if self.byte(j) != b'=' {
             return None;
         }
-        // The regex is `\s*=\s*FUNCTION`.
         if !self.fn_value_ahead(self.ws(j + 1)) {
             return None;
         }
         if let Some(a) = accessor {
-            self.one(p, a, &[Self::accessor_scope(p, a)]);
-            self.cap(Kind::Top, start, e, &[S::EntityNameFunction]);
+            self.token(p, a, &[Self::accessor_scope(p, a)]);
+            self.capture(Kind::Top, start, e, &[S::EntityNameFunction]);
         } else {
-            self.one(start, e, &[S::EntityNameFunction]);
+            self.token(start, e, &[S::EntityNameFunction]);
         }
         Some(e)
     }
@@ -614,16 +614,73 @@ impl<const D: u8> Lexer<'_, D> {
             Some(e) => (e, S::VariableOtherConstantProperty),
             None => (self.hash_ident(k)?, S::VariableOtherProperty),
         };
-        self.one(p, a, &[Self::accessor_scope(p, a)]);
-        self.cap(Kind::Top, k, e, &[scope]);
+        self.token(p, a, &[Self::accessor_scope(p, a)]);
+        self.capture(Kind::Top, k, e, &[scope]);
         Some(e)
     }
 
     fn variable_name(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.constant_name(p) {
-            return self.tok(p, e, S::VariableOtherConstant);
+            return self.token_rule(p, e, S::VariableOtherConstant);
         }
         let e = self.ident(p)?;
-        self.tok(p, e, S::VariableOtherReadwrite)
+        self.token_rule(p, e, S::VariableOtherReadwrite)
+    }
+
+    /// `.` or `?.` (not before a digit) at `i`: the end of the accessor.
+    pub(crate) fn accessor_at(&self, i: usize) -> Option<usize> {
+        match self.byte(i) {
+            b'.' => Some(i + 1),
+            b'?' if self.byte(i + 1) == b'.' && !self.digit_after_ws(i + 2) => Some(i + 2),
+            _ => None,
+        }
+    }
+
+    /// The `(?!\s*\d)` that follows `?.`, as a positive test.
+    fn digit_after_ws(&self, i: usize) -> bool {
+        self.byte(self.ws(i)).is_ascii_digit()
+    }
+
+    /// The scope of an accessor token of width `end - at`.
+    pub(crate) fn accessor_scope(at: usize, end: usize) -> S {
+        if end - at == 1 {
+            S::PunctuationAccessor
+        } else {
+            S::PunctuationAccessorOptional
+        }
+    }
+
+    /// `#?` and a [`Lexer::constant_name`]: its end.
+    pub(crate) fn hash_constant_name(&self, i: usize) -> Option<usize> {
+        let j = if self.byte(i) == b'#' { i + 1 } else { i };
+        self.constant_name(j)
+    }
+
+    /// `\p{upper}[$_\d[:upper:]]*` not followed by a name character: its end.
+    pub(crate) fn constant_name(&self, i: usize) -> Option<usize> {
+        let mut j = i;
+        let first = self.char_at(j)?;
+        if !first.is_uppercase() {
+            return None;
+        }
+        j += first.len_utf8();
+        while let Some(c) = self.char_at(j) {
+            if c == '$' || c == '_' || c.is_ascii_digit() || c.is_uppercase() {
+                j += c.len_utf8();
+            } else {
+                break;
+            }
+        }
+        self.spend(j - i);
+        (!self.alnum_at(j)).then_some(j)
+    }
+
+    /// `\s*\??\.\s*#?ID` at `i`.
+    pub(crate) fn member_ahead(&self, i: usize) -> bool {
+        let mut j = self.ws(i);
+        if self.byte(j) == b'?' {
+            j += 1;
+        }
+        self.byte(j) == b'.' && self.hash_ident(self.ws(j + 1)).is_some()
     }
 }

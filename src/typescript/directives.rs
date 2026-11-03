@@ -15,8 +15,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(0);
-        self.cap(Kind::Directive, 0, 3, &[S::PunctuationDefinitionComment]);
-        self.fin(Kind::Directive, j);
+        self.capture(Kind::Directive, 0, 3, &[S::PunctuationDefinitionComment]);
+        self.finish(Kind::Directive, j);
         self.push(Kind::Directive);
         Some(j)
     }
@@ -27,7 +27,7 @@ impl<const D: u8> Lexer<'_, D> {
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
     fn directive_ahead(&self, i: usize) -> bool {
-        if self.b(i) != b'<' {
+        if self.byte(i) != b'<' {
             return false;
         }
         let name = ["reference", "amd-dependency", "amd-module"]
@@ -47,7 +47,7 @@ impl<const D: u8> Lexer<'_, D> {
                 break;
             };
             let eq = self.ws(a);
-            if self.b(eq) != b'=' {
+            if self.byte(eq) != b'=' {
                 break;
             }
             let v = self.ws(eq + 1);
@@ -79,7 +79,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn directive_rules(&mut self, p: usize) -> Option<usize> {
-        if self.b(p) != b'<' || self.full() {
+        if self.byte(p) != b'<' || self.full() {
             return None;
         }
         let name = ["reference", "amd-dependency", "amd-module"]
@@ -87,23 +87,23 @@ impl<const D: u8> Lexer<'_, D> {
             .find(|w| self.starts(p + 1, w))?;
         let e = p + 1 + name.len();
         self.flush(p);
-        self.cap(
+        self.capture(
             Kind::DirectiveTag,
             p,
             p + 1,
             &[S::PunctuationDefinitionTagDirective],
         );
-        self.cap(Kind::DirectiveTag, p + 1, e, &[S::EntityNameTagDirective]);
+        self.capture(Kind::DirectiveTag, p + 1, e, &[S::EntityNameTagDirective]);
         self.push(Kind::DirectiveTag);
         Some(e)
     }
 
     pub(crate) fn directive_tag_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(e) = self.directive_attribute(p) {
-            return self.tok(p, e, S::EntityOtherAttributeNameDirective);
+            return self.token_rule(p, e, S::EntityOtherAttributeNameDirective);
         }
-        if self.b(p) == b'=' {
-            return self.tok(p, p + 1, S::KeywordOperatorAssignment);
+        if self.byte(p) == b'=' {
+            return self.token_rule(p, p + 1, S::KeywordOperatorAssignment);
         }
         self.string(p)
     }
