@@ -18,7 +18,7 @@ use super::scope::S;
 use super::state::{Fence, Kind};
 use super::text::Cx;
 use super::{block, inline};
-use crate::arena::{Arena, ROOT};
+use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Language, Stack, Token};
@@ -211,6 +211,9 @@ pub(crate) struct Scratch {
     /// The paragraph last opened: the state it opened in, the stack of its
     /// text, and the state it made.
     paragraph: Option<(u32, u32, u32)>,
+    /// The frames of the first line's state, innermost first, while
+    /// [`after_first_line`] rebuilds them.
+    chain: Vec<ArenaFrame>,
 }
 
 impl<'a> Lexer<'a> {
@@ -291,7 +294,8 @@ impl<'a> Lexer<'a> {
         self.scratch.markdown.frames = self.frames;
         if self.first_line {
             self.scratch.markdown.resume = None;
-            return after_first_line(self.arena, state).unwrap_or(state);
+            let chain = &mut self.scratch.markdown.chain;
+            return after_first_line(self.arena, chain, state).unwrap_or(state);
         }
         self.scratch.markdown.resume = Some(state);
         state
@@ -1008,8 +1012,10 @@ fn embed_begin(cx: &Cx<'_>, p: usize) -> Option<usize> {
 
 /// The state `state`, whose root is the document's start state, rebuilt on a
 /// root that is not, so that the lines after the first are told apart from it.
-fn after_first_line(arena: &mut Arena, state: u32) -> Option<u32> {
-    let mut chain = Vec::new();
+/// It walks the frames into `chain`, the highlighter's buffer, so a document
+/// lexed again allocates nothing on its first line.
+fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) -> Option<u32> {
+    chain.clear();
     let mut at = state;
     while at != ROOT {
         let frame = arena.frame(at);
