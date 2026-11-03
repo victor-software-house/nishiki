@@ -31,8 +31,14 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 
 /// The character that starts at byte `i` of `s`, and its width; `None` past
 /// the end and where no whole character starts.
+///
+/// An ASCII byte is its own character, so only a multibyte one is validated.
 pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
-    let width = char_len(*s.get(i)?);
+    let lead = *s.get(i)?;
+    if lead.is_ascii() {
+        return Some((char::from(lead), 1));
+    }
+    let width = char_len(lead);
     let c = std::str::from_utf8(s.get(i..i + width)?)
         .ok()?
         .chars()
@@ -57,5 +63,23 @@ mod tests {
         assert_eq!(char_start(s, 0), 0);
         assert!(is_continuation(s[2]));
         assert!(!is_continuation(s[3]));
+    }
+
+    #[test]
+    fn char_at_reads_ascii_multibyte_and_continuation_leads() {
+        assert_eq!(char_at(b"\x00", 0), Some(('\0', 1)));
+        assert_eq!(char_at(b"z", 0), Some(('z', 1)));
+        assert_eq!(char_at(b"\x7f", 0), Some(('\x7f', 1)));
+        let s = "\u{17f}\u{212a}\u{1f600}".as_bytes();
+        assert_eq!(char_at(s, 0), Some(('\u{17f}', 2)));
+        assert_eq!(char_at(s, 2), Some(('\u{212a}', 3)));
+        assert_eq!(char_at(s, 5), Some(('\u{1f600}', 4)));
+        assert_eq!(char_at(s, 1), None, "a continuation byte starts nothing");
+        assert_eq!(char_at(s, 6), None, "nor does a later one");
+        assert_eq!(char_at(b"\xc3", 0), None, "a lead cut off at the end");
+        assert_eq!(char_at(b"\xc3a", 0), None, "a lead before ASCII");
+        assert_eq!(char_at(b"\xc0\xaf", 0), None, "an overlong form");
+        assert_eq!(char_at(b"\xed\xa0\x80", 0), None, "a surrogate");
+        assert_eq!(char_at(b"\xff", 0), None, "a byte no character starts with");
     }
 }
