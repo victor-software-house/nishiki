@@ -12,15 +12,17 @@
 
 ## 2. Speed
 
-- [ ] 2.1 Literal prefilters, first-byte sets and anchor classes from the tables → verify: bench table before and after, output unchanged
+- [x] 2.1 Literal prefilters, first-byte sets and anchor classes from the tables → verify: bench table before and after, output unchanged
   - The prefilters were in the machine from its first commit (nishiki-archive#138), so no table isolates them.
+  - Closed without a table of its own (2026-11-03): every measured build has them, so nishiki-archive#158's table is the closest measure.
 - [x] 2.2 The `regex-automata` fast path for lookaround-free patterns → verify: bench table with and without it, reported separately
   - One `regex-automata` automaton per rule list finds where a rule can start; the machine checks each candidate (nishiki-archive#158).
 - [x] 2.3 Rule-level skipping: search only the rules that can match at the cursor, and reuse a match the cursor has not passed → verify: bench table
   - Each pattern's next match, and each list's winner, is kept for the rest of the line (nishiki-archive#158).
   - Together with 2.2, on one Namespace 8x16: Markdown 1.7x, Rust 10.9x, shell 2.1x, TypeScript 2.1x; 1.9x across 61 fixtures (nishiki-archive#158's table).
-- [ ] 2.4 No allocation per line or token → verify: the allocation count of a lexed fixture is zero after the first line
+- [x] 2.4 No allocation per line or token → verify: the allocation count of a lexed fixture is zero after the first line
   - `tests/it/alloc.rs` (nishiki-archive#130) lexes each fixture twice and counts the second pass's allocations, PowerShell included.
+  - It passes on PowerShell since nishiki-archive#169, where the best match's groups are copied out of the machine's buffer instead of swapping two buffers, which had grown one of them once per document.
 
 ## 3. Languages
 
