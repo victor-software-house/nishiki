@@ -1,6 +1,7 @@
 //! Media queries, feature queries and layer names.
 
 use super::super::engine::Lexer;
+use super::chars::Letters;
 use crate::rules::Chars;
 
 /// The words of the grammar's media features, without a `min-` or `max-`.
@@ -243,7 +244,7 @@ impl Lexer<'_> {
         // [):])`
         let dash = matches!(self.at(p), b'-' | b'_');
         let start = if dash { p + 1 } else { p };
-        let letters = self.letters_ci(start, false);
+        let letters = self.letters_ci(start, Letters::Plain);
         let vendor_ok = if dash {
             self.in_list(
                 start,

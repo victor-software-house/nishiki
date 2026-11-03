@@ -40,19 +40,21 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `\b(void|boolean|byte|char|short|int|float|long|double)\b`, and with
-    /// `\s*(?=\[)` after it the begin of a primitive array.
-    pub(super) fn primitive(&mut self, p: usize, array: bool) -> Option<usize> {
-        let end = self.keyword_of(
+    /// `\b(void|boolean|byte|char|short|int|float|long|double)\b`.
+    pub(super) fn primitive(&self, p: usize) -> Option<usize> {
+        self.keyword_of(
             p,
             &[
                 b"void", b"boolean", b"byte", b"char", b"short", b"int", b"float", b"long",
                 b"double",
             ],
-        )?;
-        if !array {
-            return Some(end);
-        }
+        )
+    }
+
+    /// The begin of a primitive array: a [`Lexer::primitive`] with
+    /// `\s*(?=\[)` after it.
+    pub(super) fn primitive_array(&mut self, p: usize) -> Option<usize> {
+        let end = self.primitive(p)?;
         let bracket = self.space_end(end);
         if self.at(bracket) != b'[' {
             return None;

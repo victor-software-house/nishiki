@@ -1,96 +1,102 @@
 //! The matchers of f-strings: their prefixes, braces, conversions and format
 //! specs, and the text between.
 
+use super::Quotes;
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::Pat;
+use crate::python::grammar::FstringPat;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    #[expect(
-        clippy::wildcard_enum_match_arm,
-        reason = "the dispatch sends this function its own patterns only, and `Impossible` never matches"
-    )]
-    pub(super) fn fstring_matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    pub(super) fn fstring_matcher(&mut self, pat: FstringPat, p: usize) -> Option<usize> {
         match pat {
-            Pat::FstringFnormQuotedMultiLine => self.fnorm_begin(p, true),
-            Pat::FstringFnormQuotedSingleLine => self.fnorm_begin(p, false),
-            Pat::FstringNormfQuotedMultiLine => self.normf_begin(p, true),
-            Pat::FstringNormfQuotedSingleLine => self.normf_begin(p, false),
-            Pat::FstringRawQuotedMultiLine => self.fraw_begin(p, true),
-            Pat::FstringRawQuotedSingleLine => self.fraw_begin(p, false),
-            Pat::FstringFnormQuotedMultiLineEnd
-            | Pat::FstringNormfQuotedMultiLineEnd
-            | Pat::FstringRawQuotedMultiLineEnd => self.string_end_multi(p),
-            Pat::FstringFnormQuotedSingleLineEnd
-            | Pat::FstringNormfQuotedSingleLineEnd
-            | Pat::FstringRawQuotedSingleLineEnd => self.string_end_single(p),
-            Pat::FstringFormattingBracesAt0 => self.empty_placeholder(p),
-            Pat::FstringFormattingBracesAt1 => {
+            FstringPat::FstringFnormQuotedMultiLine => self.fnorm_begin(p, Quotes::Three),
+            FstringPat::FstringFnormQuotedSingleLine => self.fnorm_begin(p, Quotes::One),
+            FstringPat::FstringNormfQuotedMultiLine => self.normf_begin(p, Quotes::Three),
+            FstringPat::FstringNormfQuotedSingleLine => self.normf_begin(p, Quotes::One),
+            FstringPat::FstringRawQuotedMultiLine => self.fraw_begin(p, Quotes::Three),
+            FstringPat::FstringRawQuotedSingleLine => self.fraw_begin(p, Quotes::One),
+            FstringPat::FstringFnormQuotedMultiLineEnd
+            | FstringPat::FstringNormfQuotedMultiLineEnd
+            | FstringPat::FstringRawQuotedMultiLineEnd => self.string_end_multi(p),
+            FstringPat::FstringFnormQuotedSingleLineEnd
+            | FstringPat::FstringNormfQuotedSingleLineEnd
+            | FstringPat::FstringRawQuotedSingleLineEnd => self.string_end_single(p),
+            FstringPat::FstringFormattingBracesAt0 => self.empty_placeholder(p),
+            FstringPat::FstringFormattingBracesAt1 => {
                 (self.starts(p, b"{{") || self.starts(p, b"}}")).then_some(p + 2)
             }
-            Pat::FstringFormattingSingeBrace => (self.at(p) == b'}'
+            FstringPat::FstringFormattingSingeBrace => (self.at(p) == b'}'
                 && p < self.lim()
                 && !(self.at(p + 1) == b'}' && p + 1 < self.lim()))
             .then_some(p + 1),
-            Pat::FstringMultiBrace | Pat::FstringSingleBrace => self.brace_cap(p),
-            Pat::FstringMultiBraceEnd => self.brace_close(p),
-            Pat::FstringSingleBraceEnd | Pat::FstringIllegalSingleBraceEnd => {
+            FstringPat::FstringMultiBrace | FstringPat::FstringSingleBrace => self.brace_cap(p),
+            FstringPat::FstringMultiBraceEnd => self.brace_close(p),
+            FstringPat::FstringSingleBraceEnd | FstringPat::FstringIllegalSingleBraceEnd => {
                 self.brace_close_or_feed(p)
             }
-            Pat::FstringIllegalSingleBrace => self.illegal_single_brace(p),
-            Pat::FstringTerminatorMultiAt0 | Pat::FstringTerminatorSingleAt0 => {
+            FstringPat::FstringIllegalSingleBrace => self.illegal_single_brace(p),
+            FstringPat::FstringTerminatorMultiAt0 | FstringPat::FstringTerminatorSingleAt0 => {
                 self.terminator_equals(p)
             }
-            Pat::FstringTerminatorMultiAt1 | Pat::FstringTerminatorSingleAt1 => {
+            FstringPat::FstringTerminatorMultiAt1 | FstringPat::FstringTerminatorSingleAt1 => {
                 self.terminator_conversion(p)
             }
-            Pat::FstringTerminatorMultiAt2 | Pat::FstringTerminatorSingleAt2 => {
+            FstringPat::FstringTerminatorMultiAt2 | FstringPat::FstringTerminatorSingleAt2 => {
                 self.terminator_spec(p)
             }
-            Pat::FstringTerminatorMultiTail | Pat::FstringTerminatorSingleTail => {
+            FstringPat::FstringTerminatorMultiTail | FstringPat::FstringTerminatorSingleTail => {
                 self.tail_begin(p)
             }
-            Pat::FstringTerminatorMultiTailEnd => {
+            FstringPat::FstringTerminatorMultiTailEnd => {
                 (self.at(p) == b'}' && p < self.lim()).then_some(p)
             }
-            Pat::FstringTerminatorSingleTailEnd => {
+            FstringPat::FstringTerminatorSingleTailEnd => {
                 (self.at(p) == b'}' && p < self.lim() || p == self.lim()).then_some(p)
             }
-            Pat::FstringTerminatorMultiTailAt2 | Pat::FstringTerminatorSingleTailAt2 => (p < self
-                .lim()
+            FstringPat::FstringTerminatorMultiTailAt2
+            | FstringPat::FstringTerminatorSingleTailAt2 => (p < self.lim()
                 && b"%EFGXbcdefgnosx".contains(&self.at(p))
                 && self.at(p + 1) == b'}'
                 && p + 1 < self.lim())
             .then_some(p + 1),
-            Pat::FstringTerminatorMultiTailAt3 | Pat::FstringTerminatorSingleTailAt3 => {
+            FstringPat::FstringTerminatorMultiTailAt3
+            | FstringPat::FstringTerminatorSingleTailAt3 => {
                 if self.at(p) != b'.' || p >= self.lim() {
                     return None;
                 }
                 let e = self.digit_end(p + 1);
                 (e > p + 1).then_some(e)
             }
-            Pat::FstringTerminatorMultiTailAt4 | Pat::FstringTerminatorSingleTailAt4 => {
+            FstringPat::FstringTerminatorMultiTailAt4
+            | FstringPat::FstringTerminatorSingleTailAt4 => {
                 (self.at(p) == b',' && p < self.lim()).then_some(p + 1)
             }
-            Pat::FstringTerminatorMultiTailAt5 | Pat::FstringTerminatorSingleTailAt5 => {
+            FstringPat::FstringTerminatorMultiTailAt5
+            | FstringPat::FstringTerminatorSingleTailAt5 => {
                 let e = self.digit_end(p);
                 (e > p).then_some(e)
             }
-            Pat::FstringTerminatorMultiTailAt6 | Pat::FstringTerminatorSingleTailAt6 => {
+            FstringPat::FstringTerminatorMultiTailAt6
+            | FstringPat::FstringTerminatorSingleTailAt6 => {
                 (self.at(p) == b'#' && p < self.lim()).then_some(p + 1)
             }
-            Pat::FstringTerminatorMultiTailAt7 | Pat::FstringTerminatorSingleTailAt7 => {
+            FstringPat::FstringTerminatorMultiTailAt7
+            | FstringPat::FstringTerminatorSingleTailAt7 => {
                 (matches!(self.at(p), b'-' | b' ' | b'+') && p < self.lim()).then_some(p + 1)
             }
-            Pat::FstringTerminatorMultiTailAt8 | Pat::FstringTerminatorSingleTailAt8 => {
+            FstringPat::FstringTerminatorMultiTailAt8
+            | FstringPat::FstringTerminatorSingleTailAt8 => {
                 (matches!(self.at(p), b'<' | b'=' | b'>' | b'^') && p < self.lim()).then_some(p + 1)
             }
-            Pat::FstringTerminatorMultiTailAt9 | Pat::FstringTerminatorSingleTailAt9 => {
-                self.word_at(p).map(|w| p + w)
+            FstringPat::FstringTerminatorMultiTailAt9
+            | FstringPat::FstringTerminatorSingleTailAt9 => self.word_at(p).map(|w| p + w),
+            FstringPat::FstringMultiCore | FstringPat::FstringRawMultiCore => {
+                self.core(p, Quotes::Three)
             }
-            Pat::FstringMultiCore | Pat::FstringRawMultiCore => self.core(p, true),
-            Pat::FstringSingleCore | Pat::FstringRawSingleCore => self.core(p, false),
-            _ => None,
+            FstringPat::FstringSingleCore | FstringPat::FstringRawSingleCore => {
+                self.core(p, Quotes::One)
+            }
+            FstringPat::Impossible => None,
         }
     }
 
@@ -115,8 +121,8 @@ impl Lexer<'_> {
     }
 
     /// The width of the quote at `p`, as [`Lexer::quote_width`].
-    fn fquote(&self, p: usize, triple: bool) -> Option<usize> {
-        if triple {
+    fn fquote(&self, p: usize, quotes: Quotes) -> Option<usize> {
+        if quotes == Quotes::Three {
             (self.starts(p, b"'''") || self.starts(p, b"\"\"\"")).then_some(3)
         } else {
             (matches!(self.at(p), b'"' | b'\'') && p < self.lim()).then_some(1)
@@ -124,7 +130,7 @@ impl Lexer<'_> {
     }
 
     /// The begin `\b([Ff])([BUbu])?('''|""")` or its single-line form.
-    fn fnorm_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn fnorm_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !self.boundary(p) || !matches!(self.at(p), b'F' | b'f') || p >= self.lim() {
             return None;
         }
@@ -132,25 +138,25 @@ impl Lexer<'_> {
         let mut second = None;
         if matches!(self.at(q), b'B' | b'U' | b'b' | b'u')
             && q < self.lim()
-            && self.fquote(q + 1, triple).is_some()
+            && self.fquote(q + 1, quotes).is_some()
         {
             second = Some(q);
             q += 1;
         }
-        let width = self.fquote(q, triple)?;
+        let width = self.fquote(q, quotes)?;
         self.cap(1, p, p + 1);
         if let Some(s) = second {
             self.cap(2, s, s + 1);
         }
         self.cap(3, q, q + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(4, q, q + width);
         }
         Some(q + width)
     }
 
     /// The begin `\b([BUbu])([Ff])('''|""")` or its single-line form.
-    fn normf_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn normf_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !self.boundary(p)
             || !matches!(self.at(p), b'B' | b'U' | b'b' | b'u')
             || !matches!(self.at(p + 1), b'F' | b'f')
@@ -158,28 +164,28 @@ impl Lexer<'_> {
         {
             return None;
         }
-        let width = self.fquote(p + 2, triple)?;
+        let width = self.fquote(p + 2, quotes)?;
         self.cap(1, p, p + 1);
         self.cap(2, p + 1, p + 2);
         self.cap(3, p + 2, p + 2 + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(4, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
     }
 
     /// The begin `\b([Rr][Ff]|[Ff][Rr])('''|""")` or its single-line form.
-    fn fraw_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn fraw_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         let (a, b) = (self.at(p), self.at(p + 1));
         let ok = (matches!(a, b'R' | b'r') && matches!(b, b'F' | b'f'))
             || (matches!(a, b'F' | b'f') && matches!(b, b'R' | b'r'));
         if !self.boundary(p) || !ok || p + 1 >= self.lim() {
             return None;
         }
-        let width = self.fquote(p + 2, triple)?;
+        let width = self.fquote(p + 2, quotes)?;
         self.cap(1, p, p + 2);
         self.cap(2, p + 2, p + 2 + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(3, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
@@ -313,7 +319,7 @@ impl Lexer<'_> {
 
     /// The match `(.+?)($(\n?)|(?=[\\{}]|'''|"""))|\n`, or for a single-line
     /// f-string `(.+?)($(\n?)|(?=[\\{}]|(["'])|((?<!\\)\n)))|\n`.
-    fn core(&self, p: usize, triple: bool) -> Option<usize> {
+    fn core(&self, p: usize, quotes: Quotes) -> Option<usize> {
         if p == self.lim() {
             // `.+?` needs a character: the line feed alone is the match.
             return Some(p + 1);
@@ -331,7 +337,7 @@ impl Lexer<'_> {
             }
             let b = self.at(e);
             let special = matches!(b, b'\\' | b'{' | b'}')
-                || if triple {
+                || if quotes == Quotes::Three {
                     self.starts(e, b"'''") || self.starts(e, b"\"\"\"")
                 } else {
                     matches!(b, b'"' | b'\'')

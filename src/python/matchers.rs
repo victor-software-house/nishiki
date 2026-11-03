@@ -13,16 +13,27 @@ mod regexp;
 mod strings;
 
 use super::engine::Lexer;
-use super::grammar::{Family, Pat};
+use super::grammar::{Pat, Split};
+
+/// Whether a string's quotes are one character or three, which the grammar
+/// writes as two rules.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Quotes {
+    /// `'` or `"`.
+    One,
+    /// `'''` or `"""`.
+    Three,
+}
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.
     pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat.family() {
-            Family::Code => self.code_matcher(pat, p),
-            Family::String => self.string_matcher(pat, p),
-            Family::Fstring => self.fstring_matcher(pat, p),
-            Family::Regexp => self.regexp_matcher(pat, p),
+        match pat.split() {
+            Split::Code(pat) => self.code_matcher(pat, p),
+            Split::String(pat) => self.string_matcher(pat, p),
+            Split::Fstring(pat) => self.fstring_matcher(pat, p),
+            Split::Regexp(pat) => self.regexp_matcher(pat, p),
+            Split::Flavoured(flavour, kind) => self.flavoured(flavour, kind, p),
         }
     }
 }

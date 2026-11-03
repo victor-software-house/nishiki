@@ -5845,425 +5845,954 @@ impl Pat {
         }
     }
 
-    /// The quote style and the kind of a pattern of a regular-expression
-    /// string, which the grammar writes out once for each quote style.
-    #[expect(
-        clippy::too_many_lines,
-        clippy::wildcard_enum_match_arm,
-        reason = "a generated table"
-    )]
-    pub(crate) fn regexp(self) -> Option<(Flavour, Re)> {
+    /// Which matchers decide the pattern, with the pattern typed for them, so
+    /// that the dispatch needs one jump and each matcher's match is
+    /// exhaustive over its own patterns. Inlined, as the matchers call it for
+    /// every pattern they try.
+    #[expect(clippy::too_many_lines, reason = "a generated table")]
+    #[inline]
+    pub(crate) fn split(self) -> Split {
         match self {
+            Pat::ImportAt0 => Split::Code(CodePat::ImportAt0),
+            Pat::ImportAt0End => Split::Code(CodePat::ImportAt0End),
+            Pat::ImportAt0At0 => Split::Code(CodePat::ImportAt0At0),
+            Pat::CommentsAt0 => Split::Code(CodePat::CommentsAt0),
+            Pat::CommentsAt0End => Split::Code(CodePat::CommentsAt0End),
+            Pat::CommentsAt0At0 => Split::Code(CodePat::CommentsAt0At0),
+            Pat::CommentsAt0At1 => Split::Code(CodePat::CommentsAt0At1),
+            Pat::CommentsAt0At2 => Split::Code(CodePat::CommentsAt0At2),
+            Pat::CommentsAt0At3 => Split::Code(CodePat::CommentsAt0At3),
+            Pat::CommentsBase => Split::Code(CodePat::CommentsBase),
+            Pat::CommentsBaseEnd => Split::Code(CodePat::CommentsBaseEnd),
+            Pat::Codetags => Split::Code(CodePat::Codetags),
+            Pat::Backticks => Split::Code(CodePat::Backticks),
+            Pat::BackticksEnd => Split::Code(CodePat::BackticksEnd),
+            Pat::IllegalAnno => Split::Code(CodePat::IllegalAnno),
+            Pat::LiteralAt0 => Split::Code(CodePat::LiteralAt0),
+            Pat::NumberFloat => Split::Code(CodePat::NumberFloat),
+            Pat::NumberDec => Split::Code(CodePat::NumberDec),
+            Pat::NumberHex => Split::Code(CodePat::NumberHex),
+            Pat::NumberOct => Split::Code(CodePat::NumberOct),
+            Pat::NumberBin => Split::Code(CodePat::NumberBin),
+            Pat::NumberLong => Split::Code(CodePat::NumberLong),
+            Pat::NumberAt6 => Split::Code(CodePat::NumberAt6),
+            Pat::RegexpSingleThreeLine => Split::Regexp(RegexpPat::RegexpSingleThreeLine),
+            Pat::RegexpSingleThreeLineEnd => Split::Regexp(RegexpPat::RegexpSingleThreeLineEnd),
+            Pat::RegexpQuantifier => Split::Regexp(RegexpPat::RegexpQuantifier),
+            Pat::RegexpBaseCommonAt0 => Split::Regexp(RegexpPat::RegexpBaseCommonAt0),
+            Pat::RegexpBaseCommonAt1 => Split::Regexp(RegexpPat::RegexpBaseCommonAt1),
+            Pat::RegexpBaseCommonAt2 => Split::Regexp(RegexpPat::RegexpBaseCommonAt2),
+            Pat::RegexpBaseCommonAt3 => Split::Regexp(RegexpPat::RegexpBaseCommonAt3),
+            Pat::RegexpBaseCommonAt4 => Split::Regexp(RegexpPat::RegexpBaseCommonAt4),
+            Pat::RegexpEscapeSpecial => Split::Regexp(RegexpPat::RegexpEscapeSpecial),
+            Pat::RegexpEscapeCharacter => Split::Regexp(RegexpPat::RegexpEscapeCharacter),
+            Pat::RegexpEscapeUnicode => Split::Regexp(RegexpPat::RegexpEscapeUnicode),
+            Pat::RegexpBackreferenceNumber => Split::Regexp(RegexpPat::RegexpBackreferenceNumber),
+            Pat::RegexpEscapeCatchall => Split::Regexp(RegexpPat::RegexpEscapeCatchall),
             Pat::SingleThreeRegexpCharacterSetAt0 => {
-                Some((Flavour::SingleThree, Re::CharacterSetAt0))
+                Split::Flavoured(Flavour::SingleThree, Re::CharacterSetAt0)
             }
             Pat::SingleThreeRegexpCharacterSetAt1 => {
-                Some((Flavour::SingleThree, Re::CharacterSetAt1))
+                Split::Flavoured(Flavour::SingleThree, Re::CharacterSetAt1)
             }
             Pat::SingleThreeRegexpCharacterSetAt1End => {
-                Some((Flavour::SingleThree, Re::CharacterSetAt1End))
+                Split::Flavoured(Flavour::SingleThree, Re::CharacterSetAt1End)
+            }
+            Pat::RegexpCharacterSetEscapesAt0 => {
+                Split::Regexp(RegexpPat::RegexpCharacterSetEscapesAt0)
+            }
+            Pat::RegexpCharacterSetEscapesAt2 => {
+                Split::Regexp(RegexpPat::RegexpCharacterSetEscapesAt2)
             }
             Pat::SingleThreeRegexpCharacterSetAt1At1 => {
-                Some((Flavour::SingleThree, Re::CharacterSetAt1At1))
+                Split::Flavoured(Flavour::SingleThree, Re::CharacterSetAt1At1)
             }
-            Pat::SingleThreeRegexpComments => Some((Flavour::SingleThree, Re::Comments)),
-            Pat::SingleThreeRegexpCommentsEnd => Some((Flavour::SingleThree, Re::CommentsEnd)),
-            Pat::SingleThreeRegexpNamedGroup => Some((Flavour::SingleThree, Re::NamedGroup)),
-            Pat::SingleThreeRegexpNamedGroupEnd => Some((Flavour::SingleThree, Re::NamedGroupEnd)),
-            Pat::SingleThreeRegexpLookahead => Some((Flavour::SingleThree, Re::Lookahead)),
-            Pat::SingleThreeRegexpLookaheadEnd => Some((Flavour::SingleThree, Re::LookaheadEnd)),
+            Pat::SingleThreeRegexpComments => Split::Flavoured(Flavour::SingleThree, Re::Comments),
+            Pat::SingleThreeRegexpCommentsEnd => {
+                Split::Flavoured(Flavour::SingleThree, Re::CommentsEnd)
+            }
+            Pat::RegexpFlags => Split::Regexp(RegexpPat::RegexpFlags),
+            Pat::SingleThreeRegexpNamedGroup => {
+                Split::Flavoured(Flavour::SingleThree, Re::NamedGroup)
+            }
+            Pat::SingleThreeRegexpNamedGroupEnd => {
+                Split::Flavoured(Flavour::SingleThree, Re::NamedGroupEnd)
+            }
+            Pat::RegexpBackreference => Split::Regexp(RegexpPat::RegexpBackreference),
+            Pat::SingleThreeRegexpLookahead => {
+                Split::Flavoured(Flavour::SingleThree, Re::Lookahead)
+            }
+            Pat::SingleThreeRegexpLookaheadEnd => {
+                Split::Flavoured(Flavour::SingleThree, Re::LookaheadEnd)
+            }
             Pat::SingleThreeRegexpLookaheadNegative => {
-                Some((Flavour::SingleThree, Re::LookaheadNegative))
+                Split::Flavoured(Flavour::SingleThree, Re::LookaheadNegative)
             }
             Pat::SingleThreeRegexpLookaheadNegativeEnd => {
-                Some((Flavour::SingleThree, Re::LookaheadNegativeEnd))
+                Split::Flavoured(Flavour::SingleThree, Re::LookaheadNegativeEnd)
             }
-            Pat::SingleThreeRegexpLookbehind => Some((Flavour::SingleThree, Re::Lookbehind)),
-            Pat::SingleThreeRegexpLookbehindEnd => Some((Flavour::SingleThree, Re::LookbehindEnd)),
+            Pat::SingleThreeRegexpLookbehind => {
+                Split::Flavoured(Flavour::SingleThree, Re::Lookbehind)
+            }
+            Pat::SingleThreeRegexpLookbehindEnd => {
+                Split::Flavoured(Flavour::SingleThree, Re::LookbehindEnd)
+            }
             Pat::SingleThreeRegexpLookbehindNegative => {
-                Some((Flavour::SingleThree, Re::LookbehindNegative))
+                Split::Flavoured(Flavour::SingleThree, Re::LookbehindNegative)
             }
             Pat::SingleThreeRegexpLookbehindNegativeEnd => {
-                Some((Flavour::SingleThree, Re::LookbehindNegativeEnd))
+                Split::Flavoured(Flavour::SingleThree, Re::LookbehindNegativeEnd)
             }
-            Pat::SingleThreeRegexpConditional => Some((Flavour::SingleThree, Re::Conditional)),
+            Pat::SingleThreeRegexpConditional => {
+                Split::Flavoured(Flavour::SingleThree, Re::Conditional)
+            }
             Pat::SingleThreeRegexpConditionalEnd => {
-                Some((Flavour::SingleThree, Re::ConditionalEnd))
+                Split::Flavoured(Flavour::SingleThree, Re::ConditionalEnd)
             }
             Pat::SingleThreeRegexpParenthesesNonCapturing => {
-                Some((Flavour::SingleThree, Re::ParenthesesNonCapturing))
+                Split::Flavoured(Flavour::SingleThree, Re::ParenthesesNonCapturing)
             }
             Pat::SingleThreeRegexpParenthesesNonCapturingEnd => {
-                Some((Flavour::SingleThree, Re::ParenthesesNonCapturingEnd))
+                Split::Flavoured(Flavour::SingleThree, Re::ParenthesesNonCapturingEnd)
             }
-            Pat::SingleThreeRegexpParentheses => Some((Flavour::SingleThree, Re::Parentheses)),
+            Pat::SingleThreeRegexpParentheses => {
+                Split::Flavoured(Flavour::SingleThree, Re::Parentheses)
+            }
             Pat::SingleThreeRegexpParenthesesEnd => {
-                Some((Flavour::SingleThree, Re::ParenthesesEnd))
+                Split::Flavoured(Flavour::SingleThree, Re::ParenthesesEnd)
             }
+            Pat::CommentsStringSingleThree => Split::Regexp(RegexpPat::CommentsStringSingleThree),
+            Pat::CommentsStringSingleThreeEnd => {
+                Split::Regexp(RegexpPat::CommentsStringSingleThreeEnd)
+            }
+            Pat::RegexpDoubleThreeLine => Split::Regexp(RegexpPat::RegexpDoubleThreeLine),
+            Pat::RegexpDoubleThreeLineEnd => Split::Regexp(RegexpPat::RegexpDoubleThreeLineEnd),
             Pat::DoubleThreeRegexpCharacterSetAt0 => {
-                Some((Flavour::DoubleThree, Re::CharacterSetAt0))
+                Split::Flavoured(Flavour::DoubleThree, Re::CharacterSetAt0)
             }
             Pat::DoubleThreeRegexpCharacterSetAt1 => {
-                Some((Flavour::DoubleThree, Re::CharacterSetAt1))
+                Split::Flavoured(Flavour::DoubleThree, Re::CharacterSetAt1)
             }
             Pat::DoubleThreeRegexpCharacterSetAt1End => {
-                Some((Flavour::DoubleThree, Re::CharacterSetAt1End))
+                Split::Flavoured(Flavour::DoubleThree, Re::CharacterSetAt1End)
             }
             Pat::DoubleThreeRegexpCharacterSetAt1At1 => {
-                Some((Flavour::DoubleThree, Re::CharacterSetAt1At1))
+                Split::Flavoured(Flavour::DoubleThree, Re::CharacterSetAt1At1)
             }
-            Pat::DoubleThreeRegexpComments => Some((Flavour::DoubleThree, Re::Comments)),
-            Pat::DoubleThreeRegexpCommentsEnd => Some((Flavour::DoubleThree, Re::CommentsEnd)),
-            Pat::DoubleThreeRegexpNamedGroup => Some((Flavour::DoubleThree, Re::NamedGroup)),
-            Pat::DoubleThreeRegexpNamedGroupEnd => Some((Flavour::DoubleThree, Re::NamedGroupEnd)),
-            Pat::DoubleThreeRegexpLookahead => Some((Flavour::DoubleThree, Re::Lookahead)),
-            Pat::DoubleThreeRegexpLookaheadEnd => Some((Flavour::DoubleThree, Re::LookaheadEnd)),
+            Pat::DoubleThreeRegexpComments => Split::Flavoured(Flavour::DoubleThree, Re::Comments),
+            Pat::DoubleThreeRegexpCommentsEnd => {
+                Split::Flavoured(Flavour::DoubleThree, Re::CommentsEnd)
+            }
+            Pat::DoubleThreeRegexpNamedGroup => {
+                Split::Flavoured(Flavour::DoubleThree, Re::NamedGroup)
+            }
+            Pat::DoubleThreeRegexpNamedGroupEnd => {
+                Split::Flavoured(Flavour::DoubleThree, Re::NamedGroupEnd)
+            }
+            Pat::DoubleThreeRegexpLookahead => {
+                Split::Flavoured(Flavour::DoubleThree, Re::Lookahead)
+            }
+            Pat::DoubleThreeRegexpLookaheadEnd => {
+                Split::Flavoured(Flavour::DoubleThree, Re::LookaheadEnd)
+            }
             Pat::DoubleThreeRegexpLookaheadNegative => {
-                Some((Flavour::DoubleThree, Re::LookaheadNegative))
+                Split::Flavoured(Flavour::DoubleThree, Re::LookaheadNegative)
             }
             Pat::DoubleThreeRegexpLookaheadNegativeEnd => {
-                Some((Flavour::DoubleThree, Re::LookaheadNegativeEnd))
+                Split::Flavoured(Flavour::DoubleThree, Re::LookaheadNegativeEnd)
             }
-            Pat::DoubleThreeRegexpLookbehind => Some((Flavour::DoubleThree, Re::Lookbehind)),
-            Pat::DoubleThreeRegexpLookbehindEnd => Some((Flavour::DoubleThree, Re::LookbehindEnd)),
+            Pat::DoubleThreeRegexpLookbehind => {
+                Split::Flavoured(Flavour::DoubleThree, Re::Lookbehind)
+            }
+            Pat::DoubleThreeRegexpLookbehindEnd => {
+                Split::Flavoured(Flavour::DoubleThree, Re::LookbehindEnd)
+            }
             Pat::DoubleThreeRegexpLookbehindNegative => {
-                Some((Flavour::DoubleThree, Re::LookbehindNegative))
+                Split::Flavoured(Flavour::DoubleThree, Re::LookbehindNegative)
             }
             Pat::DoubleThreeRegexpLookbehindNegativeEnd => {
-                Some((Flavour::DoubleThree, Re::LookbehindNegativeEnd))
+                Split::Flavoured(Flavour::DoubleThree, Re::LookbehindNegativeEnd)
             }
-            Pat::DoubleThreeRegexpConditional => Some((Flavour::DoubleThree, Re::Conditional)),
+            Pat::DoubleThreeRegexpConditional => {
+                Split::Flavoured(Flavour::DoubleThree, Re::Conditional)
+            }
             Pat::DoubleThreeRegexpConditionalEnd => {
-                Some((Flavour::DoubleThree, Re::ConditionalEnd))
+                Split::Flavoured(Flavour::DoubleThree, Re::ConditionalEnd)
             }
             Pat::DoubleThreeRegexpParenthesesNonCapturing => {
-                Some((Flavour::DoubleThree, Re::ParenthesesNonCapturing))
+                Split::Flavoured(Flavour::DoubleThree, Re::ParenthesesNonCapturing)
             }
             Pat::DoubleThreeRegexpParenthesesNonCapturingEnd => {
-                Some((Flavour::DoubleThree, Re::ParenthesesNonCapturingEnd))
+                Split::Flavoured(Flavour::DoubleThree, Re::ParenthesesNonCapturingEnd)
             }
-            Pat::DoubleThreeRegexpParentheses => Some((Flavour::DoubleThree, Re::Parentheses)),
+            Pat::DoubleThreeRegexpParentheses => {
+                Split::Flavoured(Flavour::DoubleThree, Re::Parentheses)
+            }
             Pat::DoubleThreeRegexpParenthesesEnd => {
-                Some((Flavour::DoubleThree, Re::ParenthesesEnd))
+                Split::Flavoured(Flavour::DoubleThree, Re::ParenthesesEnd)
             }
-            Pat::SingleOneRegexpCharacterSetAt0 => Some((Flavour::SingleOne, Re::CharacterSetAt0)),
-            Pat::SingleOneRegexpCharacterSetAt1 => Some((Flavour::SingleOne, Re::CharacterSetAt1)),
+            Pat::CommentsStringDoubleThree => Split::Regexp(RegexpPat::CommentsStringDoubleThree),
+            Pat::CommentsStringDoubleThreeEnd => {
+                Split::Regexp(RegexpPat::CommentsStringDoubleThreeEnd)
+            }
+            Pat::RegexpSingleOneLine => Split::Regexp(RegexpPat::RegexpSingleOneLine),
+            Pat::RegexpSingleOneLineEnd => Split::Regexp(RegexpPat::RegexpSingleOneLineEnd),
+            Pat::SingleOneRegexpCharacterSetAt0 => {
+                Split::Flavoured(Flavour::SingleOne, Re::CharacterSetAt0)
+            }
+            Pat::SingleOneRegexpCharacterSetAt1 => {
+                Split::Flavoured(Flavour::SingleOne, Re::CharacterSetAt1)
+            }
             Pat::SingleOneRegexpCharacterSetAt1End => {
-                Some((Flavour::SingleOne, Re::CharacterSetAt1End))
+                Split::Flavoured(Flavour::SingleOne, Re::CharacterSetAt1End)
             }
             Pat::SingleOneRegexpCharacterSetAt1At1 => {
-                Some((Flavour::SingleOne, Re::CharacterSetAt1At1))
+                Split::Flavoured(Flavour::SingleOne, Re::CharacterSetAt1At1)
             }
-            Pat::SingleOneRegexpComments => Some((Flavour::SingleOne, Re::Comments)),
-            Pat::SingleOneRegexpCommentsEnd => Some((Flavour::SingleOne, Re::CommentsEnd)),
-            Pat::SingleOneRegexpNamedGroup => Some((Flavour::SingleOne, Re::NamedGroup)),
-            Pat::SingleOneRegexpNamedGroupEnd => Some((Flavour::SingleOne, Re::NamedGroupEnd)),
-            Pat::SingleOneRegexpLookahead => Some((Flavour::SingleOne, Re::Lookahead)),
-            Pat::SingleOneRegexpLookaheadEnd => Some((Flavour::SingleOne, Re::LookaheadEnd)),
+            Pat::SingleOneRegexpComments => Split::Flavoured(Flavour::SingleOne, Re::Comments),
+            Pat::SingleOneRegexpCommentsEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::CommentsEnd)
+            }
+            Pat::SingleOneRegexpNamedGroup => Split::Flavoured(Flavour::SingleOne, Re::NamedGroup),
+            Pat::SingleOneRegexpNamedGroupEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::NamedGroupEnd)
+            }
+            Pat::SingleOneRegexpLookahead => Split::Flavoured(Flavour::SingleOne, Re::Lookahead),
+            Pat::SingleOneRegexpLookaheadEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::LookaheadEnd)
+            }
             Pat::SingleOneRegexpLookaheadNegative => {
-                Some((Flavour::SingleOne, Re::LookaheadNegative))
+                Split::Flavoured(Flavour::SingleOne, Re::LookaheadNegative)
             }
             Pat::SingleOneRegexpLookaheadNegativeEnd => {
-                Some((Flavour::SingleOne, Re::LookaheadNegativeEnd))
+                Split::Flavoured(Flavour::SingleOne, Re::LookaheadNegativeEnd)
             }
-            Pat::SingleOneRegexpLookbehind => Some((Flavour::SingleOne, Re::Lookbehind)),
-            Pat::SingleOneRegexpLookbehindEnd => Some((Flavour::SingleOne, Re::LookbehindEnd)),
+            Pat::SingleOneRegexpLookbehind => Split::Flavoured(Flavour::SingleOne, Re::Lookbehind),
+            Pat::SingleOneRegexpLookbehindEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::LookbehindEnd)
+            }
             Pat::SingleOneRegexpLookbehindNegative => {
-                Some((Flavour::SingleOne, Re::LookbehindNegative))
+                Split::Flavoured(Flavour::SingleOne, Re::LookbehindNegative)
             }
             Pat::SingleOneRegexpLookbehindNegativeEnd => {
-                Some((Flavour::SingleOne, Re::LookbehindNegativeEnd))
+                Split::Flavoured(Flavour::SingleOne, Re::LookbehindNegativeEnd)
             }
-            Pat::SingleOneRegexpConditional => Some((Flavour::SingleOne, Re::Conditional)),
-            Pat::SingleOneRegexpConditionalEnd => Some((Flavour::SingleOne, Re::ConditionalEnd)),
+            Pat::SingleOneRegexpConditional => {
+                Split::Flavoured(Flavour::SingleOne, Re::Conditional)
+            }
+            Pat::SingleOneRegexpConditionalEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::ConditionalEnd)
+            }
             Pat::SingleOneRegexpParenthesesNonCapturing => {
-                Some((Flavour::SingleOne, Re::ParenthesesNonCapturing))
+                Split::Flavoured(Flavour::SingleOne, Re::ParenthesesNonCapturing)
             }
             Pat::SingleOneRegexpParenthesesNonCapturingEnd => {
-                Some((Flavour::SingleOne, Re::ParenthesesNonCapturingEnd))
+                Split::Flavoured(Flavour::SingleOne, Re::ParenthesesNonCapturingEnd)
             }
-            Pat::SingleOneRegexpParentheses => Some((Flavour::SingleOne, Re::Parentheses)),
-            Pat::SingleOneRegexpParenthesesEnd => Some((Flavour::SingleOne, Re::ParenthesesEnd)),
-            Pat::DoubleOneRegexpCharacterSetAt0 => Some((Flavour::DoubleOne, Re::CharacterSetAt0)),
-            Pat::DoubleOneRegexpCharacterSetAt1 => Some((Flavour::DoubleOne, Re::CharacterSetAt1)),
+            Pat::SingleOneRegexpParentheses => {
+                Split::Flavoured(Flavour::SingleOne, Re::Parentheses)
+            }
+            Pat::SingleOneRegexpParenthesesEnd => {
+                Split::Flavoured(Flavour::SingleOne, Re::ParenthesesEnd)
+            }
+            Pat::RegexpDoubleOneLine => Split::Regexp(RegexpPat::RegexpDoubleOneLine),
+            Pat::RegexpDoubleOneLineEnd => Split::Regexp(RegexpPat::RegexpDoubleOneLineEnd),
+            Pat::DoubleOneRegexpCharacterSetAt0 => {
+                Split::Flavoured(Flavour::DoubleOne, Re::CharacterSetAt0)
+            }
+            Pat::DoubleOneRegexpCharacterSetAt1 => {
+                Split::Flavoured(Flavour::DoubleOne, Re::CharacterSetAt1)
+            }
             Pat::DoubleOneRegexpCharacterSetAt1End => {
-                Some((Flavour::DoubleOne, Re::CharacterSetAt1End))
+                Split::Flavoured(Flavour::DoubleOne, Re::CharacterSetAt1End)
             }
             Pat::DoubleOneRegexpCharacterSetAt1At1 => {
-                Some((Flavour::DoubleOne, Re::CharacterSetAt1At1))
+                Split::Flavoured(Flavour::DoubleOne, Re::CharacterSetAt1At1)
             }
-            Pat::DoubleOneRegexpComments => Some((Flavour::DoubleOne, Re::Comments)),
-            Pat::DoubleOneRegexpCommentsEnd => Some((Flavour::DoubleOne, Re::CommentsEnd)),
-            Pat::DoubleOneRegexpNamedGroup => Some((Flavour::DoubleOne, Re::NamedGroup)),
-            Pat::DoubleOneRegexpNamedGroupEnd => Some((Flavour::DoubleOne, Re::NamedGroupEnd)),
-            Pat::DoubleOneRegexpLookahead => Some((Flavour::DoubleOne, Re::Lookahead)),
-            Pat::DoubleOneRegexpLookaheadEnd => Some((Flavour::DoubleOne, Re::LookaheadEnd)),
+            Pat::DoubleOneRegexpComments => Split::Flavoured(Flavour::DoubleOne, Re::Comments),
+            Pat::DoubleOneRegexpCommentsEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::CommentsEnd)
+            }
+            Pat::DoubleOneRegexpNamedGroup => Split::Flavoured(Flavour::DoubleOne, Re::NamedGroup),
+            Pat::DoubleOneRegexpNamedGroupEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::NamedGroupEnd)
+            }
+            Pat::DoubleOneRegexpLookahead => Split::Flavoured(Flavour::DoubleOne, Re::Lookahead),
+            Pat::DoubleOneRegexpLookaheadEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::LookaheadEnd)
+            }
             Pat::DoubleOneRegexpLookaheadNegative => {
-                Some((Flavour::DoubleOne, Re::LookaheadNegative))
+                Split::Flavoured(Flavour::DoubleOne, Re::LookaheadNegative)
             }
             Pat::DoubleOneRegexpLookaheadNegativeEnd => {
-                Some((Flavour::DoubleOne, Re::LookaheadNegativeEnd))
+                Split::Flavoured(Flavour::DoubleOne, Re::LookaheadNegativeEnd)
             }
-            Pat::DoubleOneRegexpLookbehind => Some((Flavour::DoubleOne, Re::Lookbehind)),
-            Pat::DoubleOneRegexpLookbehindEnd => Some((Flavour::DoubleOne, Re::LookbehindEnd)),
+            Pat::DoubleOneRegexpLookbehind => Split::Flavoured(Flavour::DoubleOne, Re::Lookbehind),
+            Pat::DoubleOneRegexpLookbehindEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::LookbehindEnd)
+            }
             Pat::DoubleOneRegexpLookbehindNegative => {
-                Some((Flavour::DoubleOne, Re::LookbehindNegative))
+                Split::Flavoured(Flavour::DoubleOne, Re::LookbehindNegative)
             }
             Pat::DoubleOneRegexpLookbehindNegativeEnd => {
-                Some((Flavour::DoubleOne, Re::LookbehindNegativeEnd))
+                Split::Flavoured(Flavour::DoubleOne, Re::LookbehindNegativeEnd)
             }
-            Pat::DoubleOneRegexpConditional => Some((Flavour::DoubleOne, Re::Conditional)),
-            Pat::DoubleOneRegexpConditionalEnd => Some((Flavour::DoubleOne, Re::ConditionalEnd)),
+            Pat::DoubleOneRegexpConditional => {
+                Split::Flavoured(Flavour::DoubleOne, Re::Conditional)
+            }
+            Pat::DoubleOneRegexpConditionalEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::ConditionalEnd)
+            }
             Pat::DoubleOneRegexpParenthesesNonCapturing => {
-                Some((Flavour::DoubleOne, Re::ParenthesesNonCapturing))
+                Split::Flavoured(Flavour::DoubleOne, Re::ParenthesesNonCapturing)
             }
             Pat::DoubleOneRegexpParenthesesNonCapturingEnd => {
-                Some((Flavour::DoubleOne, Re::ParenthesesNonCapturingEnd))
+                Split::Flavoured(Flavour::DoubleOne, Re::ParenthesesNonCapturingEnd)
             }
-            Pat::DoubleOneRegexpParentheses => Some((Flavour::DoubleOne, Re::Parentheses)),
-            Pat::DoubleOneRegexpParenthesesEnd => Some((Flavour::DoubleOne, Re::ParenthesesEnd)),
-            _ => None,
-        }
-    }
-
-    /// Which matchers decide the pattern, so that the dispatch needs one
-    /// jump.
-    #[expect(
-        clippy::too_many_lines,
-        clippy::wildcard_enum_match_arm,
-        reason = "a generated table"
-    )]
-    pub(crate) fn family(self) -> Family {
-        match self {
-            Pat::RegexpSingleThreeLine
-            | Pat::RegexpSingleThreeLineEnd
-            | Pat::RegexpQuantifier
-            | Pat::RegexpBaseCommonAt0
-            | Pat::RegexpBaseCommonAt1
-            | Pat::RegexpBaseCommonAt2
-            | Pat::RegexpBaseCommonAt3
-            | Pat::RegexpBaseCommonAt4
-            | Pat::RegexpEscapeSpecial
-            | Pat::RegexpEscapeCharacter
-            | Pat::RegexpEscapeUnicode
-            | Pat::RegexpBackreferenceNumber
-            | Pat::RegexpEscapeCatchall
-            | Pat::SingleThreeRegexpCharacterSetAt0
-            | Pat::SingleThreeRegexpCharacterSetAt1
-            | Pat::SingleThreeRegexpCharacterSetAt1End
-            | Pat::RegexpCharacterSetEscapesAt0
-            | Pat::RegexpCharacterSetEscapesAt2
-            | Pat::SingleThreeRegexpCharacterSetAt1At1
-            | Pat::SingleThreeRegexpComments
-            | Pat::SingleThreeRegexpCommentsEnd
-            | Pat::RegexpFlags
-            | Pat::SingleThreeRegexpNamedGroup
-            | Pat::SingleThreeRegexpNamedGroupEnd
-            | Pat::RegexpBackreference
-            | Pat::SingleThreeRegexpLookahead
-            | Pat::SingleThreeRegexpLookaheadEnd
-            | Pat::SingleThreeRegexpLookaheadNegative
-            | Pat::SingleThreeRegexpLookaheadNegativeEnd
-            | Pat::SingleThreeRegexpLookbehind
-            | Pat::SingleThreeRegexpLookbehindEnd
-            | Pat::SingleThreeRegexpLookbehindNegative
-            | Pat::SingleThreeRegexpLookbehindNegativeEnd
-            | Pat::SingleThreeRegexpConditional
-            | Pat::SingleThreeRegexpConditionalEnd
-            | Pat::SingleThreeRegexpParenthesesNonCapturing
-            | Pat::SingleThreeRegexpParenthesesNonCapturingEnd
-            | Pat::SingleThreeRegexpParentheses
-            | Pat::SingleThreeRegexpParenthesesEnd
-            | Pat::CommentsStringSingleThree
-            | Pat::CommentsStringSingleThreeEnd
-            | Pat::RegexpDoubleThreeLine
-            | Pat::RegexpDoubleThreeLineEnd
-            | Pat::DoubleThreeRegexpCharacterSetAt0
-            | Pat::DoubleThreeRegexpCharacterSetAt1
-            | Pat::DoubleThreeRegexpCharacterSetAt1End
-            | Pat::DoubleThreeRegexpCharacterSetAt1At1
-            | Pat::DoubleThreeRegexpComments
-            | Pat::DoubleThreeRegexpCommentsEnd
-            | Pat::DoubleThreeRegexpNamedGroup
-            | Pat::DoubleThreeRegexpNamedGroupEnd
-            | Pat::DoubleThreeRegexpLookahead
-            | Pat::DoubleThreeRegexpLookaheadEnd
-            | Pat::DoubleThreeRegexpLookaheadNegative
-            | Pat::DoubleThreeRegexpLookaheadNegativeEnd
-            | Pat::DoubleThreeRegexpLookbehind
-            | Pat::DoubleThreeRegexpLookbehindEnd
-            | Pat::DoubleThreeRegexpLookbehindNegative
-            | Pat::DoubleThreeRegexpLookbehindNegativeEnd
-            | Pat::DoubleThreeRegexpConditional
-            | Pat::DoubleThreeRegexpConditionalEnd
-            | Pat::DoubleThreeRegexpParenthesesNonCapturing
-            | Pat::DoubleThreeRegexpParenthesesNonCapturingEnd
-            | Pat::DoubleThreeRegexpParentheses
-            | Pat::DoubleThreeRegexpParenthesesEnd
-            | Pat::CommentsStringDoubleThree
-            | Pat::CommentsStringDoubleThreeEnd
-            | Pat::RegexpSingleOneLine
-            | Pat::RegexpSingleOneLineEnd
-            | Pat::SingleOneRegexpCharacterSetAt0
-            | Pat::SingleOneRegexpCharacterSetAt1
-            | Pat::SingleOneRegexpCharacterSetAt1End
-            | Pat::SingleOneRegexpCharacterSetAt1At1
-            | Pat::SingleOneRegexpComments
-            | Pat::SingleOneRegexpCommentsEnd
-            | Pat::SingleOneRegexpNamedGroup
-            | Pat::SingleOneRegexpNamedGroupEnd
-            | Pat::SingleOneRegexpLookahead
-            | Pat::SingleOneRegexpLookaheadEnd
-            | Pat::SingleOneRegexpLookaheadNegative
-            | Pat::SingleOneRegexpLookaheadNegativeEnd
-            | Pat::SingleOneRegexpLookbehind
-            | Pat::SingleOneRegexpLookbehindEnd
-            | Pat::SingleOneRegexpLookbehindNegative
-            | Pat::SingleOneRegexpLookbehindNegativeEnd
-            | Pat::SingleOneRegexpConditional
-            | Pat::SingleOneRegexpConditionalEnd
-            | Pat::SingleOneRegexpParenthesesNonCapturing
-            | Pat::SingleOneRegexpParenthesesNonCapturingEnd
-            | Pat::SingleOneRegexpParentheses
-            | Pat::SingleOneRegexpParenthesesEnd
-            | Pat::RegexpDoubleOneLine
-            | Pat::RegexpDoubleOneLineEnd
-            | Pat::DoubleOneRegexpCharacterSetAt0
-            | Pat::DoubleOneRegexpCharacterSetAt1
-            | Pat::DoubleOneRegexpCharacterSetAt1End
-            | Pat::DoubleOneRegexpCharacterSetAt1At1
-            | Pat::DoubleOneRegexpComments
-            | Pat::DoubleOneRegexpCommentsEnd
-            | Pat::DoubleOneRegexpNamedGroup
-            | Pat::DoubleOneRegexpNamedGroupEnd
-            | Pat::DoubleOneRegexpLookahead
-            | Pat::DoubleOneRegexpLookaheadEnd
-            | Pat::DoubleOneRegexpLookaheadNegative
-            | Pat::DoubleOneRegexpLookaheadNegativeEnd
-            | Pat::DoubleOneRegexpLookbehind
-            | Pat::DoubleOneRegexpLookbehindEnd
-            | Pat::DoubleOneRegexpLookbehindNegative
-            | Pat::DoubleOneRegexpLookbehindNegativeEnd
-            | Pat::DoubleOneRegexpConditional
-            | Pat::DoubleOneRegexpConditionalEnd
-            | Pat::DoubleOneRegexpParenthesesNonCapturing
-            | Pat::DoubleOneRegexpParenthesesNonCapturingEnd
-            | Pat::DoubleOneRegexpParentheses
-            | Pat::DoubleOneRegexpParenthesesEnd => Family::Regexp,
-            Pat::FstringFnormQuotedMultiLine
-            | Pat::FstringFnormQuotedMultiLineEnd
-            | Pat::FstringFormattingBracesAt0
-            | Pat::FstringFormattingBracesAt1
-            | Pat::FstringFormattingSingeBrace
-            | Pat::Impossible
-            | Pat::FstringMultiBrace
-            | Pat::FstringMultiBraceEnd
-            | Pat::FstringTerminatorMultiAt0
-            | Pat::FstringTerminatorMultiAt1
-            | Pat::FstringTerminatorMultiAt2
-            | Pat::FstringTerminatorMultiTail
-            | Pat::FstringTerminatorMultiTailEnd
-            | Pat::FstringTerminatorMultiTailAt2
-            | Pat::FstringTerminatorMultiTailAt3
-            | Pat::FstringTerminatorMultiTailAt4
-            | Pat::FstringTerminatorMultiTailAt5
-            | Pat::FstringTerminatorMultiTailAt6
-            | Pat::FstringTerminatorMultiTailAt7
-            | Pat::FstringTerminatorMultiTailAt8
-            | Pat::FstringTerminatorMultiTailAt9
-            | Pat::FstringFnormQuotedSingleLine
-            | Pat::FstringFnormQuotedSingleLineEnd
-            | Pat::FstringIllegalSingleBrace
-            | Pat::FstringIllegalSingleBraceEnd
-            | Pat::FstringTerminatorSingleAt0
-            | Pat::FstringTerminatorSingleAt1
-            | Pat::FstringTerminatorSingleAt2
-            | Pat::FstringTerminatorSingleTail
-            | Pat::FstringTerminatorSingleTailEnd
-            | Pat::FstringSingleBrace
-            | Pat::FstringSingleBraceEnd
-            | Pat::FstringNormfQuotedMultiLine
-            | Pat::FstringNormfQuotedMultiLineEnd
-            | Pat::FstringMultiCore
-            | Pat::FstringNormfQuotedSingleLine
-            | Pat::FstringNormfQuotedSingleLineEnd
-            | Pat::FstringSingleCore
-            | Pat::FstringRawQuotedMultiLine
-            | Pat::FstringRawQuotedMultiLineEnd
-            | Pat::FstringRawMultiCore
-            | Pat::FstringRawQuotedSingleLine
-            | Pat::FstringRawQuotedSingleLineEnd
-            | Pat::FstringRawSingleCore
-            | Pat::FstringTerminatorSingleTailAt2
-            | Pat::FstringTerminatorSingleTailAt3
-            | Pat::FstringTerminatorSingleTailAt4
-            | Pat::FstringTerminatorSingleTailAt5
-            | Pat::FstringTerminatorSingleTailAt6
-            | Pat::FstringTerminatorSingleTailAt7
-            | Pat::FstringTerminatorSingleTailAt8
-            | Pat::FstringTerminatorSingleTailAt9 => Family::Fstring,
-            Pat::StringQuotedMultiLine
-            | Pat::StringQuotedMultiLineEnd
-            | Pat::StringMultiBadBrace1FormattingUnicode
-            | Pat::StringMultiBadBrace1FormattingUnicodeEnd
-            | Pat::EscapeSequenceUnicodeAt0
-            | Pat::EscapeSequence
-            | Pat::StringLineContinuation
-            | Pat::StringMultiBadBrace2FormattingUnicode
-            | Pat::StringMultiBadBrace2FormattingUnicodeEnd
-            | Pat::StringFormatting
-            | Pat::StringBraceFormattingAt0
-            | Pat::StringBraceFormattingAt1
-            | Pat::StringQuotedSingleLine
-            | Pat::StringQuotedSingleLineEnd
-            | Pat::StringSingleBadBrace1FormattingUnicode
-            | Pat::StringSingleBadBrace1FormattingUnicodeEnd
-            | Pat::StringSingleBadBrace2FormattingUnicode
-            | Pat::StringSingleBadBrace2FormattingUnicodeEnd
-            | Pat::StringBinQuotedMultiLine
-            | Pat::StringBinQuotedMultiLineEnd
-            | Pat::StringBinQuotedSingleLine
-            | Pat::StringBinQuotedSingleLineEnd
-            | Pat::StringRawQuotedMultiLine
-            | Pat::StringRawQuotedMultiLineEnd
-            | Pat::StringMultiBadBrace1FormattingRaw
-            | Pat::StringMultiBadBrace1FormattingRawEnd
-            | Pat::StringConsumeEscape
-            | Pat::StringMultiBadBrace2FormattingRaw
-            | Pat::StringMultiBadBrace2FormattingRawEnd
-            | Pat::StringRawQuotedSingleLine
-            | Pat::StringRawQuotedSingleLineEnd
-            | Pat::StringSingleBadBrace1FormattingRaw
-            | Pat::StringSingleBadBrace1FormattingRawEnd
-            | Pat::StringSingleBadBrace2FormattingRaw
-            | Pat::StringSingleBadBrace2FormattingRawEnd
-            | Pat::StringRawBinQuotedMultiLine
-            | Pat::StringRawBinQuotedMultiLineEnd
-            | Pat::StringRawBinQuotedSingleLine
-            | Pat::StringRawBinQuotedSingleLineEnd
-            | Pat::DocstringStatement
-            | Pat::DocstringStatementEnd
-            | Pat::DocstringAt0
-            | Pat::DocstringAt0End
-            | Pat::DocstringPrompt
-            | Pat::DocstringAt1
-            | Pat::DocstringAt1End
-            | Pat::DocstringAt2
-            | Pat::DocstringAt2End
-            | Pat::DocstringAt3
-            | Pat::DocstringAt3End => Family::String,
-            _ => Family::Code,
+            Pat::DoubleOneRegexpParentheses => {
+                Split::Flavoured(Flavour::DoubleOne, Re::Parentheses)
+            }
+            Pat::DoubleOneRegexpParenthesesEnd => {
+                Split::Flavoured(Flavour::DoubleOne, Re::ParenthesesEnd)
+            }
+            Pat::StringQuotedMultiLine => Split::String(StringPat::StringQuotedMultiLine),
+            Pat::StringQuotedMultiLineEnd => Split::String(StringPat::StringQuotedMultiLineEnd),
+            Pat::StringMultiBadBrace1FormattingUnicode => {
+                Split::String(StringPat::StringMultiBadBrace1FormattingUnicode)
+            }
+            Pat::StringMultiBadBrace1FormattingUnicodeEnd => {
+                Split::String(StringPat::StringMultiBadBrace1FormattingUnicodeEnd)
+            }
+            Pat::EscapeSequenceUnicodeAt0 => Split::String(StringPat::EscapeSequenceUnicodeAt0),
+            Pat::EscapeSequence => Split::String(StringPat::EscapeSequence),
+            Pat::StringLineContinuation => Split::String(StringPat::StringLineContinuation),
+            Pat::StringMultiBadBrace2FormattingUnicode => {
+                Split::String(StringPat::StringMultiBadBrace2FormattingUnicode)
+            }
+            Pat::StringMultiBadBrace2FormattingUnicodeEnd => {
+                Split::String(StringPat::StringMultiBadBrace2FormattingUnicodeEnd)
+            }
+            Pat::StringFormatting => Split::String(StringPat::StringFormatting),
+            Pat::StringBraceFormattingAt0 => Split::String(StringPat::StringBraceFormattingAt0),
+            Pat::StringBraceFormattingAt1 => Split::String(StringPat::StringBraceFormattingAt1),
+            Pat::StringQuotedSingleLine => Split::String(StringPat::StringQuotedSingleLine),
+            Pat::StringQuotedSingleLineEnd => Split::String(StringPat::StringQuotedSingleLineEnd),
+            Pat::StringSingleBadBrace1FormattingUnicode => {
+                Split::String(StringPat::StringSingleBadBrace1FormattingUnicode)
+            }
+            Pat::StringSingleBadBrace1FormattingUnicodeEnd => {
+                Split::String(StringPat::StringSingleBadBrace1FormattingUnicodeEnd)
+            }
+            Pat::StringSingleBadBrace2FormattingUnicode => {
+                Split::String(StringPat::StringSingleBadBrace2FormattingUnicode)
+            }
+            Pat::StringSingleBadBrace2FormattingUnicodeEnd => {
+                Split::String(StringPat::StringSingleBadBrace2FormattingUnicodeEnd)
+            }
+            Pat::StringBinQuotedMultiLine => Split::String(StringPat::StringBinQuotedMultiLine),
+            Pat::StringBinQuotedMultiLineEnd => {
+                Split::String(StringPat::StringBinQuotedMultiLineEnd)
+            }
+            Pat::StringBinQuotedSingleLine => Split::String(StringPat::StringBinQuotedSingleLine),
+            Pat::StringBinQuotedSingleLineEnd => {
+                Split::String(StringPat::StringBinQuotedSingleLineEnd)
+            }
+            Pat::StringRawQuotedMultiLine => Split::String(StringPat::StringRawQuotedMultiLine),
+            Pat::StringRawQuotedMultiLineEnd => {
+                Split::String(StringPat::StringRawQuotedMultiLineEnd)
+            }
+            Pat::StringMultiBadBrace1FormattingRaw => {
+                Split::String(StringPat::StringMultiBadBrace1FormattingRaw)
+            }
+            Pat::StringMultiBadBrace1FormattingRawEnd => {
+                Split::String(StringPat::StringMultiBadBrace1FormattingRawEnd)
+            }
+            Pat::StringConsumeEscape => Split::String(StringPat::StringConsumeEscape),
+            Pat::StringMultiBadBrace2FormattingRaw => {
+                Split::String(StringPat::StringMultiBadBrace2FormattingRaw)
+            }
+            Pat::StringMultiBadBrace2FormattingRawEnd => {
+                Split::String(StringPat::StringMultiBadBrace2FormattingRawEnd)
+            }
+            Pat::StringRawQuotedSingleLine => Split::String(StringPat::StringRawQuotedSingleLine),
+            Pat::StringRawQuotedSingleLineEnd => {
+                Split::String(StringPat::StringRawQuotedSingleLineEnd)
+            }
+            Pat::StringSingleBadBrace1FormattingRaw => {
+                Split::String(StringPat::StringSingleBadBrace1FormattingRaw)
+            }
+            Pat::StringSingleBadBrace1FormattingRawEnd => {
+                Split::String(StringPat::StringSingleBadBrace1FormattingRawEnd)
+            }
+            Pat::StringSingleBadBrace2FormattingRaw => {
+                Split::String(StringPat::StringSingleBadBrace2FormattingRaw)
+            }
+            Pat::StringSingleBadBrace2FormattingRawEnd => {
+                Split::String(StringPat::StringSingleBadBrace2FormattingRawEnd)
+            }
+            Pat::StringRawBinQuotedMultiLine => {
+                Split::String(StringPat::StringRawBinQuotedMultiLine)
+            }
+            Pat::StringRawBinQuotedMultiLineEnd => {
+                Split::String(StringPat::StringRawBinQuotedMultiLineEnd)
+            }
+            Pat::StringRawBinQuotedSingleLine => {
+                Split::String(StringPat::StringRawBinQuotedSingleLine)
+            }
+            Pat::StringRawBinQuotedSingleLineEnd => {
+                Split::String(StringPat::StringRawBinQuotedSingleLineEnd)
+            }
+            Pat::FstringFnormQuotedMultiLine => {
+                Split::Fstring(FstringPat::FstringFnormQuotedMultiLine)
+            }
+            Pat::FstringFnormQuotedMultiLineEnd => {
+                Split::Fstring(FstringPat::FstringFnormQuotedMultiLineEnd)
+            }
+            Pat::FstringFormattingBracesAt0 => {
+                Split::Fstring(FstringPat::FstringFormattingBracesAt0)
+            }
+            Pat::FstringFormattingBracesAt1 => {
+                Split::Fstring(FstringPat::FstringFormattingBracesAt1)
+            }
+            Pat::FstringFormattingSingeBrace => {
+                Split::Fstring(FstringPat::FstringFormattingSingeBrace)
+            }
+            Pat::Impossible => Split::Fstring(FstringPat::Impossible),
+            Pat::FstringMultiBrace => Split::Fstring(FstringPat::FstringMultiBrace),
+            Pat::FstringMultiBraceEnd => Split::Fstring(FstringPat::FstringMultiBraceEnd),
+            Pat::FstringTerminatorMultiAt0 => Split::Fstring(FstringPat::FstringTerminatorMultiAt0),
+            Pat::FstringTerminatorMultiAt1 => Split::Fstring(FstringPat::FstringTerminatorMultiAt1),
+            Pat::FstringTerminatorMultiAt2 => Split::Fstring(FstringPat::FstringTerminatorMultiAt2),
+            Pat::FstringTerminatorMultiTail => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTail)
+            }
+            Pat::FstringTerminatorMultiTailEnd => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailEnd)
+            }
+            Pat::FstringTerminatorMultiTailAt2 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt2)
+            }
+            Pat::FstringTerminatorMultiTailAt3 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt3)
+            }
+            Pat::FstringTerminatorMultiTailAt4 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt4)
+            }
+            Pat::FstringTerminatorMultiTailAt5 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt5)
+            }
+            Pat::FstringTerminatorMultiTailAt6 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt6)
+            }
+            Pat::FstringTerminatorMultiTailAt7 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt7)
+            }
+            Pat::FstringTerminatorMultiTailAt8 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt8)
+            }
+            Pat::FstringTerminatorMultiTailAt9 => {
+                Split::Fstring(FstringPat::FstringTerminatorMultiTailAt9)
+            }
+            Pat::FstringFnormQuotedSingleLine => {
+                Split::Fstring(FstringPat::FstringFnormQuotedSingleLine)
+            }
+            Pat::FstringFnormQuotedSingleLineEnd => {
+                Split::Fstring(FstringPat::FstringFnormQuotedSingleLineEnd)
+            }
+            Pat::FstringIllegalSingleBrace => Split::Fstring(FstringPat::FstringIllegalSingleBrace),
+            Pat::FstringIllegalSingleBraceEnd => {
+                Split::Fstring(FstringPat::FstringIllegalSingleBraceEnd)
+            }
+            Pat::FstringTerminatorSingleAt0 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleAt0)
+            }
+            Pat::FstringTerminatorSingleAt1 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleAt1)
+            }
+            Pat::FstringTerminatorSingleAt2 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleAt2)
+            }
+            Pat::FstringTerminatorSingleTail => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTail)
+            }
+            Pat::FstringTerminatorSingleTailEnd => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailEnd)
+            }
+            Pat::FstringSingleBrace => Split::Fstring(FstringPat::FstringSingleBrace),
+            Pat::FstringSingleBraceEnd => Split::Fstring(FstringPat::FstringSingleBraceEnd),
+            Pat::FstringNormfQuotedMultiLine => {
+                Split::Fstring(FstringPat::FstringNormfQuotedMultiLine)
+            }
+            Pat::FstringNormfQuotedMultiLineEnd => {
+                Split::Fstring(FstringPat::FstringNormfQuotedMultiLineEnd)
+            }
+            Pat::FstringMultiCore => Split::Fstring(FstringPat::FstringMultiCore),
+            Pat::FstringNormfQuotedSingleLine => {
+                Split::Fstring(FstringPat::FstringNormfQuotedSingleLine)
+            }
+            Pat::FstringNormfQuotedSingleLineEnd => {
+                Split::Fstring(FstringPat::FstringNormfQuotedSingleLineEnd)
+            }
+            Pat::FstringSingleCore => Split::Fstring(FstringPat::FstringSingleCore),
+            Pat::FstringRawQuotedMultiLine => Split::Fstring(FstringPat::FstringRawQuotedMultiLine),
+            Pat::FstringRawQuotedMultiLineEnd => {
+                Split::Fstring(FstringPat::FstringRawQuotedMultiLineEnd)
+            }
+            Pat::FstringRawMultiCore => Split::Fstring(FstringPat::FstringRawMultiCore),
+            Pat::FstringRawQuotedSingleLine => {
+                Split::Fstring(FstringPat::FstringRawQuotedSingleLine)
+            }
+            Pat::FstringRawQuotedSingleLineEnd => {
+                Split::Fstring(FstringPat::FstringRawQuotedSingleLineEnd)
+            }
+            Pat::FstringRawSingleCore => Split::Fstring(FstringPat::FstringRawSingleCore),
+            Pat::LambdaAt0 => Split::Code(CodePat::LambdaAt0),
+            Pat::LambdaAt1 => Split::Code(CodePat::LambdaAt1),
+            Pat::LambdaAt2 => Split::Code(CodePat::LambdaAt2),
+            Pat::LambdaAt2End => Split::Code(CodePat::LambdaAt2End),
+            Pat::LambdaAt2At0 => Split::Code(CodePat::LambdaAt2At0),
+            Pat::LambdaAt2At1 => Split::Code(CodePat::LambdaAt2At1),
+            Pat::LambdaNestedIncomplete => Split::Code(CodePat::LambdaNestedIncomplete),
+            Pat::IllegalNames => Split::Code(CodePat::IllegalNames),
+            Pat::LambdaAt2At4 => Split::Code(CodePat::LambdaAt2At4),
+            Pat::LambdaParameterWithDefault => Split::Code(CodePat::LambdaParameterWithDefault),
+            Pat::LambdaParameterWithDefaultEnd => {
+                Split::Code(CodePat::LambdaParameterWithDefaultEnd)
+            }
+            Pat::Generator => Split::Code(CodePat::Generator),
+            Pat::GeneratorEnd => Split::Code(CodePat::GeneratorEnd),
+            Pat::IllegalOperatorAt0 => Split::Code(CodePat::IllegalOperatorAt0),
+            Pat::IllegalOperatorAt1 => Split::Code(CodePat::IllegalOperatorAt1),
+            Pat::IllegalOperatorAt2 => Split::Code(CodePat::IllegalOperatorAt2),
+            Pat::Operator => Split::Code(CodePat::Operator),
+            Pat::CurlyBraces => Split::Code(CodePat::CurlyBraces),
+            Pat::CurlyBracesEnd => Split::Code(CodePat::CurlyBracesEnd),
+            Pat::CurlyBracesAt0 => Split::Code(CodePat::CurlyBracesAt0),
+            Pat::ItemAccessAt0 => Split::Code(CodePat::ItemAccessAt0),
+            Pat::ItemAccessAt0End => Split::Code(CodePat::ItemAccessAt0End),
+            Pat::SpecialVariables => Split::Code(CodePat::SpecialVariables),
+            Pat::BuiltinFunctionsAt0 => Split::Code(CodePat::BuiltinFunctionsAt0),
+            Pat::BuiltinFunctionsAt1 => Split::Code(CodePat::BuiltinFunctionsAt1),
+            Pat::SpecialNames => Split::Code(CodePat::SpecialNames),
+            Pat::ItemNameAt3 => Split::Code(CodePat::ItemNameAt3),
+            Pat::ItemIndex => Split::Code(CodePat::ItemIndex),
+            Pat::ItemIndexEnd => Split::Code(CodePat::ItemIndexEnd),
+            Pat::ItemIndexAt0 => Split::Code(CodePat::ItemIndexAt0),
+            Pat::List => Split::Code(CodePat::List),
+            Pat::ListEnd => Split::Code(CodePat::ListEnd),
+            Pat::OddFunctionCall => Split::Code(CodePat::OddFunctionCall),
+            Pat::OddFunctionCallEnd => Split::Code(CodePat::OddFunctionCallEnd),
+            Pat::FunctionArguments => Split::Code(CodePat::FunctionArguments),
+            Pat::FunctionArgumentsEnd => Split::Code(CodePat::FunctionArgumentsEnd),
+            Pat::FunctionArgumentsAt0 => Split::Code(CodePat::FunctionArgumentsAt0),
+            Pat::FunctionArgumentsAt1 => Split::Code(CodePat::FunctionArgumentsAt1),
+            Pat::LambdaIncomplete => Split::Code(CodePat::LambdaIncomplete),
+            Pat::FunctionArgumentsAt4 => Split::Code(CodePat::FunctionArgumentsAt4),
+            Pat::FunctionArgumentsAt5 => Split::Code(CodePat::FunctionArgumentsAt5),
+            Pat::RoundBraces => Split::Code(CodePat::RoundBraces),
+            Pat::RoundBracesEnd => Split::Code(CodePat::RoundBracesEnd),
+            Pat::FunctionCall => Split::Code(CodePat::FunctionCall),
+            Pat::FunctionCallEnd => Split::Code(CodePat::FunctionCallEnd),
+            Pat::IllegalObjectName => Split::Code(CodePat::IllegalObjectName),
+            Pat::BuiltinExceptions => Split::Code(CodePat::BuiltinExceptions),
+            Pat::BuiltinTypes => Split::Code(CodePat::BuiltinTypes),
+            Pat::MagicFunctionNames => Split::Code(CodePat::MagicFunctionNames),
+            Pat::MagicVariableNames => Split::Code(CodePat::MagicVariableNames),
+            Pat::FunctionNameAt1 => Split::Code(CodePat::FunctionNameAt1),
+            Pat::Ellipsis => Split::Code(CodePat::Ellipsis),
+            Pat::PunctuationAt0 => Split::Code(CodePat::PunctuationAt0),
+            Pat::PunctuationAt1 => Split::Code(CodePat::PunctuationAt1),
+            Pat::LineContinuationAt0 => Split::Code(CodePat::LineContinuationAt0),
+            Pat::LineContinuationAt1 => Split::Code(CodePat::LineContinuationAt1),
+            Pat::LineContinuationAt1End => Split::Code(CodePat::LineContinuationAt1End),
+            Pat::MemberAccess => Split::Code(CodePat::MemberAccess),
+            Pat::MemberAccessEnd => Split::Code(CodePat::MemberAccessEnd),
+            Pat::MemberAccessAttribute => Split::Code(CodePat::MemberAccessAttribute),
+            Pat::ExpressionAt2 => Split::Code(CodePat::ExpressionAt2),
+            Pat::FunctionArgumentsAt7 => Split::Code(CodePat::FunctionArgumentsAt7),
+            Pat::FExpressionAt2 => Split::Code(CodePat::FExpressionAt2),
+            Pat::FstringTerminatorSingleTailAt2 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt2)
+            }
+            Pat::FstringTerminatorSingleTailAt3 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt3)
+            }
+            Pat::FstringTerminatorSingleTailAt4 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt4)
+            }
+            Pat::FstringTerminatorSingleTailAt5 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt5)
+            }
+            Pat::FstringTerminatorSingleTailAt6 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt6)
+            }
+            Pat::FstringTerminatorSingleTailAt7 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt7)
+            }
+            Pat::FstringTerminatorSingleTailAt8 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt8)
+            }
+            Pat::FstringTerminatorSingleTailAt9 => {
+                Split::Fstring(FstringPat::FstringTerminatorSingleTailAt9)
+            }
+            Pat::ImportAt1 => Split::Code(CodePat::ImportAt1),
+            Pat::ImportAt1End => Split::Code(CodePat::ImportAt1End),
+            Pat::ImportAt1At0 => Split::Code(CodePat::ImportAt1At0),
+            Pat::ClassDeclarationAt0 => Split::Code(CodePat::ClassDeclarationAt0),
+            Pat::ClassDeclarationAt0End => Split::Code(CodePat::ClassDeclarationAt0End),
+            Pat::ClassNameAt2 => Split::Code(CodePat::ClassNameAt2),
+            Pat::ClassInheritance => Split::Code(CodePat::ClassInheritance),
+            Pat::ClassInheritanceEnd => Split::Code(CodePat::ClassInheritanceEnd),
+            Pat::ClassInheritanceAt0 => Split::Code(CodePat::ClassInheritanceAt0),
+            Pat::ClassInheritanceAt1 => Split::Code(CodePat::ClassInheritanceAt1),
+            Pat::ClassInheritanceAt2 => Split::Code(CodePat::ClassInheritanceAt2),
+            Pat::ClassInheritanceAt3 => Split::Code(CodePat::ClassInheritanceAt3),
+            Pat::ClassKwarg => Split::Code(CodePat::ClassKwarg),
+            Pat::CallWrapperInheritance => Split::Code(CodePat::CallWrapperInheritance),
+            Pat::CallWrapperInheritanceEnd => Split::Code(CodePat::CallWrapperInheritanceEnd),
+            Pat::InheritanceIdentifier => Split::Code(CodePat::InheritanceIdentifier),
+            Pat::MemberAccessClass => Split::Code(CodePat::MemberAccessClass),
+            Pat::MemberAccessClassEnd => Split::Code(CodePat::MemberAccessClassEnd),
+            Pat::FunctionDeclaration => Split::Code(CodePat::FunctionDeclaration),
+            Pat::FunctionDeclarationEnd => Split::Code(CodePat::FunctionDeclarationEnd),
+            Pat::FunctionDefNameAt2 => Split::Code(CodePat::FunctionDefNameAt2),
+            Pat::Parameters => Split::Code(CodePat::Parameters),
+            Pat::ParametersEnd => Split::Code(CodePat::ParametersEnd),
+            Pat::ParametersAt0 => Split::Code(CodePat::ParametersAt0),
+            Pat::ParametersAt1 => Split::Code(CodePat::ParametersAt1),
+            Pat::ParameterSpecial => Split::Code(CodePat::ParameterSpecial),
+            Pat::ParametersAt6 => Split::Code(CodePat::ParametersAt6),
+            Pat::LooseDefault => Split::Code(CodePat::LooseDefault),
+            Pat::LooseDefaultEnd => Split::Code(CodePat::LooseDefaultEnd),
+            Pat::AnnotatedParameter => Split::Code(CodePat::AnnotatedParameter),
+            Pat::AnnotatedParameterEnd => Split::Code(CodePat::AnnotatedParameterEnd),
+            Pat::AnnotatedParameterAt1 => Split::Code(CodePat::AnnotatedParameterAt1),
+            Pat::ReturnAnnotation => Split::Code(CodePat::ReturnAnnotation),
+            Pat::ReturnAnnotationEnd => Split::Code(CodePat::ReturnAnnotationEnd),
+            Pat::StatementKeywordAt0 => Split::Code(CodePat::StatementKeywordAt0),
+            Pat::StatementKeywordAt1 => Split::Code(CodePat::StatementKeywordAt1),
+            Pat::StatementKeywordAt2 => Split::Code(CodePat::StatementKeywordAt2),
+            Pat::StatementKeywordAt3 => Split::Code(CodePat::StatementKeywordAt3),
+            Pat::StatementKeywordAt4 => Split::Code(CodePat::StatementKeywordAt4),
+            Pat::StatementKeywordAt5 => Split::Code(CodePat::StatementKeywordAt5),
+            Pat::StatementKeywordAt6 => Split::Code(CodePat::StatementKeywordAt6),
+            Pat::AssignmentOperator => Split::Code(CodePat::AssignmentOperator),
+            Pat::Decorator => Split::Code(CodePat::Decorator),
+            Pat::DecoratorEnd => Split::Code(CodePat::DecoratorEnd),
+            Pat::DecoratorNameAt2 => Split::Code(CodePat::DecoratorNameAt2),
+            Pat::DecoratorNameAt4 => Split::Code(CodePat::DecoratorNameAt4),
+            Pat::DocstringStatement => Split::String(StringPat::DocstringStatement),
+            Pat::DocstringStatementEnd => Split::String(StringPat::DocstringStatementEnd),
+            Pat::DocstringAt0 => Split::String(StringPat::DocstringAt0),
+            Pat::DocstringAt0End => Split::String(StringPat::DocstringAt0End),
+            Pat::DocstringPrompt => Split::String(StringPat::DocstringPrompt),
+            Pat::DocstringAt1 => Split::String(StringPat::DocstringAt1),
+            Pat::DocstringAt1End => Split::String(StringPat::DocstringAt1End),
+            Pat::DocstringAt2 => Split::String(StringPat::DocstringAt2),
+            Pat::DocstringAt2End => Split::String(StringPat::DocstringAt2End),
+            Pat::DocstringAt3 => Split::String(StringPat::DocstringAt3),
+            Pat::DocstringAt3End => Split::String(StringPat::DocstringAt3End),
+            Pat::SemicolonAt0 => Split::Code(CodePat::SemicolonAt0),
         }
     }
 }
 
-/// The group of matchers that decides a pattern.
+/// A pattern as [`Pat::split`] hands it to its matchers.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Split {
+    /// A pattern of code outside strings.
+    Code(CodePat),
+    /// A pattern of a string or docstring that is not an f-string.
+    String(StringPat),
+    /// A pattern of an f-string.
+    Fstring(FstringPat),
+    /// A pattern of a regular-expression string that the grammar writes once.
+    Regexp(RegexpPat),
+    /// A pattern of a regular-expression string that the grammar writes out
+    /// once for each quote style.
+    Flavoured(Flavour, Re),
+}
+
+/// The patterns of code outside strings.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Family {
-    Code,
-    String,
-    Fstring,
-    Regexp,
+pub(crate) enum CodePat {
+    ImportAt0,
+    ImportAt0End,
+    ImportAt0At0,
+    CommentsAt0,
+    CommentsAt0End,
+    CommentsAt0At0,
+    CommentsAt0At1,
+    CommentsAt0At2,
+    CommentsAt0At3,
+    CommentsBase,
+    CommentsBaseEnd,
+    Codetags,
+    Backticks,
+    BackticksEnd,
+    IllegalAnno,
+    LiteralAt0,
+    NumberFloat,
+    NumberDec,
+    NumberHex,
+    NumberOct,
+    NumberBin,
+    NumberLong,
+    NumberAt6,
+    LambdaAt0,
+    LambdaAt1,
+    LambdaAt2,
+    LambdaAt2End,
+    LambdaAt2At0,
+    LambdaAt2At1,
+    LambdaNestedIncomplete,
+    IllegalNames,
+    LambdaAt2At4,
+    LambdaParameterWithDefault,
+    LambdaParameterWithDefaultEnd,
+    Generator,
+    GeneratorEnd,
+    IllegalOperatorAt0,
+    IllegalOperatorAt1,
+    IllegalOperatorAt2,
+    Operator,
+    CurlyBraces,
+    CurlyBracesEnd,
+    CurlyBracesAt0,
+    ItemAccessAt0,
+    ItemAccessAt0End,
+    SpecialVariables,
+    BuiltinFunctionsAt0,
+    BuiltinFunctionsAt1,
+    SpecialNames,
+    ItemNameAt3,
+    ItemIndex,
+    ItemIndexEnd,
+    ItemIndexAt0,
+    List,
+    ListEnd,
+    OddFunctionCall,
+    OddFunctionCallEnd,
+    FunctionArguments,
+    FunctionArgumentsEnd,
+    FunctionArgumentsAt0,
+    FunctionArgumentsAt1,
+    LambdaIncomplete,
+    FunctionArgumentsAt4,
+    FunctionArgumentsAt5,
+    RoundBraces,
+    RoundBracesEnd,
+    FunctionCall,
+    FunctionCallEnd,
+    IllegalObjectName,
+    BuiltinExceptions,
+    BuiltinTypes,
+    MagicFunctionNames,
+    MagicVariableNames,
+    FunctionNameAt1,
+    Ellipsis,
+    PunctuationAt0,
+    PunctuationAt1,
+    LineContinuationAt0,
+    LineContinuationAt1,
+    LineContinuationAt1End,
+    MemberAccess,
+    MemberAccessEnd,
+    MemberAccessAttribute,
+    ExpressionAt2,
+    FunctionArgumentsAt7,
+    FExpressionAt2,
+    ImportAt1,
+    ImportAt1End,
+    ImportAt1At0,
+    ClassDeclarationAt0,
+    ClassDeclarationAt0End,
+    ClassNameAt2,
+    ClassInheritance,
+    ClassInheritanceEnd,
+    ClassInheritanceAt0,
+    ClassInheritanceAt1,
+    ClassInheritanceAt2,
+    ClassInheritanceAt3,
+    ClassKwarg,
+    CallWrapperInheritance,
+    CallWrapperInheritanceEnd,
+    InheritanceIdentifier,
+    MemberAccessClass,
+    MemberAccessClassEnd,
+    FunctionDeclaration,
+    FunctionDeclarationEnd,
+    FunctionDefNameAt2,
+    Parameters,
+    ParametersEnd,
+    ParametersAt0,
+    ParametersAt1,
+    ParameterSpecial,
+    ParametersAt6,
+    LooseDefault,
+    LooseDefaultEnd,
+    AnnotatedParameter,
+    AnnotatedParameterEnd,
+    AnnotatedParameterAt1,
+    ReturnAnnotation,
+    ReturnAnnotationEnd,
+    StatementKeywordAt0,
+    StatementKeywordAt1,
+    StatementKeywordAt2,
+    StatementKeywordAt3,
+    StatementKeywordAt4,
+    StatementKeywordAt5,
+    StatementKeywordAt6,
+    AssignmentOperator,
+    Decorator,
+    DecoratorEnd,
+    DecoratorNameAt2,
+    DecoratorNameAt4,
+    SemicolonAt0,
+}
+
+/// The patterns of strings and docstrings that are not f-strings.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum StringPat {
+    StringQuotedMultiLine,
+    StringQuotedMultiLineEnd,
+    StringMultiBadBrace1FormattingUnicode,
+    StringMultiBadBrace1FormattingUnicodeEnd,
+    EscapeSequenceUnicodeAt0,
+    EscapeSequence,
+    StringLineContinuation,
+    StringMultiBadBrace2FormattingUnicode,
+    StringMultiBadBrace2FormattingUnicodeEnd,
+    StringFormatting,
+    StringBraceFormattingAt0,
+    StringBraceFormattingAt1,
+    StringQuotedSingleLine,
+    StringQuotedSingleLineEnd,
+    StringSingleBadBrace1FormattingUnicode,
+    StringSingleBadBrace1FormattingUnicodeEnd,
+    StringSingleBadBrace2FormattingUnicode,
+    StringSingleBadBrace2FormattingUnicodeEnd,
+    StringBinQuotedMultiLine,
+    StringBinQuotedMultiLineEnd,
+    StringBinQuotedSingleLine,
+    StringBinQuotedSingleLineEnd,
+    StringRawQuotedMultiLine,
+    StringRawQuotedMultiLineEnd,
+    StringMultiBadBrace1FormattingRaw,
+    StringMultiBadBrace1FormattingRawEnd,
+    StringConsumeEscape,
+    StringMultiBadBrace2FormattingRaw,
+    StringMultiBadBrace2FormattingRawEnd,
+    StringRawQuotedSingleLine,
+    StringRawQuotedSingleLineEnd,
+    StringSingleBadBrace1FormattingRaw,
+    StringSingleBadBrace1FormattingRawEnd,
+    StringSingleBadBrace2FormattingRaw,
+    StringSingleBadBrace2FormattingRawEnd,
+    StringRawBinQuotedMultiLine,
+    StringRawBinQuotedMultiLineEnd,
+    StringRawBinQuotedSingleLine,
+    StringRawBinQuotedSingleLineEnd,
+    DocstringStatement,
+    DocstringStatementEnd,
+    DocstringAt0,
+    DocstringAt0End,
+    DocstringPrompt,
+    DocstringAt1,
+    DocstringAt1End,
+    DocstringAt2,
+    DocstringAt2End,
+    DocstringAt3,
+    DocstringAt3End,
+}
+
+/// The patterns of f-strings.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum FstringPat {
+    FstringFnormQuotedMultiLine,
+    FstringFnormQuotedMultiLineEnd,
+    FstringFormattingBracesAt0,
+    FstringFormattingBracesAt1,
+    FstringFormattingSingeBrace,
+    Impossible,
+    FstringMultiBrace,
+    FstringMultiBraceEnd,
+    FstringTerminatorMultiAt0,
+    FstringTerminatorMultiAt1,
+    FstringTerminatorMultiAt2,
+    FstringTerminatorMultiTail,
+    FstringTerminatorMultiTailEnd,
+    FstringTerminatorMultiTailAt2,
+    FstringTerminatorMultiTailAt3,
+    FstringTerminatorMultiTailAt4,
+    FstringTerminatorMultiTailAt5,
+    FstringTerminatorMultiTailAt6,
+    FstringTerminatorMultiTailAt7,
+    FstringTerminatorMultiTailAt8,
+    FstringTerminatorMultiTailAt9,
+    FstringFnormQuotedSingleLine,
+    FstringFnormQuotedSingleLineEnd,
+    FstringIllegalSingleBrace,
+    FstringIllegalSingleBraceEnd,
+    FstringTerminatorSingleAt0,
+    FstringTerminatorSingleAt1,
+    FstringTerminatorSingleAt2,
+    FstringTerminatorSingleTail,
+    FstringTerminatorSingleTailEnd,
+    FstringSingleBrace,
+    FstringSingleBraceEnd,
+    FstringNormfQuotedMultiLine,
+    FstringNormfQuotedMultiLineEnd,
+    FstringMultiCore,
+    FstringNormfQuotedSingleLine,
+    FstringNormfQuotedSingleLineEnd,
+    FstringSingleCore,
+    FstringRawQuotedMultiLine,
+    FstringRawQuotedMultiLineEnd,
+    FstringRawMultiCore,
+    FstringRawQuotedSingleLine,
+    FstringRawQuotedSingleLineEnd,
+    FstringRawSingleCore,
+    FstringTerminatorSingleTailAt2,
+    FstringTerminatorSingleTailAt3,
+    FstringTerminatorSingleTailAt4,
+    FstringTerminatorSingleTailAt5,
+    FstringTerminatorSingleTailAt6,
+    FstringTerminatorSingleTailAt7,
+    FstringTerminatorSingleTailAt8,
+    FstringTerminatorSingleTailAt9,
+}
+
+/// The patterns of regular-expression strings that the grammar writes once.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum RegexpPat {
+    RegexpSingleThreeLine,
+    RegexpSingleThreeLineEnd,
+    RegexpQuantifier,
+    RegexpBaseCommonAt0,
+    RegexpBaseCommonAt1,
+    RegexpBaseCommonAt2,
+    RegexpBaseCommonAt3,
+    RegexpBaseCommonAt4,
+    RegexpEscapeSpecial,
+    RegexpEscapeCharacter,
+    RegexpEscapeUnicode,
+    RegexpBackreferenceNumber,
+    RegexpEscapeCatchall,
+    RegexpCharacterSetEscapesAt0,
+    RegexpCharacterSetEscapesAt2,
+    RegexpFlags,
+    RegexpBackreference,
+    CommentsStringSingleThree,
+    CommentsStringSingleThreeEnd,
+    RegexpDoubleThreeLine,
+    RegexpDoubleThreeLineEnd,
+    CommentsStringDoubleThree,
+    CommentsStringDoubleThreeEnd,
+    RegexpSingleOneLine,
+    RegexpSingleOneLineEnd,
+    RegexpDoubleOneLine,
+    RegexpDoubleOneLineEnd,
 }
 
 /// The kinds of pattern a regular-expression string has for each quote style.

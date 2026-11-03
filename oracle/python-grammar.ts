@@ -277,19 +277,19 @@ g += arms(
   }),
   "Pat",
 );
-g += `        }\n    }\n\n    /// The quote style and the kind of a pattern of a regular-expression\n    /// string, which the grammar writes out once for each quote style.\n    #[expect(clippy::too_many_lines, clippy::wildcard_enum_match_arm, reason = "a generated table")]\n    pub(crate) fn regexp(self) -> Option<(Flavour, Re)> {\n        match self {\n`;
+/** Which matchers decide each pattern: one of four families, or, for a
+ * regular-expression pattern the grammar writes out once for each quote
+ * style, its style and kind. */
 const reKinds = new Set<string>();
-const reArms: string[] = [];
+const families: Record<string, string[]> = { Code: [], String: [], Fstring: [], Regexp: [] };
+const splitArms: string[] = [];
 for (const p of patList) {
   const m = /^(Single|Double)(One|Three)Regexp(.+)$/.exec(p.id);
-  if (!m) continue;
-  reKinds.add(m[3]!);
-  reArms.push(`            Pat::${p.id} => Some((Flavour::${m[1]}${m[2]}, Re::${m[3]})),\n`);
-}
-g += reArms.join("");
-g += `            _ => None,\n        }\n    }\n\n    /// Which matchers decide the pattern, so that the dispatch needs one\n    /// jump.\n    #[expect(clippy::too_many_lines, clippy::wildcard_enum_match_arm, reason = "a generated table")]\n    pub(crate) fn family(self) -> Family {\n        match self {\n`;
-const families: Record<string, string[]> = { Regexp: [], Fstring: [], String: [], Code: [] };
-for (const p of patList) {
+  if (m) {
+    reKinds.add(m[3]!);
+    splitArms.push(`            Pat::${p.id} => Split::Flavoured(Flavour::${m[1]}${m[2]}, Re::${m[3]}),\n`);
+    continue;
+  }
   const family = /Regexp|^CommentsString/.test(p.id)
     ? "Regexp"
     : /^Fstring|^Impossible$/.test(p.id)
@@ -297,10 +297,24 @@ for (const p of patList) {
       : /^(String|Docstring|EscapeSequence)/.test(p.id)
         ? "String"
         : "Code";
-  families[family]!.push(`Pat::${p.id}`);
+  families[family]!.push(p.id);
+  splitArms.push(`            Pat::${p.id} => Split::${family}(${family}Pat::${p.id}),\n`);
 }
-for (const f of ["Regexp", "Fstring", "String"]) g += `            ${families[f]!.join("\n            | ")} => Family::${f},\n`;
-g += `            _ => Family::Code,\n        }\n    }\n}\n\n/// The group of matchers that decides a pattern.\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(crate) enum Family {\n    Code,\n    String,\n    Fstring,\n    Regexp,\n}\n\n/// The kinds of pattern a regular-expression string has for each quote style.\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(crate) enum Re {\n`;
+g += `        }\n    }\n\n    /// Which matchers decide the pattern, with the pattern typed for them, so\n    /// that the dispatch needs one jump and each matcher's match is\n    /// exhaustive over its own patterns. Inlined, as the matchers call it for\n    /// every pattern they try.\n    #[expect(clippy::too_many_lines, reason = "a generated table")]\n    #[inline]\n    pub(crate) fn split(self) -> Split {\n        match self {\n`;
+g += splitArms.join("");
+g += `        }\n    }\n}\n\n/// A pattern as [\`Pat::split\`] hands it to its matchers.\n#[derive(Clone, Copy, Debug)]\npub(crate) enum Split {\n    /// A pattern of code outside strings.\n    Code(CodePat),\n    /// A pattern of a string or docstring that is not an f-string.\n    String(StringPat),\n    /// A pattern of an f-string.\n    Fstring(FstringPat),\n    /// A pattern of a regular-expression string that the grammar writes once.\n    Regexp(RegexpPat),\n    /// A pattern of a regular-expression string that the grammar writes out\n    /// once for each quote style.\n    Flavoured(Flavour, Re),\n}\n`;
+const familyDocs: Record<string, string> = {
+  Code: "The patterns of code outside strings.",
+  String: "The patterns of strings and docstrings that are not f-strings.",
+  Fstring: "The patterns of f-strings.",
+  Regexp: "The patterns of regular-expression strings that the grammar writes once.",
+};
+for (const f of ["Code", "String", "Fstring", "Regexp"]) {
+  g += `\n/// ${familyDocs[f]}\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(crate) enum ${f}Pat {\n`;
+  for (const id of families[f]!) g += `    ${id},\n`;
+  g += `}\n`;
+}
+g += `\n/// The kinds of pattern a regular-expression string has for each quote style.\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(crate) enum Re {\n`;
 for (const k of reKinds) g += `    ${k},\n`;
 g += `}\n`;
 

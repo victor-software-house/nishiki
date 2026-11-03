@@ -2,6 +2,7 @@
 
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
+use super::chars::Letters;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
@@ -53,7 +54,7 @@ impl Lexer<'_> {
         self.lit(p, b"@")?;
         let start = p + 1;
         if self.at(start) == b'-' {
-            let letters = self.letters_ci(start + 1, false);
+            let letters = self.letters_ci(start + 1, Letters::Plain);
             if self.in_list(start + 1, letters, &["moz", "ms", "o", "webkit"])
                 && self.at(letters) == b'-'
                 && let Some(end) = self.lit_ci(letters + 1, "keyframes")
@@ -445,7 +446,7 @@ impl Lexer<'_> {
         self.lit(p, b"@")?;
         let mut end = None;
         if self.at(p + 1) == b'-' {
-            let letters = self.letters_ci(p + 2, false);
+            let letters = self.letters_ci(p + 2, Letters::Plain);
             if self.in_list(p + 2, letters, &["ms", "o"]) && self.at(letters) == b'-' {
                 end = self.lit_ci(letters + 1, "viewport");
             }

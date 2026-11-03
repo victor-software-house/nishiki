@@ -3,7 +3,18 @@
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
 use super::super::words;
+use super::selectors::Tail;
 use crate::rules::Chars;
+
+/// Which of the grammar's two lists of names that begin a selector is
+/// being matched, which decides what may follow a `:` after the name.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum SharedList {
+    /// `:\s+`.
+    First,
+    /// A pseudo-class or pseudo-element, the longer lookahead.
+    Second,
+}
 
 impl Lexer<'_> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
@@ -240,7 +251,7 @@ impl Lexer<'_> {
         if self.wordish_before(p) {
             return None;
         }
-        self.vendor_prefixed(p, false)
+        self.vendor_prefixed(p, Tail::Ascii)
     }
 
     /// The font families.
@@ -461,8 +472,8 @@ impl Lexer<'_> {
 
     /// The names that need a check on what follows them: begin the selector
     /// rule when `words` has one at `p` that is not followed by what a
-    /// property would be; `pseudo` says what follows a `:` in the second list.
-    fn shared_name(&mut self, p: usize, words: &[&str], pseudo: bool) -> Option<usize> {
+    /// property would be; `list` says which lookahead follows a `:`.
+    fn shared_name(&mut self, p: usize, words: &[&str], list: SharedList) -> Option<usize> {
         if !self.shared_behind(p) {
             return None;
         }
@@ -470,7 +481,7 @@ impl Lexer<'_> {
             let Some(end) = self.lit_ci(p, word) else {
                 continue;
             };
-            if !self.shared_name_follows(end, pseudo) {
+            if !self.shared_name_follows(end, list) {
                 return Some(p);
             }
         }
@@ -479,7 +490,7 @@ impl Lexer<'_> {
 
     /// Whether `(?!.*;|[^{]*}|-|:\s+)` (or the longer lookahead of the second
     /// list) fails at `end`, that is, one of its alternatives matches.
-    fn shared_name_follows(&self, end: usize, pseudo: bool) -> bool {
+    fn shared_name_follows(&self, end: usize, list: SharedList) -> bool {
         if self.find(Find::Semicolon, end).is_some() {
             return true;
         }
@@ -496,10 +507,10 @@ impl Lexer<'_> {
         if self.at(end) != b':' || end >= self.lim() {
             return false;
         }
-        if !pseudo {
-            return self.space_at(end + 1) > 0;
+        match list {
+            SharedList::First => self.space_at(end + 1) > 0,
+            SharedList::Second => !self.after_colon_is_pseudo(end + 1),
         }
-        !self.after_colon_is_pseudo(end + 1)
     }
 
     /// The lookahead `(?![^}]*\{|active|...)` after a colon at `p - 1` holds
@@ -521,7 +532,7 @@ impl Lexer<'_> {
         }) {
             return true;
         }
-        self.vendor_prefixed(p, true).is_some()
+        self.vendor_prefixed(p, Tail::Folded).is_some()
     }
 
     /// The first list of names that begin a selector.
@@ -543,13 +554,17 @@ impl Lexer<'_> {
                 "line",
                 "text",
             ],
-            false,
+            SharedList::First,
         )
     }
 
     /// The second list of names that begin a selector.
     pub(in crate::css) fn shared_names_at1(&mut self, p: usize) -> Option<usize> {
-        self.shared_name(p, &["content", "font", "mark", "cursor", "filter"], true)
+        self.shared_name(
+            p,
+            &["content", "font", "mark", "cursor", "filter"],
+            SharedList::Second,
+        )
     }
 
     /// `(?i)(?=\s|/\*|[,{]|$)`

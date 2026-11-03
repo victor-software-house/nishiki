@@ -8,6 +8,15 @@
 use crate::java::engine::Lexer;
 use crate::rules::Chars;
 
+/// The base of a number that starts with `0`.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum Radix {
+    /// `0b` and the digits `0` and `1`.
+    Binary,
+    /// The digits `0` to `7`.
+    Octal,
+}
+
 /// Whether a part of a number is required, optional or not there.
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Part {
@@ -99,17 +108,18 @@ impl Lexer<'_> {
 
     /// `\b(?<!\$)0([Bb])[01]([01_]*[01])?[Ll]?\b(?!\$)` and the octal
     /// `\b(?<!\$)0[0-7]([0-7_]*[0-7])?[Ll]?\b(?!\$)`.
-    pub(super) fn radix_number(&self, p: usize, binary: bool) -> Option<usize> {
+    pub(super) fn radix_number(&self, p: usize, radix: Radix) -> Option<usize> {
         if !self.boundary(p) || self.prev_is(p, b'$') || self.at(p) != b'0' {
             return None;
         }
-        let (digits, class): (usize, fn(u8) -> bool) = if binary {
-            if !matches!(self.at(p + 1), b'B' | b'b') {
-                return None;
+        let (digits, class): (usize, fn(u8) -> bool) = match radix {
+            Radix::Binary => {
+                if !matches!(self.at(p + 1), b'B' | b'b') {
+                    return None;
+                }
+                (p + 2, |b| matches!(b, b'0' | b'1'))
             }
-            (p + 2, |b| matches!(b, b'0' | b'1'))
-        } else {
-            (p + 1, |b| matches!(b, b'0'..=b'7'))
+            Radix::Octal => (p + 1, |b| matches!(b, b'0'..=b'7')),
         };
         let run = self.digit_run(digits, class)?;
         let end = run + usize::from(matches!(self.at(run), b'L' | b'l'));

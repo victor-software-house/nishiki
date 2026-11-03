@@ -4,8 +4,26 @@
 use super::chars;
 use crate::classes::{self, is_alpha};
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::Pat;
+use crate::python::grammar::CodePat;
 use crate::rules::Chars;
+
+/// Whether a keyword argument's `=` may be the first of `==`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Equals {
+    /// Any `=`, as a lambda's default value takes it.
+    Any,
+    /// An `=` that `(?!=)` does not see a second `=` after.
+    NotDouble,
+}
+
+/// Which rule's end [`Lexer::member_access_end`] looks for.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Member {
+    /// `member-access`.
+    Access,
+    /// `member-access-class`.
+    Class,
+}
 
 /// The keywords of `illegal-names` that name flow control.
 const FLOW_KEYWORDS: &[&[u8]] = &[
@@ -87,159 +105,160 @@ const TYPEHINT_NAMES: &[&[u8]] = &[
 const CODETAGS: &[&[u8]] = &[b"BUG", b"FIXME", b"HACK", b"NOTE", b"TODO", b"XXX"];
 
 impl Lexer<'_> {
-    #[expect(
-        clippy::too_many_lines,
-        clippy::wildcard_enum_match_arm,
-        reason = "one arm per pattern, a table; the dispatch sends this function its own patterns only"
-    )]
-    pub(super) fn code_matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
+    pub(super) fn code_matcher(&mut self, pat: CodePat, p: usize) -> Option<usize> {
         match pat {
-            Pat::ImportAt0 => self.import_from(p),
-            Pat::ImportAt0End => (self.at_eol(p) || self.starts(p, b"import")).then_some(p),
-            Pat::ImportAt0At0 => self.dots(p),
-            Pat::ImportAt1 => self.keyword_import(p),
-            Pat::CommentsAt0 => self.typehint_begin(p),
-            Pat::CommentsAt0End => (self.at_eol(p) || self.at(p) == b'#').then_some(p),
-            Pat::CommentsAt0At0 => self.typehint_ignore(p),
-            Pat::CommentsAt0At1 => {
+            CodePat::ImportAt0 => self.import_from(p),
+            CodePat::ImportAt0End => (self.at_eol(p) || self.starts(p, b"import")).then_some(p),
+            CodePat::ImportAt0At0 => self.dots(p),
+            CodePat::ImportAt1 => self.keyword_import(p),
+            CodePat::CommentsAt0 => self.typehint_begin(p),
+            CodePat::CommentsAt0End => (self.at_eol(p) || self.at(p) == b'#').then_some(p),
+            CodePat::CommentsAt0At0 => self.typehint_ignore(p),
+            CodePat::CommentsAt0At1 => {
                 if self.prev_is(p, b'.') {
                     return None;
                 }
                 self.word_in(p, TYPEHINT_NAMES)
             }
-            Pat::CommentsAt0At2 => self.typehint_punctuation(p),
-            Pat::CommentsAt0At3 => self.ident_end(p),
-            Pat::CommentsBase => self.hash(p),
-            Pat::ImportAt1End | Pat::CommentsBaseEnd => self.at_eol(p).then_some(p),
-            Pat::Codetags => {
+            CodePat::CommentsAt0At2 => self.typehint_punctuation(p),
+            CodePat::CommentsAt0At3 => self.ident_end(p),
+            CodePat::CommentsBase => self.hash(p),
+            CodePat::ImportAt1End | CodePat::CommentsBaseEnd => self.at_eol(p).then_some(p),
+            CodePat::Codetags => {
                 let end = self.word_in(p, CODETAGS)?;
                 self.cap(1, p, end);
                 Some(end)
             }
-            Pat::Backticks => (self.at(p) == b'`').then_some(p + 1),
-            Pat::BackticksEnd => self.backtick_end(p),
-            Pat::IllegalAnno => self.lit(p, b"->"),
-            Pat::LiteralAt0 => self.word_in(
+            CodePat::Backticks => (self.at(p) == b'`').then_some(p + 1),
+            CodePat::BackticksEnd => self.backtick_end(p),
+            CodePat::IllegalAnno => self.lit(p, b"->"),
+            CodePat::LiteralAt0 => self.word_in(
                 p,
                 &[b"Ellipsis", b"False", b"None", b"NotImplemented", b"True"],
             ),
-            Pat::NumberFloat => self.number_float(p),
-            Pat::NumberDec => self.number_dec(p),
-            Pat::NumberHex => self.number_radix(p, b"Xx", |b| b.is_ascii_hexdigit()),
-            Pat::NumberOct => self.number_radix(p, b"Oo", |b| matches!(b, b'0'..=b'7')),
-            Pat::NumberBin => self.number_radix(p, b"Bb", |b| matches!(b, b'0' | b'1')),
-            Pat::NumberLong => self.number_long(p),
-            Pat::NumberAt6 => self.number_name(p),
-            Pat::LambdaAt0 => self.lambda_member(p),
-            Pat::LambdaAt1 => self.lambda_bare(p),
-            Pat::LambdaAt2 => self.lambda_begin(p),
-            Pat::LambdaAt2End => self.lambda_end(p),
-            Pat::LambdaNestedIncomplete => self.lambda_incomplete(p, b"),:"),
-            Pat::LambdaAt2At4 => self.lambda_parameter(p),
-            Pat::LambdaParameterWithDefault => self.name_equals(p, false),
-            Pat::LambdaParameterWithDefaultEnd => self.lambda_default_end(p),
-            Pat::Generator => self.keyword_zero(p, b"for"),
-            Pat::GeneratorEnd => self.keyword_zero(p, b"in"),
-            Pat::IllegalNames => self.illegal_names(p),
-            Pat::IllegalOperatorAt0 => (self.starts(p, b"&&")
+            CodePat::NumberFloat => self.number_float(p),
+            CodePat::NumberDec => self.number_dec(p),
+            CodePat::NumberHex => self.number_radix(p, b"Xx", |b| b.is_ascii_hexdigit()),
+            CodePat::NumberOct => self.number_radix(p, b"Oo", |b| matches!(b, b'0'..=b'7')),
+            CodePat::NumberBin => self.number_radix(p, b"Bb", |b| matches!(b, b'0' | b'1')),
+            CodePat::NumberLong => self.number_long(p),
+            CodePat::NumberAt6 => self.number_name(p),
+            CodePat::LambdaAt0 => self.lambda_member(p),
+            CodePat::LambdaAt1 => self.lambda_bare(p),
+            CodePat::LambdaAt2 => self.lambda_begin(p),
+            CodePat::LambdaAt2End => self.lambda_end(p),
+            CodePat::LambdaNestedIncomplete => self.lambda_incomplete(p, b"),:"),
+            CodePat::LambdaAt2At4 => self.lambda_parameter(p),
+            CodePat::LambdaParameterWithDefault => self.name_equals(p, Equals::Any),
+            CodePat::LambdaParameterWithDefaultEnd => self.lambda_default_end(p),
+            CodePat::Generator => self.keyword_zero(p, b"for"),
+            CodePat::GeneratorEnd => self.keyword_zero(p, b"in"),
+            CodePat::IllegalNames => self.illegal_names(p),
+            CodePat::IllegalOperatorAt0 => (self.starts(p, b"&&")
                 || self.starts(p, b"||")
                 || self.starts(p, b"--")
                 || self.starts(p, b"++"))
             .then_some(p + 2),
-            Pat::IllegalOperatorAt1 => matches!(self.at(p), b'$' | b'?').then_some(p + 1),
-            Pat::IllegalOperatorAt2 => {
+            CodePat::IllegalOperatorAt1 => matches!(self.at(p), b'$' | b'?').then_some(p + 1),
+            CodePat::IllegalOperatorAt2 => {
                 (self.at(p) == b'!' && self.boundary(p + 1)).then_some(p + 1)
             }
-            Pat::Operator => self.operator(p),
-            Pat::CurlyBraces => (self.at(p) == b'{' && p < self.lim()).then_some(p + 1),
-            Pat::List => (self.at(p) == b'[' && p < self.lim()).then_some(p + 1),
-            Pat::RoundBraces => (self.at(p) == b'(' && p < self.lim()).then_some(p + 1),
-            Pat::CurlyBracesEnd => (self.at(p) == b'}').then_some(p + 1),
-            Pat::ListEnd => (self.at(p) == b']').then_some(p + 1),
-            Pat::RoundBracesEnd => (self.at(p) == b')').then_some(p + 1),
-            Pat::CurlyBracesAt0 | Pat::ItemIndexAt0 | Pat::PunctuationAt0 => {
+            CodePat::Operator => self.operator(p),
+            CodePat::CurlyBraces => (self.at(p) == b'{' && p < self.lim()).then_some(p + 1),
+            CodePat::List => (self.at(p) == b'[' && p < self.lim()).then_some(p + 1),
+            CodePat::RoundBraces => (self.at(p) == b'(' && p < self.lim()).then_some(p + 1),
+            CodePat::CurlyBracesEnd => (self.at(p) == b'}').then_some(p + 1),
+            CodePat::ListEnd => (self.at(p) == b']').then_some(p + 1),
+            CodePat::RoundBracesEnd => (self.at(p) == b')').then_some(p + 1),
+            CodePat::CurlyBracesAt0 | CodePat::ItemIndexAt0 | CodePat::PunctuationAt0 => {
                 (self.at(p) == b':').then_some(p + 1)
             }
-            Pat::PunctuationAt1 | Pat::ClassInheritanceAt1 => (self.at(p) == b',').then_some(p + 1),
-            Pat::ItemAccessAt0 => self.item_access_begin(p),
-            Pat::ItemAccessAt0End => self.char_cap(p, b']'),
-            Pat::SpecialVariables => self.special_variables(p),
-            Pat::BuiltinFunctionsAt0 => self.builtin(p, chars::FUNCTION),
-            Pat::BuiltinFunctionsAt1 => self.builtin(p, chars::LEGACY),
-            Pat::BuiltinTypes => self.builtin(p, chars::TYPE),
-            Pat::BuiltinExceptions => self.builtin(p, chars::EXCEPTION),
-            Pat::MagicFunctionNames => self.magic(p, chars::MAGIC_FUNCTION),
-            Pat::MagicVariableNames => self.magic(p, chars::MAGIC_VARIABLE),
-            Pat::SpecialNames => self.special_names(p),
-            Pat::ItemNameAt3
-            | Pat::FunctionNameAt1
-            | Pat::ExpressionAt2
-            | Pat::FExpressionAt2
-            | Pat::MemberAccessAttribute
-            | Pat::ClassNameAt2
-            | Pat::FunctionDefNameAt2
-            | Pat::InheritanceIdentifier => self.bounded_ident(p),
-            Pat::ItemIndex => self.char_cap(p, b'['),
-            Pat::ItemIndexEnd => (self.at(p) == b']').then_some(p),
-            Pat::OddFunctionCall => self.odd_call_begin(p),
-            Pat::OddFunctionCallEnd | Pat::FunctionCallEnd | Pat::CallWrapperInheritanceEnd => {
-                self.char_cap(p, b')')
+            CodePat::PunctuationAt1 | CodePat::ClassInheritanceAt1 => {
+                (self.at(p) == b',').then_some(p + 1)
             }
-            Pat::FunctionCall | Pat::CallWrapperInheritance => self.call_begin(p),
-            Pat::FunctionArgumentsEnd => self.arguments_end(p),
-            Pat::FunctionArgumentsAt0 => self.char_cap(p, b','),
-            Pat::FunctionArgumentsAt1 => self.argument_unpacking(p),
-            Pat::LambdaIncomplete => self.lambda_incomplete(p, b"),"),
-            Pat::FunctionArgumentsAt4 | Pat::ClassKwarg => self.name_equals(p, true),
-            Pat::FunctionArgumentsAt5 | Pat::ClassInheritanceAt2 | Pat::AnnotatedParameterAt1 => {
-                self.equals_alone(p)
+            CodePat::ItemAccessAt0 => self.item_access_begin(p),
+            CodePat::ItemAccessAt0End => self.char_cap(p, b']'),
+            CodePat::SpecialVariables => self.special_variables(p),
+            CodePat::BuiltinFunctionsAt0 => self.builtin(p, chars::FUNCTION),
+            CodePat::BuiltinFunctionsAt1 => self.builtin(p, chars::LEGACY),
+            CodePat::BuiltinTypes => self.builtin(p, chars::TYPE),
+            CodePat::BuiltinExceptions => self.builtin(p, chars::EXCEPTION),
+            CodePat::MagicFunctionNames => self.magic(p, chars::MAGIC_FUNCTION),
+            CodePat::MagicVariableNames => self.magic(p, chars::MAGIC_VARIABLE),
+            CodePat::SpecialNames => self.special_names(p),
+            CodePat::ItemNameAt3
+            | CodePat::FunctionNameAt1
+            | CodePat::ExpressionAt2
+            | CodePat::FExpressionAt2
+            | CodePat::MemberAccessAttribute
+            | CodePat::ClassNameAt2
+            | CodePat::FunctionDefNameAt2
+            | CodePat::InheritanceIdentifier => self.bounded_ident(p),
+            CodePat::ItemIndex => self.char_cap(p, b'['),
+            CodePat::ItemIndexEnd => (self.at(p) == b']').then_some(p),
+            CodePat::OddFunctionCall => self.odd_call_begin(p),
+            CodePat::OddFunctionCallEnd
+            | CodePat::FunctionCallEnd
+            | CodePat::CallWrapperInheritanceEnd
+            | CodePat::ClassInheritanceEnd
+            | CodePat::ParametersEnd => self.char_cap(p, b')'),
+            CodePat::FunctionCall | CodePat::CallWrapperInheritance => self.call_begin(p),
+            CodePat::FunctionArgumentsEnd => self.arguments_end(p),
+            CodePat::FunctionArgumentsAt0 => self.char_cap(p, b','),
+            CodePat::FunctionArgumentsAt1 => self.argument_unpacking(p),
+            CodePat::LambdaIncomplete => self.lambda_incomplete(p, b"),"),
+            CodePat::FunctionArgumentsAt4 | CodePat::ClassKwarg => {
+                self.name_equals(p, Equals::NotDouble)
             }
-            Pat::FunctionArgumentsAt7 => self.close_open(p),
-            Pat::IllegalObjectName => self.word_in(p, &[b"False", b"None", b"True"]),
-            Pat::Ellipsis => self.lit(p, b"..."),
-            Pat::LineContinuationAt0 => self.continuation_junk(p),
-            Pat::LineContinuationAt1 => self.continuation_begin(p),
-            Pat::LineContinuationAt1End => self.continuation_end(p),
-            Pat::MemberAccess | Pat::MemberAccessClass => self.member_access_begin(p),
-            Pat::MemberAccessEnd => self.member_access_end(p, true),
-            Pat::MemberAccessClassEnd => self.member_access_end(p, false),
-            Pat::ClassDeclarationAt0 => self.class_begin(p),
-            Pat::ClassDeclarationAt0End | Pat::ReturnAnnotationEnd => {
-                self.class_end(p, pat == Pat::ReturnAnnotationEnd)
-            }
-            Pat::ClassInheritanceAt3 => self.word_in(p, &[b"metaclass"]),
-            Pat::FunctionDeclaration => self.def_begin(p),
-            Pat::FunctionDeclarationEnd => self.def_end(p),
-            Pat::FunctionArguments | Pat::ClassInheritance | Pat::Parameters => {
+            CodePat::FunctionArgumentsAt5
+            | CodePat::ClassInheritanceAt2
+            | CodePat::AnnotatedParameterAt1 => self.equals_alone(p),
+            CodePat::FunctionArgumentsAt7 => self.close_open(p),
+            CodePat::IllegalObjectName => self.word_in(p, &[b"False", b"None", b"True"]),
+            CodePat::Ellipsis => self.lit(p, b"..."),
+            CodePat::LineContinuationAt0 => self.continuation_junk(p),
+            CodePat::LineContinuationAt1 => self.continuation_begin(p),
+            CodePat::LineContinuationAt1End => self.continuation_end(p),
+            CodePat::MemberAccess | CodePat::MemberAccessClass => self.member_access_begin(p),
+            CodePat::MemberAccessEnd => self.member_access_end(p, Member::Access),
+            CodePat::MemberAccessClassEnd => self.member_access_end(p, Member::Class),
+            CodePat::ClassDeclarationAt0 => self.class_begin(p),
+            CodePat::ClassDeclarationAt0End => self.class_end(p),
+            CodePat::ReturnAnnotationEnd => self.colon_ahead(p),
+            CodePat::ClassInheritanceAt3 => self.word_in(p, &[b"metaclass"]),
+            CodePat::FunctionDeclaration => self.def_begin(p),
+            CodePat::FunctionDeclarationEnd => self.def_end(p),
+            CodePat::FunctionArguments | CodePat::ClassInheritance | CodePat::Parameters => {
                 self.char_cap(p, b'(')
             }
-            Pat::ClassInheritanceEnd | Pat::ParametersEnd => self.char_cap(p, b')'),
-            Pat::LambdaAt2At0 | Pat::ParametersAt0 => (self.at(p) == b'/').then_some(p + 1),
-            Pat::LambdaAt2At1 | Pat::ClassInheritanceAt0 | Pat::ParametersAt1 => self.star_run(p),
-            Pat::ParameterSpecial => self.parameter_special(p),
-            Pat::ParametersAt6 => self.parameter_name(p),
-            Pat::LooseDefault => self.char_cap(p, b'='),
-            Pat::LooseDefaultEnd | Pat::AnnotatedParameterEnd => self.parameter_end(p),
-            Pat::AnnotatedParameter => self.annotated_begin(p),
-            Pat::ReturnAnnotation => self.arrow_begin(p),
-            Pat::StatementKeywordAt0 => self.def_keyword(p),
-            Pat::StatementKeywordAt1 => self.as_flow(p),
-            Pat::ImportAt1At0 | Pat::StatementKeywordAt2 => self.as_keyword(p),
-            Pat::StatementKeywordAt3 => self.statement_flow(p),
-            Pat::StatementKeywordAt4 => self
+            CodePat::LambdaAt2At0 | CodePat::ParametersAt0 => (self.at(p) == b'/').then_some(p + 1),
+            CodePat::LambdaAt2At1 | CodePat::ClassInheritanceAt0 | CodePat::ParametersAt1 => {
+                self.star_run(p)
+            }
+            CodePat::ParameterSpecial => self.parameter_special(p),
+            CodePat::ParametersAt6 => self.parameter_name(p),
+            CodePat::LooseDefault => self.char_cap(p, b'='),
+            CodePat::LooseDefaultEnd | CodePat::AnnotatedParameterEnd => self.parameter_end(p),
+            CodePat::AnnotatedParameter => self.annotated_begin(p),
+            CodePat::ReturnAnnotation => self.arrow_begin(p),
+            CodePat::StatementKeywordAt0 => self.def_keyword(p),
+            CodePat::StatementKeywordAt1 => self.as_flow(p),
+            CodePat::ImportAt1At0 | CodePat::StatementKeywordAt2 => self.as_keyword(p),
+            CodePat::StatementKeywordAt3 => self.statement_flow(p),
+            CodePat::StatementKeywordAt4 => self
                 .word_in(p, &[b"global", b"nonlocal"])
                 .filter(|_| !self.prev_is(p, b'.')),
-            Pat::StatementKeywordAt5 => self
+            CodePat::StatementKeywordAt5 => self
                 .word_in(p, &[b"class"])
                 .filter(|_| !self.prev_is(p, b'.')),
-            Pat::StatementKeywordAt6 => self.case_match(p),
-            Pat::AssignmentOperator => self.assignment_operator(p),
-            Pat::Decorator => self.decorator_begin(p),
-            Pat::DecoratorEnd => self.decorator_end(p),
-            Pat::DecoratorNameAt2 => self.decorator_name(p),
-            Pat::DecoratorNameAt4 => self.decorator_junk(p),
-            Pat::SemicolonAt0 => (self.at(p) == b';' && self.at_eol(p + 1)).then_some(p + 1),
-            _ => None,
+            CodePat::StatementKeywordAt6 => self.case_match(p),
+            CodePat::AssignmentOperator => self.assignment_operator(p),
+            CodePat::Decorator => self.decorator_begin(p),
+            CodePat::DecoratorEnd => self.decorator_end(p),
+            CodePat::DecoratorNameAt2 => self.decorator_name(p),
+            CodePat::DecoratorNameAt4 => self.decorator_junk(p),
+            CodePat::SemicolonAt0 => (self.at(p) == b';' && self.at_eol(p + 1)).then_some(p + 1),
         }
     }
 
@@ -635,9 +654,9 @@ impl Lexer<'_> {
         (q < self.lim() && self.at(q) == b':' || self.at_eol(q)).then_some(q)
     }
 
-    /// The begin `\b([_[:alpha:]]\w*)\s*(=)`, followed by `(?!=)` when
-    /// `not_double`.
-    fn name_equals(&mut self, p: usize, not_double: bool) -> Option<usize> {
+    /// The begin `\b([_[:alpha:]]\w*)\s*(=)`, followed by `(?!=)` for
+    /// [`Equals::NotDouble`].
+    fn name_equals(&mut self, p: usize, equals: Equals) -> Option<usize> {
         if !self.boundary(p) {
             return None;
         }
@@ -646,7 +665,7 @@ impl Lexer<'_> {
         if self.at(q) != b'=' || q >= self.lim() {
             return None;
         }
-        if not_double && self.at(q + 1) == b'=' && q + 1 < self.lim() {
+        if equals == Equals::NotDouble && self.at(q + 1) == b'=' && q + 1 < self.lim() {
             return None;
         }
         self.cap(1, p, e);
@@ -996,8 +1015,8 @@ impl Lexer<'_> {
     }
 
     /// The end `(?<=\S)(?=\W)|(^|(?<=\s))(?=[^\\\w\s])|$` of `member-access`,
-    /// or `(?<=\S)(?=\W)|$` of `member-access-class` when `second` is false.
-    fn member_access_end(&self, p: usize, second: bool) -> Option<usize> {
+    /// or `(?<=\S)(?=\W)|$` of `member-access-class`.
+    fn member_access_end(&self, p: usize, member: Member) -> Option<usize> {
         let prev_non_space = p > 0 && self.char_before(p).is_some_and(|c| !classes::is_space(c));
         let word = self.word_at(p).is_some();
         // `(?=\W)`: any character that is not a word character, the line feed
@@ -1005,7 +1024,7 @@ impl Lexer<'_> {
         if prev_non_space && !word && p <= self.lim() {
             return Some(p);
         }
-        if second && p < self.lim() {
+        if member == Member::Access && p < self.lim() {
             let prev_space = p == 0 || self.char_before(p).is_some_and(classes::is_space);
             if prev_space && !word && self.space_at(p) == 0 && self.at(p) != b'\\' {
                 return Some(p);
@@ -1033,16 +1052,16 @@ impl Lexer<'_> {
         Some(name_at)
     }
 
-    /// The end `(:)` of a class, or `(?=:)` of a return annotation.
-    fn class_end(&mut self, p: usize, lookahead: bool) -> Option<usize> {
-        if self.at(p) != b':' || p >= self.lim() {
-            return None;
-        }
-        if lookahead {
-            return Some(p);
-        }
+    /// The end `(:)` of a class.
+    fn class_end(&mut self, p: usize) -> Option<usize> {
+        self.colon_ahead(p)?;
         self.cap(1, p, p + 1);
         Some(p + 1)
+    }
+
+    /// The end `(?=:)` of a return annotation.
+    fn colon_ahead(&self, p: usize) -> Option<usize> {
+        (self.at(p) == b':' && p < self.lim()).then_some(p)
     }
 
     /// The begin `\s*(?:\b(async)\s+)?\b(def)\s+(?=[_[:alpha:]]\p{word}*\s*\

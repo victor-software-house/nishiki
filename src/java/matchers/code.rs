@@ -85,11 +85,12 @@ impl Lexer<'_> {
     }
 
     /// A string's escape: `\\.`, and in a text block `(\\""")(?!")` first.
-    pub(super) fn escape(&self, p: usize, text_block: bool) -> Option<usize> {
+    pub(super) fn escape(&self, p: usize, escapes: Escapes) -> Option<usize> {
         if self.at(p) != b'\\' {
             return None;
         }
-        if text_block && self.starts(p + 1, b"\"\"\"") && self.at(p + 4) != b'"' {
+        if escapes == Escapes::TextBlock && self.starts(p + 1, b"\"\"\"") && self.at(p + 4) != b'"'
+        {
             return Some(p + 4);
         }
         // `.` matches any character but the line feed.
@@ -171,15 +172,15 @@ impl Lexer<'_> {
     }
 
     /// `([$A-Z_a-z][$\w]*)(?=\s*(\[])*\s*([,:;=]))` and its `var` twin: a
-    /// name that a declaration ends at.
-    pub(super) fn definition(&mut self, p: usize, with_comma: bool) -> Option<usize> {
+    /// name that a declaration ends at, where `terminators` are the bytes
+    /// that may end it.
+    pub(super) fn definition(&mut self, p: usize, terminators: &[u8]) -> Option<usize> {
         let end = self.ident_end(p)?;
         let mut i = self.space_end(end);
         while self.starts(i, b"[]") {
             i += 2;
         }
         i = self.space_end(i);
-        let terminators: &[u8] = if with_comma { b",:;=" } else { b":;=" };
         self.one_of(i, terminators)?;
         self.cap(1, p, end);
         Some(end)
@@ -211,6 +212,15 @@ impl Lexer<'_> {
         }
         (b == b'/' && p < self.lim() && !matches!(self.at(p + 1), b'*' | b'/')).then_some(p)
     }
+}
+
+/// Which escapes a string takes.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum Escapes {
+    /// `\\.` only, in a string on one line.
+    String,
+    /// `(\\""")(?!")` too, in a text block.
+    TextBlock,
 }
 
 /// Which property pattern is being matched.

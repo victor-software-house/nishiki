@@ -1,8 +1,26 @@
 //! The declarations: classes, records, enums, modules, methods and
 //! variables, whose rules open on a lookahead over the rest of the line.
 
-use crate::java::engine::{Lexer, RunMemo};
+use crate::java::engine::Lexer;
 use crate::rules::Chars;
+
+/// The declaration whose keyword [`Lexer::keyword_ahead`] looks for.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Decl {
+    /// `class`, `interface` or `enum`, in a run that may hold hyphens.
+    Class,
+    /// `record`.
+    Record,
+}
+
+/// What [`Lexer::method_ahead`] looks for.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(super) enum Callable {
+    /// A method: a `(` ahead.
+    Method,
+    /// A record's constructor: a `{` ahead, with no `(` before it.
+    Constructor,
+}
 
 impl Lexer<'_> {
     /// Whether the word at `j` is a declaration keyword that a name follows:
@@ -42,7 +60,11 @@ impl Lexer<'_> {
 
     /// `(?=\w?[-\w\s]*\bKEYWORD...)`: a keyword in the run of word
     /// characters, blanks and (for a class) hyphens that starts at `p`.
-    fn keyword_ahead(&self, p: usize, hyphen: bool, memo: &RunMemo, class: bool) -> bool {
+    fn keyword_ahead(&self, p: usize, decl: Decl) -> bool {
+        let memo = match decl {
+            Decl::Class => &self.x.memo.keyword,
+            Decl::Record => &self.x.memo.record,
+        };
         let (start, end, last) = memo.get();
         if start <= p && p <= end {
             return last.is_some_and(|j| j >= p);
@@ -54,7 +76,7 @@ impl Lexer<'_> {
                 run_end += width;
             } else if let Some(width) = self.word_at(run_end) {
                 run_end += width;
-            } else if hyphen && self.at(run_end) == b'-' && run_end < self.lim() {
+            } else if decl == Decl::Class && self.at(run_end) == b'-' && run_end < self.lim() {
                 run_end += 1;
             } else {
                 break;
@@ -64,10 +86,9 @@ impl Lexer<'_> {
         let mut last = None;
         let mut j = p;
         while j <= run_end {
-            let qualifies = if class {
-                self.class_keyword(j)
-            } else {
-                self.record_keyword(j)
+            let qualifies = match decl {
+                Decl::Class => self.class_keyword(j),
+                Decl::Record => self.record_keyword(j),
             };
             if qualifies {
                 last = Some(j);
@@ -84,14 +105,12 @@ impl Lexer<'_> {
 
     /// `(?=\w?[-\w\s]*\b(?:class|(?<!@)interface|enum)\s+[$\w]+)`.
     pub(super) fn class_ahead(&self, p: usize) -> Option<usize> {
-        self.keyword_ahead(p, true, &self.x.memo.keyword, true)
-            .then_some(p)
+        self.keyword_ahead(p, Decl::Class).then_some(p)
     }
 
     /// `(?=\w?[\w\s]*\brecord\s+[$\w]+)`.
     pub(super) fn record_ahead(&self, p: usize) -> Option<usize> {
-        self.keyword_ahead(p, false, &self.x.memo.record, false)
-            .then_some(p)
+        self.keyword_ahead(p, Decl::Record).then_some(p)
     }
 
     /// `class|(?<!@)interface|enum` then a name, with the keyword and name
@@ -226,17 +245,16 @@ impl Lexer<'_> {
     /// `(?!new)(?=[<\w].*\s+)(?=([^(/=]|/(?!/))+(?=\{))` for a record's
     /// constructor: the run from `p` that has no `=` or `//` (and, for a
     /// constructor, no `(`) holds a `(` (or a `{`) after its first character.
-    pub(super) fn method_ahead(&self, p: usize, constructor: bool) -> Option<usize> {
+    pub(super) fn method_ahead(&self, p: usize, callable: Callable) -> Option<usize> {
         if self.starts(p, b"new") || p >= self.lim() {
             return None;
         }
         if !(self.s[p] == b'<' || self.word_at(p).is_some()) {
             return None;
         }
-        let (target, memo) = if constructor {
-            (b'{', &self.x.memo.constructor)
-        } else {
-            (b'(', &self.x.memo.method)
+        let (target, memo) = match callable {
+            Callable::Constructor => (b'{', &self.x.memo.constructor),
+            Callable::Method => (b'(', &self.x.memo.method),
         };
         let (start, end, last) = memo.get();
         if start <= p && p < end {
@@ -246,8 +264,9 @@ impl Lexer<'_> {
         let mut last = None;
         while i < self.lim() {
             let b = self.s[i];
-            let stops =
-                b == b'=' || (constructor && b == b'(') || (b == b'/' && self.at(i + 1) == b'/');
+            let stops = b == b'='
+                || (callable == Callable::Constructor && b == b'(')
+                || (b == b'/' && self.at(i + 1) == b'/');
             if stops {
                 break;
             }

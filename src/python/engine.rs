@@ -47,6 +47,42 @@ pub(crate) enum Ahead {
     ColonOrBackslash,
 }
 
+impl Ahead {
+    /// How many things there are to look for.
+    const COUNT: usize = 6;
+
+    /// Its slot in [`Extra`].
+    fn slot(self) -> usize {
+        match self {
+            Ahead::CloseBrace => 0,
+            Ahead::OpenBrace => 1,
+            Ahead::CloseBracket => 2,
+            Ahead::Import => 3,
+            Ahead::PercentBrace => 4,
+            Ahead::ColonOrBackslash => 5,
+        }
+    }
+}
+
+/// The bytes [`Lexer::next_stop`] stops at.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Stops {
+    /// A quote or `}`.
+    QuoteOrClose,
+    /// A quote, `{` or `}`.
+    QuoteOrBrace,
+}
+
+impl Stops {
+    /// Its slot in [`Extra`].
+    fn slot(self) -> usize {
+        match self {
+            Stops::QuoteOrClose => 0,
+            Stops::QuoteOrBrace => 1,
+        }
+    }
+}
+
 /// What the Python matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
@@ -57,7 +93,7 @@ pub(crate) struct Extra {
     /// lists have it.
     pub(crate) word_mask: Cell<(usize, u8)>,
     /// The last place each [`Ahead`] thing stands, once looked for.
-    ahead: [Cell<Seen>; 6],
+    ahead: [Cell<Seen>; Ahead::COUNT],
     /// The last search for a quote or `}`, and one for a quote, `{` or `}`:
     /// where it started and what it found.
     pub(crate) stops: [Cell<(usize, usize)>; 2],
@@ -68,7 +104,7 @@ impl Default for Extra {
         Extra {
             word_run: Cell::new((usize::MAX, 0)),
             word_mask: Cell::new((usize::MAX, 0)),
-            ahead: [const { Cell::new(Seen::Unknown) }; 6],
+            ahead: [const { Cell::new(Seen::Unknown) }; Ahead::COUNT],
             stops: [const { Cell::new((usize::MAX, 0)) }; 2],
         }
     }
@@ -77,9 +113,8 @@ impl Default for Extra {
 impl Lexer<'_> {
     /// Where `what` last stands in the line, so that a lookahead for it asks
     /// one question however many positions it is tried at.
-    #[expect(clippy::as_conversions, reason = "a fieldless enum has no `From` impl")]
     pub(crate) fn last(&self, what: Ahead) -> Option<usize> {
-        let slot = &self.x.ahead[what as usize];
+        let slot = &self.x.ahead[what.slot()];
         match slot.get() {
             Seen::At(place) => return Some(place),
             Seen::Absent => return None,
@@ -100,20 +135,20 @@ impl Lexer<'_> {
         found
     }
 
-    /// The first position from `from` where a quote or `}` stands, or where
-    /// `{` does too when `with_open`; the end of the line when none does.
-    pub(crate) fn next_stop(&self, from: usize, with_open: bool) -> usize {
-        let slot = &self.x.stops[usize::from(with_open)];
+    /// The first position from `from` where one of `stops` stands; the end
+    /// of the line when none does.
+    pub(crate) fn next_stop(&self, from: usize, stops: Stops) -> usize {
+        let slot = &self.x.stops[stops.slot()];
         let (start, answer) = slot.get();
         if start <= from && from <= answer {
             return answer;
         }
         let rest = self.s.get(from..).unwrap_or(&[]);
-        let found = if with_open {
-            rest.iter()
-                .position(|b| matches!(b, b'"' | b'\'' | b'{' | b'}'))
-        } else {
-            memchr::memchr3(b'"', b'\'', b'}', rest)
+        let found = match stops {
+            Stops::QuoteOrBrace => rest
+                .iter()
+                .position(|b| matches!(b, b'"' | b'\'' | b'{' | b'}')),
+            Stops::QuoteOrClose => memchr::memchr3(b'"', b'\'', b'}', rest),
         };
         self.spend(found.map_or(rest.len(), |at| at + 1));
         let answer = found.map_or(self.s.len(), |at| from + at);

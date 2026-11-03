@@ -1,8 +1,9 @@
 //! The matchers of plain strings: their prefixes and quotes, escapes,
 //! formatting placeholders and docstrings.
 
-use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::Pat;
+use super::Quotes;
+use crate::python::engine::{Ahead, Lexer, Stops};
+use crate::python::grammar::StringPat;
 use crate::rules::Chars;
 
 /// How a string closes.
@@ -15,69 +16,62 @@ enum Close {
 }
 
 impl Lexer<'_> {
-    #[expect(
-        clippy::wildcard_enum_match_arm,
-        reason = "the dispatch sends this function its own patterns only"
-    )]
-    pub(super) fn string_matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    pub(super) fn string_matcher(&mut self, pat: StringPat, p: usize) -> Option<usize> {
         match pat {
-            Pat::StringQuotedMultiLine => self.plain_begin(p, true),
-            Pat::StringQuotedSingleLine => self.plain_begin(p, false),
-            Pat::StringBinQuotedMultiLine => self.bin_begin(p, true),
-            Pat::StringBinQuotedSingleLine => self.bin_begin(p, false),
-            Pat::StringRawQuotedMultiLine => self.raw_begin(p, true),
-            Pat::StringRawQuotedSingleLine => self.raw_begin(p, false),
-            Pat::StringRawBinQuotedMultiLine => self.raw_bin_begin(p, true),
-            Pat::StringRawBinQuotedSingleLine => self.raw_bin_begin(p, false),
-            Pat::StringQuotedMultiLineEnd
-            | Pat::StringBinQuotedMultiLineEnd
-            | Pat::StringRawQuotedMultiLineEnd
-            | Pat::StringRawBinQuotedMultiLineEnd
-            | Pat::DocstringAt0End
-            | Pat::DocstringAt1End => self.string_end(p, Close::Quote),
-            Pat::StringQuotedSingleLineEnd
-            | Pat::StringBinQuotedSingleLineEnd
-            | Pat::StringRawQuotedSingleLineEnd
-            | Pat::StringRawBinQuotedSingleLineEnd
-            | Pat::DocstringAt2End
-            | Pat::DocstringAt3End => self.string_end(p, Close::QuoteOrNewline),
-            Pat::DocstringAt0 => self.docstring_triple(p),
-            Pat::DocstringAt1 => self.docstring_raw(p, true),
-            Pat::DocstringAt2 => self.docstring_single(p),
-            Pat::DocstringAt3 => self.docstring_raw(p, false),
-            Pat::DocstringStatement => self.docstring_statement_begin(p),
-            Pat::DocstringStatementEnd => self.docstring_statement_end(p),
-            Pat::DocstringPrompt => self.docstring_prompt(p),
-            Pat::EscapeSequenceUnicodeAt0 => self.unicode_escape(p),
-            Pat::EscapeSequence => self.escape(p),
-            Pat::StringLineContinuation => {
+            StringPat::StringQuotedMultiLine => self.plain_begin(p, Quotes::Three),
+            StringPat::StringQuotedSingleLine => self.plain_begin(p, Quotes::One),
+            StringPat::StringBinQuotedMultiLine => self.bin_begin(p, Quotes::Three),
+            StringPat::StringBinQuotedSingleLine => self.bin_begin(p, Quotes::One),
+            StringPat::StringRawQuotedMultiLine => self.raw_begin(p, Quotes::Three),
+            StringPat::StringRawQuotedSingleLine => self.raw_begin(p, Quotes::One),
+            StringPat::StringRawBinQuotedMultiLine => self.raw_bin_begin(p, Quotes::Three),
+            StringPat::StringRawBinQuotedSingleLine => self.raw_bin_begin(p, Quotes::One),
+            StringPat::StringQuotedMultiLineEnd
+            | StringPat::StringBinQuotedMultiLineEnd
+            | StringPat::StringRawQuotedMultiLineEnd
+            | StringPat::StringRawBinQuotedMultiLineEnd
+            | StringPat::DocstringAt0End
+            | StringPat::DocstringAt1End => self.string_end(p, Close::Quote),
+            StringPat::StringQuotedSingleLineEnd
+            | StringPat::StringBinQuotedSingleLineEnd
+            | StringPat::StringRawQuotedSingleLineEnd
+            | StringPat::StringRawBinQuotedSingleLineEnd
+            | StringPat::DocstringAt2End
+            | StringPat::DocstringAt3End => self.string_end(p, Close::QuoteOrNewline),
+            StringPat::DocstringAt0 => self.docstring_triple(p),
+            StringPat::DocstringAt1 => self.docstring_raw(p, Quotes::Three),
+            StringPat::DocstringAt2 => self.docstring_single(p),
+            StringPat::DocstringAt3 => self.docstring_raw(p, Quotes::One),
+            StringPat::DocstringStatement => self.docstring_statement_begin(p),
+            StringPat::DocstringStatementEnd => self.docstring_statement_end(p),
+            StringPat::DocstringPrompt => self.docstring_prompt(p),
+            StringPat::EscapeSequenceUnicodeAt0 => self.unicode_escape(p),
+            StringPat::EscapeSequence => self.escape(p),
+            StringPat::StringLineContinuation => {
                 (self.at(p) == b'\\' && p < self.lim() && self.at_eol(p + 1)).then_some(p + 1)
             }
-            Pat::StringConsumeEscape => self.consume_escape(p),
-            Pat::StringFormatting => self.percent_format(p),
-            Pat::StringBraceFormattingAt0 => self.brace_format(p),
-            Pat::StringBraceFormattingAt1 => self.brace_format_nested(p),
-            Pat::StringMultiBadBrace1FormattingUnicode | Pat::StringMultiBadBrace1FormattingRaw => {
-                self.bad_brace1(p, true)
-            }
-            Pat::StringSingleBadBrace1FormattingUnicode
-            | Pat::StringSingleBadBrace1FormattingRaw => self.bad_brace1(p, false),
-            Pat::StringMultiBadBrace2FormattingUnicode | Pat::StringMultiBadBrace2FormattingRaw => {
-                self.bad_brace2(p, true)
-            }
-            Pat::StringSingleBadBrace2FormattingUnicode
-            | Pat::StringSingleBadBrace2FormattingRaw => self.bad_brace2(p, false),
-            Pat::StringMultiBadBrace1FormattingUnicodeEnd
-            | Pat::StringMultiBadBrace1FormattingRawEnd
-            | Pat::StringMultiBadBrace2FormattingUnicodeEnd
-            | Pat::StringMultiBadBrace2FormattingRawEnd => self.triple_ahead(p).then_some(p),
-            Pat::StringSingleBadBrace1FormattingUnicodeEnd
-            | Pat::StringSingleBadBrace1FormattingRawEnd
-            | Pat::StringSingleBadBrace2FormattingUnicodeEnd
-            | Pat::StringSingleBadBrace2FormattingRawEnd => {
+            StringPat::StringConsumeEscape => self.consume_escape(p),
+            StringPat::StringFormatting => self.percent_format(p),
+            StringPat::StringBraceFormattingAt0 => self.brace_format(p),
+            StringPat::StringBraceFormattingAt1 => self.brace_format_nested(p),
+            StringPat::StringMultiBadBrace1FormattingUnicode
+            | StringPat::StringMultiBadBrace1FormattingRaw
+            | StringPat::StringSingleBadBrace1FormattingUnicode
+            | StringPat::StringSingleBadBrace1FormattingRaw => self.bad_brace1(p),
+            StringPat::StringMultiBadBrace2FormattingUnicode
+            | StringPat::StringMultiBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::Three),
+            StringPat::StringSingleBadBrace2FormattingUnicode
+            | StringPat::StringSingleBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::One),
+            StringPat::StringMultiBadBrace1FormattingUnicodeEnd
+            | StringPat::StringMultiBadBrace1FormattingRawEnd
+            | StringPat::StringMultiBadBrace2FormattingUnicodeEnd
+            | StringPat::StringMultiBadBrace2FormattingRawEnd => self.triple_ahead(p).then_some(p),
+            StringPat::StringSingleBadBrace1FormattingUnicodeEnd
+            | StringPat::StringSingleBadBrace1FormattingRawEnd
+            | StringPat::StringSingleBadBrace2FormattingUnicodeEnd
+            | StringPat::StringSingleBadBrace2FormattingRawEnd => {
                 self.quote_or_newline_ahead(p).then_some(p)
             }
-            _ => None,
         }
     }
 
@@ -94,9 +88,9 @@ impl Lexer<'_> {
     }
 
     /// The width of the quote at `p`: three for a triple quote, one for a
-    /// single one, when `triple` says which kind the rule takes.
-    fn quote_width(&self, p: usize, triple: bool) -> Option<usize> {
-        if triple {
+    /// single one, when `quotes` says which kind the rule takes.
+    fn quote_width(&self, p: usize, quotes: Quotes) -> Option<usize> {
+        if quotes == Quotes::Three {
             self.triple_ahead(p).then_some(3)
         } else {
             (matches!(self.at(p), b'"' | b'\'') && p < self.lim()).then_some(1)
@@ -105,7 +99,7 @@ impl Lexer<'_> {
 
     /// The begin `(?:\b([Rr])(?=[Uu]))?([Uu])?('''|""")`, or the same with
     /// `(["'])` for a single-line string.
-    fn plain_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn plain_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         let mut q = p;
         let mut groups = [None; 2];
         if self.boundary(p)
@@ -118,12 +112,12 @@ impl Lexer<'_> {
         }
         if matches!(self.at(q), b'U' | b'u')
             && q < self.lim()
-            && self.quote_width(q + 1, triple).is_some()
+            && self.quote_width(q + 1, quotes).is_some()
         {
             groups[1] = Some((q, q + 1));
             q += 1;
         }
-        let width = self.quote_width(q, triple)?;
+        let width = self.quote_width(q, quotes)?;
         if let Some((a, b)) = groups[0] {
             self.cap(1, a, b);
         }
@@ -131,28 +125,28 @@ impl Lexer<'_> {
             self.cap(2, a, b);
         }
         self.cap(3, q, q + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(4, q, q + width);
         }
         Some(q + width)
     }
 
     /// The begin `\b([Bb])('''|""")` or `\b([Bb])((["']))`.
-    fn bin_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn bin_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !self.boundary(p) || !matches!(self.at(p), b'B' | b'b') || p >= self.lim() {
             return None;
         }
-        let width = self.quote_width(p + 1, triple)?;
+        let width = self.quote_width(p + 1, quotes)?;
         self.cap(1, p, p + 1);
         self.cap(2, p + 1, p + 1 + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(3, p + 1, p + 1 + width);
         }
         Some(p + 1 + width)
     }
 
     /// The begin `\b(([Uu]R)|(R))('''|""")` or its single-line form.
-    fn raw_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn raw_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !self.boundary(p) {
             return None;
         }
@@ -163,18 +157,18 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        let width = self.quote_width(prefix_end, triple)?;
+        let width = self.quote_width(prefix_end, quotes)?;
         self.cap(1, p, prefix_end);
         self.cap(group, p, prefix_end);
         self.cap(4, prefix_end, prefix_end + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(5, prefix_end, prefix_end + width);
         }
         Some(prefix_end + width)
     }
 
     /// The begin `\b(R[Bb]|[Bb]R)('''|""")` or its single-line form.
-    fn raw_bin_begin(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn raw_bin_begin(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !self.boundary(p) {
             return None;
         }
@@ -183,10 +177,10 @@ impl Lexer<'_> {
         if !ok || p + 1 >= self.lim() {
             return None;
         }
-        let width = self.quote_width(p + 2, triple)?;
+        let width = self.quote_width(p + 2, quotes)?;
         self.cap(1, p, p + 2);
         self.cap(2, p + 2, p + 2 + width);
-        if !triple {
+        if quotes == Quotes::One {
             self.cap(3, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
@@ -208,17 +202,17 @@ impl Lexer<'_> {
 
     /// The begin `('''|""")` of a docstring.
     fn docstring_triple(&mut self, p: usize) -> Option<usize> {
-        let width = self.quote_width(p, true)?;
+        let width = self.quote_width(p, Quotes::Three)?;
         self.cap(1, p, p + width);
         Some(p + width)
     }
 
     /// The begin `([Rr])('''|""")` or `([Rr])(["'])` of a raw docstring.
-    fn docstring_raw(&mut self, p: usize, triple: bool) -> Option<usize> {
+    fn docstring_raw(&mut self, p: usize, quotes: Quotes) -> Option<usize> {
         if !matches!(self.at(p), b'R' | b'r') || p >= self.lim() {
             return None;
         }
-        let width = self.quote_width(p + 1, triple)?;
+        let width = self.quote_width(p + 1, quotes)?;
         self.cap(1, p, p + 1);
         self.cap(2, p + 1, p + 1 + width);
         Some(p + 1 + width)
@@ -226,7 +220,7 @@ impl Lexer<'_> {
 
     /// The begin `(["'])` of a single-line docstring.
     fn docstring_single(&mut self, p: usize) -> Option<usize> {
-        let width = self.quote_width(p, false)?;
+        let width = self.quote_width(p, Quotes::One)?;
         self.cap(1, p, p + width);
         Some(p + width)
     }
@@ -250,15 +244,15 @@ impl Lexer<'_> {
             q
         };
         if let Some(width) = self
-            .quote_width(start, true)
-            .or_else(|| self.quote_width(start, false))
+            .quote_width(start, Quotes::Three)
+            .or_else(|| self.quote_width(start, Quotes::One))
         {
             return Some((start, width));
         }
         // `[Rr]?` is optional: the quote may start at `q` itself.
         let width = self
-            .quote_width(q, true)
-            .or_else(|| self.quote_width(q, false))?;
+            .quote_width(q, Quotes::Three)
+            .or_else(|| self.quote_width(q, Quotes::One))?;
         Some((q, width))
     }
 
@@ -549,17 +543,17 @@ impl Lexer<'_> {
         if self.at(head_end) != b':' || head_end >= self.lim() {
             return None;
         }
-        let mut i = self.next_stop(head_end + 1, true);
+        let mut i = self.next_stop(head_end + 1, Stops::QuoteOrBrace);
         loop {
             match self.at(i) {
                 b'}' if i < self.lim() => break,
                 b'{' if i < self.lim() => {
                     // `\{[^\n"'}]*?}`: up to the first `}`, with no quote.
-                    let j = self.next_stop(i + 1, false);
+                    let j = self.next_stop(i + 1, Stops::QuoteOrClose);
                     if !(self.at(j) == b'}' && j < self.lim()) {
                         return None;
                     }
-                    i = self.next_stop(j + 1, true);
+                    i = self.next_stop(j + 1, Stops::QuoteOrBrace);
                 }
                 _ => return None,
             }
@@ -574,7 +568,7 @@ impl Lexer<'_> {
 
     /// The begin `(?=\{%(.*?(?!...))%})`: a `{%` with a `%}` after it on
     /// the line. The negative lookahead sits before the `%}`, so it holds.
-    fn bad_brace1(&self, p: usize, _triple: bool) -> Option<usize> {
+    fn bad_brace1(&self, p: usize) -> Option<usize> {
         if !self.starts(p, b"{%") {
             return None;
         }
@@ -584,14 +578,14 @@ impl Lexer<'_> {
     /// The begin `(?!\{\{)(?=\{(\w*?(?!q)[^!.:\[}\w]).*?(?!q)})`: a brace group
     /// whose first character after the name is none of `!.:[}`, so it is not a
     /// placeholder.
-    fn bad_brace2(&self, p: usize, triple: bool) -> Option<usize> {
+    fn bad_brace2(&self, p: usize, quotes: Quotes) -> Option<usize> {
         if self.at(p) != b'{' || p >= self.lim() || self.at(p + 1) == b'{' && p + 1 < self.lim() {
             return None;
         }
         let t = self.word_end(p + 1);
         // `(?!q)` before the class character.
         let blocked = |at: usize| {
-            if triple {
+            if quotes == Quotes::Three {
                 self.triple_ahead(at)
             } else {
                 (matches!(self.at(at), b'"' | b'\'') && at < self.lim())

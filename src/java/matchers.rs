@@ -6,17 +6,22 @@
 //! would. Where a quantifier could give characters back, the doc comment says
 //! why it cannot matter.
 
+mod annotations;
 mod chars;
 mod code;
 mod comments;
 mod decls;
 mod imports;
-mod misc;
+mod keywords;
+mod lookaheads;
+mod names;
 mod numbers;
 mod types;
 mod variables;
 
-use code::Property;
+use code::{Escapes, Property};
+use decls::Callable;
+use numbers::Radix;
 
 use super::engine::Lexer;
 use super::grammar::Pat;
@@ -136,9 +141,9 @@ impl Lexer<'_> {
             | Pat::ParametersAt5
             | Pat::ThrowsAt0
             | Pat::CodeAt23 => self.lit(p, b","),
-            Pat::PrimitiveArraysAt0 => self.primitive(p, true),
+            Pat::PrimitiveArraysAt0 => self.primitive_array(p),
             Pat::PrimitiveArraysAt0End | Pat::ObjectTypesAt1End => self.not_bracket(p),
-            Pat::PrimitiveTypes => self.primitive(p, false),
+            Pat::PrimitiveTypes => self.primitive(p),
             Pat::ObjectTypesAt1 => self.object_array(p),
             Pat::ObjectTypesAt2 => self.object_generic(p),
             Pat::ObjectTypesAt3 => self.object_type(p),
@@ -165,7 +170,7 @@ impl Lexer<'_> {
             Pat::RecordAt4End | Pat::RecordConstructorAt1End => {
                 (self.at(self.space_end(p)) == b'{').then_some(p)
             }
-            Pat::RecordConstructor => self.method_ahead(p, true),
+            Pat::RecordConstructor => self.method_ahead(p, Callable::Constructor),
             Pat::RecordConstructorEnd | Pat::MethodsEnd => self.method_end(p),
             Pat::RecordConstructorAt1 => self.constructor_name(p),
 
@@ -188,8 +193,8 @@ impl Lexer<'_> {
             Pat::ConstantsAndSpecialVarsAt0 => self.word_in(p, &[b"true", b"false", b"null"]),
             Pat::ConstantsAndSpecialVarsAt1 => self.keyword(p, b"this"),
             Pat::NumbersAt0 => self.hex_number(p),
-            Pat::NumbersAt1 => self.radix_number(p, true),
-            Pat::NumbersAt2 => self.radix_number(p, false),
+            Pat::NumbersAt1 => self.radix_number(p, Radix::Binary),
+            Pat::NumbersAt2 => self.radix_number(p, Radix::Octal),
             Pat::NumbersAt3 => self.decimal_number(p),
 
             // Expressions.
@@ -222,10 +227,10 @@ impl Lexer<'_> {
             Pat::Variables => self.variable_ahead(p),
             Pat::VariablesEnd | Pat::VariablesLocalEnd => self.ahead_of(p, b":;="),
             Pat::MemberVariablesEnd => self.ahead_of(p, b";="),
-            Pat::VariablesAt0 => self.definition(p, true),
+            Pat::VariablesAt0 => self.definition(p, b",:;="),
             Pat::VariablesLocal => self.local_variable_ahead(p),
             Pat::VariablesLocalAt0 => self.keyword(p, b"var"),
-            Pat::VariablesLocalAt1 => self.definition(p, false),
+            Pat::VariablesLocalAt1 => self.definition(p, b":;="),
             Pat::Objects => self.object(p),
             Pat::PropertiesAt0 => self.property(p, Property::New),
             Pat::PropertiesAt1 => self.property(p, Property::Chained),
@@ -235,9 +240,9 @@ impl Lexer<'_> {
 
             // Strings.
             Pat::StringsAt0 | Pat::StringsAt0End => self.lit(p, b"\"\"\""),
-            Pat::StringsAt0At0 => self.escape(p, true),
+            Pat::StringsAt0At0 => self.escape(p, Escapes::TextBlock),
             Pat::StringsAt1 | Pat::StringsAt1End => self.lit(p, b"\""),
-            Pat::StringsAt1At0 | Pat::StringsAt2At0 => self.escape(p, false),
+            Pat::StringsAt1At0 | Pat::StringsAt2At0 => self.escape(p, Escapes::String),
             Pat::StringsAt2 | Pat::StringsAt2End => self.lit(p, b"'"),
 
             // Members.
@@ -245,7 +250,7 @@ impl Lexer<'_> {
             Pat::StaticInitializerAt1 => self.lit(p, b"static"),
             Pat::ClassFieldsAndMethodsAt0 => self.ahead_of(p, b"="),
             Pat::ClassFieldsAndMethodsAt0End => self.ahead_of(p, b";"),
-            Pat::Methods => self.method_ahead(p, false),
+            Pat::Methods => self.method_ahead(p, Callable::Method),
             Pat::MethodsAt1 => self.method_head(p),
             Pat::ParametersAt0 => self.keyword(p, b"final"),
             Pat::ParametersAt6 => self.lit(p, b"..."),

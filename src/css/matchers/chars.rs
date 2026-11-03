@@ -9,13 +9,22 @@ use crate::rules::Chars;
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
 
+/// Which characters [`Lexer::letters_ci`] runs over.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::css) enum Letters {
+    /// `[a-z]`.
+    Plain,
+    /// `[-a-z]`.
+    Dashed,
+}
+
 impl Lexer<'_> {
-    /// The end of the run of letters from `p`, with `-` when `dash`: `[a-z]*`
-    /// or `[-a-z]*` under `(?i)`, where the long s and the Kelvin sign are
-    /// letters too.
-    pub(in crate::css) fn letters_ci(&self, mut p: usize, dash: bool) -> usize {
+    /// The end of the run of `letters` from `p`: `[a-z]*` or `[-a-z]*` under
+    /// `(?i)`, where the long s and the Kelvin sign are letters too.
+    pub(in crate::css) fn letters_ci(&self, mut p: usize, letters: Letters) -> usize {
         while let Some((c, end)) = self.char_at(p) {
-            if !(c.is_ascii_alphabetic() || c == '\u{17f}' || c == '\u{212a}' || dash && c == '-') {
+            let dash = letters == Letters::Dashed && c == '-';
+            if !(c.is_ascii_alphabetic() || c == '\u{17f}' || c == '\u{212a}' || dash) {
                 break;
             }
             p = end;

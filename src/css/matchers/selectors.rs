@@ -4,6 +4,7 @@
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
 use super::super::words;
+use super::chars::Letters;
 use crate::rules::Chars;
 
 /// The characters that end a name in a selector: `[#\&)+,.:>\[{|~\s]`.
@@ -12,6 +13,16 @@ fn selector_stop(b: u8) -> bool {
         b,
         b'#' | b'&' | b')' | b'+' | b',' | b'.' | b':' | b'>' | b'[' | b'{' | b'|' | b'~'
     )
+}
+
+/// How [`Lexer::vendor_prefixed`] reads the tail after the prefix.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(in crate::css) enum Tail {
+    /// ASCII letters and `-`.
+    Ascii,
+    /// Letters under `(?i)`, where the long s and the Kelvin sign count, and
+    /// `-`.
+    Folded,
 }
 
 impl Lexer<'_> {
@@ -85,7 +96,7 @@ impl Lexer<'_> {
         }
         if b == b':' {
             let next = if self.at(p + 1) == b':' { p + 2 } else { p + 1 };
-            return self.letters_ci(next, true) > next;
+            return self.letters_ci(next, Letters::Dashed) > next;
         }
         false
     }
@@ -491,7 +502,7 @@ impl Lexer<'_> {
         let plain = run > word && self.in_list(word, run, words::PSEUDO_ELEMENTS);
         let end = if plain {
             run
-        } else if let Some(end) = self.vendor_prefixed(word, true) {
+        } else if let Some(end) = self.vendor_prefixed(word, Tail::Folded) {
             end
         } else if double && run > word && self.in_list(word, run, words::PSEUDO_ELEMENTS_DOUBLE) {
             let after = self.spaces(run);
@@ -512,11 +523,11 @@ impl Lexer<'_> {
     }
 
     /// `(?:-(?:ah|apple|...)|(?:mso|prince))-[-a-z]+` at `p`, without regard
-    /// to case in the prefix, and in the tail when `tail_ci`, and its end.
-    pub(in crate::css) fn vendor_prefixed(&self, p: usize, tail_ci: bool) -> Option<usize> {
+    /// to case in the prefix, and in the tail as `tail` says, and its end.
+    pub(in crate::css) fn vendor_prefixed(&self, p: usize, tail: Tail) -> Option<usize> {
         let dash = self.at(p) == b'-';
         let start = if dash { p + 1 } else { p };
-        let letters = self.letters_ci(start, false);
+        let letters = self.letters_ci(start, Letters::Plain);
         let vendor_ok = if dash {
             self.in_list(start, letters, words::VENDORS)
         } else {
@@ -525,10 +536,9 @@ impl Lexer<'_> {
         if !vendor_ok || self.at(letters) != b'-' {
             return None;
         }
-        let end = if tail_ci {
-            self.letters_ci(letters + 1, true)
-        } else {
-            self.skip(letters + 1, |b| b.is_ascii_alphabetic() || b == b'-')
+        let end = match tail {
+            Tail::Folded => self.letters_ci(letters + 1, Letters::Dashed),
+            Tail::Ascii => self.skip(letters + 1, |b| b.is_ascii_alphabetic() || b == b'-'),
         };
         (end > letters + 1).then_some(end)
     }
