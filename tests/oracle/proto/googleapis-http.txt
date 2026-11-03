@@ -1,0 +1,1208 @@
+L // Copyright 2026 Google LLC
+T 2 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.proto comment.line.double-slash.proto
+T 66 source.proto comment.line.double-slash.proto
+L // you may not use this file except in compliance with the License.
+T 2 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L // You may obtain a copy of the License at
+T 2 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     http://www.apache.org/licenses/LICENSE-2.0
+T 2 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // See the License for the specific language governing permissions and
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // limitations under the License.
+T 2 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L 
+L syntax = "proto3";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 17 source.proto string.quoted.double.proto.syntax
+T 18 source.proto punctuation.terminator.proto
+L 
+L package google.api;
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 18 source.proto string.unquoted.proto.package
+T 19 source.proto punctuation.terminator.proto
+L 
+L option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 17 source.proto support.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 87 source.proto string.quoted.double.proto
+T 88 source.proto punctuation.terminator.proto
+L option java_multiple_files = true;
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 26 source.proto support.other.proto
+T 27 source.proto
+T 28 source.proto keyword.operator.assignment.proto
+T 29 source.proto
+T 33 source.proto constant.language.proto
+T 34 source.proto punctuation.terminator.proto
+L option java_outer_classname = "HttpProto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 27 source.proto support.other.proto
+T 28 source.proto
+T 29 source.proto keyword.operator.assignment.proto
+T 30 source.proto
+T 41 source.proto string.quoted.double.proto
+T 42 source.proto punctuation.terminator.proto
+L option java_package = "com.google.api";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 19 source.proto support.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 38 source.proto string.quoted.double.proto
+T 39 source.proto punctuation.terminator.proto
+L option objc_class_prefix = "GAPI";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 24 source.proto support.other.proto
+T 25 source.proto
+T 26 source.proto keyword.operator.assignment.proto
+T 27 source.proto
+T 33 source.proto string.quoted.double.proto
+T 34 source.proto punctuation.terminator.proto
+L 
+L // Defines the HTTP configuration for an API service. It contains a list of
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // to one or more HTTP REST API methods.
+T 2 source.proto comment.line.double-slash.proto
+T 40 source.proto comment.line.double-slash.proto
+L message Http {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 12 source.proto entity.name.class.message.proto
+T 14 source.proto
+L   // A list of HTTP configuration rules that apply to individual API methods.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // **NOTE:** All service configuration rules follow "last one wins" order.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   repeated HttpRule rules = 1;
+T 2 source.proto
+T 10 source.proto storage.modifier.proto
+T 11 source.proto
+T 19 source.proto storage.type.proto
+T 20 source.proto
+T 25 source.proto variable.other.proto
+T 26 source.proto
+T 27 source.proto keyword.operator.assignment.proto
+T 28 source.proto
+T 29 source.proto constant.numeric.proto
+T 30 source.proto punctuation.terminator.proto
+L 
+L   // When set to true, URL path parameters will be fully URI-decoded except in
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // cases of single segment matches in reserved expansion, where "%2F" will be
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // left encoded.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 18 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // The default behavior is to not decode RFC 6570 reserved characters in multi
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // segment matches.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 21 source.proto comment.line.double-slash.proto
+L   bool fully_decode_reserved_expansion = 2;
+T 2 source.proto
+T 6 source.proto storage.type.proto
+T 7 source.proto
+T 38 source.proto variable.other.proto
+T 39 source.proto
+T 40 source.proto keyword.operator.assignment.proto
+T 41 source.proto
+T 42 source.proto constant.numeric.proto
+T 43 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // gRPC Transcoding
+T 2 source.proto comment.line.double-slash.proto
+T 19 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // gRPC Transcoding is a feature for mapping between a gRPC method and one or
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // more HTTP REST endpoints. It allows developers to build a single API service
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // that supports both gRPC APIs and REST APIs. Many systems, including [Google
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // APIs](https://github.com/googleapis/googleapis),
+T 2 source.proto comment.line.double-slash.proto
+T 51 source.proto comment.line.double-slash.proto
+L // [Cloud Endpoints](https://cloud.google.com/endpoints), [gRPC
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L // Gateway](https://github.com/grpc-ecosystem/grpc-gateway),
+T 2 source.proto comment.line.double-slash.proto
+T 60 source.proto comment.line.double-slash.proto
+L // and [Envoy](https://github.com/envoyproxy/envoy) proxy support this feature
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // and use it for large scale production services.
+T 2 source.proto comment.line.double-slash.proto
+T 50 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // `HttpRule` defines the schema of the gRPC/REST mapping. The mapping specifies
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // how different portions of the gRPC request message are mapped to the URL
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // path, URL query parameters, and HTTP request body. It also controls how the
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // gRPC response message is mapped to the HTTP response body. `HttpRule` is
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // typically specified as an `google.api.http` annotation on the gRPC method.
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Each mapping specifies a URL path template and an HTTP method. The path
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // template may refer to one or more fields in the gRPC request message, as long
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // as each field is a non-repeated field with a primitive (non-message) type.
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // The path template controls how fields of the request message are mapped to
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // the URL path.
+T 2 source.proto comment.line.double-slash.proto
+T 16 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Example:
+T 2 source.proto comment.line.double-slash.proto
+T 11 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     service Messaging {
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L //       rpc GetMessage(GetMessageRequest) returns (Message) {
+T 2 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L //         option (google.api.http) = {
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //             get: "/v1/{name=messages/*}"
+T 2 source.proto comment.line.double-slash.proto
+T 43 source.proto comment.line.double-slash.proto
+L //         };
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message GetMessageRequest {
+T 2 source.proto comment.line.double-slash.proto
+T 34 source.proto comment.line.double-slash.proto
+L //       string name = 1; // Mapped to URL path.
+T 2 source.proto comment.line.double-slash.proto
+T 48 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message Message {
+T 2 source.proto comment.line.double-slash.proto
+T 24 source.proto comment.line.double-slash.proto
+L //       string text = 1; // The resource content.
+T 2 source.proto comment.line.double-slash.proto
+T 50 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // This enables an HTTP REST to gRPC mapping as below:
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `GET /v1/messages/123456`
+T 2 source.proto comment.line.double-slash.proto
+T 36 source.proto comment.line.double-slash.proto
+L // - gRPC: `GetMessage(name: "messages/123456")`
+T 2 source.proto comment.line.double-slash.proto
+T 48 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Any fields in the request message which are not bound by the path template
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // automatically become HTTP query parameters if there is no HTTP request body.
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // For example:
+T 2 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     service Messaging {
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L //       rpc GetMessage(GetMessageRequest) returns (Message) {
+T 2 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L //         option (google.api.http) = {
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //             get:"/v1/messages/{message_id}"
+T 2 source.proto comment.line.double-slash.proto
+T 46 source.proto comment.line.double-slash.proto
+L //         };
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message GetMessageRequest {
+T 2 source.proto comment.line.double-slash.proto
+T 34 source.proto comment.line.double-slash.proto
+L //       message SubMessage {
+T 2 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L //         string subfield = 1;
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //       string message_id = 1; // Mapped to URL path.
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L //       int64 revision = 2;    // Mapped to URL query parameter `revision`.
+T 2 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L //       SubMessage sub = 3;    // Mapped to URL query parameter `sub.subfield`.
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // This enables a HTTP JSON to RPC mapping as below:
+T 2 source.proto comment.line.double-slash.proto
+T 52 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `GET /v1/messages/123456?revision=2&sub.subfield=foo`
+T 2 source.proto comment.line.double-slash.proto
+T 64 source.proto comment.line.double-slash.proto
+L // - gRPC: `GetMessage(message_id: "123456" revision: 2 sub:
+T 2 source.proto comment.line.double-slash.proto
+T 60 source.proto comment.line.double-slash.proto
+L // SubMessage(subfield: "foo"))`
+T 2 source.proto comment.line.double-slash.proto
+T 32 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Note that fields which are mapped to URL query parameters must have a
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L // primitive type or a repeated primitive type or a non-repeated message type.
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // In the case of a repeated type, the parameter can be repeated in the URL
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // as `...?param=A&param=B`. In the case of a message type, each field of the
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // message is mapped to a separate parameter, such as
+T 2 source.proto comment.line.double-slash.proto
+T 53 source.proto comment.line.double-slash.proto
+L // `...?foo.a=A&foo.b=B&foo.c=C`.
+T 2 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // For HTTP methods that allow a request body, the `body` field
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L // specifies the mapping. Consider a REST update method on the
+T 2 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L // message resource collection:
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     service Messaging {
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L //       rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
+T 2 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L //         option (google.api.http) = {
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //           patch: "/v1/messages/{message_id}"
+T 2 source.proto comment.line.double-slash.proto
+T 47 source.proto comment.line.double-slash.proto
+L //           body: "message"
+T 2 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L //         };
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message UpdateMessageRequest {
+T 2 source.proto comment.line.double-slash.proto
+T 37 source.proto comment.line.double-slash.proto
+L //       string message_id = 1; // mapped to the URL
+T 2 source.proto comment.line.double-slash.proto
+T 52 source.proto comment.line.double-slash.proto
+L //       Message message = 2;   // mapped to the body
+T 2 source.proto comment.line.double-slash.proto
+T 53 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The following HTTP JSON to RPC mapping is enabled, where the
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L // representation of the JSON in the request body is determined by
+T 2 source.proto comment.line.double-slash.proto
+T 66 source.proto comment.line.double-slash.proto
+L // protos JSON encoding:
+T 2 source.proto comment.line.double-slash.proto
+T 24 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `PATCH /v1/messages/123456 { "text": "Hi!" }`
+T 2 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L // - gRPC: `UpdateMessage(message_id: "123456" message { text: "Hi!" })`
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The special name `*` can be used in the body mapping to define that
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // every field not bound by the path template should be mapped to the
+T 2 source.proto comment.line.double-slash.proto
+T 69 source.proto comment.line.double-slash.proto
+L // request body.  This enables the following alternative definition of
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // the update method:
+T 2 source.proto comment.line.double-slash.proto
+T 21 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     service Messaging {
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L //       rpc UpdateMessage(Message) returns (Message) {
+T 2 source.proto comment.line.double-slash.proto
+T 55 source.proto comment.line.double-slash.proto
+L //         option (google.api.http) = {
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //           patch: "/v1/messages/{message_id}"
+T 2 source.proto comment.line.double-slash.proto
+T 47 source.proto comment.line.double-slash.proto
+L //           body: "*"
+T 2 source.proto comment.line.double-slash.proto
+T 22 source.proto comment.line.double-slash.proto
+L //         };
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message Message {
+T 2 source.proto comment.line.double-slash.proto
+T 24 source.proto comment.line.double-slash.proto
+L //       string message_id = 1;
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //       string text = 2;
+T 2 source.proto comment.line.double-slash.proto
+T 25 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The following HTTP JSON to RPC mapping is enabled:
+T 2 source.proto comment.line.double-slash.proto
+T 53 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `PATCH /v1/messages/123456 { "text": "Hi!" }`
+T 2 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L // - gRPC: `UpdateMessage(message_id: "123456" text: "Hi!")`
+T 2 source.proto comment.line.double-slash.proto
+T 60 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Note that when using `*` in the body mapping, it is not possible to
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // have HTTP parameters, as all fields not bound by the path end in
+T 2 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L // the body. This makes this option more rarely used in practice when
+T 2 source.proto comment.line.double-slash.proto
+T 69 source.proto comment.line.double-slash.proto
+L // defining REST APIs. The common usage of `*` is in custom methods
+T 2 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L // which don't use the URL at all for transferring data.
+T 2 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // It is possible to define multiple HTTP methods for one RPC by using
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // the `additional_bindings` option. Example:
+T 2 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     service Messaging {
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L //       rpc GetMessage(GetMessageRequest) returns (Message) {
+T 2 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L //         option (google.api.http) = {
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //           get: "/v1/messages/{message_id}"
+T 2 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L //           additional_bindings {
+T 2 source.proto comment.line.double-slash.proto
+T 34 source.proto comment.line.double-slash.proto
+L //             get: "/v1/users/{user_id}/messages/{message_id}"
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L //           }
+T 2 source.proto comment.line.double-slash.proto
+T 14 source.proto comment.line.double-slash.proto
+L //         };
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //       }
+T 2 source.proto comment.line.double-slash.proto
+T 10 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //     message GetMessageRequest {
+T 2 source.proto comment.line.double-slash.proto
+T 34 source.proto comment.line.double-slash.proto
+L //       string message_id = 1;
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //       string user_id = 2;
+T 2 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // This enables the following two alternative HTTP JSON to RPC mappings:
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `GET /v1/messages/123456`
+T 2 source.proto comment.line.double-slash.proto
+T 36 source.proto comment.line.double-slash.proto
+L // - gRPC: `GetMessage(message_id: "123456")`
+T 2 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // - HTTP: `GET /v1/users/me/messages/123456`
+T 2 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L // - gRPC: `GetMessage(user_id: "me" message_id: "123456")`
+T 2 source.proto comment.line.double-slash.proto
+T 59 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Rules for HTTP mapping
+T 2 source.proto comment.line.double-slash.proto
+T 25 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // 1. Leaf request fields (recursive expansion nested messages in the request
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L //    message) are classified into three categories:
+T 2 source.proto comment.line.double-slash.proto
+T 52 source.proto comment.line.double-slash.proto
+L //    - Fields referred by the path template. They are passed via the URL path.
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L //    - Fields referred by the [HttpRule.body][google.api.HttpRule.body]. They
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L //    are passed via the HTTP
+T 2 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L //      request body.
+T 2 source.proto comment.line.double-slash.proto
+T 21 source.proto comment.line.double-slash.proto
+L //    - All other fields are passed via the URL query parameters, and the
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L //      parameter name is the field path in the request message. A repeated
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L //      field can be represented as multiple query parameters under the same
+T 2 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L //      name.
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L //  2. If [HttpRule.body][google.api.HttpRule.body] is "*", there is no URL
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L //  query parameter, all fields
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //     are passed via URL path and HTTP request body.
+T 2 source.proto comment.line.double-slash.proto
+T 53 source.proto comment.line.double-slash.proto
+L //  3. If [HttpRule.body][google.api.HttpRule.body] is omitted, there is no HTTP
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L //  request body, all
+T 2 source.proto comment.line.double-slash.proto
+T 21 source.proto comment.line.double-slash.proto
+L //     fields are passed via URL path and URL query parameters.
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Path template syntax
+T 2 source.proto comment.line.double-slash.proto
+T 23 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     Template = "/" Segments [ Verb ] ;
+T 2 source.proto comment.line.double-slash.proto
+T 41 source.proto comment.line.double-slash.proto
+L //     Segments = Segment { "/" Segment } ;
+T 2 source.proto comment.line.double-slash.proto
+T 43 source.proto comment.line.double-slash.proto
+L //     Segment  = "*" | "**" | LITERAL | Variable ;
+T 2 source.proto comment.line.double-slash.proto
+T 51 source.proto comment.line.double-slash.proto
+L //     Variable = "{" FieldPath [ "=" Segments ] "}" ;
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L //     FieldPath = IDENT { "." IDENT } ;
+T 2 source.proto comment.line.double-slash.proto
+T 40 source.proto comment.line.double-slash.proto
+L //     Verb     = ":" LITERAL ;
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The syntax `*` matches a single URL path segment. The syntax `**` matches
+T 2 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L // zero or more URL path segments, which must be the last part of the URL path
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // except the `Verb`.
+T 2 source.proto comment.line.double-slash.proto
+T 21 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The syntax `Variable` matches part of the URL path as specified by its
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // template. A variable template must not contain other variables. If a variable
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // matches a single path segment, its template may be omitted, e.g. `{var}`
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // is equivalent to `{var=*}`.
+T 2 source.proto comment.line.double-slash.proto
+T 30 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The syntax `LITERAL` matches literal text in the URL path. If the `LITERAL`
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // contains any reserved character, such characters should be percent-encoded
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // before the matching.
+T 2 source.proto comment.line.double-slash.proto
+T 23 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // If a variable contains exactly one path segment, such as `"{var}"` or
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L // `"{var=*}"`, when such a variable is expanded into a URL path on the client
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // side, all characters except `[-_.~0-9a-zA-Z]` are percent-encoded. The
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // server side does the reverse decoding. Such variables show up in the
+T 2 source.proto comment.line.double-slash.proto
+T 71 source.proto comment.line.double-slash.proto
+L // [Discovery
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L // Document](https://developers.google.com/discovery/v1/reference/apis) as
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // `{var}`.
+T 2 source.proto comment.line.double-slash.proto
+T 11 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // If a variable contains multiple path segments, such as `"{var=foo/*}"`
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // or `"{var=**}"`, when such a variable is expanded into a URL path on the
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // client side, all characters except `[-_.~/0-9a-zA-Z]` are percent-encoded.
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // The server side does the reverse decoding, except "%2F" and "%2f" are left
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // unchanged. Such variables show up in the
+T 2 source.proto comment.line.double-slash.proto
+T 43 source.proto comment.line.double-slash.proto
+L // [Discovery
+T 2 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L // Document](https://developers.google.com/discovery/v1/reference/apis) as
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // `{+var}`.
+T 2 source.proto comment.line.double-slash.proto
+T 12 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Using gRPC API Service Configuration
+T 2 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // gRPC API Service Configuration (service config) is a configuration language
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // for configuring a gRPC service to become a user-facing product. The
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // service config is simply the YAML representation of the `google.api.Service`
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // proto message.
+T 2 source.proto comment.line.double-slash.proto
+T 17 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // As an alternative to annotating your proto file, you can configure gRPC
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // transcoding in your service config YAML files. You do this by specifying a
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // `HttpRule` that maps the gRPC method to a REST endpoint, achieving the same
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // effect as the proto annotation. This can be particularly useful if you
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // have a proto that is reused in multiple services. Note that any transcoding
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // specified in the service config will override any matching transcoding
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // configuration in the proto.
+T 2 source.proto comment.line.double-slash.proto
+T 30 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The following example selects a gRPC method and applies an `HttpRule` to it:
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     http:
+T 2 source.proto comment.line.double-slash.proto
+T 12 source.proto comment.line.double-slash.proto
+L //       rules:
+T 2 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L //         - selector: example.v1.Messaging.GetMessage
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L //           get: /v1/messages/{message_id}/{sub.subfield}
+T 2 source.proto comment.line.double-slash.proto
+T 58 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Special notes
+T 2 source.proto comment.line.double-slash.proto
+T 16 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // When gRPC Transcoding is used to map a gRPC to JSON REST endpoints, the
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // proto to JSON conversion must follow the [proto3
+T 2 source.proto comment.line.double-slash.proto
+T 51 source.proto comment.line.double-slash.proto
+L // specification](https://developers.google.com/protocol-buffers/docs/proto3#json).
+T 2 source.proto comment.line.double-slash.proto
+T 83 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // While the single segment variable follows the semantics of
+T 2 source.proto comment.line.double-slash.proto
+T 61 source.proto comment.line.double-slash.proto
+L // [RFC 6570](https://tools.ietf.org/html/rfc6570) Section 3.2.2 Simple String
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // Expansion, the multi segment variable **does not** follow RFC 6570 Section
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // 3.2.3 Reserved Expansion. The reason is that the Reserved Expansion
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // does not expand special characters like `?` and `#`, which would lead
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L // to invalid URLs. As the result, gRPC Transcoding uses a custom encoding
+T 2 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L // for multi segment variables.
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The path variables **must not** refer to any repeated or mapped field,
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // because client libraries are not capable of handling such variable expansion.
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // The path variables **must not** capture the leading "/" character. The reason
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // is that the most common use case "{var}" does not capture the leading "/"
+T 2 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L // character. For consistency, all path variables must share the same behavior.
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Repeated message fields must not be mapped to URL query parameters, because
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // no client library can support such complicated mapping.
+T 2 source.proto comment.line.double-slash.proto
+T 58 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // If an API needs to use a JSON array for request or response body, it can map
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // the request or response body to a repeated field. However, some gRPC
+T 2 source.proto comment.line.double-slash.proto
+T 71 source.proto comment.line.double-slash.proto
+L // Transcoding implementations may not support this feature.
+T 2 source.proto comment.line.double-slash.proto
+T 60 source.proto comment.line.double-slash.proto
+L message HttpRule {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 16 source.proto entity.name.class.message.proto
+T 18 source.proto
+L   // Selects a method to which this rule applies.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Refer to [selector][google.api.DocumentationRule.selector] for syntax
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // details.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L   string selector = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 17 source.proto variable.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto punctuation.terminator.proto
+L 
+L   // Determines the URL pattern is matched by this rules. This pattern can be
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // used with any of the {get|put|post|delete|patch} methods. A custom method
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // can be defined using the 'custom' field.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L   oneof pattern {
+T 2 source.proto
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 15 source.proto variable.other.proto
+T 17 source.proto
+L     // Maps to HTTP GET. Used for listing and getting information about
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 71 source.proto comment.line.double-slash.proto
+L     // resources.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 17 source.proto comment.line.double-slash.proto
+L     string get = 2;
+T 4 source.proto
+T 10 source.proto storage.type.proto
+T 11 source.proto
+T 14 source.proto variable.other.proto
+T 15 source.proto
+T 16 source.proto keyword.operator.assignment.proto
+T 17 source.proto
+T 18 source.proto constant.numeric.proto
+T 19 source.proto punctuation.terminator.proto
+L 
+L     // Maps to HTTP PUT. Used for replacing a resource.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 55 source.proto comment.line.double-slash.proto
+L     string put = 3;
+T 4 source.proto
+T 10 source.proto storage.type.proto
+T 11 source.proto
+T 14 source.proto variable.other.proto
+T 15 source.proto
+T 16 source.proto keyword.operator.assignment.proto
+T 17 source.proto
+T 18 source.proto constant.numeric.proto
+T 19 source.proto punctuation.terminator.proto
+L 
+L     // Maps to HTTP POST. Used for creating a resource or performing an action.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L     string post = 4;
+T 4 source.proto
+T 10 source.proto storage.type.proto
+T 11 source.proto
+T 15 source.proto variable.other.proto
+T 16 source.proto
+T 17 source.proto keyword.operator.assignment.proto
+T 18 source.proto
+T 19 source.proto constant.numeric.proto
+T 20 source.proto punctuation.terminator.proto
+L 
+L     // Maps to HTTP DELETE. Used for deleting a resource.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 57 source.proto comment.line.double-slash.proto
+L     string delete = 5;
+T 4 source.proto
+T 10 source.proto storage.type.proto
+T 11 source.proto
+T 17 source.proto variable.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto punctuation.terminator.proto
+L 
+L     // Maps to HTTP PATCH. Used for updating a resource.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L     string patch = 6;
+T 4 source.proto
+T 10 source.proto storage.type.proto
+T 11 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L 
+L     // The custom pattern is used for specifying an HTTP method that is not
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L     // included in the `pattern` field, such as HEAD, or "*" to leave the
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L     // HTTP method unspecified for this rule. The wild-card rule is useful
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L     // for services that provide content to Web (HTML) clients.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L     CustomHttpPattern custom = 8;
+T 4 source.proto
+T 21 source.proto storage.type.proto
+T 22 source.proto
+T 28 source.proto variable.other.proto
+T 29 source.proto
+T 30 source.proto keyword.operator.assignment.proto
+T 31 source.proto
+T 32 source.proto constant.numeric.proto
+T 33 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L 
+L   // The name of the request field whose value is mapped to the HTTP request
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // body, or `*` for mapping all request fields not captured by the path
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L   // pattern to the HTTP body, or omitted for not having any HTTP request body.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // NOTE: the referred field must be present at the top-level of the request
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // message type.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 18 source.proto comment.line.double-slash.proto
+L   string body = 7;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // Optional. The name of the response field whose value is mapped to the HTTP
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // response body. When omitted, the entire response message will be used
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // as the HTTP response body.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // NOTE: The referred field must be present at the top-level of the response
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // message type.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 18 source.proto comment.line.double-slash.proto
+L   string response_body = 12;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 22 source.proto variable.other.proto
+T 23 source.proto
+T 24 source.proto keyword.operator.assignment.proto
+T 25 source.proto
+T 27 source.proto constant.numeric.proto
+T 28 source.proto punctuation.terminator.proto
+L 
+L   // Additional HTTP bindings for the selector. Nested bindings must
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   // not contain an `additional_bindings` field themselves (that is,
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   // the nesting may only be one level deep).
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L   repeated HttpRule additional_bindings = 11;
+T 2 source.proto
+T 10 source.proto storage.modifier.proto
+T 11 source.proto
+T 19 source.proto storage.type.proto
+T 20 source.proto
+T 39 source.proto variable.other.proto
+T 40 source.proto
+T 41 source.proto keyword.operator.assignment.proto
+T 42 source.proto
+T 44 source.proto constant.numeric.proto
+T 45 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A custom pattern is used for defining custom HTTP verb.
+T 2 source.proto comment.line.double-slash.proto
+T 58 source.proto comment.line.double-slash.proto
+L message CustomHttpPattern {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 25 source.proto entity.name.class.message.proto
+T 27 source.proto
+L   // The name of this custom HTTP verb.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L   string kind = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // The path matched by this custom verb.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L   string path = 2;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 

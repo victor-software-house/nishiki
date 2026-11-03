@@ -291,6 +291,14 @@ languages! {
         engine: crate::cmake::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Protobuf, with the scopes of Shiki's `proto` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Proto {
+        feature: "lang-proto",
+        names: ["proto", "protobuf"],
+        engine: crate::proto::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

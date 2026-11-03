@@ -1,0 +1,240 @@
+L syntax = "proto3";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 17 source.proto string.quoted.double.proto.syntax
+T 18 source.proto punctuation.terminator.proto
+L 
+L package mypackage.books.v1;
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 26 source.proto string.unquoted.proto.package
+T 27 source.proto punctuation.terminator.proto
+L 
+L import "google/protobuf/empty.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 36 source.proto string.quoted.double.proto.import
+T 37 source.proto punctuation.terminator.proto
+L import "google/api/field_behavior.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 40 source.proto string.quoted.double.proto.import
+T 41 source.proto punctuation.terminator.proto
+L 
+L import "google/api/annotations.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 37 source.proto string.quoted.double.proto.import
+T 38 source.proto punctuation.terminator.proto
+L 
+L option go_package = "mypackage.books.v1/books";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 17 source.proto support.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 46 source.proto string.quoted.double.proto
+T 47 source.proto punctuation.terminator.proto
+L 
+L // Book service
+T 2 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L service BooksService {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 20 source.proto entity.name.class.message.proto
+T 22 source.proto
+L 	// Get a book.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L 	rpc GetBook(GetBookRequest) returns (Book) {
+T 1 source.proto
+T 4 source.proto keyword.other.proto
+T 5 source.proto
+T 12 source.proto entity.name.function
+T 13 source.proto
+T 27 source.proto entity.name.class.proto
+T 29 source.proto
+T 36 source.proto keyword.other.proto
+T 38 source.proto
+T 42 source.proto entity.name.class.proto
+T 45 source.proto
+L 		option (google.api.http) = {
+T 2 source.proto
+T 8 source.proto keyword.other.proto
+T 9 source.proto
+T 20 source.proto support.other.proto
+T 25 source.proto support.other.proto support.other.proto
+T 26 source.proto support.other.proto
+T 27 source.proto
+T 28 source.proto keyword.operator.assignment.proto
+T 29 source.proto
+T 30 source.proto
+L 			get: "/resources/store/v1/{name=books/*}"
+T 3 source.proto
+T 6 source.proto keyword.other.proto
+T 7 source.proto punctuation.separator.key-value.proto
+T 8 source.proto
+T 44 source.proto string.quoted.double.proto
+L 		};
+T 2 source.proto
+T 3 source.proto
+T 4 source.proto punctuation.terminator.proto
+L 	}
+T 1 source.proto
+T 2 source.proto
+L }
+T 1 source.proto
+L 
+L // The definition of a book resource.
+T 2 source.proto comment.line.double-slash.proto
+T 37 source.proto comment.line.double-slash.proto
+L message Book {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 12 source.proto entity.name.class.message.proto
+T 14 source.proto
+L 	// The name of the book.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 25 source.proto comment.line.double-slash.proto
+L 	// Format: books/{book}.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 25 source.proto comment.line.double-slash.proto
+L 	string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+T 1 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 12 source.proto variable.other.proto
+T 13 source.proto
+T 14 source.proto keyword.operator.assignment.proto
+T 15 source.proto
+T 16 source.proto constant.numeric.proto
+T 17 source.proto
+T 18 source.proto
+T 29 source.proto support.other.proto
+T 44 source.proto support.other.proto support.other.proto
+T 45 source.proto support.other.proto
+T 48 source.proto
+T 59 source.proto constant.language.proto
+T 60 source.proto
+T 61 source.proto punctuation.terminator.proto
+L 
+L 	// The display name of the book.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L 	string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+T 1 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 20 source.proto variable.other.proto
+T 21 source.proto
+T 22 source.proto keyword.operator.assignment.proto
+T 23 source.proto
+T 24 source.proto constant.numeric.proto
+T 25 source.proto
+T 26 source.proto
+T 37 source.proto support.other.proto
+T 52 source.proto support.other.proto support.other.proto
+T 53 source.proto support.other.proto
+T 56 source.proto
+T 64 source.proto constant.language.proto
+T 65 source.proto
+T 66 source.proto punctuation.terminator.proto
+L 
+L 	// The authors of the book.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L 	repeated string authors = 3 [(google.api.field_behavior) = REQUIRED];
+T 1 source.proto
+T 9 source.proto storage.modifier.proto
+T 10 source.proto
+T 16 source.proto storage.type.proto
+T 17 source.proto
+T 24 source.proto variable.other.proto
+T 25 source.proto
+T 26 source.proto keyword.operator.assignment.proto
+T 27 source.proto
+T 28 source.proto constant.numeric.proto
+T 29 source.proto
+T 30 source.proto
+T 41 source.proto support.other.proto
+T 56 source.proto support.other.proto support.other.proto
+T 57 source.proto support.other.proto
+T 60 source.proto
+T 68 source.proto constant.language.proto
+T 69 source.proto
+T 70 source.proto punctuation.terminator.proto
+L 
+L 	// The publisher of the book
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L 	string publisher = 4 [(google.api.field_behavior) = OPTIONAL];
+T 1 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 17 source.proto variable.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto
+T 23 source.proto
+T 34 source.proto support.other.proto
+T 49 source.proto support.other.proto support.other.proto
+T 50 source.proto support.other.proto
+T 53 source.proto
+T 61 source.proto constant.language.proto
+T 62 source.proto
+T 63 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // Request message for [play.me.resources.books.v1.BooksService.GetBook].
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L message GetBookRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 22 source.proto entity.name.class.message.proto
+T 24 source.proto
+L 	// The book name is the unique identifier across organisations.
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 64 source.proto comment.line.double-slash.proto
+L 	// Format: books/{book}
+T 1 source.proto
+T 3 source.proto comment.line.double-slash.proto
+T 24 source.proto comment.line.double-slash.proto
+L 	string name = 1 [(google.api.field_behavior) = REQUIRED];
+T 1 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 12 source.proto variable.other.proto
+T 13 source.proto
+T 14 source.proto keyword.operator.assignment.proto
+T 15 source.proto
+T 16 source.proto constant.numeric.proto
+T 17 source.proto
+T 18 source.proto
+T 29 source.proto support.other.proto
+T 44 source.proto support.other.proto support.other.proto
+T 45 source.proto support.other.proto
+T 48 source.proto
+T 56 source.proto constant.language.proto
+T 57 source.proto
+T 58 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // From https://alis.build/guides/how-to-guides/make-your-first-request.html#book-repository-example
+T 2 source.proto comment.line.double-slash.proto
+T 100 source.proto comment.line.double-slash.proto

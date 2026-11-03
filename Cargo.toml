@@ -96,7 +96,13 @@ systems = [
   "lang-swift",
 ]
 docs = ["config", "lang-markdown"]
-textmate = ["lang-cmake", "lang-powershell", "lang-scala", "lang-zig"]
+textmate = [
+  "lang-cmake",
+  "lang-powershell",
+  "lang-proto",
+  "lang-scala",
+  "lang-zig",
+]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
@@ -134,6 +140,7 @@ lang-make = [
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-powershell = ["_textmate"]
+lang-proto = ["_textmate"]
 lang-python = ["_scope-table", "_rule-tables"]
 lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]

@@ -1,0 +1,486 @@
+L // Copyright 2015 gRPC authors.
+T 2 source.proto comment.line.double-slash.proto
+T 31 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.proto comment.line.double-slash.proto
+T 66 source.proto comment.line.double-slash.proto
+L // you may not use this file except in compliance with the License.
+T 2 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L // You may obtain a copy of the License at
+T 2 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     http://www.apache.org/licenses/LICENSE-2.0
+T 2 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // See the License for the specific language governing permissions and
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // limitations under the License.
+T 2 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L 
+L syntax = "proto3";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 17 source.proto string.quoted.double.proto.syntax
+T 18 source.proto punctuation.terminator.proto
+L 
+L option java_multiple_files = true;
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 26 source.proto support.other.proto
+T 27 source.proto
+T 28 source.proto keyword.operator.assignment.proto
+T 29 source.proto
+T 33 source.proto constant.language.proto
+T 34 source.proto punctuation.terminator.proto
+L option java_package = "io.grpc.examples.routeguide";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 19 source.proto support.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 51 source.proto string.quoted.double.proto
+T 52 source.proto punctuation.terminator.proto
+L option java_outer_classname = "RouteGuideProto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 27 source.proto support.other.proto
+T 28 source.proto
+T 29 source.proto keyword.operator.assignment.proto
+T 30 source.proto
+T 47 source.proto string.quoted.double.proto
+T 48 source.proto punctuation.terminator.proto
+L option objc_class_prefix = "RTG";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 24 source.proto support.other.proto
+T 25 source.proto
+T 26 source.proto keyword.operator.assignment.proto
+T 27 source.proto
+T 32 source.proto string.quoted.double.proto
+T 33 source.proto punctuation.terminator.proto
+L 
+L package routeguide;
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 18 source.proto string.unquoted.proto.package
+T 19 source.proto punctuation.terminator.proto
+L 
+L // Interface exported by the server.
+T 2 source.proto comment.line.double-slash.proto
+T 36 source.proto comment.line.double-slash.proto
+L service RouteGuide {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 18 source.proto entity.name.class.message.proto
+T 20 source.proto
+L   // A simple RPC.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 18 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Obtains the feature at a given position.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // A feature with an empty name is returned if there's no feature at the given
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // position.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 14 source.proto comment.line.double-slash.proto
+L   rpc GetFeature(Point) returns (Feature) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 16 source.proto entity.name.function
+T 17 source.proto
+T 22 source.proto entity.name.class.proto
+T 24 source.proto
+T 31 source.proto keyword.other.proto
+T 33 source.proto
+T 40 source.proto entity.name.class.proto
+T 43 source.proto
+T 44 source.proto
+L 
+L   // A server-to-client streaming RPC.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 38 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Obtains the Features available within the given Rectangle.  Results are
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // streamed rather than returned at once (e.g. in a response message with a
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // repeated field), as the rectangle may cover a large area and contain a
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   // huge number of features.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L   rpc ListFeatures(Rectangle) returns (stream Feature) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 18 source.proto entity.name.function
+T 19 source.proto
+T 28 source.proto entity.name.class.proto
+T 30 source.proto
+T 37 source.proto keyword.other.proto
+T 39 source.proto
+T 45 source.proto keyword.other.proto
+T 46 source.proto
+T 53 source.proto entity.name.class.proto
+T 56 source.proto
+T 57 source.proto
+L 
+L   // A client-to-server streaming RPC.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 38 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Accepts a stream of Points on a route being traversed, returning a
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 71 source.proto comment.line.double-slash.proto
+L   // RouteSummary when traversal is completed.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 46 source.proto comment.line.double-slash.proto
+L   rpc RecordRoute(stream Point) returns (RouteSummary) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 17 source.proto entity.name.function
+T 18 source.proto
+T 24 source.proto keyword.other.proto
+T 25 source.proto
+T 30 source.proto entity.name.class.proto
+T 32 source.proto
+T 39 source.proto keyword.other.proto
+T 41 source.proto
+T 53 source.proto entity.name.class.proto
+T 56 source.proto
+T 57 source.proto
+L 
+L   // A Bidirectional streaming RPC.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 35 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Accepts a stream of RouteNotes sent while a route is being traversed,
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // while receiving other RouteNotes (e.g. from other users).
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L   rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 15 source.proto entity.name.function
+T 16 source.proto
+T 22 source.proto keyword.other.proto
+T 23 source.proto
+T 32 source.proto entity.name.class.proto
+T 34 source.proto
+T 41 source.proto keyword.other.proto
+T 43 source.proto
+T 49 source.proto keyword.other.proto
+T 50 source.proto
+T 59 source.proto entity.name.class.proto
+T 62 source.proto
+T 63 source.proto
+L }
+T 1 source.proto
+L 
+L // Points are represented as latitude-longitude pairs in the E7 representation
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // (degrees multiplied by 10**7 and rounded to the nearest integer).
+T 2 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L // Latitudes should be in the range +/- 90 degrees and longitude should be in
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // the range +/- 180 degrees (inclusive).
+T 2 source.proto comment.line.double-slash.proto
+T 41 source.proto comment.line.double-slash.proto
+L message Point {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 13 source.proto entity.name.class.message.proto
+T 15 source.proto
+L   int32 latitude = 1;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L   int32 longitude = 2;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 17 source.proto variable.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A latitude-longitude rectangle, represented as two diagonally opposite
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // points "lo" and "hi".
+T 2 source.proto comment.line.double-slash.proto
+T 24 source.proto comment.line.double-slash.proto
+L message Rectangle {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 17 source.proto entity.name.class.message.proto
+T 19 source.proto
+L   // One corner of the rectangle.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L   Point lo = 1;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 10 source.proto variable.other.proto
+T 11 source.proto
+T 12 source.proto keyword.operator.assignment.proto
+T 13 source.proto
+T 14 source.proto constant.numeric.proto
+T 15 source.proto punctuation.terminator.proto
+L 
+L   // The other corner of the rectangle.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L   Point hi = 2;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 10 source.proto variable.other.proto
+T 11 source.proto
+T 12 source.proto keyword.operator.assignment.proto
+T 13 source.proto
+T 14 source.proto constant.numeric.proto
+T 15 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A feature names something at a given point.
+T 2 source.proto comment.line.double-slash.proto
+T 46 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // If a feature could not be named, the name is empty.
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L message Feature {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 15 source.proto entity.name.class.message.proto
+T 17 source.proto
+L   // The name of the feature.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // The point where the feature is detected.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 45 source.proto comment.line.double-slash.proto
+L   Point location = 2;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A RouteNote is a message sent while at a given point.
+T 2 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L message RouteNote {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 17 source.proto entity.name.class.message.proto
+T 19 source.proto
+L   // The location from which the message is sent.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L   Point location = 1;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L 
+L   // The message to be sent.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L   string message = 2;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A RouteSummary is received in response to a RecordRoute rpc.
+T 2 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // It contains the number of individual points received, the number of
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // detected features, and the total distance covered as the cumulative sum of
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // the distance between each point.
+T 2 source.proto comment.line.double-slash.proto
+T 35 source.proto comment.line.double-slash.proto
+L message RouteSummary {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 20 source.proto entity.name.class.message.proto
+T 22 source.proto
+L   // The number of points received.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 35 source.proto comment.line.double-slash.proto
+L   int32 point_count = 1;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 19 source.proto variable.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 23 source.proto constant.numeric.proto
+T 24 source.proto punctuation.terminator.proto
+L 
+L   // The number of known features passed while traversing the route.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   int32 feature_count = 2;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 21 source.proto variable.other.proto
+T 22 source.proto
+T 23 source.proto keyword.operator.assignment.proto
+T 24 source.proto
+T 25 source.proto constant.numeric.proto
+T 26 source.proto punctuation.terminator.proto
+L 
+L   // The distance covered in metres.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 36 source.proto comment.line.double-slash.proto
+L   int32 distance = 3;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 16 source.proto variable.other.proto
+T 17 source.proto
+T 18 source.proto keyword.operator.assignment.proto
+T 19 source.proto
+T 20 source.proto constant.numeric.proto
+T 21 source.proto punctuation.terminator.proto
+L 
+L   // The duration of the traversal in seconds.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 46 source.proto comment.line.double-slash.proto
+L   int32 elapsed_time = 4;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 20 source.proto variable.other.proto
+T 21 source.proto
+T 22 source.proto keyword.operator.assignment.proto
+T 23 source.proto
+T 24 source.proto constant.numeric.proto
+T 25 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 

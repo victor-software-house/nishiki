@@ -68,6 +68,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  proto: {
+    bundled: "zxh0/vscode-proto3@274be763ecae7055505354b44f4892a2669e1da8",
+    origin: "zxh0/vscode-proto3",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   python: {
     bundled: "microsoft/vscode@cf4c9e469d521fa5f33353737e8157eb0789ad02",
     origin: "MagicStack/MagicPython",

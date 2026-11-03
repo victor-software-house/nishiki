@@ -139,6 +139,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
 | Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
+| Protobuf | `Language::Proto` | `lang-proto` | `proto`, `protobuf` |
 | Python | `Language::Python` | `lang-python` | `python`, `py` |
 | Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
 | Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
@@ -174,7 +175,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake |
+  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.

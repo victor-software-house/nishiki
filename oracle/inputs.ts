@@ -96,12 +96,16 @@ const githubMarkdownCss =
   "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/7f38dcb9054bc5d860fac65291f5c98fef47932c";
 const golang =
   "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
+const googleapis =
+  "https://raw.githubusercontent.com/googleapis/googleapis/0d0982bd9844aacc37a4e87c1cd43bbdb601884d";
 const googletest =
   "https://raw.githubusercontent.com/google/googletest/a8380b01a25ebdb130097b607b3afed2a58d04ba";
 const graphiql =
   "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
 const graphqlJs =
   "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
+const grpc =
+  "https://raw.githubusercontent.com/grpc/grpc/9a4f19513f24b48c0fbfc9c56765e553f9c6e56c";
 const gson =
   "https://raw.githubusercontent.com/google/gson/57731049da3e415be3d5d34db1ca3b80f3c73810";
 const guava =
@@ -691,6 +695,12 @@ export const inputs: Input[] = [
   { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
   { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },
   { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
+  // Protobuf runs on the TextMate engine. Shiki's Markdown grammar has no
+  // Protobuf fence, so no Markdown input embeds it.
+  { lang: "proto", name: "googleapis-http", url: `${googleapis}/google/api/http.proto` },
+  { lang: "proto", name: "googleapis-operations", url: `${googleapis}/google/longrunning/operations.proto` },
+  { lang: "proto", name: "grpc-route-guide", url: `${grpc}/examples/protos/route_guide.proto` },
+  { lang: "proto", name: "sample", url: `${samples}/proto.sample` },
   { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
   { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
   { lang: "python", name: "flask-helpers", url: `${flask}/src/flask/helpers.py` },

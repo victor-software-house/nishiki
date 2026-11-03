@@ -99,6 +99,8 @@ mod make;
 mod markdown;
 #[cfg(feature = "lang-powershell")]
 mod powershell;
+#[cfg(feature = "lang-proto")]
+mod proto;
 #[cfg(feature = "lang-python")]
 mod python;
 #[cfg(feature = "lang-ruby")]

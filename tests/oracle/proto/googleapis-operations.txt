@@ -1,0 +1,1197 @@
+L // Copyright 2025 Google LLC
+T 2 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.proto comment.line.double-slash.proto
+T 66 source.proto comment.line.double-slash.proto
+L // you may not use this file except in compliance with the License.
+T 2 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L // You may obtain a copy of the License at
+T 2 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     http://www.apache.org/licenses/LICENSE-2.0
+T 2 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L // See the License for the specific language governing permissions and
+T 2 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L // limitations under the License.
+T 2 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L 
+L syntax = "proto3";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 17 source.proto string.quoted.double.proto.syntax
+T 18 source.proto punctuation.terminator.proto
+L 
+L package google.longrunning;
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 26 source.proto string.unquoted.proto.package
+T 27 source.proto punctuation.terminator.proto
+L 
+L import "google/api/annotations.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 37 source.proto string.quoted.double.proto.import
+T 38 source.proto punctuation.terminator.proto
+L import "google/api/client.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 32 source.proto string.quoted.double.proto.import
+T 33 source.proto punctuation.terminator.proto
+L import "google/api/field_behavior.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 40 source.proto string.quoted.double.proto.import
+T 41 source.proto punctuation.terminator.proto
+L import "google/protobuf/any.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 34 source.proto string.quoted.double.proto.import
+T 35 source.proto punctuation.terminator.proto
+L import "google/protobuf/descriptor.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 41 source.proto string.quoted.double.proto.import
+T 42 source.proto punctuation.terminator.proto
+L import "google/protobuf/duration.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 39 source.proto string.quoted.double.proto.import
+T 40 source.proto punctuation.terminator.proto
+L import "google/protobuf/empty.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 36 source.proto string.quoted.double.proto.import
+T 37 source.proto punctuation.terminator.proto
+L import "google/rpc/status.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 32 source.proto string.quoted.double.proto.import
+T 33 source.proto punctuation.terminator.proto
+L 
+L option csharp_namespace = "Google.LongRunning";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 23 source.proto support.other.proto
+T 24 source.proto
+T 25 source.proto keyword.operator.assignment.proto
+T 26 source.proto
+T 46 source.proto string.quoted.double.proto
+T 47 source.proto punctuation.terminator.proto
+L option go_package = "cloud.google.com/go/longrunning/autogen/longrunningpb;longrunningpb";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 17 source.proto support.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 89 source.proto string.quoted.double.proto
+T 90 source.proto punctuation.terminator.proto
+L option java_multiple_files = true;
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 26 source.proto support.other.proto
+T 27 source.proto
+T 28 source.proto keyword.operator.assignment.proto
+T 29 source.proto
+T 33 source.proto constant.language.proto
+T 34 source.proto punctuation.terminator.proto
+L option java_outer_classname = "OperationsProto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 27 source.proto support.other.proto
+T 28 source.proto
+T 29 source.proto keyword.operator.assignment.proto
+T 30 source.proto
+T 47 source.proto string.quoted.double.proto
+T 48 source.proto punctuation.terminator.proto
+L option java_package = "com.google.longrunning";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 19 source.proto support.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 46 source.proto string.quoted.double.proto
+T 47 source.proto punctuation.terminator.proto
+L option objc_class_prefix = "GLRUN";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 24 source.proto support.other.proto
+T 25 source.proto
+T 26 source.proto keyword.operator.assignment.proto
+T 27 source.proto
+T 34 source.proto string.quoted.double.proto
+T 35 source.proto punctuation.terminator.proto
+L option php_namespace = "Google\\LongRunning";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 20 source.proto support.other.proto
+T 21 source.proto
+T 22 source.proto keyword.operator.assignment.proto
+T 23 source.proto
+T 44 source.proto string.quoted.double.proto
+T 45 source.proto punctuation.terminator.proto
+L 
+L extend google.protobuf.MethodOptions {
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 36 source.proto entity.name.class.message.proto
+T 38 source.proto
+L   // Additional information regarding long-running operations.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L   // In particular, this specifies the types that are returned from
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L   // long-running operations.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 29 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Required for methods that return `google.longrunning.Operation`; invalid
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // otherwise.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L   google.longrunning.OperationInfo operation_info = 1049;
+T 2 source.proto
+T 34 source.proto storage.type.proto
+T 35 source.proto
+T 49 source.proto variable.other.proto
+T 50 source.proto
+T 51 source.proto keyword.operator.assignment.proto
+T 52 source.proto
+T 56 source.proto constant.numeric.proto
+T 57 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // Manages long-running operations with an API service.
+T 2 source.proto comment.line.double-slash.proto
+T 55 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // When an API method normally takes long time to complete, it can be designed
+T 2 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L // to return [Operation][google.longrunning.Operation] to the client, and the
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L // client can use this interface to receive the real response asynchronously by
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // polling the operation resource, or pass the operation resource to another API
+T 2 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L // (such as Pub/Sub API) to receive the response.  Any API service that returns
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L // long-running operations should implement the `Operations` interface so
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L // developers can have a consistent client experience.
+T 2 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L service Operations {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 18 source.proto entity.name.class.message.proto
+T 20 source.proto
+L   option (google.api.default_host) = "longrunning.googleapis.com";
+T 2 source.proto
+T 8 source.proto keyword.other.proto
+T 9 source.proto
+T 20 source.proto support.other.proto
+T 33 source.proto support.other.proto support.other.proto
+T 34 source.proto support.other.proto
+T 35 source.proto
+T 36 source.proto keyword.operator.assignment.proto
+T 37 source.proto
+T 65 source.proto string.quoted.double.proto
+T 66 source.proto punctuation.terminator.proto
+L 
+L   // Lists operations that match the specified filter in the request. If the
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // server doesn't support this method, it returns `UNIMPLEMENTED`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   rpc ListOperations(ListOperationsRequest) returns (ListOperationsResponse) {
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 20 source.proto entity.name.function
+T 21 source.proto
+T 42 source.proto entity.name.class.proto
+T 44 source.proto
+T 51 source.proto keyword.other.proto
+T 53 source.proto
+T 75 source.proto entity.name.class.proto
+T 78 source.proto
+L     option (google.api.http) = {
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 27 source.proto support.other.proto support.other.proto
+T 28 source.proto support.other.proto
+T 29 source.proto
+T 30 source.proto keyword.operator.assignment.proto
+T 31 source.proto
+T 32 source.proto
+L       get: "/v1/{name=operations}"
+T 6 source.proto
+T 9 source.proto keyword.other.proto
+T 10 source.proto punctuation.separator.key-value.proto
+T 11 source.proto
+T 34 source.proto string.quoted.double.proto
+L     };
+T 4 source.proto
+T 5 source.proto
+T 6 source.proto punctuation.terminator.proto
+L     option (google.api.method_signature) = "name,filter";
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 39 source.proto support.other.proto support.other.proto
+T 40 source.proto support.other.proto
+T 41 source.proto
+T 42 source.proto keyword.operator.assignment.proto
+T 43 source.proto
+T 56 source.proto string.quoted.double.proto
+T 57 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L 
+L   // Gets the latest state of a long-running operation.  Clients can use this
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // method to poll the operation result at intervals as recommended by the API
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // service.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 13 source.proto comment.line.double-slash.proto
+L   rpc GetOperation(GetOperationRequest) returns (Operation) {
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 18 source.proto entity.name.function
+T 19 source.proto
+T 38 source.proto entity.name.class.proto
+T 40 source.proto
+T 47 source.proto keyword.other.proto
+T 49 source.proto
+T 58 source.proto entity.name.class.proto
+T 61 source.proto
+L     option (google.api.http) = {
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 27 source.proto support.other.proto support.other.proto
+T 28 source.proto support.other.proto
+T 29 source.proto
+T 30 source.proto keyword.operator.assignment.proto
+T 31 source.proto
+T 32 source.proto
+L       get: "/v1/{name=operations/**}"
+T 6 source.proto
+T 9 source.proto keyword.other.proto
+T 10 source.proto punctuation.separator.key-value.proto
+T 11 source.proto
+T 37 source.proto string.quoted.double.proto
+L     };
+T 4 source.proto
+T 5 source.proto
+T 6 source.proto punctuation.terminator.proto
+L     option (google.api.method_signature) = "name";
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 39 source.proto support.other.proto support.other.proto
+T 40 source.proto support.other.proto
+T 41 source.proto
+T 42 source.proto keyword.operator.assignment.proto
+T 43 source.proto
+T 49 source.proto string.quoted.double.proto
+T 50 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L 
+L   // Deletes a long-running operation. This method indicates that the client is
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // no longer interested in the operation result. It does not cancel the
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L   // operation. If the server doesn't support this method, it returns
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 69 source.proto comment.line.double-slash.proto
+L   // `google.rpc.Code.UNIMPLEMENTED`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 37 source.proto comment.line.double-slash.proto
+L   rpc DeleteOperation(DeleteOperationRequest) returns (google.protobuf.Empty) {
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 21 source.proto entity.name.function
+T 22 source.proto
+T 44 source.proto entity.name.class.proto
+T 46 source.proto
+T 53 source.proto keyword.other.proto
+T 55 source.proto
+T 76 source.proto entity.name.class.proto
+T 79 source.proto
+L     option (google.api.http) = {
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 27 source.proto support.other.proto support.other.proto
+T 28 source.proto support.other.proto
+T 29 source.proto
+T 30 source.proto keyword.operator.assignment.proto
+T 31 source.proto
+T 32 source.proto
+L       delete: "/v1/{name=operations/**}"
+T 6 source.proto
+T 12 source.proto keyword.other.proto
+T 13 source.proto punctuation.separator.key-value.proto
+T 14 source.proto
+T 40 source.proto string.quoted.double.proto
+L     };
+T 4 source.proto
+T 5 source.proto
+T 6 source.proto punctuation.terminator.proto
+L     option (google.api.method_signature) = "name";
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 39 source.proto support.other.proto support.other.proto
+T 40 source.proto support.other.proto
+T 41 source.proto
+T 42 source.proto keyword.operator.assignment.proto
+T 43 source.proto
+T 49 source.proto string.quoted.double.proto
+T 50 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L 
+L   // Starts asynchronous cancellation on a long-running operation.  The server
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // makes a best effort to cancel the operation, but success is not
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   // guaranteed.  If the server doesn't support this method, it returns
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 71 source.proto comment.line.double-slash.proto
+L   // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L   // [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // other methods to check whether the cancellation succeeded or whether the
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // operation completed despite cancellation. On successful cancellation,
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // the operation is not deleted; instead, it becomes an operation with
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L   // an [Operation.error][google.longrunning.Operation.error] value with a
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // [google.rpc.Status.code][google.rpc.Status.code] of `1`, corresponding to
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // `Code.CANCELLED`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 22 source.proto comment.line.double-slash.proto
+L   rpc CancelOperation(CancelOperationRequest) returns (google.protobuf.Empty) {
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 21 source.proto entity.name.function
+T 22 source.proto
+T 44 source.proto entity.name.class.proto
+T 46 source.proto
+T 53 source.proto keyword.other.proto
+T 55 source.proto
+T 76 source.proto entity.name.class.proto
+T 79 source.proto
+L     option (google.api.http) = {
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 27 source.proto support.other.proto support.other.proto
+T 28 source.proto support.other.proto
+T 29 source.proto
+T 30 source.proto keyword.operator.assignment.proto
+T 31 source.proto
+T 32 source.proto
+L       post: "/v1/{name=operations/**}:cancel"
+T 6 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto punctuation.separator.key-value.proto
+T 12 source.proto
+T 45 source.proto string.quoted.double.proto
+L       body: "*"
+T 6 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto punctuation.separator.key-value.proto
+T 12 source.proto
+T 15 source.proto string.quoted.double.proto
+L     };
+T 4 source.proto
+T 5 source.proto
+T 6 source.proto punctuation.terminator.proto
+L     option (google.api.method_signature) = "name";
+T 4 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 22 source.proto support.other.proto
+T 39 source.proto support.other.proto support.other.proto
+T 40 source.proto support.other.proto
+T 41 source.proto
+T 42 source.proto keyword.operator.assignment.proto
+T 43 source.proto
+T 49 source.proto string.quoted.double.proto
+T 50 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L 
+L   // Waits until the specified long-running operation is done or reaches at most
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // a specified timeout, returning the latest state.  If the operation is
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // already done, the latest state is immediately returned.  If the timeout
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // specified is greater than the default HTTP/RPC timeout, the HTTP/RPC
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L   // timeout is used.  If the server does not support this method, it returns
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   // `google.rpc.Code.UNIMPLEMENTED`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 37 source.proto comment.line.double-slash.proto
+L   // Note that this method is on a best-effort basis.  It may return the latest
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // state before the specified timeout (including immediately), meaning even an
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // immediate response is no guarantee that the operation is done.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L   rpc WaitOperation(WaitOperationRequest) returns (Operation) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 19 source.proto entity.name.function
+T 20 source.proto
+T 40 source.proto entity.name.class.proto
+T 42 source.proto
+T 49 source.proto keyword.other.proto
+T 51 source.proto
+T 60 source.proto entity.name.class.proto
+T 63 source.proto
+T 64 source.proto
+L }
+T 1 source.proto
+L 
+L // This resource represents a long-running operation that is the result of a
+T 2 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L // network API call.
+T 2 source.proto comment.line.double-slash.proto
+T 20 source.proto comment.line.double-slash.proto
+L message Operation {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 17 source.proto entity.name.class.message.proto
+T 19 source.proto
+L   // The server-assigned name, which is only unique within the same service that
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // originally returns it. If you use the default HTTP mapping, the
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   // `name` should be a resource name ending with `operations/{unique_id}`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // Service-specific metadata associated with the operation.  It typically
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   // contains progress information and common metadata such as create time.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   // Some services might not provide such metadata.  Any method that returns a
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // long-running operation should document the metadata type, if any.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 70 source.proto comment.line.double-slash.proto
+L   google.protobuf.Any metadata = 2;
+T 2 source.proto
+T 21 source.proto storage.type.proto
+T 22 source.proto
+T 30 source.proto variable.other.proto
+T 31 source.proto
+T 32 source.proto keyword.operator.assignment.proto
+T 33 source.proto
+T 34 source.proto constant.numeric.proto
+T 35 source.proto punctuation.terminator.proto
+L 
+L   // If the value is `false`, it means the operation is still in progress.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // If `true`, the operation is completed, and either `error` or `response` is
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // available.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L   bool done = 3;
+T 2 source.proto
+T 6 source.proto storage.type.proto
+T 7 source.proto
+T 11 source.proto variable.other.proto
+T 12 source.proto
+T 13 source.proto keyword.operator.assignment.proto
+T 14 source.proto
+T 15 source.proto constant.numeric.proto
+T 16 source.proto punctuation.terminator.proto
+L 
+L   // The operation result, which can be either an `error` or a valid `response`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // If `done` == `false`, neither `error` nor `response` is set.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 65 source.proto comment.line.double-slash.proto
+L   // If `done` == `true`, exactly one of `error` or `response` can be set.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // Some services might not provide the result.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 48 source.proto comment.line.double-slash.proto
+L   oneof result {
+T 2 source.proto
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 14 source.proto variable.other.proto
+T 16 source.proto
+L     // The error result of the operation in case of failure or cancellation.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L     google.rpc.Status error = 4;
+T 4 source.proto
+T 21 source.proto storage.type.proto
+T 22 source.proto
+T 27 source.proto variable.other.proto
+T 28 source.proto
+T 29 source.proto keyword.operator.assignment.proto
+T 30 source.proto
+T 31 source.proto constant.numeric.proto
+T 32 source.proto punctuation.terminator.proto
+L 
+L     // The normal, successful response of the operation.  If the original
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L     // method returns no data on success, such as `Delete`, the response is
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L     // `google.protobuf.Empty`.  If the original method is standard
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L     // `Get`/`Create`/`Update`, the response should be the resource.  For other
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L     // methods, the response should have the type `XxxResponse`, where `Xxx`
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L     // is the original method name.  For example, if the original method name
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L     // is `TakeSnapshot()`, the inferred response type is
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 57 source.proto comment.line.double-slash.proto
+L     // `TakeSnapshotResponse`.
+T 4 source.proto
+T 6 source.proto comment.line.double-slash.proto
+T 30 source.proto comment.line.double-slash.proto
+L     google.protobuf.Any response = 5;
+T 4 source.proto
+T 23 source.proto storage.type.proto
+T 24 source.proto
+T 32 source.proto variable.other.proto
+T 33 source.proto
+T 34 source.proto keyword.operator.assignment.proto
+T 35 source.proto
+T 36 source.proto constant.numeric.proto
+T 37 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L }
+T 1 source.proto
+L 
+L // The request message for
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L // [Operations.GetOperation][google.longrunning.Operations.GetOperation].
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L message GetOperationRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 27 source.proto entity.name.class.message.proto
+T 29 source.proto
+L   // The name of the operation resource.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 40 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // The request message for
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L // [Operations.ListOperations][google.longrunning.Operations.ListOperations].
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L message ListOperationsRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 29 source.proto entity.name.class.message.proto
+T 31 source.proto
+L   // The name of the operation's parent resource.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 49 source.proto comment.line.double-slash.proto
+L   string name = 4;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // The standard list filter.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 30 source.proto comment.line.double-slash.proto
+L   string filter = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 15 source.proto variable.other.proto
+T 16 source.proto
+T 17 source.proto keyword.operator.assignment.proto
+T 18 source.proto
+T 19 source.proto constant.numeric.proto
+T 20 source.proto punctuation.terminator.proto
+L 
+L   // The standard list page size.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 33 source.proto comment.line.double-slash.proto
+L   int32 page_size = 2;
+T 2 source.proto
+T 7 source.proto storage.type.proto
+T 8 source.proto
+T 17 source.proto variable.other.proto
+T 18 source.proto
+T 19 source.proto keyword.operator.assignment.proto
+T 20 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto punctuation.terminator.proto
+L 
+L   // The standard list page token.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 34 source.proto comment.line.double-slash.proto
+L   string page_token = 3;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 19 source.proto variable.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 23 source.proto constant.numeric.proto
+T 24 source.proto punctuation.terminator.proto
+L 
+L   // When set to `true`, operations that are reachable are returned as normal,
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // and those that are unreachable are returned in the
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 55 source.proto comment.line.double-slash.proto
+L   // [ListOperationsResponse.unreachable] field.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 48 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // This can only be `true` when reading across collections e.g. when `parent`
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L   // is set to `"projects/example/locations/-"`.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 48 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // This field is not by default supported and will result in an
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 65 source.proto comment.line.double-slash.proto
+L   // `UNIMPLEMENTED` error if set unless explicitly documented otherwise in
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   // service or product specific documentation.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 47 source.proto comment.line.double-slash.proto
+L   bool return_partial_success = 5;
+T 2 source.proto
+T 6 source.proto storage.type.proto
+T 7 source.proto
+T 29 source.proto variable.other.proto
+T 30 source.proto
+T 31 source.proto keyword.operator.assignment.proto
+T 32 source.proto
+T 33 source.proto constant.numeric.proto
+T 34 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // The response message for
+T 2 source.proto comment.line.double-slash.proto
+T 27 source.proto comment.line.double-slash.proto
+L // [Operations.ListOperations][google.longrunning.Operations.ListOperations].
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L message ListOperationsResponse {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 30 source.proto entity.name.class.message.proto
+T 32 source.proto
+L   // A list of operations that matches the specified filter in the request.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   repeated Operation operations = 1;
+T 2 source.proto
+T 10 source.proto storage.modifier.proto
+T 11 source.proto
+T 20 source.proto storage.type.proto
+T 21 source.proto
+T 31 source.proto variable.other.proto
+T 32 source.proto
+T 33 source.proto keyword.operator.assignment.proto
+T 34 source.proto
+T 35 source.proto constant.numeric.proto
+T 36 source.proto punctuation.terminator.proto
+L 
+L   // The standard List next-page token.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 39 source.proto comment.line.double-slash.proto
+L   string next_page_token = 2;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 24 source.proto variable.other.proto
+T 25 source.proto
+T 26 source.proto keyword.operator.assignment.proto
+T 27 source.proto
+T 28 source.proto constant.numeric.proto
+T 29 source.proto punctuation.terminator.proto
+L 
+L   // Unordered list. Unreachable resources. Populated when the request sets
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L   // `ListOperationsRequest.return_partial_success` and reads across
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 68 source.proto comment.line.double-slash.proto
+L   // collections e.g. when attempting to list all resources across all supported
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 80 source.proto comment.line.double-slash.proto
+L   // locations.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L   repeated string unreachable = 3
+T 2 source.proto
+T 10 source.proto storage.modifier.proto
+T 11 source.proto
+T 17 source.proto storage.type.proto
+T 18 source.proto
+T 29 source.proto variable.other.proto
+T 30 source.proto
+T 31 source.proto keyword.operator.assignment.proto
+T 32 source.proto
+T 33 source.proto constant.numeric.proto
+L       [(google.api.field_behavior) = UNORDERED_LIST];
+T 6 source.proto
+T 7 source.proto
+T 18 source.proto support.other.proto
+T 33 source.proto support.other.proto support.other.proto
+T 34 source.proto support.other.proto
+T 37 source.proto
+T 51 source.proto constant.language.proto
+T 52 source.proto
+T 53 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // The request message for
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L // [Operations.CancelOperation][google.longrunning.Operations.CancelOperation].
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L message CancelOperationRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 30 source.proto entity.name.class.message.proto
+T 32 source.proto
+L   // The name of the operation resource to be cancelled.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 56 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // The request message for
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L // [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
+T 2 source.proto comment.line.double-slash.proto
+T 79 source.proto comment.line.double-slash.proto
+L message DeleteOperationRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 30 source.proto entity.name.class.message.proto
+T 32 source.proto
+L   // The name of the operation resource to be deleted.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 54 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // The request message for
+T 2 source.proto comment.line.double-slash.proto
+T 26 source.proto comment.line.double-slash.proto
+L // [Operations.WaitOperation][google.longrunning.Operations.WaitOperation].
+T 2 source.proto comment.line.double-slash.proto
+T 75 source.proto comment.line.double-slash.proto
+L message WaitOperationRequest {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 28 source.proto entity.name.class.message.proto
+T 30 source.proto
+L   // The name of the operation resource to wait on.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 51 source.proto comment.line.double-slash.proto
+L   string name = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 13 source.proto variable.other.proto
+T 14 source.proto
+T 15 source.proto keyword.operator.assignment.proto
+T 16 source.proto
+T 17 source.proto constant.numeric.proto
+T 18 source.proto punctuation.terminator.proto
+L 
+L   // The maximum duration to wait before timing out. If left blank, the wait
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // will be at most the time permitted by the underlying HTTP/RPC protocol.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 76 source.proto comment.line.double-slash.proto
+L   // If RPC context deadline is also specified, the shorter one will be used.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L   google.protobuf.Duration timeout = 2;
+T 2 source.proto
+T 26 source.proto storage.type.proto
+T 27 source.proto
+T 34 source.proto variable.other.proto
+T 35 source.proto
+T 36 source.proto keyword.operator.assignment.proto
+T 37 source.proto
+T 38 source.proto constant.numeric.proto
+T 39 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L // A message representing the message types used by a long-running operation.
+T 2 source.proto comment.line.double-slash.proto
+T 77 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L // Example:
+T 2 source.proto comment.line.double-slash.proto
+T 11 source.proto comment.line.double-slash.proto
+L //
+T 2 source.proto comment.line.double-slash.proto
+L //     rpc Export(ExportRequest) returns (google.longrunning.Operation) {
+T 2 source.proto comment.line.double-slash.proto
+T 73 source.proto comment.line.double-slash.proto
+L //       option (google.longrunning.operation_info) = {
+T 2 source.proto comment.line.double-slash.proto
+T 55 source.proto comment.line.double-slash.proto
+L //         response_type: "ExportResponse"
+T 2 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L //         metadata_type: "ExportMetadata"
+T 2 source.proto comment.line.double-slash.proto
+T 42 source.proto comment.line.double-slash.proto
+L //       };
+T 2 source.proto comment.line.double-slash.proto
+T 11 source.proto comment.line.double-slash.proto
+L //     }
+T 2 source.proto comment.line.double-slash.proto
+T 8 source.proto comment.line.double-slash.proto
+L message OperationInfo {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 21 source.proto entity.name.class.message.proto
+T 23 source.proto
+L   // Required. The message name of the primary return type for this
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 67 source.proto comment.line.double-slash.proto
+L   // long-running operation.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 28 source.proto comment.line.double-slash.proto
+L   // This type will be used to deserialize the LRO's response.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 62 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // If the response is in a different package from the rpc, a fully-qualified
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // message name must be used (e.g. `google.protobuf.Struct`).
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Note: Altering this value constitutes a breaking change.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 61 source.proto comment.line.double-slash.proto
+L   string response_type = 1;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 22 source.proto variable.other.proto
+T 23 source.proto
+T 24 source.proto keyword.operator.assignment.proto
+T 25 source.proto
+T 26 source.proto constant.numeric.proto
+T 27 source.proto punctuation.terminator.proto
+L 
+L   // Required. The message name of the metadata type for this long-running
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 74 source.proto comment.line.double-slash.proto
+L   // operation.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 15 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // If the response is in a different package from the rpc, a fully-qualified
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 78 source.proto comment.line.double-slash.proto
+L   // message name must be used (e.g. `google.protobuf.Struct`).
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 63 source.proto comment.line.double-slash.proto
+L   //
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+L   // Note: Altering this value constitutes a breaking change.
+T 2 source.proto
+T 4 source.proto comment.line.double-slash.proto
+T 61 source.proto comment.line.double-slash.proto
+L   string metadata_type = 2;
+T 2 source.proto
+T 8 source.proto storage.type.proto
+T 9 source.proto
+T 22 source.proto variable.other.proto
+T 23 source.proto
+T 24 source.proto keyword.operator.assignment.proto
+T 25 source.proto
+T 26 source.proto constant.numeric.proto
+T 27 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 

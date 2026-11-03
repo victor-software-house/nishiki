@@ -236,6 +236,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `cmake/json-lists` | [`CMakeLists.txt`][json-cmake-lists] in nlohmann/json | [MIT][nlohmann-json-licence] |
 | `cmake/googletest-utils` | [`googletest/cmake/internal_utils.cmake`][googletest-utils] in google/googletest | [BSD-3-Clause][googletest-licence] |
 | `cmake/catch2-lists` | [`CMakeLists.txt`][catch2-cmake-lists] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
+| `proto/sample` | [`samples/proto.sample`][proto-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `proto/googleapis-http` | [`google/api/http.proto`][googleapis-http] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
+| `proto/googleapis-operations` | [`google/longrunning/operations.proto`][googleapis-operations] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
+| `proto/grpc-route-guide` | [`examples/protos/route_guide.proto`][grpc-route-guide] in grpc/grpc | [Apache-2.0][grpc-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -405,6 +409,9 @@ Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 CMake runs on nishiki's TextMate engine as well.
 `cmake/sample` and `cmake/json-lists` are its development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
 Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
+Protobuf runs on nishiki's TextMate engine as well.
+`proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
+Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
@@ -550,6 +557,9 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [go-slices]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/slices/slices.go
 [go-sort]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/sort/sort.go
 [golang-licence]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/LICENSE
+[googleapis-http]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/google/api/http.proto
+[googleapis-licence]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/LICENSE
+[googleapis-operations]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/google/longrunning/operations.proto
 [googletest-licence]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/LICENSE
 [googletest-utils]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/googletest/cmake/internal_utils.cmake
 [graphiql-kitchen-sink]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql
@@ -560,6 +570,8 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [graphql-js-kitchen-sink]: https://github.com/graphql/graphql-js/blob/eb0bd0801ea5f9f7680e91ae575ed74397f051cb/benchmark/kitchen-sink.graphql
 [graphql-js-licence]: https://github.com/graphql/graphql-js/blob/eb0bd0801ea5f9f7680e91ae575ed74397f051cb/LICENSE
 [graphql-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/graphql.sample
+[grpc-licence]: https://github.com/grpc/grpc/blob/9a4f19513f24b48c0fbfc9c56765e553f9c6e56c/LICENSE
+[grpc-route-guide]: https://github.com/grpc/grpc/blob/9a4f19513f24b48c0fbfc9c56765e553f9c6e56c/examples/protos/route_guide.proto
 [gson-gson]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/gson/src/main/java/com/google/gson/Gson.java
 [gson-json-reader]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/gson/src/main/java/com/google/gson/stream/JsonReader.java
 [gson-licence]: https://github.com/google/gson/blob/57731049da3e415be3d5d34db1ca3b80f3c73810/LICENSE
@@ -709,6 +721,7 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [prometheus-make]: https://github.com/prometheus/prometheus/blob/b0c3a30ab2a09b88e64d876017a0134aa2f38f40/Makefile.common
 [prometheus-make-licence]: https://github.com/prometheus/prometheus/blob/b0c3a30ab2a09b88e64d876017a0134aa2f38f40/LICENSE
 [prometheus-storage]: https://github.com/prometheus/prometheus/blob/b0c3a30ab2a09b88e64d876017a0134aa2f38f40/storage/interface.go
+[proto-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/proto.sample
 [pubs]: https://github.com/microsoft/sql-server-samples/blob/3c71696a3942879f0481f3bd65fe112a40023f18/samples/databases/northwind-pubs/instpubs.sql
 [puma-licence]: https://github.com/puma/puma/blob/c0df0c19dde943c3f5c25cd67caa984dfa84e3da/LICENSE
 [puma-server]: https://github.com/puma/puma/blob/c0df0c19dde943c3f5c25cd67caa984dfa84e3da/lib/puma/server.rb
