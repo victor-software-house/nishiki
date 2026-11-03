@@ -1,33 +1,10 @@
 use indoc::indoc;
 
-use crate::{Highlighter, Language, State};
-
-/// One lexed line: each token's text and its scope names, outermost first.
-type Row = Vec<(String, Vec<String>)>;
+use crate::Language;
+use crate::test_support::{self, Row};
 
 fn lex_as(language: Language, text: &str) -> Vec<Row> {
-    let mut highlighter = Highlighter::new(language);
-    let mut state = State::default();
-    let mut rows = Vec::new();
-    for line in text.split('\n') {
-        let mut tokens = Vec::new();
-        let report = highlighter.line(line, &mut state, &mut tokens);
-        assert!(report.is_complete(), "{line:?} reached a limit");
-        let mut start = 0;
-        let mut row = Vec::new();
-        for token in &tokens {
-            let mut scopes: Vec<String> = highlighter
-                .scopes(token.stack())
-                .map(ToString::to_string)
-                .collect();
-            scopes.reverse();
-            row.push((line[start..token.end()].to_owned(), scopes));
-            start = token.end();
-        }
-        assert_eq!(start, line.len(), "the tokens cover the line {line:?}");
-        rows.push(row);
-    }
-    rows
+    test_support::lex(language, text)
 }
 
 fn lex(text: &str) -> Vec<Row> {
@@ -36,12 +13,7 @@ fn lex(text: &str) -> Vec<Row> {
 
 /// The scopes of the first token whose text is `token`, outermost first.
 fn scopes_of(text: &str, token: &str) -> Vec<String> {
-    lex(text)
-        .into_iter()
-        .flatten()
-        .find(|(t, _)| t == token)
-        .unwrap_or_else(|| panic!("no token {token:?} in {text:?}"))
-        .1
+    test_support::scopes_of(Language::Json, text, token)
 }
 
 #[test]

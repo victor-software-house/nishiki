@@ -106,6 +106,8 @@ mod sql;
 #[cfg(feature = "lang-swift")]
 mod swift;
 mod tag;
+#[cfg(test)]
+mod test_support;
 #[cfg(feature = "_textmate")]
 mod textmate;
 mod theme;
