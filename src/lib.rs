@@ -100,6 +100,8 @@ mod space;
 #[cfg(feature = "lang-sql")]
 mod sql;
 mod tag;
+#[cfg(feature = "_textmate")]
+mod textmate;
 mod theme;
 #[cfg(feature = "lang-toml")]
 mod toml;
