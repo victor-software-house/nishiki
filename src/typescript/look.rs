@@ -9,38 +9,6 @@
 use super::lexer::Lexer;
 use super::limits::{GENERIC_NESTING, GRAMMAR_NESTING};
 
-/// The ends of a name chain, kept inline: chains of more than a few names are
-/// rare, and the lookahead runs at every name.
-#[derive(Default)]
-struct Ends {
-    len: usize,
-    inline: [usize; Self::INLINE],
-    spill: Vec<usize>,
-}
-
-impl Ends {
-    const INLINE: usize = 8;
-
-    fn push(&mut self, end: usize) {
-        if let Some(slot) = self.inline.get_mut(self.len) {
-            *slot = end;
-        } else {
-            self.spill.push(end);
-        }
-        self.len += 1;
-    }
-
-    /// The ends, the last one found first.
-    fn longest_first(&self) -> impl Iterator<Item = usize> + '_ {
-        let inline = self.len.min(Self::INLINE);
-        self.spill
-            .iter()
-            .rev()
-            .copied()
-            .chain(self.inline[..inline].iter().rev().copied())
-    }
-}
-
 impl<const D: u8> Lexer<'_, D> {
     /// A balanced `open … close` group at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end.
@@ -652,13 +620,14 @@ impl<const D: u8> Lexer<'_, D> {
         self.b(j) == b'('
     }
 
-    /// The ends of `ID(\s*\??\.\s*#?ID)*` at `i`, shortest first.
-    fn chain_ends(&self, i: usize) -> Ends {
-        let mut ends = Ends::default();
-        let Some(mut e) = self.ident(i) else {
-            return ends;
-        };
-        ends.push(e);
+    /// The end of the longest `ID(\s*\??\.\s*#?ID)*` at `i`.
+    ///
+    /// The regular expression may backtrack to a shorter chain, but every
+    /// shorter end is followed by `.` or `?.` and a name, which neither what
+    /// follows a call target ([`Lexer::call_rest`]) nor an open `<` accepts, so
+    /// only the longest end can match.
+    fn chain_end(&self, i: usize) -> Option<usize> {
+        let mut e = self.ident(i)?;
         let limit = self.window(i);
         while e < limit {
             self.spend(1);
@@ -671,14 +640,11 @@ impl<const D: u8> Lexer<'_, D> {
             }
             j = self.ws(j + 1);
             match self.hash_ident(j) {
-                Some(n) => {
-                    e = n;
-                    ends.push(e);
-                }
+                Some(n) => e = n,
                 None => break,
             }
         }
-        ends
+        Some(e)
     }
 
     /// `\??\.\s*#?ID` at `i`: its end.
@@ -696,11 +662,11 @@ impl<const D: u8> Lexer<'_, D> {
     /// The call lookahead: a name chain, a `.member` or the end of a
     /// parenthesis, then what must follow a call target.
     pub(crate) fn call_ahead(&self, i: usize) -> bool {
-        self.call_ahead_in(i, &self.chain_ends(i))
+        self.call_ahead_in(i, self.chain_end(i))
     }
 
-    fn call_ahead_in(&self, i: usize, chain: &Ends) -> bool {
-        chain.longest_first().any(|e| self.call_rest(e))
+    fn call_ahead_in(&self, i: usize, chain: Option<usize>) -> bool {
+        chain.is_some_and(|e| self.call_rest(e))
             || self.dot_member(i).is_some_and(|e| self.call_rest(e))
             || (self.prev_char(i) == Some(')') && self.call_rest(i))
     }
@@ -713,17 +679,17 @@ impl<const D: u8> Lexer<'_, D> {
     /// The same lookahead with type arguments that the line leaves open:
     /// `<` then `(`, `[` or `{` at the end of the line.
     pub(crate) fn call_open_ahead(&self, i: usize) -> bool {
-        self.call_open_ahead_in(i, &self.chain_ends(i))
+        self.call_open_ahead_in(i, self.chain_end(i))
     }
 
-    fn call_open_ahead_in(&self, i: usize, chain: &Ends) -> bool {
+    fn call_open_ahead_in(&self, i: usize, chain: Option<usize>) -> bool {
         let open_at = |e: usize| {
             self.b(e) == b'<' && {
                 let j = self.ws(e + 1);
                 matches!(self.b(j), b'(' | b'[' | b'{') && self.eol(self.ws(j + 1))
             }
         };
-        chain.longest_first().any(open_at)
+        chain.is_some_and(open_at)
             || self.dot_member(i).is_some_and(open_at)
             || (self.prev_char(i) == Some(')') && open_at(i))
     }
@@ -735,10 +701,10 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.has_open_after(i) {
             return None;
         }
-        let chain = self.chain_ends(i);
-        if self.call_ahead_in(i, &chain) {
+        let chain = self.chain_end(i);
+        if self.call_ahead_in(i, chain) {
             Some(true)
-        } else if self.call_open_ahead_in(i, &chain) {
+        } else if self.call_open_ahead_in(i, chain) {
             Some(false)
         } else {
             None

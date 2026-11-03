@@ -205,19 +205,18 @@ impl<const D: u8> Lexer<'_, D> {
         Some(j)
     }
 
-    /// The ends of `@word` for each of `words` that the text starts with, in
-    /// the order the grammar lists them.
-    fn tag_ends(&self, p: usize, words: &[&str]) -> Vec<usize> {
-        words
-            .iter()
-            .filter(|w| self.starts(p + 1, w))
-            .map(|w| p + 1 + w.len())
-            .collect()
+    /// The end of `@word` at `p`, if the text there starts with it. Callers
+    /// try a tag's words in the order the grammar lists them.
+    fn tag_end(&self, p: usize, word: &str) -> Option<usize> {
+        self.starts(p + 1, word).then(|| p + 1 + word.len())
     }
 
     fn doc_tag(&mut self, p: usize) -> Option<usize> {
         // @access and @api with a visibility.
-        for e in self.tag_ends(p, &["access", "api"]) {
+        for word in ["access", "api"] {
+            let Some(e) = self.tag_end(p, word) else {
+                continue;
+            };
             let j = self.ws(e);
             if j > e {
                 for word in ["private", "protected", "public"] {
@@ -240,7 +239,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.doc_borrows(p) {
             return Some(r);
         }
-        if let Some(e) = self.tag_ends(p, &["example"]).first().copied() {
+        if let Some(e) = self.tag_end(p, "example") {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.doc_tag_tokens_in(Kind::JsExample, p, e);
@@ -282,7 +281,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_author(&mut self, p: usize) -> Option<usize> {
-        let e = *self.tag_ends(p, &["author"]).first()?;
+        let e = self.tag_end(p, "author")?;
         let j = self.ws(e);
         if j == e {
             return None;
@@ -328,7 +327,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_borrows(&mut self, p: usize) -> Option<usize> {
-        let e = *self.tag_ends(p, &["borrows"]).first()?;
+        let e = self.tag_end(p, "borrows")?;
         let j = self.ws(e);
         if j == e {
             return None;
@@ -351,7 +350,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_kind(&mut self, p: usize) -> Option<usize> {
-        let e = *self.tag_ends(p, &["kind"]).first()?;
+        let e = self.tag_end(p, "kind")?;
         let j = self.ws(e);
         if j == e {
             return None;
@@ -384,7 +383,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_see(&mut self, p: usize) -> Option<usize> {
-        let e = *self.tag_ends(p, &["see"]).first()?;
+        let e = self.tag_end(p, "see")?;
         let j = self.ws(e);
         if j == e {
             return None;
@@ -434,7 +433,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_template(&mut self, p: usize) -> Option<usize> {
-        let e = *self.tag_ends(p, &["template"]).first()?;
+        let e = self.tag_end(p, "template")?;
         let j = self.ws(e);
         if j == e {
             return None;
@@ -467,20 +466,20 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_param(&mut self, p: usize) -> Option<usize> {
-        let ends = self.tag_ends(
-            p,
-            &[
-                "arg",
-                "argument",
-                "const",
-                "constant",
-                "member",
-                "namespace",
-                "param",
-                "var",
-            ],
-        );
-        for e in ends {
+        let words = [
+            "arg",
+            "argument",
+            "const",
+            "constant",
+            "member",
+            "namespace",
+            "param",
+            "var",
+        ];
+        for word in words {
+            let Some(e) = self.tag_end(p, word) else {
+                continue;
+            };
             let j = self.ws(e);
             if j > e
                 && let Some(n) = self.doc_name(j)
@@ -534,7 +533,10 @@ impl<const D: u8> Lexer<'_, D> {
         ];
         let kinds = [Kind::JsTypedefTag, Kind::JsParamTag, Kind::JsRetTag];
         for (words, kind) in sets.into_iter().zip(kinds) {
-            for e in self.tag_ends(p, words) {
+            for word in words {
+                let Some(e) = self.tag_end(p, word) else {
+                    continue;
+                };
                 let j = self.ws(e);
                 if j > e && self.b(j) == b'{' && !self.full() {
                     self.doc_tag_tokens(p, e);
@@ -548,40 +550,40 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_named_tags(&mut self, p: usize) -> Option<usize> {
-        let ends = self.tag_ends(
-            p,
-            &[
-                "alias",
-                "augments",
-                "callback",
-                "constructs",
-                "emits",
-                "event",
-                "fires",
-                "exports",
-                "export",
-                "extends",
-                "external",
-                "function",
-                "func",
-                "host",
-                "lends",
-                "listens",
-                "interface",
-                "memberof",
-                "method",
-                "module",
-                "mixes",
-                "mixin",
-                "name",
-                "requires",
-                "see",
-                "this",
-                "typedef",
-                "uses",
-            ],
-        );
-        for mut e in ends {
+        let words = [
+            "alias",
+            "augments",
+            "callback",
+            "constructs",
+            "emits",
+            "event",
+            "fires",
+            "exports",
+            "export",
+            "extends",
+            "external",
+            "function",
+            "func",
+            "host",
+            "lends",
+            "listens",
+            "interface",
+            "memberof",
+            "method",
+            "module",
+            "mixes",
+            "mixin",
+            "name",
+            "requires",
+            "see",
+            "this",
+            "typedef",
+            "uses",
+        ];
+        for word in words {
+            let Some(mut e) = self.tag_end(p, word) else {
+                continue;
+            };
             if self.starts(e, "!") && self.starts(p + 1, "memberof") {
                 e += 1;
             }
@@ -599,7 +601,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn doc_default(&mut self, p: usize) -> Option<usize> {
-        for e in self.tag_ends(p, &["defaultvalue", "default", "license", "version"]) {
+        for word in ["defaultvalue", "default", "license", "version"] {
+            let Some(e) = self.tag_end(p, word) else {
+                continue;
+            };
             let j = self.ws(e);
             if j == e {
                 continue;
@@ -617,17 +622,17 @@ impl<const D: u8> Lexer<'_, D> {
                 return Some(j + 1);
             }
         }
-        for e in self.tag_ends(
-            p,
-            &[
-                "defaultvalue",
-                "default",
-                "license",
-                "tutorial",
-                "variation",
-                "version",
-            ],
-        ) {
+        for word in [
+            "defaultvalue",
+            "default",
+            "license",
+            "tutorial",
+            "variation",
+            "version",
+        ] {
+            let Some(e) = self.tag_end(p, word) else {
+                continue;
+            };
             let j = self.ws(e);
             if j == e {
                 continue;
