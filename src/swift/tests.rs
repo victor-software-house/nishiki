@@ -224,17 +224,17 @@ mod probe {
     use crate::swift::engine::{Lexer, Scratch, Swift};
     use crate::swift::grammar::Pat;
 
-    /// Runs the matchers on the cases in the file that `SWIFT_PROBE_IN` names,
+    /// Runs the matchers on the cases in the file that `PROBE_IN` names,
     /// one JSON object per line (`rx`, the name of a pattern, `text`, `p`, the
-    /// byte it is tried at, and `g`, whether `\G` holds there), and writes
-    /// their answers to the file `SWIFT_PROBE_OUT` names: `null` for no match,
-    /// else the end and the capture groups. A script compares them with
-    /// Oniguruma's.
+    /// byte it is tried at, `g`, whether `\G` holds there, and `nl`, whether
+    /// the line feed follows the text), and writes their answers to the file
+    /// `PROBE_OUT` names: `null` for no match, else the end and the capture
+    /// groups. `oracle/onig.ts` compares them with Oniguruma's.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        let input = std::env::var("SWIFT_PROBE_IN").expect("SWIFT_PROBE_IN");
-        let output = std::env::var("SWIFT_PROBE_OUT").expect("SWIFT_PROBE_OUT");
+        let input = std::env::var("PROBE_IN").expect("PROBE_IN");
+        let output = std::env::var("PROBE_OUT").expect("PROBE_OUT");
         let cases = std::fs::read_to_string(input).expect("cases");
         let mut out = String::new();
         let mut arena = Arena::new(None);
@@ -265,6 +265,7 @@ mod probe {
                 &mut report,
                 &mut scratch,
             );
+            lexer.nl = case["nl"].as_bool().unwrap_or(true);
             lexer.pos = p;
             lexer.g = case["g"].as_bool().unwrap_or(false);
             let end = lexer.probe(pat, p);

@@ -475,30 +475,25 @@ for (const [file, rows] of byFile) {
 }
 console.log([...byFile].map(([file, rows]) => `${file} ${rows.length}`).join(", "));
 
-if (process.env.SWIFT_RX_OUT) {
-  // For the Oniguruma comparison: each distinct regular expression, by the
-  // first pattern that has it, with the capture groups its matcher must record
-  // (those that any pattern sharing it names or tokenizes) and its file.
+if (process.env.RX_DUMP) {
+  // For oracle/onig.ts: each distinct regular expression, by the first pattern
+  // that has it, with the capture groups its matcher must record (those that
+  // any pattern sharing it names or tokenizes). An end that repeats a group of
+  // its begin is left out: its text comes from the line that opened the rule.
   const groupsOf = (p: Pat) => {
     const used = new Set<number>([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]);
     const rule = p.act.kind === "begin" ? rules.get(p.act.rule) : null;
     if (rule?.backref) used.add(rule.backref);
     return used;
   };
-  const rows = [...functionOf].map(([regex, { name, ids }]) => {
-    const used = new Set<number>();
-    for (const id of ids) for (const g of groupsOf(pats.get(id)!)) used.add(g);
-    return JSON.stringify({
-      id: ids[0],
-      ids,
-      fn: name,
-      file: fileOf(ids[0]!),
-      regex,
-      groups: [...used].sort((a, b) => a - b),
-      backref: pats.get(ids[0]!)!.act.kind === "end" && /\\[1-9k]/.test(regex),
+  const rows = [...functionOf]
+    .filter(([regex, { ids }]) => !(pats.get(ids[0]!)!.act.kind === "end" && /\\[1-9k]/.test(regex)))
+    .map(([regex, { ids }]) => {
+      const used = new Set<number>();
+      for (const id of ids) for (const g of groupsOf(pats.get(id)!)) used.add(g);
+      return JSON.stringify({ id: ids[0], regex, groups: [...used].sort((a, b) => a - b) });
     });
-  });
-  await Bun.write(process.env.SWIFT_RX_OUT, rows.join("\n") + "\n");
+  await Bun.write(process.env.RX_DUMP, rows.join("\n") + "\n");
 }
 
 // Scope table.

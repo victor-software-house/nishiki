@@ -20,9 +20,9 @@
 // 3. The patterns of a rule are its `include`s flattened.
 //
 // Run with `bun run oracle/csharp-grammar.ts` and commit the result; the
-// output is generated, do not edit it. `CSHARP_DUMP=<file>` also writes every
+// output is generated, do not edit it. `RX_DUMP=<file>` also writes every
 // pattern's regular expression and capture groups, one JSON object per line,
-// for the matcher probe.
+// for oracle/onig.ts.
 import csharp from "@shikijs/langs@4.6.0/csharp";
 import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
 
@@ -624,16 +624,14 @@ const written = new Map([...scopes].map(([ident, name]) => [ident, name.replaceA
 const s = scopeFile("csharp-grammar.ts", "CSHARP", written);
 await Bun.write(`${root_dir}src/csharp/scope.rs`, s);
 
-if (Bun.env["CSHARP_DUMP"]) {
+if (Bun.env["RX_DUMP"]) {
   await Bun.write(
-    Bun.env["CSHARP_DUMP"],
+    Bun.env["RX_DUMP"],
     patList
       .map((p) =>
         JSON.stringify({
           id: p.id,
-          kind: p.act.kind,
           regex: p.regex,
-          how: howOf(p.regex).kind,
           groups: [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])].sort((a, b) => a - b),
         }),
       )

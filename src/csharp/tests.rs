@@ -10,15 +10,15 @@ mod probe {
     use crate::limits::{Limits, LineReport};
     use crate::rules::Text;
 
-    /// Runs the matchers on the cases in the file that `CSHARP_PROBE_IN`
-    /// names, one JSON object per line (`pat`, `text`, `p`, `g`, `nl`), and
-    /// writes their answers to the file `CSHARP_PROBE_OUT` names. A script
-    /// compares them with Oniguruma's.
+    /// Runs the matchers on the cases in the file that `PROBE_IN` names, one
+    /// JSON object per line (`rx`, `text`, `p`, `g`, `nl`), and writes their
+    /// answers to the file `PROBE_OUT` names. `oracle/onig.ts` compares them
+    /// with Oniguruma's.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        let input = std::env::var("CSHARP_PROBE_IN").expect("CSHARP_PROBE_IN");
-        let output = std::env::var("CSHARP_PROBE_OUT").expect("CSHARP_PROBE_OUT");
+        let input = std::env::var("PROBE_IN").expect("PROBE_IN");
+        let output = std::env::var("PROBE_OUT").expect("PROBE_OUT");
         let cases = std::fs::read_to_string(input).expect("cases");
         let mut out = String::new();
         let mut arena = Arena::new(None);
@@ -26,7 +26,7 @@ mod probe {
         let mut scratch = Scratch::default();
         for line in cases.lines() {
             let case: Value = serde_json::from_str(line).expect("a case");
-            let name = case["pat"].as_str().expect("pat");
+            let name = case["rx"].as_str().expect("rx");
             let pat = Pat::ALL
                 .iter()
                 .copied()
