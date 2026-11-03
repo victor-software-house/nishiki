@@ -5,12 +5,16 @@ use super::lexer::Lexer;
 use super::scope::S;
 
 impl<const D: u8> Lexer<'_, D> {
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     pub(crate) fn enum_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let mut k = pre.at;
         let mut const_cap = None;
         if self.starts(k, "const") && self.boundary(k) {
-            let e = k + 5;
+            let e = k + "const".len();
             let j = self.ws(e);
             if j > e {
                 const_cap = Some((k, e));
@@ -20,7 +24,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(k, "enum") || !self.boundary(k) || self.full() {
             return None;
         }
-        let e = k + 4;
+        let e = k + "enum".len();
         let j = self.ws(e);
         if j == e {
             return None;

@@ -3,6 +3,7 @@
 use super::bytes::{Bytes, COMMENT_START, DIGIT, NAME_START, STRING_START};
 use super::kind::Kind;
 use super::lexer::Lexer;
+use super::look::Annotation;
 use super::scope::S;
 
 impl<const D: u8> Lexer<'_, D> {
@@ -181,6 +182,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `infer T` and `infer T extends`.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn type_infer(&mut self, p: usize) -> Option<usize> {
         let e = self.kw_of(p, &["infer"])?;
         let j = self.ws(e);
@@ -197,15 +202,15 @@ impl<const D: u8> Lexer<'_, D> {
         self.cap(Kind::Top, e, j, &[meta]);
         self.cap(Kind::Top, j, n, &[meta, S::EntityNameType]);
         let m = self.ws(n);
-        if m > n && self.starts(m, "extends") && self.kw_after(m + 7) {
+        if m > n && self.starts(m, "extends") && self.kw_after(m + "extends".len()) {
             self.cap(Kind::Top, n, m, &[meta]);
             self.cap(
                 Kind::Top,
                 m,
-                m + 7,
+                m + "extends".len(),
                 &[meta, S::KeywordOperatorExpressionExtends],
             );
-            return Some(m + 7);
+            return Some(m + "extends".len());
         }
         Some(n)
     }
@@ -232,8 +237,8 @@ impl<const D: u8> Lexer<'_, D> {
             abstract_end = Some(e);
             start = self.ws(e);
         }
-        if self.starts(start, "new") && self.kw_before(p) && self.boundary(start + 3) {
-            let e = start + 3;
+        if self.starts(start, "new") && self.kw_before(p) && self.boundary(start + "new".len()) {
+            let e = start + "new".len();
             let after = self.ws(e);
             if self.b(after) == b'<' && !self.full() {
                 self.flush(p);
@@ -485,7 +490,7 @@ impl<const D: u8> Lexer<'_, D> {
             None
         };
         // The first rule: a name whose type is a function.
-        let is_fn = self.colon_fn_ahead(k, false);
+        let is_fn = self.colon_fn_ahead(k, Annotation::FunctionType);
         let is_param = self.b(k) == b':';
         if !is_fn && !is_param {
             return None;
@@ -628,8 +633,11 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `this` or a name, with the keyword guard after it.
     fn predicate_name(&self, j: usize) -> Option<(usize, bool)> {
-        if self.starts(j, "this") && !self.alnum_at(j + 4) && self.kw_after(j + 4) {
-            return Some((j + 4, true));
+        if self.starts(j, "this")
+            && !self.alnum_at(j + "this".len())
+            && self.kw_after(j + "this".len())
+        {
+            return Some((j + "this".len(), true));
         }
         let e = self.ident(j)?;
         self.kw_after(e).then_some((e, false))

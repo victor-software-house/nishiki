@@ -4,6 +4,7 @@
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::text::RegexForm;
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn control_statement(&mut self, p: usize) -> Option<usize> {
@@ -57,7 +58,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn switch_statement(&mut self, p: usize) -> Option<usize> {
         let e = self
             .kw_before(p)
-            .then(|| self.starts(p, "switch").then_some(p + 6))
+            .then(|| self.starts(p, "switch").then_some(p + "switch".len()))
             .flatten()?;
         if !self.boundary(p) || self.b(self.ws(e)) != b'(' {
             return None;
@@ -71,7 +72,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.kw_before(p) && self.starts(p, "switch") {
-            let e = p + 6;
+            let e = p + "switch".len();
             let j = self.ws(e);
             if self.b(j) == b'(' && !self.full() {
                 self.flush(p);
@@ -96,8 +97,8 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.kw(p, "case") {
             return self.open1(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
         }
-        if self.starts(p, "default") && self.kw_before(p) && self.b(p + 7) == b':' {
-            let e = p + 7;
+        if self.starts(p, "default") && self.kw_before(p) && self.b(p + "default".len()) == b':' {
+            let e = p + "default".len();
             if self.kw_after(e) {
                 return self.open1(Kind::CaseClause, p, e, &[S::KeywordControlSwitch]);
             }
@@ -144,7 +145,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = self.ws_comments(e);
         // `(\s+|(\s*/\*…\*/\s*))await`
         if j > e && self.starts(j, "await") {
-            j = self.ws_comments(j + 5);
+            j = self.ws_comments(j + "await".len());
         }
         if self.b(j) != b'(' || self.full() {
             return None;
@@ -156,7 +157,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
-        if let Some(e) = self.starts(p, "await").then_some(p + 5) {
+        if let Some(e) = self.starts(p, "await").then_some(p + "await".len()) {
             return self.tok(p, e, S::KeywordControlLoop);
         }
         if self.b(p) == b'(' {
@@ -215,7 +216,10 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let q = self.ws(p);
-        if self.b(q) != b'/' || matches!(self.b(q + 1), b'*' | b'/') || !self.regex_body(q, false) {
+        if self.b(q) != b'/'
+            || matches!(self.b(q + 1), b'*' | b'/')
+            || !self.regex_body(q, RegexForm::Loose)
+        {
             return None;
         }
         self.flush(p);

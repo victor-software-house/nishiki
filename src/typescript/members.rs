@@ -1,6 +1,7 @@
 //! Members of classes, interfaces, type literals and object literals.
 
 use super::bytes::{ANY, BLANK, Bytes, MEMBER_START, STRING_START};
+use super::decl::Pattern;
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -231,23 +232,27 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn method_with_prefix(&mut self, p: usize, prefix: &MethodPrefix) -> Option<usize> {
         let at = prefix.end;
         // `constructor`.
         let k = self.ws(at);
         if self.starts(k, "constructor")
             && self.boundary(k)
-            && self.boundary(k + 11)
-            && self.b(k + 11) != b':'
-            && self.kw_after(k + 11)
+            && self.boundary(k + "constructor".len())
+            && self.b(k + "constructor".len()) != b':'
+            && self.kw_after(k + "constructor".len())
         {
             self.flush(p);
             for &(a, b, s) in prefix.caps.items() {
                 self.cap(Kind::Method, a, b, &[s]);
             }
-            self.cap(Kind::Method, k, k + 11, &[S::StorageType]);
+            self.cap(Kind::Method, k, k + "constructor".len(), &[S::StorageType]);
             self.push(Kind::Method);
-            return Some(k + 11);
+            return Some(k + "constructor".len());
         }
         // `new (` or a bare call signature.
         let mut sig = at;
@@ -255,12 +260,12 @@ impl<const D: u8> Lexer<'_, D> {
         let mut star_cap = None;
         if self.starts(k, "new")
             && self.boundary(k)
-            && self.boundary(k + 3)
-            && self.b(k + 3) != b':'
-            && self.kw_after(k + 3)
+            && self.boundary(k + "new".len())
+            && self.b(k + "new".len()) != b':'
+            && self.kw_after(k + "new".len())
         {
-            new_cap = Some((k, k + 3));
-            sig = k + 3;
+            new_cap = Some((k, k + "new".len()));
+            sig = k + "new".len();
         } else if self.b(at) == b'*' {
             star_cap = Some((at, at + 1));
             sig = self.ws(at + 1);
@@ -285,7 +290,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = at;
         let mut accessor = None;
         if (self.starts(j, "get") || self.starts(j, "set")) && self.boundary(j) {
-            let e = j + 3;
+            let e = j + "get".len();
             let n = self.ws(e);
             if n > e {
                 accessor = Some((j, e));
@@ -386,6 +391,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(?:B(readonly)\s*)?\s*(\[)\s*(ID)\s*(?=:)`.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     pub(crate) fn indexer_declaration(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
@@ -419,6 +428,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(?:B([-+])?(readonly)\s*)?\s*(\[)\s*(ID)\s+(in)\s+`.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     pub(crate) fn indexer_mapped_type_declaration(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
@@ -433,7 +446,7 @@ impl<const D: u8> Lexer<'_, D> {
                 k += 1;
             }
             if self.starts(k, "readonly") {
-                let e = k + 8;
+                let e = k + "readonly".len();
                 let w = self.ws(e);
                 readonly = Some((k, e));
                 j = w;
@@ -494,7 +507,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut readonly = None;
         let mut j = p;
         if self.kw_before(p) && self.starts(p, "readonly") {
-            let e = p + 8;
+            let e = p + "readonly".len();
             let k = self.ws(e);
             if k > e && self.field_ahead(k) {
                 readonly = Some((p, e));
@@ -681,7 +694,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut at = p;
         let mut caps = CapList::default();
         if self.starts(at, "async") && self.boundary(at) {
-            let e = at + 5;
+            let e = at + "async".len();
             let k = self.ws(e);
             if k > e {
                 caps.push((at, e, S::StorageModifierAsync));
@@ -691,7 +704,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut with_accessor = at;
         let mut accessor_cap = None;
         if (self.starts(at, "get") || self.starts(at, "set")) && self.boundary(at) {
-            let e = at + 3;
+            let e = at + "get".len();
             let k = self.ws(e);
             if k > e {
                 accessor_cap = Some((at, e));
@@ -851,7 +864,7 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(p);
             let mut ends = Vec::with_capacity(2);
             if self.starts(j, "async") {
-                ends.push(j + 5);
+                ends.push(j + "async".len());
             }
             ends.push(j);
             for &e in &ends {
@@ -987,38 +1000,36 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.string(p))
             .or_else(|| self.numeric_literal(p))
             .or_else(|| self.regex(p))
-            .or_else(|| self.parameter_pattern(p, true))
-            .or_else(|| self.parameter_pattern(p, false))
+            .or_else(|| self.parameter_pattern(p, Pattern::Object))
+            .or_else(|| self.parameter_pattern(p, Pattern::Array))
             .or_else(|| self.destructuring_parameter_rest(p))
             .or_else(|| self.variable_initializer(p))
     }
 
     /// `(?:(\.\.\.)\s*)?(\{)` or `(\[)` inside a parameter pattern.
-    pub(crate) fn parameter_pattern(&mut self, p: usize, curly: bool) -> Option<usize> {
+    pub(crate) fn parameter_pattern(&mut self, p: usize, pattern: Pattern) -> Option<usize> {
         let mut j = p;
         let mut rest = None;
         if self.starts(j, "...") {
             rest = Some((j, j + 3));
             j = self.ws(j + 3);
         }
-        let want = if curly { b'{' } else { b'[' };
-        if self.b(j) != want || self.full() {
+        if self.b(j) != pattern.open() || self.full() {
             return None;
         }
         self.flush(p);
         if let Some((a, b)) = rest {
             self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        let (kind, scope) = if curly {
-            (
+        let (kind, scope) = match pattern {
+            Pattern::Object => (
                 Kind::ParamObjPattern,
                 S::PunctuationDefinitionBindingPatternObject,
-            )
-        } else {
-            (
+            ),
+            Pattern::Array => (
                 Kind::ParamArrPattern,
                 S::PunctuationDefinitionBindingPatternArray,
-            )
+            ),
         };
         self.cap(kind, j, j + 1, &[scope]);
         self.push(kind);
@@ -1048,7 +1059,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.key_colon_ahead(p) {
             return self.open0(Kind::ParamObjElem, p);
         }
-        self.parameter_pattern(p, true)
+        self.parameter_pattern(p, Pattern::Object)
             .or_else(|| self.destructuring_parameter_rest(p))
             .or_else(|| self.variable_initializer(p))
             .or_else(|| self.punctuation_comma(p))

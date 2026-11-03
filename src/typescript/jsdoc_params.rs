@@ -43,6 +43,10 @@ impl<const D: u8> Lexer<'_, D> {
     /// `[name=default]`, an optional parameter in a doc comment, checked in
     /// full before anything is emitted: the grammar's pattern has to match to
     /// the closing bracket or to the end of the comment.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn optional_param_ahead(&self, p: usize) -> Option<OptionalParam> {
         let name_char = |b: u8| b == b'$' || b == b'_' || b.is_ascii_alphanumeric();
         let mut j = self.ws(p + 1);

@@ -30,6 +30,16 @@ struct TagStart {
     name: TagName,
 }
 
+/// Whether a tag name must follow its namespace, or may be left out as in
+/// `<>` and `<ns:>`.
+#[derive(Clone, Copy, Debug)]
+enum TagPart {
+    /// The name may be absent.
+    Optional,
+    /// The name must be there.
+    Required,
+}
+
 impl<const D: u8> Lexer<'_, D> {
     /// The run of `[$_[:alpha:]][-$._[:alnum:]]*` at `i`, which a tag name
     /// does not end in `-` or `.`: its end.
@@ -47,9 +57,10 @@ impl<const D: u8> Lexer<'_, D> {
         (!matches!(self.s.get(e - 1), Some(b'-' | b'.'))).then_some(e)
     }
 
-    /// `(?:(ns)(:))?(tag)` at `i`, where the tag is optional when `optional`
-    /// says so: the pieces, and where the name ends.
-    fn tag_name(&self, i: usize, optional: bool) -> Option<TagName> {
+    /// `(?:(ns)(:))?(tag)` at `i`, with the tag optional or required as
+    /// `tag` says: the pieces, and where the name ends.
+    fn tag_name(&self, i: usize, tag: TagPart) -> Option<TagName> {
+        let optional = matches!(tag, TagPart::Optional);
         if let Some(ns_end) = self.tag_run(i)
             && self.b(ns_end) == b':'
         {
@@ -101,7 +112,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(i) != b'<' {
             return None;
         }
-        let name = self.tag_name(self.ws(i + 1), true)?;
+        let name = self.tag_name(self.ws(i + 1), TagPart::Optional)?;
         let gt = self.ws(name.end);
         (self.b(gt) == b'>').then_some((TagStart { lt: i, name }, gt))
     }
@@ -112,7 +123,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(i) != b'<' {
             return None;
         }
-        let name = self.tag_name(self.ws(i + 1), false)?;
+        let name = self.tag_name(self.ws(i + 1), TagPart::Required)?;
         let e = name.end;
         let angle = self.b(e) == b'<' && {
             let j = self.ws(e + 1);
@@ -184,8 +195,8 @@ impl<const D: u8> Lexer<'_, D> {
         if j == e || !self.starts(j, "extends") {
             return false;
         }
-        let k = self.ws(j + 7);
-        k > j + 7 && (k > j + 8 || !matches!(self.b(k), b'=' | b'>'))
+        let k = self.ws(j + "extends".len());
+        k > j + "extends".len() && (k > j + 8 || !matches!(self.b(k), b'=' | b'>'))
     }
 
     /// The `jsx-tag-without-attributes` rule at `p`.
@@ -454,7 +465,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(p, "</") {
             return None;
         }
-        let name = self.tag_name(self.ws(p + 2), true)?;
+        let name = self.tag_name(self.ws(p + 2), TagPart::Optional)?;
         let gt = self.ws(name.end);
         (self.b(gt) == b'>').then_some((name, gt))
     }

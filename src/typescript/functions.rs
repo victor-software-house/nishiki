@@ -12,18 +12,18 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = at;
         let mut async_cap = None;
         if self.starts(j, "async") {
-            let e = j + 5;
+            let e = j + "async".len();
             let k = self.ws(e);
             if k > e && self.starts(k, "function") {
                 async_cap = Some((j, e));
                 j = k;
             }
         }
-        if !self.starts(j, "function") || !self.boundary(j + 8) {
+        if !self.starts(j, "function") || !self.boundary(j + "function".len()) {
             return None;
         }
-        let kw = (j, j + 8);
-        let mut e = j + 8;
+        let kw = (j, j + "function".len());
+        let mut e = j + "function".len();
         let mut star = None;
         let k = self.ws(e);
         if self.b(k) == b'*' {
@@ -327,7 +327,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn kw_this(&self, j: usize) -> Option<usize> {
-        (self.starts(j, "this") && self.kw_after(j + 4)).then_some(j + 4)
+        (self.starts(j, "this") && self.kw_after(j + "this".len())).then_some(j + "this".len())
     }
 }
 

@@ -6,6 +6,25 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
+/// Which of the grammar's two regular-expression rules a lookahead follows.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum RegexForm {
+    /// The form after an operator, whose lookahead spells character classes
+    /// and groups out in full.
+    Strict,
+    /// The other forms, whose lookahead reads them more loosely.
+    Loose,
+}
+
+/// Which end of a character-class range an item is.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum RangeItem {
+    /// The item before `-`.
+    Low,
+    /// The item after `-`.
+    High,
+}
+
 impl<const D: u8> Lexer<'_, D> {
     // Strings.
 
@@ -29,6 +48,10 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `\\(x\h{2}|u\h{4}|u\{\h+}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?
     /// |[4-7][0-7]?|.|$)`.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     pub(crate) fn string_character_escape(&mut self, p: usize) -> Option<usize> {
         if self.b(p) != b'\\' {
             return None;
@@ -164,7 +187,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             s = self.ws(j + 1);
         }
-        let limit = self.window(p);
+        let limit = self.window();
         while s < limit {
             self.spend(1);
             let Some(e) = self.ident(s) else {
@@ -213,7 +236,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(q) == b'/'
             && !matches!(self.b(q + 1), b'*' | b'/')
             && self.regex_before_strict(p)
-            && self.regex_body(q, true)
+            && self.regex_body(q, RegexForm::Strict)
         {
             return Some(q);
         }
@@ -221,14 +244,14 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(p) == b'/'
             && !matches!(self.b(p + 1), b'*' | b'/')
             && self.regex_before_loose(p)
-            && self.regex_body(p, false)
+            && self.regex_body(p, RegexForm::Loose)
         {
             return Some(p);
         }
         if (self.word_before_text(p, "return") || self.word_before_text(p, "case"))
             && self.b(q) == b'/'
             && !matches!(self.b(q + 1), b'*' | b'/')
-            && self.regex_body(q, false)
+            && self.regex_body(q, RegexForm::Loose)
         {
             return Some(q);
         }
@@ -267,8 +290,13 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The lookahead of a regular expression that starts at the `/` at `q`:
     /// a body, a closing `/`, and flags that no name follows.
-    pub(crate) fn regex_body(&self, q: usize, strict: bool) -> bool {
-        let end = self.window(q);
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
+    pub(crate) fn regex_body(&self, q: usize, form: RegexForm) -> bool {
+        let strict = matches!(form, RegexForm::Strict);
+        let end = self.window();
         let mut j = q + 1;
         let mut items = 0;
         loop {
@@ -609,8 +637,9 @@ impl<const D: u8> Lexer<'_, D> {
     /// alternatives are written: a plain character (any, for the first item;
     /// not `]` or a backslash, for the second), a numeric escape, a control
     /// escape and any other escape.
-    fn range_items(&self, i: usize, first: bool) -> [Option<(usize, Option<S>)>; 4] {
-        let plain = (i < self.len && (first || !matches!(self.b(i), b']' | b'\\')))
+    fn range_items(&self, i: usize, item: RangeItem) -> [Option<(usize, Option<S>)>; 4] {
+        let any = item == RangeItem::Low;
+        let plain = (i < self.len && (any || !matches!(self.b(i), b']' | b'\\')))
             .then(|| (i + self.char_len(i), None));
         let numeric = self
             .regex_numeric_escape(i)
@@ -630,12 +659,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `ITEM-ITEM` inside a character class.
     fn regex_range(&mut self, p: usize) -> Option<usize> {
         let (a_end, a_scope, b_end, b_scope) = self
-            .range_items(p, true)
+            .range_items(p, RangeItem::Low)
             .into_iter()
             .flatten()
             .filter(|&(a_end, _)| self.b(a_end) == b'-')
             .find_map(|(a_end, a_scope)| {
-                self.range_items(a_end + 1, false)
+                self.range_items(a_end + 1, RangeItem::High)
                     .into_iter()
                     .flatten()
                     .next()
@@ -660,11 +689,11 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn comment(&mut self, p: usize) -> Option<usize> {
         match self.b(p) {
             b'/' => {
-                if self.starts(p, "/**") && self.b(p + 3) != b'/' {
+                if self.starts(p, "/**") && self.b(p + "/**".len()) != b'/' {
                     return self.open1(
                         Kind::CommentDoc,
                         p,
-                        p + 3,
+                        p + "/**".len(),
                         &[S::PunctuationDefinitionComment],
                     );
                 }
@@ -706,7 +735,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut e = p + 2;
         let j = self.ws(e);
         if self.starts(j, "@internal") {
-            let after = j + 9;
+            let after = j + "@internal".len();
             if self.space_at(after) || self.starts(after, "*/") || after >= self.len {
                 self.cap(
                     Kind::CommentBlock,
@@ -760,7 +789,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut e = slashes + 2;
         let j = self.ws(e);
         if self.starts(j, "@internal") {
-            let after = j + 9;
+            let after = j + "@internal".len();
             if self.space_at(after) || after >= self.len {
                 self.cap(kind, e, j, &[line]);
                 self.cap(

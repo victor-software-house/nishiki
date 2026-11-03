@@ -1,6 +1,6 @@
 //! The rules of each context, in the grammar's priority order.
 
-use super::decl::VarKind;
+use super::decl::{Binding, Pattern, VarKind};
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
@@ -49,17 +49,20 @@ impl<const D: u8> Lexer<'_, D> {
             | Kind::VarInit2
             | Kind::ObjInit
             | Kind::ObjSpread => self.expression(p),
-            Kind::ArrBind | Kind::ArrBindConst => {
-                let constant = kind == Kind::ArrBindConst;
-                self.binding_element(p, constant)
-                    .or_else(|| self.punctuation_comma(p))
-            }
-            Kind::ObjBind | Kind::ObjBindConst => {
-                self.object_binding_element(p, kind == Kind::ObjBindConst)
-            }
-            Kind::ObjBindElem | Kind::ObjBindElemConst => self
+            Kind::ArrBind => self
+                .binding_element(p, Binding::Variable)
+                .or_else(|| self.punctuation_comma(p)),
+            Kind::ArrBindConst => self
+                .binding_element(p, Binding::Constant)
+                .or_else(|| self.punctuation_comma(p)),
+            Kind::ObjBind => self.object_binding_element(p, Binding::Variable),
+            Kind::ObjBindConst => self.object_binding_element(p, Binding::Constant),
+            Kind::ObjBindElem => self
                 .object_binding_element_property_name(p)
-                .or_else(|| self.binding_element(p, kind == Kind::ObjBindElemConst)),
+                .or_else(|| self.binding_element(p, Binding::Variable)),
+            Kind::ObjBindElemConst => self
+                .object_binding_element_property_name(p)
+                .or_else(|| self.binding_element(p, Binding::Constant)),
             Kind::ObjBindProp => self.object_binding_prop_rules(p),
             Kind::ParamObjElem => self
                 .object_binding_element_property_name(p)
@@ -104,17 +107,13 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::SwitchStmt => self.switch_statement_rules(p),
             Kind::SwitchBlock => self.switch_block_rules(p),
             Kind::IfOuter => self.if_outer_rules(p),
-            Kind::ObjBindVar | Kind::ObjBindVarConst => {
-                let constant = kind == Kind::ObjBindVarConst;
-                self.binding_pattern(p, true, constant)
-                    .or_else(|| self.type_annotation(p))
-                    .or_else(|| self.comment(p))
+            Kind::ObjBindVar => self.binding_variable_rules(p, Pattern::Object, Binding::Variable),
+            Kind::ObjBindVarConst => {
+                self.binding_variable_rules(p, Pattern::Object, Binding::Constant)
             }
-            Kind::ArrBindVar | Kind::ArrBindVarConst => {
-                let constant = kind == Kind::ArrBindVarConst;
-                self.binding_pattern(p, false, constant)
-                    .or_else(|| self.type_annotation(p))
-                    .or_else(|| self.comment(p))
+            Kind::ArrBindVar => self.binding_variable_rules(p, Pattern::Array, Binding::Variable),
+            Kind::ArrBindVarConst => {
+                self.binding_variable_rules(p, Pattern::Array, Binding::Constant)
             }
             Kind::ParamObjBind | Kind::ParamObjPattern => self.parameter_object_binding_element(p),
             Kind::ParamArrBind | Kind::ParamArrPattern => self
@@ -306,16 +305,28 @@ impl<const D: u8> Lexer<'_, D> {
         self.type_(p)
     }
 
+    /// Inside the binding pattern of a declaration.
+    fn binding_variable_rules(
+        &mut self,
+        p: usize,
+        pattern: Pattern,
+        binding: Binding,
+    ) -> Option<usize> {
+        self.binding_pattern(p, pattern, binding)
+            .or_else(|| self.type_annotation(p))
+            .or_else(|| self.comment(p))
+    }
+
     fn var_rules(&mut self, which: VarKind, p: usize) -> Option<usize> {
         if let Some(r) = self.var_kw_rule(p, which) {
             return Some(r);
         }
         let first = match which {
             VarKind::Let => self
-                .destructuring_variable(p, false)
+                .destructuring_variable(p, Binding::Variable)
                 .or_else(|| self.var_single_variable(p)),
             VarKind::Const => self
-                .destructuring_variable(p, true)
+                .destructuring_variable(p, Binding::Constant)
                 .or_else(|| self.var_single_const(p)),
             VarKind::Using => self.var_single_const(p),
         };
@@ -342,10 +353,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let first = match which {
             VarKind::Let => self
-                .destructuring_variable(p, false)
+                .destructuring_variable(p, Binding::Variable)
                 .or_else(|| self.var_single_variable(p)),
             VarKind::Const => self
-                .destructuring_variable(p, true)
+                .destructuring_variable(p, Binding::Constant)
                 .or_else(|| self.var_single_const(p)),
             VarKind::Using => self.var_single_const(p),
         };

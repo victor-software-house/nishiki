@@ -354,13 +354,13 @@ impl<const D: u8> Lexer<'_, D> {
             }
         }
         if self.starts(p, "this") {
-            let e = p + 4;
+            let e = p + "this".len();
             if self.kw_before(p) && self.boundary(e) && self.b(e) != b'$' {
                 return self.tok(p, e, S::VariableLanguageThis);
             }
         }
         if self.starts(p, "super") {
-            let e = p + 5;
+            let e = p + "super".len();
             if self.kw_before(p) && self.boundary(e) && self.b(e) != b'$' {
                 return self.tok(p, e, S::VariableLanguageSuper);
             }
@@ -542,7 +542,10 @@ impl<const D: u8> Lexer<'_, D> {
             let q = if self.b(j) == b'?' { j + 1 } else { j };
             if self.b(q) == b'.' {
                 let k = self.ws(q + 1);
-                if self.starts(k, "prototype") && self.boundary(k + 9) && self.b(k + 9) != b'$' {
+                if self.starts(k, "prototype")
+                    && self.boundary(k + "prototype".len())
+                    && self.b(k + "prototype".len()) != b'$'
+                {
                     return self.tok(p, e, S::SupportClass);
                 }
             }
@@ -550,7 +553,7 @@ impl<const D: u8> Lexer<'_, D> {
         // `.property.` and `?.property.`.
         if let Some(a) = self.accessor_at(p) {
             let k = self.ws(a);
-            let (name_end, scope) = match self.constant_name(k, true) {
+            let (name_end, scope) = match self.hash_constant_name(k) {
                 Some(e) => (e, S::VariableOtherConstantObjectProperty),
                 None => match self.hash_ident(k) {
                     Some(e) => (e, S::VariableOtherObjectProperty),
@@ -569,7 +572,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `Name` or `NAME` followed by `.member`.
     fn object_head(&mut self, p: usize) -> Option<usize> {
-        let (e, scope) = match self.constant_name(p, false) {
+        let (e, scope) = match self.constant_name(p) {
             Some(e) if self.member_ahead(e) => (e, S::VariableOtherConstantObject),
             _ => {
                 let e = self.ident(p)?;
@@ -607,7 +610,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn property_name(&mut self, p: usize) -> Option<usize> {
         let a = self.accessor_at(p)?;
         let k = self.ws(a);
-        let (e, scope) = match self.constant_name(k, true) {
+        let (e, scope) = match self.hash_constant_name(k) {
             Some(e) => (e, S::VariableOtherConstantProperty),
             None => (self.hash_ident(k)?, S::VariableOtherProperty),
         };
@@ -617,7 +620,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn variable_name(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.constant_name(p, false) {
+        if let Some(e) = self.constant_name(p) {
             return self.tok(p, e, S::VariableOtherConstant);
         }
         let e = self.ident(p)?;

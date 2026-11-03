@@ -19,15 +19,9 @@
 //! - A context that opens and closes without the line advancing keeps the rest
 //!   of the line, as `TextMate` does for a grammar that loops.
 //!
-//!
 //! Work is counted against [`Limits::work`](crate::Limits): every scan ahead
 //! spends a step per byte it reads, so a line of any length is lexed in time
 //! proportional to its length times the work limit's per-byte allowance.
-
-#![expect(
-    clippy::many_single_char_names,
-    reason = "a scanner names positions by role: `p` where a rule starts, `e` where it ends, `j` and `k` for the cursor"
-)]
 
 mod bytes;
 mod calls;
@@ -59,6 +53,7 @@ mod type_aliases;
 
 use kind::Kind;
 pub(crate) use lexer::Opened;
+use lexer::TextStart;
 pub(crate) use scope::NAMES;
 use scope::S;
 
@@ -88,6 +83,15 @@ pub(crate) enum Dialect {
 }
 
 impl Dialect {
+    /// The index of `TypeScript`, the lexer's const parameter for it.
+    pub(crate) const TYPESCRIPT: u8 = 0;
+    /// The index of `JavaScript`.
+    pub(crate) const JAVASCRIPT: u8 = 1;
+    /// The index of JSX.
+    pub(crate) const JSX: u8 = 2;
+    /// The index of TSX.
+    pub(crate) const TSX: u8 = 3;
+
     /// The dialect at position `index` among the four.
     ///
     /// Evaluated at compile time for each `D` that [`line`] instantiates, so
@@ -96,13 +100,13 @@ impl Dialect {
     pub(crate) const fn of(index: u8) -> Dialect {
         match index {
             #[cfg(feature = "lang-typescript")]
-            0 => Dialect::TypeScript,
+            Self::TYPESCRIPT => Dialect::TypeScript,
             #[cfg(feature = "lang-javascript")]
-            1 => Dialect::JavaScript,
+            Self::JAVASCRIPT => Dialect::JavaScript,
             #[cfg(feature = "lang-jsx")]
-            2 => Dialect::Jsx,
+            Self::JSX => Dialect::Jsx,
             #[cfg(feature = "lang-tsx")]
-            3 => Dialect::Tsx,
+            Self::TSX => Dialect::Tsx,
             _ => panic!("the dialect's feature is off"),
         }
     }
@@ -164,7 +168,7 @@ pub(crate) fn line(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,
     line: &str,
-    line_start: bool,
+    start: TextStart,
     state: u32,
 ) -> u32 {
     if line.is_empty() {
@@ -172,13 +176,13 @@ pub(crate) fn line(
     }
     match dialect {
         #[cfg(feature = "lang-typescript")]
-        Dialect::TypeScript => run::<0>(cx, line, line_start, state),
+        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT }>(cx, line, start, state),
         #[cfg(feature = "lang-javascript")]
-        Dialect::JavaScript => run::<1>(cx, line, line_start, state),
+        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT }>(cx, line, start, state),
         #[cfg(feature = "lang-jsx")]
-        Dialect::Jsx => run::<2>(cx, line, line_start, state),
+        Dialect::Jsx => run::<{ Dialect::JSX }>(cx, line, start, state),
         #[cfg(feature = "lang-tsx")]
-        Dialect::Tsx => run::<3>(cx, line, line_start, state),
+        Dialect::Tsx => run::<{ Dialect::TSX }>(cx, line, start, state),
     }
 }
 
@@ -186,10 +190,10 @@ pub(crate) fn line(
 fn run<const D: u8>(
     cx: &mut crate::language::Context<'_>,
     line: &str,
-    line_start: bool,
+    start: TextStart,
     state: u32,
 ) -> u32 {
-    let mut lexer = lexer::Lexer::<D>::new(cx, line, line_start, state);
+    let mut lexer = lexer::Lexer::<D>::new(cx, line, start, state);
     lexer.run();
     lexer.into_state()
 }
@@ -214,7 +218,7 @@ pub(crate) fn lex(
     state: u32,
 ) -> u32 {
     cx.lex_from_start(line, |cx, rest| {
-        self::line(cx, dialect, rest, line.start == 0, state)
+        self::line(cx, dialect, rest, TextStart::at(line.start), state)
     })
 }
 
@@ -231,7 +235,7 @@ pub(crate) fn lex_interpolation(
 ) -> (u32, Option<usize>) {
     let mut close = None;
     let next = cx.lex_from_start(line, |cx, rest| {
-        let (next, at) = interpolation_line(cx, rest, line.start == 0, state);
+        let (next, at) = interpolation_line(cx, rest, TextStart::at(line.start), state);
         close = at;
         next
     });
@@ -243,13 +247,13 @@ pub(crate) fn lex_interpolation(
 fn interpolation_line(
     cx: &mut crate::language::Context<'_>,
     line: &str,
-    line_start: bool,
+    start: TextStart,
     state: u32,
 ) -> (u32, Option<usize>) {
     if line.is_empty() {
         return (state, None);
     }
-    let mut lexer = lexer::Lexer::<1>::new(cx, line, line_start, state);
+    let mut lexer = lexer::Lexer::<{ Dialect::JAVASCRIPT }>::new(cx, line, start, state);
     lexer.run();
     let close = lexer.halted_at();
     (lexer.into_state(), close)

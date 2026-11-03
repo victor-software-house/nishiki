@@ -283,6 +283,10 @@ impl<const D: u8> Lexer<'_, D> {
         })?
     }
 
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn doc_author(&mut self, p: usize) -> Option<usize> {
         let e = self.tag_end(p, "author")?;
         let j = self.ws(e);
@@ -329,6 +333,10 @@ impl<const D: u8> Lexer<'_, D> {
         Some(name_end.min(self.len))
     }
 
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn doc_borrows(&mut self, p: usize) -> Option<usize> {
         let e = self.tag_end(p, "borrows")?;
         let j = self.ws(e);
@@ -436,6 +444,10 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn doc_template(&mut self, p: usize) -> Option<usize> {
         let e = self.tag_end(p, "template")?;
         let j = self.ws(e);

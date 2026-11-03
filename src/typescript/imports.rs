@@ -5,20 +5,24 @@ use super::lexer::Lexer;
 use super::scope::S;
 
 impl<const D: u8> Lexer<'_, D> {
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     pub(crate) fn import_equals_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;
         if !self.starts(k, "import") || !self.boundary(k) || self.full() {
             return None;
         }
-        let mut j = k + 6;
+        let mut j = k + "import".len();
         let mut type_cap = None;
         let t = self.ws(j);
-        if t > j && self.starts(t, "type") && self.boundary(t + 4) {
-            let after = self.ws(t + 4);
-            if after > t + 4 {
-                type_cap = Some((t, t + 4));
-                j = t + 4;
+        if t > j && self.starts(t, "type") && self.boundary(t + "type".len()) {
+            let after = self.ws(t + "type".len());
+            if after > t + "type".len() {
+                type_cap = Some((t, t + "type".len()));
+                j = t + "type".len();
             }
         }
         let n0 = self.ws(j);
@@ -32,7 +36,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let r0 = self.ws(eq + 1);
         let external = self.starts(r0, "require") && {
-            let q = self.ws(r0 + 7);
+            let q = self.ws(r0 + "require".len());
             self.b(q) == b'('
         };
         self.flush(p);
@@ -41,7 +45,7 @@ impl<const D: u8> Lexer<'_, D> {
         } else {
             Kind::ImportEqInt
         };
-        if !external && self.starts(r0, "require") && self.boundary(r0 + 7) {
+        if !external && self.starts(r0, "require") && self.boundary(r0 + "require".len()) {
             return None;
         }
         self.prefix_tokens(kind, &pre);
@@ -52,8 +56,8 @@ impl<const D: u8> Lexer<'_, D> {
         self.cap(kind, n0, n, &[S::VariableOtherReadwriteAlias]);
         self.cap(kind, eq, eq + 1, &[S::KeywordOperatorAssignment]);
         if external {
-            let q = self.ws(r0 + 7);
-            self.cap(kind, r0, r0 + 7, &[S::KeywordControlRequire]);
+            let q = self.ws(r0 + "require".len());
+            self.cap(kind, r0, r0 + "require".len(), &[S::KeywordControlRequire]);
             self.cap(kind, q, q + 1, &[S::MetaBraceRound]);
             self.push(kind);
             return Some(q + 1);
@@ -88,15 +92,18 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(k, "import") || !self.boundary(k) || self.full() {
             return None;
         }
-        let mut e = k + 6;
+        let mut e = k + "import".len();
         let mut type_cap = None;
         let t = self.ws(e);
-        if t > e && self.starts(t, "type") && self.boundary(t + 4) {
-            let after = self.ws(t + 4);
+        if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
+            let after = self.ws(t + "type".len());
             // `(?!\s+from)`.
-            if !(after > t + 4 && self.starts(after, "from") && self.boundary(after + 4)) {
-                type_cap = Some((t, t + 4));
-                e = t + 4;
+            if !(after > t + "type".len()
+                && self.starts(after, "from")
+                && self.boundary(after + "from".len()))
+            {
+                type_cap = Some((t, t + "type".len()));
+                e = t + "type".len();
             }
         }
         // `(?!\s*[(:])E`.
@@ -151,8 +158,8 @@ impl<const D: u8> Lexer<'_, D> {
                 &[S::PunctuationDefinitionBlock],
             );
         }
-        if self.starts(p, "from") && self.boundary(p) && self.boundary(p + 4) {
-            return self.tok(p, p + 4, S::KeywordControlFrom);
+        if self.starts(p, "from") && self.boundary(p) && self.boundary(p + "from".len()) {
+            return self.tok(p, p + "from".len(), S::KeywordControlFrom);
         }
         if let Some(r) = self.import_export_assert_clause(p) {
             return Some(r);
@@ -165,9 +172,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let (e, scope) = if self.starts(p, "with") {
-            (p + 4, S::KeywordControlWith)
+            (p + "with".len(), S::KeywordControlWith)
         } else if self.starts(p, "assert") {
-            (p + 6, S::KeywordControlAssert)
+            (p + "assert".len(), S::KeywordControlAssert)
         } else {
             return None;
         };
@@ -218,8 +225,8 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(p) == b'*' {
             return self.tok(p, p + 1, S::ConstantLanguageImportExportAll);
         }
-        if self.starts(p, "default") && self.boundary(p) && self.boundary(p + 7) {
-            return self.tok(p, p + 7, S::KeywordControlDefault);
+        if self.starts(p, "default") && self.boundary(p) && self.boundary(p + "default".len()) {
+            return self.tok(p, p + "default".len(), S::KeywordControlDefault);
         }
         self.import_name(p)
     }
@@ -232,7 +239,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = p;
         let mut type_cap = None;
         if self.starts(j, "type") && self.boundary(j) {
-            let e = j + 4;
+            let e = j + "type".len();
             let k = self.ws(e);
             if k > e {
                 type_cap = Some((j, e));
@@ -257,26 +264,32 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
     fn import_alias_from(
         &mut self,
         p: usize,
         j: usize,
         type_cap: Option<(usize, usize)>,
     ) -> Option<usize> {
-        let (first_end, first_scope): (usize, S) =
-            if self.starts(j, "default") && self.boundary(j) && self.boundary(j + 7) {
-                (j + 7, S::KeywordControlDefault)
-            } else if self.b(j) == b'*' {
-                (j + 1, S::ConstantLanguageImportExportAll)
-            } else if let Some(e) = self.ident(j) {
-                if !self.boundary(j) {
-                    return None;
-                }
-                (e, S::VariableOtherReadwrite)
-            } else {
-                let e = self.quoted(j)?;
-                (e, S::StringQuotedAlias)
-            };
+        let (first_end, first_scope): (usize, S) = if self.starts(j, "default")
+            && self.boundary(j)
+            && self.boundary(j + "default".len())
+        {
+            (j + "default".len(), S::KeywordControlDefault)
+        } else if self.b(j) == b'*' {
+            (j + 1, S::ConstantLanguageImportExportAll)
+        } else if let Some(e) = self.ident(j) {
+            if !self.boundary(j) {
+                return None;
+            }
+            (e, S::VariableOtherReadwrite)
+        } else {
+            let e = self.quoted(j)?;
+            (e, S::StringQuotedAlias)
+        };
         let k = self.ws(first_end);
         if k == first_end || !self.starts(k, "as") || !self.boundary(k + 2) {
             return None;
@@ -286,8 +299,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let (second_end, second_scope): (usize, S) =
-            if self.starts(m, "default") && self.kw_after(m + 7) {
-                (m + 7, S::KeywordControlDefault)
+            if self.starts(m, "default") && self.kw_after(m + "default".len()) {
+                (m + "default".len(), S::KeywordControlDefault)
             } else if let Some(e) = self.ident(m) {
                 (e, S::VariableOtherReadwriteAlias)
             } else {
@@ -321,7 +334,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = p;
         let mut type_cap = None;
         if self.starts(j, "type") && self.boundary(j) {
-            let e = j + 4;
+            let e = j + "type".len();
             let k = self.ws(e);
             if k > e && (self.ident(k).is_some() || self.quoted(k).is_some()) {
                 type_cap = Some((j, e));

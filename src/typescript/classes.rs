@@ -10,15 +10,15 @@ impl<const D: u8> Lexer<'_, D> {
         let mut k = pre.at;
         let mut abstract_cap = None;
         if self.starts(k, "abstract") && self.boundary(k) {
-            let e = k + 8;
+            let e = k + "abstract".len();
             let j = self.ws(e);
             abstract_cap = Some((k, e));
             k = j;
         }
-        if !self.starts(k, "class") || !self.boundary(k + 5) || self.full() {
+        if !self.starts(k, "class") || !self.boundary(k + "class".len()) || self.full() {
             return None;
         }
-        let e = k + 5;
+        let e = k + "class".len();
         let j = self.ws(e);
         if !(j > e || self.starts(e, "/*") || self.starts(e, "//")) {
             return None;
@@ -40,17 +40,17 @@ impl<const D: u8> Lexer<'_, D> {
         let mut k = p;
         let mut abstract_cap = None;
         if self.starts(k, "abstract") {
-            let e = k + 8;
+            let e = k + "abstract".len();
             let j = self.ws(e);
             if j > e {
                 abstract_cap = Some((k, e));
                 k = j;
             }
         }
-        if !self.starts(k, "class") || !self.boundary(k + 5) || self.full() {
+        if !self.starts(k, "class") || !self.boundary(k + "class".len()) || self.full() {
             return None;
         }
-        let e = k + 5;
+        let e = k + "class".len();
         let after = self.b(e);
         let ok = self.ws(e) > e
             || matches!(after, b'<' | b'{')
@@ -87,14 +87,14 @@ impl<const D: u8> Lexer<'_, D> {
         let mut k = pre.at;
         let mut abstract_cap = None;
         if self.starts(k, "abstract") && self.boundary(k) {
-            let e = k + 8;
+            let e = k + "abstract".len();
             abstract_cap = Some((k, e));
             k = self.ws(e);
         }
-        if !self.starts(k, "interface") || !self.boundary(k + 9) || self.full() {
+        if !self.starts(k, "interface") || !self.boundary(k + "interface".len()) || self.full() {
             return None;
         }
-        let e = k + 9;
+        let e = k + "interface".len();
         if !(self.ws(e) > e || self.starts(e, "/*") || self.starts(e, "//")) {
             return None;
         }

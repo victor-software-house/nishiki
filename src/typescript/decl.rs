@@ -14,6 +14,36 @@ pub(crate) struct Prefix {
     pub(crate) at: usize,
 }
 
+/// Whether the names a binding pattern declares are constants, which the
+/// grammar scopes apart. A `using` declaration has no patterns, so a
+/// [`VarKind`] would carry a case no pattern meets.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Binding {
+    /// `let`, `var` and parameters.
+    Variable,
+    /// `const`.
+    Constant,
+}
+
+/// Which bracket a binding pattern opens with.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Pattern {
+    /// `{`.
+    Object,
+    /// `[`.
+    Array,
+}
+
+impl Pattern {
+    /// The bracket that opens the pattern.
+    pub(crate) fn open(self) -> u8 {
+        match self {
+            Pattern::Object => b'{',
+            Pattern::Array => b'[',
+        }
+    }
+}
+
 /// The three declaration keyword forms the grammar keeps apart.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum VarKind {
@@ -167,7 +197,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut export = None;
         let mut declare = None;
         if self.starts(at, "export") && self.boundary(at) {
-            let e = at + 6;
+            let e = at + "export".len();
             let k = self.ws(e);
             if k > e {
                 export = Some((at, e));
@@ -175,7 +205,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
         }
         if self.starts(at, "declare") && self.boundary(at) {
-            let e = at + 7;
+            let e = at + "declare".len();
             let k = self.ws(e);
             if k > e {
                 declare = Some((at, e));
@@ -236,7 +266,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return None;
                 }
                 if self.starts(k, "var") || self.starts(k, "let") {
-                    k + 3
+                    k + "var".len()
                 } else {
                     return None;
                 }
@@ -245,9 +275,9 @@ impl<const D: u8> Lexer<'_, D> {
                 if !self.starts(k, "const") || !self.boundary(k) {
                     return None;
                 }
-                let e = k + 5;
+                let e = k + "const".len();
                 let j = self.ws(e);
-                if j > e && self.starts(j, "enum") && self.boundary(j + 4) {
+                if j > e && self.starts(j, "enum") && self.boundary(j + "enum".len()) {
                     return None;
                 }
                 e
@@ -321,7 +351,7 @@ impl<const D: u8> Lexer<'_, D> {
                 &[S::MetaDefinitionVariable, S::EntityNameFunction],
             ));
         }
-        if let Some(c) = self.constant_name(p, false) {
+        if let Some(c) = self.constant_name(p) {
             let mut k = c;
             let mut bang = None;
             if self.b(k) == b'!' {
@@ -397,7 +427,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(?<![:=]|^of|[^$._[:alnum:]]of|^in|[^$._[:alnum:]]in)\s*(?=\{)` and
     /// its array form.
-    pub(crate) fn destructuring_variable(&mut self, p: usize, constant: bool) -> Option<usize> {
+    pub(crate) fn destructuring_variable(&mut self, p: usize, binding: Binding) -> Option<usize> {
         let j = self.ws(p);
         let open = self.b(j);
         if !matches!(open, b'{' | b'[') || self.full() {
@@ -409,11 +439,11 @@ impl<const D: u8> Lexer<'_, D> {
         {
             return None;
         }
-        let kind = match (open, constant) {
-            (b'{', false) => Kind::ObjBindVar,
-            (b'{', true) => Kind::ObjBindVarConst,
-            (_, false) => Kind::ArrBindVar,
-            (_, true) => Kind::ArrBindVarConst,
+        let kind = match (open, binding) {
+            (b'{', Binding::Variable) => Kind::ObjBindVar,
+            (b'{', Binding::Constant) => Kind::ObjBindVarConst,
+            (_, Binding::Variable) => Kind::ArrBindVar,
+            (_, Binding::Constant) => Kind::ArrBindVarConst,
         };
         self.flush(p);
         self.fin(kind, j);
@@ -425,8 +455,8 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn binding_pattern(
         &mut self,
         p: usize,
-        curly: bool,
-        constant: bool,
+        pattern: Pattern,
+        binding: Binding,
     ) -> Option<usize> {
         let mut j = p;
         let mut rest = None;
@@ -434,22 +464,25 @@ impl<const D: u8> Lexer<'_, D> {
             rest = Some((j, j + 3));
             j = self.ws(j + 3);
         }
-        let want = if curly { b'{' } else { b'[' };
-        if self.b(j) != want || self.full() {
+        if self.b(j) != pattern.open() || self.full() {
             return None;
         }
         self.flush(p);
         if let Some((a, b)) = rest {
             self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        let (kind, scope) = match (curly, constant) {
-            (true, false) => (Kind::ObjBind, S::PunctuationDefinitionBindingPatternObject),
-            (true, true) => (
+        let (kind, scope) = match (pattern, binding) {
+            (Pattern::Object, Binding::Variable) => {
+                (Kind::ObjBind, S::PunctuationDefinitionBindingPatternObject)
+            }
+            (Pattern::Object, Binding::Constant) => (
                 Kind::ObjBindConst,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
-            (false, false) => (Kind::ArrBind, S::PunctuationDefinitionBindingPatternArray),
-            (false, true) => (
+            (Pattern::Array, Binding::Variable) => {
+                (Kind::ArrBind, S::PunctuationDefinitionBindingPatternArray)
+            }
+            (Pattern::Array, Binding::Constant) => (
                 Kind::ArrBindConst,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
@@ -463,7 +496,7 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn destructuring_variable_rest(
         &mut self,
         p: usize,
-        constant: bool,
+        binding: Binding,
     ) -> Option<usize> {
         let mut j = p;
         let mut rest = None;
@@ -476,41 +509,39 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some((a, b)) = rest {
             self.cap(Kind::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        let name = if constant {
-            S::VariableOtherConstant
-        } else {
-            S::VariableOtherReadwrite
+        let name = match binding {
+            Binding::Constant => S::VariableOtherConstant,
+            Binding::Variable => S::VariableOtherReadwrite,
         };
         self.cap(Kind::Top, j, e, &[S::MetaDefinitionVariable, name]);
         Some(e)
     }
 
     /// `binding-element` and its `const` form.
-    pub(crate) fn binding_element(&mut self, p: usize, constant: bool) -> Option<usize> {
+    pub(crate) fn binding_element(&mut self, p: usize, binding: Binding) -> Option<usize> {
         self.comment(p)
             .or_else(|| self.string(p))
             .or_else(|| self.numeric_literal(p))
             .or_else(|| self.regex(p))
-            .or_else(|| self.binding_pattern(p, true, constant))
-            .or_else(|| self.binding_pattern(p, false, constant))
-            .or_else(|| self.destructuring_variable_rest(p, constant))
+            .or_else(|| self.binding_pattern(p, Pattern::Object, binding))
+            .or_else(|| self.binding_pattern(p, Pattern::Array, binding))
+            .or_else(|| self.destructuring_variable_rest(p, binding))
             .or_else(|| self.variable_initializer(p))
     }
 
-    pub(crate) fn object_binding_element(&mut self, p: usize, constant: bool) -> Option<usize> {
+    pub(crate) fn object_binding_element(&mut self, p: usize, binding: Binding) -> Option<usize> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
         if self.key_colon_ahead(p) {
-            let kind = if constant {
-                Kind::ObjBindElemConst
-            } else {
-                Kind::ObjBindElem
+            let kind = match binding {
+                Binding::Constant => Kind::ObjBindElemConst,
+                Binding::Variable => Kind::ObjBindElem,
             };
             return self.open0(kind, p);
         }
-        self.binding_pattern(p, true, constant)
-            .or_else(|| self.destructuring_variable_rest(p, constant))
+        self.binding_pattern(p, Pattern::Object, binding)
+            .or_else(|| self.destructuring_variable_rest(p, binding))
             .or_else(|| self.variable_initializer(p))
             .or_else(|| self.punctuation_comma(p))
     }
@@ -533,7 +564,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(i) != b'[' {
             return None;
         }
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         let mut items = 0;
         while j < end {

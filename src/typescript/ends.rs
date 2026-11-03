@@ -12,6 +12,16 @@ use super::scope::S;
 const BLOCK: S = S::PunctuationDefinitionBlock;
 const ROUND: S = S::MetaBraceRound;
 
+/// Where the type of an annotation or of a function type's return starts.
+/// The grammar has a rule for each, which end differently.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum TypeStart {
+    /// On the line of the `:` or `=>`.
+    SameLine,
+    /// On a later line: the `:` or `=>` ends its line.
+    NextLine,
+}
+
 impl<const D: u8> Lexer<'_, D> {
     /// Closes the innermost context at `p` if its end rule matches there.
     #[expect(
@@ -232,8 +242,8 @@ impl<const D: u8> Lexer<'_, D> {
                 p,
             ),
             Kind::ImportFrom => {
-                if self.starts(p, "from") && self.boundary(p) && self.boundary(p + 4) {
-                    return Some(self.close(p, p + 4, &[S::KeywordControlFrom]));
+                if self.starts(p, "from") && self.boundary(p) && self.boundary(p + "from".len()) {
+                    return Some(self.close(p, p + "from".len(), &[S::KeywordControlFrom]));
                 }
                 None
             }
@@ -339,8 +349,8 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 None
             }
-            Kind::TypeAnn1 => self.type_ann_close(p, true),
-            Kind::TypeAnn2 => self.type_ann_close(p, false),
+            Kind::TypeAnn1 => self.type_ann_close(p, TypeStart::SameLine),
+            Kind::TypeAnn2 => self.type_ann_close(p, TypeStart::NextLine),
             Kind::TypeArgs | Kind::TypeParams => {
                 self.end_char(p, b'>', S::PunctuationDefinitionTypeparametersEnd)
             }
@@ -361,8 +371,8 @@ impl<const D: u8> Lexer<'_, D> {
                 p,
             ),
             Kind::TypeCondQ => self.end_char(p, b':', S::KeywordOperatorTernary),
-            Kind::TypeFnRet1 => self.end_zero(self.type_fn_ret_end(p, true), p),
-            Kind::TypeFnRet2 => self.end_zero(self.type_fn_ret_end(p, false), p),
+            Kind::TypeFnRet1 => self.end_zero(self.type_fn_ret_end(p, TypeStart::SameLine), p),
+            Kind::TypeFnRet2 => self.end_zero(self.type_fn_ret_end(p, TypeStart::NextLine), p),
             Kind::TypeSpread => self.end_zero(
                 matches!(self.b(p), b',' | b';' | b'}')
                     || self.eol(p)
@@ -507,7 +517,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !(self.kw_before(p) && self.starts(p, "function")) {
             return false;
         }
-        let e = p + 8;
+        let e = p + "function".len();
         let j = self.ws(e);
         (j > e && self.ident(j).is_some()) || self.b(j) == b'('
     }
@@ -574,7 +584,11 @@ impl<const D: u8> Lexer<'_, D> {
             return true;
         }
         if self.kw_before(p) && (self.starts(p, "as") || self.starts(p, "satisfies")) {
-            let e = if self.starts(p, "as") { p + 2 } else { p + 9 };
+            let e = if self.starts(p, "as") {
+                p + 2
+            } else {
+                p + "satisfies".len()
+            };
             if self.ws(e) > e {
                 return true;
             }
@@ -620,8 +634,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// Ends a type annotation where its end rule matches: zero-width, except
     /// before a `{` that follows a name or a closing bracket, where the match
     /// takes the blanks up to the brace.
-    fn type_ann_close(&mut self, p: usize, first: bool) -> Option<usize> {
-        let (end, blanks) = self.type_ann_end(p, first)?;
+    fn type_ann_close(&mut self, p: usize, start: TypeStart) -> Option<usize> {
+        let (end, blanks) = self.type_ann_end(p, start)?;
         let to = self.ws(p);
         if blanks && to > p {
             return Some(self.close(p, to, &[]));
@@ -629,13 +643,15 @@ impl<const D: u8> Lexer<'_, D> {
         Some(self.close_here(end))
     }
 
-    /// `(?<![\&:|])(?!\s*[\&|]\s+)(…)` for the first form of a type annotation
-    /// end, and the second form without the lookahead: where it ends, and
-    /// whether the match takes the blanks that follow.
-    fn type_ann_end(&self, p: usize, first: bool) -> Option<(usize, bool)> {
+    /// `(?<![\&:|])(?!\s*[\&|]\s+)(…)` for a type annotation whose type starts
+    /// on its line, and the same without the lookahead for one whose type
+    /// starts on the next: where it ends, and whether the match takes the
+    /// blanks that follow.
+    fn type_ann_end(&self, p: usize, start: TypeStart) -> Option<(usize, bool)> {
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) {
             return None;
         }
+        let first = start == TypeStart::SameLine;
         if first {
             let j = self.ws(p);
             if matches!(self.b(j), b'&' | b'|') && self.ws(j + 1) > j + 1 {
@@ -669,7 +685,7 @@ impl<const D: u8> Lexer<'_, D> {
         stop || tail
     }
 
-    fn type_fn_ret_end(&self, p: usize, first: bool) -> bool {
+    fn type_fn_ret_end(&self, p: usize, start: TypeStart) -> bool {
         if self.s.get(..p).is_some_and(|h| h.ends_with(b"=>"))
             || matches!(self.prev_char(p), Some('&' | '|'))
         {
@@ -680,7 +696,7 @@ impl<const D: u8> Lexer<'_, D> {
             next,
             b']' | b')' | b',' | b':' | b';' | b'=' | b'>' | b'?' | b'{' | b'}'
         ) || self.starts(p, "//");
-        if first {
+        if start == TypeStart::SameLine {
             return stop || self.eol(p);
         }
         let tail = self.prev_char(p).is_some_and(|c| !c.is_whitespace()) && self.eol(self.ws(p));
@@ -691,7 +707,7 @@ impl<const D: u8> Lexer<'_, D> {
         matches!(
             self.b(p),
             b']' | b'&' | b')' | b',' | b':' | b';' | b'=' | b'>' | b'?' | b'{' | b'|' | b'}'
-        ) || (self.starts(p, "extends") && self.ws(p + 7) > p + 7)
+        ) || (self.starts(p, "extends") && self.ws(p + "extends".len()) > p + "extends".len())
             || self.eol(p)
             || self.blank_line_at(p)
             || self.statement_start_at(p)

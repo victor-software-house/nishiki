@@ -51,9 +51,8 @@ pub(crate) struct Lexer<'a, const D: u8> {
     stuck: bool,
     /// Where a `}` ended the interpolation that the line began inside.
     halt: Option<usize>,
-    /// Whether the text starts the line, where `^` matches: not when a
-    /// Markdown container took the start of the line.
-    bol: bool,
+    /// Whether the text starts the line, which decides where `^` matches.
+    start: TextStart,
     /// Set when a context was refused for depth; recorded at the line's end.
     depth_hit: Cell<bool>,
     /// The last run of blanks that [`Lexer::ws`] scanned, as start and end.
@@ -68,6 +67,28 @@ pub(crate) struct Lexer<'a, const D: u8> {
     arrow_at_end: Option<usize>,
     /// The last search for a `]`: where it started and the `]` it found.
     next_bracket: Cell<(usize, Option<usize>)>,
+}
+
+/// Whether the text a lexer reads starts its line, which decides where `^`
+/// matches.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum TextStart {
+    /// The text starts the line, so `^` matches at its first byte.
+    Line,
+    /// A Markdown container took the start of the line, so `^` matches
+    /// nowhere in the text.
+    Inside,
+}
+
+impl TextStart {
+    /// The start of text that begins at byte `start` of its line.
+    pub(crate) fn at(start: usize) -> Self {
+        if start == 0 {
+            TextStart::Line
+        } else {
+            TextStart::Inside
+        }
+    }
 }
 
 /// A context opened on the current line, which `TextMate` remembers to
@@ -103,7 +124,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// the type, so the TypeScript lexer compiles with no JSX branches.
     pub(crate) const DIALECT: Dialect = Dialect::of(D);
 
-    pub(crate) fn new(cx: &'a mut Context<'_>, src: &'a str, bol: bool, state: u32) -> Self {
+    pub(crate) fn new(cx: &'a mut Context<'_>, src: &'a str, start: TextStart, state: u32) -> Self {
         let frame = cx.arena.frame(state);
         let limits = cx.limits;
         let budget = limits.work.map_or(u64::MAX, |work| work.steps(src.len()));
@@ -128,7 +149,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
             halt: None,
-            bol,
+            start,
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
@@ -154,12 +175,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.state
     }
 
-    /// Counts `bytes` read ahead of the cursor against the line's work.
     /// `^` at `p`.
     pub(crate) fn bol(&self, p: usize) -> bool {
-        p == 0 && self.bol
+        p == 0 && self.start == TextStart::Line
     }
 
+    /// Counts `bytes` read ahead of the cursor against the line's work.
     pub(crate) fn spend(&self, bytes: usize) {
         let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
         self.steps.set(self.steps.get().saturating_add(bytes));
@@ -210,7 +231,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let (mut still, mut bound) = (0usize, 0usize);
         // `TextMate` keeps matching after a rule has consumed the newline, at
         // the end of the line, where a rule that tests for `$` can still end.
-        while p <= self.len + 1 && !self.stuck {
+        while p <= self.len + 1 && !self.stuck && self.halt.is_none() {
             self.spend(1);
             if self.steps.get() > self.budget {
                 self.report.record(Limit::Work);
@@ -224,7 +245,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
                 p = self.skip_unmatched(p);
             }
             debug_assert!(
-                p > from || self.state != before || self.stuck,
+                p > from || self.state != before || self.stuck || self.halt.is_some(),
                 "the TypeScript lexer made no progress at byte {from}"
             );
             #[cfg(debug_assertions)]
@@ -254,7 +275,6 @@ impl<'a, const D: u8> Lexer<'a, D> {
     pub(crate) fn halt_at_brace(&mut self, p: usize) -> Option<usize> {
         if p < self.len && self.b(p) == b'}' {
             self.halt = Some(p);
-            self.stuck = true;
             return Some(p);
         }
         None
@@ -466,9 +486,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         j
     }
 
-    /// The end of the scan window that starts at `i`: the line, with its
-    /// newline. Every step of a scan is counted against the line's work.
-    pub(crate) fn window(&self, _i: usize) -> usize {
+    /// The end of every scan ahead: the line, with its newline. Every step
+    /// of a scan is counted against the line's work.
+    pub(crate) fn window(&self) -> usize {
         self.len + 1
     }
 
@@ -581,7 +601,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
         words.iter().find_map(|word| self.kw(p, word))
     }
 
-    /// The identifier at `p` as text.
+    /// The source from `a` to `b`, or nothing when that is not a slice of
+    /// whole characters.
     pub(crate) fn text(&self, a: usize, b: usize) -> &'a str {
         self.src.get(a..b).unwrap_or("")
     }
@@ -801,13 +822,15 @@ impl<const D: u8> Lexer<'_, D> {
         }
     }
 
-    /// `\p{upper}[$_\d[:upper:]]*` not followed by a name character, after an
-    /// optional `#`: its end.
-    pub(crate) fn constant_name(&self, i: usize, allow_hash: bool) -> Option<usize> {
+    /// `#?` and a [`Lexer::constant_name`]: its end.
+    pub(crate) fn hash_constant_name(&self, i: usize) -> Option<usize> {
+        let j = if self.b(i) == b'#' { i + 1 } else { i };
+        self.constant_name(j)
+    }
+
+    /// `\p{upper}[$_\d[:upper:]]*` not followed by a name character: its end.
+    pub(crate) fn constant_name(&self, i: usize) -> Option<usize> {
         let mut j = i;
-        if allow_hash && self.b(j) == b'#' {
-            j += 1;
-        }
         let first = self.char_at(j)?;
         if !first.is_uppercase() {
             return None;
@@ -845,7 +868,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The end of a statement keyword at `j`, with its trailing `\b`.
     pub(crate) fn statement_keyword(&self, j: usize) -> Option<usize> {
-        const WORDS: [&str; 28] = [
+        const WORDS: [&str; 30] = [
             "abstract",
             "async",
             "break",
@@ -874,6 +897,8 @@ impl<const D: u8> Lexer<'_, D> {
             "throw",
             "try",
             "type",
+            "var",
+            "while",
         ];
         if let Some(e) = self.await_using_end(j) {
             return Some(e);
@@ -881,7 +906,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.using_end(j) {
             return Some(e);
         }
-        for word in WORDS.iter().chain(["var", "while"].iter()) {
+        for word in WORDS {
             if self.starts(j, word) && self.boundary(j + word.len()) {
                 return Some(j + word.len());
             }
@@ -894,7 +919,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(j, "using") || !self.boundary(j) {
             return None;
         }
-        let e = j + 5;
+        let e = j + "using".len();
         let k = self.ws(e);
         if k == e || !self.id_start(k) {
             return None;
@@ -918,8 +943,8 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(j, "await") || !self.boundary(j) {
             return None;
         }
-        let k = self.ws(j + 5);
-        if k == j + 5 {
+        let k = self.ws(j + "await".len());
+        if k == j + "await".len() {
             return None;
         }
         self.using_end(k)

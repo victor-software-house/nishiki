@@ -638,7 +638,8 @@ fn interpolation(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
             out: &mut out,
             report: &mut report,
         };
-        let (next, close) = super::interpolation_line(&mut cx, line, true, state);
+        let (next, close) =
+            super::interpolation_line(&mut cx, line, super::lexer::TextStart::Line, state);
         state = next;
         rows.push((close, out.last().map_or(0, |token| token.end())));
     }

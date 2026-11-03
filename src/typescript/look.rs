@@ -7,13 +7,31 @@
 //! starts. Every scan stays within [`Lexer::window`].
 
 use super::lexer::Lexer;
+
+/// Which annotations make a name a function in [`Lexer::colon_fn_ahead`].
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Annotation {
+    /// A function type or `Function`.
+    FunctionType,
+    /// Those, or any type followed by a function-valued initialiser.
+    OrValue,
+}
+
+/// Which call lookahead holds, as [`Lexer::call_kind`] reports it.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum CallKind {
+    /// A call on this line.
+    Call,
+    /// Type arguments that the line leaves open before the call.
+    Open,
+}
 use super::limits::{GENERIC_NESTING, GRAMMAR_NESTING};
 
 impl<const D: u8> Lexer<'_, D> {
     /// A balanced `open … close` group at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end.
     pub(crate) fn balanced(&self, i: usize, open: u8, close: u8) -> Option<usize> {
-        self.balanced_at(i, open, close, 1, self.window(i))
+        self.balanced_at(i, open, close, 1, self.window())
     }
 
     fn balanced_at(
@@ -60,7 +78,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !matches!(quote, b'\'' | b'"' | b'`') {
             return None;
         }
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         while j < end {
             self.spend(1);
@@ -96,9 +114,9 @@ impl<const D: u8> Lexer<'_, D> {
     /// The first element of a type-parameter list: `(const\s+)?` and a name's
     /// first character, or a bracket group.
     fn tp_first(&self, i: usize) -> Option<usize> {
-        if self.kw_word(i, "const") {
-            let j = self.ws(i + 5);
-            if j > i + 5 && self.id_start(j) {
+        if self.starts(i, "const") {
+            let j = self.ws(i + "const".len());
+            if j > i + "const".len() && self.id_start(j) {
                 return Some(j + self.char_len(j));
             }
         }
@@ -108,14 +126,10 @@ impl<const D: u8> Lexer<'_, D> {
         self.bracket_group(i)
     }
 
-    fn kw_word(&self, i: usize, word: &str) -> bool {
-        self.starts(i, word)
-    }
-
     /// A `<…>` group of the arrow-function lookahead at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end after trailing blanks.
     pub(crate) fn tpa(&self, i: usize) -> Option<usize> {
-        let e = self.tpa_group(i, 1, self.window(i))?;
+        let e = self.tpa_group(i, 1, self.window())?;
         Some(self.ws(e))
     }
 
@@ -154,7 +168,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `[^<>]` items and `<…>` groups up to `>`, as `<[^<>]*>` does.
     fn flat_angle(&self, i: usize) -> Option<usize> {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         while j < end {
             self.spend(1);
@@ -173,7 +187,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn type_angle_at(&self, i: usize, depth: usize) -> Option<usize> {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         let mut items = 0;
         while j < end {
@@ -205,7 +219,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `\([^()]+\)` at `i`: its end.
     fn flat_paren(&self, i: usize) -> Option<usize> {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         while j < end {
             self.spend(1);
@@ -220,7 +234,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `\{[^{}]+}` at `i`: its end.
     fn flat_curly(&self, i: usize) -> Option<usize> {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i + 1;
         while j < end {
             self.spend(1);
@@ -236,7 +250,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// The return type of an arrow function, `([^()<>{}]|<…>|\(…\)|\{…})+`, up
     /// to where the text stops being one: its end, with at least one item.
     fn arrow_return_items(&self, i: usize) -> Option<usize> {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i;
         while j < end {
             self.spend(1);
@@ -283,7 +297,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// the `(` that ends at `i`.
     fn arrow_untyped(&self, i: usize) -> bool {
         let mut j = self.ws_comments(i);
-        let end = self.window(i);
+        let end = self.window();
         let first = if self.id_start(j) {
             Some(j + self.char_len(j))
         } else if matches!(self.b(j), b'{' | b'[') {
@@ -335,7 +349,7 @@ impl<const D: u8> Lexer<'_, D> {
         let after = self.ws(name_end);
         after > name_end
             && self.starts(after, "extends")
-            && !matches!(self.b(after + 7), b'=' | b'>')
+            && !matches!(self.b(after + "extends".len()), b'=' | b'>')
     }
 
     /// An arrow function's return type followed by `=>`: the text after the
@@ -354,7 +368,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// tests after `=` or `:`: a function expression, or an arrow function
     /// whose parameters are seen, or whose line ends inside them.
     pub(crate) fn fn_value_ahead(&self, i: usize) -> bool {
-        let async_end = self.starts(i, "async").then(|| i + 5);
+        let async_end = self.starts(i, "async").then(|| i + "async".len());
         // (async\s+)? then function or `name =>`.
         let after_async = async_end
             .filter(|&a| self.space_at(a) || a >= self.len)
@@ -377,7 +391,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(i, "function") {
             return false;
         }
-        let e = i + 8;
+        let e = i + "function".len();
         let j = self.ws(e);
         j > e || matches!(self.b(j), b'(' | b'*' | b'<')
     }
@@ -440,7 +454,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(\s*TYPE+\s*)?=`: an `=` reached over type text.
     fn type_then_equals(&self, i: usize) -> bool {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i;
         while j < end {
             self.spend(1);
@@ -466,9 +480,13 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The type-annotation forms of a function-valued name, at the `:` at
-    /// `i`: a function type, `Function`, and, with `with_value`, a type
-    /// followed by `=` and a function-valued initialiser.
-    pub(crate) fn colon_fn_ahead(&self, i: usize, with_value: bool) -> bool {
+    /// `i`: a function type, `Function`, and with [`Annotation::OrValue`] a
+    /// type followed by `=` and a function-valued initialiser.
+    #[expect(
+        clippy::many_single_char_names,
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+    )]
+    pub(crate) fn colon_fn_ahead(&self, i: usize, forms: Annotation) -> bool {
         if self.b(i) != b':' {
             return false;
         }
@@ -495,18 +513,21 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
         }
-        if self.kw_word(j, "Function") && self.kw_before(j) && self.kw_after(j + 8) {
+        if self.starts(j, "Function") && self.kw_before(j) && self.kw_after(j + "Function".len()) {
             return true;
         }
         if self.fn_open_ahead(j) {
             return true;
         }
-        with_value && self.type_then_function_value(j)
+        match forms {
+            Annotation::FunctionType => false,
+            Annotation::OrValue => self.type_then_function_value(j),
+        }
     }
 
     /// `(=>|\(…\)|<[^<>]*>|[^(),<=>])+=\s*FUNCTION`.
     fn type_then_function_value(&self, i: usize) -> bool {
-        let end = self.window(i);
+        let end = self.window();
         let mut j = i;
         while j < end {
             self.spend(1);
@@ -538,7 +559,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(j) == b'=' && self.fn_value_ahead(self.ws(j + 1)) {
             return true;
         }
-        self.colon_fn_ahead(eq_ws, true)
+        self.colon_fn_ahead(eq_ws, Annotation::OrValue)
     }
 
     // Calls and type arguments.
@@ -574,7 +595,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// A `<…>` type-argument group at `i`, as a call or tagged template
     /// spells it: its end after `>`.
     pub(crate) fn tpb(&self, i: usize) -> Option<usize> {
-        self.tpb_at(i, 1, self.window(i))
+        self.tpb_at(i, 1, self.window())
     }
 
     fn tpb_at(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
@@ -630,7 +651,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// only the longest end can match.
     fn chain_end(&self, i: usize) -> Option<usize> {
         let mut e = self.ident(i)?;
-        let limit = self.window(i);
+        let limit = self.window();
         while e < limit {
             self.spend(1);
             let mut j = self.ws(e);
@@ -696,18 +717,17 @@ impl<const D: u8> Lexer<'_, D> {
             || (self.prev_char(i) == Some(')') && open_at(i))
     }
 
-    /// Which call lookahead holds at `i`, if either: `Some(true)` for a call,
-    /// `Some(false)` for one that the line leaves open. The name chain, which
+    /// Which call lookahead holds at `i`, if either. The name chain, which
     /// both read, is scanned once.
-    pub(crate) fn call_kind(&self, i: usize) -> Option<bool> {
+    pub(crate) fn call_kind(&self, i: usize) -> Option<CallKind> {
         if !self.has_open_after(i) {
             return None;
         }
         let chain = self.chain_end(i);
         if self.call_ahead_in(i, chain) {
-            Some(true)
+            Some(CallKind::Call)
         } else if self.call_open_ahead_in(i, chain) {
-            Some(false)
+            Some(CallKind::Open)
         } else {
             None
         }

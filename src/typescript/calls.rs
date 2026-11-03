@@ -3,6 +3,7 @@
 use super::bytes::{Bytes, LITERAL_START, NAME_START};
 use super::kind::Kind;
 use super::lexer::{Lexer, is_alnum_char};
+use super::look::CallKind;
 use super::scope::S;
 
 /// The declaration keywords that end the head of an arrow function at the start
@@ -28,10 +29,9 @@ impl<const D: u8> Lexer<'_, D> {
     // Calls.
 
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
-        if self.call_kind(p)? {
-            self.open0(Kind::CallOuter, p)
-        } else {
-            self.open0(Kind::Call2Outer, p)
+        match self.call_kind(p)? {
+            CallKind::Call => self.open0(Kind::CallOuter, p),
+            CallKind::Open => self.open0(Kind::Call2Outer, p),
         }
     }
 
@@ -148,7 +148,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `async? name =>`.
     fn arrow_single_parameter(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, "async") && self.kw_before(p) && self.boundary(p) {
-            let e = p + 5;
+            let e = p + "async".len();
             let j = self.ws(e);
             if j > e
                 && let Some(ie) = self.ident(j)
@@ -179,7 +179,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = p;
         let mut async_end = None;
         if self.starts(p, "async") && self.kw_before(p) && self.boundary(p) {
-            j = p + 5;
+            j = p + "async".len();
             async_end = Some(j);
         }
         let blocked = matches!(self.prev_char(j), Some(']' | '!' | ')' | '}'));
@@ -253,7 +253,7 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(p);
         let mut ends = [None, Some(j)];
         if self.starts(j, "async") {
-            ends[0] = Some(j + 5);
+            ends[0] = Some(j + "async".len());
         }
         if first {
             for e in ends.into_iter().flatten() {
@@ -376,11 +376,11 @@ impl<const D: u8> Lexer<'_, D> {
         // `<const>`.
         let k = self.ws(j + 1);
         if self.starts(k, "const") {
-            let m = self.ws(k + 5);
+            let m = self.ws(k + "const".len());
             if self.b(m) == b'>' {
                 self.flush(p);
                 self.cap(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
-                self.cap(Kind::Cast, k, k + 5, &[S::StorageModifier]);
+                self.cap(Kind::Cast, k, k + "const".len(), &[S::StorageModifier]);
                 self.cap(Kind::Cast, m, m + 1, &[S::MetaBraceAngle]);
                 return Some(m + 1);
             }
