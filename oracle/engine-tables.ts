@@ -3,6 +3,11 @@
 //
 // Usage: bun oracle/engine-tables.ts [--json] <out dir> <spec>...
 //
+// A table for a directory under `src/` ships in the crate and is written as
+// `<out dir>/grammar.rs`, which the language's module includes, as in
+// `bun oracle/engine-tables.ts src/powershell powershell`; any other
+// directory gets `<id>.rs`, as the test tables in `tests/engine/` are.
+//
 // With `--json` it writes `<id>.json` instead, the same tables as data, for
 // the survey test that runs the engine on many grammars without compiling
 // them in (src/textmate/survey.rs).
@@ -310,13 +315,15 @@ function hasBackrefs(source: string): boolean {
   return false;
 }
 
+/** Whether the tables ship in the crate: written under `src/`. */
+const shipped = resolve(outDir).startsWith(fileURLToPath(new URL("../src/", import.meta.url)));
+
 /** Fails unless every grammar the tables hold has its licence, read at its
  * source, in `oracle/licences.ts`. Tables under `src/` ship in the crate, so
  * each of their grammars must also be allowed, with its origin in the notices
  * the crate ships. The JSON tables feed a survey and are not kept, so they
  * skip the gate. */
 function gate(spec: string, used: Set<string>) {
-  const shipped = resolve(outDir).startsWith(fileURLToPath(new URL("../src/", import.meta.url)));
   const notices = readFileSync(new URL("../THIRD-PARTY-NOTICES.md", import.meta.url), "utf8");
   const problems = [...used].sort().flatMap((name) => {
     const reason = refused[name];
@@ -462,6 +469,6 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     root: ${root},
 };
 `;
-  writeFileSync(`${outDir}/${id.split("+")[0]}.rs`, source);
+  writeFileSync(`${outDir}/${shipped ? "grammar" : id.split("+")[0]}.rs`, source);
   console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
 }
