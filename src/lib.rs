@@ -52,6 +52,8 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod arena;
+#[cfg(feature = "lang-bat")]
+mod bat;
 #[cfg(feature = "lang-c")]
 mod c;
 #[cfg(feature = "_classes")]

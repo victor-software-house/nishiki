@@ -20,6 +20,12 @@ type Allowed = {
 };
 
 export const allowed: Record<string, Allowed> = {
+  bat: {
+    bundled: "microsoft/vscode@df15c8e832a341633acd2e9bb26e1b275d09cfe0",
+    origin: "mmims/language-batchfile",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   cmake: {
     bundled: "twxs/vs.language.cmake@19b1b8fe2d68d72cf294d0c3c22f0a3fc54f8f6f",
     origin: "twxs/vs.language.cmake",

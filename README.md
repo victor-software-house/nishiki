@@ -116,6 +116,7 @@ assert_eq!(highlighter.limits().depth, None);
 
 | Language | Variant | Feature | Names `Language::from_name` takes |
 |:--|:--|:--|:--|
+| Batch | `Language::Bat` | `lang-bat` | `bat`, `batch`, `cmd` |
 | C | `Language::C` | `lang-c` | `c` |
 | CMake | `Language::CMake` | `lang-cmake` | `cmake` |
 | C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
@@ -176,7 +177,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative) |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf |
+  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.

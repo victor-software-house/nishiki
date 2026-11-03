@@ -1,0 +1,2014 @@
+L @echo off
+T 1 source.batchfile keyword.operator.at.batchfile
+T 5 source.batchfile keyword.command.batchfile
+T 6 source.batchfile
+T 9 source.batchfile keyword.other.special-method.batchfile
+L rem Licensed to the Apache Software Foundation (ASF) under one or more
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 70 source.batchfile comment.line.rem.batchfile
+L rem contributor license agreements.  See the NOTICE file distributed with
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem this work for additional information regarding copyright ownership.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem The ASF licenses this file to You under the Apache License, Version 2.0
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem (the "License"); you may not use this file except in compliance with
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 72 source.batchfile comment.line.rem.batchfile
+L rem the License.  You may obtain a copy of the License at
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 57 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem     http://www.apache.org/licenses/LICENSE-2.0
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 50 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem Unless required by applicable law or agreed to in writing, software
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem distributed under the License is distributed on an "AS IS" BASIS,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 69 source.batchfile comment.line.rem.batchfile
+L rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem See the License for the specific language governing permissions and
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem limitations under the License.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 34 source.batchfile comment.line.rem.batchfile
+L 
+L rem ---------------------------------------------------------------------------
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem Start/Stop Script for the CATALINA Server
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 45 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem For supported commands call "catalina.bat help" or see the usage section
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem towards the end of this file.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 33 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem Environment Variable Prerequisites
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 38 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   Do not set the variables in this script. Instead put them into a script
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem   setenv.bat in CATALINA_BASE/bin to keep your customizations separate.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   WHEN RUNNING TOMCAT AS A WINDOWS SERVICE:
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 47 source.batchfile comment.line.rem.batchfile
+L rem   Note that the environment variables that affect the behavior of this
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 74 source.batchfile comment.line.rem.batchfile
+L rem   script will have no effect at all on Windows Services. As such, any
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem   local customizations made in a CATALINA_BASE/bin/setenv.bat script
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 72 source.batchfile comment.line.rem.batchfile
+L rem   will also have no effect on Tomcat when launched as a Windows Service.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem   The configuration that controls Windows Services is stored in the Windows
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem   Registry, and is most conveniently maintained using the "tomcat@VERSION_MAJOR@w.exe"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 90 source.batchfile comment.line.rem.batchfile
+L rem   maintenance utility.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 26 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   CATALINA_HOME   May point at your Catalina "build" directory.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 67 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   CATALINA_BASE   (Optional) Base directory for resolving dynamic portions
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 78 source.batchfile comment.line.rem.batchfile
+L rem                   of a Catalina installation.  If not present, resolves to
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 78 source.batchfile comment.line.rem.batchfile
+L rem                   the same directory that CATALINA_HOME points to.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 70 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   CATALINA_OPTS   (Optional) Java runtime options used when the "start",
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem                   "run" or "debug" command is executed.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 59 source.batchfile comment.line.rem.batchfile
+L rem                   Include here and not in JAVA_OPTS all options, that should
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem                   only be used by Tomcat itself, not by the stop process,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem                   the version command etc.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 46 source.batchfile comment.line.rem.batchfile
+L rem                   Examples are heap size, GC logging, JMX ports etc.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 72 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   CATALINA_TMPDIR (Optional) Directory path location of temporary directory
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem                   the JVM should use (java.io.tmpdir).  Defaults to
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem                   %CATALINA_BASE%\temp.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 43 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JAVA_HOME       Must point at your Java Development Kit installation.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem                   Required to run the with the "debug" argument.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 68 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JRE_HOME        Must point at your Java Runtime installation.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 67 source.batchfile comment.line.rem.batchfile
+L rem                   Defaults to JAVA_HOME if empty. If JRE_HOME and JAVA_HOME
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem                   are both set, JRE_HOME is used.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 53 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JAVA_OPTS       (Optional) Java runtime options used when any command
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem                   is executed.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 34 source.batchfile comment.line.rem.batchfile
+L rem                   Include here and not in CATALINA_OPTS all options, that
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem                   should be used by Tomcat and also by the stop process,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem                   the version command etc.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 46 source.batchfile comment.line.rem.batchfile
+L rem                   Most options should go into CATALINA_OPTS.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 64 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JPDA_TRANSPORT  (Optional) JPDA transport used when the "jpda start"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 74 source.batchfile comment.line.rem.batchfile
+L rem                   command is executed. The default is "dt_socket".
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 70 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JPDA_ADDRESS    (Optional) Java runtime options used when the "jpda start"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem                   command is executed. The default is localhost:8000.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JPDA_SUSPEND    (Optional) Java runtime options used when the "jpda start"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem                   command is executed. Specifies whether JVM should suspend
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem                   execution immediately after startup. Default is "n".
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 74 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JPDA_OPTS       (Optional) Java runtime options used when the "jpda start"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem                   command is executed. If used, JPDA_TRANSPORT, JPDA_ADDRESS,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 81 source.batchfile comment.line.rem.batchfile
+L rem                   and JPDA_SUSPEND are ignored. Thus, all required jpda
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem                   options MUST be specified. The default is:
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 64 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem                   -agentlib:jdwp=transport=%JPDA_TRANSPORT%,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 64 source.batchfile comment.line.rem.batchfile
+L rem                       address=%JPDA_ADDRESS%,server=y,suspend=%JPDA_SUSPEND%
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   JSSE_OPTS       (Optional) Java runtime options used to control the TLS
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem                   implementation when JSSE is used. Default is:
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 67 source.batchfile comment.line.rem.batchfile
+L rem                   "-Djdk.tls.ephemeralDHKeySize=2048"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 57 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   CATALINA_LOGGING_CONFIG (Optional) Override Tomcat's logging config file
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 78 source.batchfile comment.line.rem.batchfile
+L rem                   Example (all one line)
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 44 source.batchfile comment.line.rem.batchfile
+L rem                   set CATALINA_LOGGING_CONFIG=-Djava.util.logging.config.file="%CATALINA_BASE%\conf\logging.properties"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 123 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   LOGGING_MANAGER (Optional) Override Tomcat's logging manager
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 66 source.batchfile comment.line.rem.batchfile
+L rem                   Example (all one line)
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 44 source.batchfile comment.line.rem.batchfile
+L rem                   set LOGGING_MANAGER=-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 107 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem   TITLE           (Optional) Specify the title of Tomcat window. The default
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem                   TITLE is Tomcat if it's not specified.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 60 source.batchfile comment.line.rem.batchfile
+L rem                   Example (all one line)
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 44 source.batchfile comment.line.rem.batchfile
+L rem                   set TITLE=Tomcat.Cluster#1.Server#1 [%DATE% %TIME%]
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem ---------------------------------------------------------------------------
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L 
+L setlocal
+T 8 source.batchfile keyword.command.batchfile
+L 
+L rem Suppress Terminate batch job on CTRL+C
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 42 source.batchfile comment.line.rem.batchfile
+L if not ""%1"" == ""run"" goto mainEntry
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 11 source.batchfile variable.parameter.batchfile
+T 12 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 14 source.batchfile
+T 16 source.batchfile keyword.operator.comparison.batchfile
+T 17 source.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 19 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 22 source.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 29 source.batchfile keyword.control.statement.batchfile
+T 39 source.batchfile
+L if "%TEMP%" == "" goto mainEntry
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 10 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 11 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 12 source.batchfile
+T 14 source.batchfile keyword.operator.comparison.batchfile
+T 15 source.batchfile
+T 16 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 17 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 18 source.batchfile
+T 22 source.batchfile keyword.control.statement.batchfile
+T 32 source.batchfile
+L if exist "%TEMP%\%~nx0.run" goto mainEntry
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+T 9 source.batchfile
+T 10 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 17 source.batchfile string.quoted.double.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 26 source.batchfile string.quoted.double.batchfile
+T 27 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 28 source.batchfile
+T 32 source.batchfile keyword.control.statement.batchfile
+T 42 source.batchfile
+L echo Y>"%TEMP%\%~nx0.run"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile
+T 7 source.batchfile keyword.operator.redirection.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 15 source.batchfile string.quoted.double.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 24 source.batchfile string.quoted.double.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L if not exist "%TEMP%\%~nx0.run" goto mainEntry
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 21 source.batchfile string.quoted.double.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 30 source.batchfile string.quoted.double.batchfile
+T 31 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 32 source.batchfile
+T 36 source.batchfile keyword.control.statement.batchfile
+T 46 source.batchfile
+L echo Y>"%TEMP%\%~nx0.Y"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 6 source.batchfile
+T 7 source.batchfile keyword.operator.redirection.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 15 source.batchfile string.quoted.double.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 22 source.batchfile string.quoted.double.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L call "%~f0" %* <"%TEMP%\%~nx0.Y"
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 6 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 7 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 10 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 11 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 12 source.batchfile
+T 13 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 14 source.batchfile variable.parameter.batchfile
+T 15 source.batchfile
+T 16 source.batchfile keyword.operator.redirection.batchfile
+T 17 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 24 source.batchfile string.quoted.double.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 29 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 31 source.batchfile string.quoted.double.batchfile
+T 32 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L rem Use provided errorlevel
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 27 source.batchfile comment.line.rem.batchfile
+L set RETVAL=%ERRORLEVEL%
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile keyword.operator.assignment.batchfile
+T 12 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L del /Q "%TEMP%\%~nx0.Y" >NUL 2>&1
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 15 source.batchfile string.quoted.double.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 22 source.batchfile string.quoted.double.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 24 source.batchfile
+T 25 source.batchfile keyword.operator.redirection.batchfile
+T 28 source.batchfile constant.language.batchfile
+T 29 source.batchfile
+T 30 source.batchfile constant.numeric.batchfile
+T 32 source.batchfile keyword.operator.redirection.batchfile
+T 33 source.batchfile
+L exit /B %RETVAL%
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+T 9 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 15 source.batchfile variable.other.readwrite.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L :mainEntry
+T 1 source.batchfile punctuation.separator.batchfile
+T 10 source.batchfile keyword.other.special-method.batchfile
+L del /Q "%TEMP%\%~nx0.run" >NUL 2>&1
+T 3 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 15 source.batchfile string.quoted.double.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.parameter.batchfile
+T 24 source.batchfile string.quoted.double.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 26 source.batchfile
+T 27 source.batchfile keyword.operator.redirection.batchfile
+T 30 source.batchfile constant.language.batchfile
+T 31 source.batchfile
+T 32 source.batchfile constant.numeric.batchfile
+T 34 source.batchfile keyword.operator.redirection.batchfile
+T 35 source.batchfile
+L 
+L rem Guess CATALINA_HOME if not defined
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 38 source.batchfile comment.line.rem.batchfile
+L set "CURRENT_DIR=%cd%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 17 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 21 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L if not "%CATALINA_HOME%" == "" goto gotHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 27 source.batchfile keyword.operator.comparison.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 31 source.batchfile
+T 35 source.batchfile keyword.control.statement.batchfile
+T 43 source.batchfile
+L set "CATALINA_HOME=%CURRENT_DIR%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 31 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 32 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 33 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L if exist "%CATALINA_HOME%\bin\catalina.bat" goto okHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+T 9 source.batchfile
+T 10 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 42 source.batchfile string.quoted.double.batchfile
+T 43 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 44 source.batchfile
+T 48 source.batchfile keyword.control.statement.batchfile
+T 55 source.batchfile
+L cd ..
+T 2 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+L set "CATALINA_HOME=%cd%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L cd "%CURRENT_DIR%"
+T 2 source.batchfile keyword.command.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 17 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L 
+L if exist "%CATALINA_HOME%\bin\catalina.bat" goto okHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+T 9 source.batchfile
+T 10 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 42 source.batchfile string.quoted.double.batchfile
+T 43 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 44 source.batchfile
+T 48 source.batchfile keyword.control.statement.batchfile
+T 55 source.batchfile
+L echo The CATALINA_HOME environment variable is not defined correctly
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 68 source.batchfile
+L echo This environment variable is needed to run this program
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 60 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L :okHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 7 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Copy CATALINA_BASE from CATALINA_HOME if not defined
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 56 source.batchfile comment.line.rem.batchfile
+L if not "%CATALINA_BASE%" == "" goto gotBase
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 27 source.batchfile keyword.operator.comparison.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 31 source.batchfile
+T 35 source.batchfile keyword.control.statement.batchfile
+T 43 source.batchfile
+L set "CATALINA_BASE=%CATALINA_HOME%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 33 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 34 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 35 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotBase
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Ensure that neither CATALINA_HOME nor CATALINA_BASE contains a semi-colon
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem as this is used as the separator in the classpath and Java provides no
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 74 source.batchfile comment.line.rem.batchfile
+L rem mechanism for escaping if the same character appears in the path. Check this
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 80 source.batchfile comment.line.rem.batchfile
+L rem by replacing all occurrences of ';' with '' and checking that neither
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem CATALINA_HOME nor CATALINA_BASE have changed
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 48 source.batchfile comment.line.rem.batchfile
+L if "%CATALINA_HOME%" == "%CATALINA_HOME:;=%" goto homeNoSemicolon
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 23 source.batchfile keyword.operator.comparison.batchfile
+T 24 source.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 39 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 42 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 44 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 45 source.batchfile
+T 49 source.batchfile keyword.control.statement.batchfile
+T 65 source.batchfile
+L echo Using CATALINA_HOME:   "%CATALINA_HOME%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 44 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo Unable to start as CATALINA_HOME contains a semicolon (;) character
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 61 source.batchfile
+T 72 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L :homeNoSemicolon
+T 1 source.batchfile punctuation.separator.batchfile
+T 16 source.batchfile keyword.other.special-method.batchfile
+L 
+L if "%CATALINA_BASE%" == "%CATALINA_BASE:;=%" goto baseNoSemicolon
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 23 source.batchfile keyword.operator.comparison.batchfile
+T 24 source.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 39 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile string.unquoted.batchfile
+T 42 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile meta.variable.substitution.batchfile punctuation.separator.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 44 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 45 source.batchfile
+T 49 source.batchfile keyword.control.statement.batchfile
+T 65 source.batchfile
+L echo Using CATALINA_BASE:   "%CATALINA_BASE%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 44 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo Unable to start as CATALINA_BASE contains a semicolon (;) character
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 61 source.batchfile
+T 72 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L :baseNoSemicolon
+T 1 source.batchfile punctuation.separator.batchfile
+T 16 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Ensure that any user defined CLASSPATH variables are not used on startup,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 77 source.batchfile comment.line.rem.batchfile
+L rem but allow them to be specified in setenv.bat, in rare case when it is needed.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 81 source.batchfile comment.line.rem.batchfile
+L set CLASSPATH=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+L 
+L rem Get standard environment variables
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 38 source.batchfile comment.line.rem.batchfile
+L if not exist "%CATALINA_BASE%\bin\setenv.bat" goto checkSetenvHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 29 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 44 source.batchfile string.quoted.double.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 46 source.batchfile
+T 50 source.batchfile keyword.control.statement.batchfile
+T 66 source.batchfile
+L call "%CATALINA_BASE%\bin\setenv.bat"
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 6 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 7 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 21 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 36 source.batchfile string.quoted.double.batchfile
+T 37 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto setenvDone
+T 4 source.batchfile keyword.control.statement.batchfile
+T 15 source.batchfile
+L :checkSetenvHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 16 source.batchfile keyword.other.special-method.batchfile
+L if exist "%CATALINA_HOME%\bin\setenv.bat" call "%CATALINA_HOME%\bin\setenv.bat"
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+T 9 source.batchfile
+T 10 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 40 source.batchfile string.quoted.double.batchfile
+T 41 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 42 source.batchfile
+T 46 source.batchfile keyword.control.statement.batchfile
+T 47 source.batchfile
+T 48 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 49 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 62 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 63 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 78 source.batchfile string.quoted.double.batchfile
+T 79 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :setenvDone
+T 1 source.batchfile punctuation.separator.batchfile
+T 11 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Get standard Java environment variables
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 43 source.batchfile comment.line.rem.batchfile
+L if exist "%CATALINA_HOME%\bin\setclasspath.bat" goto okSetclasspath
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+T 9 source.batchfile
+T 10 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 46 source.batchfile string.quoted.double.batchfile
+T 47 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 48 source.batchfile
+T 52 source.batchfile keyword.control.statement.batchfile
+T 67 source.batchfile
+L echo Cannot find "%CATALINA_HOME%\bin\setclasspath.bat"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 17 source.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 32 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 33 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 54 source.batchfile string.quoted.double.batchfile
+T 55 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo This file is needed to run this program
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 44 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L :okSetclasspath
+T 1 source.batchfile punctuation.separator.batchfile
+T 15 source.batchfile keyword.other.special-method.batchfile
+L call "%CATALINA_HOME%\bin\setclasspath.bat" %1
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 6 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 7 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 21 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 42 source.batchfile string.quoted.double.batchfile
+T 43 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 44 source.batchfile
+T 45 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 46 source.batchfile variable.parameter.batchfile
+L if errorlevel 1 goto end
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 13 source.batchfile keyword.other.special-method.batchfile
+T 14 source.batchfile
+T 15 source.batchfile constant.numeric.batchfile
+T 16 source.batchfile
+T 20 source.batchfile keyword.control.statement.batchfile
+T 24 source.batchfile
+L 
+L rem Add on extra jar file to CLASSPATH
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 38 source.batchfile comment.line.rem.batchfile
+L rem Note that there are no quotes as we do not want to introduce random
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem quotes into the CLASSPATH
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 29 source.batchfile comment.line.rem.batchfile
+L if "%CLASSPATH%" == "" goto emptyClasspath
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 16 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 17 source.batchfile
+T 19 source.batchfile keyword.operator.comparison.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 42 source.batchfile
+L set "CLASSPATH=%CLASSPATH%;"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile string.quoted.double.batchfile
+T 28 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :emptyClasspath
+T 1 source.batchfile punctuation.separator.batchfile
+T 15 source.batchfile keyword.other.special-method.batchfile
+L set "CLASSPATH=%CLASSPATH%%CATALINA_HOME%\bin\bootstrap.jar"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 59 source.batchfile string.quoted.double.batchfile
+T 60 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L 
+L if not "%CATALINA_TMPDIR%" == "" goto gotTmpdir
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 27 source.batchfile
+T 29 source.batchfile keyword.operator.comparison.batchfile
+T 30 source.batchfile
+T 31 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 32 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 33 source.batchfile
+T 37 source.batchfile keyword.control.statement.batchfile
+T 47 source.batchfile
+L set "CATALINA_TMPDIR=%CATALINA_BASE%\temp"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 20 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 21 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 35 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 36 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 41 source.batchfile string.quoted.double.batchfile
+T 42 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotTmpdir
+T 1 source.batchfile punctuation.separator.batchfile
+T 10 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Add tomcat-juli.jar to classpath
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 36 source.batchfile comment.line.rem.batchfile
+L rem tomcat-juli.jar can be over-ridden per instance
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 51 source.batchfile comment.line.rem.batchfile
+L if not exist "%CATALINA_BASE%\bin\tomcat-juli.jar" goto juliClasspathHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 29 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 49 source.batchfile string.quoted.double.batchfile
+T 50 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 51 source.batchfile
+T 55 source.batchfile keyword.control.statement.batchfile
+T 73 source.batchfile
+L set "CLASSPATH=%CLASSPATH%;%CATALINA_BASE%\bin\tomcat-juli.jar"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile string.quoted.double.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 42 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 62 source.batchfile string.quoted.double.batchfile
+T 63 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto juliClasspathDone
+T 4 source.batchfile keyword.control.statement.batchfile
+T 22 source.batchfile
+L :juliClasspathHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 18 source.batchfile keyword.other.special-method.batchfile
+L set "CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\bin\tomcat-juli.jar"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile string.quoted.double.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 42 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 62 source.batchfile string.quoted.double.batchfile
+T 63 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :juliClasspathDone
+T 1 source.batchfile punctuation.separator.batchfile
+T 18 source.batchfile keyword.other.special-method.batchfile
+L 
+L if not "%JSSE_OPTS%" == "" goto gotJsseOpts
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 23 source.batchfile keyword.operator.comparison.batchfile
+T 24 source.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 27 source.batchfile
+T 31 source.batchfile keyword.control.statement.batchfile
+T 43 source.batchfile
+L set "JSSE_OPTS=-Djdk.tls.ephemeralDHKeySize=2048"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 48 source.batchfile string.quoted.double.batchfile
+T 49 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotJsseOpts
+T 1 source.batchfile punctuation.separator.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% %JSSE_OPTS%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 27 source.batchfile string.quoted.double.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 37 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 38 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 39 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L 
+L if not "%CATALINA_LOGGING_CONFIG%" == "" goto noJuliConfig
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 32 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 33 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 34 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 35 source.batchfile
+T 37 source.batchfile keyword.operator.comparison.batchfile
+T 38 source.batchfile
+T 39 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 40 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 41 source.batchfile
+T 45 source.batchfile keyword.control.statement.batchfile
+T 58 source.batchfile
+L set CATALINA_LOGGING_CONFIG=-Dnop
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 27 source.batchfile variable.other.readwrite.batchfile
+T 28 source.batchfile keyword.operator.assignment.batchfile
+T 33 source.batchfile
+L if not exist "%CATALINA_BASE%\conf\logging.properties" goto noJuliConfig
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 29 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 53 source.batchfile string.quoted.double.batchfile
+T 54 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 55 source.batchfile
+T 59 source.batchfile keyword.control.statement.batchfile
+T 72 source.batchfile
+L set CATALINA_LOGGING_CONFIG=-Djava.util.logging.config.file="%CATALINA_BASE%\conf\logging.properties"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 27 source.batchfile variable.other.readwrite.batchfile
+T 28 source.batchfile keyword.operator.assignment.batchfile
+T 60 source.batchfile
+T 61 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 62 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 75 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 76 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 100 source.batchfile string.quoted.double.batchfile
+T 101 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :noJuliConfig
+T 1 source.batchfile punctuation.separator.batchfile
+T 13 source.batchfile keyword.other.special-method.batchfile
+L 
+L if not "%LOGGING_MANAGER%" == "" goto noJuliManager
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 27 source.batchfile
+T 29 source.batchfile keyword.operator.comparison.batchfile
+T 30 source.batchfile
+T 31 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 32 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 33 source.batchfile
+T 37 source.batchfile keyword.control.statement.batchfile
+T 51 source.batchfile
+L set LOGGING_MANAGER=-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 19 source.batchfile variable.other.readwrite.batchfile
+T 20 source.batchfile keyword.operator.assignment.batchfile
+T 85 source.batchfile
+L :noJuliManager
+T 1 source.batchfile punctuation.separator.batchfile
+T 14 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Configure module start-up parameters - ensure to keep it in line with service.bat
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 85 source.batchfile comment.line.rem.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --add-opens=java.base/java.lang=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 70 source.batchfile string.quoted.double.batchfile
+T 71 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --add-opens=java.base/java.io=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 68 source.batchfile string.quoted.double.batchfile
+T 69 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --add-opens=java.base/java.util=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 70 source.batchfile string.quoted.double.batchfile
+T 71 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 81 source.batchfile string.quoted.double.batchfile
+T 82 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 77 source.batchfile string.quoted.double.batchfile
+T 78 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set "JAVA_OPTS=%JAVA_OPTS% --enable-native-access=ALL-UNNAMED"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 61 source.batchfile string.quoted.double.batchfile
+T 62 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L 
+L rem ----- Execute The Requested Command ---------------------------------------
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L 
+L echo Using CATALINA_BASE:   "%CATALINA_BASE%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 44 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo Using CATALINA_HOME:   "%CATALINA_HOME%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 44 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo Using CATALINA_TMPDIR: "%CATALINA_TMPDIR%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 45 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 46 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 47 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L if ""%1"" == ""debug"" goto use_jdk
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 35 source.batchfile
+L echo Using JRE_HOME:        "%JRE_HOME%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 38 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 39 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 40 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto java_dir_displayed
+T 4 source.batchfile keyword.control.statement.batchfile
+T 23 source.batchfile
+L :use_jdk
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L echo Using JAVA_HOME:       "%JAVA_HOME%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 39 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 41 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :java_dir_displayed
+T 1 source.batchfile punctuation.separator.batchfile
+T 19 source.batchfile keyword.other.special-method.batchfile
+L echo Using CLASSPATH:       "%CLASSPATH%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 39 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 41 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L echo Using CATALINA_OPTS:   "%CATALINA_OPTS%"
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 28 source.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 30 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 44 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 45 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L 
+L set _EXECJAVA="%_RUNJAVA%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set MAINCLASS=org.apache.catalina.startup.Bootstrap
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+T 51 source.batchfile
+L set ACTION=start
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile keyword.operator.assignment.batchfile
+T 16 source.batchfile
+L set DEBUG_OPTS=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 14 source.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile keyword.operator.assignment.batchfile
+L set JPDA=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 8 source.batchfile variable.other.readwrite.batchfile
+T 9 source.batchfile keyword.operator.assignment.batchfile
+L 
+L if not ""%1"" == ""jpda"" goto noJpda
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 11 source.batchfile variable.parameter.batchfile
+T 12 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 14 source.batchfile
+T 16 source.batchfile keyword.operator.comparison.batchfile
+T 17 source.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 19 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 26 source.batchfile
+T 30 source.batchfile keyword.control.statement.batchfile
+T 37 source.batchfile
+L set JPDA=jpda
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 8 source.batchfile variable.other.readwrite.batchfile
+T 9 source.batchfile keyword.operator.assignment.batchfile
+T 13 source.batchfile
+L if not "%JPDA_TRANSPORT%" == "" goto gotJpdaTransport
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 26 source.batchfile
+T 28 source.batchfile keyword.operator.comparison.batchfile
+T 29 source.batchfile
+T 30 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 31 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 32 source.batchfile
+T 36 source.batchfile keyword.control.statement.batchfile
+T 53 source.batchfile
+L set JPDA_TRANSPORT=dt_socket
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 18 source.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile keyword.operator.assignment.batchfile
+T 28 source.batchfile
+L :gotJpdaTransport
+T 1 source.batchfile punctuation.separator.batchfile
+T 17 source.batchfile keyword.other.special-method.batchfile
+L if not "%JPDA_ADDRESS%" == "" goto gotJpdaAddress
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 21 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 24 source.batchfile
+T 26 source.batchfile keyword.operator.comparison.batchfile
+T 27 source.batchfile
+T 28 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 30 source.batchfile
+T 34 source.batchfile keyword.control.statement.batchfile
+T 49 source.batchfile
+L set JPDA_ADDRESS=localhost:8000
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile
+T 17 source.batchfile keyword.operator.assignment.batchfile
+T 31 source.batchfile
+L :gotJpdaAddress
+T 1 source.batchfile punctuation.separator.batchfile
+T 15 source.batchfile keyword.other.special-method.batchfile
+L if not "%JPDA_SUSPEND%" == "" goto gotJpdaSuspend
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 21 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 24 source.batchfile
+T 26 source.batchfile keyword.operator.comparison.batchfile
+T 27 source.batchfile
+T 28 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 30 source.batchfile
+T 34 source.batchfile keyword.control.statement.batchfile
+T 49 source.batchfile
+L set JPDA_SUSPEND=n
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile
+T 17 source.batchfile keyword.operator.assignment.batchfile
+T 18 source.batchfile
+L :gotJpdaSuspend
+T 1 source.batchfile punctuation.separator.batchfile
+T 15 source.batchfile keyword.other.special-method.batchfile
+L if not "%JPDA_OPTS%" == "" goto gotJpdaOpts
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 23 source.batchfile keyword.operator.comparison.batchfile
+T 24 source.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 27 source.batchfile
+T 31 source.batchfile keyword.control.statement.batchfile
+T 43 source.batchfile
+L set JPDA_OPTS=-agentlib:jdwp=transport=%JPDA_TRANSPORT%,address=%JPDA_ADDRESS%,server=y,suspend=%JPDA_SUSPEND%
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+T 39 source.batchfile
+T 40 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 54 source.batchfile variable.other.readwrite.batchfile
+T 55 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 64 source.batchfile
+T 65 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 77 source.batchfile variable.other.readwrite.batchfile
+T 78 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 96 source.batchfile
+T 97 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 109 source.batchfile variable.other.readwrite.batchfile
+T 110 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L :gotJpdaOpts
+T 1 source.batchfile punctuation.separator.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L :noJpda
+T 1 source.batchfile punctuation.separator.batchfile
+T 7 source.batchfile keyword.other.special-method.batchfile
+L 
+L if ""%1"" == ""debug"" goto doDebug
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 35 source.batchfile
+L if ""%1"" == ""run"" goto doRun
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 18 source.batchfile
+T 19 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 25 source.batchfile keyword.control.statement.batchfile
+T 31 source.batchfile
+L if ""%1"" == ""start"" goto doStart
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 35 source.batchfile
+L if ""%1"" == ""stop"" goto doStop
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 19 source.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 22 source.batchfile
+T 26 source.batchfile keyword.control.statement.batchfile
+T 33 source.batchfile
+L if ""%1"" == ""configtest"" goto doConfigTest
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 27 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 28 source.batchfile
+T 32 source.batchfile keyword.control.statement.batchfile
+T 45 source.batchfile
+L if ""%1"" == ""version"" goto doVersion
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 22 source.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 29 source.batchfile keyword.control.statement.batchfile
+T 39 source.batchfile
+L 
+L echo Usage:  catalina ( commands ... )
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 37 source.batchfile
+T 38 source.batchfile
+L echo commands:
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 14 source.batchfile
+L echo   debug             Start Catalina in a debugger
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 53 source.batchfile
+L echo   jpda start        Start Catalina under JPDA debugger
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 59 source.batchfile
+L echo   run               Start Catalina in the current window
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 61 source.batchfile
+L echo   start             Start Catalina in a separate window
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 60 source.batchfile
+L echo   stop              Stop Catalina
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 38 source.batchfile
+L echo   configtest        Run a basic syntax check on server.xml
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 63 source.batchfile
+L echo   version           What version of tomcat are you running?
+T 4 source.batchfile keyword.command.batchfile
+T 7 source.batchfile
+T 64 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L 
+L :doDebug
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L set _EXECJAVA="%_RUNJDB%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L set DEBUG_OPTS=-sourcepath "%CATALINA_HOME%\..\..\java"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 14 source.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile keyword.operator.assignment.batchfile
+T 27 source.batchfile
+T 28 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 29 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 42 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 43 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 54 source.batchfile string.quoted.double.batchfile
+T 55 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto execCmd
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L 
+L :doRun
+T 1 source.batchfile punctuation.separator.batchfile
+T 6 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L goto execCmd
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L 
+L :doStart
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L if "%TITLE%" == "" set TITLE=Tomcat
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 12 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 13 source.batchfile
+T 15 source.batchfile keyword.operator.comparison.batchfile
+T 16 source.batchfile
+T 17 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 19 source.batchfile
+T 22 source.batchfile keyword.command.batchfile
+T 23 source.batchfile
+T 28 source.batchfile variable.other.readwrite.batchfile
+T 29 source.batchfile keyword.operator.assignment.batchfile
+T 35 source.batchfile
+L set _EXECJAVA=start "%TITLE%" "%_RUNJAVA%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile keyword.operator.assignment.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 27 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 28 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 29 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 30 source.batchfile
+T 31 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 32 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 40 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 41 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 42 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto execCmd
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L 
+L :doStop
+T 1 source.batchfile punctuation.separator.batchfile
+T 7 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L set ACTION=stop
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile
+L set CATALINA_OPTS=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 17 source.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile keyword.operator.assignment.batchfile
+L goto execCmd
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L 
+L :doConfigTest
+T 1 source.batchfile punctuation.separator.batchfile
+T 13 source.batchfile keyword.other.special-method.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L set ACTION=configtest
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile keyword.operator.assignment.batchfile
+T 21 source.batchfile
+L set CATALINA_OPTS=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 17 source.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile keyword.operator.assignment.batchfile
+L goto execCmd
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L 
+L :doVersion
+T 1 source.batchfile punctuation.separator.batchfile
+T 10 source.batchfile keyword.other.special-method.batchfile
+L %_EXECJAVA% %JAVA_OPTS% -classpath "%CATALINA_HOME%\bin\tomcat-juli.jar;%CATALINA_HOME%\lib\*" -Dcatalina.home="%CATALINA_HOME%" -Dcatalina.base="%CATALINA_BASE%" org.apache.catalina.util.ServerInfo
+T 1 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 12 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 22 source.batchfile variable.other.readwrite.batchfile
+T 23 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 35 source.batchfile
+T 36 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 37 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 50 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 51 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 72 source.batchfile string.quoted.double.batchfile
+T 73 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 86 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 87 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 93 source.batchfile string.quoted.double.batchfile
+T 94 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 111 source.batchfile
+T 112 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 113 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 126 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 127 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 128 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 145 source.batchfile
+T 146 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 147 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 160 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 161 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 162 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 198 source.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L 
+L 
+L :execCmd
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L rem Get remaining unshifted command line arguments and save them in the
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L set CMD_LINE_ARGS=
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 17 source.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile keyword.operator.assignment.batchfile
+L :setArgs
+T 1 source.batchfile punctuation.separator.batchfile
+T 8 source.batchfile keyword.other.special-method.batchfile
+L if ""%1""=="""" goto doneSetArgs
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 11 source.batchfile keyword.operator.comparison.batchfile
+T 12 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 16 source.batchfile
+T 20 source.batchfile keyword.control.statement.batchfile
+T 32 source.batchfile
+L set CMD_LINE_ARGS=%CMD_LINE_ARGS% %1
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 17 source.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile keyword.operator.assignment.batchfile
+T 19 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 32 source.batchfile variable.other.readwrite.batchfile
+T 33 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 34 source.batchfile
+T 35 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 36 source.batchfile variable.parameter.batchfile
+L shift
+T 5 source.batchfile keyword.command.batchfile
+L goto setArgs
+T 4 source.batchfile keyword.control.statement.batchfile
+T 12 source.batchfile
+L :doneSetArgs
+T 1 source.batchfile punctuation.separator.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Execute Java with the applicable properties
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 47 source.batchfile comment.line.rem.batchfile
+L if not "%JPDA%" == "" goto doJpda
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 16 source.batchfile
+T 18 source.batchfile keyword.operator.comparison.batchfile
+T 19 source.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 22 source.batchfile
+T 26 source.batchfile keyword.control.statement.batchfile
+T 33 source.batchfile
+L %_EXECJAVA% %CATALINA_LOGGING_CONFIG% %LOGGING_MANAGER% %JAVA_OPTS% %CATALINA_OPTS% %DEBUG_OPTS% -classpath "%CLASSPATH%" -Dcatalina.base="%CATALINA_BASE%" -Dcatalina.home="%CATALINA_HOME%" -Djava.io.tmpdir="%CATALINA_TMPDIR%" %MAINCLASS% %CMD_LINE_ARGS% %ACTION%
+T 1 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 12 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 36 source.batchfile variable.other.readwrite.batchfile
+T 37 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 38 source.batchfile
+T 39 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 54 source.batchfile variable.other.readwrite.batchfile
+T 55 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 56 source.batchfile
+T 57 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 66 source.batchfile variable.other.readwrite.batchfile
+T 67 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 68 source.batchfile
+T 69 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 82 source.batchfile variable.other.readwrite.batchfile
+T 83 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 84 source.batchfile
+T 85 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 95 source.batchfile variable.other.readwrite.batchfile
+T 96 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 108 source.batchfile
+T 109 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 110 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 119 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 120 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 121 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 138 source.batchfile
+T 139 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 140 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 153 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 154 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 155 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 172 source.batchfile
+T 173 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 174 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 187 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 188 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 189 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 207 source.batchfile
+T 208 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 209 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 224 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 225 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 226 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 227 source.batchfile
+T 228 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 237 source.batchfile variable.other.readwrite.batchfile
+T 238 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 239 source.batchfile
+T 240 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 253 source.batchfile variable.other.readwrite.batchfile
+T 254 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 255 source.batchfile
+T 256 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 262 source.batchfile variable.other.readwrite.batchfile
+T 263 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L :doJpda
+T 1 source.batchfile punctuation.separator.batchfile
+T 7 source.batchfile keyword.other.special-method.batchfile
+L %_EXECJAVA% %CATALINA_LOGGING_CONFIG% %LOGGING_MANAGER% %JAVA_OPTS% %JPDA_OPTS% %CATALINA_OPTS% %DEBUG_OPTS% -classpath "%CLASSPATH%" -Dcatalina.base="%CATALINA_BASE%" -Dcatalina.home="%CATALINA_HOME%" -Djava.io.tmpdir="%CATALINA_TMPDIR%" %MAINCLASS% %CMD_LINE_ARGS% %ACTION%
+T 1 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 10 source.batchfile variable.other.readwrite.batchfile
+T 11 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 12 source.batchfile
+T 13 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 36 source.batchfile variable.other.readwrite.batchfile
+T 37 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 38 source.batchfile
+T 39 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 54 source.batchfile variable.other.readwrite.batchfile
+T 55 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 56 source.batchfile
+T 57 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 66 source.batchfile variable.other.readwrite.batchfile
+T 67 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 68 source.batchfile
+T 69 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 78 source.batchfile variable.other.readwrite.batchfile
+T 79 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 80 source.batchfile
+T 81 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 94 source.batchfile variable.other.readwrite.batchfile
+T 95 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 96 source.batchfile
+T 97 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 107 source.batchfile variable.other.readwrite.batchfile
+T 108 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 120 source.batchfile
+T 121 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 122 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 131 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 132 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 133 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 150 source.batchfile
+T 151 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 152 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 165 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 166 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 167 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 184 source.batchfile
+T 185 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 186 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 199 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 200 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 201 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 219 source.batchfile
+T 220 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 221 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 236 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 237 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 238 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 239 source.batchfile
+T 240 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 249 source.batchfile variable.other.readwrite.batchfile
+T 250 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 251 source.batchfile
+T 252 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 265 source.batchfile variable.other.readwrite.batchfile
+T 266 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 267 source.batchfile
+T 268 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 274 source.batchfile variable.other.readwrite.batchfile
+T 275 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L 
+L :end
+T 1 source.batchfile punctuation.separator.batchfile
+T 4 source.batchfile keyword.other.special-method.batchfile
+L 

@@ -306,6 +306,14 @@ languages! {
         names: ["html-derivative"],
         module: html_derivative,
     }
+    /// Batch, with the scopes of Shiki's `bat` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Bat {
+        feature: "lang-bat",
+        names: ["bat", "batch", "cmd"],
+        engine: crate::bat::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

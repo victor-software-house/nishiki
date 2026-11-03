@@ -1,6 +1,8 @@
 //! Each limit, reached and not reached, through the public API.
 //! Each language's hostile lines are in `limits/<language>.rs`.
 
+#[cfg(feature = "lang-bat")]
+mod bat;
 mod c;
 #[cfg(feature = "lang-cmake")]
 mod cmake;

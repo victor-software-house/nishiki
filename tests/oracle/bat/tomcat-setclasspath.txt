@@ -1,0 +1,468 @@
+L @echo off
+T 1 source.batchfile keyword.operator.at.batchfile
+T 5 source.batchfile keyword.command.batchfile
+T 6 source.batchfile
+T 9 source.batchfile keyword.other.special-method.batchfile
+L rem Licensed to the Apache Software Foundation (ASF) under one or more
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 70 source.batchfile comment.line.rem.batchfile
+L rem contributor license agreements.  See the NOTICE file distributed with
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 73 source.batchfile comment.line.rem.batchfile
+L rem this work for additional information regarding copyright ownership.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem The ASF licenses this file to You under the Apache License, Version 2.0
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 75 source.batchfile comment.line.rem.batchfile
+L rem (the "License"); you may not use this file except in compliance with
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 72 source.batchfile comment.line.rem.batchfile
+L rem the License.  You may obtain a copy of the License at
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 57 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem     http://www.apache.org/licenses/LICENSE-2.0
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 50 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem Unless required by applicable law or agreed to in writing, software
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem distributed under the License is distributed on an "AS IS" BASIS,
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 69 source.batchfile comment.line.rem.batchfile
+L rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 76 source.batchfile comment.line.rem.batchfile
+L rem See the License for the specific language governing permissions and
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 71 source.batchfile comment.line.rem.batchfile
+L rem limitations under the License.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 34 source.batchfile comment.line.rem.batchfile
+L 
+L rem ---------------------------------------------------------------------------
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L rem Set JAVA_HOME or JRE_HOME if not already set, ensure any provided settings
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 78 source.batchfile comment.line.rem.batchfile
+L rem are valid and consistent with the selected start-up options.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 64 source.batchfile comment.line.rem.batchfile
+L rem ---------------------------------------------------------------------------
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 79 source.batchfile comment.line.rem.batchfile
+L 
+L rem Make sure prerequisite environment variables are set
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 56 source.batchfile comment.line.rem.batchfile
+L 
+L rem In debug mode we need a real JDK (JAVA_HOME)
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 48 source.batchfile comment.line.rem.batchfile
+L if ""%1"" == ""debug"" goto needJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 6 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 7 source.batchfile variable.parameter.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 10 source.batchfile
+T 12 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 40 source.batchfile
+L 
+L rem Otherwise either JRE or JDK are fine
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 40 source.batchfile comment.line.rem.batchfile
+L if not "%JRE_HOME%" == "" goto gotJreHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 17 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 19 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 22 source.batchfile keyword.operator.comparison.batchfile
+T 23 source.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 26 source.batchfile
+T 30 source.batchfile keyword.control.statement.batchfile
+T 41 source.batchfile
+L if not "%JAVA_HOME%" == "" goto gotJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 19 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 20 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 21 source.batchfile
+T 23 source.batchfile keyword.operator.comparison.batchfile
+T 24 source.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 27 source.batchfile
+T 31 source.batchfile keyword.control.statement.batchfile
+T 43 source.batchfile
+L echo Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 75 source.batchfile
+L echo At least one of these environment variable is needed to run this program
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 77 source.batchfile
+L goto exit
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 9 source.batchfile keyword.control.statement.batchfile
+L 
+L :needJavaHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 13 source.batchfile keyword.other.special-method.batchfile
+L rem Check if we have a usable JDK
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 33 source.batchfile comment.line.rem.batchfile
+L if "%JAVA_HOME%" == "" goto noJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 4 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 5 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 16 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 17 source.batchfile
+T 19 source.batchfile keyword.operator.comparison.batchfile
+T 20 source.batchfile
+T 21 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 22 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 23 source.batchfile
+T 27 source.batchfile keyword.control.statement.batchfile
+T 38 source.batchfile
+L if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 38 source.batchfile string.quoted.double.batchfile
+T 39 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 40 source.batchfile
+T 44 source.batchfile keyword.control.statement.batchfile
+T 55 source.batchfile
+L if not exist "%JAVA_HOME%\bin\jdb.exe" goto noJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 37 source.batchfile string.quoted.double.batchfile
+T 38 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 39 source.batchfile
+T 43 source.batchfile keyword.control.statement.batchfile
+T 54 source.batchfile
+L if not exist "%JAVA_HOME%\bin\javac.exe" goto noJavaHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 39 source.batchfile string.quoted.double.batchfile
+T 40 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 41 source.batchfile
+T 45 source.batchfile keyword.control.statement.batchfile
+T 56 source.batchfile
+L set "JRE_HOME=%JAVA_HOME%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto okJava
+T 4 source.batchfile keyword.control.statement.batchfile
+T 11 source.batchfile
+L 
+L :noJavaHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 11 source.batchfile keyword.other.special-method.batchfile
+L echo The JAVA_HOME environment variable is not defined correctly.
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 65 source.batchfile
+L echo JAVA_HOME=%JAVA_HOME%
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 15 source.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L echo It is needed to run this program in debug mode.
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 52 source.batchfile
+L echo NB: JAVA_HOME should point to a JDK not a JRE.
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 51 source.batchfile
+L goto exit
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 9 source.batchfile keyword.control.statement.batchfile
+L 
+L :gotJavaHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+L rem No JRE given, check if JAVA_HOME is usable as JRE_HOME
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 58 source.batchfile comment.line.rem.batchfile
+L if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHomeAsJre
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 38 source.batchfile string.quoted.double.batchfile
+T 39 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 40 source.batchfile
+T 44 source.batchfile keyword.control.statement.batchfile
+T 60 source.batchfile
+L rem Use JAVA_HOME as JRE_HOME
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 29 source.batchfile comment.line.rem.batchfile
+L set "JRE_HOME=%JAVA_HOME%"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 25 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 26 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L goto okJava
+T 4 source.batchfile keyword.control.statement.batchfile
+T 11 source.batchfile
+L 
+L :noJavaHomeAsJre
+T 1 source.batchfile punctuation.separator.batchfile
+T 16 source.batchfile keyword.other.special-method.batchfile
+L echo The JAVA_HOME environment variable is not defined correctly.
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 65 source.batchfile
+L echo JAVA_HOME=%JAVA_HOME%
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 15 source.batchfile
+T 16 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 25 source.batchfile variable.other.readwrite.batchfile
+T 26 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L echo NB: JAVA_HOME should point to a JDK not a JRE.
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 51 source.batchfile
+L goto exit
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 9 source.batchfile keyword.control.statement.batchfile
+L 
+L :gotJreHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 11 source.batchfile keyword.other.special-method.batchfile
+L rem Check if we have a usable JRE
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 33 source.batchfile comment.line.rem.batchfile
+L if not exist "%JRE_HOME%\bin\java.exe" goto noJreHome
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 12 source.batchfile keyword.other.special-method.batchfile
+T 13 source.batchfile
+T 14 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 37 source.batchfile string.quoted.double.batchfile
+T 38 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 39 source.batchfile
+T 43 source.batchfile keyword.control.statement.batchfile
+T 53 source.batchfile
+L goto okJava
+T 4 source.batchfile keyword.control.statement.batchfile
+T 11 source.batchfile
+L 
+L :noJreHome
+T 1 source.batchfile punctuation.separator.batchfile
+T 10 source.batchfile keyword.other.special-method.batchfile
+L rem Needed at least a JRE
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 25 source.batchfile comment.line.rem.batchfile
+L echo The JRE_HOME environment variable is not defined correctly
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 63 source.batchfile
+L echo JRE_HOME=%JRE_HOME%
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 14 source.batchfile
+T 15 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+L echo This environment variable is needed to run this program
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 60 source.batchfile
+L goto exit
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 9 source.batchfile keyword.control.statement.batchfile
+L 
+L :okJava
+T 1 source.batchfile punctuation.separator.batchfile
+T 7 source.batchfile keyword.other.special-method.batchfile
+L rem Don't override _RUNJAVA if the user has set it previously
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 61 source.batchfile comment.line.rem.batchfile
+L if not "%_RUNJAVA%" == "" goto gotRunJava
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 17 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 18 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 19 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 20 source.batchfile
+T 22 source.batchfile keyword.operator.comparison.batchfile
+T 23 source.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 25 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 26 source.batchfile
+T 30 source.batchfile keyword.control.statement.batchfile
+T 41 source.batchfile
+L rem Set standard command for invoking Java.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 43 source.batchfile comment.line.rem.batchfile
+L rem Also note the quoting as JRE_HOME may contain spaces.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 57 source.batchfile comment.line.rem.batchfile
+L set "_RUNJAVA=%JRE_HOME%\bin\java.exe"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 13 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 14 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 15 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 37 source.batchfile string.quoted.double.batchfile
+T 38 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotRunJava
+T 1 source.batchfile punctuation.separator.batchfile
+T 11 source.batchfile keyword.other.special-method.batchfile
+L 
+L rem Don't override _RUNJDB if the user has set it previously
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 60 source.batchfile comment.line.rem.batchfile
+L rem Also note the quoting as JAVA_HOME may contain spaces.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 58 source.batchfile comment.line.rem.batchfile
+L if not "%_RUNJDB%" == "" goto gotRunJdb
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 3 source.batchfile
+T 6 source.batchfile keyword.operator.logical.batchfile
+T 7 source.batchfile
+T 8 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 9 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 16 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 17 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 18 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 19 source.batchfile
+T 21 source.batchfile keyword.operator.comparison.batchfile
+T 22 source.batchfile
+T 23 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 24 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+T 25 source.batchfile
+T 29 source.batchfile keyword.control.statement.batchfile
+T 39 source.batchfile
+L set "_RUNJDB=%JAVA_HOME%\bin\jdb.exe"
+T 3 source.batchfile keyword.command.batchfile
+T 4 source.batchfile
+T 5 source.batchfile string.quoted.double.batchfile punctuation.definition.string.begin.batchfile
+T 12 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 13 source.batchfile string.quoted.double.batchfile keyword.operator.assignment.batchfile
+T 14 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.begin.batchfile
+T 23 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile
+T 24 source.batchfile string.quoted.double.batchfile variable.other.readwrite.batchfile punctuation.definition.variable.end.batchfile
+T 36 source.batchfile string.quoted.double.batchfile
+T 37 source.batchfile string.quoted.double.batchfile punctuation.definition.string.end.batchfile
+L :gotRunJdb
+T 1 source.batchfile punctuation.separator.batchfile
+T 10 source.batchfile keyword.other.special-method.batchfile
+L 
+L goto end
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+L 
+L :exit
+T 1 source.batchfile punctuation.separator.batchfile
+T 5 source.batchfile keyword.other.special-method.batchfile
+L exit /b 1
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+T 9 source.batchfile constant.numeric.batchfile
+L 
+L :end
+T 1 source.batchfile punctuation.separator.batchfile
+T 4 source.batchfile keyword.other.special-method.batchfile
+L exit /b 0
+T 4 source.batchfile keyword.control.statement.batchfile
+T 8 source.batchfile
+T 9 source.batchfile constant.numeric.batchfile
+L 

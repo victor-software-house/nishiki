@@ -2,7 +2,9 @@
 [files]
 # src/html/words.rs is generated from the html grammar's word lists, whose
 # entity and attribute names (`ofr`, `pluse`, `seeked`) are not English.
-extend-exclude = ["*.lock", "src/html/words.rs"]
+# Each src/<language>/grammar.rs listed here is generated from that
+# language's grammar and keeps the grammar's own words.
+extend-exclude = ["*.lock", "src/bat/grammar.rs", "src/html/words.rs"]
 
 # Unicode general-category codes, such as Nd, which are not words.
 [default.extend-words]

@@ -100,6 +100,8 @@ const googleapis =
   "https://raw.githubusercontent.com/googleapis/googleapis/0d0982bd9844aacc37a4e87c1cd43bbdb601884d";
 const googletest =
   "https://raw.githubusercontent.com/google/googletest/a8380b01a25ebdb130097b607b3afed2a58d04ba";
+const gradle =
+  "https://raw.githubusercontent.com/gradle/gradle/f9f8f85075be950f7d4e2edc4d57689084481e87";
 const graphiql =
   "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
 const graphqlJs =
@@ -316,6 +318,12 @@ const zod =
   "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
 
 export const inputs: Input[] = [
+  // Batch runs on the TextMate engine. Shiki's Markdown grammar has no Batch
+  // fence, so no Markdown input embeds it.
+  { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
+  { lang: "bat", name: "sample", url: `${samples}/bat.sample` },
+  { lang: "bat", name: "tomcat-catalina", url: `${tomcat}/bin/catalina.bat` },
+  { lang: "bat", name: "tomcat-setclasspath", url: `${tomcat}/bin/setclasspath.bat` },
   { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
   { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },
   { lang: "c", name: "libuv-core", url: `${libuv}/src/unix/core.c` },

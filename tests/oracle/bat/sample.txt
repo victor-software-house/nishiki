@@ -1,0 +1,83 @@
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L rem  Alternate form of if-elseif-else structure with goto for else
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 66 source.batchfile comment.line.rem.batchfile
+L rem  case.  That way, you can group code together in a "more logical"
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 69 source.batchfile comment.line.rem.batchfile
+L rem  or "more natural" manner.
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+T 30 source.batchfile comment.line.rem.batchfile
+L rem
+T 3 source.batchfile comment.line.rem.batchfile keyword.command.rem.batchfile
+L 
+L if .%1 == .1 goto 1
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 4 source.batchfile
+T 5 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 6 source.batchfile variable.parameter.batchfile
+T 7 source.batchfile
+T 9 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 17 source.batchfile keyword.control.statement.batchfile
+T 18 source.batchfile
+T 19 source.batchfile constant.numeric.batchfile
+L if .%1 == .2 goto 2
+T 2 source.batchfile keyword.control.conditional.batchfile
+T 4 source.batchfile
+T 5 source.batchfile variable.parameter.batchfile punctuation.definition.variable.batchfile
+T 6 source.batchfile variable.parameter.batchfile
+T 7 source.batchfile
+T 9 source.batchfile keyword.operator.comparison.batchfile
+T 13 source.batchfile
+T 17 source.batchfile keyword.control.statement.batchfile
+T 18 source.batchfile
+T 19 source.batchfile constant.numeric.batchfile
+L goto else
+T 4 source.batchfile keyword.control.statement.batchfile
+T 5 source.batchfile
+T 9 source.batchfile keyword.control.conditional.batchfile
+L :1
+T 1 source.batchfile punctuation.separator.batchfile
+T 2 source.batchfile keyword.other.special-method.batchfile
+L echo You selected 1
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 18 source.batchfile
+T 19 source.batchfile constant.numeric.batchfile
+L goto endif
+T 4 source.batchfile keyword.control.statement.batchfile
+T 10 source.batchfile
+L :2
+T 1 source.batchfile punctuation.separator.batchfile
+T 2 source.batchfile keyword.other.special-method.batchfile
+L echo You selected 2
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 18 source.batchfile
+T 19 source.batchfile constant.numeric.batchfile
+L goto endif
+T 4 source.batchfile keyword.control.statement.batchfile
+T 10 source.batchfile
+L :else
+T 1 source.batchfile punctuation.separator.batchfile
+T 5 source.batchfile keyword.other.special-method.batchfile
+L echo else (neither 1 nor 2)
+T 4 source.batchfile keyword.command.batchfile
+T 5 source.batchfile
+T 19 source.batchfile
+T 20 source.batchfile constant.numeric.batchfile
+T 26 source.batchfile
+T 27 source.batchfile
+L goto endif
+T 4 source.batchfile keyword.control.statement.batchfile
+T 10 source.batchfile
+L :endif
+T 1 source.batchfile punctuation.separator.batchfile
+T 6 source.batchfile keyword.other.special-method.batchfile
+L 
+L :: From https://github.com/Archive-projects/Batch-File-examples/blob/master/files/tf5.bat
+T 2 source.batchfile comment.line.colon.batchfile punctuation.definition.comment.batchfile
+T 89 source.batchfile comment.line.colon.batchfile
+L 

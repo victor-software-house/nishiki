@@ -240,6 +240,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `proto/googleapis-http` | [`google/api/http.proto`][googleapis-http] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
 | `proto/googleapis-operations` | [`google/longrunning/operations.proto`][googleapis-operations] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
 | `proto/grpc-route-guide` | [`examples/protos/route_guide.proto`][grpc-route-guide] in grpc/grpc | [Apache-2.0][grpc-licence] |
+| `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
+| `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
+| `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -423,6 +427,9 @@ Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
 Protobuf runs on nishiki's TextMate engine as well.
 `proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
 Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
+Batch runs on nishiki's TextMate engine as well.
+`bat/sample` and `bat/gradlew` are its development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
+Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
@@ -462,6 +469,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [argument-parser-licence]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt
 [axios-licence]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/LICENSE
 [axios-xhr]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/lib/adapters/xhr.js
+[bat-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/bat.sample
 [benchmark-core]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/benchmark.cc
 [benchmark-licence]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/LICENSE
 [benchmark-user-guide]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/docs/user_guide.md
@@ -588,6 +596,8 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [googleapis-operations]: https://github.com/googleapis/googleapis/blob/0d0982bd9844aacc37a4e87c1cd43bbdb601884d/google/longrunning/operations.proto
 [googletest-licence]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/LICENSE
 [googletest-utils]: https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/googletest/cmake/internal_utils.cmake
+[gradle-licence]: https://github.com/gradle/gradle/blob/f9f8f85075be950f7d4e2edc4d57689084481e87/LICENSE
+[gradlew-bat]: https://github.com/gradle/gradle/blob/f9f8f85075be950f7d4e2edc4d57689084481e87/gradlew.bat
 [graphiql-kitchen-sink]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql
 [graphiql-licence]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/LICENSE
 [graphiql-merged-query]: https://github.com/graphql/graphiql/blob/e7a5e07b6c2cb9b524831544c689e742cdc1b904/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql
@@ -868,7 +878,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [tokio-manifest]: https://github.com/tokio-rs/tokio/blob/b499257ef62bd631b83a988d371f4330f545670c/tokio/Cargo.toml
 [tokio-readme]: https://github.com/tokio-rs/tokio/blob/b499257ef62bd631b83a988d371f4330f545670c/README.md
 [tomcat-catalina]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/conf/catalina.properties
+[tomcat-catalina-bat]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/bin/catalina.bat
 [tomcat-licence]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/LICENSE
+[tomcat-setclasspath]: https://github.com/apache/tomcat/blob/1b2785c63ca0e0f9a242745b16f26924b5488ddd/bin/setclasspath.bat
 [toml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/toml.sample
 [traefik-docker]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/docs/content/getting-started/docker.md
 [traefik-licence]: https://github.com/traefik/traefik/blob/38d53dd06c53c7e9bd08e57b217e72686d823610/LICENSE.md
