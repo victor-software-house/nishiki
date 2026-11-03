@@ -35,4 +35,5 @@
 
 - [x] 4.1 Hostile lines for the engine in `tests/it/limits.rs` → verify: each finishes within the default limits
   - `tests/it/limits/powershell.rs`: brackets, quotes, here-strings, comments and blanks; a line that would cost more than the default work ends at the work limit with tokens that cover it.
-- [ ] 4.2 p99 per line under `bench/targets.toml` on every fixture → verify: a recorded run
+- [x] 4.2 p99 per line under `bench/targets.toml` on every fixture → verify: a recorded run
+  - `bench/results/namespace-4x8/2026-11-03-574fad99.md`: three runs with the `textmate` tier on; the worst p99 of any fixture is 49.7 µs (cpp) and PowerShell's is 7.49 µs, against 4,000 µs.
