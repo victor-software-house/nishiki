@@ -24,6 +24,7 @@ Rules for measuring nishiki, beside the root guide's invariants.
     Do not add LTO or `codegen-units` to the root profile to improve them.
 12. `mise run callgrind`, which the Callgrind workflow runs on a pull request labelled `bench`, gates on instructions with both sides built at one codegen unit (`CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1`, set by the task only).
     Its table also shows both sides at the default sixteen units, for information only: those columns never fail the job, and they show what a user's default release build gets.
+    Its harness, `examples/lex.rs`, splits each fixture into its lines before both passes, so the counted pass is lexing alone; counts from before 2026-11-03 include that splitting and read higher.
     Its counts are a review signal for the change itself: at the default sixteen units, an edit that only moves engine code between units shifted them by up to a few percent (2026-11-03: Python +0.6% and Go −6% on a change that measured ±0.05% at one unit), and a gate that trips on layout alone gets ignored.
     The wall-clock figures of rule 11 keep the default profile, because that layout is what users get.
 13. A language on `crate::rules` marks `#[inline]` the dispatch its scan calls in another module: the function that tries a pattern, and the matchers that table calls at every position.

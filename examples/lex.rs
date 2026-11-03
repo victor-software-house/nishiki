@@ -6,6 +6,8 @@
 //! The first pass fills what a process builds once, such as each rule's
 //! pattern tables; callgrind counts only [`measured`], the second pass, so
 //! a change to that one-time work does not read as a change to lexing.
+//! Each fixture is split into its lines before either pass, so the count
+//! holds lexing alone.
 //!
 //! Usage: `lex <fixtures> <language>`, such as `lex tests/oracle python`.
 
@@ -38,9 +40,17 @@ fn main() -> ExitCode {
         .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
         .collect();
     files.sort();
-    let documents: Vec<String> = files
+    let texts: Vec<String> = files
         .iter()
         .filter_map(|file| fs::read_to_string(file).ok())
+        .collect();
+    let documents: Vec<Vec<&str>> = texts
+        .iter()
+        .map(|text| {
+            text.lines()
+                .filter_map(|record| record.strip_prefix("L "))
+                .collect()
+        })
         .collect();
     let mut tokens = Vec::new();
     lex(language, &documents, &mut tokens);
@@ -52,19 +62,16 @@ fn main() -> ExitCode {
 /// The pass callgrind counts (`--toggle-collect`); kept out of line so that
 /// it has a symbol of its own.
 #[inline(never)]
-fn measured(language: Language, documents: &[String], tokens: &mut Vec<Token>) {
+fn measured(language: Language, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
     lex(language, documents, tokens);
 }
 
-/// Lexes each document's `L` lines from a fresh highlighter.
-fn lex(language: Language, documents: &[String], tokens: &mut Vec<Token>) {
-    for content in documents {
+/// Lexes each document's lines from a fresh highlighter.
+fn lex(language: Language, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
+    for lines in documents {
         let mut highlighter = Highlighter::new(language);
         let mut state = State::default();
-        for line in content
-            .lines()
-            .filter_map(|record| record.strip_prefix("L "))
-        {
+        for &line in lines {
             tokens.clear();
             let report = highlighter.line(line, &mut state, tokens);
             black_box(&report);
