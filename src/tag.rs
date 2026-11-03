@@ -128,6 +128,9 @@ tags! {
     /// HTML.
     #[cfg(feature = "lang-html")]
     HTML = 0x2800,
+    /// Lua.
+    #[cfg(feature = "lang-lua")]
+    LUA = 0x2d00,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

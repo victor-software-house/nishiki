@@ -15,6 +15,7 @@ mod ini;
 mod java;
 mod json;
 mod kotlin;
+mod lua;
 mod make;
 mod markdown;
 #[cfg(feature = "lang-powershell")]

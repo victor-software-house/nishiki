@@ -1,0 +1,98 @@
+L ball = {
+T 4 source.lua variable.other.lua
+T 5 source.lua
+T 6 source.lua keyword.operator.lua
+T 8 source.lua
+L   xpos = 60,
+T 2 source.lua
+T 6 source.lua variable.other.lua
+T 7 source.lua
+T 8 source.lua keyword.operator.lua
+T 9 source.lua
+T 11 source.lua constant.numeric.float.lua
+T 12 source.lua
+L   ypos = 60,
+T 2 source.lua
+T 6 source.lua variable.other.lua
+T 7 source.lua
+T 8 source.lua keyword.operator.lua
+T 9 source.lua
+T 11 source.lua constant.numeric.float.lua
+T 12 source.lua
+L 
+L   -- without the colon syntax, must mention self argument explicitly
+T 2 source.lua punctuation.whitespace.comment.leading.lua
+T 4 source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 68 source.lua comment.line.double-dash.lua
+L   move = function(self, newx, newy)
+T 2 source.lua
+T 6 source.lua entity.name.function.lua
+T 7 source.lua
+T 8 source.lua keyword.operator.lua
+T 9 source.lua
+T 17 source.lua meta.function.lua keyword.control.lua
+T 18 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 34 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 35 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L     self.xpos = newx
+T 4 source.lua
+T 8 source.lua variable.language.self.lua
+T 9 source.lua
+T 13 source.lua entity.other.attribute.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 20 source.lua variable.other.lua
+L     self.ypos = newy
+T 4 source.lua
+T 8 source.lua variable.language.self.lua
+T 9 source.lua
+T 13 source.lua entity.other.attribute.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 20 source.lua variable.other.lua
+L   end
+T 2 source.lua
+T 5 source.lua keyword.control.lua
+L }
+T 1 source.lua
+L 
+L -- using the colon, ball is passed as self automatically
+T 2 source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 56 source.lua comment.line.double-dash.lua
+L ball:move(100, 120)
+T 4 source.lua entity.name.class.lua
+T 5 source.lua
+T 9 source.lua support.function.any-method.lua
+T 10 source.lua
+T 13 source.lua constant.numeric.float.lua
+T 15 source.lua
+T 18 source.lua constant.numeric.float.lua
+T 19 source.lua
+L 
+L -- using the dot, must pass self explicitly
+T 2 source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 43 source.lua comment.line.double-dash.lua
+L ball.move(ball, 100, 120)
+T 4 source.lua variable.other.lua
+T 5 source.lua
+T 9 source.lua support.function.any-method.lua
+T 10 source.lua
+T 14 source.lua variable.other.lua
+T 16 source.lua
+T 19 source.lua constant.numeric.float.lua
+T 21 source.lua
+T 24 source.lua constant.numeric.float.lua
+T 25 source.lua
+L 
+L -- From https://pico-8.fandom.com/wiki/Lua
+T 2 source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 42 source.lua comment.line.double-dash.lua
+L 

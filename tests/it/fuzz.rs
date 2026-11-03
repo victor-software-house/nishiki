@@ -267,6 +267,23 @@ const PIECES: &[&str] = &[
     "'\\u0041'",
     "/// <summary>",
     "<see cref=\"",
+    "[[",
+    "[==[",
+    "]==]",
+    "--[[",
+    "--[==[",
+    "---@param ",
+    "---@type fun(",
+    "---@class ",
+    "--[[@@@",
+    "local function ",
+    "<const>",
+    "ffi.cdef[[",
+    "\\z",
+    "0x1p+",
+    "goto ",
+    "math.pi",
+    "string.format(",
 ];
 
 /// A xorshift generator: deterministic, so a failure reproduces from its

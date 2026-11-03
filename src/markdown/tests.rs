@@ -587,6 +587,27 @@ fn go_fences_embed_the_go_lexer_without_its_root() {
 }
 
 #[test]
+fn lua_fences_embed_the_lua_lexer_without_its_root() {
+    for info in ["lua", "LUA", "lua title=x"] {
+        let text = formatdoc! {"
+            ```{info}
+            return x
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "return"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.lua",
+                "keyword.control.lua",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
 fn go_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```go

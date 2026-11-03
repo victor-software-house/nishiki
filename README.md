@@ -150,6 +150,7 @@ assert_eq!(highlighter.limits().depth, None);
 | HTML | `Language::Html` | `lang-html` | `html` |
 | Zig | `Language::Zig` | `lang-zig` | `zig` |
 | ERB | `Language::Erb` | `lang-erb` | `erb` |
+| Lua | `Language::Lua` | `lang-lua` | `lua` |
 
 ### Features
 
@@ -471,6 +472,12 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - In a `<style>` element ERB opens between CSS rules, and in a `<script>` element where no JavaScript rule matches, so JavaScript's `<` operator takes `<%=` in code.
 - A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
 - ERB that Shiki opens inside a CSS rule or string, or inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script, stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
+
+### Lua
+
+- The body of `ffi.cdef[[...]]` is the plain content of its brackets, where Shiki lexes it as C.
+- A long string or comment closes only at a bracket with as many `=` signs as it opened with, across lines.
+- A Markdown fence names the language `lua`.
 
 ## Licence
 

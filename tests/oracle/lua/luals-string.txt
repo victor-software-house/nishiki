@@ -1,0 +1,1025 @@
+L ---@meta string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 8 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+L 
+L ---#DES 'string'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 16 source.lua comment.line.double-dash.documentation.lua
+L ---@class stringlib
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.class.lua
+L string = {}
+T 6 source.lua variable.other.lua
+T 7 source.lua
+T 8 source.lua keyword.operator.lua
+T 11 source.lua
+L 
+L ---#DES 'string.byte'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---@param s  string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 20 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 26 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param i? integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param j? integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer ...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 22 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.byte(s, i, j) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 27 source.lua meta.function.lua meta.parameter.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 30 source.lua
+T 33 source.lua keyword.control.lua
+L 
+L ---#DES 'string.char'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---@param byte integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param ... integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.char(byte, ...) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 31 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 32 source.lua
+T 35 source.lua keyword.control.lua
+L 
+L ---#DES 'string.dump'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---#if VERSION >= 5.3 or JIT then
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 33 source.lua comment.line.double-dash.documentation.lua
+L ---@param f      async fun(...):...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 17 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua entity.name.tag.lua
+T 23 source.lua comment.line.double-dash.documentation.lua
+T 26 source.lua comment.line.double-dash.documentation.lua keyword.control.lua
+T 27 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 30 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 31 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 32 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 35 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param strip? boolean
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 15 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 16 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 17 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.dump(f, strip) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 31 source.lua
+T 34 source.lua keyword.control.lua
+L ---#else
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 8 source.lua comment.line.double-dash.documentation.lua
+L ---@param f      async fun(...):...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 17 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua entity.name.tag.lua
+T 23 source.lua comment.line.double-dash.documentation.lua
+T 26 source.lua comment.line.double-dash.documentation.lua keyword.control.lua
+T 27 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 30 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 31 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 32 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 35 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.dump(f) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 24 source.lua
+T 27 source.lua keyword.control.lua
+L ---#end
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 7 source.lua comment.line.double-dash.documentation.lua
+L 
+L ---#DES 'string.find'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---@param s       string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pattern string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param init?   integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param plain?  boolean
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 15 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 16 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer|nil start
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 23 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer|nil end
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 23 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 26 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return any|nil ... captured
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 23 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.find(s, pattern, init, plain) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 31 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 33 source.lua meta.function.lua meta.parameter.lua
+T 37 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 38 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 39 source.lua meta.function.lua meta.parameter.lua
+T 44 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 45 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 46 source.lua
+T 49 source.lua keyword.control.lua
+L 
+L ---#DES 'string.format'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 23 source.lua comment.line.double-dash.documentation.lua
+L ---@param s string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param ... any
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.format(s, ...) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 22 source.lua meta.function.lua entity.name.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 29 source.lua meta.function.lua meta.parameter.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 31 source.lua
+T 34 source.lua keyword.control.lua
+L 
+L ---#DES 'string.gmatch'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 23 source.lua comment.line.double-dash.documentation.lua
+L ---#if VERSION <= 5.3 then
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 26 source.lua comment.line.double-dash.documentation.lua
+L ---@param s       string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pattern string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return fun():string, ...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua keyword.control.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 16 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 17 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 23 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.gmatch(s, pattern) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 22 source.lua meta.function.lua entity.name.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 source.lua meta.function.lua meta.parameter.lua
+T 33 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 34 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 35 source.lua
+T 38 source.lua keyword.control.lua
+L ---#else
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 8 source.lua comment.line.double-dash.documentation.lua
+L ---@param s       string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pattern string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param init?   integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return fun():string, ...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua keyword.control.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 16 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 17 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 23 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L function string.gmatch(s, pattern, init) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 22 source.lua meta.function.lua entity.name.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 source.lua meta.function.lua meta.parameter.lua
+T 33 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 34 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 35 source.lua meta.function.lua meta.parameter.lua
+T 39 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 40 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 41 source.lua
+T 44 source.lua keyword.control.lua
+L ---#end
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 7 source.lua comment.line.double-dash.documentation.lua
+L 
+L ---#DES 'string.gsub'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---@param s       string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pattern string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param repl    string|number|table|function
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 32 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 37 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 38 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 46 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param n?      integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer count
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L function string.gsub(s, pattern, repl, n) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 31 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 33 source.lua meta.function.lua meta.parameter.lua
+T 37 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 38 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 39 source.lua meta.function.lua meta.parameter.lua
+T 40 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 41 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 42 source.lua
+T 45 source.lua keyword.control.lua
+L 
+L ---#DES 'string.len'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 20 source.lua comment.line.double-dash.documentation.lua
+L ---@param s string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.len(s) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 19 source.lua meta.function.lua entity.name.function.lua
+T 20 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 21 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 23 source.lua
+T 26 source.lua keyword.control.lua
+L 
+L ---#DES 'string.lower'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 22 source.lua comment.line.double-dash.documentation.lua
+L ---@param s string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.lower(s) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 21 source.lua meta.function.lua entity.name.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 23 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 25 source.lua
+T 28 source.lua keyword.control.lua
+L 
+L ---#DES 'string.match'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 22 source.lua comment.line.double-dash.documentation.lua
+L ---@param s       string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pattern string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 25 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 31 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param init?   integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 18 source.lua comment.line.double-dash.documentation.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return any ...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 15 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.match(s, pattern, init) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 21 source.lua meta.function.lua entity.name.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 23 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 25 source.lua meta.function.lua meta.parameter.lua
+T 32 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 33 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 34 source.lua meta.function.lua meta.parameter.lua
+T 38 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 39 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 40 source.lua
+T 43 source.lua keyword.control.lua
+L 
+L ---@version >5.3
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 11 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 16 source.lua comment.line.double-dash.documentation.lua support.class.lua
+L ---#DES 'string.pack'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 21 source.lua comment.line.double-dash.documentation.lua
+L ---@param fmt string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param v1  string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 12 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 21 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 27 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param v2? string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 12 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 13 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 21 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 27 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param ... string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 21 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 27 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string binary
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 24 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.pack(fmt, v1, v2, ...) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 20 source.lua meta.function.lua entity.name.function.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 source.lua meta.function.lua meta.parameter.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 32 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 33 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 37 source.lua meta.function.lua meta.parameter.lua
+T 38 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 39 source.lua
+T 42 source.lua keyword.control.lua
+L 
+L ---@version >5.3
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 11 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 16 source.lua comment.line.double-dash.documentation.lua support.class.lua
+L ---#DES 'string.packsize'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 25 source.lua comment.line.double-dash.documentation.lua
+L ---@param fmt string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 14 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.packsize(fmt) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 24 source.lua meta.function.lua entity.name.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 30 source.lua
+T 33 source.lua keyword.control.lua
+L 
+L ---#if VERSION <= 5.1 and not JIT then
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 38 source.lua comment.line.double-dash.documentation.lua
+L ---#DES 'string.rep<5.1'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 24 source.lua comment.line.double-dash.documentation.lua
+L ---@param s    string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 22 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param n    integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.rep(s, n) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 19 source.lua meta.function.lua entity.name.function.lua
+T 20 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 21 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 23 source.lua meta.function.lua meta.parameter.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 26 source.lua
+T 29 source.lua keyword.control.lua
+L ---#else
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 8 source.lua comment.line.double-dash.documentation.lua
+L ---#DES 'string.rep>5.2'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 24 source.lua comment.line.double-dash.documentation.lua
+L ---@param s    string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 22 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param n    integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param sep? string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 14 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 22 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 28 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.rep(s, n, sep) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 19 source.lua meta.function.lua entity.name.function.lua
+T 20 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 21 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 23 source.lua meta.function.lua meta.parameter.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 source.lua meta.function.lua meta.parameter.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 31 source.lua
+T 34 source.lua keyword.control.lua
+L ---#end
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 7 source.lua comment.line.double-dash.documentation.lua
+L 
+L ---#DES 'string.reverse'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 24 source.lua comment.line.double-dash.documentation.lua
+L ---@param s string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.reverse(s) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 23 source.lua meta.function.lua entity.name.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 27 source.lua
+T 30 source.lua keyword.control.lua
+L 
+L ---#DES 'string.sub'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 20 source.lua comment.line.double-dash.documentation.lua
+L ---@param s  string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 19 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 20 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 26 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param i  integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param j? integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 13 source.lua comment.line.double-dash.documentation.lua
+T 20 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.sub(s, i, j) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 19 source.lua meta.function.lua entity.name.function.lua
+T 20 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 21 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 23 source.lua meta.function.lua meta.parameter.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 source.lua meta.function.lua meta.parameter.lua
+T 27 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 28 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 29 source.lua
+T 32 source.lua keyword.control.lua
+L 
+L ---@version >5.3
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 11 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 16 source.lua comment.line.double-dash.documentation.lua support.class.lua
+L ---#DES 'string.unpack'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 23 source.lua comment.line.double-dash.documentation.lua
+L ---@param fmt  string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param s    string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 21 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@param pos? integer
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 13 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 14 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 15 source.lua comment.line.double-dash.documentation.lua
+T 22 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return any ...
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 15 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.unpack(fmt, s, pos) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 22 source.lua meta.function.lua entity.name.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 26 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 27 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 28 source.lua meta.function.lua meta.parameter.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 31 source.lua meta.function.lua meta.parameter.lua
+T 34 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 35 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 36 source.lua
+T 39 source.lua keyword.control.lua
+L 
+L ---#DES 'string.upper'
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 22 source.lua comment.line.double-dash.documentation.lua
+L ---@param s string|number
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 9 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 10 source.lua comment.line.double-dash.documentation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua entity.name.variable.lua
+T 12 source.lua comment.line.double-dash.documentation.lua
+T 18 source.lua comment.line.double-dash.documentation.lua support.type.lua
+T 19 source.lua comment.line.double-dash.documentation.lua keyword.operator.lua
+T 25 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@return string
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 10 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+T 11 source.lua comment.line.double-dash.documentation.lua
+T 17 source.lua comment.line.double-dash.documentation.lua support.type.lua
+L ---@nodiscard
+T 3 source.lua comment.line.double-dash.documentation.lua punctuation.definition.comment.lua
+T 13 source.lua comment.line.double-dash.documentation.lua storage.type.annotation.lua
+L function string.upper(s) end
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 15 source.lua meta.function.lua entity.name.function.lua
+T 16 source.lua meta.function.lua
+T 21 source.lua meta.function.lua entity.name.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 23 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 25 source.lua
+T 28 source.lua keyword.control.lua
+L 
+L return string
+T 6 source.lua keyword.control.lua
+T 7 source.lua
+T 13 source.lua variable.other.lua
+L 

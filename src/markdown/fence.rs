@@ -260,6 +260,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Html,
     },
+    #[cfg(feature = "lang-lua")]
+    Name {
+        words: &["lua"],
+        brace: None,
+        lang: Language::Lua,
+    },
 ];
 
 /// A language found in an info string.

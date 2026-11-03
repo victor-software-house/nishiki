@@ -223,6 +223,15 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `zig/std-fmt` | [`lib/std/fmt.zig`][zig-std-fmt] in ziglang/zig | [MIT][zig-licence] |
 | `zig/zls-offsets` | [`src/offsets.zig`][zls-offsets] in zigtools/zls | [MIT][zls-licence] |
 | `zig/zls-build` | [`build.zig`][zls-build] in zigtools/zls | [MIT][zls-licence] |
+| `lua/sample` | [`samples/lua.sample`][lua-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `lua/inspect` | [`inspect.lua`][inspect-lua] in kikito/inspect.lua | [MIT][inspect-lua-licence] |
+| `lua/lume` | [`lume.lua`][lume] in rxi/lume | [MIT][lume-licence] |
+| `lua/json` | [`json.lua`][json-lua] in rxi/json.lua | [MIT][json-lua-licence] |
+| `lua/penlight-stringx` | [`lua/pl/stringx.lua`][penlight-stringx] in lunarmodules/Penlight | [MIT][penlight-licence] |
+| `lua/luarocks-util` | [`src/luarocks/core/util.lua`][luarocks-util] in luarocks/luarocks | [MIT][luarocks-licence] |
+| `lua/luals-string` | [`meta/template/string.lua`][luals-string] in LuaLS/lua-language-server | [MIT][luals-licence] |
+| `lua/luals-table` | [`meta/template/table.lua`][luals-table] in LuaLS/lua-language-server | [MIT][luals-licence] |
+| `lua/lua-literals` | [`testes/literals.lua`][lua-literals] in lua/lua | [MIT][lua-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -399,6 +408,9 @@ TodoMVC's `license.md` puts the repository under MIT unless a file says otherwis
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
 They cover code inside quoted values and `<style>` and `<script>` blocks, `-%>`, and the `<%%` of the generators' Thor templates; none has an ERB comment, which the unit tests and the mutation differential cover.
 Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railties/` and `actionpack/` here.
+
+`lua/sample`, `lua/inspect`, `lua/lume`, `lua/luals-string` and `lua/lua-literals` are the development inputs for Lua; `lua/lua-literals` holds long strings and a long comment at several levels, across lines.
+`lua/json`, `lua/penlight-stringx`, `lua/luarocks-util` and `lua/luals-table` are held out.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -596,6 +608,7 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [jq-licence]: https://github.com/jqlang/jq/blob/5c001b18d7237cce1fdba63608732163f978dd23/COPYING
 [lua-vm]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/lvm.c
 [lua-licence]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/lua.h
+[lua-literals]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/testes/literals.lua
 [zlib-inflate]: https://github.com/madler/zlib/blob/aaa772ce5c6d0023204c6ee45c59cf70c8372c51/inflate.c
 [unity-assertions]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityAssertionsReference.md
 [unity-getting-started]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityGettingStartedGuide.md
@@ -844,3 +857,17 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [devise-error-messages]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/shared/_error_messages.html.erb
 [railties-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/railties/MIT-LICENSE
 [actionpack-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/MIT-LICENSE
+[lua-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/lua.sample
+[inspect-lua]: https://github.com/kikito/inspect.lua/blob/a8ca3120dfec48801036eaeff9335ab7a096dd24/inspect.lua
+[inspect-lua-licence]: https://github.com/kikito/inspect.lua/blob/a8ca3120dfec48801036eaeff9335ab7a096dd24/MIT-LICENSE.txt
+[lume]: https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/lume.lua
+[lume-licence]: https://github.com/rxi/lume/blob/98847e7812cf28d3d64b289b03fad71dc704547d/LICENSE
+[json-lua]: https://github.com/rxi/json.lua/blob/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94/json.lua
+[json-lua-licence]: https://github.com/rxi/json.lua/blob/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94/LICENSE
+[penlight-stringx]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/lua/pl/stringx.lua
+[penlight-licence]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/LICENSE.md
+[luarocks-util]: https://github.com/luarocks/luarocks/blob/85bfe36c812465b2f377877939d884a4db829a25/src/luarocks/core/util.lua
+[luarocks-licence]: https://github.com/luarocks/luarocks/blob/85bfe36c812465b2f377877939d884a4db829a25/COPYING
+[luals-string]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/string.lua
+[luals-table]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/meta/template/table.lua
+[luals-licence]: https://github.com/LuaLS/lua-language-server/blob/a58fc7b01e1746c46275c71b0e61bfed40a6296d/LICENSE

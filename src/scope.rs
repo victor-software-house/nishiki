@@ -126,6 +126,8 @@ tables! {
     SWIFT = swift;
     #[cfg(feature = "lang-html")]
     HTML = html;
+    #[cfg(feature = "lang-lua")]
+    LUA = lua;
 }
 
 // No table is longer than its slot.

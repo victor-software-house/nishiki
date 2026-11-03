@@ -50,6 +50,9 @@ pub(crate) struct Scratch {
     /// The C# lexer's, for C# documents and Markdown C# fences.
     #[cfg(feature = "lang-csharp")]
     pub(crate) csharp: crate::csharp::Scratch,
+    /// The Lua lexer's, for Lua documents and Markdown Lua fences.
+    #[cfg(feature = "lang-lua")]
+    pub(crate) lua: crate::lua::Scratch,
     /// The Makefile lexer's.
     #[cfg(feature = "lang-make")]
     pub(crate) make: crate::make::Scratch,

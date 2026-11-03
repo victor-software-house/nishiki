@@ -70,3 +70,34 @@ pub(crate) fn scopes_of(language: Language, text: &str, token: &str) -> Vec<Stri
 pub(crate) fn leaf(language: Language, text: &str, token: &str) -> String {
     scopes_of(language, text, token).pop().unwrap_or_default()
 }
+
+/// One lexed line with each token cut to its innermost scope, neighbouring
+/// tokens of the same scope merged: what a theme colours.
+pub(crate) type LeafRow = Vec<(String, String)>;
+
+/// `rows` with each token cut to its innermost scope and neighbouring tokens
+/// of the same innermost scope merged into one.
+pub(crate) fn merge_by_leaf(rows: Vec<Row>) -> Vec<LeafRow> {
+    rows.into_iter()
+        .map(|row| {
+            let mut merged = LeafRow::new();
+            for (text, mut scopes) in row {
+                let leaf = scopes.pop().unwrap_or_default();
+                match merged.last_mut() {
+                    Some((last, scope)) if *scope == leaf => last.push_str(&text),
+                    _ => merged.push((text, leaf)),
+                }
+            }
+            merged
+        })
+        .collect()
+}
+
+/// The innermost scope of the merged token in `row` whose text is `token`.
+pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
+    row.iter()
+        .find(|(text, _)| text == token)
+        .unwrap_or_else(|| panic!("no token {token:?} in {row:?}"))
+        .1
+        .clone()
+}

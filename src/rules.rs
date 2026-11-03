@@ -11,7 +11,7 @@
 
 mod chars;
 mod lexer;
-#[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
+#[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 mod runs;
 mod tables;
 
@@ -26,12 +26,13 @@ use std::fmt::Debug;
     feature = "lang-ruby",
     feature = "lang-csharp",
     feature = "lang-swift",
-    feature = "lang-cpp"
+    feature = "lang-cpp",
+    feature = "lang-lua"
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;
 pub(crate) use lexer::{Lexer, Scratch};
-#[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
+#[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
 pub(crate) use tables::Tables;
 #[cfg(feature = "_rule-tables")]

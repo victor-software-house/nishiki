@@ -89,6 +89,8 @@ mod json;
 mod kotlin;
 mod language;
 mod limits;
+#[cfg(feature = "lang-lua")]
+mod lua;
 #[cfg(feature = "lang-make")]
 mod make;
 #[cfg(feature = "lang-markdown")]

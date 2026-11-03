@@ -60,6 +60,7 @@ all = [
   "lang-swift",
   "lang-html",
   "lang-erb",
+  "lang-lua",
 ]
 
 # Tiers, which overlap.
@@ -143,6 +144,7 @@ lang-scala = ["_textmate"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
 lang-zig = ["_textmate"]
 lang-erb = ["lang-html", "lang-ruby"]
+lang-lua = ["_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

@@ -938,10 +938,14 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 Its C++ lexer emits the scope names of the C++ TextMate grammar in [jeff-hykin/better-cpp-syntax](https://github.com/jeff-hykin/better-cpp-syntax), which VS Code ships in its C and C++ extension and Shiki bundles as `cpp`, and tries that grammar's rules in its order.
 That grammar is licensed under the MIT License:
 
+Its Lua lexer emits the scope names of the Lua TextMate grammar in [sumneko/lua.tmbundle](https://github.com/sumneko/lua.tmbundle), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `lua`, and tries that grammar's rules in its order.
+That repository's `LICENSE` reads as follows:
+
 ```text
 MIT License
 
 Copyright (c) 2019 Jeff Hykin
+Copyright (c) 2022 最萌小汐
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

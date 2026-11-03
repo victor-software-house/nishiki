@@ -281,6 +281,8 @@ languages! {
     /// ERB, with the scopes of Shiki's `erb` grammar: HTML whose `<% %>`
     /// tags hold Ruby.
     Erb { feature: "lang-erb", names: ["erb"], module: erb }
+    /// Lua, with the scopes of Shiki's `lua` grammar.
+    Lua { feature: "lang-lua", names: ["lua"], module: lua }
 }
 
 impl Language {

@@ -324,6 +324,18 @@ const thor =
   "https://raw.githubusercontent.com/rails/thor/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d";
 const rake =
   "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
+const inspectLua =
+  "https://raw.githubusercontent.com/kikito/inspect.lua/a8ca3120dfec48801036eaeff9335ab7a096dd24";
+const lume =
+  "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
+const jsonLua =
+  "https://raw.githubusercontent.com/rxi/json.lua/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94";
+const penlight =
+  "https://raw.githubusercontent.com/lunarmodules/Penlight/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985";
+const luarocks =
+  "https://raw.githubusercontent.com/luarocks/luarocks/85bfe36c812465b2f377877939d884a4db829a25";
+const luaLanguageServer =
+  "https://raw.githubusercontent.com/LuaLS/lua-language-server/a58fc7b01e1746c46275c71b0e61bfed40a6296d";
 
 const powershell =
   "https://raw.githubusercontent.com/PowerShell/PowerShell/2725d6aaa6e67219b6c9902adf7b74c52e0371a3";
@@ -900,4 +912,13 @@ export const inputs: Input[] = [
   { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
   { lang: "erb", name: "devise-sessions-new", url: `${devise}/app/views/devise/sessions/new.html.erb` },
   { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },
+  { lang: "lua", name: "sample", url: `${samples}/lua.sample` },
+  { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
+  { lang: "lua", name: "lume", url: `${lume}/lume.lua` },
+  { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
+  { lang: "lua", name: "penlight-stringx", url: `${penlight}/lua/pl/stringx.lua` },
+  { lang: "lua", name: "luarocks-util", url: `${luarocks}/src/luarocks/core/util.lua` },
+  { lang: "lua", name: "luals-string", url: `${luaLanguageServer}/meta/template/string.lua` },
+  { lang: "lua", name: "luals-table", url: `${luaLanguageServer}/meta/template/table.lua` },
+  { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },
 ];

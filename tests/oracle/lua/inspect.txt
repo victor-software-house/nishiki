@@ -1,0 +1,3010 @@
+L local _tl_compat; if (tonumber((_VERSION or ''):match('[%d.]*$')) or 0) < 5.3 then local p, m = pcall(require, 'compat53.module'); if p then _tl_compat = m end end; local math = _tl_compat and _tl_compat.math or math; local pcall = _tl_compat and _tl_compat.pcall or pcall; local string = _tl_compat and _tl_compat.string or string; local table = _tl_compat and _tl_compat.table or table; local type = type
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 16 source.lua variable.other.lua
+T 18 source.lua
+T 20 source.lua keyword.control.lua
+T 22 source.lua
+T 30 source.lua support.function.lua
+T 32 source.lua
+T 40 source.lua constant.language.lua
+T 41 source.lua
+T 43 source.lua keyword.operator.logical.lua
+T 44 source.lua
+T 45 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 46 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 48 source.lua
+T 53 source.lua support.function.any-method.lua
+T 54 source.lua
+T 55 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 62 source.lua string.quoted.single.lua
+T 63 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 66 source.lua
+T 68 source.lua keyword.operator.logical.lua
+T 69 source.lua
+T 70 source.lua constant.numeric.float.lua
+T 72 source.lua
+T 73 source.lua keyword.operator.lua
+T 74 source.lua
+T 77 source.lua constant.numeric.float.lua
+T 78 source.lua
+T 82 source.lua keyword.control.lua
+T 83 source.lua
+T 88 source.lua keyword.local.lua
+T 89 source.lua
+T 90 source.lua variable.other.lua
+T 92 source.lua
+T 93 source.lua variable.other.lua
+T 94 source.lua
+T 95 source.lua keyword.operator.lua
+T 96 source.lua
+T 101 source.lua support.function.lua
+T 102 source.lua
+T 109 source.lua support.function.lua
+T 111 source.lua
+T 112 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 127 source.lua string.quoted.single.lua
+T 128 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 131 source.lua
+T 133 source.lua keyword.control.lua
+T 134 source.lua
+T 135 source.lua variable.other.lua
+T 136 source.lua
+T 140 source.lua keyword.control.lua
+T 141 source.lua
+T 151 source.lua variable.other.lua
+T 152 source.lua
+T 153 source.lua keyword.operator.lua
+T 154 source.lua
+T 155 source.lua variable.other.lua
+T 156 source.lua
+T 159 source.lua keyword.control.lua
+T 160 source.lua
+T 163 source.lua keyword.control.lua
+T 165 source.lua
+T 170 source.lua keyword.local.lua
+T 171 source.lua
+T 175 source.lua variable.other.lua
+T 176 source.lua
+T 177 source.lua keyword.operator.lua
+T 178 source.lua
+T 188 source.lua variable.other.lua
+T 189 source.lua
+T 192 source.lua keyword.operator.logical.lua
+T 193 source.lua
+T 203 source.lua variable.other.lua
+T 204 source.lua
+T 208 source.lua entity.other.attribute.lua
+T 209 source.lua
+T 211 source.lua keyword.operator.logical.lua
+T 212 source.lua
+T 216 source.lua variable.other.lua
+T 218 source.lua
+T 223 source.lua keyword.local.lua
+T 224 source.lua
+T 229 source.lua variable.other.lua
+T 230 source.lua
+T 231 source.lua keyword.operator.lua
+T 232 source.lua
+T 242 source.lua variable.other.lua
+T 243 source.lua
+T 246 source.lua keyword.operator.logical.lua
+T 247 source.lua
+T 257 source.lua variable.other.lua
+T 258 source.lua
+T 263 source.lua entity.other.attribute.lua
+T 264 source.lua
+T 266 source.lua keyword.operator.logical.lua
+T 267 source.lua
+T 272 source.lua support.function.lua
+T 274 source.lua
+T 279 source.lua keyword.local.lua
+T 280 source.lua
+T 286 source.lua variable.other.lua
+T 287 source.lua
+T 288 source.lua keyword.operator.lua
+T 289 source.lua
+T 299 source.lua variable.other.lua
+T 300 source.lua
+T 303 source.lua keyword.operator.logical.lua
+T 304 source.lua
+T 314 source.lua variable.other.lua
+T 315 source.lua
+T 321 source.lua entity.other.attribute.lua
+T 322 source.lua
+T 324 source.lua keyword.operator.logical.lua
+T 325 source.lua
+T 331 source.lua variable.other.lua
+T 333 source.lua
+T 338 source.lua keyword.local.lua
+T 339 source.lua
+T 344 source.lua variable.other.lua
+T 345 source.lua
+T 346 source.lua keyword.operator.lua
+T 347 source.lua
+T 357 source.lua variable.other.lua
+T 358 source.lua
+T 361 source.lua keyword.operator.logical.lua
+T 362 source.lua
+T 372 source.lua variable.other.lua
+T 373 source.lua
+T 378 source.lua entity.other.attribute.lua
+T 379 source.lua
+T 381 source.lua keyword.operator.logical.lua
+T 382 source.lua
+T 387 source.lua variable.other.lua
+T 389 source.lua
+T 394 source.lua keyword.local.lua
+T 395 source.lua
+T 399 source.lua variable.other.lua
+T 400 source.lua
+T 401 source.lua keyword.operator.lua
+T 402 source.lua
+T 406 source.lua support.function.lua
+L local inspect = { Options = {} }
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 18 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 27 source.lua keyword.operator.lua
+T 32 source.lua
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L inspect._VERSION = 'inspect.lua 3.1.0'
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 16 source.lua entity.other.attribute.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 37 source.lua string.quoted.single.lua
+T 38 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L inspect._URL = 'http://github.com/kikito/inspect.lua'
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 12 source.lua entity.other.attribute.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 16 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 52 source.lua string.quoted.single.lua
+T 53 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L inspect._DESCRIPTION = 'human-readable representations of tables'
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 20 source.lua entity.other.attribute.lua
+T 21 source.lua
+T 22 source.lua keyword.operator.lua
+T 23 source.lua
+T 24 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 64 source.lua string.quoted.single.lua
+T 65 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L inspect._LICENSE = [[
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 16 source.lua entity.other.attribute.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 21 source.lua string.quoted.other.multiline.lua punctuation.definition.string.begin.lua
+L   MIT LICENSE
+T 13 source.lua string.quoted.other.multiline.lua
+L 
+L   Copyright (c) 2022 Enrique García Cota
+T 41 source.lua string.quoted.other.multiline.lua
+L 
+L   Permission is hereby granted, free of charge, to any person obtaining a
+T 73 source.lua string.quoted.other.multiline.lua
+L   copy of this software and associated documentation files (the
+T 63 source.lua string.quoted.other.multiline.lua
+L   "Software"), to deal in the Software without restriction, including
+T 69 source.lua string.quoted.other.multiline.lua
+L   without limitation the rights to use, copy, modify, merge, publish,
+T 69 source.lua string.quoted.other.multiline.lua
+L   distribute, sublicense, and/or sell copies of the Software, and to
+T 68 source.lua string.quoted.other.multiline.lua
+L   permit persons to whom the Software is furnished to do so, subject to
+T 71 source.lua string.quoted.other.multiline.lua
+L   the following conditions:
+T 27 source.lua string.quoted.other.multiline.lua
+L 
+L   The above copyright notice and this permission notice shall be included
+T 73 source.lua string.quoted.other.multiline.lua
+L   in all copies or substantial portions of the Software.
+T 56 source.lua string.quoted.other.multiline.lua
+L 
+L   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+T 73 source.lua string.quoted.other.multiline.lua
+L   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+T 60 source.lua string.quoted.other.multiline.lua
+L   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+T 72 source.lua string.quoted.other.multiline.lua
+L   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+T 70 source.lua string.quoted.other.multiline.lua
+L   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+T 70 source.lua string.quoted.other.multiline.lua
+L   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+T 67 source.lua string.quoted.other.multiline.lua
+L   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+T 56 source.lua string.quoted.other.multiline.lua
+L ]]
+T 2 source.lua string.quoted.other.multiline.lua punctuation.definition.string.end.lua
+L inspect.KEY = setmetatable({}, { __tostring = function() return 'inspect.KEY' end })
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 11 source.lua entity.other.attribute.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 26 source.lua support.function.lua
+T 33 source.lua
+T 43 source.lua entity.name.function.lua
+T 44 source.lua
+T 45 source.lua keyword.operator.lua
+T 46 source.lua
+T 54 source.lua meta.function.lua keyword.control.lua
+T 55 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 56 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 57 source.lua
+T 63 source.lua keyword.control.lua
+T 64 source.lua
+T 65 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 76 source.lua string.quoted.single.lua
+T 78 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 81 source.lua keyword.control.lua
+T 84 source.lua
+L inspect.METATABLE = setmetatable({}, { __tostring = function() return 'inspect.METATABLE' end })
+T 7 source.lua variable.other.lua
+T 8 source.lua
+T 17 source.lua entity.other.attribute.lua
+T 18 source.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 32 source.lua support.function.lua
+T 39 source.lua
+T 49 source.lua entity.name.function.lua
+T 50 source.lua
+T 51 source.lua keyword.operator.lua
+T 52 source.lua
+T 60 source.lua meta.function.lua keyword.control.lua
+T 61 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 62 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 63 source.lua
+T 69 source.lua keyword.control.lua
+T 70 source.lua
+T 71 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 88 source.lua string.quoted.single.lua
+T 90 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 93 source.lua keyword.control.lua
+T 96 source.lua
+L 
+L local tostring = tostring
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 25 source.lua support.function.lua
+L local rep = string.rep
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 22 source.lua support.function.library.lua
+L local match = string.match
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 26 source.lua support.function.library.lua
+L local char = string.char
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 24 source.lua support.function.library.lua
+L local gsub = string.gsub
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 24 source.lua support.function.library.lua
+L local fmt = string.format
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 25 source.lua support.function.library.lua
+L 
+L 
+L local sbavailable, stringbuffer = pcall(require, "string.buffer")
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 31 source.lua variable.other.lua
+T 32 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 39 source.lua support.function.lua
+T 40 source.lua
+T 47 source.lua support.function.lua
+T 49 source.lua
+T 50 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 63 source.lua string.quoted.double.lua
+T 64 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 65 source.lua
+L local buffnew
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 13 source.lua variable.other.lua
+L local puts
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 10 source.lua variable.other.lua
+L local render
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 12 source.lua variable.other.lua
+L 
+L if sbavailable then
+T 2 source.lua keyword.control.lua
+T 3 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 19 source.lua keyword.control.lua
+L    buffnew = stringbuffer.new
+T 3 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 29 source.lua entity.other.attribute.lua
+L    puts = function(buf, str)
+T 3 source.lua
+T 7 source.lua entity.name.function.lua
+T 8 source.lua
+T 9 source.lua keyword.operator.lua
+T 10 source.lua
+T 18 source.lua meta.function.lua keyword.control.lua
+T 19 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 27 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 28 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       buf:put(str)
+T 6 source.lua
+T 9 source.lua entity.name.class.lua
+T 10 source.lua
+T 13 source.lua support.function.any-method.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    render = function(buf)
+T 3 source.lua
+T 9 source.lua entity.name.function.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 20 source.lua meta.function.lua keyword.control.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       return buf:get()
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 16 source.lua entity.name.class.lua
+T 17 source.lua
+T 20 source.lua support.function.any-method.lua
+T 22 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L else
+T 4 source.lua keyword.control.lua
+L    buffnew = function()
+T 3 source.lua
+T 10 source.lua entity.name.function.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 21 source.lua meta.function.lua keyword.control.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       return { n = 0 }
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 15 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 20 source.lua constant.numeric.float.lua
+T 22 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    puts = function(buf, str)
+T 3 source.lua
+T 7 source.lua entity.name.function.lua
+T 8 source.lua
+T 9 source.lua keyword.operator.lua
+T 10 source.lua
+T 18 source.lua meta.function.lua keyword.control.lua
+T 19 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 27 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 28 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       buf.n = buf.n + 1
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua entity.other.attribute.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 19 source.lua entity.other.attribute.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 23 source.lua constant.numeric.float.lua
+L       buf[buf.n] = str
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 15 source.lua entity.other.attribute.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 22 source.lua variable.other.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    render = function(buf)
+T 3 source.lua
+T 9 source.lua entity.name.function.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 20 source.lua meta.function.lua keyword.control.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       return table.concat(buf)
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 25 source.lua support.function.library.lua
+T 26 source.lua
+T 29 source.lua variable.other.lua
+T 30 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local _rawget
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 13 source.lua variable.other.lua
+L if rawget then
+T 2 source.lua keyword.control.lua
+T 3 source.lua
+T 9 source.lua support.function.lua
+T 10 source.lua
+T 14 source.lua keyword.control.lua
+L    _rawget = rawget
+T 3 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 19 source.lua support.function.lua
+L else
+T 4 source.lua keyword.control.lua
+L    _rawget = function(t, k) return t[k] end
+T 3 source.lua
+T 10 source.lua entity.name.function.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 21 source.lua meta.function.lua keyword.control.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 23 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 25 source.lua meta.function.lua meta.parameter.lua
+T 26 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 27 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 28 source.lua
+T 34 source.lua keyword.control.lua
+T 35 source.lua
+T 36 source.lua variable.other.lua
+T 37 source.lua
+T 38 source.lua variable.other.lua
+T 40 source.lua
+T 43 source.lua keyword.control.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function rawpairs(t)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 23 source.lua meta.function.lua entity.name.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    return next, t, nil
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 14 source.lua support.function.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 22 source.lua constant.language.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L 
+L 
+L local function smartQuote(str)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 25 source.lua meta.function.lua entity.name.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    if match(str, '"') and not match(str, "'") then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 11 source.lua support.function.any-method.lua
+T 12 source.lua
+T 15 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 19 source.lua string.quoted.single.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 22 source.lua
+T 25 source.lua keyword.operator.logical.lua
+T 26 source.lua
+T 29 source.lua keyword.operator.logical.lua
+T 30 source.lua
+T 35 source.lua support.function.any-method.lua
+T 36 source.lua
+T 39 source.lua variable.other.lua
+T 41 source.lua
+T 42 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 43 source.lua string.quoted.double.lua
+T 44 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 46 source.lua
+T 50 source.lua keyword.control.lua
+L       return "'" .. str .. "'"
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 14 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 15 source.lua string.quoted.double.lua
+T 17 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 23 source.lua variable.other.lua
+T 24 source.lua
+T 26 source.lua keyword.operator.lua
+T 27 source.lua
+T 28 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 29 source.lua string.quoted.double.lua
+T 30 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    return '"' .. gsub(str, '"', '\\"') .. '"'
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 11 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 12 source.lua string.quoted.single.lua
+T 14 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 21 source.lua support.function.any-method.lua
+T 22 source.lua
+T 25 source.lua variable.other.lua
+T 27 source.lua
+T 28 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 29 source.lua string.quoted.single.lua
+T 30 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 32 source.lua
+T 33 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 35 source.lua string.quoted.single.lua constant.character.escape.lua
+T 36 source.lua string.quoted.single.lua
+T 37 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 39 source.lua
+T 41 source.lua keyword.operator.lua
+T 42 source.lua
+T 43 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 44 source.lua string.quoted.single.lua
+T 45 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L 
+L local shortControlCharEscapes = {
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 29 source.lua variable.other.lua
+T 30 source.lua
+T 31 source.lua keyword.operator.lua
+T 33 source.lua
+L    ["\a"] = "\\a", ["\b"] = "\\b", ["\f"] = "\\f", ["\n"] = "\\n",
+T 4 source.lua
+T 5 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 7 source.lua string.quoted.double.lua constant.character.escape.lua
+T 8 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 13 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 15 source.lua string.quoted.double.lua constant.character.escape.lua
+T 16 source.lua string.quoted.double.lua
+T 17 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 20 source.lua
+T 21 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 23 source.lua string.quoted.double.lua constant.character.escape.lua
+T 24 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 26 source.lua
+T 27 source.lua keyword.operator.lua
+T 28 source.lua
+T 29 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 31 source.lua string.quoted.double.lua constant.character.escape.lua
+T 32 source.lua string.quoted.double.lua
+T 33 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 36 source.lua
+T 37 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 39 source.lua string.quoted.double.lua constant.character.escape.lua
+T 40 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 42 source.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 45 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 47 source.lua string.quoted.double.lua constant.character.escape.lua
+T 48 source.lua string.quoted.double.lua
+T 49 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 52 source.lua
+T 53 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 55 source.lua string.quoted.double.lua constant.character.escape.lua
+T 56 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 58 source.lua
+T 59 source.lua keyword.operator.lua
+T 60 source.lua
+T 61 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 63 source.lua string.quoted.double.lua constant.character.escape.lua
+T 64 source.lua string.quoted.double.lua
+T 65 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 66 source.lua
+L    ["\r"] = "\\r", ["\t"] = "\\t", ["\v"] = "\\v", ["\127"] = "\\127",
+T 4 source.lua
+T 5 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 7 source.lua string.quoted.double.lua constant.character.escape.lua
+T 8 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 13 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 15 source.lua string.quoted.double.lua constant.character.escape.lua
+T 16 source.lua string.quoted.double.lua
+T 17 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 20 source.lua
+T 21 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 23 source.lua string.quoted.double.lua constant.character.escape.lua
+T 24 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 26 source.lua
+T 27 source.lua keyword.operator.lua
+T 28 source.lua
+T 29 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 31 source.lua string.quoted.double.lua constant.character.escape.lua
+T 32 source.lua string.quoted.double.lua
+T 33 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 36 source.lua
+T 37 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 39 source.lua string.quoted.double.lua constant.character.escape.lua
+T 40 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 42 source.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 45 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 47 source.lua string.quoted.double.lua constant.character.escape.lua
+T 48 source.lua string.quoted.double.lua
+T 49 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 52 source.lua
+T 53 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 57 source.lua string.quoted.double.lua constant.character.escape.byte.lua
+T 58 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 60 source.lua
+T 61 source.lua keyword.operator.lua
+T 62 source.lua
+T 63 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 65 source.lua string.quoted.double.lua constant.character.escape.lua
+T 68 source.lua string.quoted.double.lua
+T 69 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 70 source.lua
+L }
+T 1 source.lua
+L local longControlCharEscapes = { ["\127"] = "\127" }
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 28 source.lua variable.other.lua
+T 29 source.lua
+T 30 source.lua keyword.operator.lua
+T 34 source.lua
+T 35 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 39 source.lua string.quoted.double.lua constant.character.escape.byte.lua
+T 40 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 42 source.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 45 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 49 source.lua string.quoted.double.lua constant.character.escape.byte.lua
+T 51 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 52 source.lua
+L for i = 0, 31 do
+T 3 source.lua keyword.control.lua
+T 4 source.lua
+T 5 source.lua variable.other.lua
+T 6 source.lua
+T 7 source.lua keyword.operator.lua
+T 8 source.lua
+T 9 source.lua constant.numeric.float.lua
+T 11 source.lua
+T 13 source.lua constant.numeric.float.lua
+T 14 source.lua
+T 16 source.lua keyword.control.lua
+L    local ch = char(i)
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 18 source.lua support.function.any-method.lua
+T 19 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+L    if not shortControlCharEscapes[ch] then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 9 source.lua keyword.operator.logical.lua
+T 10 source.lua
+T 33 source.lua variable.other.lua
+T 34 source.lua
+T 36 source.lua variable.other.lua
+T 38 source.lua
+T 42 source.lua keyword.control.lua
+L       shortControlCharEscapes[ch] = "\\" .. i
+T 6 source.lua
+T 29 source.lua variable.other.lua
+T 30 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+T 35 source.lua keyword.operator.lua
+T 36 source.lua
+T 37 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 39 source.lua string.quoted.double.lua constant.character.escape.lua
+T 41 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 45 source.lua variable.other.lua
+L       longControlCharEscapes[ch] = fmt("\\%03d", i)
+T 6 source.lua
+T 28 source.lua variable.other.lua
+T 29 source.lua
+T 31 source.lua variable.other.lua
+T 33 source.lua
+T 34 source.lua keyword.operator.lua
+T 35 source.lua
+T 38 source.lua support.function.any-method.lua
+T 39 source.lua
+T 40 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 42 source.lua string.quoted.double.lua constant.character.escape.lua
+T 46 source.lua string.quoted.double.lua
+T 47 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 49 source.lua
+T 50 source.lua variable.other.lua
+T 51 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function escape(str)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 21 source.lua meta.function.lua entity.name.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    return (gsub(gsub(gsub(str, "\\", "\\\\"),
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 11 source.lua
+T 15 source.lua support.function.any-method.lua
+T 16 source.lua
+T 20 source.lua support.function.any-method.lua
+T 21 source.lua
+T 25 source.lua support.function.any-method.lua
+T 26 source.lua
+T 29 source.lua variable.other.lua
+T 31 source.lua
+T 32 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 34 source.lua string.quoted.double.lua constant.character.escape.lua
+T 35 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 37 source.lua
+T 38 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 40 source.lua string.quoted.double.lua constant.character.escape.lua
+T 42 source.lua string.quoted.double.lua constant.character.escape.lua
+T 43 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 45 source.lua
+L    "(%c)%f[0-9]", longControlCharEscapes),
+T 3 source.lua
+T 4 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 15 source.lua string.quoted.double.lua
+T 16 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 18 source.lua
+T 40 source.lua variable.other.lua
+T 42 source.lua
+L    "%c", shortControlCharEscapes))
+T 3 source.lua
+T 4 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 6 source.lua string.quoted.double.lua
+T 7 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 9 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local luaKeywords = {}
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 19 source.lua keyword.operator.lua
+T 22 source.lua
+L for k in ([[ and break do else elseif end false for function goto if
+T 3 source.lua keyword.control.lua
+T 4 source.lua
+T 5 source.lua variable.other.lua
+T 6 source.lua
+T 8 source.lua keyword.control.lua
+T 10 source.lua
+T 12 source.lua string.quoted.other.multiline.lua punctuation.definition.string.begin.lua
+T 68 source.lua string.quoted.other.multiline.lua
+L              in local nil not or repeat return then true until while
+T 68 source.lua string.quoted.other.multiline.lua
+L ]]):gmatch('%w+') do
+T 2 source.lua string.quoted.other.multiline.lua punctuation.definition.string.end.lua
+T 4 source.lua
+T 10 source.lua support.function.any-method.lua
+T 11 source.lua
+T 12 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 15 source.lua string.quoted.single.lua
+T 16 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 18 source.lua
+T 20 source.lua keyword.control.lua
+L    luaKeywords[k] = true
+T 3 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua variable.other.lua
+T 18 source.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 24 source.lua constant.language.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function isIdentifier(str)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 27 source.lua meta.function.lua entity.name.function.lua
+T 28 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 31 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    return type(str) == "string" and
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 14 source.lua support.function.lua
+T 15 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 22 source.lua keyword.operator.lua
+T 23 source.lua
+T 24 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 30 source.lua string.quoted.double.lua
+T 32 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 35 source.lua keyword.operator.logical.lua
+L    not not str:match("^[_%a][_%a%d]*$") and
+T 3 source.lua
+T 6 source.lua keyword.operator.logical.lua
+T 7 source.lua
+T 10 source.lua keyword.operator.logical.lua
+T 11 source.lua
+T 14 source.lua entity.name.class.lua
+T 15 source.lua
+T 20 source.lua support.function.any-method.lua
+T 21 source.lua
+T 22 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 37 source.lua string.quoted.double.lua
+T 38 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 40 source.lua
+T 43 source.lua keyword.operator.logical.lua
+L    not luaKeywords[str]
+T 3 source.lua
+T 6 source.lua keyword.operator.logical.lua
+T 7 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+T 22 source.lua variable.other.lua
+T 23 source.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local flr = math.floor
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 22 source.lua support.function.library.lua
+L local function isSequenceKey(k, sequenceLength)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 28 source.lua meta.function.lua entity.name.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 30 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 31 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 32 source.lua meta.function.lua meta.parameter.lua
+T 46 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 47 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    return type(k) == "number" and
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 14 source.lua support.function.lua
+T 15 source.lua
+T 16 source.lua variable.other.lua
+T 18 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 22 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 28 source.lua string.quoted.double.lua
+T 30 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 33 source.lua keyword.operator.logical.lua
+L    flr(k) == k and
+T 3 source.lua
+T 6 source.lua support.function.any-method.lua
+T 7 source.lua
+T 8 source.lua variable.other.lua
+T 10 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 18 source.lua keyword.operator.logical.lua
+L    1 <= (k) and
+T 3 source.lua
+T 4 source.lua constant.numeric.float.lua
+T 5 source.lua
+T 7 source.lua keyword.operator.lua
+T 9 source.lua
+T 10 source.lua variable.other.lua
+T 12 source.lua
+T 15 source.lua keyword.operator.logical.lua
+L    k <= sequenceLength
+T 3 source.lua
+T 4 source.lua variable.other.lua
+T 5 source.lua
+T 7 source.lua keyword.operator.lua
+T 8 source.lua
+T 22 source.lua variable.other.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local defaultTypeOrders = {
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 23 source.lua variable.other.lua
+T 24 source.lua
+T 25 source.lua keyword.operator.lua
+T 27 source.lua
+L    ['number'] = 1, ['boolean'] = 2, ['string'] = 3, ['table'] = 4,
+T 4 source.lua
+T 5 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 11 source.lua string.quoted.single.lua
+T 12 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 17 source.lua constant.numeric.float.lua
+T 20 source.lua
+T 21 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 28 source.lua string.quoted.single.lua
+T 29 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 31 source.lua
+T 32 source.lua keyword.operator.lua
+T 33 source.lua
+T 34 source.lua constant.numeric.float.lua
+T 37 source.lua
+T 38 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 44 source.lua string.quoted.single.lua
+T 45 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 47 source.lua
+T 48 source.lua keyword.operator.lua
+T 49 source.lua
+T 50 source.lua constant.numeric.float.lua
+T 53 source.lua
+T 54 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 59 source.lua string.quoted.single.lua
+T 60 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 62 source.lua
+T 63 source.lua keyword.operator.lua
+T 64 source.lua
+T 65 source.lua constant.numeric.float.lua
+T 66 source.lua
+L    ['function'] = 5, ['userdata'] = 6, ['thread'] = 7,
+T 4 source.lua
+T 5 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 13 source.lua string.quoted.single.lua
+T 14 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 19 source.lua constant.numeric.float.lua
+T 22 source.lua
+T 23 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 31 source.lua string.quoted.single.lua
+T 32 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 34 source.lua
+T 35 source.lua keyword.operator.lua
+T 36 source.lua
+T 37 source.lua constant.numeric.float.lua
+T 40 source.lua
+T 41 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 47 source.lua string.quoted.single.lua
+T 48 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 50 source.lua
+T 51 source.lua keyword.operator.lua
+T 52 source.lua
+T 53 source.lua constant.numeric.float.lua
+T 54 source.lua
+L }
+T 1 source.lua
+L 
+L local function sortKeys(a, b)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 23 source.lua meta.function.lua entity.name.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 25 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 26 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 27 source.lua meta.function.lua meta.parameter.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    local ta, tb = type(a), type(b)
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 11 source.lua variable.other.lua
+T 13 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 22 source.lua support.function.lua
+T 23 source.lua
+T 24 source.lua variable.other.lua
+T 27 source.lua
+T 31 source.lua support.function.lua
+T 32 source.lua
+T 33 source.lua variable.other.lua
+T 34 source.lua
+L 
+L 
+L    if ta == tb and (ta == 'string' or ta == 'number') then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 18 source.lua keyword.operator.logical.lua
+T 20 source.lua
+T 22 source.lua variable.other.lua
+T 23 source.lua
+T 25 source.lua keyword.operator.lua
+T 26 source.lua
+T 27 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 33 source.lua string.quoted.single.lua
+T 35 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 37 source.lua keyword.operator.logical.lua
+T 38 source.lua
+T 40 source.lua variable.other.lua
+T 41 source.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 45 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 51 source.lua string.quoted.single.lua
+T 52 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 54 source.lua
+T 58 source.lua keyword.control.lua
+L       return (a) < (b)
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 14 source.lua
+T 15 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 20 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L 
+L    local dta = defaultTypeOrders[ta] or 100
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 32 source.lua variable.other.lua
+T 33 source.lua
+T 35 source.lua variable.other.lua
+T 37 source.lua
+T 39 source.lua keyword.operator.logical.lua
+T 40 source.lua
+T 43 source.lua constant.numeric.float.lua
+L    local dtb = defaultTypeOrders[tb] or 100
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 32 source.lua variable.other.lua
+T 33 source.lua
+T 35 source.lua variable.other.lua
+T 37 source.lua
+T 39 source.lua keyword.operator.logical.lua
+T 40 source.lua
+T 43 source.lua constant.numeric.float.lua
+L 
+L 
+L    return dta == dtb and ta < tb or dta < dtb
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+T 24 source.lua keyword.operator.logical.lua
+T 25 source.lua
+T 27 source.lua variable.other.lua
+T 28 source.lua
+T 29 source.lua keyword.operator.lua
+T 30 source.lua
+T 32 source.lua variable.other.lua
+T 33 source.lua
+T 35 source.lua keyword.operator.logical.lua
+T 36 source.lua
+T 39 source.lua variable.other.lua
+T 40 source.lua
+T 41 source.lua keyword.operator.lua
+T 42 source.lua
+T 45 source.lua variable.other.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function getKeys(t)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 22 source.lua meta.function.lua entity.name.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L 
+L    local seqLen = 1
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 19 source.lua constant.numeric.float.lua
+L    while _rawget(t, seqLen) ~= nil do
+T 3 source.lua
+T 8 source.lua keyword.control.lua
+T 9 source.lua
+T 16 source.lua support.function.any-method.lua
+T 17 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+T 30 source.lua keyword.operator.lua
+T 31 source.lua
+T 34 source.lua constant.language.lua
+T 35 source.lua
+T 37 source.lua keyword.control.lua
+L       seqLen = seqLen + 1
+T 6 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua keyword.operator.lua
+T 24 source.lua
+T 25 source.lua constant.numeric.float.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    seqLen = seqLen - 1
+T 3 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 22 source.lua constant.numeric.float.lua
+L 
+L    local keys, keysLen = {}, 0
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 13 source.lua variable.other.lua
+T 15 source.lua
+T 22 source.lua variable.other.lua
+T 23 source.lua
+T 24 source.lua keyword.operator.lua
+T 29 source.lua
+T 30 source.lua constant.numeric.float.lua
+L    for k in rawpairs(t) do
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+T 7 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 20 source.lua support.function.any-method.lua
+T 21 source.lua
+T 22 source.lua variable.other.lua
+T 24 source.lua
+T 26 source.lua keyword.control.lua
+L       if not isSequenceKey(k, seqLen) then
+T 6 source.lua
+T 8 source.lua keyword.control.lua
+T 9 source.lua
+T 12 source.lua keyword.operator.logical.lua
+T 13 source.lua
+T 26 source.lua support.function.any-method.lua
+T 27 source.lua
+T 28 source.lua variable.other.lua
+T 30 source.lua
+T 36 source.lua variable.other.lua
+T 38 source.lua
+T 42 source.lua keyword.control.lua
+L          keysLen = keysLen + 1
+T 9 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 28 source.lua keyword.operator.lua
+T 29 source.lua
+T 30 source.lua constant.numeric.float.lua
+L          keys[keysLen] = k
+T 9 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 21 source.lua variable.other.lua
+T 23 source.lua
+T 24 source.lua keyword.operator.lua
+T 25 source.lua
+T 26 source.lua variable.other.lua
+L       end
+T 6 source.lua
+T 9 source.lua keyword.control.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    table.sort(keys, sortKeys)
+T 3 source.lua
+T 13 source.lua support.function.library.lua
+T 14 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 28 source.lua variable.other.lua
+T 29 source.lua
+L    return keys, keysLen, seqLen
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 14 source.lua variable.other.lua
+T 16 source.lua
+T 23 source.lua variable.other.lua
+T 25 source.lua
+T 31 source.lua variable.other.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function countCycles(x, cycles, depth)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 26 source.lua meta.function.lua entity.name.function.lua
+T 27 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 36 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 37 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 38 source.lua meta.function.lua meta.parameter.lua
+T 43 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 44 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    if type(x) == "table" then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 10 source.lua support.function.lua
+T 11 source.lua
+T 12 source.lua variable.other.lua
+T 14 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 18 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 23 source.lua string.quoted.double.lua
+T 25 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 29 source.lua keyword.control.lua
+L       if cycles[x] then
+T 6 source.lua
+T 8 source.lua keyword.control.lua
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 23 source.lua keyword.control.lua
+L          cycles[x] = cycles[x] + 1
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 27 source.lua variable.other.lua
+T 28 source.lua
+T 29 source.lua variable.other.lua
+T 31 source.lua
+T 32 source.lua keyword.operator.lua
+T 33 source.lua
+T 34 source.lua constant.numeric.float.lua
+L       else
+T 6 source.lua
+T 10 source.lua keyword.control.lua
+L          cycles[x] = 1
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 22 source.lua constant.numeric.float.lua
+L          if depth > 0 then
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 21 source.lua constant.numeric.float.lua
+T 22 source.lua
+T 26 source.lua keyword.control.lua
+L             for k, v in rawpairs(x) do
+T 12 source.lua
+T 15 source.lua keyword.control.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+T 23 source.lua keyword.control.lua
+T 24 source.lua
+T 32 source.lua support.function.any-method.lua
+T 33 source.lua
+T 34 source.lua variable.other.lua
+T 36 source.lua
+T 38 source.lua keyword.control.lua
+L                countCycles(k, cycles, depth - 1)
+T 15 source.lua
+T 26 source.lua support.function.any-method.lua
+T 27 source.lua
+T 28 source.lua variable.other.lua
+T 30 source.lua
+T 36 source.lua variable.other.lua
+T 38 source.lua
+T 43 source.lua variable.other.lua
+T 44 source.lua
+T 45 source.lua keyword.operator.lua
+T 46 source.lua
+T 47 source.lua constant.numeric.float.lua
+T 48 source.lua
+L                countCycles(v, cycles, depth - 1)
+T 15 source.lua
+T 26 source.lua support.function.any-method.lua
+T 27 source.lua
+T 28 source.lua variable.other.lua
+T 30 source.lua
+T 36 source.lua variable.other.lua
+T 38 source.lua
+T 43 source.lua variable.other.lua
+T 44 source.lua
+T 45 source.lua keyword.operator.lua
+T 46 source.lua
+T 47 source.lua constant.numeric.float.lua
+T 48 source.lua
+L             end
+T 12 source.lua
+T 15 source.lua keyword.control.lua
+L             countCycles(getmetatable(x), cycles, depth - 1)
+T 12 source.lua
+T 23 source.lua support.function.any-method.lua
+T 24 source.lua
+T 36 source.lua support.function.lua
+T 37 source.lua
+T 38 source.lua variable.other.lua
+T 41 source.lua
+T 47 source.lua variable.other.lua
+T 49 source.lua
+T 54 source.lua variable.other.lua
+T 55 source.lua
+T 56 source.lua keyword.operator.lua
+T 57 source.lua
+T 58 source.lua constant.numeric.float.lua
+T 59 source.lua
+L          end
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+L       end
+T 6 source.lua
+T 9 source.lua keyword.control.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L local function makePath(path, a, b)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 23 source.lua meta.function.lua entity.name.function.lua
+T 24 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 31 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 33 source.lua meta.function.lua meta.parameter.lua
+T 34 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 35 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    local newPath = {}
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 21 source.lua
+L    local len = #path
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 20 source.lua variable.other.lua
+L    for i = 1, len do newPath[i] = path[i] end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+T 7 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 10 source.lua keyword.operator.lua
+T 11 source.lua
+T 12 source.lua constant.numeric.float.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 20 source.lua keyword.control.lua
+T 21 source.lua
+T 28 source.lua variable.other.lua
+T 29 source.lua
+T 30 source.lua variable.other.lua
+T 32 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 38 source.lua variable.other.lua
+T 39 source.lua
+T 40 source.lua variable.other.lua
+T 42 source.lua
+T 45 source.lua keyword.control.lua
+L 
+L    newPath[len + 1] = a
+T 3 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 18 source.lua constant.numeric.float.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 23 source.lua variable.other.lua
+L    newPath[len + 2] = b
+T 3 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 18 source.lua constant.numeric.float.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 23 source.lua variable.other.lua
+L 
+L    return newPath
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 17 source.lua variable.other.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L 
+L local function processRecursive(process,
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 31 source.lua meta.function.lua entity.name.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 39 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 40 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+L    item,
+T 3 source.lua meta.function.lua meta.parameter.lua
+T 7 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 8 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+L    path,
+T 3 source.lua meta.function.lua meta.parameter.lua
+T 7 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 8 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+L    visited)
+T 3 source.lua meta.function.lua meta.parameter.lua
+T 10 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 11 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    if item == nil then return nil end
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 17 source.lua constant.language.lua
+T 18 source.lua
+T 22 source.lua keyword.control.lua
+T 23 source.lua
+T 29 source.lua keyword.control.lua
+T 30 source.lua
+T 33 source.lua constant.language.lua
+T 34 source.lua
+T 37 source.lua keyword.control.lua
+L    if visited[item] then return visited[item] end
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 24 source.lua keyword.control.lua
+T 25 source.lua
+T 31 source.lua keyword.control.lua
+T 32 source.lua
+T 39 source.lua variable.other.lua
+T 40 source.lua
+T 44 source.lua variable.other.lua
+T 46 source.lua
+T 49 source.lua keyword.control.lua
+L 
+L    local processed = process(item, path)
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 28 source.lua support.function.any-method.lua
+T 29 source.lua
+T 33 source.lua variable.other.lua
+T 35 source.lua
+T 39 source.lua variable.other.lua
+T 40 source.lua
+L    if type(processed) == "table" then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 10 source.lua support.function.lua
+T 11 source.lua
+T 20 source.lua variable.other.lua
+T 22 source.lua
+T 24 source.lua keyword.operator.lua
+T 25 source.lua
+T 26 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 31 source.lua string.quoted.double.lua
+T 33 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 37 source.lua keyword.control.lua
+L       local processedCopy = {}
+T 6 source.lua
+T 11 source.lua keyword.local.lua
+T 12 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 27 source.lua keyword.operator.lua
+T 30 source.lua
+L       visited[item] = processedCopy
+T 6 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 35 source.lua variable.other.lua
+L       local processedKey
+T 6 source.lua
+T 11 source.lua keyword.local.lua
+T 12 source.lua
+T 24 source.lua variable.other.lua
+L 
+L       for k, v in rawpairs(processed) do
+T 6 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 11 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 17 source.lua keyword.control.lua
+T 18 source.lua
+T 26 source.lua support.function.any-method.lua
+T 27 source.lua
+T 36 source.lua variable.other.lua
+T 38 source.lua
+T 40 source.lua keyword.control.lua
+L          processedKey = processRecursive(process, k, makePath(path, k, inspect.KEY), visited)
+T 9 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua keyword.operator.lua
+T 24 source.lua
+T 40 source.lua support.function.any-method.lua
+T 41 source.lua
+T 48 source.lua variable.other.lua
+T 50 source.lua
+T 51 source.lua variable.other.lua
+T 53 source.lua
+T 61 source.lua support.function.any-method.lua
+T 62 source.lua
+T 66 source.lua variable.other.lua
+T 68 source.lua
+T 69 source.lua variable.other.lua
+T 71 source.lua
+T 78 source.lua variable.other.lua
+T 79 source.lua
+T 82 source.lua entity.other.attribute.lua
+T 85 source.lua
+T 92 source.lua variable.other.lua
+T 93 source.lua
+L          if processedKey ~= nil then
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 24 source.lua variable.other.lua
+T 25 source.lua
+T 27 source.lua keyword.operator.lua
+T 28 source.lua
+T 31 source.lua constant.language.lua
+T 32 source.lua
+T 36 source.lua keyword.control.lua
+L             processedCopy[processedKey] = processRecursive(process, v, makePath(path, processedKey), visited)
+T 12 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 38 source.lua variable.other.lua
+T 40 source.lua
+T 41 source.lua keyword.operator.lua
+T 42 source.lua
+T 58 source.lua support.function.any-method.lua
+T 59 source.lua
+T 66 source.lua variable.other.lua
+T 68 source.lua
+T 69 source.lua variable.other.lua
+T 71 source.lua
+T 79 source.lua support.function.any-method.lua
+T 80 source.lua
+T 84 source.lua variable.other.lua
+T 86 source.lua
+T 98 source.lua variable.other.lua
+T 101 source.lua
+T 108 source.lua variable.other.lua
+T 109 source.lua
+L          end
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+L       end
+T 6 source.lua
+T 9 source.lua keyword.control.lua
+L 
+L       local mt = processRecursive(process, getmetatable(processed), makePath(path, inspect.METATABLE), visited)
+T 6 source.lua
+T 11 source.lua keyword.local.lua
+T 12 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 33 source.lua support.function.any-method.lua
+T 34 source.lua
+T 41 source.lua variable.other.lua
+T 43 source.lua
+T 55 source.lua support.function.lua
+T 56 source.lua
+T 65 source.lua variable.other.lua
+T 68 source.lua
+T 76 source.lua support.function.any-method.lua
+T 77 source.lua
+T 81 source.lua variable.other.lua
+T 83 source.lua
+T 90 source.lua variable.other.lua
+T 91 source.lua
+T 100 source.lua entity.other.attribute.lua
+T 103 source.lua
+T 110 source.lua variable.other.lua
+T 111 source.lua
+L       if type(mt) ~= 'table' then mt = nil end
+T 6 source.lua
+T 8 source.lua keyword.control.lua
+T 9 source.lua
+T 13 source.lua support.function.lua
+T 14 source.lua
+T 16 source.lua variable.other.lua
+T 18 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 22 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 27 source.lua string.quoted.single.lua
+T 29 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 33 source.lua keyword.control.lua
+T 34 source.lua
+T 36 source.lua variable.other.lua
+T 37 source.lua
+T 38 source.lua keyword.operator.lua
+T 39 source.lua
+T 42 source.lua constant.language.lua
+T 43 source.lua
+T 46 source.lua keyword.control.lua
+L       setmetatable(processedCopy, mt)
+T 6 source.lua
+T 18 source.lua support.function.lua
+T 19 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+T 36 source.lua variable.other.lua
+T 37 source.lua
+L       processed = processedCopy
+T 6 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 31 source.lua variable.other.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    return processed
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 19 source.lua variable.other.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L 
+L 
+L local Inspector = {}
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 20 source.lua
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L 
+L local Inspector_mt = { __index = Inspector }
+T 5 source.lua keyword.local.lua
+T 6 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 23 source.lua
+T 30 source.lua variable.other.lua
+T 31 source.lua
+T 32 source.lua keyword.operator.lua
+T 33 source.lua
+T 42 source.lua variable.other.lua
+T 44 source.lua
+L 
+L local function tabify(inspector)
+T 5 source.lua meta.function.lua keyword.local.lua
+T 6 source.lua meta.function.lua
+T 14 source.lua meta.function.lua keyword.control.lua
+T 15 source.lua meta.function.lua
+T 21 source.lua meta.function.lua entity.name.function.lua
+T 22 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 31 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 32 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    puts(inspector.buf, inspector.newline .. rep(inspector.indent, inspector.level))
+T 3 source.lua
+T 7 source.lua support.function.any-method.lua
+T 8 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 21 source.lua entity.other.attribute.lua
+T 23 source.lua
+T 32 source.lua variable.other.lua
+T 33 source.lua
+T 40 source.lua entity.other.attribute.lua
+T 41 source.lua
+T 43 source.lua keyword.operator.lua
+T 44 source.lua
+T 47 source.lua support.function.any-method.lua
+T 48 source.lua
+T 57 source.lua variable.other.lua
+T 58 source.lua
+T 64 source.lua entity.other.attribute.lua
+T 66 source.lua
+T 75 source.lua variable.other.lua
+T 76 source.lua
+T 81 source.lua entity.other.attribute.lua
+T 83 source.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L function Inspector:getId(v)
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 18 source.lua meta.function.lua entity.name.class.lua
+T 19 source.lua meta.function.lua
+T 24 source.lua meta.function.lua entity.name.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 26 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 27 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    local id = self.ids[v]
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 18 source.lua variable.language.self.lua
+T 19 source.lua
+T 22 source.lua entity.other.attribute.lua
+T 23 source.lua
+T 24 source.lua variable.other.lua
+T 25 source.lua
+L    local ids = self.ids
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 19 source.lua variable.language.self.lua
+T 20 source.lua
+T 23 source.lua entity.other.attribute.lua
+L    if not id then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 9 source.lua keyword.operator.logical.lua
+T 10 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 17 source.lua keyword.control.lua
+L       local tv = type(v)
+T 6 source.lua
+T 11 source.lua keyword.local.lua
+T 12 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 21 source.lua support.function.lua
+T 22 source.lua
+T 23 source.lua variable.other.lua
+T 24 source.lua
+L       id = (ids[tv] or 0) + 1
+T 6 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 10 source.lua keyword.operator.lua
+T 12 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 18 source.lua variable.other.lua
+T 20 source.lua
+T 22 source.lua keyword.operator.logical.lua
+T 23 source.lua
+T 24 source.lua constant.numeric.float.lua
+T 26 source.lua
+T 27 source.lua keyword.operator.lua
+T 28 source.lua
+T 29 source.lua constant.numeric.float.lua
+L       ids[v], ids[tv] = id, id
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua variable.other.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 20 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua keyword.operator.lua
+T 24 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+T 30 source.lua variable.other.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L    return tostring(id)
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 18 source.lua support.function.lua
+T 19 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L function Inspector:putValue(v)
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 18 source.lua meta.function.lua entity.name.class.lua
+T 19 source.lua meta.function.lua
+T 27 source.lua meta.function.lua entity.name.function.lua
+T 28 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    local buf = self.buf
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 19 source.lua variable.language.self.lua
+T 20 source.lua
+T 23 source.lua entity.other.attribute.lua
+L    local tv = type(v)
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 18 source.lua support.function.lua
+T 19 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+L    if tv == 'string' then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 13 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 19 source.lua string.quoted.single.lua
+T 21 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 25 source.lua keyword.control.lua
+L       puts(buf, smartQuote(escape(v)))
+T 6 source.lua
+T 10 source.lua support.function.any-method.lua
+T 11 source.lua
+T 14 source.lua variable.other.lua
+T 16 source.lua
+T 26 source.lua support.function.any-method.lua
+T 27 source.lua
+T 33 source.lua support.function.any-method.lua
+T 34 source.lua
+T 35 source.lua variable.other.lua
+T 38 source.lua
+L    elseif tv == 'number' or tv == 'boolean' or tv == 'nil' or
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 17 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 23 source.lua string.quoted.single.lua
+T 25 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 27 source.lua keyword.operator.logical.lua
+T 28 source.lua
+T 30 source.lua variable.other.lua
+T 31 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 35 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 42 source.lua string.quoted.single.lua
+T 44 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 46 source.lua keyword.operator.logical.lua
+T 47 source.lua
+T 49 source.lua variable.other.lua
+T 50 source.lua
+T 52 source.lua keyword.operator.lua
+T 53 source.lua
+T 54 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 57 source.lua string.quoted.single.lua
+T 59 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 61 source.lua keyword.operator.logical.lua
+L       tv == 'cdata' or tv == 'ctype' then
+T 6 source.lua
+T 8 source.lua variable.other.lua
+T 9 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 13 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 18 source.lua string.quoted.single.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 22 source.lua keyword.operator.logical.lua
+T 23 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 28 source.lua keyword.operator.lua
+T 29 source.lua
+T 30 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 35 source.lua string.quoted.single.lua
+T 37 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 41 source.lua keyword.control.lua
+L       puts(buf, tostring(v))
+T 6 source.lua
+T 10 source.lua support.function.any-method.lua
+T 11 source.lua
+T 14 source.lua variable.other.lua
+T 16 source.lua
+T 24 source.lua support.function.lua
+T 25 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+L    elseif tv == 'table' and not self.ids[v] then
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 17 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 22 source.lua string.quoted.single.lua
+T 24 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 27 source.lua keyword.operator.logical.lua
+T 28 source.lua
+T 31 source.lua keyword.operator.logical.lua
+T 32 source.lua
+T 36 source.lua variable.language.self.lua
+T 37 source.lua
+T 40 source.lua entity.other.attribute.lua
+T 41 source.lua
+T 42 source.lua variable.other.lua
+T 44 source.lua
+T 48 source.lua keyword.control.lua
+L       local t = v
+T 6 source.lua
+T 11 source.lua keyword.local.lua
+T 12 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 17 source.lua variable.other.lua
+L 
+L       if t == inspect.KEY or t == inspect.METATABLE then
+T 6 source.lua
+T 8 source.lua keyword.control.lua
+T 9 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+T 25 source.lua entity.other.attribute.lua
+T 26 source.lua
+T 28 source.lua keyword.operator.logical.lua
+T 29 source.lua
+T 30 source.lua variable.other.lua
+T 31 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 41 source.lua variable.other.lua
+T 42 source.lua
+T 51 source.lua entity.other.attribute.lua
+T 52 source.lua
+T 56 source.lua keyword.control.lua
+L          puts(buf, tostring(t))
+T 9 source.lua
+T 13 source.lua support.function.any-method.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 27 source.lua support.function.lua
+T 28 source.lua
+T 29 source.lua variable.other.lua
+T 31 source.lua
+L       elseif self.level >= self.depth then
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 17 source.lua variable.language.self.lua
+T 18 source.lua
+T 23 source.lua entity.other.attribute.lua
+T 24 source.lua
+T 26 source.lua keyword.operator.lua
+T 27 source.lua
+T 31 source.lua variable.language.self.lua
+T 32 source.lua
+T 37 source.lua entity.other.attribute.lua
+T 38 source.lua
+T 42 source.lua keyword.control.lua
+L          puts(buf, '{...}')
+T 9 source.lua
+T 13 source.lua support.function.any-method.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 25 source.lua string.quoted.single.lua
+T 26 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 27 source.lua
+L       else
+T 6 source.lua
+T 10 source.lua keyword.control.lua
+L          if self.cycles[t] > 1 then puts(buf, fmt('<%d>', self:getId(t))) end
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 16 source.lua variable.language.self.lua
+T 17 source.lua
+T 23 source.lua entity.other.attribute.lua
+T 24 source.lua
+T 25 source.lua variable.other.lua
+T 27 source.lua
+T 28 source.lua keyword.operator.lua
+T 29 source.lua
+T 30 source.lua constant.numeric.float.lua
+T 31 source.lua
+T 35 source.lua keyword.control.lua
+T 36 source.lua
+T 40 source.lua support.function.any-method.lua
+T 41 source.lua
+T 44 source.lua variable.other.lua
+T 46 source.lua
+T 49 source.lua support.function.any-method.lua
+T 50 source.lua
+T 51 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 55 source.lua string.quoted.single.lua
+T 56 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 58 source.lua
+T 62 source.lua variable.language.self.lua
+T 63 source.lua
+T 68 source.lua support.function.any-method.lua
+T 69 source.lua
+T 70 source.lua variable.other.lua
+T 74 source.lua
+T 77 source.lua keyword.control.lua
+L 
+L          local keys, keysLen, seqLen = getKeys(t)
+T 9 source.lua
+T 14 source.lua keyword.local.lua
+T 15 source.lua
+T 19 source.lua variable.other.lua
+T 21 source.lua
+T 28 source.lua variable.other.lua
+T 30 source.lua
+T 36 source.lua variable.other.lua
+T 37 source.lua
+T 38 source.lua keyword.operator.lua
+T 39 source.lua
+T 46 source.lua support.function.any-method.lua
+T 47 source.lua
+T 48 source.lua variable.other.lua
+T 49 source.lua
+L 
+L          puts(buf, '{')
+T 9 source.lua
+T 13 source.lua support.function.any-method.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 21 source.lua string.quoted.single.lua
+T 22 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 23 source.lua
+L          self.level = self.level + 1
+T 9 source.lua
+T 13 source.lua variable.language.self.lua
+T 14 source.lua
+T 19 source.lua entity.other.attribute.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 26 source.lua variable.language.self.lua
+T 27 source.lua
+T 32 source.lua entity.other.attribute.lua
+T 33 source.lua
+T 34 source.lua keyword.operator.lua
+T 35 source.lua
+T 36 source.lua constant.numeric.float.lua
+L 
+L          for i = 1, seqLen + keysLen do
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 18 source.lua constant.numeric.float.lua
+T 20 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 28 source.lua keyword.operator.lua
+T 29 source.lua
+T 36 source.lua variable.other.lua
+T 37 source.lua
+T 39 source.lua keyword.control.lua
+L             if i > 1 then puts(buf, ',') end
+T 12 source.lua
+T 14 source.lua keyword.control.lua
+T 15 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 20 source.lua constant.numeric.float.lua
+T 21 source.lua
+T 25 source.lua keyword.control.lua
+T 26 source.lua
+T 30 source.lua support.function.any-method.lua
+T 31 source.lua
+T 34 source.lua variable.other.lua
+T 36 source.lua
+T 37 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 38 source.lua string.quoted.single.lua
+T 39 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 41 source.lua
+T 44 source.lua keyword.control.lua
+L             if i <= seqLen then
+T 12 source.lua
+T 14 source.lua keyword.control.lua
+T 15 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 31 source.lua keyword.control.lua
+L                puts(buf, ' ')
+T 15 source.lua
+T 19 source.lua support.function.any-method.lua
+T 20 source.lua
+T 23 source.lua variable.other.lua
+T 25 source.lua
+T 26 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 27 source.lua string.quoted.single.lua
+T 28 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 29 source.lua
+L                self:putValue(t[i])
+T 15 source.lua
+T 19 source.lua variable.language.self.lua
+T 20 source.lua
+T 28 source.lua support.function.any-method.lua
+T 29 source.lua
+T 30 source.lua variable.other.lua
+T 31 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+L             else
+T 12 source.lua
+T 16 source.lua keyword.control.lua
+L                local k = keys[i - seqLen]
+T 15 source.lua
+T 20 source.lua keyword.local.lua
+T 21 source.lua
+T 22 source.lua variable.other.lua
+T 23 source.lua
+T 24 source.lua keyword.operator.lua
+T 25 source.lua
+T 29 source.lua variable.other.lua
+T 30 source.lua
+T 31 source.lua variable.other.lua
+T 32 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 40 source.lua variable.other.lua
+T 41 source.lua
+L                tabify(self)
+T 15 source.lua
+T 21 source.lua support.function.any-method.lua
+T 22 source.lua
+T 26 source.lua variable.language.self.lua
+T 27 source.lua
+L                if isIdentifier(k) then
+T 15 source.lua
+T 17 source.lua keyword.control.lua
+T 18 source.lua
+T 30 source.lua support.function.any-method.lua
+T 31 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+T 38 source.lua keyword.control.lua
+L                   puts(buf, k)
+T 18 source.lua
+T 22 source.lua support.function.any-method.lua
+T 23 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+T 29 source.lua variable.other.lua
+T 30 source.lua
+L                else
+T 15 source.lua
+T 19 source.lua keyword.control.lua
+L                   puts(buf, "[")
+T 18 source.lua
+T 22 source.lua support.function.any-method.lua
+T 23 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+T 29 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 30 source.lua string.quoted.double.lua
+T 31 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 32 source.lua
+L                   self:putValue(k)
+T 18 source.lua
+T 22 source.lua variable.language.self.lua
+T 23 source.lua
+T 31 source.lua support.function.any-method.lua
+T 32 source.lua
+T 33 source.lua variable.other.lua
+T 34 source.lua
+L                   puts(buf, "]")
+T 18 source.lua
+T 22 source.lua support.function.any-method.lua
+T 23 source.lua
+T 26 source.lua variable.other.lua
+T 28 source.lua
+T 29 source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 30 source.lua string.quoted.double.lua
+T 31 source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 32 source.lua
+L                end
+T 15 source.lua
+T 18 source.lua keyword.control.lua
+L                puts(buf, ' = ')
+T 15 source.lua
+T 19 source.lua support.function.any-method.lua
+T 20 source.lua
+T 23 source.lua variable.other.lua
+T 25 source.lua
+T 26 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 29 source.lua string.quoted.single.lua
+T 30 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 31 source.lua
+L                self:putValue(t[k])
+T 15 source.lua
+T 19 source.lua variable.language.self.lua
+T 20 source.lua
+T 28 source.lua support.function.any-method.lua
+T 29 source.lua
+T 30 source.lua variable.other.lua
+T 31 source.lua
+T 32 source.lua variable.other.lua
+T 34 source.lua
+L             end
+T 12 source.lua
+T 15 source.lua keyword.control.lua
+L          end
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+L 
+L          local mt = getmetatable(t)
+T 9 source.lua
+T 14 source.lua keyword.local.lua
+T 15 source.lua
+T 17 source.lua variable.other.lua
+T 18 source.lua
+T 19 source.lua keyword.operator.lua
+T 20 source.lua
+T 32 source.lua support.function.lua
+T 33 source.lua
+T 34 source.lua variable.other.lua
+T 35 source.lua
+L          if type(mt) == 'table' then
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 16 source.lua support.function.lua
+T 17 source.lua
+T 19 source.lua variable.other.lua
+T 21 source.lua
+T 23 source.lua keyword.operator.lua
+T 24 source.lua
+T 25 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 30 source.lua string.quoted.single.lua
+T 32 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 36 source.lua keyword.control.lua
+L             if seqLen + keysLen > 0 then puts(buf, ',') end
+T 12 source.lua
+T 14 source.lua keyword.control.lua
+T 15 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua keyword.operator.lua
+T 24 source.lua
+T 31 source.lua variable.other.lua
+T 32 source.lua
+T 33 source.lua keyword.operator.lua
+T 34 source.lua
+T 35 source.lua constant.numeric.float.lua
+T 36 source.lua
+T 40 source.lua keyword.control.lua
+T 41 source.lua
+T 45 source.lua support.function.any-method.lua
+T 46 source.lua
+T 49 source.lua variable.other.lua
+T 51 source.lua
+T 52 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 53 source.lua string.quoted.single.lua
+T 54 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 56 source.lua
+T 59 source.lua keyword.control.lua
+L             tabify(self)
+T 12 source.lua
+T 18 source.lua support.function.any-method.lua
+T 19 source.lua
+T 23 source.lua variable.language.self.lua
+T 24 source.lua
+L             puts(buf, '<metatable> = ')
+T 12 source.lua
+T 16 source.lua support.function.any-method.lua
+T 17 source.lua
+T 20 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 37 source.lua string.quoted.single.lua
+T 38 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 39 source.lua
+L             self:putValue(mt)
+T 12 source.lua
+T 16 source.lua variable.language.self.lua
+T 17 source.lua
+T 25 source.lua support.function.any-method.lua
+T 26 source.lua
+T 28 source.lua variable.other.lua
+T 29 source.lua
+L          end
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+L 
+L          self.level = self.level - 1
+T 9 source.lua
+T 13 source.lua variable.language.self.lua
+T 14 source.lua
+T 19 source.lua entity.other.attribute.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 26 source.lua variable.language.self.lua
+T 27 source.lua
+T 32 source.lua entity.other.attribute.lua
+T 33 source.lua
+T 34 source.lua keyword.operator.lua
+T 35 source.lua
+T 36 source.lua constant.numeric.float.lua
+L 
+L          if keysLen > 0 or type(mt) == 'table' then
+T 9 source.lua
+T 11 source.lua keyword.control.lua
+T 12 source.lua
+T 19 source.lua variable.other.lua
+T 20 source.lua
+T 21 source.lua keyword.operator.lua
+T 22 source.lua
+T 23 source.lua constant.numeric.float.lua
+T 24 source.lua
+T 26 source.lua keyword.operator.logical.lua
+T 27 source.lua
+T 31 source.lua support.function.lua
+T 32 source.lua
+T 34 source.lua variable.other.lua
+T 36 source.lua
+T 38 source.lua keyword.operator.lua
+T 39 source.lua
+T 40 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 45 source.lua string.quoted.single.lua
+T 47 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 51 source.lua keyword.control.lua
+L             tabify(self)
+T 12 source.lua
+T 18 source.lua support.function.any-method.lua
+T 19 source.lua
+T 23 source.lua variable.language.self.lua
+T 24 source.lua
+L          elseif seqLen > 0 then
+T 9 source.lua
+T 15 source.lua keyword.control.lua
+T 16 source.lua
+T 22 source.lua variable.other.lua
+T 23 source.lua
+T 24 source.lua keyword.operator.lua
+T 25 source.lua
+T 26 source.lua constant.numeric.float.lua
+T 27 source.lua
+T 31 source.lua keyword.control.lua
+L             puts(buf, ' ')
+T 12 source.lua
+T 16 source.lua support.function.any-method.lua
+T 17 source.lua
+T 20 source.lua variable.other.lua
+T 22 source.lua
+T 23 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 24 source.lua string.quoted.single.lua
+T 25 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 26 source.lua
+L          end
+T 9 source.lua
+T 12 source.lua keyword.control.lua
+L 
+L          puts(buf, '}')
+T 9 source.lua
+T 13 source.lua support.function.any-method.lua
+T 14 source.lua
+T 17 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 21 source.lua string.quoted.single.lua
+T 22 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 23 source.lua
+L       end
+T 6 source.lua
+T 9 source.lua keyword.control.lua
+L 
+L    else
+T 3 source.lua
+T 7 source.lua keyword.control.lua
+L       puts(buf, fmt('<%s %d>', tv, self:getId(v)))
+T 6 source.lua
+T 10 source.lua support.function.any-method.lua
+T 11 source.lua
+T 14 source.lua variable.other.lua
+T 16 source.lua
+T 19 source.lua support.function.any-method.lua
+T 20 source.lua
+T 21 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 28 source.lua string.quoted.single.lua
+T 29 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+T 31 source.lua
+T 33 source.lua variable.other.lua
+T 35 source.lua
+T 39 source.lua variable.language.self.lua
+T 40 source.lua
+T 45 source.lua support.function.any-method.lua
+T 46 source.lua
+T 47 source.lua variable.other.lua
+T 50 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L 
+L 
+L 
+L function inspect.inspect(root, options)
+T 8 source.lua meta.function.lua keyword.control.lua
+T 9 source.lua meta.function.lua
+T 16 source.lua meta.function.lua entity.name.function.lua
+T 17 source.lua meta.function.lua
+T 24 source.lua meta.function.lua entity.name.function.lua
+T 25 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 29 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 30 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 31 source.lua meta.function.lua meta.parameter.lua
+T 38 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 39 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L    options = options or {}
+T 3 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+T 23 source.lua keyword.operator.logical.lua
+T 26 source.lua
+L 
+L    local depth = options.depth or (math.huge)
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 14 source.lua variable.other.lua
+T 15 source.lua
+T 16 source.lua keyword.operator.lua
+T 17 source.lua
+T 24 source.lua variable.other.lua
+T 25 source.lua
+T 30 source.lua entity.other.attribute.lua
+T 31 source.lua
+T 33 source.lua keyword.operator.logical.lua
+T 35 source.lua
+T 44 source.lua constant.language.lua
+T 45 source.lua
+L    local newline = options.newline or '\n'
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 34 source.lua entity.other.attribute.lua
+T 35 source.lua
+T 37 source.lua keyword.operator.logical.lua
+T 38 source.lua
+T 39 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 41 source.lua string.quoted.single.lua constant.character.escape.lua
+T 42 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L    local indent = options.indent or '  '
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 18 source.lua
+T 25 source.lua variable.other.lua
+T 26 source.lua
+T 32 source.lua entity.other.attribute.lua
+T 33 source.lua
+T 35 source.lua keyword.operator.logical.lua
+T 36 source.lua
+T 37 source.lua string.quoted.single.lua punctuation.definition.string.begin.lua
+T 39 source.lua string.quoted.single.lua
+T 40 source.lua string.quoted.single.lua punctuation.definition.string.end.lua
+L    local process = options.process
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 16 source.lua variable.other.lua
+T 17 source.lua
+T 18 source.lua keyword.operator.lua
+T 19 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 34 source.lua entity.other.attribute.lua
+L 
+L    if process then
+T 3 source.lua
+T 5 source.lua keyword.control.lua
+T 6 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 18 source.lua keyword.control.lua
+L       root = processRecursive(process, root, {}, {})
+T 6 source.lua
+T 10 source.lua variable.other.lua
+T 11 source.lua
+T 12 source.lua keyword.operator.lua
+T 13 source.lua
+T 29 source.lua support.function.any-method.lua
+T 30 source.lua
+T 37 source.lua variable.other.lua
+T 39 source.lua
+T 43 source.lua variable.other.lua
+T 52 source.lua
+L    end
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+L 
+L    local cycles = {}
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 15 source.lua variable.other.lua
+T 16 source.lua
+T 17 source.lua keyword.operator.lua
+T 20 source.lua
+L    countCycles(root, cycles, depth)
+T 3 source.lua
+T 14 source.lua support.function.any-method.lua
+T 15 source.lua
+T 19 source.lua variable.other.lua
+T 21 source.lua
+T 27 source.lua variable.other.lua
+T 29 source.lua
+T 34 source.lua variable.other.lua
+T 35 source.lua
+L 
+L    local inspector = setmetatable({
+T 3 source.lua
+T 8 source.lua keyword.local.lua
+T 9 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+T 20 source.lua keyword.operator.lua
+T 21 source.lua
+T 33 source.lua support.function.lua
+T 35 source.lua
+L       buf = buffnew(),
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 19 source.lua support.function.any-method.lua
+T 22 source.lua
+L       ids = {},
+T 6 source.lua
+T 9 source.lua variable.other.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 15 source.lua
+L       cycles = cycles,
+T 6 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+L       depth = depth,
+T 6 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 19 source.lua variable.other.lua
+T 20 source.lua
+L       level = 0,
+T 6 source.lua
+T 11 source.lua variable.other.lua
+T 12 source.lua
+T 13 source.lua keyword.operator.lua
+T 14 source.lua
+T 15 source.lua constant.numeric.float.lua
+T 16 source.lua
+L       newline = newline,
+T 6 source.lua
+T 13 source.lua variable.other.lua
+T 14 source.lua
+T 15 source.lua keyword.operator.lua
+T 16 source.lua
+T 23 source.lua variable.other.lua
+T 24 source.lua
+L       indent = indent,
+T 6 source.lua
+T 12 source.lua variable.other.lua
+T 13 source.lua
+T 14 source.lua keyword.operator.lua
+T 15 source.lua
+T 21 source.lua variable.other.lua
+T 22 source.lua
+L    }, Inspector_mt)
+T 6 source.lua
+T 18 source.lua variable.other.lua
+T 19 source.lua
+L 
+L    inspector:putValue(root)
+T 3 source.lua
+T 12 source.lua entity.name.class.lua
+T 13 source.lua
+T 21 source.lua support.function.any-method.lua
+T 22 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+L 
+L    return render(inspector.buf)
+T 3 source.lua
+T 9 source.lua keyword.control.lua
+T 10 source.lua
+T 16 source.lua support.function.any-method.lua
+T 17 source.lua
+T 26 source.lua variable.other.lua
+T 27 source.lua
+T 30 source.lua entity.other.attribute.lua
+T 31 source.lua
+L end
+T 3 source.lua keyword.control.lua
+L 
+L setmetatable(inspect, {
+T 12 source.lua support.function.lua
+T 13 source.lua
+T 20 source.lua variable.other.lua
+T 23 source.lua
+L    __call = function(_, root, options)
+T 3 source.lua
+T 9 source.lua entity.name.function.lua
+T 10 source.lua
+T 11 source.lua keyword.operator.lua
+T 12 source.lua
+T 20 source.lua meta.function.lua keyword.control.lua
+T 21 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 22 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 23 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 24 source.lua meta.function.lua meta.parameter.lua
+T 28 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 30 source.lua meta.function.lua meta.parameter.lua
+T 37 source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 38 source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L       return inspect.inspect(root, options)
+T 6 source.lua
+T 12 source.lua keyword.control.lua
+T 13 source.lua
+T 20 source.lua variable.other.lua
+T 21 source.lua
+T 28 source.lua support.function.any-method.lua
+T 29 source.lua
+T 33 source.lua variable.other.lua
+T 35 source.lua
+T 42 source.lua variable.other.lua
+T 43 source.lua
+L    end,
+T 3 source.lua
+T 6 source.lua keyword.control.lua
+T 7 source.lua
+L })
+T 2 source.lua
+L 
+L return inspect
+T 6 source.lua keyword.control.lua
+T 7 source.lua
+T 14 source.lua variable.other.lua
+L 
