@@ -58,7 +58,8 @@ struct Frame {
     /// The `\G` position to restore when the frame closes.
     saved_anchor: Option<usize>,
     /// What the frame carries: a fence's [`Fence`], or the state of the
-    /// embedded Rust lexer.
+    /// embedded Rust lexer. It changes only with `state`, so the frames kept
+    /// for the next line match the frames rebuilt from the arena.
     payload: u32,
     /// The interned state with this frame on top, for a container that stays
     /// open between lines; none for the text of a capture group.
@@ -680,28 +681,33 @@ impl<'a> Lexer<'a> {
         })
     }
 
+    /// Whether the depth limit keeps another frame from opening above the
+    /// document's own.
+    fn at_depth_limit(&self) -> bool {
+        self.limits
+            .depth_reached(self.frames.len().saturating_sub(1))
+    }
+
     /// Keeps a container that cannot open out of the tree: its opening text,
     /// and the rest of the line when it opens with no text, stay in the
-    /// container that is open.
+    /// container that is open. A refusal with no text ends the window, which
+    /// moves the cursor past it: the rule would match again at its end and
+    /// be refused again without progress.
     fn refuse(&mut self, hit: &Hit, parent: u32) {
-        let to = if hit.end > hit.start {
-            hit.end
+        if hit.end > hit.start {
+            self.emit(hit.end, parent);
+            self.pos = hit.end;
         } else {
-            self.limit
-        };
-        self.emit(to, parent);
-        self.pos = to;
+            self.emit(self.limit, parent);
+            self.pos = self.limit + 1;
+        }
     }
 
     fn open(&mut self, kind: Kind, rule: P, hit: &Hit, caps: &Caps) {
         let parent = self.content();
         self.emit(hit.start, parent);
         let opened = self.opened.take();
-        if self
-            .limits
-            .depth
-            .is_some_and(|max| self.frames.len() >= max)
-        {
+        if self.at_depth_limit() {
             self.report.record(Limit::Depth);
             self.refuse(hit, parent);
             return;
@@ -877,11 +883,7 @@ impl<'a> Lexer<'a> {
     /// capture group that has rules of its own is. The line looks as if it
     /// ended at `end`, and every container the text opens ends with it.
     fn subrun(&mut self, list: List, start: usize, end: usize, node: u32) {
-        if self
-            .limits
-            .depth
-            .is_some_and(|max| self.frames.len() >= max)
-        {
+        if self.at_depth_limit() {
             self.report.record(Limit::Depth);
             self.emit(end, node);
             return;
@@ -952,13 +954,13 @@ impl<'a> Lexer<'a> {
         let pushed = self
             .arena
             .push(below.unwrap_or(ROOT), kind.code(), state, frame.content);
+        let Some(pushed) = pushed else {
+            self.report.record(Limit::Nodes);
+            return;
+        };
         if let Some(top) = self.frames.last_mut() {
             top.payload = state;
-            if pushed.is_some() {
-                top.state = pushed;
-            } else {
-                self.report.record(Limit::Nodes);
-            }
+            top.state = Some(pushed);
         }
     }
 }

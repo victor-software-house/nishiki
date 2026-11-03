@@ -187,10 +187,11 @@ pub(crate) struct Found {
 /// The language the info string at `i` names, when the attributes after it
 /// are allowed: nothing, or a space or one of `,:?{` and then no backtick.
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
+    let backtick = last_backtick(cx, i);
     for lang in NAMES {
         for word in lang.words {
             if let Some(end) = fold_end(cx, i, word.as_bytes())
-                && attributes_ok(cx, end)
+                && attributes_ok(cx, end, backtick)
             {
                 return Some(Found {
                     lang: lang.lang,
@@ -205,17 +206,19 @@ pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
             // `.+?}`: at least one character, then the first `}` that the
             // attributes can follow.
             let mut close = end + 1;
-            while let Some(b) = cx.get(close) {
-                if b == b'\n' {
-                    break;
+            let found = loop {
+                match cx.get(close) {
+                    None | Some(b'\n') => break None,
+                    Some(b'}') if attributes_ok(cx, close + 1, backtick) => break Some(close),
+                    Some(_) => close += 1,
                 }
-                if b == b'}' && attributes_ok(cx, close + 1) {
-                    return Some(Found {
-                        lang: lang.lang,
-                        name_end: close + 1,
-                    });
-                }
-                close += 1;
+            };
+            cx.spend(close - end);
+            if let Some(close) = found {
+                return Some(Found {
+                    lang: lang.lang,
+                    name_end: close + 1,
+                });
             }
         }
     }
@@ -259,14 +262,24 @@ fn fold_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
 
 /// The attributes that may follow a language name at `i`: nothing, or a space
 /// or one of `,:?{` and then anything but a backtick, to the end of the line.
-fn attributes_ok(cx: &Cx<'_>, i: usize) -> bool {
+/// `backtick` is the line's last backtick at or after the info string.
+fn attributes_ok(cx: &Cx<'_>, i: usize, backtick: Option<usize>) -> bool {
     match cx.get(i) {
         None | Some(b'\n') => true,
         Some(b) if cx.space_at(i) > 0 || matches!(b, b',' | b':' | b'?' | b'{') => {
-            !has_backtick(cx, i)
+            backtick.is_none_or(|last| last < i)
         }
         Some(_) => false,
     }
+}
+
+/// The last backtick in the text from `i`, found once per info string so
+/// that each place the attributes may start costs nothing more to check.
+fn last_backtick(cx: &Cx<'_>, i: usize) -> Option<usize> {
+    let line_end = cx.end.min(cx.line.len());
+    let rest = cx.line.get(i..line_end)?;
+    cx.spend(rest.len());
+    memchr::memrchr(b'`', rest).map(|at| i + at)
 }
 
 /// Whether a backtick is anywhere in the text from `i`.

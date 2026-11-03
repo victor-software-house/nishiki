@@ -30,8 +30,9 @@ pub struct Limits {
     /// token under the current scope stack and the next line starts from the
     /// state at that point, as Shiki does at its time limit.
     pub work: Option<Work>,
-    /// Most contexts open at once. Deeper contexts are not opened, so the
-    /// constructs inside them add no scope.
+    /// Most contexts open at once inside a language's root context, which
+    /// is not counted: with `Some(0)` nothing opens. Deeper contexts are not
+    /// opened, so the constructs inside them add no scope.
     pub depth: Option<usize>,
     /// Most scope stacks, and most states, a highlighter interns. A token
     /// whose stack would be new gets its context's stack instead.
@@ -96,6 +97,13 @@ impl Default for Budget {
 const NODE_BYTES: usize = 64;
 
 impl Limits {
+    /// Whether [`Limits::depth`] keeps one more context from opening where
+    /// `open` contexts are open above the language's root. Every lexer asks
+    /// here, so a pinned depth means the same in every language.
+    pub(crate) fn depth_reached(&self, open: usize) -> bool {
+        self.depth.is_some_and(|max| open >= max)
+    }
+
     /// No limit at all.
     #[must_use]
     pub const fn unlimited() -> Self {
@@ -248,6 +256,22 @@ mod tests {
             .steps(5),
             13
         );
+    }
+
+    #[test]
+    fn depth_counts_the_contexts_above_the_root() {
+        let limits = Limits {
+            depth: Some(2),
+            ..Limits::unlimited()
+        };
+        assert!(!limits.depth_reached(1));
+        assert!(limits.depth_reached(2));
+        assert!(!Limits::unlimited().depth_reached(usize::MAX));
+        let none = Limits {
+            depth: Some(0),
+            ..Limits::unlimited()
+        };
+        assert!(none.depth_reached(0));
     }
 
     #[test]

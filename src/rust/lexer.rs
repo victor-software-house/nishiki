@@ -275,8 +275,8 @@ impl<'a> Lexer<'a> {
 
     /// Opens a context that carries `payload`.
     pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        if self.limits.depth.is_some_and(|max| depth >= max) {
+        let open = usize::try_from(self.frame.depth.saturating_sub(1)).unwrap_or(usize::MAX);
+        if self.limits.depth_reached(open) {
             self.report.record(Limit::Depth);
             return false;
         }

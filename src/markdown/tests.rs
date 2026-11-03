@@ -659,7 +659,7 @@ fn nesting_stops_at_the_depth_limit() {
         .scopes(tokens[tokens.len() - 1].stack())
         .filter(|name| *name == "markup.quote.markdown")
         .count();
-    assert_eq!(quotes, 7, "the document frame is the eighth");
+    assert_eq!(quotes, 8, "the document's own context is not counted");
 }
 
 #[test]
@@ -870,4 +870,33 @@ fn a_caret_does_not_match_where_a_list_took_the_start_of_the_line() {
             .iter()
             .any(|scope| scope == "comment.line.double-slash.ts")
     );
+}
+
+#[test]
+fn a_fence_line_that_runs_out_of_nodes_resumes_the_same_on_a_cache_hit_and_miss() {
+    let mut hits = 0;
+    for nodes in 1..256 {
+        let limits = Limits {
+            nodes: Some(nodes),
+            ..Limits::default()
+        };
+        let mut highlighter = Highlighter::new_with_limits(Language::Markdown, limits);
+        let mut tokens = Vec::new();
+        let mut fence = State::default();
+        let _ = highlighter.line("```rust", &mut fence, &mut tokens);
+        let mut state = fence;
+        let report = highlighter.line("/* open", &mut state, &mut tokens);
+        if !report.reached(Limit::Nodes) || state != fence {
+            continue;
+        }
+        hits += 1;
+        let mut hit = Vec::new();
+        let _ = highlighter.line("x", &mut state, &mut hit);
+        let _ = highlighter.line("other", &mut State::default(), &mut tokens);
+        let mut miss = Vec::new();
+        let mut again = fence;
+        let _ = highlighter.line("x", &mut again, &mut miss);
+        assert_eq!(hit, miss, "node limit {nodes}");
+    }
+    assert!(hits > 0, "no node limit stops the fence's push alone");
 }

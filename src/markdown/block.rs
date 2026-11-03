@@ -445,8 +445,10 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
     if cx.get(open) != Some(b'[') {
         return None;
     }
-    let close = (open + 2..cx.end).find(|&i| cx.get(i) == Some(b']'))?;
-    if (open + 1..close).any(|i| cx.get(i) == Some(b']')) || cx.get(close + 1) != Some(b':') {
+    let close = (open + 2..cx.end).find(|&i| cx.get(i) == Some(b']'));
+    cx.spend(close.unwrap_or(cx.end).saturating_sub(open));
+    let close = close?;
+    if cx.get(open + 1) == Some(b']') || cx.get(close + 1) != Some(b':') {
         return None;
     }
     caps.set(1, open, open + 1);
@@ -458,6 +460,7 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
     if cx.over() {
         return None;
     }
+    let blank_end = trailing_space_start(cx);
     if cx.get(url) == Some(b'<') {
         let mut i = url + 1;
         while let Some(b) = cx.get(i) {
@@ -474,7 +477,7 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
                 with_angle.set(6, url + 1, i);
             }
             with_angle.set(7, i, i + 1);
-            if link_def_tail(cx, i + 1, &mut with_angle, 9) {
+            if link_def_tail(cx, i + 1, blank_end, &mut with_angle, 9) {
                 *caps = with_angle;
                 return Some(cx.end);
             }
@@ -493,7 +496,7 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
         }
         let mut plain = *caps;
         plain.set(8, url, end);
-        if link_def_tail(cx, end, &mut plain, 9) {
+        if link_def_tail(cx, end, blank_end, &mut plain, 9) {
             *caps = plain;
             return Some(cx.end);
         }
@@ -501,16 +504,30 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
     None
 }
 
+/// Where the whitespace that ends the text starts: `\s*$` matches from
+/// there on and nowhere before it. Spends the whitespace it reads.
+fn trailing_space_start(cx: &Cx<'_>) -> usize {
+    let mut p = cx.end;
+    loop {
+        let len = cx.space_before(p);
+        if len == 0 {
+            cx.spend(cx.end - p);
+            return p;
+        }
+        p -= len;
+    }
+}
+
 /// `[\t ]*(?:title)?\s*$` after a link reference definition's destination,
 /// the title's groups numbered from `first`.
-fn link_def_tail(cx: &Cx<'_>, p: usize, caps: &mut Caps, first: usize) -> bool {
+///
+/// `blank_end` is where the text's trailing whitespace starts, found once
+/// per definition. A title's closer must have only whitespace after it, so
+/// it is the byte just before `blank_end`, and checking a title costs the
+/// same wherever it opens: a line of many openers stays linear.
+fn link_def_tail(cx: &Cx<'_>, p: usize, blank_end: usize, caps: &mut Caps, first: usize) -> bool {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
-    let opener = matches!(cx.get(at), Some(b'(' | b'"' | b'\''));
-    // A byte that is neither blank nor a title opener ends the rule at once.
-    if !opener && cx.get(at).is_some_and(|b| b.is_ascii_graphic()) {
-        return false;
-    }
-    if cx.only_space_after(at) {
+    if at >= blank_end {
         return true;
     }
     let (index, close) = match cx.get(at) {
@@ -519,24 +536,15 @@ fn link_def_tail(cx: &Cx<'_>, p: usize, caps: &mut Caps, first: usize) -> bool {
         Some(b'\'') => (first + 6, b'\''),
         _ => return false,
     };
-    // `.+?` and then the first closing byte that only blanks follow.
-    let mut i = at + 2;
-    while let Some(b) = cx.get(i) {
-        if b == b'\n' {
-            return false;
-        }
-        if b == close && cx.only_space_after(i + 1) {
-            caps.set(index, at, i + 1);
-            caps.set(index + 1, at, at + 1);
-            caps.set(index + 2, i, i + 1);
-            return true;
-        }
-        i += 1;
+    // `.+?` takes at least one character, then the closer.
+    let i = blank_end - 1;
+    if i < at + 2 || cx.get(i) != Some(close) {
+        return false;
     }
-    // The scan ran to the end of the line, so every start of this rule that
-    // follows pays for it.
-    cx.spend(i - at);
-    false
+    caps.set(index, at, i + 1);
+    caps.set(index + 1, at, at + 1);
+    caps.set(index + 2, i, i + 1);
+    true
 }
 
 /// `\A(?=(-{3,}))`: the start of front matter, which has no text of its own.
