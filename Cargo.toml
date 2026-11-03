@@ -91,7 +91,7 @@ systems = [
   "lang-swift",
 ]
 docs = ["lang-markdown", "config"]
-textmate = ["lang-powershell", "lang-scala"]
+textmate = ["lang-powershell", "lang-scala", "lang-zig"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]
@@ -136,6 +136,7 @@ lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]
 lang-powershell = ["_textmate"]
 lang-scala = ["_textmate"]
+lang-zig = ["_textmate"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

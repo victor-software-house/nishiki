@@ -132,6 +132,8 @@ mod utf8;
 mod xml;
 #[cfg(feature = "lang-yaml")]
 mod yaml;
+#[cfg(feature = "lang-zig")]
+mod zig;
 
 pub use arena::Scopes;
 pub use highlighter::Highlighter;

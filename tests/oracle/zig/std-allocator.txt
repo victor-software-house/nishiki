@@ -1,0 +1,4483 @@
+L //! The standard memory allocation interface.
+T 3 source.zig comment.line.documentation.zig
+T 45 source.zig comment.line.documentation.zig
+L 
+L const std = @import("../std.zig");
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.assignment.zig
+T 12 source.zig
+T 19 source.zig support.function.builtin.zig
+T 20 source.zig
+T 21 source.zig string.quoted.double.zig
+T 31 source.zig string.quoted.double.zig
+T 32 source.zig string.quoted.double.zig
+T 33 source.zig
+T 34 source.zig punctuation.terminator.statement.zig
+L const assert = std.debug.assert;
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 14 source.zig keyword.operator.assignment.zig
+T 15 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.accessor.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L const math = std.math;
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig
+T 12 source.zig keyword.operator.assignment.zig
+T 13 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.accessor.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.terminator.statement.zig
+L const mem = std.mem;
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.assignment.zig
+T 12 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.terminator.statement.zig
+L const Allocator = @This();
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 23 source.zig support.function.builtin.zig
+T 25 source.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L const builtin = @import("builtin");
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig
+T 15 source.zig keyword.operator.assignment.zig
+T 16 source.zig
+T 23 source.zig support.function.builtin.zig
+T 24 source.zig
+T 25 source.zig string.quoted.double.zig
+T 32 source.zig string.quoted.double.zig
+T 33 source.zig string.quoted.double.zig
+T 34 source.zig
+T 35 source.zig punctuation.terminator.statement.zig
+L const Alignment = std.mem.Alignment;
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.accessor.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.accessor.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.terminator.statement.zig
+L 
+L pub const Error = error{OutOfMemory};
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 23 source.zig keyword.type.zig
+T 24 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig
+T 37 source.zig punctuation.terminator.statement.zig
+L pub const Log2Align = math.Log2Int(usize);
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.assignment.zig
+T 22 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 34 source.zig entity.name.type.zig
+T 35 source.zig
+T 40 source.zig keyword.type.integer.zig
+T 41 source.zig
+T 42 source.zig punctuation.terminator.statement.zig
+L 
+L /// The type erased pointer to the allocator implementation.
+T 3 source.zig comment.line.documentation.zig
+T 60 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// Any comparison of this field may result in illegal behavior, since it may
+T 3 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L /// be set to `undefined` in cases where the allocator implementation does not
+T 3 source.zig comment.line.documentation.zig
+T 78 source.zig comment.line.documentation.zig
+L /// have any associated state.
+T 3 source.zig comment.line.documentation.zig
+T 30 source.zig comment.line.documentation.zig
+L ptr: *anyopaque,
+T 3 source.zig variable.zig
+T 4 source.zig punctuation.separator.key-value.zig
+T 5 source.zig
+T 6 source.zig keyword.operator.arithmetic.zig
+T 15 source.zig keyword.type.zig
+T 16 source.zig punctuation.comma.zig
+L vtable: *const VTable,
+T 6 source.zig variable.zig
+T 7 source.zig punctuation.separator.key-value.zig
+T 8 source.zig
+T 9 source.zig keyword.operator.arithmetic.zig
+T 14 source.zig keyword.default.zig
+T 15 source.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.comma.zig
+L 
+L pub const VTable = struct {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig
+T 18 source.zig keyword.operator.assignment.zig
+T 19 source.zig
+T 25 source.zig keyword.structure.zig
+T 27 source.zig
+L     /// Return a pointer to `len` bytes with specified `alignment`, or return
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// `null` indicating the allocation failed.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 48 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `ret_addr` is optionally provided as the first return address of the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// allocation call stack. If the value is `0` it means no return address
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// has been provided.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L     alloc: *const fn (*anyopaque, len: usize, alignment: Alignment, ret_addr: usize) ?[*]u8,
+T 4 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig punctuation.separator.key-value.zig
+T 11 source.zig
+T 12 source.zig keyword.operator.arithmetic.zig
+T 17 source.zig keyword.default.zig
+T 18 source.zig
+T 20 source.zig keyword.default.zig
+T 22 source.zig
+T 23 source.zig keyword.operator.arithmetic.zig
+T 32 source.zig keyword.type.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.separator.key-value.zig
+T 39 source.zig
+T 44 source.zig keyword.type.integer.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 55 source.zig variable.zig
+T 56 source.zig punctuation.separator.key-value.zig
+T 57 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.comma.zig
+T 68 source.zig
+T 76 source.zig variable.zig
+T 77 source.zig punctuation.separator.key-value.zig
+T 78 source.zig
+T 83 source.zig keyword.type.integer.zig
+T 85 source.zig
+T 86 source.zig keyword.operator.question.zig
+T 87 source.zig
+T 88 source.zig keyword.operator.arithmetic.zig
+T 89 source.zig
+T 91 source.zig keyword.type.integer.zig
+T 92 source.zig punctuation.comma.zig
+L 
+L     /// Attempt to expand or shrink memory in place.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 52 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `memory.len` must equal the length requested from the most recent
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 73 source.zig comment.line.documentation.zig
+L     /// successful call to `alloc`, `resize`, or `remap`. `alignment` must
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L     /// equal the same value that was passed as the `alignment` parameter to
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// the original `alloc` call.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 34 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// A result of `true` indicates the resize was successful and the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 70 source.zig comment.line.documentation.zig
+L     /// allocation now has the same address but a size of `new_len`. `false`
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// indicates the resize could not be completed without moving the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 70 source.zig comment.line.documentation.zig
+L     /// allocation to a different address.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 42 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `new_len` must be greater than zero.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 44 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `ret_addr` is optionally provided as the first return address of the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// allocation call stack. If the value is `0` it means no return address
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// has been provided.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L     resize: *const fn (*anyopaque, memory: []u8, alignment: Alignment, new_len: usize, ret_addr: usize) bool,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.arithmetic.zig
+T 18 source.zig keyword.default.zig
+T 19 source.zig
+T 21 source.zig keyword.default.zig
+T 23 source.zig
+T 24 source.zig keyword.operator.arithmetic.zig
+T 33 source.zig keyword.type.zig
+T 34 source.zig punctuation.comma.zig
+T 35 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig punctuation.separator.key-value.zig
+T 45 source.zig
+T 47 source.zig keyword.type.integer.zig
+T 48 source.zig punctuation.comma.zig
+T 49 source.zig
+T 58 source.zig variable.zig
+T 59 source.zig punctuation.separator.key-value.zig
+T 60 source.zig
+T 69 source.zig variable.zig
+T 70 source.zig punctuation.comma.zig
+T 71 source.zig
+T 78 source.zig variable.zig
+T 79 source.zig punctuation.separator.key-value.zig
+T 80 source.zig
+T 85 source.zig keyword.type.integer.zig
+T 86 source.zig punctuation.comma.zig
+T 87 source.zig
+T 95 source.zig variable.zig
+T 96 source.zig punctuation.separator.key-value.zig
+T 97 source.zig
+T 102 source.zig keyword.type.integer.zig
+T 104 source.zig
+T 108 source.zig keyword.type.zig
+T 109 source.zig punctuation.comma.zig
+L 
+L     /// Attempt to expand or shrink memory, allowing relocation.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 64 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `memory.len` must equal the length requested from the most recent
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 73 source.zig comment.line.documentation.zig
+L     /// successful call to `alloc`, `resize`, or `remap`. `alignment` must
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L     /// equal the same value that was passed as the `alignment` parameter to
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// the original `alloc` call.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 34 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// A non-`null` return value indicates the resize was successful. The
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L     /// allocation may have same address, or may have been relocated. In either
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 79 source.zig comment.line.documentation.zig
+L     /// case, the allocation now has size of `new_len`. A `null` return value
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// indicates that the resize would be equivalent to allocating new memory,
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 79 source.zig comment.line.documentation.zig
+L     /// copying the bytes from the old memory, and then freeing the old memory.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 79 source.zig comment.line.documentation.zig
+L     /// In such case, it is more efficient for the caller to perform the copy.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 78 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `new_len` must be greater than zero.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 44 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `ret_addr` is optionally provided as the first return address of the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// allocation call stack. If the value is `0` it means no return address
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// has been provided.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L     remap: *const fn (*anyopaque, memory: []u8, alignment: Alignment, new_len: usize, ret_addr: usize) ?[*]u8,
+T 4 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig punctuation.separator.key-value.zig
+T 11 source.zig
+T 12 source.zig keyword.operator.arithmetic.zig
+T 17 source.zig keyword.default.zig
+T 18 source.zig
+T 20 source.zig keyword.default.zig
+T 22 source.zig
+T 23 source.zig keyword.operator.arithmetic.zig
+T 32 source.zig keyword.type.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.separator.key-value.zig
+T 44 source.zig
+T 46 source.zig keyword.type.integer.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 57 source.zig variable.zig
+T 58 source.zig punctuation.separator.key-value.zig
+T 59 source.zig
+T 68 source.zig variable.zig
+T 69 source.zig punctuation.comma.zig
+T 70 source.zig
+T 77 source.zig variable.zig
+T 78 source.zig punctuation.separator.key-value.zig
+T 79 source.zig
+T 84 source.zig keyword.type.integer.zig
+T 85 source.zig punctuation.comma.zig
+T 86 source.zig
+T 94 source.zig variable.zig
+T 95 source.zig punctuation.separator.key-value.zig
+T 96 source.zig
+T 101 source.zig keyword.type.integer.zig
+T 103 source.zig
+T 104 source.zig keyword.operator.question.zig
+T 105 source.zig
+T 106 source.zig keyword.operator.arithmetic.zig
+T 107 source.zig
+T 109 source.zig keyword.type.integer.zig
+T 110 source.zig punctuation.comma.zig
+L 
+L     /// Free and invalidate a region of memory.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 47 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `memory.len` must equal the length requested from the most recent
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 73 source.zig comment.line.documentation.zig
+L     /// successful call to `alloc`, `resize`, or `remap`. `alignment` must
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L     /// equal the same value that was passed as the `alignment` parameter to
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// the original `alloc` call.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 34 source.zig comment.line.documentation.zig
+L     ///
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+L     /// `ret_addr` is optionally provided as the first return address of the
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L     /// allocation call stack. If the value is `0` it means no return address
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L     /// has been provided.
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L     free: *const fn (*anyopaque, memory: []u8, alignment: Alignment, ret_addr: usize) void,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 16 source.zig keyword.default.zig
+T 17 source.zig
+T 19 source.zig keyword.default.zig
+T 21 source.zig
+T 22 source.zig keyword.operator.arithmetic.zig
+T 31 source.zig keyword.type.zig
+T 32 source.zig punctuation.comma.zig
+T 33 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.separator.key-value.zig
+T 43 source.zig
+T 45 source.zig keyword.type.integer.zig
+T 46 source.zig punctuation.comma.zig
+T 47 source.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.separator.key-value.zig
+T 58 source.zig
+T 67 source.zig variable.zig
+T 68 source.zig punctuation.comma.zig
+T 69 source.zig
+T 77 source.zig variable.zig
+T 78 source.zig punctuation.separator.key-value.zig
+T 79 source.zig
+T 84 source.zig keyword.type.integer.zig
+T 86 source.zig
+T 90 source.zig keyword.type.zig
+T 91 source.zig punctuation.comma.zig
+L };
+T 1 source.zig
+T 2 source.zig punctuation.terminator.statement.zig
+L 
+L pub fn noAlloc(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 14 source.zig entity.name.function.zig
+T 15 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     len: usize,
+T 4 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig punctuation.separator.key-value.zig
+T 9 source.zig
+T 14 source.zig keyword.type.integer.zig
+T 15 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) ?[*]u8 {
+T 2 source.zig
+T 3 source.zig keyword.operator.question.zig
+T 4 source.zig
+T 5 source.zig keyword.operator.arithmetic.zig
+T 6 source.zig
+T 8 source.zig keyword.type.integer.zig
+T 10 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = len;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     return null;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig keyword.constant.default.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn noResize(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 15 source.zig entity.name.function.zig
+T 16 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     new_len: usize,
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 18 source.zig keyword.type.integer.zig
+T 19 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) bool {
+T 2 source.zig
+T 6 source.zig keyword.type.zig
+T 8 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = new_len;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     return false;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 16 source.zig keyword.constant.bool.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn noRemap(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 14 source.zig entity.name.function.zig
+T 15 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     new_len: usize,
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 18 source.zig keyword.type.integer.zig
+T 19 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) ?[*]u8 {
+T 2 source.zig
+T 3 source.zig keyword.operator.question.zig
+T 4 source.zig
+T 5 source.zig keyword.operator.arithmetic.zig
+T 6 source.zig
+T 8 source.zig keyword.type.integer.zig
+T 10 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = new_len;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     return null;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig keyword.constant.default.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn noFree(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 13 source.zig entity.name.function.zig
+T 14 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) void {
+T 2 source.zig
+T 6 source.zig keyword.type.zig
+T 8 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// This function is not intended to be called except from within the
+T 3 source.zig comment.line.documentation.zig
+T 69 source.zig comment.line.documentation.zig
+L /// implementation of an `Allocator`.
+T 3 source.zig comment.line.documentation.zig
+T 37 source.zig comment.line.documentation.zig
+L pub inline fn rawAlloc(a: Allocator, len: usize, alignment: Alignment, ret_addr: usize) ?[*]u8 {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 10 source.zig keyword.storage.zig
+T 11 source.zig
+T 13 source.zig storage.type.function.zig
+T 14 source.zig
+T 22 source.zig entity.name.function.zig
+T 23 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.separator.key-value.zig
+T 26 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.comma.zig
+T 37 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.separator.key-value.zig
+T 42 source.zig
+T 47 source.zig keyword.type.integer.zig
+T 48 source.zig punctuation.comma.zig
+T 49 source.zig
+T 58 source.zig variable.zig
+T 59 source.zig punctuation.separator.key-value.zig
+T 60 source.zig
+T 69 source.zig variable.zig
+T 70 source.zig punctuation.comma.zig
+T 71 source.zig
+T 79 source.zig variable.zig
+T 80 source.zig punctuation.separator.key-value.zig
+T 81 source.zig
+T 86 source.zig keyword.type.integer.zig
+T 88 source.zig
+T 89 source.zig keyword.operator.question.zig
+T 90 source.zig
+T 91 source.zig keyword.operator.arithmetic.zig
+T 92 source.zig
+T 94 source.zig keyword.type.integer.zig
+T 96 source.zig
+L     return a.vtable.alloc(a.ptr, len, alignment, ret_addr);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 25 source.zig entity.name.function.zig
+T 26 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.comma.zig
+T 33 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 47 source.zig variable.zig
+T 48 source.zig punctuation.comma.zig
+T 49 source.zig
+T 57 source.zig variable.zig
+T 58 source.zig
+T 59 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// This function is not intended to be called except from within the
+T 3 source.zig comment.line.documentation.zig
+T 69 source.zig comment.line.documentation.zig
+L /// implementation of an `Allocator`.
+T 3 source.zig comment.line.documentation.zig
+T 37 source.zig comment.line.documentation.zig
+L pub inline fn rawResize(a: Allocator, memory: []u8, alignment: Alignment, new_len: usize, ret_addr: usize) bool {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 10 source.zig keyword.storage.zig
+T 11 source.zig
+T 13 source.zig storage.type.function.zig
+T 14 source.zig
+T 23 source.zig entity.name.function.zig
+T 24 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.separator.key-value.zig
+T 27 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.separator.key-value.zig
+T 48 source.zig
+T 50 source.zig keyword.type.integer.zig
+T 51 source.zig punctuation.comma.zig
+T 52 source.zig
+T 61 source.zig variable.zig
+T 62 source.zig punctuation.separator.key-value.zig
+T 63 source.zig
+T 72 source.zig variable.zig
+T 73 source.zig punctuation.comma.zig
+T 74 source.zig
+T 81 source.zig variable.zig
+T 82 source.zig punctuation.separator.key-value.zig
+T 83 source.zig
+T 88 source.zig keyword.type.integer.zig
+T 89 source.zig punctuation.comma.zig
+T 90 source.zig
+T 98 source.zig variable.zig
+T 99 source.zig punctuation.separator.key-value.zig
+T 100 source.zig
+T 105 source.zig keyword.type.integer.zig
+T 107 source.zig
+T 111 source.zig keyword.type.zig
+T 113 source.zig
+L     return a.vtable.resize(a.ptr, memory, alignment, new_len, ret_addr);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 26 source.zig entity.name.function.zig
+T 27 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig punctuation.accessor.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.comma.zig
+T 42 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig punctuation.comma.zig
+T 53 source.zig
+T 60 source.zig variable.zig
+T 61 source.zig punctuation.comma.zig
+T 62 source.zig
+T 70 source.zig variable.zig
+T 71 source.zig
+T 72 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// This function is not intended to be called except from within the
+T 3 source.zig comment.line.documentation.zig
+T 69 source.zig comment.line.documentation.zig
+L /// implementation of an `Allocator`.
+T 3 source.zig comment.line.documentation.zig
+T 37 source.zig comment.line.documentation.zig
+L pub inline fn rawRemap(a: Allocator, memory: []u8, alignment: Alignment, new_len: usize, ret_addr: usize) ?[*]u8 {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 10 source.zig keyword.storage.zig
+T 11 source.zig
+T 13 source.zig storage.type.function.zig
+T 14 source.zig
+T 22 source.zig entity.name.function.zig
+T 23 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.separator.key-value.zig
+T 26 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.comma.zig
+T 37 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.separator.key-value.zig
+T 47 source.zig
+T 49 source.zig keyword.type.integer.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 60 source.zig variable.zig
+T 61 source.zig punctuation.separator.key-value.zig
+T 62 source.zig
+T 71 source.zig variable.zig
+T 72 source.zig punctuation.comma.zig
+T 73 source.zig
+T 80 source.zig variable.zig
+T 81 source.zig punctuation.separator.key-value.zig
+T 82 source.zig
+T 87 source.zig keyword.type.integer.zig
+T 88 source.zig punctuation.comma.zig
+T 89 source.zig
+T 97 source.zig variable.zig
+T 98 source.zig punctuation.separator.key-value.zig
+T 99 source.zig
+T 104 source.zig keyword.type.integer.zig
+T 106 source.zig
+T 107 source.zig keyword.operator.question.zig
+T 108 source.zig
+T 109 source.zig keyword.operator.arithmetic.zig
+T 110 source.zig
+T 112 source.zig keyword.type.integer.zig
+T 114 source.zig
+L     return a.vtable.remap(a.ptr, memory, alignment, new_len, ret_addr);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 25 source.zig entity.name.function.zig
+T 26 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.comma.zig
+T 33 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 50 source.zig variable.zig
+T 51 source.zig punctuation.comma.zig
+T 52 source.zig
+T 59 source.zig variable.zig
+T 60 source.zig punctuation.comma.zig
+T 61 source.zig
+T 69 source.zig variable.zig
+T 70 source.zig
+T 71 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// This function is not intended to be called except from within the
+T 3 source.zig comment.line.documentation.zig
+T 69 source.zig comment.line.documentation.zig
+L /// implementation of an `Allocator`.
+T 3 source.zig comment.line.documentation.zig
+T 37 source.zig comment.line.documentation.zig
+L pub inline fn rawFree(a: Allocator, memory: []u8, alignment: Alignment, ret_addr: usize) void {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 10 source.zig keyword.storage.zig
+T 11 source.zig
+T 13 source.zig storage.type.function.zig
+T 14 source.zig
+T 21 source.zig entity.name.function.zig
+T 22 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig punctuation.separator.key-value.zig
+T 25 source.zig
+T 34 source.zig variable.zig
+T 35 source.zig punctuation.comma.zig
+T 36 source.zig
+T 42 source.zig variable.zig
+T 43 source.zig punctuation.separator.key-value.zig
+T 46 source.zig
+T 48 source.zig keyword.type.integer.zig
+T 49 source.zig punctuation.comma.zig
+T 50 source.zig
+T 59 source.zig variable.zig
+T 60 source.zig punctuation.separator.key-value.zig
+T 61 source.zig
+T 70 source.zig variable.zig
+T 71 source.zig punctuation.comma.zig
+T 72 source.zig
+T 80 source.zig variable.zig
+T 81 source.zig punctuation.separator.key-value.zig
+T 82 source.zig
+T 87 source.zig keyword.type.integer.zig
+T 89 source.zig
+T 93 source.zig keyword.type.zig
+T 95 source.zig
+L     return a.vtable.free(a.ptr, memory, alignment, ret_addr);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 24 source.zig entity.name.function.zig
+T 25 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.comma.zig
+T 32 source.zig
+T 38 source.zig variable.zig
+T 39 source.zig punctuation.comma.zig
+T 40 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 59 source.zig variable.zig
+T 60 source.zig
+T 61 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Returns a pointer to undefined memory.
+T 3 source.zig comment.line.documentation.zig
+T 42 source.zig comment.line.documentation.zig
+L /// Call `destroy` with the result to free the memory.
+T 3 source.zig comment.line.documentation.zig
+T 54 source.zig comment.line.documentation.zig
+L pub fn create(a: Allocator, comptime T: type) Error!*T {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 13 source.zig entity.name.function.zig
+T 14 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.separator.key-value.zig
+T 17 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.comma.zig
+T 28 source.zig
+T 36 source.zig keyword.storage.zig
+T 37 source.zig
+T 38 source.zig variable.zig
+T 39 source.zig punctuation.separator.key-value.zig
+T 40 source.zig
+T 44 source.zig keyword.type.zig
+T 46 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig keyword.operator.bitwise.zig
+T 53 source.zig keyword.operator.arithmetic.zig
+T 54 source.zig variable.zig
+T 56 source.zig
+L     if (@sizeOf(T) == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig support.function.builtin.zig
+T 16 source.zig
+T 17 source.zig variable.zig
+T 19 source.zig
+T 21 source.zig keyword.operator.comparison.zig
+T 22 source.zig
+T 23 source.zig constant.numeric.float.zig
+T 26 source.zig
+L         const ptr = comptime std.mem.alignBackward(usize, math.maxInt(usize), @alignOf(T));
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 28 source.zig keyword.storage.zig
+T 29 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.accessor.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.accessor.zig
+T 50 source.zig entity.name.function.zig
+T 51 source.zig
+T 56 source.zig keyword.type.integer.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 62 source.zig variable.zig
+T 63 source.zig punctuation.accessor.zig
+T 69 source.zig entity.name.function.zig
+T 70 source.zig
+T 75 source.zig keyword.type.integer.zig
+T 76 source.zig
+T 77 source.zig punctuation.comma.zig
+T 78 source.zig
+T 86 source.zig support.function.builtin.zig
+T 87 source.zig
+T 88 source.zig variable.zig
+T 90 source.zig
+T 91 source.zig punctuation.terminator.statement.zig
+L         return @ptrFromInt(ptr);
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 26 source.zig support.function.builtin.zig
+T 27 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     const ptr: *T = @ptrCast(try a.allocBytesWithAlignment(.of(T), @sizeOf(T), @returnAddress()));
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.arithmetic.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 28 source.zig support.function.builtin.zig
+T 29 source.zig
+T 32 source.zig keyword.control.trycatch.zig
+T 33 source.zig
+T 34 source.zig variable.zig
+T 35 source.zig punctuation.accessor.zig
+T 58 source.zig entity.name.function.zig
+T 59 source.zig
+T 60 source.zig punctuation.accessor.zig
+T 62 source.zig entity.name.function.zig
+T 63 source.zig
+T 64 source.zig variable.zig
+T 65 source.zig
+T 66 source.zig punctuation.comma.zig
+T 67 source.zig
+T 74 source.zig support.function.builtin.zig
+T 75 source.zig
+T 76 source.zig variable.zig
+T 77 source.zig
+T 78 source.zig punctuation.comma.zig
+T 79 source.zig
+T 93 source.zig support.function.builtin.zig
+T 97 source.zig
+T 98 source.zig punctuation.terminator.statement.zig
+L     return ptr;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// `ptr` should be the return value of `create`, or otherwise
+T 3 source.zig comment.line.documentation.zig
+T 62 source.zig comment.line.documentation.zig
+L /// have the same address and alignment property.
+T 3 source.zig comment.line.documentation.zig
+T 49 source.zig comment.line.documentation.zig
+L pub fn destroy(self: Allocator, ptr: anytype) void {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 14 source.zig entity.name.function.zig
+T 15 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.separator.key-value.zig
+T 21 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.comma.zig
+T 32 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.separator.key-value.zig
+T 37 source.zig
+T 44 source.zig keyword.type.zig
+T 46 source.zig
+T 50 source.zig keyword.type.zig
+T 52 source.zig
+L     const info = @typeInfo(@TypeOf(ptr)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 26 source.zig support.function.builtin.zig
+T 27 source.zig
+T 34 source.zig support.function.builtin.zig
+T 35 source.zig
+T 38 source.zig variable.zig
+T 40 source.zig
+T 41 source.zig punctuation.accessor.zig
+T 48 source.zig variable.zig
+T 49 source.zig punctuation.terminator.statement.zig
+L     if (info.size != .one) @compileError("ptr must be a single item pointer");
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 20 source.zig keyword.operator.comparison.zig
+T 21 source.zig
+T 22 source.zig punctuation.accessor.zig
+T 25 source.zig variable.zig
+T 27 source.zig
+T 40 source.zig support.function.builtin.zig
+T 41 source.zig
+T 42 source.zig string.quoted.double.zig
+T 75 source.zig string.quoted.double.zig
+T 76 source.zig string.quoted.double.zig
+T 77 source.zig
+T 78 source.zig punctuation.terminator.statement.zig
+L     const T = info.child;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.terminator.statement.zig
+L     if (@sizeOf(T) == 0) return;
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig support.function.builtin.zig
+T 16 source.zig
+T 17 source.zig variable.zig
+T 19 source.zig
+T 21 source.zig keyword.operator.comparison.zig
+T 22 source.zig
+T 23 source.zig constant.numeric.float.zig
+T 25 source.zig
+T 31 source.zig keyword.control.flow.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L     const non_const_ptr = @as([*]u8, @ptrCast(@constCast(ptr)));
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.assignment.zig
+T 26 source.zig
+T 29 source.zig support.function.builtin.zig
+T 31 source.zig
+T 32 source.zig keyword.operator.arithmetic.zig
+T 33 source.zig
+T 35 source.zig keyword.type.integer.zig
+T 36 source.zig punctuation.comma.zig
+T 37 source.zig
+T 45 source.zig support.function.builtin.zig
+T 46 source.zig
+T 56 source.zig support.function.builtin.zig
+T 57 source.zig
+T 60 source.zig variable.zig
+T 63 source.zig
+T 64 source.zig punctuation.terminator.statement.zig
+L     self.rawFree(non_const_ptr[0..@sizeOf(T)], .fromByteUnits(info.alignment), @returnAddress());
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.accessor.zig
+T 16 source.zig entity.name.function.zig
+T 17 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig constant.numeric.float.zig
+T 33 source.zig punctuation.accessor.zig
+T 34 source.zig punctuation.accessor.zig
+T 41 source.zig support.function.builtin.zig
+T 42 source.zig
+T 43 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig punctuation.comma.zig
+T 47 source.zig
+T 48 source.zig punctuation.accessor.zig
+T 61 source.zig entity.name.function.zig
+T 62 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.accessor.zig
+T 76 source.zig variable.zig
+T 77 source.zig
+T 78 source.zig punctuation.comma.zig
+T 79 source.zig
+T 93 source.zig support.function.builtin.zig
+T 96 source.zig
+T 97 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Allocates an array of `n` items of type `T` and sets all the
+T 3 source.zig comment.line.documentation.zig
+T 64 source.zig comment.line.documentation.zig
+L /// items to `undefined`. Depending on the Allocator
+T 3 source.zig comment.line.documentation.zig
+T 52 source.zig comment.line.documentation.zig
+L /// implementation, it may be required to call `free` once the
+T 3 source.zig comment.line.documentation.zig
+T 62 source.zig comment.line.documentation.zig
+L /// memory is no longer needed, to avoid a resource leak. If the
+T 3 source.zig comment.line.documentation.zig
+T 64 source.zig comment.line.documentation.zig
+L /// `Allocator` implementation is unknown, then correct code will
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L /// call `free` when done.
+T 3 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// For allocating a single item, see `create`.
+T 3 source.zig comment.line.documentation.zig
+T 47 source.zig comment.line.documentation.zig
+L pub fn alloc(self: Allocator, comptime T: type, n: usize) Error![]T {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 12 source.zig entity.name.function.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig punctuation.comma.zig
+T 30 source.zig
+T 38 source.zig keyword.storage.zig
+T 39 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.separator.key-value.zig
+T 42 source.zig
+T 46 source.zig keyword.type.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.separator.key-value.zig
+T 51 source.zig
+T 56 source.zig keyword.type.integer.zig
+T 58 source.zig
+T 63 source.zig variable.zig
+T 64 source.zig keyword.operator.bitwise.zig
+T 66 source.zig
+T 67 source.zig variable.zig
+T 69 source.zig
+L     return self.allocAdvancedWithRetAddr(T, null, n, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 40 source.zig entity.name.function.zig
+T 41 source.zig
+T 42 source.zig variable.zig
+T 43 source.zig punctuation.comma.zig
+T 44 source.zig
+T 48 source.zig keyword.constant.default.zig
+T 49 source.zig punctuation.comma.zig
+T 50 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig punctuation.comma.zig
+T 53 source.zig
+T 67 source.zig support.function.builtin.zig
+T 70 source.zig
+T 71 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn allocWithOptions(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 23 source.zig entity.name.function.zig
+T 24 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime Elem: type,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 23 source.zig keyword.type.zig
+T 24 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L     /// null means naturally aligned
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 36 source.zig comment.line.documentation.zig
+L     comptime optional_alignment: ?Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.separator.key-value.zig
+T 33 source.zig
+T 34 source.zig keyword.operator.question.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.comma.zig
+L     comptime optional_sentinel: ?Elem,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.separator.key-value.zig
+T 32 source.zig
+T 33 source.zig keyword.operator.question.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.comma.zig
+L ) Error!AllocWithOptionsPayload(Elem, optional_alignment, optional_sentinel) {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 31 source.zig entity.name.type.zig
+T 32 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 75 source.zig variable.zig
+T 78 source.zig
+L     return self.allocWithOptionsRetAddr(Elem, n, optional_alignment, optional_sentinel, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 47 source.zig variable.zig
+T 48 source.zig punctuation.comma.zig
+T 49 source.zig
+T 67 source.zig variable.zig
+T 68 source.zig punctuation.comma.zig
+T 69 source.zig
+T 86 source.zig variable.zig
+T 87 source.zig punctuation.comma.zig
+T 88 source.zig
+T 102 source.zig support.function.builtin.zig
+T 105 source.zig
+T 106 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn allocWithOptionsRetAddr(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 30 source.zig entity.name.function.zig
+T 31 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime Elem: type,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 23 source.zig keyword.type.zig
+T 24 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L     /// null means naturally aligned
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 36 source.zig comment.line.documentation.zig
+L     comptime optional_alignment: ?Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.separator.key-value.zig
+T 33 source.zig
+T 34 source.zig keyword.operator.question.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.comma.zig
+L     comptime optional_sentinel: ?Elem,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.separator.key-value.zig
+T 32 source.zig
+T 33 source.zig keyword.operator.question.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.comma.zig
+L     return_address: usize,
+T 4 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 25 source.zig keyword.type.integer.zig
+T 26 source.zig punctuation.comma.zig
+L ) Error!AllocWithOptionsPayload(Elem, optional_alignment, optional_sentinel) {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 31 source.zig entity.name.type.zig
+T 32 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 75 source.zig variable.zig
+T 78 source.zig
+L     if (optional_sentinel) |sentinel| {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 25 source.zig variable.zig
+T 27 source.zig
+T 28 source.zig keyword.operator.bitwise.zig
+T 36 source.zig variable.zig
+T 37 source.zig keyword.operator.bitwise.zig
+T 39 source.zig
+L         const ptr = try self.allocAdvancedWithRetAddr(Elem, optional_alignment, n + 1, return_address);
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 23 source.zig keyword.control.trycatch.zig
+T 24 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig punctuation.accessor.zig
+T 53 source.zig entity.name.function.zig
+T 54 source.zig
+T 58 source.zig variable.zig
+T 59 source.zig punctuation.comma.zig
+T 60 source.zig
+T 78 source.zig variable.zig
+T 79 source.zig punctuation.comma.zig
+T 80 source.zig
+T 81 source.zig variable.zig
+T 82 source.zig
+T 83 source.zig keyword.operator.arithmetic.zig
+T 84 source.zig
+T 85 source.zig constant.numeric.float.zig
+T 86 source.zig punctuation.comma.zig
+T 87 source.zig
+T 101 source.zig variable.zig
+T 102 source.zig
+T 103 source.zig punctuation.terminator.statement.zig
+L         ptr[n] = sentinel;
+T 8 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L         return ptr[0..n :sentinel];
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig constant.numeric.float.zig
+T 21 source.zig punctuation.accessor.zig
+T 22 source.zig punctuation.accessor.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 25 source.zig punctuation.separator.key-value.zig
+T 33 source.zig variable.zig
+T 34 source.zig
+T 35 source.zig punctuation.terminator.statement.zig
+L     } else {
+T 6 source.zig
+T 10 source.zig keyword.control.conditional.zig
+T 12 source.zig
+L         return self.allocAdvancedWithRetAddr(Elem, optional_alignment, n, return_address);
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 44 source.zig entity.name.function.zig
+T 45 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 69 source.zig variable.zig
+T 70 source.zig punctuation.comma.zig
+T 71 source.zig
+T 72 source.zig variable.zig
+T 73 source.zig punctuation.comma.zig
+T 74 source.zig
+T 88 source.zig variable.zig
+T 89 source.zig
+T 90 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L }
+T 1 source.zig
+L 
+L fn AllocWithOptionsPayload(comptime Elem: type, comptime alignment: ?Alignment, comptime sentinel: ?Elem) type {
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 26 source.zig entity.name.type.zig
+T 27 source.zig
+T 35 source.zig keyword.storage.zig
+T 36 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.separator.key-value.zig
+T 42 source.zig
+T 46 source.zig keyword.type.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 56 source.zig keyword.storage.zig
+T 57 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.separator.key-value.zig
+T 68 source.zig
+T 69 source.zig keyword.operator.question.zig
+T 78 source.zig variable.zig
+T 79 source.zig punctuation.comma.zig
+T 80 source.zig
+T 88 source.zig keyword.storage.zig
+T 89 source.zig
+T 97 source.zig variable.zig
+T 98 source.zig punctuation.separator.key-value.zig
+T 99 source.zig
+T 100 source.zig keyword.operator.question.zig
+T 104 source.zig variable.zig
+T 106 source.zig
+T 110 source.zig keyword.type.zig
+T 112 source.zig
+L     if (sentinel) |s| {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.bitwise.zig
+T 20 source.zig variable.zig
+T 21 source.zig keyword.operator.bitwise.zig
+T 23 source.zig
+L         return [:s]align(if (alignment) |a| a.toByteUnits() else @alignOf(Elem)) Elem;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 16 source.zig
+T 17 source.zig punctuation.separator.key-value.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 24 source.zig keyword.storage.zig
+T 25 source.zig
+T 27 source.zig keyword.control.conditional.zig
+T 29 source.zig
+T 38 source.zig variable.zig
+T 40 source.zig
+T 41 source.zig keyword.operator.bitwise.zig
+T 42 source.zig variable.zig
+T 43 source.zig keyword.operator.bitwise.zig
+T 44 source.zig
+T 45 source.zig variable.zig
+T 46 source.zig punctuation.accessor.zig
+T 57 source.zig entity.name.function.zig
+T 60 source.zig
+T 64 source.zig keyword.control.conditional.zig
+T 65 source.zig
+T 73 source.zig support.function.builtin.zig
+T 74 source.zig
+T 78 source.zig variable.zig
+T 81 source.zig
+T 85 source.zig variable.zig
+T 86 source.zig punctuation.terminator.statement.zig
+L     } else {
+T 6 source.zig
+T 10 source.zig keyword.control.conditional.zig
+T 12 source.zig
+L         return []align(if (alignment) |a| a.toByteUnits() else @alignOf(Elem)) Elem;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 17 source.zig
+T 22 source.zig keyword.storage.zig
+T 23 source.zig
+T 25 source.zig keyword.control.conditional.zig
+T 27 source.zig
+T 36 source.zig variable.zig
+T 38 source.zig
+T 39 source.zig keyword.operator.bitwise.zig
+T 40 source.zig variable.zig
+T 41 source.zig keyword.operator.bitwise.zig
+T 42 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.accessor.zig
+T 55 source.zig entity.name.function.zig
+T 58 source.zig
+T 62 source.zig keyword.control.conditional.zig
+T 63 source.zig
+T 71 source.zig support.function.builtin.zig
+T 72 source.zig
+T 76 source.zig variable.zig
+T 79 source.zig
+T 83 source.zig variable.zig
+T 84 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L }
+T 1 source.zig
+L 
+L /// Allocates an array of `n + 1` items of type `T` and sets the first `n`
+T 3 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L /// items to `undefined` and the last item to `sentinel`. Depending on the
+T 3 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L /// Allocator implementation, it may be required to call `free` once the
+T 3 source.zig comment.line.documentation.zig
+T 72 source.zig comment.line.documentation.zig
+L /// memory is no longer needed, to avoid a resource leak. If the
+T 3 source.zig comment.line.documentation.zig
+T 64 source.zig comment.line.documentation.zig
+L /// `Allocator` implementation is unknown, then correct code will
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L /// call `free` when done.
+T 3 source.zig comment.line.documentation.zig
+T 26 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// For allocating a single item, see `create`.
+T 3 source.zig comment.line.documentation.zig
+T 47 source.zig comment.line.documentation.zig
+L pub fn allocSentinel(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 20 source.zig entity.name.function.zig
+T 21 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime Elem: type,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 23 source.zig keyword.type.zig
+T 24 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L     comptime sentinel: Elem,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.separator.key-value.zig
+T 23 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.comma.zig
+L ) Error![:sentinel]Elem {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 9 source.zig
+T 10 source.zig punctuation.separator.key-value.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 23 source.zig variable.zig
+T 25 source.zig
+L     return self.allocWithOptionsRetAddr(Elem, n, null, sentinel, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 47 source.zig variable.zig
+T 48 source.zig punctuation.comma.zig
+T 49 source.zig
+T 53 source.zig keyword.constant.default.zig
+T 54 source.zig punctuation.comma.zig
+T 55 source.zig
+T 63 source.zig variable.zig
+T 64 source.zig punctuation.comma.zig
+T 65 source.zig
+T 79 source.zig support.function.builtin.zig
+T 82 source.zig
+T 83 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn alignedAlloc(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 19 source.zig entity.name.function.zig
+T 20 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime T: type,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.separator.key-value.zig
+T 16 source.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     /// null means naturally aligned
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 36 source.zig comment.line.documentation.zig
+L     comptime alignment: ?Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.question.zig
+T 34 source.zig variable.zig
+T 35 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L ) Error![]align(if (alignment) |a| a.toByteUnits() else @alignOf(T)) T {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 10 source.zig
+T 15 source.zig keyword.storage.zig
+T 16 source.zig
+T 18 source.zig keyword.control.conditional.zig
+T 20 source.zig
+T 29 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig keyword.operator.bitwise.zig
+T 33 source.zig variable.zig
+T 34 source.zig keyword.operator.bitwise.zig
+T 35 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.accessor.zig
+T 48 source.zig entity.name.function.zig
+T 51 source.zig
+T 55 source.zig keyword.control.conditional.zig
+T 56 source.zig
+T 64 source.zig support.function.builtin.zig
+T 65 source.zig
+T 66 source.zig variable.zig
+T 69 source.zig
+T 70 source.zig variable.zig
+T 72 source.zig
+L     return self.allocAdvancedWithRetAddr(T, alignment, n, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 40 source.zig entity.name.function.zig
+T 41 source.zig
+T 42 source.zig variable.zig
+T 43 source.zig punctuation.comma.zig
+T 44 source.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.comma.zig
+T 55 source.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 72 source.zig support.function.builtin.zig
+T 75 source.zig
+T 76 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub inline fn allocAdvancedWithRetAddr(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 10 source.zig keyword.storage.zig
+T 11 source.zig
+T 13 source.zig storage.type.function.zig
+T 14 source.zig
+T 38 source.zig entity.name.function.zig
+T 39 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime T: type,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.separator.key-value.zig
+T 16 source.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     /// null means naturally aligned
+T 4 source.zig
+T 7 source.zig comment.line.documentation.zig
+T 36 source.zig comment.line.documentation.zig
+L     comptime alignment: ?Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.question.zig
+T 34 source.zig variable.zig
+T 35 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L     return_address: usize,
+T 4 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 25 source.zig keyword.type.integer.zig
+T 26 source.zig punctuation.comma.zig
+L ) Error![]align(if (alignment) |a| a.toByteUnits() else @alignOf(T)) T {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 10 source.zig
+T 15 source.zig keyword.storage.zig
+T 16 source.zig
+T 18 source.zig keyword.control.conditional.zig
+T 20 source.zig
+T 29 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig keyword.operator.bitwise.zig
+T 33 source.zig variable.zig
+T 34 source.zig keyword.operator.bitwise.zig
+T 35 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.accessor.zig
+T 48 source.zig entity.name.function.zig
+T 51 source.zig
+T 55 source.zig keyword.control.conditional.zig
+T 56 source.zig
+T 64 source.zig support.function.builtin.zig
+T 65 source.zig
+T 66 source.zig variable.zig
+T 69 source.zig
+T 70 source.zig variable.zig
+T 72 source.zig
+L     const a = comptime (alignment orelse Alignment.of(T));
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 22 source.zig keyword.storage.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig
+T 40 source.zig keyword.control.conditional.zig
+T 41 source.zig
+T 50 source.zig variable.zig
+T 51 source.zig punctuation.accessor.zig
+T 53 source.zig entity.name.function.zig
+T 54 source.zig
+T 55 source.zig variable.zig
+T 57 source.zig
+T 58 source.zig punctuation.terminator.statement.zig
+L     const ptr: [*]align(a.toByteUnits()) T = @ptrCast(try self.allocWithSizeAndAlignment(@sizeOf(T), a, n, return_address));
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.arithmetic.zig
+T 18 source.zig
+T 23 source.zig keyword.storage.zig
+T 24 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.accessor.zig
+T 37 source.zig entity.name.function.zig
+T 41 source.zig
+T 42 source.zig variable.zig
+T 43 source.zig
+T 44 source.zig keyword.operator.assignment.zig
+T 45 source.zig
+T 53 source.zig support.function.builtin.zig
+T 54 source.zig
+T 57 source.zig keyword.control.trycatch.zig
+T 58 source.zig
+T 62 source.zig variable.zig
+T 63 source.zig punctuation.accessor.zig
+T 88 source.zig entity.name.function.zig
+T 89 source.zig
+T 96 source.zig support.function.builtin.zig
+T 97 source.zig
+T 98 source.zig variable.zig
+T 99 source.zig
+T 100 source.zig punctuation.comma.zig
+T 101 source.zig
+T 102 source.zig variable.zig
+T 103 source.zig punctuation.comma.zig
+T 104 source.zig
+T 105 source.zig variable.zig
+T 106 source.zig punctuation.comma.zig
+T 107 source.zig
+T 121 source.zig variable.zig
+T 123 source.zig
+T 124 source.zig punctuation.terminator.statement.zig
+L     return ptr[0..n];
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig constant.numeric.float.zig
+T 17 source.zig punctuation.accessor.zig
+T 18 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L fn allocWithSizeAndAlignment(
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 28 source.zig entity.name.function.zig
+T 29 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime size: usize,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 24 source.zig keyword.type.integer.zig
+T 25 source.zig punctuation.comma.zig
+L     comptime alignment: Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.comma.zig
+L     n: usize,
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig punctuation.separator.key-value.zig
+T 7 source.zig
+T 12 source.zig keyword.type.integer.zig
+T 13 source.zig punctuation.comma.zig
+L     return_address: usize,
+T 4 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 25 source.zig keyword.type.integer.zig
+T 26 source.zig punctuation.comma.zig
+L ) Error![*]align(alignment.toByteUnits()) u8 {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 9 source.zig
+T 10 source.zig keyword.operator.arithmetic.zig
+T 11 source.zig
+T 16 source.zig keyword.storage.zig
+T 17 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 38 source.zig entity.name.function.zig
+T 42 source.zig
+T 44 source.zig keyword.type.integer.zig
+T 46 source.zig
+L     const byte_count = math.mul(usize, size, n) catch return Error.OutOfMemory;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig
+T 22 source.zig keyword.operator.assignment.zig
+T 23 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 31 source.zig entity.name.function.zig
+T 32 source.zig
+T 37 source.zig keyword.type.integer.zig
+T 38 source.zig punctuation.comma.zig
+T 39 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.comma.zig
+T 45 source.zig
+T 46 source.zig variable.zig
+T 48 source.zig
+T 53 source.zig keyword.control.trycatch.zig
+T 54 source.zig
+T 60 source.zig keyword.control.flow.zig
+T 61 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.accessor.zig
+T 78 source.zig variable.zig
+T 79 source.zig punctuation.terminator.statement.zig
+L     return self.allocBytesWithAlignment(alignment, byte_count, return_address);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 61 source.zig variable.zig
+T 62 source.zig punctuation.comma.zig
+T 63 source.zig
+T 77 source.zig variable.zig
+T 78 source.zig
+T 79 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L fn allocBytesWithAlignment(
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 26 source.zig entity.name.function.zig
+T 27 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     comptime alignment: Alignment,
+T 4 source.zig
+T 12 source.zig keyword.storage.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.comma.zig
+L     byte_count: usize,
+T 4 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.separator.key-value.zig
+T 16 source.zig
+T 21 source.zig keyword.type.integer.zig
+T 22 source.zig punctuation.comma.zig
+L     return_address: usize,
+T 4 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 25 source.zig keyword.type.integer.zig
+T 26 source.zig punctuation.comma.zig
+L ) Error![*]align(alignment.toByteUnits()) u8 {
+T 2 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig keyword.operator.bitwise.zig
+T 9 source.zig
+T 10 source.zig keyword.operator.arithmetic.zig
+T 11 source.zig
+T 16 source.zig keyword.storage.zig
+T 17 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 38 source.zig entity.name.function.zig
+T 42 source.zig
+T 44 source.zig keyword.type.integer.zig
+T 46 source.zig
+L     if (byte_count == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 21 source.zig keyword.operator.comparison.zig
+T 22 source.zig
+T 23 source.zig constant.numeric.float.zig
+T 26 source.zig
+L         const ptr = comptime alignment.backward(math.maxInt(usize));
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 28 source.zig keyword.storage.zig
+T 29 source.zig
+T 38 source.zig variable.zig
+T 39 source.zig punctuation.accessor.zig
+T 47 source.zig entity.name.function.zig
+T 48 source.zig
+T 52 source.zig variable.zig
+T 53 source.zig punctuation.accessor.zig
+T 59 source.zig entity.name.function.zig
+T 60 source.zig
+T 65 source.zig keyword.type.integer.zig
+T 67 source.zig
+T 68 source.zig punctuation.terminator.statement.zig
+L         return @as([*]align(alignment.toByteUnits()) u8, @ptrFromInt(ptr));
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 18 source.zig support.function.builtin.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.arithmetic.zig
+T 22 source.zig
+T 27 source.zig keyword.storage.zig
+T 28 source.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.accessor.zig
+T 49 source.zig entity.name.function.zig
+T 53 source.zig
+T 55 source.zig keyword.type.integer.zig
+T 56 source.zig punctuation.comma.zig
+T 57 source.zig
+T 68 source.zig support.function.builtin.zig
+T 69 source.zig
+T 72 source.zig variable.zig
+T 74 source.zig
+T 75 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L 
+L     const byte_ptr = self.rawAlloc(byte_count, alignment, return_address) orelse return Error.OutOfMemory;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig keyword.operator.assignment.zig
+T 21 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.accessor.zig
+T 34 source.zig entity.name.function.zig
+T 35 source.zig
+T 45 source.zig variable.zig
+T 46 source.zig punctuation.comma.zig
+T 47 source.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 72 source.zig variable.zig
+T 74 source.zig
+T 80 source.zig keyword.control.conditional.zig
+T 81 source.zig
+T 87 source.zig keyword.control.flow.zig
+T 88 source.zig
+T 93 source.zig variable.zig
+T 94 source.zig punctuation.accessor.zig
+T 105 source.zig variable.zig
+T 106 source.zig punctuation.terminator.statement.zig
+L     @memset(byte_ptr[0..byte_count], undefined);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig
+T 22 source.zig constant.numeric.float.zig
+T 23 source.zig punctuation.accessor.zig
+T 24 source.zig punctuation.accessor.zig
+T 34 source.zig variable.zig
+T 35 source.zig
+T 36 source.zig punctuation.comma.zig
+T 37 source.zig
+T 46 source.zig keyword.constant.default.zig
+T 47 source.zig
+T 48 source.zig punctuation.terminator.statement.zig
+L     return @alignCast(byte_ptr);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 21 source.zig support.function.builtin.zig
+T 22 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Request to modify the size of an allocation.
+T 3 source.zig comment.line.documentation.zig
+T 48 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// It is guaranteed to not move the pointer, however the allocator
+T 3 source.zig comment.line.documentation.zig
+T 67 source.zig comment.line.documentation.zig
+L /// implementation may refuse the resize request by returning `false`.
+T 3 source.zig comment.line.documentation.zig
+T 70 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// `allocation` may be an empty slice, in which case `false` is returned,
+T 3 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L /// unless `new_len` is also 0, in which case `true` is returned.
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// `new_len` may be zero, in which case the allocation is freed.
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L pub fn resize(self: Allocator, allocation: anytype, new_len: usize) bool {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 13 source.zig entity.name.function.zig
+T 14 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 29 source.zig variable.zig
+T 30 source.zig punctuation.comma.zig
+T 31 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig punctuation.separator.key-value.zig
+T 43 source.zig
+T 50 source.zig keyword.type.zig
+T 51 source.zig punctuation.comma.zig
+T 52 source.zig
+T 59 source.zig variable.zig
+T 60 source.zig punctuation.separator.key-value.zig
+T 61 source.zig
+T 66 source.zig keyword.type.integer.zig
+T 68 source.zig
+T 72 source.zig keyword.type.zig
+T 74 source.zig
+L     const Slice = @typeInfo(@TypeOf(allocation)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 46 source.zig variable.zig
+T 48 source.zig
+T 49 source.zig punctuation.accessor.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.terminator.statement.zig
+L     const T = Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L     const alignment = Slice.alignment;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.assignment.zig
+T 22 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.terminator.statement.zig
+L     if (new_len == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 18 source.zig keyword.operator.comparison.zig
+T 19 source.zig
+T 20 source.zig constant.numeric.float.zig
+T 23 source.zig
+L         self.free(allocation);
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 17 source.zig entity.name.function.zig
+T 18 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig
+T 30 source.zig punctuation.terminator.statement.zig
+L         return true;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 19 source.zig keyword.constant.bool.zig
+T 20 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     if (allocation.len == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 25 source.zig keyword.operator.comparison.zig
+T 26 source.zig
+T 27 source.zig constant.numeric.float.zig
+T 30 source.zig
+L         return false;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 20 source.zig keyword.constant.bool.zig
+T 21 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     const old_memory = mem.sliceAsBytes(allocation);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig
+T 22 source.zig keyword.operator.assignment.zig
+T 23 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 50 source.zig variable.zig
+T 51 source.zig
+T 52 source.zig punctuation.terminator.statement.zig
+L     // I would like to use saturating multiplication here, but LLVM cannot lower it
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 83 source.zig comment.line.double-slash.zig
+L     // on WebAssembly: https://github.com/ziglang/zig/issues/9660
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 65 source.zig comment.line.double-slash.zig
+L     //const new_len_bytes = new_len *| @sizeOf(T);
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 50 source.zig comment.line.double-slash.zig
+L     const new_len_bytes = math.mul(usize, @sizeOf(T), new_len) catch return false;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.assignment.zig
+T 26 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.accessor.zig
+T 34 source.zig entity.name.function.zig
+T 35 source.zig
+T 40 source.zig keyword.type.integer.zig
+T 41 source.zig punctuation.comma.zig
+T 42 source.zig
+T 49 source.zig support.function.builtin.zig
+T 50 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig
+T 53 source.zig punctuation.comma.zig
+T 54 source.zig
+T 61 source.zig variable.zig
+T 63 source.zig
+T 68 source.zig keyword.control.trycatch.zig
+T 69 source.zig
+T 75 source.zig keyword.control.flow.zig
+T 76 source.zig
+T 81 source.zig keyword.constant.bool.zig
+T 82 source.zig punctuation.terminator.statement.zig
+L     return self.rawResize(old_memory, .fromByteUnits(alignment), new_len_bytes, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 25 source.zig entity.name.function.zig
+T 26 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 39 source.zig punctuation.accessor.zig
+T 52 source.zig entity.name.function.zig
+T 53 source.zig
+T 62 source.zig variable.zig
+T 63 source.zig
+T 64 source.zig punctuation.comma.zig
+T 65 source.zig
+T 78 source.zig variable.zig
+T 79 source.zig punctuation.comma.zig
+T 80 source.zig
+T 94 source.zig support.function.builtin.zig
+T 97 source.zig
+T 98 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Request to modify the size of an allocation, allowing relocation.
+T 3 source.zig comment.line.documentation.zig
+T 69 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// A non-`null` return value indicates the resize was successful. The
+T 3 source.zig comment.line.documentation.zig
+T 70 source.zig comment.line.documentation.zig
+L /// allocation may have same address, or may have been relocated. In either
+T 3 source.zig comment.line.documentation.zig
+T 75 source.zig comment.line.documentation.zig
+L /// case, the allocation now has size of `new_len`. A `null` return value
+T 3 source.zig comment.line.documentation.zig
+T 73 source.zig comment.line.documentation.zig
+L /// indicates that the resize would be equivalent to allocating new memory,
+T 3 source.zig comment.line.documentation.zig
+T 75 source.zig comment.line.documentation.zig
+L /// copying the bytes from the old memory, and then freeing the old memory.
+T 3 source.zig comment.line.documentation.zig
+T 75 source.zig comment.line.documentation.zig
+L /// In such case, it is more efficient for the caller to perform those
+T 3 source.zig comment.line.documentation.zig
+T 70 source.zig comment.line.documentation.zig
+L /// operations.
+T 3 source.zig comment.line.documentation.zig
+T 15 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// `allocation` may be an empty slice, in which case `null` is returned,
+T 3 source.zig comment.line.documentation.zig
+T 73 source.zig comment.line.documentation.zig
+L /// unless `new_len` is also 0, in which case `allocation` is returned.
+T 3 source.zig comment.line.documentation.zig
+T 71 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// `new_len` may be zero, in which case the allocation is freed.
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// If the allocation's elements' type is zero bytes sized, `allocation.len` is set to `new_len`.
+T 3 source.zig comment.line.documentation.zig
+T 97 source.zig comment.line.documentation.zig
+L pub fn remap(self: Allocator, allocation: anytype, new_len: usize) t: {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 12 source.zig entity.name.function.zig
+T 13 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig punctuation.comma.zig
+T 30 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig punctuation.separator.key-value.zig
+T 42 source.zig
+T 49 source.zig keyword.type.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 58 source.zig variable.zig
+T 59 source.zig punctuation.separator.key-value.zig
+T 60 source.zig
+T 65 source.zig keyword.type.integer.zig
+T 67 source.zig
+T 68 source.zig variable.zig
+T 69 source.zig punctuation.separator.key-value.zig
+T 71 source.zig
+L     const Slice = @typeInfo(@TypeOf(allocation)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 46 source.zig variable.zig
+T 48 source.zig
+T 49 source.zig punctuation.accessor.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.terminator.statement.zig
+L     break :t ?[]align(Slice.alignment) Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.control.flow.zig
+T 10 source.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 14 source.zig keyword.operator.question.zig
+T 16 source.zig
+T 21 source.zig keyword.storage.zig
+T 22 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 37 source.zig variable.zig
+T 39 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.accessor.zig
+T 50 source.zig variable.zig
+T 51 source.zig punctuation.terminator.statement.zig
+L } {
+T 3 source.zig
+L     const Slice = @typeInfo(@TypeOf(allocation)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 46 source.zig variable.zig
+T 48 source.zig
+T 49 source.zig punctuation.accessor.zig
+T 56 source.zig variable.zig
+T 57 source.zig punctuation.terminator.statement.zig
+L     const T = Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L 
+L     const alignment = Slice.alignment;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.assignment.zig
+T 22 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 37 source.zig variable.zig
+T 38 source.zig punctuation.terminator.statement.zig
+L     if (new_len == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 18 source.zig keyword.operator.comparison.zig
+T 19 source.zig
+T 20 source.zig constant.numeric.float.zig
+T 23 source.zig
+L         self.free(allocation);
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 17 source.zig entity.name.function.zig
+T 18 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig
+T 30 source.zig punctuation.terminator.statement.zig
+L         return allocation[0..0];
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig
+T 27 source.zig constant.numeric.float.zig
+T 28 source.zig punctuation.accessor.zig
+T 29 source.zig punctuation.accessor.zig
+T 30 source.zig constant.numeric.float.zig
+T 31 source.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     if (allocation.len == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 25 source.zig keyword.operator.comparison.zig
+T 26 source.zig
+T 27 source.zig constant.numeric.float.zig
+T 30 source.zig
+L         return null;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 19 source.zig keyword.constant.default.zig
+T 20 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     if (@sizeOf(T) == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig support.function.builtin.zig
+T 16 source.zig
+T 17 source.zig variable.zig
+T 19 source.zig
+T 21 source.zig keyword.operator.comparison.zig
+T 22 source.zig
+T 23 source.zig constant.numeric.float.zig
+T 26 source.zig
+L         var new_memory = allocation;
+T 8 source.zig
+T 11 source.zig keyword.default.zig
+T 12 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 24 source.zig keyword.operator.assignment.zig
+T 25 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.terminator.statement.zig
+L         new_memory.len = new_len;
+T 8 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 24 source.zig keyword.operator.assignment.zig
+T 25 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.terminator.statement.zig
+L         return new_memory;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     const old_memory = mem.sliceAsBytes(allocation);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig
+T 22 source.zig keyword.operator.assignment.zig
+T 23 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 50 source.zig variable.zig
+T 51 source.zig
+T 52 source.zig punctuation.terminator.statement.zig
+L     // I would like to use saturating multiplication here, but LLVM cannot lower it
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 83 source.zig comment.line.double-slash.zig
+L     // on WebAssembly: https://github.com/ziglang/zig/issues/9660
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 65 source.zig comment.line.double-slash.zig
+L     //const new_len_bytes = new_len *| @sizeOf(T);
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 50 source.zig comment.line.double-slash.zig
+L     const new_len_bytes = math.mul(usize, @sizeOf(T), new_len) catch return null;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.assignment.zig
+T 26 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.accessor.zig
+T 34 source.zig entity.name.function.zig
+T 35 source.zig
+T 40 source.zig keyword.type.integer.zig
+T 41 source.zig punctuation.comma.zig
+T 42 source.zig
+T 49 source.zig support.function.builtin.zig
+T 50 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig
+T 53 source.zig punctuation.comma.zig
+T 54 source.zig
+T 61 source.zig variable.zig
+T 63 source.zig
+T 68 source.zig keyword.control.trycatch.zig
+T 69 source.zig
+T 75 source.zig keyword.control.flow.zig
+T 76 source.zig
+T 80 source.zig keyword.constant.default.zig
+T 81 source.zig punctuation.terminator.statement.zig
+L     const new_ptr = self.rawRemap(old_memory, .fromByteUnits(alignment), new_len_bytes, @returnAddress()) orelse return null;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.accessor.zig
+T 33 source.zig entity.name.function.zig
+T 34 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 47 source.zig punctuation.accessor.zig
+T 60 source.zig entity.name.function.zig
+T 61 source.zig
+T 70 source.zig variable.zig
+T 71 source.zig
+T 72 source.zig punctuation.comma.zig
+T 73 source.zig
+T 86 source.zig variable.zig
+T 87 source.zig punctuation.comma.zig
+T 88 source.zig
+T 102 source.zig support.function.builtin.zig
+T 106 source.zig
+T 112 source.zig keyword.control.conditional.zig
+T 113 source.zig
+T 119 source.zig keyword.control.flow.zig
+T 120 source.zig
+T 124 source.zig keyword.constant.default.zig
+T 125 source.zig punctuation.terminator.statement.zig
+L     const new_memory: []align(alignment) u8 = @alignCast(new_ptr[0..new_len_bytes]);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 29 source.zig keyword.storage.zig
+T 30 source.zig
+T 39 source.zig variable.zig
+T 41 source.zig
+T 43 source.zig keyword.type.integer.zig
+T 44 source.zig
+T 45 source.zig keyword.operator.assignment.zig
+T 46 source.zig
+T 56 source.zig support.function.builtin.zig
+T 57 source.zig
+T 64 source.zig variable.zig
+T 65 source.zig
+T 66 source.zig constant.numeric.float.zig
+T 67 source.zig punctuation.accessor.zig
+T 68 source.zig punctuation.accessor.zig
+T 81 source.zig variable.zig
+T 83 source.zig
+T 84 source.zig punctuation.terminator.statement.zig
+L     return mem.bytesAsSlice(T, new_memory);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.accessor.zig
+T 27 source.zig entity.name.function.zig
+T 28 source.zig
+T 29 source.zig variable.zig
+T 30 source.zig punctuation.comma.zig
+T 31 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig
+T 43 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// This function requests a new size for an existing allocation, which
+T 3 source.zig comment.line.documentation.zig
+T 71 source.zig comment.line.documentation.zig
+L /// can be larger, smaller, or the same size as the old memory allocation.
+T 3 source.zig comment.line.documentation.zig
+T 74 source.zig comment.line.documentation.zig
+L /// The result is an array of `new_n` items of the same type as the existing
+T 3 source.zig comment.line.documentation.zig
+T 76 source.zig comment.line.documentation.zig
+L /// allocation.
+T 3 source.zig comment.line.documentation.zig
+T 15 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// If `new_n` is 0, this is the same as `free` and it always succeeds.
+T 3 source.zig comment.line.documentation.zig
+T 71 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// `old_mem` may have length zero, which makes a new allocation.
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L ///
+T 3 source.zig comment.line.documentation.zig
+L /// This function only fails on out-of-memory conditions, unlike:
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L /// * `remap` which returns `null` when the `Allocator` implementation cannot
+T 3 source.zig comment.line.documentation.zig
+T 77 source.zig comment.line.documentation.zig
+L ///   do the realloc more efficiently than the caller
+T 3 source.zig comment.line.documentation.zig
+T 53 source.zig comment.line.documentation.zig
+L /// * `resize` which returns `false` when the `Allocator` implementation cannot
+T 3 source.zig comment.line.documentation.zig
+T 79 source.zig comment.line.documentation.zig
+L ///   change the size without relocating the allocation.
+T 3 source.zig comment.line.documentation.zig
+T 56 source.zig comment.line.documentation.zig
+L pub fn realloc(self: Allocator, old_mem: anytype, new_n: usize) t: {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 14 source.zig entity.name.function.zig
+T 15 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.separator.key-value.zig
+T 21 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.comma.zig
+T 32 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.separator.key-value.zig
+T 41 source.zig
+T 48 source.zig keyword.type.zig
+T 49 source.zig punctuation.comma.zig
+T 50 source.zig
+T 55 source.zig variable.zig
+T 56 source.zig punctuation.separator.key-value.zig
+T 57 source.zig
+T 62 source.zig keyword.type.integer.zig
+T 64 source.zig
+T 65 source.zig variable.zig
+T 66 source.zig punctuation.separator.key-value.zig
+T 68 source.zig
+L     const Slice = @typeInfo(@TypeOf(old_mem)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 43 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig punctuation.accessor.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.terminator.statement.zig
+L     break :t Error![]align(Slice.alignment) Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.control.flow.zig
+T 10 source.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig keyword.operator.bitwise.zig
+T 21 source.zig
+T 26 source.zig keyword.storage.zig
+T 27 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.accessor.zig
+T 42 source.zig variable.zig
+T 44 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.accessor.zig
+T 55 source.zig variable.zig
+T 56 source.zig punctuation.terminator.statement.zig
+L } {
+T 3 source.zig
+L     return self.reallocAdvanced(old_mem, new_n, @returnAddress());
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 31 source.zig entity.name.function.zig
+T 32 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 46 source.zig variable.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 62 source.zig support.function.builtin.zig
+T 65 source.zig
+T 66 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L pub fn reallocAdvanced(
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 22 source.zig entity.name.function.zig
+T 23 source.zig
+L     self: Allocator,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+L     old_mem: anytype,
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     new_n: usize,
+T 4 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig punctuation.separator.key-value.zig
+T 11 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     return_address: usize,
+T 4 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.separator.key-value.zig
+T 20 source.zig
+T 25 source.zig keyword.type.integer.zig
+T 26 source.zig punctuation.comma.zig
+L ) t: {
+T 2 source.zig
+T 3 source.zig variable.zig
+T 4 source.zig punctuation.separator.key-value.zig
+T 6 source.zig
+L     const Slice = @typeInfo(@TypeOf(old_mem)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 43 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig punctuation.accessor.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.terminator.statement.zig
+L     break :t Error![]align(Slice.alignment) Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.control.flow.zig
+T 10 source.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig keyword.operator.bitwise.zig
+T 21 source.zig
+T 26 source.zig keyword.storage.zig
+T 27 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.accessor.zig
+T 42 source.zig variable.zig
+T 44 source.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.accessor.zig
+T 55 source.zig variable.zig
+T 56 source.zig punctuation.terminator.statement.zig
+L } {
+T 3 source.zig
+L     const Slice = @typeInfo(@TypeOf(old_mem)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 43 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig punctuation.accessor.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.terminator.statement.zig
+L     const T = Slice.child;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 25 source.zig variable.zig
+T 26 source.zig punctuation.terminator.statement.zig
+L     if (old_mem.len == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 22 source.zig keyword.operator.comparison.zig
+T 23 source.zig
+T 24 source.zig constant.numeric.float.zig
+T 27 source.zig
+L         return self.allocAdvancedWithRetAddr(T, .fromByteUnits(Slice.alignment), new_n, return_address);
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 44 source.zig entity.name.function.zig
+T 45 source.zig
+T 46 source.zig variable.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 49 source.zig punctuation.accessor.zig
+T 62 source.zig entity.name.function.zig
+T 63 source.zig
+T 68 source.zig variable.zig
+T 69 source.zig punctuation.accessor.zig
+T 78 source.zig variable.zig
+T 79 source.zig
+T 80 source.zig punctuation.comma.zig
+T 81 source.zig
+T 86 source.zig variable.zig
+T 87 source.zig punctuation.comma.zig
+T 88 source.zig
+T 102 source.zig variable.zig
+T 103 source.zig
+T 104 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     if (new_n == 0) {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig
+T 16 source.zig keyword.operator.comparison.zig
+T 17 source.zig
+T 18 source.zig constant.numeric.float.zig
+T 21 source.zig
+L         self.free(old_mem);
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 17 source.zig entity.name.function.zig
+T 18 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig
+T 27 source.zig punctuation.terminator.statement.zig
+L         const ptr = comptime std.mem.alignBackward(usize, math.maxInt(usize), Slice.alignment);
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 28 source.zig keyword.storage.zig
+T 29 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.accessor.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.accessor.zig
+T 50 source.zig entity.name.function.zig
+T 51 source.zig
+T 56 source.zig keyword.type.integer.zig
+T 57 source.zig punctuation.comma.zig
+T 58 source.zig
+T 62 source.zig variable.zig
+T 63 source.zig punctuation.accessor.zig
+T 69 source.zig entity.name.function.zig
+T 70 source.zig
+T 75 source.zig keyword.type.integer.zig
+T 76 source.zig
+T 77 source.zig punctuation.comma.zig
+T 78 source.zig
+T 83 source.zig variable.zig
+T 84 source.zig punctuation.accessor.zig
+T 93 source.zig variable.zig
+T 94 source.zig
+T 95 source.zig punctuation.terminator.statement.zig
+L         return @as([*]align(Slice.alignment) T, @ptrFromInt(ptr))[0..0];
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 18 source.zig support.function.builtin.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.arithmetic.zig
+T 22 source.zig
+T 27 source.zig keyword.storage.zig
+T 28 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.accessor.zig
+T 43 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig variable.zig
+T 47 source.zig punctuation.comma.zig
+T 48 source.zig
+T 59 source.zig support.function.builtin.zig
+T 60 source.zig
+T 63 source.zig variable.zig
+T 66 source.zig
+T 67 source.zig constant.numeric.float.zig
+T 68 source.zig punctuation.accessor.zig
+T 69 source.zig punctuation.accessor.zig
+T 70 source.zig constant.numeric.float.zig
+T 71 source.zig
+T 72 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L 
+L     const old_byte_slice = mem.sliceAsBytes(old_mem);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig
+T 26 source.zig keyword.operator.assignment.zig
+T 27 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig punctuation.accessor.zig
+T 43 source.zig entity.name.function.zig
+T 44 source.zig
+T 51 source.zig variable.zig
+T 52 source.zig
+T 53 source.zig punctuation.terminator.statement.zig
+L     const byte_count = math.mul(usize, @sizeOf(T), new_n) catch return Error.OutOfMemory;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig
+T 22 source.zig keyword.operator.assignment.zig
+T 23 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 31 source.zig entity.name.function.zig
+T 32 source.zig
+T 37 source.zig keyword.type.integer.zig
+T 38 source.zig punctuation.comma.zig
+T 39 source.zig
+T 46 source.zig support.function.builtin.zig
+T 47 source.zig
+T 48 source.zig variable.zig
+T 49 source.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 56 source.zig variable.zig
+T 58 source.zig
+T 63 source.zig keyword.control.trycatch.zig
+T 64 source.zig
+T 70 source.zig keyword.control.flow.zig
+T 71 source.zig
+T 76 source.zig variable.zig
+T 77 source.zig punctuation.accessor.zig
+T 88 source.zig variable.zig
+T 89 source.zig punctuation.terminator.statement.zig
+L     // Note: can't set shrunk memory to undefined as memory shouldn't be modified on realloc failure
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 100 source.zig comment.line.double-slash.zig
+L     if (self.rawRemap(old_byte_slice, .fromByteUnits(Slice.alignment), byte_count, return_address)) |p| {
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.accessor.zig
+T 21 source.zig entity.name.function.zig
+T 22 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 39 source.zig punctuation.accessor.zig
+T 52 source.zig entity.name.function.zig
+T 53 source.zig
+T 58 source.zig variable.zig
+T 59 source.zig punctuation.accessor.zig
+T 68 source.zig variable.zig
+T 69 source.zig
+T 70 source.zig punctuation.comma.zig
+T 71 source.zig
+T 81 source.zig variable.zig
+T 82 source.zig punctuation.comma.zig
+T 83 source.zig
+T 97 source.zig variable.zig
+T 100 source.zig
+T 101 source.zig keyword.operator.bitwise.zig
+T 102 source.zig variable.zig
+T 103 source.zig keyword.operator.bitwise.zig
+T 105 source.zig
+L         const new_bytes: []align(Slice.alignment) u8 = @alignCast(p[0..byte_count]);
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig punctuation.separator.key-value.zig
+T 27 source.zig
+T 32 source.zig keyword.storage.zig
+T 33 source.zig
+T 38 source.zig variable.zig
+T 39 source.zig punctuation.accessor.zig
+T 48 source.zig variable.zig
+T 50 source.zig
+T 52 source.zig keyword.type.integer.zig
+T 53 source.zig
+T 54 source.zig keyword.operator.assignment.zig
+T 55 source.zig
+T 65 source.zig support.function.builtin.zig
+T 66 source.zig
+T 67 source.zig variable.zig
+T 68 source.zig
+T 69 source.zig constant.numeric.float.zig
+T 70 source.zig punctuation.accessor.zig
+T 71 source.zig punctuation.accessor.zig
+T 81 source.zig variable.zig
+T 83 source.zig
+T 84 source.zig punctuation.terminator.statement.zig
+L         return mem.bytesAsSlice(T, new_bytes);
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 31 source.zig entity.name.function.zig
+T 32 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.comma.zig
+T 35 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig
+T 46 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L 
+L     const new_mem = self.rawAlloc(byte_count, .fromByteUnits(Slice.alignment), return_address) orelse
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.accessor.zig
+T 33 source.zig entity.name.function.zig
+T 34 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 47 source.zig punctuation.accessor.zig
+T 60 source.zig entity.name.function.zig
+T 61 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.accessor.zig
+T 76 source.zig variable.zig
+T 77 source.zig
+T 78 source.zig punctuation.comma.zig
+T 79 source.zig
+T 93 source.zig variable.zig
+T 95 source.zig
+T 101 source.zig keyword.control.conditional.zig
+L         return error.OutOfMemory;
+T 8 source.zig
+T 14 source.zig keyword.control.flow.zig
+T 15 source.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.accessor.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.terminator.statement.zig
+L     const copy_len = @min(byte_count, old_byte_slice.len);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig keyword.operator.assignment.zig
+T 21 source.zig
+T 25 source.zig support.function.builtin.zig
+T 26 source.zig
+T 36 source.zig variable.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 52 source.zig variable.zig
+T 53 source.zig punctuation.accessor.zig
+T 56 source.zig variable.zig
+T 57 source.zig
+T 58 source.zig punctuation.terminator.statement.zig
+L     @memcpy(new_mem[0..copy_len], old_byte_slice[0..copy_len]);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig constant.numeric.float.zig
+T 22 source.zig punctuation.accessor.zig
+T 23 source.zig punctuation.accessor.zig
+T 31 source.zig variable.zig
+T 32 source.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 48 source.zig variable.zig
+T 49 source.zig
+T 50 source.zig constant.numeric.float.zig
+T 51 source.zig punctuation.accessor.zig
+T 52 source.zig punctuation.accessor.zig
+T 60 source.zig variable.zig
+T 62 source.zig
+T 63 source.zig punctuation.terminator.statement.zig
+L     @memset(old_byte_slice, undefined);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 26 source.zig variable.zig
+T 27 source.zig punctuation.comma.zig
+T 28 source.zig
+T 37 source.zig keyword.constant.default.zig
+T 38 source.zig
+T 39 source.zig punctuation.terminator.statement.zig
+L     self.rawFree(old_byte_slice, .fromByteUnits(Slice.alignment), return_address);
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.accessor.zig
+T 16 source.zig entity.name.function.zig
+T 17 source.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.comma.zig
+T 33 source.zig
+T 34 source.zig punctuation.accessor.zig
+T 47 source.zig entity.name.function.zig
+T 48 source.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.accessor.zig
+T 63 source.zig variable.zig
+T 64 source.zig
+T 65 source.zig punctuation.comma.zig
+T 66 source.zig
+T 80 source.zig variable.zig
+T 81 source.zig
+T 82 source.zig punctuation.terminator.statement.zig
+L 
+L     const new_bytes: []align(Slice.alignment) u8 = @alignCast(new_mem[0..byte_count]);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.separator.key-value.zig
+T 23 source.zig
+T 28 source.zig keyword.storage.zig
+T 29 source.zig
+T 34 source.zig variable.zig
+T 35 source.zig punctuation.accessor.zig
+T 44 source.zig variable.zig
+T 46 source.zig
+T 48 source.zig keyword.type.integer.zig
+T 49 source.zig
+T 50 source.zig keyword.operator.assignment.zig
+T 51 source.zig
+T 61 source.zig support.function.builtin.zig
+T 62 source.zig
+T 69 source.zig variable.zig
+T 70 source.zig
+T 71 source.zig constant.numeric.float.zig
+T 72 source.zig punctuation.accessor.zig
+T 73 source.zig punctuation.accessor.zig
+T 83 source.zig variable.zig
+T 85 source.zig
+T 86 source.zig punctuation.terminator.statement.zig
+L     return mem.bytesAsSlice(T, new_bytes);
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.accessor.zig
+T 27 source.zig entity.name.function.zig
+T 28 source.zig
+T 29 source.zig variable.zig
+T 30 source.zig punctuation.comma.zig
+T 31 source.zig
+T 40 source.zig variable.zig
+T 41 source.zig
+T 42 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Free an array allocated with `alloc`.
+T 3 source.zig comment.line.documentation.zig
+T 41 source.zig comment.line.documentation.zig
+L /// If memory has length 0, free is a no-op.
+T 3 source.zig comment.line.documentation.zig
+T 44 source.zig comment.line.documentation.zig
+L /// To free a single item, see `destroy`.
+T 3 source.zig comment.line.documentation.zig
+T 41 source.zig comment.line.documentation.zig
+L pub fn free(self: Allocator, memory: anytype) void {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 11 source.zig entity.name.function.zig
+T 12 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.separator.key-value.zig
+T 18 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.comma.zig
+T 29 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.separator.key-value.zig
+T 37 source.zig
+T 44 source.zig keyword.type.zig
+T 46 source.zig
+T 50 source.zig keyword.type.zig
+T 52 source.zig
+L     const Slice = @typeInfo(@TypeOf(memory)).pointer;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 27 source.zig support.function.builtin.zig
+T 28 source.zig
+T 35 source.zig support.function.builtin.zig
+T 36 source.zig
+T 42 source.zig variable.zig
+T 44 source.zig
+T 45 source.zig punctuation.accessor.zig
+T 52 source.zig variable.zig
+T 53 source.zig punctuation.terminator.statement.zig
+L     const bytes = mem.sliceAsBytes(memory);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.accessor.zig
+T 34 source.zig entity.name.function.zig
+T 35 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig
+T 43 source.zig punctuation.terminator.statement.zig
+L     const bytes_len = bytes.len + if (Slice.sentinel() != null) @sizeOf(Slice.child) else 0;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig keyword.operator.assignment.zig
+T 22 source.zig
+T 27 source.zig variable.zig
+T 28 source.zig punctuation.accessor.zig
+T 31 source.zig variable.zig
+T 32 source.zig
+T 33 source.zig keyword.operator.arithmetic.zig
+T 34 source.zig
+T 36 source.zig keyword.control.conditional.zig
+T 38 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig punctuation.accessor.zig
+T 52 source.zig entity.name.function.zig
+T 55 source.zig
+T 57 source.zig keyword.operator.comparison.zig
+T 58 source.zig
+T 62 source.zig keyword.constant.default.zig
+T 64 source.zig
+T 71 source.zig support.function.builtin.zig
+T 72 source.zig
+T 77 source.zig variable.zig
+T 78 source.zig punctuation.accessor.zig
+T 83 source.zig variable.zig
+T 85 source.zig
+T 89 source.zig keyword.control.conditional.zig
+T 90 source.zig
+T 91 source.zig constant.numeric.float.zig
+T 92 source.zig punctuation.terminator.statement.zig
+L     if (bytes_len == 0) return;
+T 4 source.zig
+T 6 source.zig keyword.control.conditional.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 20 source.zig keyword.operator.comparison.zig
+T 21 source.zig
+T 22 source.zig constant.numeric.float.zig
+T 24 source.zig
+T 30 source.zig keyword.control.flow.zig
+T 31 source.zig punctuation.terminator.statement.zig
+L     const non_const_ptr = @constCast(bytes.ptr);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 25 source.zig keyword.operator.assignment.zig
+T 26 source.zig
+T 36 source.zig support.function.builtin.zig
+T 37 source.zig
+T 42 source.zig variable.zig
+T 43 source.zig punctuation.accessor.zig
+T 46 source.zig variable.zig
+T 47 source.zig
+T 48 source.zig punctuation.terminator.statement.zig
+L     @memset(non_const_ptr[0..bytes_len], undefined);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig
+T 27 source.zig constant.numeric.float.zig
+T 28 source.zig punctuation.accessor.zig
+T 29 source.zig punctuation.accessor.zig
+T 38 source.zig variable.zig
+T 39 source.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 50 source.zig keyword.constant.default.zig
+T 51 source.zig
+T 52 source.zig punctuation.terminator.statement.zig
+L     self.rawFree(non_const_ptr[0..bytes_len], .fromByteUnits(Slice.alignment), @returnAddress());
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.accessor.zig
+T 16 source.zig entity.name.function.zig
+T 17 source.zig
+T 30 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig constant.numeric.float.zig
+T 33 source.zig punctuation.accessor.zig
+T 34 source.zig punctuation.accessor.zig
+T 43 source.zig variable.zig
+T 44 source.zig
+T 45 source.zig punctuation.comma.zig
+T 46 source.zig
+T 47 source.zig punctuation.accessor.zig
+T 60 source.zig entity.name.function.zig
+T 61 source.zig
+T 66 source.zig variable.zig
+T 67 source.zig punctuation.accessor.zig
+T 76 source.zig variable.zig
+T 77 source.zig
+T 78 source.zig punctuation.comma.zig
+T 79 source.zig
+T 93 source.zig support.function.builtin.zig
+T 96 source.zig
+T 97 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Copies `m` to newly allocated memory. Caller owns the memory.
+T 3 source.zig comment.line.documentation.zig
+T 65 source.zig comment.line.documentation.zig
+L pub fn dupe(allocator: Allocator, comptime T: type, m: []const T) Error![]T {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 11 source.zig entity.name.function.zig
+T 12 source.zig
+T 21 source.zig variable.zig
+T 22 source.zig punctuation.separator.key-value.zig
+T 23 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 42 source.zig keyword.storage.zig
+T 43 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.separator.key-value.zig
+T 46 source.zig
+T 50 source.zig keyword.type.zig
+T 51 source.zig punctuation.comma.zig
+T 52 source.zig
+T 53 source.zig variable.zig
+T 54 source.zig punctuation.separator.key-value.zig
+T 57 source.zig
+T 62 source.zig keyword.default.zig
+T 63 source.zig
+T 64 source.zig variable.zig
+T 66 source.zig
+T 71 source.zig variable.zig
+T 72 source.zig keyword.operator.bitwise.zig
+T 74 source.zig
+T 75 source.zig variable.zig
+T 77 source.zig
+L     const new_buf = try allocator.alloc(T, m.len);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 23 source.zig keyword.control.trycatch.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig punctuation.comma.zig
+T 43 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.accessor.zig
+T 48 source.zig variable.zig
+T 49 source.zig
+T 50 source.zig punctuation.terminator.statement.zig
+L     @memcpy(new_buf, m);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.comma.zig
+T 21 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 24 source.zig punctuation.terminator.statement.zig
+L     return new_buf;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// Copies `m` to newly allocated memory, with a null-terminated element. Caller owns the memory.
+T 3 source.zig comment.line.documentation.zig
+T 97 source.zig comment.line.documentation.zig
+L pub fn dupeZ(allocator: Allocator, comptime T: type, m: []const T) Error![:0]T {
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 6 source.zig storage.type.function.zig
+T 7 source.zig
+T 12 source.zig entity.name.function.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig punctuation.separator.key-value.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.comma.zig
+T 35 source.zig
+T 43 source.zig keyword.storage.zig
+T 44 source.zig
+T 45 source.zig variable.zig
+T 46 source.zig punctuation.separator.key-value.zig
+T 47 source.zig
+T 51 source.zig keyword.type.zig
+T 52 source.zig punctuation.comma.zig
+T 53 source.zig
+T 54 source.zig variable.zig
+T 55 source.zig punctuation.separator.key-value.zig
+T 58 source.zig
+T 63 source.zig keyword.default.zig
+T 64 source.zig
+T 65 source.zig variable.zig
+T 67 source.zig
+T 72 source.zig variable.zig
+T 73 source.zig keyword.operator.bitwise.zig
+T 74 source.zig
+T 75 source.zig punctuation.separator.key-value.zig
+T 76 source.zig constant.numeric.float.zig
+T 77 source.zig
+T 78 source.zig variable.zig
+T 80 source.zig
+L     const new_buf = try allocator.alloc(T, m.len + 1);
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig
+T 19 source.zig keyword.operator.assignment.zig
+T 20 source.zig
+T 23 source.zig keyword.control.trycatch.zig
+T 24 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.accessor.zig
+T 39 source.zig entity.name.function.zig
+T 40 source.zig
+T 41 source.zig variable.zig
+T 42 source.zig punctuation.comma.zig
+T 43 source.zig
+T 44 source.zig variable.zig
+T 45 source.zig punctuation.accessor.zig
+T 48 source.zig variable.zig
+T 49 source.zig
+T 50 source.zig keyword.operator.arithmetic.zig
+T 51 source.zig
+T 52 source.zig constant.numeric.float.zig
+T 53 source.zig
+T 54 source.zig punctuation.terminator.statement.zig
+L     @memcpy(new_buf[0..m.len], m);
+T 4 source.zig
+T 11 source.zig support.function.builtin.zig
+T 12 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig
+T 21 source.zig constant.numeric.float.zig
+T 22 source.zig punctuation.accessor.zig
+T 23 source.zig punctuation.accessor.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.accessor.zig
+T 28 source.zig variable.zig
+T 29 source.zig
+T 30 source.zig punctuation.comma.zig
+T 31 source.zig
+T 32 source.zig variable.zig
+T 33 source.zig
+T 34 source.zig punctuation.terminator.statement.zig
+L     new_buf[m.len] = 0;
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.accessor.zig
+T 17 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig keyword.operator.assignment.zig
+T 21 source.zig
+T 22 source.zig constant.numeric.float.zig
+T 23 source.zig punctuation.terminator.statement.zig
+L     return new_buf[0..m.len :0];
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig constant.numeric.float.zig
+T 21 source.zig punctuation.accessor.zig
+T 22 source.zig punctuation.accessor.zig
+T 23 source.zig variable.zig
+T 24 source.zig punctuation.accessor.zig
+T 27 source.zig variable.zig
+T 28 source.zig
+T 29 source.zig punctuation.separator.key-value.zig
+T 30 source.zig constant.numeric.float.zig
+T 31 source.zig
+T 32 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L /// An allocator that always fails to allocate.
+T 3 source.zig comment.line.documentation.zig
+T 47 source.zig comment.line.documentation.zig
+L pub const failing: Allocator = .{
+T 3 source.zig keyword.storage.zig
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.separator.key-value.zig
+T 19 source.zig
+T 28 source.zig variable.zig
+T 29 source.zig
+T 30 source.zig keyword.operator.assignment.zig
+T 31 source.zig
+T 32 source.zig punctuation.accessor.zig
+T 33 source.zig
+L     .ptr = undefined,
+T 4 source.zig
+T 5 source.zig punctuation.accessor.zig
+T 8 source.zig variable.zig
+T 9 source.zig
+T 10 source.zig keyword.operator.assignment.zig
+T 11 source.zig
+T 20 source.zig keyword.constant.default.zig
+T 21 source.zig punctuation.comma.zig
+L     .vtable = &.{
+T 4 source.zig
+T 5 source.zig punctuation.accessor.zig
+T 11 source.zig variable.zig
+T 12 source.zig
+T 13 source.zig keyword.operator.assignment.zig
+T 14 source.zig
+T 15 source.zig keyword.operator.bitwise.zig
+T 16 source.zig punctuation.accessor.zig
+T 17 source.zig
+L         .alloc = noAlloc,
+T 8 source.zig
+T 9 source.zig punctuation.accessor.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L         .resize = unreachableResize,
+T 8 source.zig
+T 9 source.zig punctuation.accessor.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.comma.zig
+L         .remap = unreachableRemap,
+T 8 source.zig
+T 9 source.zig punctuation.accessor.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.comma.zig
+L         .free = unreachableFree,
+T 8 source.zig
+T 9 source.zig punctuation.accessor.zig
+T 13 source.zig variable.zig
+T 14 source.zig
+T 15 source.zig keyword.operator.assignment.zig
+T 16 source.zig
+T 31 source.zig variable.zig
+T 32 source.zig punctuation.comma.zig
+L     },
+T 5 source.zig
+T 6 source.zig punctuation.comma.zig
+L };
+T 1 source.zig
+T 2 source.zig punctuation.terminator.statement.zig
+L 
+L fn unreachableResize(
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 20 source.zig entity.name.function.zig
+T 21 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     new_len: usize,
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 18 source.zig keyword.type.integer.zig
+T 19 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) bool {
+T 2 source.zig
+T 6 source.zig keyword.type.zig
+T 8 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = new_len;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     unreachable;
+T 4 source.zig
+T 15 source.zig keyword.statement.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L fn unreachableRemap(
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 19 source.zig entity.name.function.zig
+T 20 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     new_len: usize,
+T 4 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 18 source.zig keyword.type.integer.zig
+T 19 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) ?[*]u8 {
+T 2 source.zig
+T 3 source.zig keyword.operator.question.zig
+T 4 source.zig
+T 5 source.zig keyword.operator.arithmetic.zig
+T 6 source.zig
+T 8 source.zig keyword.type.integer.zig
+T 10 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = new_len;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     unreachable;
+T 4 source.zig
+T 15 source.zig keyword.statement.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L fn unreachableFree(
+T 2 source.zig storage.type.function.zig
+T 3 source.zig
+T 18 source.zig entity.name.function.zig
+T 19 source.zig
+L     self: *anyopaque,
+T 4 source.zig
+T 8 source.zig variable.zig
+T 9 source.zig punctuation.separator.key-value.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.arithmetic.zig
+T 20 source.zig keyword.type.zig
+T 21 source.zig punctuation.comma.zig
+L     memory: []u8,
+T 4 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 16 source.zig keyword.type.integer.zig
+T 17 source.zig punctuation.comma.zig
+L     alignment: Alignment,
+T 4 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.separator.key-value.zig
+T 15 source.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.comma.zig
+L     ret_addr: usize,
+T 4 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.separator.key-value.zig
+T 14 source.zig
+T 19 source.zig keyword.type.integer.zig
+T 20 source.zig punctuation.comma.zig
+L ) void {
+T 2 source.zig
+T 6 source.zig keyword.type.zig
+T 8 source.zig
+L     _ = self;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig punctuation.terminator.statement.zig
+L     _ = memory;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.terminator.statement.zig
+L     _ = alignment;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L     _ = ret_addr;
+T 4 source.zig
+T 5 source.zig variable.zig
+T 6 source.zig
+T 7 source.zig keyword.operator.assignment.zig
+T 8 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     unreachable;
+T 4 source.zig
+T 15 source.zig keyword.statement.zig
+T 16 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 
+L test failing {
+T 4 source.zig keyword.default.zig
+T 5 source.zig
+T 12 source.zig variable.zig
+T 14 source.zig
+L     const f: Allocator = .failing;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.separator.key-value.zig
+T 13 source.zig
+T 22 source.zig variable.zig
+T 23 source.zig
+T 24 source.zig keyword.operator.assignment.zig
+T 25 source.zig
+T 26 source.zig punctuation.accessor.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.terminator.statement.zig
+L     try std.testing.expectError(error.OutOfMemory, f.alloc(u8, 123));
+T 4 source.zig
+T 7 source.zig keyword.control.trycatch.zig
+T 8 source.zig
+T 11 source.zig variable.zig
+T 12 source.zig punctuation.accessor.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.accessor.zig
+T 31 source.zig entity.name.function.zig
+T 32 source.zig
+T 37 source.zig keyword.type.zig
+T 38 source.zig punctuation.accessor.zig
+T 49 source.zig variable.zig
+T 50 source.zig punctuation.comma.zig
+T 51 source.zig
+T 52 source.zig variable.zig
+T 53 source.zig punctuation.accessor.zig
+T 58 source.zig entity.name.function.zig
+T 59 source.zig
+T 61 source.zig keyword.type.integer.zig
+T 62 source.zig punctuation.comma.zig
+T 63 source.zig
+T 66 source.zig constant.numeric.float.zig
+T 68 source.zig
+T 69 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 

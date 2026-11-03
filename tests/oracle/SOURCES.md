@@ -218,6 +218,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scala/circe-build` | [`build.sbt`][circe-build] in circe/circe | [Apache-2.0][circe-licence] |
 | `markdown/scala3-givens` | [`docs/_docs/reference/contextual/givens.md`][scala3-givens] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `markdown/scala3-enums` | [`docs/_docs/reference/enums/enums.md`][scala3-enums] in scala/scala3 | [Apache-2.0][scala3-licence] |
+| `zig/sample` | [`samples/zig.sample`][zig-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `zig/std-allocator` | [`lib/std/mem/Allocator.zig`][zig-std-allocator] in ziglang/zig | [MIT][zig-licence] |
+| `zig/std-fmt` | [`lib/std/fmt.zig`][zig-std-fmt] in ziglang/zig | [MIT][zig-licence] |
+| `zig/zls-offsets` | [`src/offsets.zig`][zls-offsets] in zigtools/zls | [MIT][zls-licence] |
+| `zig/zls-build` | [`build.zig`][zls-build] in zigtools/zls | [MIT][zls-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -349,6 +354,9 @@ PowerShell runs on nishiki's TextMate engine, not on a hand-written lexer.
 Scala runs on nishiki's TextMate engine as well.
 `scala/sample` and `scala/scala3-boundary` are its development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
 `scala/scala3-source-position`, `scala/circe-json`, `scala/circe-build` and `markdown/scala3-enums` are held out.
+Zig runs on nishiki's TextMate engine as well.
+`zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
+Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -746,3 +754,10 @@ Scala runs on nishiki's TextMate engine as well.
 [circe-json]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/modules/core/shared/src/main/scala/io/circe/Json.scala
 [circe-build]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/build.sbt
 [circe-licence]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/LICENSE
+[zig-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/zig.sample
+[zig-std-allocator]: https://github.com/ziglang/zig/blob/738d2be9d6b6ef3ff3559130c05159ef53336224/lib/std/mem/Allocator.zig
+[zig-std-fmt]: https://github.com/ziglang/zig/blob/738d2be9d6b6ef3ff3559130c05159ef53336224/lib/std/fmt.zig
+[zig-licence]: https://github.com/ziglang/zig/blob/738d2be9d6b6ef3ff3559130c05159ef53336224/LICENSE
+[zls-offsets]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/src/offsets.zig
+[zls-build]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/build.zig
+[zls-licence]: https://github.com/zigtools/zls/blob/b3e65123f1bf455cea491ba7069bebd5f93e6839/LICENSE

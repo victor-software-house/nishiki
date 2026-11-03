@@ -245,6 +245,14 @@ languages! {
         module: scala,
         reads_line_feed: true,
     }
+    /// Zig, with the scopes of Shiki's `zig` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Zig {
+        feature: "lang-zig",
+        names: ["zig"],
+        module: zig,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

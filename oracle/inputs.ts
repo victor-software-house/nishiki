@@ -322,6 +322,11 @@ const scala3 =
 const circe =
   "https://raw.githubusercontent.com/circe/circe/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d";
 
+const zig =
+  "https://raw.githubusercontent.com/ziglang/zig/738d2be9d6b6ef3ff3559130c05159ef53336224";
+const zls =
+  "https://raw.githubusercontent.com/zigtools/zls/b3e65123f1bf455cea491ba7069bebd5f93e6839";
+
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
   {
@@ -843,4 +848,11 @@ export const inputs: Input[] = [
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
   { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
+  // Zig runs on the TextMate engine. Shiki's Markdown grammar has no Zig
+  // fence, so no Markdown input embeds it.
+  { lang: "zig", name: "sample", url: `${samples}/zig.sample` },
+  { lang: "zig", name: "std-allocator", url: `${zig}/lib/std/mem/Allocator.zig` },
+  { lang: "zig", name: "std-fmt", url: `${zig}/lib/std/fmt.zig` },
+  { lang: "zig", name: "zls-offsets", url: `${zls}/src/offsets.zig` },
+  { lang: "zig", name: "zls-build", url: `${zls}/build.zig` },
 ];
