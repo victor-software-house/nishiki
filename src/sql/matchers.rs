@@ -12,9 +12,8 @@ use super::rules::Pat;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
-use crate::classes;
-use crate::classes::is_ascii_space;
-use crate::utf8::char_len;
+use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
+use crate::utf8::{char_at, char_len, char_start};
 
 /// The ASCII lowercase letter that `c` matches without regard to case: itself,
 /// or `s` for `ſ` and `k` for the Kelvin sign, which `Onig` folds to them.
@@ -60,96 +59,39 @@ const fn max_len(max: usize, word: &str) -> usize {
 impl Lexer<'_> {
     // Characters.
 
-    /// The character at `i` and its width, where one starts in the text.
-    pub(super) fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        if i >= self.lim {
-            return None;
-        }
-        let width = char_len(self.s[i]);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
-    }
-
     /// The width of the white space character at `i`, 0 when there is none.
     /// The line feed at the end of a line is white space.
     pub(super) fn space_w(&self, i: usize) -> usize {
-        if i < self.lim {
-            let b = self.s[i];
-            if b < 0x80 {
-                return usize::from(is_ascii_space(b));
-            }
-            return match self.char_at(i) {
-                Some((c, width)) if classes::is_space(c) => width,
-                _ => 0,
-            };
+        if i == self.lim() {
+            usize::from(self.nl)
+        } else {
+            space_width(self.s, i)
         }
-        usize::from(i == self.lim && self.nl)
-    }
-
-    /// The width of the word character at `i`, 0 when there is none.
-    pub(super) fn word_w(&self, i: usize) -> usize {
-        if i >= self.lim {
-            return 0;
-        }
-        let b = self.s[i];
-        if b < 0x80 {
-            return usize::from(b.is_ascii_alphanumeric() || b == b'_');
-        }
-        match self.char_at(i) {
-            Some((c, width)) if classes::is_word(c) => width,
-            _ => 0,
-        }
-    }
-
-    /// The width of the digit character at `i`, as `\d` reads it.
-    pub(super) fn digit_w(&self, i: usize) -> usize {
-        if i >= self.lim {
-            return 0;
-        }
-        let b = self.s[i];
-        if b < 0x80 {
-            return usize::from(b.is_ascii_digit());
-        }
-        match self.char_at(i) {
-            Some((c, width)) if classes::is_digit(c) => width,
-            _ => 0,
-        }
-    }
-
-    /// Whether the character before `i` is a word character.
-    pub(super) fn word_before(&self, i: usize) -> bool {
-        let Some(mut start) = i.checked_sub(1) else {
-            return false;
-        };
-        while start > 0 && self.s[start] & 0xc0 == 0x80 {
-            start -= 1;
-        }
-        self.word_w(start) > 0
     }
 
     /// Whether a word starts at `i`: a word character after a non-word one.
     pub(super) fn word_start(&self, i: usize) -> bool {
-        self.word_w(i) > 0 && !self.word_before(i)
+        word_width(self.s, i) > 0 && !word_before(self.s, i)
     }
 
     /// The end of the run of word characters from `i`.
     pub(super) fn word_run(&self, mut i: usize) -> usize {
         let from = i;
-        let (start, end) = self.run.get();
+        let (start, end) = self.x.run.get();
         if start == from {
             return end;
         }
-        while let width @ 1.. = self.word_w(i) {
+        while let width @ 1.. = word_width(self.s, i) {
             i += width;
         }
         self.spend(i - from);
-        self.run.set((from, i));
+        self.x.run.set((from, i));
         i
     }
 
     /// The end of the run of digits from `i`.
     pub(super) fn digits(&self, mut i: usize) -> usize {
-        while let width @ 1.. = self.digit_w(i) {
+        while let width @ 1.. = digit_width(self.s, i) {
             i += width;
         }
         i
@@ -176,7 +118,7 @@ impl Lexer<'_> {
     pub(super) fn lit(&self, i: usize, word: &str) -> Option<usize> {
         let mut at = i;
         for &expected in word.as_bytes() {
-            let (c, width) = self.char_at(at)?;
+            let (c, width) = char_at(self.s, at)?;
             if fold(c)? != expected.to_ascii_lowercase() {
                 return None;
             }
@@ -187,7 +129,7 @@ impl Lexer<'_> {
 
     /// The regex `\b` after a word that ends at `i`.
     pub(super) fn bnd(&self, i: usize) -> bool {
-        self.word_w(i) == 0
+        word_width(self.s, i) == 0
     }
 
     /// The first of `words` at `i` (case-insensitive) that a boundary
@@ -220,8 +162,8 @@ impl Lexer<'_> {
 
     /// The first position from `p` where `rule` can match: the bytes in
     /// between start none of its patterns and end it nowhere.
-    pub(super) fn skip(&self, rule: Rule, p: usize) -> usize {
-        let text = &self.s[p.min(self.lim)..self.lim];
+    pub(super) fn skip_to(&self, rule: Rule, p: usize) -> usize {
+        let text = &self.s[p.min(self.lim())..self.lim()];
         let found = match rule {
             Rule::LineComment => None,
             Rule::StrSingle => memchr2(b'\'', b'\\', text),
@@ -241,11 +183,11 @@ impl Lexer<'_> {
     /// The first position from `p` where a pattern of the root can start.
     fn root_skip(&self, mut p: usize) -> usize {
         let from = p;
-        while p < self.lim && !self.root_start(p) {
+        while p < self.lim() && !self.root_start(p) {
             p += char_len(self.s[p]);
         }
         self.spend(p - from);
-        p.min(self.lim + usize::from(self.nl)).max(from)
+        p.min(self.lim() + usize::from(self.nl)).max(from)
     }
 
     /// Whether a pattern of the root can start at `p`.
@@ -293,12 +235,10 @@ impl Lexer<'_> {
         let Some(mut start) = p.checked_sub(1) else {
             return false;
         };
-        if start >= self.lim {
-            return start == self.lim && self.nl;
+        if start >= self.lim() {
+            return start == self.lim() && self.nl;
         }
-        while start > 0 && self.s[start] & 0xc0 == 0x80 {
-            start -= 1;
-        }
+        start = char_start(self.s, start);
         self.space_w(start) > 0
     }
 
@@ -307,7 +247,8 @@ impl Lexer<'_> {
     /// The end pattern of `rule` at `p`.
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let one = |byte: u8, scope: S| {
-            (p < self.lim && self.s[p] == byte).then(|| Hit::new(p, p + 1).cap(0, p, p + 1, scope))
+            (p < self.lim() && self.s[p] == byte)
+                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, scope))
         };
         match rule {
             Rule::Root => None,
@@ -318,11 +259,11 @@ impl Lexer<'_> {
                 (!self.g || p != self.pos).then(|| Hit::new(p, p))
             }
             // `\n`
-            Rule::LineComment => (p == self.lim && self.nl).then(|| Hit::new(p, p + 1)),
+            Rule::LineComment => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
             // `\*/`
             Rule::BlockComment => self
                 .s
-                .get(p..self.lim)
+                .get(p..self.lim())
                 .is_some_and(|rest| rest.starts_with(b"*/"))
                 .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctComment)),
             Rule::StrSingle => one(b'\'', S::PunctStrEnd),
@@ -361,7 +302,7 @@ impl Lexer<'_> {
                 .single(p, b'-')
                 .or_else(|| self.single(p, b'+'))
                 .or_else(|| self.single(p, b'/')),
-            Pat::Concat => self.text(p, b"||"),
+            Pat::Concat => self.text_hit(p, b"||"),
             Pat::Function => self.function(p),
             Pat::DbTable => self.db_table(p),
             Pat::StrSingleFull => self.single_quoted(p),
@@ -381,31 +322,32 @@ impl Lexer<'_> {
             Pat::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
             Pat::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
             Pat::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
+            Pat::End => self.end_at(self.top_rule(), p),
         }
     }
 
     /// A match of the one byte `b`.
     fn single(&self, p: usize, b: u8) -> Option<Hit> {
-        (p < self.lim && self.s[p] == b).then(|| Hit::new(p, p + 1))
+        (p < self.lim() && self.s[p] == b).then(|| Hit::new(p, p + 1))
     }
 
     /// A match of the text `text`.
-    fn text(&self, p: usize, text: &[u8]) -> Option<Hit> {
+    fn text_hit(&self, p: usize, text: &[u8]) -> Option<Hit> {
         self.s
-            .get(p..self.lim)
+            .get(p..self.lim())
             .is_some_and(|rest| rest.starts_with(text))
             .then(|| Hit::new(p, p + text.len()))
     }
 
     /// A rule's begin: `text`, scoped as its punctuation.
     fn begin(&self, p: usize, text: &[u8], scope: S) -> Option<Hit> {
-        self.text(p, text)
+        self.text_hit(p, text)
             .map(|hit| hit.cap(0, p, p + text.len(), scope))
     }
 
     /// `[!<>]?=|<>|<|>`
     fn comparison(&self, p: usize) -> Option<Hit> {
-        let b = *self.s.get(p).filter(|_| p < self.lim)?;
+        let b = *self.s.get(p).filter(|_| p < self.lim())?;
         let next = self.at(p + 1);
         let width = if next == b'=' && matches!(b, b'!' | b'<' | b'>') {
             2
@@ -423,7 +365,7 @@ impl Lexer<'_> {
 
     /// `((?<!@)@)\b(\w+)\b`
     fn variable(&self, p: usize) -> Option<Hit> {
-        if self.at(p) != b'@' || p >= self.lim || (p > 0 && self.s[p - 1] == b'@') {
+        if self.at(p) != b'@' || p >= self.lim() || (p > 0 && self.s[p - 1] == b'@') {
             return None;
         }
         let end = self.word_run(p + 1);
@@ -432,12 +374,12 @@ impl Lexer<'_> {
 
     /// `\[|\]\]` inside brackets.
     fn bracket_char(&self, p: usize) -> Option<Hit> {
-        self.single(p, b'[').or_else(|| self.text(p, b"]]"))
+        self.single(p, b'[').or_else(|| self.text_hit(p, b"]]"))
     }
 
     /// `(\()(\))`
     fn parens(&self, p: usize) -> Option<Hit> {
-        self.text(p, b"()").map(|hit| {
+        self.text_hit(p, b"()").map(|hit| {
             hit.cap(0, p, p + 1, S::PunctScopeBegin)
                 .cap(1, p + 1, p + 2, S::PunctScopeEnd)
         })
@@ -445,13 +387,13 @@ impl Lexer<'_> {
 
     /// `\\.`
     fn escape(&self, p: usize) -> Option<Hit> {
-        (p + 1 < self.lim && self.s[p] == b'\\')
+        (p + 1 < self.lim() && self.s[p] == b'\\')
             .then(|| Hit::new(p, p + 1 + char_len(self.s[p + 1])))
     }
 
     /// `(#\{)([^\}]*)(\})`
     fn interpolation(&self, p: usize) -> Option<Hit> {
-        if !self.s.get(p..self.lim)?.starts_with(b"#{") {
+        if !self.s.get(p..self.lim())?.starts_with(b"#{") {
             return None;
         }
         let close = self.find_closer(Closer::Brace, p + 2)?;
@@ -465,10 +407,10 @@ impl Lexer<'_> {
     /// `(?:(?<![a-zA-Z0-9_])(N))?(')[^']*(')`
     fn single_quoted(&self, p: usize) -> Option<Hit> {
         let quote = match self.at(p) {
-            b'\'' if p < self.lim => p,
-            b'N' if p < self.lim
+            b'\'' if p < self.lim() => p,
+            b'N' if p < self.lim()
                 && self.at(p + 1) == b'\''
-                && p + 1 < self.lim
+                && p + 1 < self.lim()
                 && !self
                     .prev(p)
                     .is_some_and(|b| b.is_ascii_alphanumeric() || b == b'_') =>
@@ -488,10 +430,10 @@ impl Lexer<'_> {
     /// `(q)[^q...]*(q)`: a string closed on the line, whose body has none of
     /// the bytes `stop` takes.
     fn closed(&self, p: usize, quote: u8, stop: impl Fn(u8) -> bool) -> Option<Hit> {
-        if p >= self.lim || self.s[p] != quote {
+        if p >= self.lim() || self.s[p] != quote {
             return None;
         }
-        let body = self.s[p + 1..self.lim].iter().position(|&b| stop(b))?;
+        let body = self.s[p + 1..self.lim()].iter().position(|&b| stop(b))?;
         self.spend(body);
         let close = p + 1 + body;
         (self.s[close] == quote).then(|| {
@@ -505,18 +447,18 @@ impl Lexer<'_> {
     fn comment_begin(&self, p: usize, text: &[u8]) -> Option<Hit> {
         if p == 0 && matches!(self.at(0), b' ' | b'\t') {
             let mut end = 0;
-            while end < self.lim && matches!(self.s[end], b' ' | b'\t') {
+            while end < self.lim() && matches!(self.s[end], b' ' | b'\t') {
                 end += 1;
             }
             self.spend(end);
             return self
                 .s
-                .get(end..self.lim)
+                .get(end..self.lim())
                 .is_some_and(|rest| rest.starts_with(text))
                 .then(|| Hit::new(0, end).cap(0, 0, end, S::LeadingSpace));
         }
         self.s
-            .get(p..self.lim)
+            .get(p..self.lim())
             .is_some_and(|rest| rest.starts_with(text))
             .then(|| Hit::new(p, p))
     }
@@ -533,7 +475,7 @@ impl Lexer<'_> {
 
     /// `\b\d+\b`
     fn number(&self, p: usize) -> Option<Hit> {
-        if !self.word_start(p) || self.digit_w(p) == 0 {
+        if !self.word_start(p) || digit_width(self.s, p) == 0 {
             return None;
         }
         let end = self.digits(p);
@@ -597,7 +539,7 @@ impl Lexer<'_> {
                 self.object_types(start, CREATE_TYPES, true)
                     .find_map(|(kind_end, after)| {
                         let (quote, name) = match self.at(after) {
-                            q @ (b'\'' | b'"' | b'`') if after < self.lim => (Some(q), after + 1),
+                            q @ (b'\'' | b'"' | b'`') if after < self.lim() => (Some(q), after + 1),
                             _ => (None, after),
                         };
                         let name_end = self.word_run(name);
@@ -605,7 +547,9 @@ impl Lexer<'_> {
                             return None;
                         }
                         let end = match quote {
-                            Some(q) if name_end < self.lim && self.s[name_end] == q => name_end + 1,
+                            Some(q) if name_end < self.lim() && self.s[name_end] == q => {
+                                name_end + 1
+                            }
                             Some(_) => return None,
                             None => name_end,
                         };
@@ -703,9 +647,9 @@ impl Lexer<'_> {
 
     /// `\b(name)\b\s*\(` for a function, or `(?<!@)@@\b(name)\b\s*\(`.
     fn function(&self, p: usize) -> Option<Hit> {
-        let global = self.at(p) == b'@' && p < self.lim;
+        let global = self.at(p) == b'@' && p < self.lim();
         let start = if global {
-            if (p > 0 && self.s[p - 1] == b'@') || self.at(p + 1) != b'@' || p + 1 >= self.lim {
+            if (p > 0 && self.s[p - 1] == b'@') || self.at(p + 1) != b'@' || p + 1 >= self.lim() {
                 return None;
             }
             p + 2
@@ -714,7 +658,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        if self.word_w(start) == 0 {
+        if word_width(self.s, start) == 0 {
             return None;
         }
         let end = self.word_run(start);
@@ -733,17 +677,20 @@ impl Lexer<'_> {
                 .map(|&(_, scope)| scope)
         }?;
         let paren = self.spaces(end);
-        (self.at(paren) == b'(' && paren < self.lim)
+        (self.at(paren) == b'(' && paren < self.lim())
             .then(|| Hit::new(p, paren + 1).cap(0, start, end, scope))
     }
 
     /// `(\w+?)\.(\w+)`
     fn db_table(&self, p: usize) -> Option<Hit> {
-        if self.word_w(p) == 0 || !(p == self.pos || self.word_start(p)) {
+        if word_width(self.s, p) == 0 || !(p == self.pos || self.word_start(p)) {
             return None;
         }
         let database = self.word_run(p);
-        if self.at(database) != b'.' || database >= self.lim || self.word_w(database + 1) == 0 {
+        if self.at(database) != b'.'
+            || database >= self.lim()
+            || word_width(self.s, database + 1) == 0
+        {
             return None;
         }
         let table = self.word_run(database + 1);
@@ -772,8 +719,8 @@ impl Lexer<'_> {
             // `priority ` with its space, which a word follows.
             if word == b"priority"
                 && self.at(end) == b' '
-                && end < self.lim
-                && self.word_w(end + 1) > 0
+                && end < self.lim()
+                && word_width(self.s, end + 1) > 0
             {
                 return Some(Hit::new(p, end + 1));
             }
@@ -789,10 +736,10 @@ impl Lexer<'_> {
             return end;
         }
         let skip = |at: usize| -> Option<usize> {
-            (at < self.lim && self.s[at] == b'\\').then_some(())?;
+            (at < self.lim() && self.s[at] == b'\\').then_some(())?;
             let mut i = at + 1;
             let from = i;
-            while i < self.lim && self.s[i].eq_ignore_ascii_case(&b's') {
+            while i < self.lim() && self.s[i].eq_ignore_ascii_case(&b's') {
                 i += 1;
             }
             (i > from).then_some(i)

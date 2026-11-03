@@ -22,49 +22,31 @@ mod scope;
 mod state;
 mod words;
 
+pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
-use scope::S;
-use state::Rule;
 
-use crate::arena::{Arena, ROOT};
+use crate::arena::Arena;
 use crate::language::{Context, Line};
 
 /// The state at the start of a SQL document whose scopes sit on the stack
 /// `base`: one rule with `source.sql` on top of it.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
-    let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena
-        .push(ROOT, Rule::Root.code(), 0, stack)
-        .unwrap_or(ROOT)
+    crate::rules::start::<engine::Sql>(arena, base)
 }
 
 /// The state at the start of the SQL lines of a fenced code block, whose text
 /// sits on the stack `base` with no `source.sql` of its own, as in Shiki's
 /// embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
+    crate::rules::start_embedded::<engine::Sql>(arena, base)
 }
 
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-///
-/// Lexing starts at `line.start`, where a Markdown fence's text begins after
-/// the indentation of the containers around it. The bytes before it stay in
-/// the line, because the grammar looks at them: `^` matches only at 0. For an
-/// embedded line the fence's `while` rule has matched the container prefix
-/// just before `start`, which is where `\G` stays for the line, as it does in
-/// Shiki; a SQL document has no such rule, so `\G` matches nowhere at the
-/// start of its lines.
-///
-/// An empty line leaves the state as it is: Shiki does not tokenize empty
-/// lines, and the grammar would otherwise close a rule it left open at the end
-/// of the line before.
+/// Lexes one line under the crate's lexer contract. For a Markdown fence's
+/// line, `\G` stays where the fence's `while` rule matched the container
+/// prefix, as in Shiki; a SQL document has no such rule.
+#[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
-    if line.text.is_empty() {
-        return state;
-    }
-    engine::Lexer::new(cx, line, state).run()
+    crate::rules::lex::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql)
 }
 
 #[cfg(test)]

@@ -5,6 +5,7 @@
 use super::engine::{Hit, Lexer};
 use super::matchers::LONGEST;
 use super::scope::S;
+use crate::classes::digit_width;
 
 /// The types of the first alternative of the type rule.
 const PLAIN_TYPES: &[&str] = &[
@@ -89,24 +90,24 @@ impl Lexer<'_> {
 
     /// `\((\d+)\)` at `i`: where the digits start and end, and the end.
     fn paren_digits(&self, i: usize) -> Option<(usize, usize, usize)> {
-        if self.at(i) != b'(' || i >= self.lim {
+        if self.at(i) != b'(' || i >= self.lim() {
             return None;
         }
         let end = self.digits(i + 1);
-        (end > i + 1 && self.at(end) == b')' && end < self.lim).then_some((i + 1, end, end + 1))
+        (end > i + 1 && self.at(end) == b')' && end < self.lim()).then_some((i + 1, end, end + 1))
     }
 
     /// `\((\d+),(\d+)\)` at `i`: the two numbers and the end.
     fn paren_pair(&self, i: usize) -> Option<Pair> {
-        if self.at(i) != b'(' || i >= self.lim {
+        if self.at(i) != b'(' || i >= self.lim() {
             return None;
         }
         let first = self.digits(i + 1);
-        if first == i + 1 || self.at(first) != b',' || first >= self.lim {
+        if first == i + 1 || self.at(first) != b',' || first >= self.lim() {
             return None;
         }
         let second = self.digits(first + 1);
-        (second > first + 1 && self.at(second) == b')' && second < self.lim).then_some((
+        (second > first + 1 && self.at(second) == b')' && second < self.lim()).then_some((
             (i + 1, first),
             (first + 1, second),
             second + 1,
@@ -148,7 +149,8 @@ impl Lexer<'_> {
         }
         // `\b(char|number|varchar\d?)\b(?:\((\d+)\))?`
         let varchar = self.run_is(p, p + 7, "varchar")
-            && (e == p + 7 || (self.digit_w(p + 7) > 0 && e == p + 7 + self.digit_w(p + 7)));
+            && (e == p + 7
+                || (digit_width(self.s, p + 7) > 0 && e == p + 7 + digit_width(self.s, p + 7)));
         if self.run_is(p, e, "char") || self.run_is(p, e, "number") || varchar {
             return Some(match self.paren_digits(e) {
                 Some((from, to, end)) => {

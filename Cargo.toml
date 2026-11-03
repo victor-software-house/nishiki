@@ -116,7 +116,7 @@ lang-dockerfile = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-java = ["_scope-table", "_rule-tables", "_classes"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
-lang-sql = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-sql = ["_scope-table", "_rule-engine", "_classes", "_utf8", "_frame-kinds"]
 lang-ini = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-graphql = [
   "_scope-table",

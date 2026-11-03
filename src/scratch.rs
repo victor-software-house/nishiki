@@ -59,4 +59,7 @@ pub(crate) struct Scratch {
     /// The Swift lexer's, for Swift documents and Markdown Swift fences.
     #[cfg(feature = "lang-swift")]
     pub(crate) swift: crate::swift::Scratch,
+    /// The SQL lexer's, for SQL documents and Markdown SQL fences.
+    #[cfg(feature = "lang-sql")]
+    pub(crate) sql: crate::sql::Scratch,
 }

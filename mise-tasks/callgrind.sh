@@ -22,7 +22,7 @@ base="${1:-origin/main}"
 shift || true
 languages=("$@")
 if [ "${#languages[@]}" -eq 0 ]; then
-  languages=(python java css kotlin make go ruby csharp markdown)
+  languages=(python java css kotlin make sql go ruby csharp markdown)
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 dir=target/callgrind

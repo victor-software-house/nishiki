@@ -70,6 +70,8 @@ pub(crate) enum Pat {
     Escape,
     /// `#{...}` inside a string.
     Interpolation,
+    /// The end pattern of the innermost rule.
+    End,
     // Begins.
     BracketBegin,
     CommentDashBegin,
@@ -128,7 +130,8 @@ impl Pat {
             | Pat::Keyword
             | Pat::Parens
             | Pat::Escape
-            | Pat::Interpolation => None,
+            | Pat::Interpolation
+            | Pat::End => None,
         }
     }
 
@@ -174,7 +177,8 @@ impl Pat {
             | Pat::StrBacktickBegin
             | Pat::StrDoubleBegin
             | Pat::StrBraceBegin
-            | Pat::StrModrBegin => &[],
+            | Pat::StrModrBegin
+            | Pat::End => &[],
         }
     }
 }
