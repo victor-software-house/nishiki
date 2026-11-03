@@ -4,6 +4,7 @@
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Kind;
+use crate::classes::space_width;
 
 /// Whether a byte is a digit of some radix.
 type Digit = fn(u8) -> bool;
@@ -78,7 +79,7 @@ impl Lexer<'_> {
         // the character after those, along.
         let mut end = p;
         loop {
-            let width = self.space_at(end);
+            let width = space_width(self.s, end);
             if width > 0 {
                 end += width;
             } else if self.at(end) == b'=' {
@@ -87,7 +88,7 @@ impl Lexer<'_> {
                 break;
             }
         }
-        self.spend(end - p);
+        self.steps.spend(end - p);
         if end < self.s.len() {
             end += self.width_at(end);
         }
@@ -174,7 +175,7 @@ impl Lexer<'_> {
             } else if self.at(i) == b'_' && is_digit(self.at(i + 1)) {
                 i += 2;
             } else {
-                self.spend(i - from);
+                self.steps.spend(i - from);
                 return i;
             }
         }
@@ -206,7 +207,7 @@ impl Lexer<'_> {
         while self.at(end).is_ascii_digit() {
             end += 1;
         }
-        self.spend(end - i);
+        self.steps.spend(end - i);
         end
     }
 

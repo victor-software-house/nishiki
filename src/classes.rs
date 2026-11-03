@@ -6,6 +6,8 @@
 
 mod table;
 
+use crate::utf8::{char_at, char_start};
+
 /// The regex `\s` for a character: the table measured on Shiki.
 pub(crate) fn is_space(c: char) -> bool {
     if c.is_ascii() {
@@ -85,4 +87,68 @@ const WORD_BYTES: [bool; 256] = {
 #[inline]
 pub(crate) fn is_ascii_space(b: u8) -> bool {
     matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
+}
+
+/// The width of the character at byte `i` of `s` when `class` holds for it
+/// and `ascii` for its byte if it is ASCII; 0 otherwise, past the end too.
+#[inline]
+fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) -> usize {
+    match s.get(i) {
+        None => 0,
+        Some(&b) if b < 0x80 => usize::from(ascii(b)),
+        Some(_) => char_at(s, i)
+            .filter(|&(c, _)| class(c))
+            .map_or(0, |(_, width)| width),
+    }
+}
+
+/// The width of the `\s` character at byte `i` of `s`, 0 when none starts
+/// there. Past the end is 0: a lexer that counts the line feed after the line
+/// as white space asks for it itself.
+#[inline]
+pub(crate) fn space_width(s: &[u8], i: usize) -> usize {
+    width_if(s, i, is_ascii_space, is_space)
+}
+
+/// The width of the `\w` character at byte `i` of `s`, 0 when none starts
+/// there.
+#[inline]
+pub(crate) fn word_width(s: &[u8], i: usize) -> usize {
+    width_if(s, i, is_ascii_word, is_word)
+}
+
+/// The width of the `\d` character at byte `i` of `s`, 0 when none starts
+/// there.
+#[inline]
+pub(crate) fn digit_width(s: &[u8], i: usize) -> usize {
+    width_if(s, i, |b| b.is_ascii_digit(), is_digit)
+}
+
+/// Whether the character that ends at byte `i` of `s` is a `\w`.
+#[inline]
+pub(crate) fn word_before(s: &[u8], i: usize) -> bool {
+    i.checked_sub(1)
+        .is_some_and(|last| word_width(s, char_start(s, last)) > 0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn widths_follow_the_classes() {
+        let s = "a_1 \u{3000}\u{663}\u{e9}".as_bytes();
+        assert_eq!(word_width(s, 0), 1);
+        assert_eq!(word_width(s, 1), 1);
+        assert_eq!(digit_width(s, 2), 1);
+        assert_eq!(space_width(s, 3), 1);
+        assert_eq!(space_width(s, 4), 3);
+        assert_eq!(digit_width(s, 7), 2);
+        assert_eq!(word_width(s, 9), 2);
+        assert_eq!(space_width(s, s.len()), 0);
+        assert!(word_before(s, 1));
+        assert!(!word_before(s, 4));
+        assert!(word_before(s, s.len()));
+        assert!(!word_before(s, 0));
+    }
 }

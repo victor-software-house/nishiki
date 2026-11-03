@@ -11,9 +11,9 @@
 //! instruction.
 
 use super::scope::S;
-use crate::classes;
-use crate::classes::is_ascii_space;
-use crate::utf8::char_len;
+use crate::classes::{space_width, word_before, word_width};
+use crate::limits::Steps;
+use crate::utf8::char_at;
 
 /// The most pieces a rule's match splits into.
 const MAX_SEGS: usize = 5;
@@ -68,18 +68,13 @@ const INSTRUCTIONS: &[&[u8]] = &[
 /// A line and the bytes its scans have read.
 pub(super) struct Line<'a> {
     s: &'a [u8],
-    /// Bytes read so far, for the work limit.
-    pub(super) spent: u64,
+    /// The work of the line, which the scans spend.
+    steps: &'a Steps,
 }
 
 impl<'a> Line<'a> {
-    pub(super) fn new(s: &'a [u8]) -> Self {
-        Line { s, spent: 0 }
-    }
-
-    fn spend(&mut self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.spent = self.spent.saturating_add(bytes);
+    pub(super) fn new(s: &'a [u8], steps: &'a Steps) -> Self {
+        Line { s, steps }
     }
 
     /// The first rule of the grammar that matches at the start of the line.
@@ -89,26 +84,13 @@ impl<'a> Line<'a> {
             .or_else(|| self.comment())
     }
 
-    /// The character at `i` and its width; the line feed after the line is
-    /// one character.
-    fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        if i == self.s.len() {
-            return Some(('\n', 1));
-        }
-        let width = char_len(*self.s.get(i)?);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
-    }
-
-    /// The width of the white space character at `i`, 0 when there is none.
+    /// The width of the white space character at `i`, 0 when there is none;
+    /// the line feed after the line counts.
     fn space_at(&self, i: usize) -> usize {
-        match self.s.get(i) {
-            Some(&b) if b < 0x80 => usize::from(is_ascii_space(b)),
-            Some(_) => match self.char_at(i) {
-                Some((c, width)) if classes::is_space(c) => width,
-                _ => 0,
-            },
-            None => usize::from(i == self.s.len()),
+        if i == self.s.len() {
+            1
+        } else {
+            space_width(self.s, i)
         }
     }
 
@@ -118,29 +100,18 @@ impl<'a> Line<'a> {
         while let width @ 1.. = self.space_at(i) {
             i += width;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
     /// Whether the character at `i` is one `\w` matches.
     fn word_at(&self, i: usize) -> bool {
-        self.char_at(i).is_some_and(|(c, _)| is_word(c))
-    }
-
-    /// Whether the character that ends at `i` is one `\w` matches.
-    fn word_before(&self, i: usize) -> bool {
-        let Some(mut start) = i.checked_sub(1) else {
-            return false;
-        };
-        while start > 0 && self.s.get(start).is_some_and(|&b| b & 0xc0 == 0x80) {
-            start -= 1;
-        }
-        self.char_at(start).is_some_and(|(c, _)| is_word(c))
+        word_width(self.s, i) > 0
     }
 
     /// The regex `\b` at `i`.
     fn boundary(&self, i: usize) -> bool {
-        self.word_before(i) != self.word_at(i)
+        word_before(self.s, i) != self.word_at(i)
     }
 
     /// The end of the keyword `word`, upper case, matched at `i` without
@@ -149,7 +120,7 @@ impl<'a> Line<'a> {
     fn keyword(&self, mut i: usize, word: &[u8]) -> Option<usize> {
         let mut k = 0;
         while let Some(&want) = word.get(k) {
-            let (c, width) = self.char_at(i)?;
+            let (c, width) = char_at(self.s, i)?;
             let same = match c {
                 'ſ' => want == b'S',
                 '\u{212a}' => want == b'K',
@@ -180,7 +151,7 @@ impl<'a> Line<'a> {
         let len = self.s.len();
         let mut q = from_end;
         loop {
-            self.spend(1);
+            self.steps.spend(1);
             if self.boundary(q)
                 && let Some(end) = self.keyword(q, b"AS")
                 && self.boundary(end)
@@ -208,7 +179,7 @@ impl<'a> Line<'a> {
             if q >= len {
                 return None;
             }
-            q += self.char_at(q)?.1;
+            q += char_at(self.s, q)?.1;
         }
     }
 
@@ -296,14 +267,5 @@ impl<'a> Line<'a> {
                 },
             ],
         ))
-    }
-}
-
-/// The regex `\w` for any character.
-fn is_word(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_alphanumeric() || c == '_'
-    } else {
-        classes::is_word(c)
     }
 }

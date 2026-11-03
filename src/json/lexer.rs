@@ -1,68 +1,49 @@
 //! The per-line lexer: cursor, token emission and the context stack.
 
-use std::cell::Cell;
-
 use memchr::{memchr2, memmem};
 
 use super::Dialect;
 use super::scope::S;
 use super::state::Kind;
-use crate::arena::{Arena, Frame};
-use crate::classes::{self, is_ascii_space, is_word};
+use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
+use crate::emit::Emitter;
 use crate::language::Context;
-use crate::limits::{Limit, Limits, LineReport};
-use crate::utf8::char_len;
-use crate::{Stack, Token};
+use crate::limits::{Limit, Steps};
+use crate::utf8::char_at;
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
 /// and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     s: &'a [u8],
-    out: &'a mut Vec<Token>,
-    arena: &'a mut Arena,
-    limits: &'a Limits,
-    report: &'a mut LineReport,
+    /// The tokens, the contexts and the end of the last token.
+    pub(super) em: Emitter<'a>,
     dialect: Dialect,
-    pos: usize,
-    /// The current state, and its frame.
-    state: u32,
-    frame: Frame,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// The work this line has spent and may spend.
+    pub(super) steps: Steps,
 }
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(cx: &'a mut Context<'_>, dialect: Dialect, s: &'a [u8], state: u32) -> Self {
-        let frame = cx.arena.frame(state);
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         Lexer {
             s,
-            out: &mut *cx.out,
-            arena: &mut *cx.arena,
-            limits: cx.limits,
-            report: &mut *cx.report,
+            em: Emitter::new(cx, state, 0),
             dialect,
-            pos: 0,
-            state,
-            frame,
-            steps: Cell::new(0),
-            budget,
+            steps,
         }
     }
 
     pub(crate) fn into_state(self) -> u32 {
-        self.state
+        self.em.state
     }
 
     pub(crate) fn run(&mut self) {
         let len = self.s.len();
         let mut p = 0;
         while p < len {
-            self.spend(1);
-            if self.steps.get() > self.budget {
-                self.report.record(Limit::Work);
+            self.steps.spend(1);
+            if self.steps.exhausted() {
+                self.em.report.record(Limit::Work);
                 break;
             }
             let from = p;
@@ -83,53 +64,9 @@ impl<'a> Lexer<'a> {
         self.s.get(i).copied().unwrap_or(0)
     }
 
-    /// The character at `i` and its width, where one starts.
-    fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        let width = char_len(*self.s.get(i)?);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
-    }
-
-    /// The character that ends at `i`.
-    fn char_before(&self, i: usize) -> Option<char> {
-        let mut start = i.checked_sub(1)?;
-        while start > 0 && self.s[start] & 0xc0 == 0x80 {
-            start -= 1;
-        }
-        self.char_at(start).map(|(c, _)| c)
-    }
-
-    /// Whether the character at `i` is white space, as `\s` reads it.
-    fn space_at(&self, i: usize) -> usize {
-        let b = self.s[i];
-        if b < 0x80 {
-            return usize::from(is_ascii_space(b));
-        }
-        match self.char_at(i) {
-            Some((c, width)) if classes::is_space(c) => width,
-            _ => 0,
-        }
-    }
-
     /// The width of the character at `i`, at least 1.
     fn width_at(&self, i: usize) -> usize {
-        self.char_at(i).map_or(1, |(_, width)| width)
-    }
-
-    /// The regex `\b` before the word starting at `i`.
-    fn boundary_before(&self, i: usize) -> bool {
-        self.char_before(i).is_none_or(|c| !is_word(c))
-    }
-
-    /// Whether a word character follows `i`: the `\b` after a word fails.
-    fn word_after(&self, i: usize) -> bool {
-        self.char_at(i).is_some_and(|(c, _)| is_word(c))
-    }
-
-    /// Counts `bytes` read ahead of the cursor against the line's work.
-    fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
+        char_at(self.s, i).map_or(1, |(_, width)| width)
     }
 
     // Emission.
@@ -141,58 +78,21 @@ impl<'a> Lexer<'a> {
 
     /// Emits the bytes up to `to` with the current context plus `leaf`.
     fn tok(&mut self, to: usize, leaf: &[S]) {
-        if to <= self.pos {
-            return;
-        }
-        let mut stack = self.frame.stack;
-        for scope in leaf {
-            let Some(child) = self.arena.child(stack, scope.scope(self.dialect)) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
-        self.out.push(Token {
-            end: to,
-            stack: Stack(stack),
-        });
-        self.pos = to;
+        self.em
+            .tok(to, leaf.iter().map(|scope| scope.scope(self.dialect)));
     }
 
     // Contexts.
 
     fn top(&self) -> Kind {
-        Kind::from_code(self.frame.kind)
+        Kind::from_code(self.em.frame.kind)
     }
 
     /// Opens a context; false when a limit keeps it closed.
     fn push(&mut self, kind: Kind) -> bool {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        if self.limits.depth.is_some_and(|max| depth >= max) {
-            self.report.record(Limit::Depth);
-            return false;
-        }
-        let mut stack = Some(self.frame.stack);
-        for scope in kind.scopes() {
-            stack = stack.and_then(|stack| self.arena.child(stack, scope.scope(self.dialect)));
-        }
-        let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), 0, stack))
-        else {
-            self.report.record(Limit::Nodes);
-            return false;
-        };
-        self.enter(state);
-        true
-    }
-
-    fn pop(&mut self) {
-        self.enter(self.frame.parent);
-    }
-
-    fn enter(&mut self, state: u32) {
-        self.state = state;
-        self.frame = self.arena.frame(state);
+        let dialect = self.dialect;
+        let scopes = kind.scopes().iter().map(|scope| scope.scope(dialect));
+        self.em.push(kind.code(), 0, scopes)
     }
 
     /// Opens `kind` at `p`, whose begin text ends at `end` and carries
@@ -209,7 +109,7 @@ impl<'a> Lexer<'a> {
     fn finish(&mut self, p: usize, end: usize, leaf: S) -> usize {
         self.gap(p);
         self.tok(end, &[leaf]);
-        self.pop();
+        self.em.pop();
         end
     }
 
@@ -224,7 +124,7 @@ impl<'a> Lexer<'a> {
                 return self.skip_space(p);
             }
         } else {
-            let width = self.space_at(p);
+            let width = space_width(self.s, p);
             if width > 0 {
                 return self.skip_space(p);
             }
@@ -244,14 +144,14 @@ impl<'a> Lexer<'a> {
             let width = if self.s[p] < 0x80 {
                 usize::from(is_ascii_space(self.s[p]))
             } else {
-                self.space_at(p)
+                space_width(self.s, p)
             };
             if width == 0 {
                 break;
             }
             p += width;
         }
-        self.spend(p - from);
+        self.steps.spend(p - from);
         p
     }
 
@@ -296,7 +196,7 @@ impl<'a> Lexer<'a> {
             b',' => self.finish(p, p + 1, S::PunctPair),
             b'}' => {
                 self.gap(p);
-                self.pop();
+                self.em.pop();
                 self.in_code(p)
             }
             _ => self
@@ -340,7 +240,7 @@ impl<'a> Lexer<'a> {
                 i = end;
             }
         }
-        self.spend(i - p);
+        self.steps.spend(i - p);
         self.gap(p);
         self.tok(i, &[S::Number]);
         Some(i)
@@ -348,19 +248,10 @@ impl<'a> Lexer<'a> {
 
     /// The end of the run of `\d` characters from `i`.
     fn digits(&self, mut i: usize) -> usize {
-        loop {
-            let b = self.at(i);
-            if b.is_ascii_digit() {
-                i += 1;
-            } else if b >= 0x80
-                && let Some((c, width)) = self.char_at(i)
-                && classes::is_digit(c)
-            {
-                i += width;
-            } else {
-                return i;
-            }
+        while let width @ 1.. = digit_width(self.s, i) {
+            i += width;
         }
+        i
     }
 
     /// `\b(?:true|false|null)\b`.
@@ -371,7 +262,8 @@ impl<'a> Lexer<'a> {
             _ => b"null",
         };
         let end = p + word.len();
-        if self.s.get(p..end) != Some(word) || !self.boundary_before(p) || self.word_after(end) {
+        if self.s.get(p..end) != Some(word) || word_before(self.s, p) || word_width(self.s, end) > 0
+        {
             return None;
         }
         self.gap(p);
@@ -402,11 +294,11 @@ impl<'a> Lexer<'a> {
     /// Takes the text of a string up to its next escape or closing quote.
     fn in_string(&mut self, p: usize) -> usize {
         let Some(offset) = memchr2(b'"', b'\\', &self.s[p..]) else {
-            self.spend(self.s.len() - p);
+            self.steps.spend(self.s.len() - p);
             return self.s.len();
         };
         let q = p + offset;
-        self.spend(offset);
+        self.steps.spend(offset);
         if self.s[q] == b'"' {
             let leaf = if self.top() == Kind::Key {
                 S::PunctKeyEnd
@@ -434,10 +326,10 @@ impl<'a> Lexer<'a> {
     /// Takes the text of a block comment up to its `*/`.
     fn in_comment(&mut self, p: usize) -> usize {
         let Some(offset) = memmem::find(&self.s[p..], b"*/") else {
-            self.spend(self.s.len() - p);
+            self.steps.spend(self.s.len() - p);
             return self.s.len();
         };
-        self.spend(offset);
+        self.steps.spend(offset);
         self.finish(p + offset, p + offset + 2, S::PunctComment)
     }
 }

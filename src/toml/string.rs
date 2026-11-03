@@ -12,11 +12,11 @@ impl Lexer<'_> {
     pub(super) fn in_basic(&mut self, p: usize) -> usize {
         let multi = self.top() == Kind::BasicMulti;
         let Some(offset) = memchr2(b'"', b'\\', &self.s[p..]) else {
-            self.spend(self.s.len() - p);
+            self.steps.spend(self.s.len() - p);
             return self.s.len();
         };
         let q = p + offset;
-        self.spend(offset);
+        self.steps.spend(offset);
         if self.s[q] == b'"' {
             return if multi {
                 self.multi_quote(q, b'"')
@@ -41,11 +41,11 @@ impl Lexer<'_> {
     /// Takes the text of a `'` or `'''` string up to its closing quote.
     pub(super) fn in_literal(&mut self, p: usize) -> usize {
         let Some(offset) = memchr(b'\'', &self.s[p..]) else {
-            self.spend(self.s.len() - p);
+            self.steps.spend(self.s.len() - p);
             return self.s.len();
         };
         let q = p + offset;
-        self.spend(offset);
+        self.steps.spend(offset);
         if self.top() == Kind::LiteralMulti {
             self.multi_quote(q, b'\'')
         } else {
@@ -60,7 +60,7 @@ impl Lexer<'_> {
         while self.at(end) == quote {
             end += 1;
         }
-        self.spend(end - q);
+        self.steps.spend(end - q);
         if end - q < 3 {
             return end;
         }

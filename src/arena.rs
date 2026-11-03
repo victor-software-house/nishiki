@@ -10,6 +10,7 @@
 use std::collections::HashMap;
 use std::hash::{BuildHasherDefault, Hasher};
 
+use crate::limits::{Limit, LineReport};
 use crate::scope::Scope;
 
 /// The id of the empty scope stack, and of the document-start state.
@@ -135,6 +136,26 @@ impl Arena {
         self.scopes.push(ScopeNode { parent, scope });
         self.scope_ids.insert(key, id);
         Some(id)
+    }
+
+    /// The stack `base` with `scopes` on top, in order. The node limit keeps
+    /// a new stack from being made: the scope it stops is left off with every
+    /// scope after it, and `report` records the limit.
+    pub(crate) fn path(
+        &mut self,
+        base: u32,
+        scopes: impl IntoIterator<Item = Scope>,
+        report: &mut LineReport,
+    ) -> u32 {
+        let mut stack = base;
+        for scope in scopes {
+            let Some(child) = self.child(stack, scope) else {
+                report.record(Limit::Nodes);
+                break;
+            };
+            stack = child;
+        }
+        stack
     }
 
     /// The number of `text`, which stays the same for equal text, or `None`

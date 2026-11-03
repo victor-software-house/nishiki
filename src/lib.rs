@@ -64,6 +64,8 @@ mod css;
 mod diff;
 #[cfg(feature = "lang-dockerfile")]
 mod dockerfile;
+#[cfg(any(feature = "lang-json", feature = "lang-toml", feature = "lang-yaml"))]
+mod emit;
 #[cfg(feature = "lang-go")]
 mod go;
 #[cfg(feature = "lang-graphql")]

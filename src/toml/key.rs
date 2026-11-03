@@ -9,6 +9,8 @@ use memchr::{memchr, memchr2};
 
 use super::lexer::Lexer;
 use super::scope::S;
+use crate::classes::space_width;
+use crate::utf8::char_start;
 
 /// Where a key that was found ends.
 #[derive(Clone, Copy)]
@@ -153,7 +155,7 @@ impl Lexer<'_> {
                 loop {
                     let rest = self.s.get(j..)?;
                     let offset = memchr2(b'"', b'\\', rest)?;
-                    self.spend(offset);
+                    self.steps.spend(offset);
                     j += offset;
                     if self.s[j] == b'"' {
                         return Some(j + 1);
@@ -167,7 +169,7 @@ impl Lexer<'_> {
             b'\'' => {
                 let rest = self.s.get(i + 1..)?;
                 let offset = memchr(b'\'', rest)?;
-                self.spend(offset);
+                self.steps.spend(offset);
                 Some(i + 1 + offset + 1)
             }
             b if is_bare(b) => {
@@ -175,7 +177,7 @@ impl Lexer<'_> {
                 while is_bare(self.at(j)) {
                     j += 1;
                 }
-                self.spend(j - i);
+                self.steps.spend(j - i);
                 Some(j)
             }
             _ => None,
@@ -196,12 +198,12 @@ impl Lexer<'_> {
                 return None;
             };
             let equals = from + offset;
-            self.spend(offset);
+            self.steps.spend(offset);
             let mut j = equals;
             while j > 0 && self.space_before(j) {
-                j = self.char_start(j - 1);
+                j = char_start(self.s, j - 1);
             }
-            self.spend(equals - j);
+            self.steps.spend(equals - j);
             if j > p + 1 && self.s[j - 1] == b'"' {
                 self.quote_eq.set((p, j - 1));
                 return Some(j - 1);
@@ -212,16 +214,8 @@ impl Lexer<'_> {
 
     /// Whether the character that ends at `i` is white space.
     fn space_before(&self, i: usize) -> bool {
-        let start = self.char_start(i - 1);
-        self.space_at(start) > 0
-    }
-
-    /// The start of the character that contains byte `i`.
-    fn char_start(&self, mut i: usize) -> usize {
-        while i > 0 && self.s[i] & 0xc0 == 0x80 {
-            i -= 1;
-        }
-        i
+        let start = char_start(self.s, i - 1);
+        space_width(self.s, start) > 0
     }
 
     /// Emits a key that is one quoted name, from `"` at `p` to `"` at

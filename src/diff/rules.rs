@@ -10,9 +10,9 @@
 use memchr::memmem;
 
 use super::scope::S;
-use crate::classes;
-use crate::classes::is_ascii_space;
-use crate::utf8::char_len;
+use crate::classes::{digit_width, space_width};
+use crate::limits::Steps;
+use crate::utf8::{char_len, char_start};
 
 /// A capture group that carries a scope of its own.
 #[derive(Clone, Copy, Debug)]
@@ -51,68 +51,32 @@ impl Hit {
 /// A line and the bytes its scans have read.
 pub(super) struct Line<'a> {
     s: &'a [u8],
-    /// Bytes read ahead of the cursor so far, for the work limit.
-    pub(super) spent: u64,
+    /// The work of the line, which the scans spend.
+    steps: &'a Steps,
 }
 
 impl<'a> Line<'a> {
-    pub(super) fn new(s: &'a [u8]) -> Self {
-        Line { s, spent: 0 }
-    }
-
-    fn spend(&mut self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.spent = self.spent.saturating_add(bytes);
-    }
-
-    /// The character at `i`, which is at a boundary, and its width.
-    fn char_at(&self, i: usize) -> Option<(char, usize)> {
-        let width = char_len(*self.s.get(i)?);
-        let text = std::str::from_utf8(self.s.get(i..i + width)?).ok()?;
-        Some((text.chars().next()?, width))
-    }
-
-    /// The width of the white space character at `i`, 0 when there is none.
-    fn space_at(&self, i: usize) -> usize {
-        let Some(&b) = self.s.get(i) else { return 0 };
-        if b < 0x80 {
-            return usize::from(is_ascii_space(b));
-        }
-        match self.char_at(i) {
-            Some((c, width)) if classes::is_space(c) => width,
-            _ => 0,
-        }
-    }
-
-    /// The width of the character at `i` that `\d` matches, 0 when none.
-    fn digit_at(&self, i: usize) -> usize {
-        let Some(&b) = self.s.get(i) else { return 0 };
-        if b < 0x80 {
-            return usize::from(b.is_ascii_digit());
-        }
-        match self.char_at(i) {
-            Some((c, width)) if classes::is_digit(c) => width,
-            _ => 0,
-        }
+    pub(super) fn new(s: &'a [u8], steps: &'a Steps) -> Self {
+        Line { s, steps }
     }
 
     /// The end of the run of `\d` characters from `i`.
     fn digits(&mut self, mut i: usize) -> usize {
         let from = i;
-        while let width @ 1.. = self.digit_at(i) {
+        while let width @ 1.. = digit_width(self.s, i) {
             i += width;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
     /// The end of the run of white space from `i`.
     fn spaces(&mut self, mut i: usize) -> usize {
         let from = i;
-        while let width @ 1.. = self.space_at(i) {
+        while let width @ 1.. = space_width(self.s, i) {
             i += width;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
@@ -120,11 +84,8 @@ impl<'a> Line<'a> {
     /// `floor`.
     fn spaces_back(&self, mut i: usize, floor: usize) -> usize {
         while i > floor {
-            let mut start = i - 1;
-            while start > floor && self.s[start] & 0xc0 == 0x80 {
-                start -= 1;
-            }
-            if self.space_at(start) == 0 {
+            let start = char_start(self.s, i - 1).max(floor);
+            if space_width(self.s, start) == 0 {
                 break;
             }
             i = start;
@@ -225,15 +186,11 @@ impl<'a> Line<'a> {
         let start = self.spaces(2);
         let floor = start + char_len(*self.s.get(start)?);
         let found = memmem::find(self.s.get(floor..)?, b"@@").map(|at| at + floor);
-        self.spend(self.len() - start);
+        self.steps.spend(self.len() - start);
         let (from, to, close) = if let Some(close) = found {
             (start, self.spaces_back(close, floor), close)
         } else if start > 2 && self.s[start..].starts_with(b"@@") {
-            let mut last = start - 1;
-            while self.s[last] & 0xc0 == 0x80 {
-                last -= 1;
-            }
-            (last, start, start)
+            (char_start(self.s, start - 1), start, start)
         } else {
             return None;
         };
@@ -276,10 +233,10 @@ impl<'a> Line<'a> {
         let len = self.len();
         if self.s.get(5) != Some(&b'-') {
             let mut i = 5;
-            while i < len && self.space_at(i) == 0 {
+            while i < len && space_width(self.s, i) == 0 {
                 i += char_len(self.s[i]);
             }
-            self.spend(i - 5);
+            self.steps.spend(i - 5);
             if i == 5 {
                 return None;
             }
@@ -300,7 +257,7 @@ impl<'a> Line<'a> {
         if !self.starts(b"==== ") {
             return None;
         }
-        self.spend(len);
+        self.steps.spend(len);
         let at = memmem::rfind(self.s.get(6..)?, b" - ")? + 6;
         Some(Hit::whole(at, S::MetaFromFile).with(0, 0, 4, S::PunctFromFile))
     }
@@ -317,7 +274,7 @@ impl<'a> Line<'a> {
     /// end of the line.
     pub(super) fn header_to_inline(&mut self, from: usize) -> Option<Hit> {
         let len = self.len();
-        self.spend(len.saturating_sub(from));
+        self.steps.spend(len.saturating_sub(from));
         if !self.s.ends_with(b" ====") || len < from + 8 {
             return None;
         }
@@ -383,7 +340,7 @@ impl<'a> Line<'a> {
             .iter()
             .take_while(|b| matches!(b, b'0'..=b'9' | b'a'..=b'f'))
             .count();
-        self.spend(run);
+        self.steps.spend(run);
         i + run
     }
 
@@ -402,7 +359,7 @@ impl<'a> Line<'a> {
         if !self.starts(b"Only in ") {
             return None;
         }
-        self.spend(self.len());
+        self.steps.spend(self.len());
         memmem::find(&self.s[8..], b": ").map(|_| Hit::whole(self.len(), S::MetaOnlyIn))
     }
 }

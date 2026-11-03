@@ -55,3 +55,23 @@ fn a_markdown_fence_runs_its_json_lines_under_the_same_limits() {
     assert!(rows[1].1.reached(Limit::Work));
     assert!(rows[2].1.is_complete());
 }
+
+/// A pinned depth counts the contexts open above the document's root, as it
+/// does in every language.
+#[test]
+fn a_pinned_json_depth_opens_that_many_arrays() {
+    let limits = Limits {
+        depth: Some(2),
+        ..Limits::default()
+    };
+    let mut highlighter = Highlighter::new_with_limits(Language::Json, limits);
+    let (rows, _) = lex(&mut highlighter, &["[[[1"]);
+    let (tokens, report) = &rows[0];
+    assert!(report.reached(Limit::Depth));
+    let last = tokens[tokens.len() - 1];
+    let arrays = highlighter
+        .scopes(last.stack())
+        .filter(|scope| scope.to_string().starts_with("meta.structure.array"))
+        .count();
+    assert_eq!(arrays, 2, "two arrays open, the third kept closed");
+}

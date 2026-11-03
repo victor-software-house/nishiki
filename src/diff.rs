@@ -21,7 +21,7 @@ use scope::S;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
-use crate::limits::{Limit, LineReport};
+use crate::limits::{Limit, LineReport, Steps};
 use crate::{Stack, Token};
 
 /// The high byte that marks a frame as one of the diff lexer's.
@@ -55,11 +55,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         return state;
     }
     let base = cx.arena.frame(state).stack;
-    let budget = cx
-        .limits
-        .work
-        .map_or(u64::MAX, |work| work.steps(bytes.len() - start));
-    let mut text = rules::Line::new(bytes);
+    let steps = Steps::new(cx.limits, bytes.len() - start);
+    let mut text = rules::Line::new(bytes, &steps);
     let mut pos = start;
     let mut emit = Emit {
         arena: cx.arena,
@@ -70,7 +67,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     };
     let mut hit = if start == 0 { text.at_start() } else { None };
     while pos < bytes.len() {
-        if text.spent > budget {
+        if steps.exhausted() {
             emit.report.record(Limit::Work);
             break;
         }
@@ -105,14 +102,11 @@ impl Emit<'_> {
         if to <= self.pos {
             return;
         }
-        let mut stack = self.base;
-        for scope in leaf {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
+        let stack = self.arena.path(
+            self.base,
+            leaf.iter().map(|scope| scope.scope()),
+            self.report,
+        );
         self.out.push(Token {
             end: to,
             stack: Stack(stack),

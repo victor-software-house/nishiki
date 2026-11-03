@@ -26,39 +26,22 @@ use scope::S;
 
 use crate::arena::{Arena, Frame, ROOT};
 use crate::language::{Context, Line};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Limit, Limits, LineReport, Steps};
 use crate::utf8::char_len;
 use crate::{Stack, Token};
 
 /// The high byte that marks a frame as one of the INI lexer's.
 const TAG: u16 = crate::tag::INI;
 
-/// What a frame is.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Kind {
-    /// Outside a string.
-    Top,
-    /// Inside `'`.
-    Single,
-    /// Inside `"`.
-    Double,
-}
-
-impl Kind {
-    fn code(self) -> u16 {
-        TAG | match self {
-            Kind::Top => 0,
-            Kind::Single => 1,
-            Kind::Double => 2,
-        }
-    }
-
-    fn from_code(code: u16) -> Kind {
-        match code & !TAG {
-            1 => Kind::Single,
-            2 => Kind::Double,
-            _ => Kind::Top,
-        }
+crate::tag::frame_kinds! {
+    /// What a frame is.
+    enum Kind: TAG {
+        /// Outside a string.
+        Top,
+        /// Inside `'`.
+        Single,
+        /// Inside `"`.
+        Double,
     }
 }
 
@@ -88,10 +71,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     if bytes.len() <= start {
         return state;
     }
-    let budget = cx
-        .limits
-        .work
-        .map_or(u64::MAX, |work| work.steps(bytes.len() - start));
+    let steps = Steps::new(cx.limits, bytes.len() - start);
     let frame = cx.arena.frame(state);
     let mut lexer = Lexer {
         arena: cx.arena,
@@ -103,7 +83,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         frame,
         pos: start,
     };
-    lexer.run(start, budget);
+    lexer.run(start, &steps);
     lexer.state
 }
 
@@ -166,15 +146,14 @@ struct Lexer<'a> {
 }
 
 impl Lexer<'_> {
-    fn run(&mut self, start: usize, budget: u64) {
+    fn run(&mut self, start: usize, steps: &Steps) {
         let len = self.bytes.len();
-        let mut text = rules::Line::new(self.bytes);
+        let mut text = rules::Line::new(self.bytes, steps);
         let mut slots = Slots::UNKNOWN;
         let mut pos = start;
-        let mut steps = 0_u64;
         while pos < len {
-            steps = steps.saturating_add(1);
-            if steps.saturating_add(text.spent) > budget {
+            steps.spend(1);
+            if steps.exhausted() {
                 self.report.record(Limit::Work);
                 break;
             }
@@ -269,8 +248,8 @@ impl Lexer<'_> {
     /// Opens the string whose quote is at `at`, unless a limit keeps it
     /// closed, and returns where scanning goes on.
     fn open(&mut self, at: usize, quote: Quote) -> usize {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        if self.limits.depth.is_some_and(|max| depth >= max) {
+        let open = usize::try_from(self.frame.depth.saturating_sub(1)).unwrap_or(usize::MAX);
+        if self.limits.depth_reached(open) {
             self.report.record(Limit::Depth);
             return at + 1;
         }
@@ -295,14 +274,11 @@ impl Lexer<'_> {
         if to <= self.pos {
             return;
         }
-        let mut stack = self.frame.stack;
-        for scope in leaf {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
+        let stack = self.arena.path(
+            self.frame.stack,
+            leaf.iter().map(|scope| scope.scope()),
+            self.report,
+        );
         self.out.push(Token {
             end: to,
             stack: Stack(stack),

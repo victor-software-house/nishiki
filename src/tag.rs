@@ -132,3 +132,85 @@ const fn all_distinct() -> bool {
 }
 
 const _: () = assert!(all_distinct(), "two lexers claim the same frame tag");
+
+/// The bits of a frame code that name the kind within a lexer; the bits above
+/// them hold the lexer's tag.
+#[cfg(feature = "_frame-kinds")]
+pub(crate) const KIND_MASK: u16 = 0x00ff;
+
+/// Declares a lexer's frame kinds: a fieldless enum tagged with `$tag`, with
+/// `ALL`, `code` and `from_code`, and a test that every kind survives the
+/// round trip through its code.
+///
+/// The first variant is the kind outside every context: `from_code` returns
+/// it for a code another lexer wrote, such as the empty state's, so a lexer
+/// started on a foreign state reads it as its top level. A kind's code is its
+/// position in the declaration, so variants are only ever added at the end.
+#[cfg(feature = "_frame-kinds")]
+macro_rules! frame_kinds {
+    (
+        $(#[$meta:meta])*
+        $vis:vis enum $name:ident: $tag:ident {
+            $(
+                $(#[$variant_meta:meta])*
+                $variant:ident,
+            )+
+        }
+    ) => {
+        $(#[$meta])*
+        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+        #[repr(u8)]
+        $vis enum $name {
+            $(
+                $(#[$variant_meta])*
+                $variant,
+            )+
+        }
+
+        impl $name {
+            /// Every kind, in code order.
+            $vis const ALL: &'static [$name] = &[$($name::$variant),+];
+
+            /// The kind as a frame stores it: the lexer's tag in the high
+            /// byte, the kind's position in the low one.
+            #[expect(
+                clippy::as_conversions,
+                reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
+            )]
+            $vis const fn code(self) -> u16 {
+                $tag | self as u16
+            }
+
+            /// The kind a frame's code names; the first kind for a code that
+            /// is not this lexer's.
+            $vis fn from_code(code: u16) -> $name {
+                const TOP: $name = $name::ALL[0];
+                if code & !$crate::tag::KIND_MASK != $tag {
+                    return TOP;
+                }
+                $name::ALL
+                    .get(usize::from(code & $crate::tag::KIND_MASK))
+                    .copied()
+                    .unwrap_or(TOP)
+            }
+        }
+
+        #[cfg(test)]
+        mod frame_kinds_round_trip {
+            use super::$name;
+
+            #[test]
+            fn every_kind_survives_its_code() {
+                for (index, &kind) in $name::ALL.iter().enumerate() {
+                    let code = kind.code();
+                    assert_eq!(usize::from(code & $crate::tag::KIND_MASK), index, "{kind:?}");
+                    assert_eq!($name::from_code(code), kind);
+                }
+                assert_eq!($name::from_code(0), $name::ALL[0]);
+            }
+        }
+    };
+}
+
+#[cfg(feature = "_frame-kinds")]
+pub(crate) use frame_kinds;

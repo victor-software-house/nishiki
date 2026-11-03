@@ -1,34 +1,23 @@
 //! The per-line lexer: cursor, token emission and the context stack.
 
-use std::cell::Cell;
-
 use memchr::memchr2;
 
 use super::scalar;
 use super::scope::S;
 use super::state::Kind;
-use crate::arena::{Arena, Frame};
+use crate::emit::Emitter;
 use crate::language::Context;
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Limit, Steps};
 use crate::utf8::char_len;
-use crate::{Stack, Token};
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
 /// and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     s: &'a [u8],
-    out: &'a mut Vec<Token>,
-    arena: &'a mut Arena,
-    limits: &'a Limits,
-    report: &'a mut LineReport,
-    pos: usize,
-    /// The current state, and its frame.
-    state: u32,
-    frame: Frame,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// The tokens, the contexts and the end of the last token.
+    pub(super) em: Emitter<'a>,
+    /// The work this line has spent and may spend.
+    pub(super) steps: Steps,
     /// How many spaces start the line, and how many spaces and tabs.
     lead_spaces: usize,
     lead_blanks: usize,
@@ -116,21 +105,13 @@ impl<'a> Lexer<'a> {
         text_start: TextStart,
         state: u32,
     ) -> Self {
-        let frame = cx.arena.frame(state);
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         let lead_spaces = s.iter().take_while(|&&b| b == b' ').count();
         let lead_blanks = s.iter().take_while(|&&b| is_blank(b)).count();
         Lexer {
             s,
-            out: &mut *cx.out,
-            arena: &mut *cx.arena,
-            limits: cx.limits,
-            report: &mut *cx.report,
-            pos: 0,
-            state,
-            frame,
-            steps: Cell::new(0),
-            budget,
+            em: Emitter::new(cx, state, 0),
+            steps,
             lead_spaces,
             lead_blanks,
             last_tab: memchr::memrchr(b'\t', s),
@@ -139,7 +120,7 @@ impl<'a> Lexer<'a> {
     }
 
     pub(crate) fn into_state(self) -> u32 {
-        self.state
+        self.em.state
     }
 
     pub(crate) fn run(&mut self) {
@@ -156,9 +137,9 @@ impl<'a> Lexer<'a> {
             | Kind::Explicit => 0,
         };
         while p < len {
-            self.spend(1);
-            if self.steps.get() > self.budget {
-                self.report.record(Limit::Work);
+            self.steps.spend(1);
+            if self.steps.exhausted() {
+                self.em.report.record(Limit::Work);
                 break;
             }
             let from = p;
@@ -206,7 +187,7 @@ impl<'a> Lexer<'a> {
         while self.s.get(p).is_some_and(|&b| is_blank(b)) {
             p += 1;
         }
-        self.spend(p - from);
+        self.steps.spend(p - from);
         p
     }
 
@@ -219,14 +200,8 @@ impl<'a> Lexer<'a> {
             }
             p += n;
         }
-        self.spend(p - from);
+        self.steps.spend(p - from);
         p
-    }
-
-    /// Counts `bytes` read ahead of the cursor against the line's work.
-    fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
     }
 
     // Emission.
@@ -238,22 +213,7 @@ impl<'a> Lexer<'a> {
 
     /// Emits the bytes up to `to` with the current context plus `leaf`.
     fn tok(&mut self, to: usize, leaf: &[S]) {
-        if to <= self.pos {
-            return;
-        }
-        let mut stack = self.frame.stack;
-        for scope in leaf {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
-        self.out.push(Token {
-            end: to,
-            stack: Stack(stack),
-        });
-        self.pos = to;
+        self.em.tok(to, leaf.iter().map(|scope| scope.scope()));
     }
 
     /// Emits the gap before `p`, then the bytes up to `end` with `leaf`.
@@ -266,37 +226,13 @@ impl<'a> Lexer<'a> {
     // Contexts.
 
     fn top(&self) -> Kind {
-        Kind::from_code(self.frame.kind)
+        Kind::from_code(self.em.frame.kind)
     }
 
     /// Opens a context with `payload`; false when a limit keeps it closed.
     fn push(&mut self, kind: Kind, payload: u32) -> bool {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        if self.limits.depth.is_some_and(|max| depth >= max) {
-            self.report.record(Limit::Depth);
-            return false;
-        }
-        let mut stack = Some(self.frame.stack);
-        for scope in kind.scopes() {
-            stack = stack.and_then(|stack| self.arena.child(stack, scope.scope()));
-        }
-        let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), payload, stack))
-        else {
-            self.report.record(Limit::Nodes);
-            return false;
-        };
-        self.enter(state);
-        true
-    }
-
-    fn pop(&mut self) {
-        self.enter(self.frame.parent);
-    }
-
-    fn enter(&mut self, state: u32) {
-        self.state = state;
-        self.frame = self.arena.frame(state);
+        let scopes = kind.scopes().iter().map(|scope| scope.scope());
+        self.em.push(kind.code(), payload, scopes)
     }
 
     // Block scalars.
@@ -309,7 +245,7 @@ impl<'a> Lexer<'a> {
             // The rules that continue a block scalar start with `^`, so the
             // scalar ends here, and the grammar leaves the first character
             // of the line with no scope.
-            self.pop();
+            self.em.pop();
             let first = char_len(self.s[0]).min(self.s.len());
             self.gap(first);
             return first;
@@ -318,25 +254,25 @@ impl<'a> Lexer<'a> {
         let indent = self.lead_spaces;
         let blank = indent == len;
         let blank_text = self.lead_blanks == len;
-        self.spend(len);
-        let fixed = usize::try_from(self.frame.payload).unwrap_or(usize::MAX);
+        self.steps.spend(len);
+        let fixed = usize::try_from(self.em.frame.payload).unwrap_or(usize::MAX);
         if fixed == 0 {
             // The first line fixes the indentation, a blank one included.
             if indent == 0 {
                 if !blank {
-                    self.pop();
+                    self.em.pop();
                     return 0;
                 }
             } else {
-                let parent = self.frame.parent;
-                let stack = self.frame.stack;
+                let parent = self.em.frame.parent;
+                let stack = self.em.frame.stack;
                 let width = u32::try_from(indent).unwrap_or(u32::MAX);
-                if let Some(state) = self.arena.push(parent, Kind::Block.code(), width, stack) {
-                    self.enter(state);
+                if let Some(state) = self.em.arena.push(parent, Kind::Block.code(), width, stack) {
+                    self.em.enter(state);
                 }
             }
         } else if !blank_text && indent < fixed {
-            self.pop();
+            self.em.pop();
             return 0;
         }
         self.gap(len);
@@ -381,7 +317,8 @@ impl<'a> Lexer<'a> {
     /// indented by a scope of its own.
     fn comment(&mut self, p: usize) -> usize {
         let len = self.s.len();
-        if self.text_start == TextStart::Line && p > 0 && self.pos == 0 && p <= self.lead_blanks {
+        if self.text_start == TextStart::Line && p > 0 && self.em.pos == 0 && p <= self.lead_blanks
+        {
             self.tok(p, &[S::CommentLeading]);
         }
         self.gap(p);
@@ -430,11 +367,11 @@ impl<'a> Lexer<'a> {
                 None => break,
                 Some(offset) => i += offset,
             }
-            self.spend(1);
+            self.steps.spend(1);
             if self.s[i] == b'"' {
                 self.gap(i);
                 self.tok(i + 1, &[S::PunctStrEnd]);
-                self.pop();
+                self.em.pop();
                 return i + 1;
             }
             // A backslash.
@@ -481,7 +418,7 @@ impl<'a> Lexer<'a> {
         let mut i = p;
         while let Some(offset) = memchr::memchr(b'\'', &self.s[i..]) {
             i += offset;
-            self.spend(1);
+            self.steps.spend(1);
             if self.at(i + 1) == b'\'' {
                 self.gap(i);
                 self.tok(i + 2, &[S::EscapeSingle]);
@@ -489,7 +426,7 @@ impl<'a> Lexer<'a> {
             } else {
                 self.gap(i);
                 self.tok(i + 1, &[S::PunctStrEnd]);
-                self.pop();
+                self.em.pop();
                 return i + 1;
             }
         }
@@ -510,7 +447,7 @@ impl<'a> Lexer<'a> {
         {
             i += 1;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
@@ -603,7 +540,7 @@ impl<'a> Lexer<'a> {
             i += 1;
             end = i;
         }
-        self.spend(i - p);
+        self.steps.spend(i - p);
         let colon = self.skip_blanks_unspent(end);
         let key = self.s.get(colon) == Some(&b':') && self.blank_or_end(colon + 1);
         (end, key)
@@ -681,7 +618,7 @@ impl<'a> Lexer<'a> {
                     S::InvalidNewline
                 };
                 let end = self.token(p, p + 1, &[leaf]);
-                self.pop();
+                self.em.pop();
                 end
             }
             b':' if self.blank_or_end(p + 1) => self.token(p, p + 1, &[S::PunctKeyValue]),
@@ -800,7 +737,7 @@ impl<'a> Lexer<'a> {
         while i < self.s.len() && class(self.s[i]) && self.blank_at(i) == 0 {
             i += 1;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
@@ -856,7 +793,7 @@ impl<'a> Lexer<'a> {
         while i < self.s.len() && self.blank_at(i) == 0 {
             i += 1;
         }
-        self.spend(i - from);
+        self.steps.spend(i - from);
         i
     }
 
@@ -957,7 +894,7 @@ impl<'a> Lexer<'a> {
     /// collection's next entry or its end begins.
     fn pop_pair_and_explicit(&mut self) {
         while matches!(self.top(), Kind::Pair | Kind::Explicit) {
-            self.pop();
+            self.em.pop();
         }
     }
 
@@ -979,7 +916,7 @@ impl<'a> Lexer<'a> {
             S::PunctMapEnd
         };
         self.tok(p + 1, &[leaf]);
-        self.pop();
+        self.em.pop();
         p + 1
     }
 }

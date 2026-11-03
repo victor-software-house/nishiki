@@ -7,28 +7,20 @@ use memchr::{memchr2, memrchr};
 
 use super::scope::S;
 use super::state::{ArrayNext, InlineComments, Kind};
-use crate::arena::{Arena, Frame};
+use crate::classes::space_width;
+use crate::emit::Emitter;
 use crate::language::Context;
-use crate::limits::{Limit, Limits, LineReport};
+use crate::limits::{Limit, Steps};
 use crate::utf8::char_len;
-use crate::{Stack, Token, classes};
 
 /// Lexes one line. `pos` is the end of the last token; the bytes between it
 /// and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     pub(super) s: &'a [u8],
-    out: &'a mut Vec<Token>,
-    arena: &'a mut Arena,
-    limits: &'a Limits,
-    report: &'a mut LineReport,
-    pos: usize,
-    /// The current state, and its frame.
-    state: u32,
-    frame: Frame,
-    /// Steps spent on this line, counted in scans too.
-    steps: Cell<u64>,
-    /// Steps this line may spend; `u64::MAX` for no limit.
-    budget: u64,
+    /// The tokens, the contexts and the end of the last token.
+    pub(super) em: Emitter<'a>,
+    /// The work this line has spent and may spend.
+    pub(super) steps: Steps,
     /// The first byte that is not white space: a table header, or a comment
     /// that gets the leading-space scope, starts here at the earliest.
     first: usize,
@@ -52,19 +44,11 @@ pub(crate) struct Lexer<'a> {
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32) -> Self {
-        let frame = cx.arena.frame(state);
-        let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let steps = Steps::new(cx.limits, s.len());
         let mut lexer = Lexer {
             s,
-            out: &mut *cx.out,
-            arena: &mut *cx.arena,
-            limits: cx.limits,
-            report: &mut *cx.report,
-            pos: 0,
-            state,
-            frame,
-            steps: Cell::new(0),
-            budget,
+            em: Emitter::new(cx, state, 0),
+            steps,
             first: 0,
             header: OnceCell::new(),
             last_eq: memrchr(b'=', s),
@@ -77,16 +61,16 @@ impl<'a> Lexer<'a> {
     }
 
     pub(crate) fn into_state(self) -> u32 {
-        self.state
+        self.em.state
     }
 
     pub(crate) fn run(&mut self) {
         let len = self.s.len();
         let mut p = 0;
         while p < len {
-            self.spend(1);
-            if self.steps.get() > self.budget {
-                self.report.record(Limit::Work);
+            self.steps.spend(1);
+            if self.steps.exhausted() {
+                self.em.report.record(Limit::Work);
                 break;
             }
             let from = p;
@@ -117,44 +101,17 @@ impl<'a> Lexer<'a> {
         char_len(lead).min(self.s.len() - i)
     }
 
-    /// How many bytes of white space, as the regex `\s` reads it, start at
-    /// `i`; 0 when none does.
-    pub(super) fn space_at(&self, i: usize) -> usize {
-        let Some(&b) = self.s.get(i) else {
-            return 0;
-        };
-        if b < 0x80 {
-            return usize::from(matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r'));
-        }
-        let width = self.width_at(i);
-        match self
-            .s
-            .get(i..i + width)
-            .and_then(|bytes| std::str::from_utf8(bytes).ok())
-            .and_then(|text| text.chars().next())
-        {
-            Some(c) if classes::is_space(c) => width,
-            _ => 0,
-        }
-    }
-
     /// The end of the run of white space that starts at `i`.
     pub(super) fn skip_space(&self, mut i: usize) -> usize {
         let from = i;
         loop {
-            let width = self.space_at(i);
+            let width = space_width(self.s, i);
             if width == 0 {
-                self.spend(i - from);
+                self.steps.spend(i - from);
                 return i;
             }
             i += width;
         }
-    }
-
-    /// Counts `bytes` read ahead of the cursor against the line's work.
-    pub(super) fn spend(&self, bytes: usize) {
-        let bytes = u64::try_from(bytes).unwrap_or(u64::MAX);
-        self.steps.set(self.steps.get().saturating_add(bytes));
     }
 
     // Emission.
@@ -166,22 +123,7 @@ impl<'a> Lexer<'a> {
 
     /// Emits the bytes up to `to` with the current context plus `leaf`.
     pub(super) fn tok(&mut self, to: usize, leaf: &[S]) {
-        if to <= self.pos {
-            return;
-        }
-        let mut stack = self.frame.stack;
-        for scope in leaf {
-            let Some(child) = self.arena.child(stack, scope.scope()) else {
-                self.report.record(Limit::Nodes);
-                break;
-            };
-            stack = child;
-        }
-        self.out.push(Token {
-            end: to,
-            stack: Stack(stack),
-        });
-        self.pos = to;
+        self.em.tok(to, leaf.iter().map(|scope| scope.scope()));
     }
 
     /// Emits the bytes from `from` to `to` with `leaf`, after plain text up
@@ -194,66 +136,43 @@ impl<'a> Lexer<'a> {
     // Contexts.
 
     pub(super) fn top(&self) -> Kind {
-        Kind::from_code(self.frame.kind)
+        Kind::from_code(self.em.frame.kind)
     }
 
     /// Opens a context; false when a limit keeps it closed.
     fn push(&mut self, kind: Kind) -> bool {
-        let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-        if self.limits.depth.is_some_and(|max| depth >= max) {
-            self.report.record(Limit::Depth);
-            return false;
-        }
-        let stack = match kind.scope() {
-            Some(scope) => self.arena.child(self.frame.stack, scope.scope()),
-            None => Some(self.frame.stack),
-        };
         let payload = if kind == Kind::Inline {
             InlineComments::Allowed.payload()
         } else {
             ArrayNext::Value.payload()
         };
-        let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), payload, stack))
-        else {
-            self.report.record(Limit::Nodes);
-            return false;
-        };
-        self.enter(state);
-        true
-    }
-
-    fn pop(&mut self) {
-        self.enter(self.frame.parent);
-    }
-
-    fn enter(&mut self, state: u32) {
-        self.state = state;
-        self.frame = self.arena.frame(state);
+        self.em
+            .push(kind.code(), payload, kind.scope().map(S::scope))
     }
 
     /// What the array being read expects next.
     fn array_next(&self) -> ArrayNext {
-        ArrayNext::from_payload(self.frame.payload)
+        ArrayNext::from_payload(self.em.frame.payload)
     }
 
     /// Whether a comment may start a line of the inline table being read.
     fn inline_comments(&self) -> InlineComments {
-        InlineComments::from_payload(self.frame.payload)
+        InlineComments::from_payload(self.em.frame.payload)
     }
 
     /// Sets the payload of the array or inline table being read.
     fn set_payload(&mut self, payload: u32) {
-        if self.frame.payload == payload {
+        if self.em.frame.payload == payload {
             return;
         }
-        let frame = self.frame;
+        let frame = self.em.frame;
         match self
+            .em
             .arena
             .push(frame.parent, frame.kind, payload, frame.stack)
         {
-            Some(state) => self.enter(state),
-            None => self.report.record(Limit::Nodes),
+            Some(state) => self.em.enter(state),
+            None => self.em.report.record(Limit::Nodes),
         }
     }
 
@@ -281,7 +200,7 @@ impl<'a> Lexer<'a> {
     pub(super) fn finish(&mut self, p: usize, end: usize, leaf: S) -> usize {
         self.gap(p);
         self.tok(end, &[leaf]);
-        self.pop();
+        self.em.pop();
         end
     }
 
@@ -290,7 +209,7 @@ impl<'a> Lexer<'a> {
     /// Takes the next match at or after `p` outside every array, inline
     /// table and string.
     fn in_table(&mut self, p: usize) -> usize {
-        if self.space_at(p) > 0 {
+        if space_width(self.s, p) > 0 {
             return self.space(p);
         }
         match self.s[p] {
@@ -349,14 +268,14 @@ impl<'a> Lexer<'a> {
     /// space after it, unless that ends the line.
     pub(super) fn invalid(&mut self, p: usize) -> usize {
         let mut end = p;
-        while end < self.s.len() && self.space_at(end) == 0 {
+        while end < self.s.len() && space_width(self.s, end) == 0 {
             end += self.width_at(end);
         }
         let spaced = self.skip_space(end);
         if spaced < self.s.len() {
             end = spaced;
         }
-        self.spend(end - p);
+        self.steps.spend(end - p);
         self.tok_at(p, end, &[S::Invalid]);
         end
     }
@@ -372,7 +291,7 @@ impl<'a> Lexer<'a> {
             let start = p + if double { 2 } else { 1 };
             let rest = self.s.get(start..)?;
             let offset = memchr2(b'[', b']', rest)?;
-            self.spend(offset);
+            self.steps.spend(offset);
             if rest[offset] != b']' {
                 return None;
             }
@@ -397,7 +316,7 @@ impl<'a> Lexer<'a> {
         self.tok(open, &[group, S::PunctSection]);
         let mut i = open;
         while i < close {
-            let width = self.space_at(i);
+            let width = space_width(self.s, i);
             if width > 0 {
                 i += width;
                 continue;
@@ -407,7 +326,7 @@ impl<'a> Lexer<'a> {
                 continue;
             }
             let from = i;
-            while i < close && self.space_at(i) == 0 && self.s[i] != b'.' {
+            while i < close && space_width(self.s, i) == 0 && self.s[i] != b'.' {
                 i += self.width_at(i);
             }
             self.tok(from, &[group]);
@@ -422,7 +341,7 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match at or after `p` in an array.
     fn in_array(&mut self, p: usize) -> usize {
-        if self.space_at(p) > 0 {
+        if space_width(self.s, p) > 0 {
             return self.leading_space(p);
         }
         match self.s[p] {
@@ -458,7 +377,7 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match at or after `p` in an inline table.
     fn in_inline(&mut self, p: usize) -> usize {
-        if self.space_at(p) > 0 {
+        if space_width(self.s, p) > 0 {
             return self.leading_space(p);
         }
         match self.s[p] {

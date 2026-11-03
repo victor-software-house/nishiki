@@ -1,6 +1,7 @@
 //! Bounds on the work and memory one line may cost, and the report of which
 //! bounds a line reached.
 
+use std::cell::Cell;
 use std::time::Duration;
 
 /// The limits a highlighter applies to every line.
@@ -59,6 +60,40 @@ impl Work {
         let len = u64::try_from(len).unwrap_or(u64::MAX);
         len.saturating_mul(u64::from(self.per_byte))
             .saturating_add(u64::from(self.base))
+    }
+}
+
+/// The steps one line spends against its [`Limits::work`]: the turns of a
+/// lexer's main loop and the bytes its lookaheads read.
+///
+/// The count is a `Cell`, so a scan that only reads the line can still spend.
+#[derive(Debug)]
+pub(crate) struct Steps {
+    spent: Cell<u64>,
+    /// The line's allowance; `u64::MAX` for no limit.
+    limit: u64,
+}
+
+impl Steps {
+    /// Nothing spent yet on a line of `len` bytes under `limits`.
+    pub(crate) fn new(limits: &Limits, len: usize) -> Self {
+        Steps {
+            spent: Cell::new(0),
+            limit: limits.work.map_or(u64::MAX, |work| work.steps(len)),
+        }
+    }
+
+    /// Counts `steps` more.
+    #[inline]
+    pub(crate) fn spend(&self, steps: usize) {
+        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
+        self.spent.set(self.spent.get().saturating_add(steps));
+    }
+
+    /// Whether the line has spent more than it may.
+    #[inline]
+    pub(crate) fn exhausted(&self) -> bool {
+        self.spent.get() > self.limit
     }
 }
 

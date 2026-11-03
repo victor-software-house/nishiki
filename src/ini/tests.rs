@@ -209,7 +209,7 @@ fn a_fence_inside_a_quote_loses_its_line_start_anchors() {
 #[test]
 fn a_depth_limit_keeps_a_string_closed() {
     let limits = Limits {
-        depth: Some(1),
+        depth: Some(0),
         ..Limits::default()
     };
     let mut highlighter = Highlighter::new_with_limits(Language::Ini, limits);
