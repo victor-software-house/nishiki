@@ -9,6 +9,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::super::limits::MAX_COMMENT_RUNS;
 use super::chars::{is_space, is_word};
+use crate::classes::is_ascii_word;
 use crate::rules::Chars;
 
 /// One way the block matches at a position.
@@ -104,12 +105,10 @@ impl Lexer<'_> {
             plain: Few::new(),
             plain_taken: 0,
         };
+        let spaces = self.skip_space(p);
         let mut at = p;
-        loop {
-            let q = self.skip_space(at);
-            let Some(close) = self.comment_close(q) else {
-                break;
-            };
+        let mut q = spaces;
+        while let Some(close) = self.comment_close(q) {
             let end = self.skip_space(close + 2);
             out.runs[out.found % MAX_COMMENT_RUNS] = Run {
                 open: q,
@@ -121,13 +120,19 @@ impl Lexer<'_> {
                 break;
             }
             at = end;
+            q = self.skip_space(at);
         }
-        let spaces = self.skip_space(p);
         if spaces > p {
             out.plain.push(spaces);
         }
-        let before_non_word = self.ch_before(p).is_some_and(|c| !is_word(c));
-        let ahead_non_word = self.ch(p).is_some_and(|(c, _)| !is_word(c));
+        let before_non_word = match p.checked_sub(1).and_then(|k| self.s.get(k)) {
+            Some(&b) if b < 0x80 => !is_ascii_word(b),
+            _ => self.ch_before(p).is_some_and(|c| !is_word(c)),
+        };
+        let ahead_non_word = match self.s.get(p) {
+            Some(&b) if b < 0x80 => !is_ascii_word(b),
+            _ => self.ch(p).is_some_and(|(c, _)| !is_word(c)),
+        };
         let boundary = before_non_word || ahead_non_word || p == 0;
         if boundary {
             out.plain.push(p);
