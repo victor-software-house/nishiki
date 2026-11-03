@@ -440,9 +440,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         i == self.s.len() || (self.nl && i == self.s.len() + 1)
     }
 
-    /// Whether the text at `i` starts with `text`. The first byte decides
-    /// almost always, so it is tested before the call that compares the rest.
+    /// Whether the text at `i` starts with `text`, which must not be empty:
+    /// the first byte decides almost always, so it is tested before the call
+    /// that compares the rest, and an empty `text` would never match. A
+    /// needle that can be empty goes through `Chars::lit`,
+    /// where it matches as an empty literal does in a regular expression;
+    /// matchers call this one with words from lists in their hot loops, where
+    /// one more test costs (Make +1.9% instructions, 2026-11-03).
     pub(crate) fn starts(&self, i: usize, text: &[u8]) -> bool {
+        debug_assert!(!text.is_empty(), "an empty needle goes through Chars::lit");
         text.first().is_some_and(|b| self.s.get(i) == Some(b))
             && self.s.get(i..).is_some_and(|rest| rest.starts_with(text))
     }
@@ -1505,6 +1511,46 @@ mod tests {
         lexer.caps[2] = Some((3, 4));
         assert_eq!(lexer.cap_text(1), b"b");
         assert_eq!(lexer.cap_text(2), b"");
+    }
+
+    /// A lexer over `b"ab"` for the needle tests.
+    fn ab_lexer<'a>(
+        arena: &'a mut Arena,
+        limits: &'a Limits,
+        tokens: &'a mut Vec<crate::Token>,
+        report: &'a mut LineReport,
+        scratch: &'a mut Scratch<Brackets>,
+    ) -> Lexer<'a, Brackets> {
+        let text = Text {
+            bytes: b"ab",
+            start: 0,
+            anchored: false,
+        };
+        Lexer::new(arena, limits, text, tokens, ROOT, report, scratch)
+    }
+
+    #[cfg(feature = "_rule-tables")]
+    #[test]
+    fn an_empty_literal_matches_anywhere_in_the_line() {
+        use crate::rules::Chars;
+        let (mut arena, limits, mut tokens) = (Arena::new(None), Limits::default(), Vec::new());
+        let (mut report, mut scratch) = (LineReport::default(), Scratch::<Brackets>::default());
+        let lexer = ab_lexer(&mut arena, &limits, &mut tokens, &mut report, &mut scratch);
+        assert_eq!(lexer.lit(0, b""), Some(0));
+        assert_eq!(lexer.lit(2, b""), Some(2));
+        assert_eq!(lexer.lit(3, b""), None);
+        assert_eq!(lexer.lit(1, b"b"), Some(2));
+        assert_eq!(lexer.lit(2, b"b"), None);
+    }
+
+    #[cfg(debug_assertions)]
+    #[test]
+    #[should_panic(expected = "an empty needle goes through Chars::lit")]
+    fn starts_refuses_an_empty_needle() {
+        let (mut arena, limits, mut tokens) = (Arena::new(None), Limits::default(), Vec::new());
+        let (mut report, mut scratch) = (LineReport::default(), Scratch::<Brackets>::default());
+        let lexer = ab_lexer(&mut arena, &limits, &mut tokens, &mut report, &mut scratch);
+        let _ = lexer.starts(0, b"");
     }
 
     /// A grammar whose names repeat text of the line: a word is named

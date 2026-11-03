@@ -159,11 +159,7 @@ impl Lexer<'_> {
         rest: impl Fn(u8) -> bool,
     ) -> Option<usize> {
         let s = self.number_start(p, AfterMember::Refused)?;
-        let digits = if prefix.is_empty() {
-            s
-        } else {
-            self.lit(s, prefix)?
-        };
+        let digits = self.lit(s, prefix)?;
         if !first(self.at(digits)) {
             return None;
         }

@@ -451,11 +451,7 @@ impl Lexer<'_> {
                 b"key_",
                 b"",
             ] {
-                let after = if suffix.is_empty() {
-                    Some(word)
-                } else {
-                    self.lit(word, suffix)
-                };
+                let after = self.lit(word, suffix);
                 if let Some(t) = after.and_then(|e| self.lit(e, b"t"))
                     && self.word_at(t).is_none()
                 {

@@ -157,9 +157,14 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
         start
     }
 
-    /// The end of `text` at `i` when the line has it there.
+    /// The end of `text` at `i` when the line has it there. An empty `text`
+    /// matches anywhere in the line, its end included, as an empty literal
+    /// does in a regular expression.
     #[inline]
     fn lit(&self, i: usize, text: &[u8]) -> Option<usize> {
+        if text.is_empty() {
+            return (i <= self.lim()).then_some(i);
+        }
         self.starts(i, text).then(|| i + text.len())
     }
 

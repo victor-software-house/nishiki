@@ -1790,9 +1790,7 @@ impl Lexer<'_> {
         }
         ops.iter().find_map(|op| {
             let end = self.lit(p, op)? + tail.len();
-            if !tail.is_empty() && !self.starts(end - tail.len(), tail) {
-                return None;
-            }
+            self.lit(end - tail.len(), tail)?;
             self.at_eol(end).then_some(end)
         })
     }

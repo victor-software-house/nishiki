@@ -1085,7 +1085,7 @@ impl Lexer<'_> {
     fn verb(&self, q: usize, spans: &mut Spans) -> Option<usize> {
         for verb in VERBS {
             let end = q + verb.len();
-            if !verb.is_empty() && !self.starts(q, verb) {
+            if self.lit(q, verb).is_none() {
                 continue;
             }
             let needs_colon = verb == b"MARK" || verb.is_empty();
