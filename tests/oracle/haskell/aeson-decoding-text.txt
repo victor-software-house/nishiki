@@ -1,0 +1,2875 @@
+L {-# LANGUAGE BangPatterns        #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 25 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE CPP                 #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 16 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE OverloadedStrings   #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 30 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE ScopedTypeVariables #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 32 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE ViewPatterns        #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 25 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# OPTIONS_GHC -O2 #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 15 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 20 source.haskell meta.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell
+L -- | Parser from strict 'Text' to 'Tokens'.
+T 4 source.haskell comment.block.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 43 source.haskell comment.block.documentation.haskell
+L module Data.Aeson.Decoding.Text (
+T 6 source.haskell meta.declaration.module.haskell keyword.other.module.haskell
+T 7 source.haskell meta.declaration.module.haskell
+T 31 source.haskell meta.declaration.module.haskell entity.name.namespace.haskell
+T 32 source.haskell meta.declaration.module.haskell
+T 33 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L     textToTokens,
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 16 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell entity.name.function.haskell
+T 17 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+L ) where
+T 1 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 2 source.haskell meta.declaration.module.haskell
+T 7 source.haskell keyword.other.where.haskell
+L 
+L import           Data.Char                            (chr)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 26 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 55 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 58 source.haskell meta.import.haskell meta.declaration.exports.haskell entity.name.function.haskell
+T 59 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L import           Data.Integer.Conversion              (textToInteger)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 40 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 55 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 68 source.haskell meta.import.haskell meta.declaration.exports.haskell entity.name.function.haskell
+T 69 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L import           Data.Text.Internal                   (Text (..))
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 35 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 55 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 59 source.haskell meta.import.haskell meta.declaration.exports.haskell storage.type.haskell
+T 60 source.haskell meta.import.haskell meta.declaration.exports.haskell
+T 61 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 63 source.haskell meta.import.haskell meta.declaration.exports.haskell variable.other.member.wildcard.haskell
+T 64 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 65 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L 
+L import qualified Data.Aeson.Key                       as Key
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 31 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 56 source.haskell meta.import.haskell keyword.other.as.haskell
+T 57 source.haskell meta.import.haskell
+T 60 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import qualified Data.Scientific                      as Sci
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 32 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 56 source.haskell meta.import.haskell keyword.other.as.haskell
+T 57 source.haskell meta.import.haskell
+T 60 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import qualified Data.Text                            as T
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 26 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 56 source.haskell meta.import.haskell keyword.other.as.haskell
+T 57 source.haskell meta.import.haskell
+T 58 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import qualified Data.Text.Array                      as A
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 32 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 56 source.haskell meta.import.haskell keyword.other.as.haskell
+T 57 source.haskell meta.import.haskell
+T 58 source.haskell meta.import.haskell entity.name.namespace.haskell
+L 
+L import           Data.Aeson.Decoding.Internal
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 45 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import           Data.Aeson.Decoding.Tokens
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 43 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import           Data.Aeson.Internal.Prelude
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 44 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import           Data.Aeson.Internal.UnescapeFromText (unescapeFromText)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 53 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 54 source.haskell meta.import.haskell
+T 55 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 71 source.haskell meta.import.haskell meta.declaration.exports.haskell entity.name.function.haskell
+T 72 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L 
+L #if MIN_VERSION_text(2,0,0)
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 27 source.haskell meta.preprocessor.c
+L import qualified Data.Word8.Patterns as W
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 36 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 37 source.haskell meta.import.haskell
+T 39 source.haskell meta.import.haskell keyword.other.as.haskell
+T 40 source.haskell meta.import.haskell
+T 41 source.haskell meta.import.haskell entity.name.namespace.haskell
+L #else
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 5 source.haskell meta.preprocessor.c
+L import qualified Data.Word16.Patterns as W
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 37 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 38 source.haskell meta.import.haskell
+T 40 source.haskell meta.import.haskell keyword.other.as.haskell
+T 41 source.haskell meta.import.haskell
+T 42 source.haskell meta.import.haskell entity.name.namespace.haskell
+L #endif
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 6 source.haskell meta.preprocessor.c
+L 
+L #if MIN_VERSION_text(2,0,0)
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 27 source.haskell meta.preprocessor.c
+L type Point = Word8
+T 4 source.haskell meta.declaration.type.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.haskell
+T 10 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.type.haskell
+T 12 source.haskell meta.declaration.type.haskell keyword.operator.eq.haskell
+T 13 source.haskell meta.declaration.type.haskell
+T 18 source.haskell meta.declaration.type.haskell storage.type.haskell
+L #else
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 5 source.haskell meta.preprocessor.c
+L type Point = Word16
+T 4 source.haskell meta.declaration.type.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.haskell
+T 10 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.type.haskell
+T 12 source.haskell meta.declaration.type.haskell keyword.operator.eq.haskell
+T 13 source.haskell meta.declaration.type.haskell
+T 19 source.haskell meta.declaration.type.haskell storage.type.haskell
+L #endif
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 6 source.haskell meta.preprocessor.c
+L 
+L 
+L -- | Lex (and parse) strict 'Text' into 'Tokens' stream.
+T 4 source.haskell comment.block.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 56 source.haskell comment.block.documentation.haskell
+L --
+T 2 source.haskell comment.block.documentation.haskell
+L -- @since 2.2.1.0
+T 17 source.haskell comment.block.documentation.haskell
+L --
+T 2 source.haskell comment.block.documentation.haskell
+L textToTokens :: Text -> Tokens Text String
+T 12 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 30 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 31 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 42 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L textToTokens bs0 = goT bs0 id where
+T 17 source.haskell
+T 18 source.haskell keyword.operator.eq.haskell
+T 30 source.haskell
+T 35 source.haskell keyword.other.where.haskell
+L     goT :: Parser Tokens k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goT (skipSpace -> bs) k = case unconsPoint bs of
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.haskell
+T 24 source.haskell
+T 25 source.haskell punctuation.paren.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.eq.haskell
+T 30 source.haskell
+T 34 source.haskell keyword.control.case.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.control.of.haskell
+L         Nothing         -> tkErr "Unexpected end-of-input, expecting JSON value"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.arrow.haskell
+T 33 source.haskell
+T 34 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 79 source.haskell string.quoted.double.haskell
+T 80 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (!w, !bs1) -> tokenCase w bs1 bs k
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 15 source.haskell keyword.operator.prefix.bang.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 18 source.haskell
+T 19 source.haskell keyword.operator.prefix.bang.haskell
+T 22 source.haskell
+T 23 source.haskell punctuation.paren.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.arrow.haskell
+T 47 source.haskell
+L 
+L     tokenCase
+T 13 source.haskell
+L         :: Point              -- head
+T 8 source.haskell meta.type-declaration.haskell
+T 10 source.haskell meta.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.type-declaration.haskell
+T 16 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 30 source.haskell meta.type-declaration.haskell
+T 32 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 37 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell
+L         -> Text               -- tail
+T 8 source.haskell meta.type-declaration.haskell
+T 10 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 11 source.haskell meta.type-declaration.haskell
+T 15 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 30 source.haskell meta.type-declaration.haskell
+T 32 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 37 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell
+L         -> Text               -- whole input, needed for number parsing
+T 8 source.haskell meta.type-declaration.haskell
+T 10 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 11 source.haskell meta.type-declaration.haskell
+T 15 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 30 source.haskell meta.type-declaration.haskell
+T 32 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 71 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell
+L         -> (Text -> k)        -- continuation
+T 8 source.haskell meta.type-declaration.haskell
+T 10 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 11 source.haskell meta.type-declaration.haskell
+T 12 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 16 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 17 source.haskell meta.type-declaration.haskell
+T 19 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 20 source.haskell meta.type-declaration.haskell
+T 21 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 22 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 30 source.haskell meta.type-declaration.haskell
+T 32 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 45 source.haskell meta.type-declaration.haskell comment.line.double-dash.haskell
+L         -> Tokens k String
+T 8 source.haskell meta.type-declaration.haskell
+T 10 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 11 source.haskell meta.type-declaration.haskell
+T 17 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.type-declaration.haskell
+T 19 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.type-declaration.haskell
+T 26 source.haskell meta.type-declaration.haskell storage.type.haskell
+L     tokenCase W.LEFT_CURLY   !bs !_   k       = TkRecordOpen (goR bs k)
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 26 source.haskell constant.other.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell
+T 34 source.haskell keyword.operator.prefix.bang.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 48 source.haskell
+T 60 source.haskell constant.other.haskell
+T 61 source.haskell
+T 62 source.haskell punctuation.paren.haskell
+T 70 source.haskell
+T 71 source.haskell punctuation.paren.haskell
+L     tokenCase W.LEFT_SQUARE   bs  _   k       = TkArrayOpen (goA bs k)
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 27 source.haskell constant.other.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 48 source.haskell
+T 59 source.haskell constant.other.haskell
+T 60 source.haskell
+T 61 source.haskell punctuation.paren.haskell
+T 69 source.haskell
+T 70 source.haskell punctuation.paren.haskell
+L     tokenCase W.DOUBLE_QUOTE  bs  _   k       = scanStringLiteral (\t bs' -> TkText t (k bs')) tkErr bs
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 28 source.haskell constant.other.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 66 source.haskell
+T 67 source.haskell punctuation.paren.haskell
+T 68 source.haskell keyword.operator.lambda.haskell
+T 74 source.haskell
+T 76 source.haskell keyword.operator.arrow.haskell
+T 77 source.haskell
+T 83 source.haskell constant.other.haskell
+T 86 source.haskell
+T 87 source.haskell punctuation.paren.haskell
+T 92 source.haskell
+T 93 source.haskell punctuation.paren.haskell
+T 94 source.haskell punctuation.paren.haskell
+T 103 source.haskell
+L     tokenCase W.HYPHEN        bs  _   k       = scanNumberLiteral (\n bs' -> TkNumber (negateNumber n) (k bs')) tkErr bs
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 22 source.haskell constant.other.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 66 source.haskell
+T 67 source.haskell punctuation.paren.haskell
+T 68 source.haskell keyword.operator.lambda.haskell
+T 74 source.haskell
+T 76 source.haskell keyword.operator.arrow.haskell
+T 77 source.haskell
+T 85 source.haskell constant.other.haskell
+T 86 source.haskell
+T 87 source.haskell punctuation.paren.haskell
+T 101 source.haskell
+T 102 source.haskell punctuation.paren.haskell
+T 103 source.haskell
+T 104 source.haskell punctuation.paren.haskell
+T 109 source.haskell
+T 110 source.haskell punctuation.paren.haskell
+T 111 source.haskell punctuation.paren.haskell
+T 120 source.haskell
+L     tokenCase w                _   wbs k
+T 40 source.haskell
+L         | W.DIGIT_0 <= w, w <= W.DIGIT_9      = scanNumberLiteral (\n bs' -> TkNumber n (k bs')) tkErr wbs
+T 8 source.haskell
+T 9 source.haskell keyword.operator.pipe.haskell
+T 10 source.haskell
+T 12 source.haskell entity.name.namespace.haskell
+T 19 source.haskell constant.other.haskell
+T 20 source.haskell
+T 22 source.haskell keyword.operator.infix.haskell
+T 28 source.haskell
+T 30 source.haskell keyword.operator.infix.haskell
+T 31 source.haskell
+T 33 source.haskell entity.name.namespace.haskell
+T 40 source.haskell constant.other.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 66 source.haskell
+T 67 source.haskell punctuation.paren.haskell
+T 68 source.haskell keyword.operator.lambda.haskell
+T 74 source.haskell
+T 76 source.haskell keyword.operator.arrow.haskell
+T 77 source.haskell
+T 85 source.haskell constant.other.haskell
+T 88 source.haskell
+T 89 source.haskell punctuation.paren.haskell
+T 94 source.haskell
+T 95 source.haskell punctuation.paren.haskell
+T 96 source.haskell punctuation.paren.haskell
+T 106 source.haskell
+L     tokenCase W.LOWER_N       bs  _   k
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 39 source.haskell
+L         | Just bs1 <- stripPrefix "ull" 3 bs  = TkLit LitNull (k bs1)
+T 8 source.haskell
+T 9 source.haskell keyword.operator.pipe.haskell
+T 10 source.haskell
+T 14 source.haskell constant.other.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.left.haskell
+T 34 source.haskell
+T 35 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell string.quoted.double.haskell
+T 39 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 40 source.haskell
+T 41 source.haskell constant.numeric.integral.decimal.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 48 source.haskell
+T 53 source.haskell constant.other.haskell
+T 54 source.haskell
+T 61 source.haskell constant.other.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+T 68 source.haskell
+T 69 source.haskell punctuation.paren.haskell
+L     tokenCase W.LOWER_T       bs  _   k
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 39 source.haskell
+L         | Just bs1 <- stripPrefix "rue" 3 bs  = TkLit LitTrue (k bs1)
+T 8 source.haskell
+T 9 source.haskell keyword.operator.pipe.haskell
+T 10 source.haskell
+T 14 source.haskell constant.other.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.left.haskell
+T 34 source.haskell
+T 35 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell string.quoted.double.haskell
+T 39 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 40 source.haskell
+T 41 source.haskell constant.numeric.integral.decimal.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 48 source.haskell
+T 53 source.haskell constant.other.haskell
+T 54 source.haskell
+T 61 source.haskell constant.other.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+T 68 source.haskell
+T 69 source.haskell punctuation.paren.haskell
+L     tokenCase W.LOWER_F       bs  _   k
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 39 source.haskell
+L         | Just bs1 <- stripPrefix "alse" 4 bs = TkLit LitFalse (k bs1)
+T 8 source.haskell
+T 9 source.haskell keyword.operator.pipe.haskell
+T 10 source.haskell
+T 14 source.haskell constant.other.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.left.haskell
+T 34 source.haskell
+T 35 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 39 source.haskell string.quoted.double.haskell
+T 40 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 41 source.haskell
+T 42 source.haskell constant.numeric.integral.decimal.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 48 source.haskell
+T 53 source.haskell constant.other.haskell
+T 54 source.haskell
+T 62 source.haskell constant.other.haskell
+T 63 source.haskell
+T 64 source.haskell punctuation.paren.haskell
+T 69 source.haskell
+T 70 source.haskell punctuation.paren.haskell
+L     tokenCase _          _   wbs _            = tkErr $ "Unexpected " ++ showBeginning wbs ++ ", expecting JSON value"
+T 46 source.haskell
+T 47 source.haskell keyword.operator.eq.haskell
+T 54 source.haskell
+T 55 source.haskell keyword.operator.infix.haskell
+T 56 source.haskell
+T 57 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 68 source.haskell string.quoted.double.haskell
+T 69 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 70 source.haskell
+T 72 source.haskell keyword.operator.infix.haskell
+T 91 source.haskell
+T 93 source.haskell keyword.operator.infix.haskell
+T 94 source.haskell
+T 95 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 117 source.haskell string.quoted.double.haskell
+T 118 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L     -- Array
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 12 source.haskell comment.line.double-dash.haskell
+L     goA :: Parser TkArray k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 25 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 26 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goA (skipSpace -> bs) k = case unconsPoint bs of
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.haskell
+T 24 source.haskell
+T 25 source.haskell punctuation.paren.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.eq.haskell
+T 30 source.haskell
+T 34 source.haskell keyword.control.case.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.control.of.haskell
+L         Nothing         -> tkErrEOF "JSON value or ]"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.arrow.haskell
+T 36 source.haskell
+T 37 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 52 source.haskell string.quoted.double.haskell
+T 53 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (W.RIGHT_SQUARE, !bs1) -> TkArrayEnd (k bs1)
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 28 source.haskell constant.other.haskell
+T 29 source.haskell punctuation.separator.comma.haskell
+T 30 source.haskell
+T 31 source.haskell keyword.operator.prefix.bang.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 36 source.haskell
+T 38 source.haskell keyword.operator.arrow.haskell
+T 39 source.haskell
+T 49 source.haskell constant.other.haskell
+T 50 source.haskell
+T 51 source.haskell punctuation.paren.haskell
+T 56 source.haskell
+T 57 source.haskell punctuation.paren.haskell
+L         Just (w,  !bs1) -> TkItem $ tokenCase w bs1 bs $ \bs2 -> goA1 bs2 k
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 15 source.haskell
+T 16 source.haskell punctuation.separator.comma.haskell
+T 18 source.haskell
+T 19 source.haskell keyword.operator.prefix.bang.haskell
+T 22 source.haskell
+T 23 source.haskell punctuation.paren.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.arrow.haskell
+T 27 source.haskell
+T 33 source.haskell constant.other.haskell
+T 34 source.haskell
+T 35 source.haskell keyword.operator.infix.haskell
+T 55 source.haskell
+T 56 source.haskell keyword.operator.infix.haskell
+T 57 source.haskell
+T 58 source.haskell keyword.operator.lambda.haskell
+T 62 source.haskell
+T 64 source.haskell keyword.operator.arrow.haskell
+T 75 source.haskell
+L 
+L     goA1 :: Parser TkArray k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goA1 (skipSpace -> bs) k = case unconsPoint bs of
+T 9 source.haskell
+T 10 source.haskell punctuation.paren.haskell
+T 20 source.haskell
+T 22 source.haskell keyword.operator.arrow.haskell
+T 25 source.haskell
+T 26 source.haskell punctuation.paren.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+T 35 source.haskell keyword.control.case.haskell
+T 51 source.haskell
+T 53 source.haskell keyword.control.of.haskell
+L         Nothing                      -> tkErrEOF ", or ]"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 37 source.haskell
+T 39 source.haskell keyword.operator.arrow.haskell
+T 49 source.haskell
+T 50 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 56 source.haskell string.quoted.double.haskell
+T 57 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (W.RIGHT_SQUARE, !bs1) -> TkArrayEnd (k bs1)
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 28 source.haskell constant.other.haskell
+T 29 source.haskell punctuation.separator.comma.haskell
+T 30 source.haskell
+T 31 source.haskell keyword.operator.prefix.bang.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 36 source.haskell
+T 38 source.haskell keyword.operator.arrow.haskell
+T 39 source.haskell
+T 49 source.haskell constant.other.haskell
+T 50 source.haskell
+T 51 source.haskell punctuation.paren.haskell
+T 56 source.haskell
+T 57 source.haskell punctuation.paren.haskell
+L         Just (W.COMMA, !bs1)        -> TkItem $ goT bs1 $ \bs2 -> goA1 bs2 k
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 21 source.haskell constant.other.haskell
+T 22 source.haskell punctuation.separator.comma.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.prefix.bang.haskell
+T 27 source.haskell
+T 28 source.haskell punctuation.paren.haskell
+T 36 source.haskell
+T 38 source.haskell keyword.operator.arrow.haskell
+T 39 source.haskell
+T 45 source.haskell constant.other.haskell
+T 46 source.haskell
+T 47 source.haskell keyword.operator.infix.haskell
+T 56 source.haskell
+T 57 source.haskell keyword.operator.infix.haskell
+T 58 source.haskell
+T 59 source.haskell keyword.operator.lambda.haskell
+T 63 source.haskell
+T 65 source.haskell keyword.operator.arrow.haskell
+T 76 source.haskell
+L         _                            -> tkErrBS bs ", or ]"
+T 37 source.haskell
+T 39 source.haskell keyword.operator.arrow.haskell
+T 51 source.haskell
+T 52 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 58 source.haskell string.quoted.double.haskell
+T 59 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L     -- Record
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 13 source.haskell comment.line.double-dash.haskell
+L     goR :: Parser TkRecord k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goR (skipSpace -> bs) k = case unconsPoint bs of
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.arrow.haskell
+T 24 source.haskell
+T 25 source.haskell punctuation.paren.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.eq.haskell
+T 30 source.haskell
+T 34 source.haskell keyword.control.case.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.control.of.haskell
+L         Nothing                       -> tkErrEOF "record key literal or }"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 38 source.haskell
+T 40 source.haskell keyword.operator.arrow.haskell
+T 50 source.haskell
+T 51 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 74 source.haskell string.quoted.double.haskell
+T 75 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (W.DOUBLE_QUOTE,  !bs1) -> goRK bs1 k           -- "
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 28 source.haskell constant.other.haskell
+T 29 source.haskell punctuation.separator.comma.haskell
+T 31 source.haskell
+T 32 source.haskell keyword.operator.prefix.bang.haskell
+T 35 source.haskell
+T 36 source.haskell punctuation.paren.haskell
+T 37 source.haskell
+T 39 source.haskell keyword.operator.arrow.haskell
+T 61 source.haskell
+T 63 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 65 source.haskell comment.line.double-dash.haskell
+L         Just (W.RIGHT_CURLY, !bs1)   -> TkRecordEnd (k bs1)  -- }
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 27 source.haskell constant.other.haskell
+T 28 source.haskell punctuation.separator.comma.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell
+T 34 source.haskell punctuation.paren.haskell
+T 37 source.haskell
+T 39 source.haskell keyword.operator.arrow.haskell
+T 40 source.haskell
+T 51 source.haskell constant.other.haskell
+T 52 source.haskell
+T 53 source.haskell punctuation.paren.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 61 source.haskell
+T 63 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 65 source.haskell comment.line.double-dash.haskell
+L         Just _                        -> tkErrBS bs "record key literal or }"
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 38 source.haskell
+T 40 source.haskell keyword.operator.arrow.haskell
+T 52 source.haskell
+T 53 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 76 source.haskell string.quoted.double.haskell
+T 77 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L     -- after record pair, expecting ," or }
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 43 source.haskell comment.line.double-dash.haskell
+L     goR1 :: Parser TkRecord k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goR1 (skipSpace -> bs) k = case unconsPoint bs of
+T 9 source.haskell
+T 10 source.haskell punctuation.paren.haskell
+T 20 source.haskell
+T 22 source.haskell keyword.operator.arrow.haskell
+T 25 source.haskell
+T 26 source.haskell punctuation.paren.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+T 35 source.haskell keyword.control.case.haskell
+T 51 source.haskell
+T 53 source.haskell keyword.control.of.haskell
+L         Nothing                           -> tkErr "Unexpected end-of-input, expecting , or }"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.operator.arrow.haskell
+T 51 source.haskell
+T 52 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 93 source.haskell string.quoted.double.haskell
+T 94 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (W.COMMA, !bs1) -> case unconsPoint (skipSpace bs1) of
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 21 source.haskell constant.other.haskell
+T 22 source.haskell punctuation.separator.comma.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.prefix.bang.haskell
+T 27 source.haskell
+T 28 source.haskell punctuation.paren.haskell
+T 29 source.haskell
+T 31 source.haskell keyword.operator.arrow.haskell
+T 32 source.haskell
+T 36 source.haskell keyword.control.case.haskell
+T 49 source.haskell
+T 50 source.haskell punctuation.paren.haskell
+T 63 source.haskell
+T 64 source.haskell punctuation.paren.haskell
+T 65 source.haskell
+T 67 source.haskell keyword.control.of.haskell
+L             Nothing                      -> tkErrEOF "key literal"
+T 12 source.haskell
+T 19 source.haskell constant.other.haskell
+T 41 source.haskell
+T 43 source.haskell keyword.operator.arrow.haskell
+T 53 source.haskell
+T 54 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 65 source.haskell string.quoted.double.haskell
+T 66 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L             Just (W.DOUBLE_QUOTE, !bs2) -> goRK bs2 k
+T 12 source.haskell
+T 16 source.haskell constant.other.haskell
+T 17 source.haskell
+T 18 source.haskell punctuation.paren.haskell
+T 20 source.haskell entity.name.namespace.haskell
+T 32 source.haskell constant.other.haskell
+T 33 source.haskell punctuation.separator.comma.haskell
+T 34 source.haskell
+T 35 source.haskell keyword.operator.prefix.bang.haskell
+T 38 source.haskell
+T 39 source.haskell punctuation.paren.haskell
+T 40 source.haskell
+T 42 source.haskell keyword.operator.arrow.haskell
+T 53 source.haskell
+L             Just _                       -> tkErrBS bs "key literal"
+T 12 source.haskell
+T 16 source.haskell constant.other.haskell
+T 41 source.haskell
+T 43 source.haskell keyword.operator.arrow.haskell
+T 55 source.haskell
+T 56 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 67 source.haskell string.quoted.double.haskell
+T 68 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (W.RIGHT_CURLY, !bs1)       -> TkRecordEnd (k bs1)
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 27 source.haskell constant.other.haskell
+T 28 source.haskell punctuation.separator.comma.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell
+T 34 source.haskell punctuation.paren.haskell
+T 41 source.haskell
+T 43 source.haskell keyword.operator.arrow.haskell
+T 44 source.haskell
+T 55 source.haskell constant.other.haskell
+T 56 source.haskell
+T 57 source.haskell punctuation.paren.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+L         _                                 -> tkErr $ "Unexpected " ++ showBeginning bs ++ ", expecting , or }"
+T 42 source.haskell
+T 44 source.haskell keyword.operator.arrow.haskell
+T 51 source.haskell
+T 52 source.haskell keyword.operator.infix.haskell
+T 53 source.haskell
+T 54 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 65 source.haskell string.quoted.double.haskell
+T 66 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 67 source.haskell
+T 69 source.haskell keyword.operator.infix.haskell
+T 87 source.haskell
+T 89 source.haskell keyword.operator.infix.haskell
+T 90 source.haskell
+T 91 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 109 source.haskell string.quoted.double.haskell
+T 110 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L     -- key of record (after double quote)
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 41 source.haskell comment.line.double-dash.haskell
+L     goRK :: Parser TkRecord k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goRK bs1 k = scanStringLiteral (\t bs -> goRK' t bs k) tkErr bs1
+T 15 source.haskell
+T 16 source.haskell keyword.operator.eq.haskell
+T 35 source.haskell
+T 36 source.haskell punctuation.paren.haskell
+T 37 source.haskell keyword.operator.lambda.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.operator.arrow.haskell
+T 57 source.haskell
+T 58 source.haskell punctuation.paren.haskell
+T 68 source.haskell
+L 
+L     -- after key of a record, expecting :
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 41 source.haskell comment.line.double-dash.haskell
+L     goRK' :: Text -> Parser TkRecord k
+T 4 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 36 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 37 source.haskell meta.function.type-declaration.haskell
+T 38 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goRK' t (skipSpace -> bs) k = case T.uncons bs of
+T 12 source.haskell
+T 13 source.haskell punctuation.paren.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.arrow.haskell
+T 28 source.haskell
+T 29 source.haskell punctuation.paren.haskell
+T 32 source.haskell
+T 33 source.haskell keyword.operator.eq.haskell
+T 34 source.haskell
+T 38 source.haskell keyword.control.case.haskell
+T 39 source.haskell
+T 41 source.haskell entity.name.namespace.haskell
+T 51 source.haskell
+T 53 source.haskell keyword.control.of.haskell
+L         Nothing          -> tkErrEOF ":"
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 37 source.haskell
+T 38 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 39 source.haskell string.quoted.double.haskell
+T 40 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         Just (':', !bs3) -> TkPair (Key.fromText t) $ goT bs3 $ \bs4 -> goR1 bs4 k
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 15 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 16 source.haskell string.quoted.single.haskell
+T 17 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+T 18 source.haskell punctuation.separator.comma.haskell
+T 19 source.haskell
+T 20 source.haskell keyword.operator.prefix.bang.haskell
+T 23 source.haskell
+T 24 source.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 28 source.haskell
+T 34 source.haskell constant.other.haskell
+T 35 source.haskell
+T 36 source.haskell punctuation.paren.haskell
+T 40 source.haskell entity.name.namespace.haskell
+T 50 source.haskell
+T 51 source.haskell punctuation.paren.haskell
+T 52 source.haskell
+T 53 source.haskell keyword.operator.infix.haskell
+T 62 source.haskell
+T 63 source.haskell keyword.operator.infix.haskell
+T 64 source.haskell
+T 65 source.haskell keyword.operator.lambda.haskell
+T 69 source.haskell
+T 71 source.haskell keyword.operator.arrow.haskell
+T 82 source.haskell
+L         Just _           -> tkErrBS bs ":"
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 39 source.haskell
+T 40 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 41 source.haskell string.quoted.double.haskell
+T 42 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L stripPrefix :: Text -> Int -> Text -> Maybe Text
+T 11 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 30 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 35 source.haskell meta.function.type-declaration.haskell
+T 37 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 38 source.haskell meta.function.type-declaration.haskell
+T 43 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 44 source.haskell meta.function.type-declaration.haskell
+T 48 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L stripPrefix pfx _ bs = T.stripPrefix pfx bs
+T 21 source.haskell
+T 22 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+T 25 source.haskell entity.name.namespace.haskell
+T 43 source.haskell
+L {-# INLINE stripPrefix #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell
+T 26 source.haskell meta.preprocessor.haskell
+L 
+L type Parser tk k = Text -> (Text -> k) -> tk k String
+T 4 source.haskell meta.declaration.type.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.haskell
+T 11 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 12 source.haskell meta.declaration.type.haskell
+T 14 source.haskell meta.declaration.type.haskell variable.other.generic-type.haskell
+T 15 source.haskell meta.declaration.type.haskell
+T 16 source.haskell meta.declaration.type.haskell variable.other.generic-type.haskell
+T 17 source.haskell meta.declaration.type.haskell
+T 18 source.haskell meta.declaration.type.haskell keyword.operator.eq.haskell
+T 19 source.haskell meta.declaration.type.haskell
+T 23 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 24 source.haskell meta.declaration.type.haskell
+T 26 source.haskell meta.declaration.type.haskell keyword.operator.arrow.haskell
+T 27 source.haskell meta.declaration.type.haskell
+T 28 source.haskell meta.declaration.type.haskell punctuation.paren.haskell
+T 32 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 33 source.haskell meta.declaration.type.haskell
+T 35 source.haskell meta.declaration.type.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.declaration.type.haskell
+T 37 source.haskell meta.declaration.type.haskell variable.other.generic-type.haskell
+T 38 source.haskell meta.declaration.type.haskell punctuation.paren.haskell
+T 39 source.haskell meta.declaration.type.haskell
+T 41 source.haskell meta.declaration.type.haskell keyword.operator.arrow.haskell
+T 42 source.haskell meta.declaration.type.haskell
+T 44 source.haskell meta.declaration.type.haskell variable.other.generic-type.haskell
+T 45 source.haskell meta.declaration.type.haskell
+T 46 source.haskell meta.declaration.type.haskell variable.other.generic-type.haskell
+T 47 source.haskell meta.declaration.type.haskell
+T 53 source.haskell meta.declaration.type.haskell storage.type.haskell
+L 
+L showBeginning :: Text -> String
+T 13 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L showBeginning = show . T.take 30
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.infix.haskell
+T 23 source.haskell
+T 25 source.haskell entity.name.namespace.haskell
+T 30 source.haskell
+T 32 source.haskell constant.numeric.integral.decimal.haskell
+L 
+L -- | Strip leading (ASCII) space
+T 4 source.haskell comment.block.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 32 source.haskell comment.block.documentation.haskell
+L skipSpace :: Text -> Text
+T 9 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 25 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L skipSpace = T.dropWhile $ \w -> w == '\x20' || w == '\x0a' || w == '\x0d' || w == '\x09'
+T 10 source.haskell
+T 11 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 14 source.haskell entity.name.namespace.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 26 source.haskell
+T 27 source.haskell keyword.operator.lambda.haskell
+T 29 source.haskell
+T 31 source.haskell keyword.operator.arrow.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 38 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 42 source.haskell string.quoted.single.haskell constant.character.escape.hexadecimal.haskell
+T 43 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+T 44 source.haskell
+T 46 source.haskell keyword.operator.infix.haskell
+T 49 source.haskell
+T 51 source.haskell keyword.operator.infix.haskell
+T 52 source.haskell
+T 53 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 57 source.haskell string.quoted.single.haskell constant.character.escape.hexadecimal.haskell
+T 58 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+T 59 source.haskell
+T 61 source.haskell keyword.operator.infix.haskell
+T 64 source.haskell
+T 66 source.haskell keyword.operator.infix.haskell
+T 67 source.haskell
+T 68 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 72 source.haskell string.quoted.single.haskell constant.character.escape.hexadecimal.haskell
+T 73 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+T 74 source.haskell
+T 76 source.haskell keyword.operator.infix.haskell
+T 79 source.haskell
+T 81 source.haskell keyword.operator.infix.haskell
+T 82 source.haskell
+T 83 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 87 source.haskell string.quoted.single.haskell constant.character.escape.hexadecimal.haskell
+T 88 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L {-# INLINE skipSpace #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 21 source.haskell meta.preprocessor.haskell
+T 24 source.haskell meta.preprocessor.haskell
+L 
+L tkErrEOF :: AsError t => String ->  t k String
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell keyword.operator.big-arrow.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 37 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 38 source.haskell meta.function.type-declaration.haskell
+T 39 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 40 source.haskell meta.function.type-declaration.haskell
+T 46 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L tkErrEOF expected = tkErr $
+T 18 source.haskell
+T 19 source.haskell keyword.operator.eq.haskell
+T 26 source.haskell
+T 27 source.haskell keyword.operator.infix.haskell
+L     "Unexpected end-of-input, expecting " ++ expected
+T 4 source.haskell
+T 5 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 40 source.haskell string.quoted.double.haskell
+T 41 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.operator.infix.haskell
+T 53 source.haskell
+L {-# INLINE tkErrEOF #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 20 source.haskell meta.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell
+L 
+L tkErrBS :: AsError t => Text -> String ->  t k String
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell keyword.operator.big-arrow.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 38 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 39 source.haskell meta.function.type-declaration.haskell
+T 41 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 43 source.haskell meta.function.type-declaration.haskell
+T 44 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 45 source.haskell meta.function.type-declaration.haskell
+T 46 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 47 source.haskell meta.function.type-declaration.haskell
+T 53 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L tkErrBS bs expected = tkErr $
+T 20 source.haskell
+T 21 source.haskell keyword.operator.eq.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.infix.haskell
+L     "Unexpected " ++ showBeginning bs ++ ", expecting " ++ expected
+T 4 source.haskell
+T 5 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 16 source.haskell string.quoted.double.haskell
+T 17 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 18 source.haskell
+T 20 source.haskell keyword.operator.infix.haskell
+T 38 source.haskell
+T 40 source.haskell keyword.operator.infix.haskell
+T 41 source.haskell
+T 42 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 54 source.haskell string.quoted.double.haskell
+T 55 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 56 source.haskell
+T 58 source.haskell keyword.operator.infix.haskell
+T 67 source.haskell
+L {-# INLINE tkErrBS #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 19 source.haskell meta.preprocessor.haskell
+T 22 source.haskell meta.preprocessor.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- Text
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 7 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L scanStringLiteral
+T 17 source.haskell
+L     :: forall r. (Text -> Text -> r)
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.double-colon.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 13 source.haskell meta.type-declaration.haskell keyword.other.forall.haskell
+T 14 source.haskell meta.type-declaration.haskell
+T 15 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 16 source.haskell meta.type-declaration.haskell keyword.operator.period.haskell
+T 17 source.haskell meta.type-declaration.haskell
+T 18 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 22 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 23 source.haskell meta.type-declaration.haskell
+T 25 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 26 source.haskell meta.type-declaration.haskell
+T 30 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 31 source.haskell meta.type-declaration.haskell
+T 33 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 34 source.haskell meta.type-declaration.haskell
+T 35 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 36 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+L     -> (String -> r)
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 8 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 14 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 15 source.haskell meta.type-declaration.haskell
+T 17 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 18 source.haskell meta.type-declaration.haskell
+T 19 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+L     -> Text
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 11 source.haskell meta.type-declaration.haskell storage.type.haskell
+L     -> r
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 8 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+L scanStringLiteral ok err bs0 = go 0 bs0 where
+T 29 source.haskell
+T 30 source.haskell keyword.operator.eq.haskell
+T 34 source.haskell
+T 35 source.haskell constant.numeric.integral.decimal.haskell
+T 40 source.haskell
+T 45 source.haskell keyword.other.where.haskell
+L     -- the length is counted in bytes.
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 38 source.haskell comment.line.double-dash.haskell
+L     go :: Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 7 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     go !n !bs = case unconsPoint bs of
+T 7 source.haskell
+T 8 source.haskell keyword.operator.prefix.bang.haskell
+T 10 source.haskell
+T 11 source.haskell keyword.operator.prefix.bang.haskell
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 16 source.haskell
+T 20 source.haskell keyword.control.case.haskell
+T 36 source.haskell
+T 38 source.haskell keyword.control.of.haskell
+L         Nothing          -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 34 source.haskell
+L         Just (34, _)     -> ok (unsafeTakePoints n bs0) (unsafeDropPoints (n + 1) bs0)
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell constant.numeric.integral.decimal.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 54 source.haskell
+T 55 source.haskell punctuation.paren.haskell
+T 56 source.haskell
+T 57 source.haskell punctuation.paren.haskell
+T 74 source.haskell
+T 75 source.haskell punctuation.paren.haskell
+T 77 source.haskell
+T 78 source.haskell keyword.operator.infix.haskell
+T 79 source.haskell
+T 80 source.haskell constant.numeric.integral.decimal.haskell
+T 81 source.haskell punctuation.paren.haskell
+T 85 source.haskell
+T 86 source.haskell punctuation.paren.haskell
+L         Just (92, bs')   -> goSlash (n + 1) bs'
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell constant.numeric.integral.decimal.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 36 source.haskell
+T 37 source.haskell punctuation.paren.haskell
+T 39 source.haskell
+T 40 source.haskell keyword.operator.infix.haskell
+T 41 source.haskell
+T 42 source.haskell constant.numeric.integral.decimal.haskell
+T 43 source.haskell punctuation.paren.haskell
+T 47 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | w8 < 0x20  -> errCC
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 17 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 23 source.haskell constant.numeric.integral.hexadecimal.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 33 source.haskell
+L             -- we don't need to check for @>= 0x80@ chars, as text is valid unicode.
+T 12 source.haskell punctuation.whitespace.comment.leading.haskell
+T 14 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 84 source.haskell comment.line.double-dash.haskell
+L             | otherwise  -> go (n + 1) bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 34 source.haskell
+T 35 source.haskell keyword.operator.infix.haskell
+T 36 source.haskell
+T 37 source.haskell constant.numeric.integral.decimal.haskell
+T 38 source.haskell punctuation.paren.haskell
+T 42 source.haskell
+L 
+L     -- in goEsc and goSlash we don't need to check for control characters as unescapeText verifies that.
+T 4 source.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 104 source.haskell comment.line.double-dash.haskell
+L     goEsc :: Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goEsc !n !bs = case unconsPoint bs of
+T 10 source.haskell
+T 11 source.haskell keyword.operator.prefix.bang.haskell
+T 13 source.haskell
+T 14 source.haskell keyword.operator.prefix.bang.haskell
+T 17 source.haskell
+T 18 source.haskell keyword.operator.eq.haskell
+T 19 source.haskell
+T 23 source.haskell keyword.control.case.haskell
+T 39 source.haskell
+T 41 source.haskell keyword.control.of.haskell
+L         Nothing        -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.arrow.haskell
+T 32 source.haskell
+L         Just (34, _)   -> case unescapeFromText (unsafeTakePoints n bs0) of
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell constant.numeric.integral.decimal.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.arrow.haskell
+T 26 source.haskell
+T 30 source.haskell keyword.control.case.haskell
+T 48 source.haskell
+T 49 source.haskell punctuation.paren.haskell
+T 71 source.haskell
+T 72 source.haskell punctuation.paren.haskell
+T 73 source.haskell
+T 75 source.haskell keyword.control.of.haskell
+L             Right t -> ok t (unsafeDropPoints (n + 1) bs0)
+T 12 source.haskell
+T 17 source.haskell constant.other.haskell
+T 20 source.haskell
+T 22 source.haskell keyword.operator.arrow.haskell
+T 28 source.haskell
+T 29 source.haskell punctuation.paren.haskell
+T 46 source.haskell
+T 47 source.haskell punctuation.paren.haskell
+T 49 source.haskell
+T 50 source.haskell keyword.operator.infix.haskell
+T 51 source.haskell
+T 52 source.haskell constant.numeric.integral.decimal.haskell
+T 53 source.haskell punctuation.paren.haskell
+T 57 source.haskell
+T 58 source.haskell punctuation.paren.haskell
+L             Left e  -> err (show e)
+T 12 source.haskell
+T 16 source.haskell constant.other.haskell
+T 20 source.haskell
+T 22 source.haskell keyword.operator.arrow.haskell
+T 27 source.haskell
+T 28 source.haskell punctuation.paren.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+L         Just (92, bs') -> goSlash (n + 1) bs'
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell constant.numeric.integral.decimal.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.arrow.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 37 source.haskell
+T 38 source.haskell keyword.operator.infix.haskell
+T 39 source.haskell
+T 40 source.haskell constant.numeric.integral.decimal.haskell
+T 41 source.haskell punctuation.paren.haskell
+T 45 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | w8 < 0x20  -> errCC
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 17 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 23 source.haskell constant.numeric.integral.hexadecimal.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 33 source.haskell
+L             | otherwise  -> goEsc (n + 1) bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 37 source.haskell
+T 38 source.haskell keyword.operator.infix.haskell
+T 39 source.haskell
+T 40 source.haskell constant.numeric.integral.decimal.haskell
+T 41 source.haskell punctuation.paren.haskell
+T 45 source.haskell
+L 
+L     goSlash :: Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 30 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     goSlash !n !bs = case unconsPoint bs of
+T 12 source.haskell
+T 13 source.haskell keyword.operator.prefix.bang.haskell
+T 15 source.haskell
+T 16 source.haskell keyword.operator.prefix.bang.haskell
+T 19 source.haskell
+T 20 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+T 25 source.haskell keyword.control.case.haskell
+T 41 source.haskell
+T 43 source.haskell keyword.control.of.haskell
+L         Nothing       -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 22 source.haskell
+T 24 source.haskell keyword.operator.arrow.haskell
+T 31 source.haskell
+L         Just (_, bs') -> goEsc (n + 1) bs'
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 15 source.haskell
+T 16 source.haskell punctuation.separator.comma.haskell
+T 20 source.haskell
+T 21 source.haskell punctuation.paren.haskell
+T 22 source.haskell
+T 24 source.haskell keyword.operator.arrow.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 34 source.haskell
+T 35 source.haskell keyword.operator.infix.haskell
+T 36 source.haskell
+T 37 source.haskell constant.numeric.integral.decimal.haskell
+T 38 source.haskell punctuation.paren.haskell
+T 42 source.haskell
+L 
+L     errEnd = err "Unexpected end-of-input while parsing string literal"
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 70 source.haskell string.quoted.double.haskell
+T 71 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L     errCC  = err "Unexpected control character while parsing string literal"
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 75 source.haskell string.quoted.double.haskell
+T 76 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- Number
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 9 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L -- number   := integer fraction exponent
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 40 source.haskell comment.line.double-dash.haskell
+L -- integer  := 0 | [1-9][0-9]* | -0 | -[1-9][0-9]*
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 50 source.haskell comment.line.double-dash.haskell
+L -- fraction := "" | . [0-9]+
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 28 source.haskell comment.line.double-dash.haskell
+L -- exponent := "" | E sign [0-9]+ | e sign [0-9]+
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 49 source.haskell comment.line.double-dash.haskell
+L -- sign     := "" | - | +
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 25 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L -- This scanner doesn't recognize the leading minus sign, we recognize only integer := 0 | [1-9][0-9]*,
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 103 source.haskell comment.line.double-dash.haskell
+L -- as the minus sign is recognized by outer scanner already.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 60 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L scanNumberLiteral
+T 17 source.haskell
+L     :: forall r. (Number -> Text -> r)
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.double-colon.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 13 source.haskell meta.type-declaration.haskell keyword.other.forall.haskell
+T 14 source.haskell meta.type-declaration.haskell
+T 15 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 16 source.haskell meta.type-declaration.haskell keyword.operator.period.haskell
+T 17 source.haskell meta.type-declaration.haskell
+T 18 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 24 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 25 source.haskell meta.type-declaration.haskell
+T 27 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 28 source.haskell meta.type-declaration.haskell
+T 32 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 33 source.haskell meta.type-declaration.haskell
+T 35 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.type-declaration.haskell
+T 37 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 38 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+L     -> (String -> r)
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 8 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+T 14 source.haskell meta.type-declaration.haskell storage.type.haskell
+T 15 source.haskell meta.type-declaration.haskell
+T 17 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 18 source.haskell meta.type-declaration.haskell
+T 19 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.type-declaration.haskell punctuation.paren.haskell
+L     -> Text
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 11 source.haskell meta.type-declaration.haskell storage.type.haskell
+L     -> r
+T 4 source.haskell meta.type-declaration.haskell
+T 6 source.haskell meta.type-declaration.haskell keyword.operator.arrow.haskell
+T 7 source.haskell meta.type-declaration.haskell
+T 8 source.haskell meta.type-declaration.haskell variable.other.generic-type.haskell
+L scanNumberLiteral kont err bs0 = state_start bs0 where
+T 31 source.haskell
+T 32 source.haskell keyword.operator.eq.haskell
+T 49 source.haskell
+T 54 source.haskell keyword.other.where.haskell
+L     state_start :: Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     state_start !bs = case unconsPoint bs of
+T 16 source.haskell
+T 17 source.haskell keyword.operator.prefix.bang.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.eq.haskell
+T 22 source.haskell
+T 26 source.haskell keyword.control.case.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.control.of.haskell
+L         Nothing                                   -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 59 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 < w8, w8 <= W.DIGIT_9     -> state_i1 1 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 33 source.haskell
+T 35 source.haskell keyword.operator.infix.haskell
+T 36 source.haskell
+T 38 source.haskell entity.name.namespace.haskell
+T 45 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+T 63 source.haskell constant.numeric.integral.decimal.haskell
+T 67 source.haskell
+L             | W.DIGIT_0 == w8                     -> state_after0 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 69 source.haskell
+L             | otherwise                           -> errUnx w8
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+L 
+L     state_after0 :: Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     state_after0 !bs = case unconsPoint bs of
+T 17 source.haskell
+T 18 source.haskell keyword.operator.prefix.bang.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+T 27 source.haskell keyword.control.case.haskell
+T 43 source.haskell
+T 45 source.haskell keyword.control.of.haskell
+L         Nothing                                   -> kont (NumInteger 0) bs
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 69 source.haskell constant.other.haskell
+T 70 source.haskell
+T 71 source.haskell constant.numeric.integral.decimal.haskell
+T 72 source.haskell punctuation.paren.haskell
+T 75 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9    -> err "Number literal with leading zero"
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 57 source.haskell
+T 58 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 90 source.haskell string.quoted.double.haskell
+T 91 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L             | W.PERIOD == w8                      -> go_dec 0 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 60 source.haskell
+T 61 source.haskell constant.numeric.integral.decimal.haskell
+T 65 source.haskell
+L             | W.LOWER_E == w8 || W.UPPER_E == w8  -> go_sci 0 0 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 30 source.haskell
+T 32 source.haskell keyword.operator.infix.haskell
+T 33 source.haskell
+T 35 source.haskell entity.name.namespace.haskell
+T 42 source.haskell constant.other.haskell
+T 43 source.haskell
+T 45 source.haskell keyword.operator.infix.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 60 source.haskell
+T 61 source.haskell constant.numeric.integral.decimal.haskell
+T 62 source.haskell
+T 63 source.haskell constant.numeric.integral.decimal.haskell
+T 67 source.haskell
+L             | otherwise                           -> kont (NumInteger 0) bs
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 69 source.haskell constant.other.haskell
+T 70 source.haskell
+T 71 source.haskell constant.numeric.integral.decimal.haskell
+T 72 source.haskell punctuation.paren.haskell
+T 75 source.haskell
+L 
+L     state_i1 :: Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 30 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 31 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     state_i1 !n !bs = case unconsPoint bs of
+T 13 source.haskell
+T 14 source.haskell keyword.operator.prefix.bang.haskell
+T 16 source.haskell
+T 17 source.haskell keyword.operator.prefix.bang.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.eq.haskell
+T 22 source.haskell
+T 26 source.haskell keyword.control.case.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.control.of.haskell
+L         Nothing                                   -> kont (NumInteger int) bs
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 69 source.haskell constant.other.haskell
+T 73 source.haskell
+T 74 source.haskell punctuation.paren.haskell
+T 77 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9    -> state_i1 (n + 1) bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+T 65 source.haskell
+T 66 source.haskell keyword.operator.infix.haskell
+T 67 source.haskell
+T 68 source.haskell constant.numeric.integral.decimal.haskell
+T 69 source.haskell punctuation.paren.haskell
+T 73 source.haskell
+L             | W.PERIOD == w8                      -> go_dec int bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 67 source.haskell
+L             | W.LOWER_E == w8 || W.UPPER_E == w8  -> go_sci int 0 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 30 source.haskell
+T 32 source.haskell keyword.operator.infix.haskell
+T 33 source.haskell
+T 35 source.haskell entity.name.namespace.haskell
+T 42 source.haskell constant.other.haskell
+T 43 source.haskell
+T 45 source.haskell keyword.operator.infix.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 64 source.haskell
+T 65 source.haskell constant.numeric.integral.decimal.haskell
+T 69 source.haskell
+L             | otherwise                           -> kont (NumInteger int) bs
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 69 source.haskell constant.other.haskell
+T 73 source.haskell
+T 74 source.haskell punctuation.paren.haskell
+T 77 source.haskell
+L       where
+T 6 source.haskell
+T 11 source.haskell keyword.other.where.haskell
+L         int = textToInteger (unsafeTakePoints n bs0)
+T 12 source.haskell
+T 13 source.haskell keyword.operator.eq.haskell
+T 28 source.haskell
+T 29 source.haskell punctuation.paren.haskell
+T 51 source.haskell
+T 52 source.haskell punctuation.paren.haskell
+L 
+L     go_dec :: Integer -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 29 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 30 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 33 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     go_dec !int !bs1 = case unconsPoint bs1 of
+T 11 source.haskell
+T 12 source.haskell keyword.operator.prefix.bang.haskell
+T 16 source.haskell
+T 17 source.haskell keyword.operator.prefix.bang.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+T 27 source.haskell keyword.control.case.haskell
+T 44 source.haskell
+T 46 source.haskell keyword.control.of.haskell
+L         Nothing                                   -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 59 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9    -> state_dec 1 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 63 source.haskell
+T 64 source.haskell constant.numeric.integral.decimal.haskell
+T 68 source.haskell
+L             | otherwise                           -> errUnx w8
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+L       where
+T 6 source.haskell
+T 11 source.haskell keyword.other.where.haskell
+L         state_dec :: Int -> Text -> r
+T 8 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 33 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 37 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L         state_dec !n !bs = case unconsPoint bs of
+T 18 source.haskell
+T 19 source.haskell keyword.operator.prefix.bang.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.prefix.bang.haskell
+T 25 source.haskell
+T 26 source.haskell keyword.operator.eq.haskell
+T 27 source.haskell
+T 31 source.haskell keyword.control.case.haskell
+T 47 source.haskell
+T 49 source.haskell keyword.control.of.haskell
+L             Nothing                                   -> kont (NumDecimal dec) bs
+T 12 source.haskell
+T 19 source.haskell constant.other.haskell
+T 54 source.haskell
+T 56 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+T 73 source.haskell constant.other.haskell
+T 77 source.haskell
+T 78 source.haskell punctuation.paren.haskell
+T 81 source.haskell
+L             Just (w8, bs')
+T 12 source.haskell
+T 16 source.haskell constant.other.haskell
+T 17 source.haskell
+T 18 source.haskell punctuation.paren.haskell
+T 20 source.haskell
+T 21 source.haskell punctuation.separator.comma.haskell
+T 25 source.haskell
+T 26 source.haskell punctuation.paren.haskell
+L                 | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9    -> state_dec (n + 1) bs'
+T 16 source.haskell
+T 17 source.haskell keyword.operator.pipe.haskell
+T 18 source.haskell
+T 20 source.haskell entity.name.namespace.haskell
+T 27 source.haskell constant.other.haskell
+T 28 source.haskell
+T 30 source.haskell keyword.operator.infix.haskell
+T 38 source.haskell
+T 40 source.haskell keyword.operator.infix.haskell
+T 41 source.haskell
+T 43 source.haskell entity.name.namespace.haskell
+T 50 source.haskell constant.other.haskell
+T 54 source.haskell
+T 56 source.haskell keyword.operator.arrow.haskell
+T 67 source.haskell
+T 68 source.haskell punctuation.paren.haskell
+T 70 source.haskell
+T 71 source.haskell keyword.operator.infix.haskell
+T 72 source.haskell
+T 73 source.haskell constant.numeric.integral.decimal.haskell
+T 74 source.haskell punctuation.paren.haskell
+T 78 source.haskell
+L                 | W.LOWER_E == w8 || W.UPPER_E == w8  -> go_sci coef (negate n) bs'
+T 16 source.haskell
+T 17 source.haskell keyword.operator.pipe.haskell
+T 18 source.haskell
+T 20 source.haskell entity.name.namespace.haskell
+T 27 source.haskell constant.other.haskell
+T 28 source.haskell
+T 30 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 47 source.haskell
+T 49 source.haskell keyword.operator.infix.haskell
+T 54 source.haskell
+T 56 source.haskell keyword.operator.arrow.haskell
+T 69 source.haskell
+T 70 source.haskell punctuation.paren.haskell
+T 78 source.haskell
+T 79 source.haskell punctuation.paren.haskell
+T 83 source.haskell
+L                 | otherwise                           -> kont (NumDecimal dec) bs
+T 16 source.haskell
+T 17 source.haskell keyword.operator.pipe.haskell
+T 54 source.haskell
+T 56 source.haskell keyword.operator.arrow.haskell
+T 62 source.haskell
+T 63 source.haskell punctuation.paren.haskell
+T 73 source.haskell constant.other.haskell
+T 77 source.haskell
+T 78 source.haskell punctuation.paren.haskell
+T 81 source.haskell
+L           where
+T 10 source.haskell
+T 15 source.haskell keyword.other.where.haskell
+L             frac = textToInteger (unsafeTakePoints n bs1)
+T 17 source.haskell
+T 18 source.haskell keyword.operator.eq.haskell
+T 33 source.haskell
+T 34 source.haskell punctuation.paren.haskell
+T 56 source.haskell
+T 57 source.haskell punctuation.paren.haskell
+L             coef = int * 10 ^ n + frac
+T 17 source.haskell
+T 18 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.infix.haskell
+T 25 source.haskell
+T 27 source.haskell constant.numeric.integral.decimal.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.infix.haskell
+T 32 source.haskell
+T 33 source.haskell keyword.operator.infix.haskell
+T 38 source.haskell
+L             dec  = Sci.scientific coef (negate n)
+T 17 source.haskell
+T 18 source.haskell keyword.operator.eq.haskell
+T 19 source.haskell
+T 23 source.haskell entity.name.namespace.haskell
+T 39 source.haskell
+T 40 source.haskell punctuation.paren.haskell
+T 48 source.haskell
+T 49 source.haskell punctuation.paren.haskell
+L 
+L     go_sci :: Integer -> Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 36 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 37 source.haskell meta.function.type-declaration.haskell
+T 39 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 40 source.haskell meta.function.type-declaration.haskell
+T 41 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     go_sci !coef !exp10 !bs2 = case unconsPoint bs2 of
+T 11 source.haskell
+T 12 source.haskell keyword.operator.prefix.bang.haskell
+T 17 source.haskell
+T 18 source.haskell keyword.operator.prefix.bang.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.prefix.bang.haskell
+T 29 source.haskell
+T 30 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+T 35 source.haskell keyword.control.case.haskell
+T 52 source.haskell
+T 54 source.haskell keyword.control.of.haskell
+L         Nothing                                           -> errEnd
+T 8 source.haskell
+T 15 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 67 source.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9            -> go_sci_pos coef exp10 bs2 1 bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 87 source.haskell
+T 88 source.haskell constant.numeric.integral.decimal.haskell
+T 92 source.haskell
+L             | W.PLUS == w8 -> case unconsPoint bs' of
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 20 source.haskell constant.other.haskell
+T 21 source.haskell
+T 23 source.haskell keyword.operator.infix.haskell
+T 27 source.haskell
+T 29 source.haskell keyword.operator.arrow.haskell
+T 30 source.haskell
+T 34 source.haskell keyword.control.case.haskell
+T 51 source.haskell
+T 53 source.haskell keyword.control.of.haskell
+L                 Nothing                                   -> errEnd
+T 16 source.haskell
+T 23 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 67 source.haskell
+L                 Just (w8', bs'')
+T 16 source.haskell
+T 20 source.haskell constant.other.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 26 source.haskell punctuation.separator.comma.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+L                     | W.DIGIT_0 <= w8', w8' <= W.DIGIT_9  -> go_sci_pos coef exp10 bs' 1 bs''
+T 20 source.haskell
+T 21 source.haskell keyword.operator.pipe.haskell
+T 22 source.haskell
+T 24 source.haskell entity.name.namespace.haskell
+T 31 source.haskell constant.other.haskell
+T 32 source.haskell
+T 34 source.haskell keyword.operator.infix.haskell
+T 44 source.haskell
+T 46 source.haskell keyword.operator.infix.haskell
+T 47 source.haskell
+T 49 source.haskell entity.name.namespace.haskell
+T 56 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 87 source.haskell
+T 88 source.haskell constant.numeric.integral.decimal.haskell
+T 93 source.haskell
+L                     | otherwise                           -> errUnx w8'
+T 20 source.haskell
+T 21 source.haskell keyword.operator.pipe.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 71 source.haskell
+L             | W.HYPHEN == w8 -> case unconsPoint bs' of
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 29 source.haskell
+T 31 source.haskell keyword.operator.arrow.haskell
+T 32 source.haskell
+T 36 source.haskell keyword.control.case.haskell
+T 53 source.haskell
+T 55 source.haskell keyword.control.of.haskell
+L                 Nothing                                   -> errEnd
+T 16 source.haskell
+T 23 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 67 source.haskell
+L                 Just (w8', bs'')
+T 16 source.haskell
+T 20 source.haskell constant.other.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 26 source.haskell punctuation.separator.comma.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+L                     | W.DIGIT_0 <= w8', w8' <= W.DIGIT_9  -> go_sci_neg coef exp10 bs' 1 bs''
+T 20 source.haskell
+T 21 source.haskell keyword.operator.pipe.haskell
+T 22 source.haskell
+T 24 source.haskell entity.name.namespace.haskell
+T 31 source.haskell constant.other.haskell
+T 32 source.haskell
+T 34 source.haskell keyword.operator.infix.haskell
+T 44 source.haskell
+T 46 source.haskell keyword.operator.infix.haskell
+T 47 source.haskell
+T 49 source.haskell entity.name.namespace.haskell
+T 56 source.haskell constant.other.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 87 source.haskell
+T 88 source.haskell constant.numeric.integral.decimal.haskell
+T 93 source.haskell
+L                     | otherwise                           -> errUnx w8'
+T 20 source.haskell
+T 21 source.haskell keyword.operator.pipe.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 71 source.haskell
+L             | otherwise                                   -> errUnx w8
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 58 source.haskell
+T 60 source.haskell keyword.operator.arrow.haskell
+T 70 source.haskell
+L 
+L     go_sci_pos :: Integer -> Int -> Text -> Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 25 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 26 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 33 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 40 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 41 source.haskell meta.function.type-declaration.haskell
+T 43 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 44 source.haskell meta.function.type-declaration.haskell
+T 47 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 48 source.haskell meta.function.type-declaration.haskell
+T 50 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 51 source.haskell meta.function.type-declaration.haskell
+T 55 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 56 source.haskell meta.function.type-declaration.haskell
+T 58 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 59 source.haskell meta.function.type-declaration.haskell
+T 60 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     go_sci_pos !coef !exp10 !bs2 !n !bs = case unconsPoint bs of
+T 15 source.haskell
+T 16 source.haskell keyword.operator.prefix.bang.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell
+T 34 source.haskell keyword.operator.prefix.bang.haskell
+T 36 source.haskell
+T 37 source.haskell keyword.operator.prefix.bang.haskell
+T 40 source.haskell
+T 41 source.haskell keyword.operator.eq.haskell
+T 42 source.haskell
+T 46 source.haskell keyword.control.case.haskell
+T 62 source.haskell
+T 64 source.haskell keyword.control.of.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9  -> go_sci_pos coef exp10 bs2 (n + 1) bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 48 source.haskell
+T 50 source.haskell keyword.operator.arrow.haskell
+T 77 source.haskell
+T 78 source.haskell punctuation.paren.haskell
+T 80 source.haskell
+T 81 source.haskell keyword.operator.infix.haskell
+T 82 source.haskell
+T 83 source.haskell constant.numeric.integral.decimal.haskell
+T 84 source.haskell punctuation.paren.haskell
+T 88 source.haskell
+L         -- Technically it would be more lenient to bound `toInteger exp10 + exp10'`
+T 8 source.haskell punctuation.whitespace.comment.leading.haskell
+T 10 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 83 source.haskell comment.line.double-dash.haskell
+L         -- but the extra complexity is not worth it.
+T 8 source.haskell punctuation.whitespace.comment.leading.haskell
+T 10 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 52 source.haskell comment.line.double-dash.haskell
+L         _ | exp10' <= toInteger (maxBound :: Int) -> kont (NumScientific sci) bs
+T 10 source.haskell
+T 11 source.haskell keyword.operator.pipe.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 32 source.haskell
+T 33 source.haskell punctuation.paren.haskell
+T 42 source.haskell
+T 44 source.haskell keyword.operator.double-colon.haskell
+T 45 source.haskell
+T 48 source.haskell storage.type.haskell
+T 49 source.haskell punctuation.paren.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 59 source.haskell punctuation.paren.haskell
+T 72 source.haskell constant.other.haskell
+T 76 source.haskell
+T 77 source.haskell punctuation.paren.haskell
+T 80 source.haskell
+L         _ -> err "Scientific notation with exponent too large"
+T 10 source.haskell
+T 12 source.haskell keyword.operator.arrow.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 61 source.haskell string.quoted.double.haskell
+T 62 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L       where
+T 6 source.haskell
+T 11 source.haskell keyword.other.where.haskell
+L         exp10' = textToInteger (unsafeTakePoints n bs2)
+T 15 source.haskell
+T 16 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 54 source.haskell
+T 55 source.haskell punctuation.paren.haskell
+L         sci = Sci.scientific coef (exp10 + fromInteger exp10')
+T 12 source.haskell
+T 13 source.haskell keyword.operator.eq.haskell
+T 14 source.haskell
+T 18 source.haskell entity.name.namespace.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 41 source.haskell
+T 42 source.haskell keyword.operator.infix.haskell
+T 61 source.haskell
+T 62 source.haskell punctuation.paren.haskell
+L 
+L     go_sci_neg :: Integer -> Int -> Text -> Int -> Text -> r
+T 4 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 25 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 26 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 33 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 40 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 41 source.haskell meta.function.type-declaration.haskell
+T 43 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 44 source.haskell meta.function.type-declaration.haskell
+T 47 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 48 source.haskell meta.function.type-declaration.haskell
+T 50 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 51 source.haskell meta.function.type-declaration.haskell
+T 55 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 56 source.haskell meta.function.type-declaration.haskell
+T 58 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 59 source.haskell meta.function.type-declaration.haskell
+T 60 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L     go_sci_neg !coef !exp10 !bs2 !n !bs = case unconsPoint bs of
+T 15 source.haskell
+T 16 source.haskell keyword.operator.prefix.bang.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell
+T 34 source.haskell keyword.operator.prefix.bang.haskell
+T 36 source.haskell
+T 37 source.haskell keyword.operator.prefix.bang.haskell
+T 40 source.haskell
+T 41 source.haskell keyword.operator.eq.haskell
+T 42 source.haskell
+T 46 source.haskell keyword.control.case.haskell
+T 62 source.haskell
+T 64 source.haskell keyword.control.of.haskell
+L         Just (w8, bs')
+T 8 source.haskell
+T 12 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.paren.haskell
+L             | W.DIGIT_0 <= w8, w8 <= W.DIGIT_9  -> go_sci_neg coef exp10 bs2 (n + 1) bs'
+T 12 source.haskell
+T 13 source.haskell keyword.operator.pipe.haskell
+T 14 source.haskell
+T 16 source.haskell entity.name.namespace.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 39 source.haskell entity.name.namespace.haskell
+T 46 source.haskell constant.other.haskell
+T 48 source.haskell
+T 50 source.haskell keyword.operator.arrow.haskell
+T 77 source.haskell
+T 78 source.haskell punctuation.paren.haskell
+T 80 source.haskell
+T 81 source.haskell keyword.operator.infix.haskell
+T 82 source.haskell
+T 83 source.haskell constant.numeric.integral.decimal.haskell
+T 84 source.haskell punctuation.paren.haskell
+T 88 source.haskell
+L         _ | exp10' <= - toInteger (minBound - exp10) -> kont (NumScientific sci) bs
+T 10 source.haskell
+T 11 source.haskell keyword.operator.pipe.haskell
+T 19 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 22 source.haskell
+T 23 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 44 source.haskell
+T 45 source.haskell keyword.operator.infix.haskell
+T 51 source.haskell
+T 52 source.haskell punctuation.paren.haskell
+T 53 source.haskell
+T 55 source.haskell keyword.operator.arrow.haskell
+T 61 source.haskell
+T 62 source.haskell punctuation.paren.haskell
+T 75 source.haskell constant.other.haskell
+T 79 source.haskell
+T 80 source.haskell punctuation.paren.haskell
+T 83 source.haskell
+L         _ -> err "Scientific notation with exponent too small"
+T 10 source.haskell
+T 12 source.haskell keyword.operator.arrow.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 61 source.haskell string.quoted.double.haskell
+T 62 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L       where
+T 6 source.haskell
+T 11 source.haskell keyword.other.where.haskell
+L         exp10' = textToInteger (unsafeTakePoints n bs2)
+T 15 source.haskell
+T 16 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 54 source.haskell
+T 55 source.haskell punctuation.paren.haskell
+L         sci = Sci.scientific coef (exp10 - fromInteger exp10')
+T 12 source.haskell
+T 13 source.haskell keyword.operator.eq.haskell
+T 14 source.haskell
+T 18 source.haskell entity.name.namespace.haskell
+T 34 source.haskell
+T 35 source.haskell punctuation.paren.haskell
+T 41 source.haskell
+T 42 source.haskell keyword.operator.infix.haskell
+T 61 source.haskell
+T 62 source.haskell punctuation.paren.haskell
+L 
+L     errEnd    = err "Unexpected end-of-input while parsing number literal"
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 20 source.haskell
+T 21 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 73 source.haskell string.quoted.double.haskell
+T 74 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L     errUnx w8 = err $ "Unexpected " ++ show (chr (fromIntegral w8)) ++ " while parsing number literal"
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 22 source.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 34 source.haskell string.quoted.double.haskell
+T 35 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 36 source.haskell
+T 38 source.haskell keyword.operator.infix.haskell
+T 44 source.haskell
+T 45 source.haskell punctuation.paren.haskell
+T 49 source.haskell
+T 50 source.haskell punctuation.paren.haskell
+T 65 source.haskell
+T 66 source.haskell punctuation.paren.haskell
+T 67 source.haskell punctuation.paren.haskell
+T 68 source.haskell
+T 70 source.haskell keyword.operator.infix.haskell
+T 71 source.haskell
+T 72 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 101 source.haskell string.quoted.double.haskell
+T 102 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- Unsafe primitives
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 20 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L {-# INLINE unconsPoint #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell
+T 26 source.haskell meta.preprocessor.haskell
+L -- Uncons a primitive unit of storage from text.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 48 source.haskell comment.line.double-dash.haskell
+L -- The left-over 'Text' value may be invalid.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 45 source.haskell comment.line.double-dash.haskell
+L unconsPoint :: Text -> Maybe (Point, Text)
+T 11 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 30 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 35 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 36 source.haskell meta.function.type-declaration.haskell punctuation.separator.comma.haskell
+T 37 source.haskell meta.function.type-declaration.haskell
+T 41 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 42 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+L unconsPoint (Text arr off len)
+T 12 source.haskell
+T 13 source.haskell punctuation.paren.haskell
+T 17 source.haskell constant.other.haskell
+T 29 source.haskell
+T 30 source.haskell punctuation.paren.haskell
+L     | len <= 0  = Nothing
+T 4 source.haskell
+T 5 source.haskell keyword.operator.pipe.haskell
+T 10 source.haskell
+T 12 source.haskell keyword.operator.infix.haskell
+T 13 source.haskell
+T 14 source.haskell constant.numeric.integral.decimal.haskell
+T 16 source.haskell
+T 17 source.haskell keyword.operator.eq.haskell
+T 18 source.haskell
+T 25 source.haskell constant.other.haskell
+L     | otherwise = Just (w8, Text arr (off + 1) (len - 1))
+T 4 source.haskell
+T 5 source.haskell keyword.operator.pipe.haskell
+T 16 source.haskell
+T 17 source.haskell keyword.operator.eq.haskell
+T 18 source.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 24 source.haskell punctuation.paren.haskell
+T 26 source.haskell
+T 27 source.haskell punctuation.separator.comma.haskell
+T 28 source.haskell
+T 32 source.haskell constant.other.haskell
+T 37 source.haskell
+T 38 source.haskell punctuation.paren.haskell
+T 42 source.haskell
+T 43 source.haskell keyword.operator.infix.haskell
+T 44 source.haskell
+T 45 source.haskell constant.numeric.integral.decimal.haskell
+T 46 source.haskell punctuation.paren.haskell
+T 47 source.haskell
+T 48 source.haskell punctuation.paren.haskell
+T 52 source.haskell
+T 53 source.haskell keyword.operator.infix.haskell
+T 54 source.haskell
+T 55 source.haskell constant.numeric.integral.decimal.haskell
+T 56 source.haskell punctuation.paren.haskell
+T 57 source.haskell punctuation.paren.haskell
+L   where
+T 2 source.haskell
+T 7 source.haskell keyword.other.where.haskell
+L     w8 = A.unsafeIndex arr off
+T 7 source.haskell
+T 8 source.haskell keyword.operator.eq.haskell
+T 9 source.haskell
+T 11 source.haskell entity.name.namespace.haskell
+T 30 source.haskell
+L 
+L unsafeTakePoints :: Int -> Text -> Text
+T 16 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 35 source.haskell meta.function.type-declaration.haskell
+T 39 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L unsafeTakePoints n (Text arr off _len) = Text arr off n
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+T 24 source.haskell constant.other.haskell
+T 37 source.haskell
+T 38 source.haskell punctuation.paren.haskell
+T 39 source.haskell
+T 40 source.haskell keyword.operator.eq.haskell
+T 41 source.haskell
+T 45 source.haskell constant.other.haskell
+T 55 source.haskell
+L {-# INLINE unsafeTakePoints #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell
+T 31 source.haskell meta.preprocessor.haskell
+L 
+L unsafeDropPoints :: Int -> Text -> Text
+T 16 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 35 source.haskell meta.function.type-declaration.haskell
+T 39 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L unsafeDropPoints n (Text arr off len) = Text arr (off + n) (len - n)
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+T 24 source.haskell constant.other.haskell
+T 36 source.haskell
+T 37 source.haskell punctuation.paren.haskell
+T 38 source.haskell
+T 39 source.haskell keyword.operator.eq.haskell
+T 40 source.haskell
+T 44 source.haskell constant.other.haskell
+T 49 source.haskell
+T 50 source.haskell punctuation.paren.haskell
+T 54 source.haskell
+T 55 source.haskell keyword.operator.infix.haskell
+T 57 source.haskell
+T 58 source.haskell punctuation.paren.haskell
+T 59 source.haskell
+T 60 source.haskell punctuation.paren.haskell
+T 64 source.haskell
+T 65 source.haskell keyword.operator.infix.haskell
+T 67 source.haskell
+T 68 source.haskell punctuation.paren.haskell
+L {-# INLINE unsafeDropPoints #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell
+T 31 source.haskell meta.preprocessor.haskell
+L 

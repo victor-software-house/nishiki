@@ -277,6 +277,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `haskell/sample` | [`samples/haskell.sample`][haskell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -481,6 +485,9 @@ None of them has a `cxx`, `icxx` or `R` string macro, whose contents Shiki lexes
 Mermaid runs on nishiki's TextMate engine as well.
 `mermaid/sample` and `mermaid/flowchart-code-flow` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
 Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.
+Haskell runs on nishiki's TextMate engine as well.
+`haskell/sample` and `haskell/aeson-github` are its development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.
+Shiki's Markdown grammar has no Haskell fence, so no Markdown input embeds Haskell.
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
@@ -500,6 +507,10 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-str-split]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/strings/str_split.h
 [actionpack-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/MIT-LICENSE
+[aeson-builder]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/src/Data/Aeson/Encoding/Builder.hs
+[aeson-decoding-text]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/src/Data/Aeson/Decoding/Text.hs
+[aeson-github]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/examples/src/GitHub.hs
+[aeson-licence]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/LICENSE
 [airflow-compose]: https://github.com/apache/airflow/blob/cfbd70b66d11f5d464eb9c0ba926dd34304e110d/airflow-core/docs/howto/docker-compose/docker-compose.yaml
 [airflow-licence]: https://github.com/apache/airflow/blob/cfbd70b66d11f5d464eb9c0ba926dd34304e110d/LICENSE
 [alamofire-af-error]: https://github.com/Alamofire/Alamofire/blob/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb/Source/Core/AFError.swift
@@ -676,6 +687,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [h5bp-404]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/404.html
 [h5bp-index]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/index.html
 [h5bp-licence]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/LICENSE.txt
+[haskell-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/haskell.sample
 [helm-licence]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/LICENSE
 [helm-make]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/Makefile
 [highlightjs-atom-one-dark]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/atom-one-dark.css

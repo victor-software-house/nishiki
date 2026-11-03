@@ -381,6 +381,14 @@ languages! {
         engine: crate::mermaid::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Haskell, with the scopes of Shiki's `haskell` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Haskell {
+        feature: "lang-haskell",
+        names: ["haskell", "hs"],
+        engine: crate::haskell::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

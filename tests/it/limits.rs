@@ -16,6 +16,8 @@ mod dockerfile;
 mod erb;
 mod go;
 mod graphql;
+#[cfg(feature = "lang-haskell")]
+mod haskell;
 mod html;
 mod html_derivative;
 mod ini;

@@ -104,6 +104,7 @@ textmate = [
   "lang-bat",
   "lang-cmake",
   "lang-dart",
+  "lang-haskell",
   "lang-julia",
   "lang-mermaid",
   "lang-nix",
@@ -132,6 +133,7 @@ lang-graphql = [
   "_utf8",
   "_frame-kinds",
 ]
+lang-haskell = ["_textmate"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
 lang-html-derivative = ["lang-html"]
 lang-ini = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]

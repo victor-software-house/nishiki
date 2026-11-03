@@ -1,0 +1,1634 @@
+L {-# LANGUAGE OverloadedStrings #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 30 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 31 source.haskell meta.preprocessor.haskell
+T 34 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE RecordWildCards   #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 31 source.haskell meta.preprocessor.haskell
+T 34 source.haskell meta.preprocessor.haskell
+L -- From github package: https://hackage.haskell.org/package/github
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 66 source.haskell comment.line.double-dash.haskell
+L -- Copyright 2011-2013 Mike Burns, 2013-2015 John Wiegley, 2016-2020 Oleg Grenrus
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 81 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L -- All rights reserved.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 23 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L -- Redistribution and use in source and binary forms, with or without
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 69 source.haskell comment.line.double-dash.haskell
+L -- modification, are permitted provided that the following conditions are met:
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 78 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L --     * Redistributions of source code must retain the above copyright
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 71 source.haskell comment.line.double-dash.haskell
+L --       notice, this list of conditions and the following disclaimer.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 70 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L --     * Redistributions in binary form must reproduce the above
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 64 source.haskell comment.line.double-dash.haskell
+L --       copyright notice, this list of conditions and the following
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 68 source.haskell comment.line.double-dash.haskell
+L --       disclaimer in the documentation and/or other materials provided
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L --       with the distribution.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 31 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L --     * Neither the name of Mike Burns nor the names of other
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 62 source.haskell comment.line.double-dash.haskell
+L --       contributors may be used to endorse or promote products derived
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L --       from this software without specific prior written permission.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 70 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L -- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 70 source.haskell comment.line.double-dash.haskell
+L -- "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 68 source.haskell comment.line.double-dash.haskell
+L -- LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L -- A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 71 source.haskell comment.line.double-dash.haskell
+L -- OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L -- SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 67 source.haskell comment.line.double-dash.haskell
+L -- LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L -- DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L -- THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 70 source.haskell comment.line.double-dash.haskell
+L -- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 72 source.haskell comment.line.double-dash.haskell
+L -- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 71 source.haskell comment.line.double-dash.haskell
+L --
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+L module GitHub where
+T 6 source.haskell meta.declaration.module.haskell keyword.other.module.haskell
+T 7 source.haskell meta.declaration.module.haskell
+T 13 source.haskell meta.declaration.module.haskell entity.name.namespace.haskell
+T 14 source.haskell meta.declaration.module.haskell
+T 19 source.haskell keyword.other.where.haskell
+L 
+L import           Control.DeepSeq (NFData (..))
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 32 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 33 source.haskell meta.import.haskell
+T 34 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 40 source.haskell meta.import.haskell meta.declaration.exports.haskell storage.type.haskell
+T 41 source.haskell meta.import.haskell meta.declaration.exports.haskell
+T 42 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 44 source.haskell meta.import.haskell meta.declaration.exports.haskell variable.other.member.wildcard.haskell
+T 45 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 46 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L import           Data.Text       (Text)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 26 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 33 source.haskell meta.import.haskell
+T 34 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 38 source.haskell meta.import.haskell meta.declaration.exports.haskell storage.type.haskell
+T 39 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L import           Data.Time       (UTCTime)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 26 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 33 source.haskell meta.import.haskell
+T 34 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 41 source.haskell meta.import.haskell meta.declaration.exports.haskell storage.type.haskell
+T 42 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L import           Data.Vector     (Vector)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 28 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 33 source.haskell meta.import.haskell
+T 34 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 40 source.haskell meta.import.haskell meta.declaration.exports.haskell storage.type.haskell
+T 41 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L 
+L import qualified Data.Text       as T
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 26 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 33 source.haskell meta.import.haskell
+T 35 source.haskell meta.import.haskell keyword.other.as.haskell
+T 36 source.haskell meta.import.haskell
+T 37 source.haskell meta.import.haskell entity.name.namespace.haskell
+L 
+L import           Data.Aeson
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 17 source.haskell meta.import.haskell
+T 27 source.haskell meta.import.haskell entity.name.namespace.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell meta.import.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell meta.import.haskell comment.line.double-dash.haskell
+L -- Tags
+T 2 source.haskell meta.import.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 7 source.haskell meta.import.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell meta.import.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell meta.import.haskell comment.line.double-dash.haskell
+L 
+L data User
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell
+L -- Id
+T 2 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell
+L 
+L newtype Id entity = Id Int
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 10 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.newtype.algebraic.haskell
+T 17 source.haskell meta.declaration.newtype.algebraic.haskell variable.other.generic-type.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 20 source.haskell meta.declaration.newtype.algebraic.haskell
+T 22 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 23 source.haskell meta.declaration.newtype.algebraic.haskell
+T 26 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+L     deriving (Show)
+T 4 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 14 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L untagId :: Id entity -> Int
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L untagId (Id name) = name
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 11 source.haskell constant.other.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.paren.haskell
+T 18 source.haskell
+T 19 source.haskell keyword.operator.eq.haskell
+T 24 source.haskell
+L 
+L instance NFData (Id entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 19 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 27 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 28 source.haskell meta.declaration.instance.haskell
+T 33 source.haskell keyword.other.where.haskell
+L     rnf (Id s) = rnf s
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 11 source.haskell constant.other.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+T 15 source.haskell
+T 16 source.haskell keyword.operator.eq.haskell
+T 22 source.haskell
+L 
+L instance FromJSON (Id entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 19 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 29 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 30 source.haskell meta.declaration.instance.haskell
+T 35 source.haskell keyword.other.where.haskell
+L     parseJSON = fmap Id . parseJSON
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+T 23 source.haskell constant.other.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.infix.haskell
+T 35 source.haskell
+L 
+L instance ToJSON (Id entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 19 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 27 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 28 source.haskell meta.declaration.instance.haskell
+T 33 source.haskell keyword.other.where.haskell
+L     toJSON = toJSON . untagId
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 29 source.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- Name
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 7 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L newtype Name entity = N Text
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.declaration.newtype.algebraic.haskell
+T 21 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 22 source.haskell meta.declaration.newtype.algebraic.haskell
+T 23 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 24 source.haskell meta.declaration.newtype.algebraic.haskell
+T 28 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+L     deriving (Show)
+T 4 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 14 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L untagName :: Name entity -> Text
+T 9 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell
+T 27 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 28 source.haskell meta.function.type-declaration.haskell
+T 32 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L untagName (N name) = name
+T 10 source.haskell
+T 11 source.haskell punctuation.paren.haskell
+T 12 source.haskell constant.other.haskell
+T 17 source.haskell
+T 18 source.haskell punctuation.paren.haskell
+T 19 source.haskell
+T 20 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+L 
+L instance NFData (Name entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 29 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 30 source.haskell meta.declaration.instance.haskell
+T 35 source.haskell keyword.other.where.haskell
+L     rnf (N s) = rnf s
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 10 source.haskell constant.other.haskell
+T 12 source.haskell
+T 13 source.haskell punctuation.paren.haskell
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+L 
+L instance FromJSON (Name entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 19 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 23 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 24 source.haskell meta.declaration.instance.haskell
+T 30 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 31 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 32 source.haskell meta.declaration.instance.haskell
+T 37 source.haskell keyword.other.where.haskell
+L     parseJSON = fmap N . parseJSON
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.infix.haskell
+T 34 source.haskell
+L 
+L instance ToJSON (Name entity) where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell variable.other.generic-type.haskell
+T 29 source.haskell meta.declaration.instance.haskell punctuation.paren.haskell
+T 30 source.haskell meta.declaration.instance.haskell
+T 35 source.haskell keyword.other.where.haskell
+L     toJSON = toJSON . untagName
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 31 source.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- SimpleUser
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 13 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L data SimpleUser = SimpleUser
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L     { simpleUserId        :: !(Id User)
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , simpleUserLogin     :: !(Name User)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 36 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 40 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 41 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , simpleUserAvatarUrl :: !URL
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , simpleUserUrl       :: !URL
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     }
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance NFData SimpleUser where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 27 source.haskell meta.declaration.instance.haskell
+T 32 source.haskell keyword.other.where.haskell
+L     rnf x = x `seq` ()
+T 10 source.haskell
+T 11 source.haskell keyword.operator.eq.haskell
+T 14 source.haskell
+T 15 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 18 source.haskell keyword.operator.function.infix.haskell
+T 19 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 20 source.haskell
+T 21 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 22 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L 
+L instance FromJSON SimpleUser where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 29 source.haskell meta.declaration.instance.haskell
+T 34 source.haskell keyword.other.where.haskell
+L     parseJSON = withObject "SimpleUser" $ \obj -> SimpleUser
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 27 source.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell string.quoted.double.haskell
+T 39 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 40 source.haskell
+T 41 source.haskell keyword.operator.infix.haskell
+T 42 source.haskell
+T 43 source.haskell keyword.operator.lambda.haskell
+T 47 source.haskell
+T 49 source.haskell keyword.operator.arrow.haskell
+T 50 source.haskell
+T 60 source.haskell constant.other.haskell
+L         <$> obj .: "id"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 16 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 22 source.haskell string.quoted.double.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> obj .: "login"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 16 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 25 source.haskell string.quoted.double.haskell
+T 26 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> obj .: "avatar_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 16 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 30 source.haskell string.quoted.double.haskell
+T 31 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> obj .: "url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 16 source.haskell
+T 18 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 23 source.haskell string.quoted.double.haskell
+T 24 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- URL
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 6 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L newtype URL = URL Text
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 11 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 14 source.haskell meta.declaration.newtype.algebraic.haskell
+T 17 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell
+T 22 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+L     deriving (Show)
+T 4 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 14 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance NFData URL where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 19 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.instance.haskell
+T 25 source.haskell keyword.other.where.haskell
+L     rnf (URL t) = rnf t
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 12 source.haskell constant.other.haskell
+T 14 source.haskell
+T 15 source.haskell punctuation.paren.haskell
+T 16 source.haskell
+T 17 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+L 
+L instance FromJSON URL where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.instance.haskell
+T 27 source.haskell keyword.other.where.haskell
+L     parseJSON = withText "URL" (pure . URL)
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+T 26 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 29 source.haskell string.quoted.double.haskell
+T 30 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 31 source.haskell
+T 32 source.haskell punctuation.paren.haskell
+T 37 source.haskell
+T 38 source.haskell keyword.operator.infix.haskell
+T 39 source.haskell
+T 42 source.haskell constant.other.haskell
+T 43 source.haskell punctuation.paren.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- IssueState
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 13 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L -- | 'GitHub.Data.Issues.Issue' or 'GitHub.Data.PullRequests.PullRequest' state
+T 4 source.haskell comment.block.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 79 source.haskell comment.block.documentation.haskell
+L data IssueState
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+L     = StateOpen
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L     | StateClosed
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance ToJSON IssueState where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 27 source.haskell meta.declaration.instance.haskell
+T 32 source.haskell keyword.other.where.haskell
+L     toJSON StateOpen   = String "open"
+T 11 source.haskell
+T 20 source.haskell constant.other.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+T 31 source.haskell constant.other.haskell
+T 32 source.haskell
+T 33 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 37 source.haskell string.quoted.double.haskell
+T 38 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L     toJSON StateClosed = String "closed"
+T 11 source.haskell
+T 22 source.haskell constant.other.haskell
+T 23 source.haskell
+T 24 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+T 31 source.haskell constant.other.haskell
+T 32 source.haskell
+T 33 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 39 source.haskell string.quoted.double.haskell
+T 40 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L instance FromJSON IssueState where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 29 source.haskell meta.declaration.instance.haskell
+T 34 source.haskell keyword.other.where.haskell
+L     parseJSON = withText "IssueState" $ \t -> case T.toLower t of
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+T 26 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 36 source.haskell string.quoted.double.haskell
+T 37 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 38 source.haskell
+T 39 source.haskell keyword.operator.infix.haskell
+T 40 source.haskell
+T 41 source.haskell keyword.operator.lambda.haskell
+T 43 source.haskell
+T 45 source.haskell keyword.operator.arrow.haskell
+T 46 source.haskell
+T 50 source.haskell keyword.control.case.haskell
+T 51 source.haskell
+T 53 source.haskell entity.name.namespace.haskell
+T 63 source.haskell
+T 65 source.haskell keyword.control.of.haskell
+L         "open"   -> pure StateOpen
+T 8 source.haskell
+T 9 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 13 source.haskell string.quoted.double.haskell
+T 14 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 17 source.haskell
+T 19 source.haskell keyword.operator.arrow.haskell
+T 25 source.haskell
+T 34 source.haskell constant.other.haskell
+L         "closed" -> pure StateClosed
+T 8 source.haskell
+T 9 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 15 source.haskell string.quoted.double.haskell
+T 16 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 17 source.haskell
+T 19 source.haskell keyword.operator.arrow.haskell
+T 25 source.haskell
+T 36 source.haskell constant.other.haskell
+L         _        -> fail $ "Unknown IssueState: " <> T.unpack t
+T 17 source.haskell
+T 19 source.haskell keyword.operator.arrow.haskell
+T 25 source.haskell
+T 26 source.haskell keyword.operator.infix.haskell
+T 27 source.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 48 source.haskell string.quoted.double.haskell
+T 49 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 50 source.haskell
+T 52 source.haskell keyword.operator.infix.haskell
+T 53 source.haskell
+T 55 source.haskell entity.name.namespace.haskell
+T 63 source.haskell
+L 
+L instance NFData IssueState where rnf x = x `seq` ()
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 27 source.haskell meta.declaration.instance.haskell
+T 32 source.haskell keyword.other.where.haskell
+T 39 source.haskell
+T 40 source.haskell keyword.operator.eq.haskell
+T 43 source.haskell
+T 44 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 47 source.haskell keyword.operator.function.infix.haskell
+T 48 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 49 source.haskell
+T 50 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 51 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- IssueNumber
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 14 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L newtype IssueNumber = IssueNumber Int
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.newtype.algebraic.haskell
+T 21 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 22 source.haskell meta.declaration.newtype.algebraic.haskell
+T 33 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 34 source.haskell meta.declaration.newtype.algebraic.haskell
+T 37 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L unIssueNumber :: IssueNumber -> Int
+T 13 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 31 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 32 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L unIssueNumber (IssueNumber i) = i
+T 14 source.haskell
+T 15 source.haskell punctuation.paren.haskell
+T 26 source.haskell constant.other.haskell
+T 28 source.haskell
+T 29 source.haskell punctuation.paren.haskell
+T 30 source.haskell
+T 31 source.haskell keyword.operator.eq.haskell
+T 33 source.haskell
+L 
+L instance NFData IssueNumber where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 27 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 28 source.haskell meta.declaration.instance.haskell
+T 33 source.haskell keyword.other.where.haskell
+L     rnf (IssueNumber s) = rnf s
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 20 source.haskell constant.other.haskell
+T 22 source.haskell
+T 23 source.haskell punctuation.paren.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.eq.haskell
+T 31 source.haskell
+L 
+L instance FromJSON IssueNumber where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 29 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 30 source.haskell meta.declaration.instance.haskell
+T 35 source.haskell keyword.other.where.haskell
+L     parseJSON = fmap IssueNumber . parseJSON
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 21 source.haskell
+T 32 source.haskell constant.other.haskell
+T 33 source.haskell
+T 34 source.haskell keyword.operator.infix.haskell
+T 44 source.haskell
+L 
+L instance ToJSON IssueNumber where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 27 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 28 source.haskell meta.declaration.instance.haskell
+T 33 source.haskell keyword.other.where.haskell
+L     toJSON = toJSON . unIssueNumber
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.infix.haskell
+T 35 source.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- IssueLabel
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 13 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L data IssueLabel = IssueLabel
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L     { labelColor :: !Text
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , labelUrl   :: !URL
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 24 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , labelName  :: !(Name IssueLabel)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , labelDesc  :: !(Maybe Text)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     }
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance NFData IssueLabel where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 26 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 27 source.haskell meta.declaration.instance.haskell
+T 32 source.haskell keyword.other.where.haskell
+L     rnf IssueLabel {..} = rnf labelDesc
+T 8 source.haskell
+T 18 source.haskell constant.other.haskell
+T 19 source.haskell
+T 20 source.haskell meta.record.haskell punctuation.brace.haskell
+T 22 source.haskell meta.record.haskell variable.other.member.wildcard.haskell
+T 23 source.haskell meta.record.haskell punctuation.brace.haskell
+T 24 source.haskell
+T 25 source.haskell keyword.operator.eq.haskell
+T 39 source.haskell
+L 
+L instance FromJSON IssueLabel where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 28 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 29 source.haskell meta.declaration.instance.haskell
+T 34 source.haskell keyword.other.where.haskell
+L     parseJSON = withObject "IssueLabel" $ \o -> IssueLabel
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 27 source.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell string.quoted.double.haskell
+T 39 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 40 source.haskell
+T 41 source.haskell keyword.operator.infix.haskell
+T 42 source.haskell
+T 43 source.haskell keyword.operator.lambda.haskell
+T 45 source.haskell
+T 47 source.haskell keyword.operator.arrow.haskell
+T 48 source.haskell
+T 58 source.haskell constant.other.haskell
+L         <$> o .: "color"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 23 source.haskell string.quoted.double.haskell
+T 24 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "url" .!= URL "" -- in events there aren't URL
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 22 source.haskell string.quoted.double.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 24 source.haskell
+T 27 source.haskell keyword.operator.infix.haskell
+T 28 source.haskell
+T 31 source.haskell constant.other.haskell
+T 32 source.haskell
+T 33 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 34 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 35 source.haskell
+T 37 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 64 source.haskell comment.line.double-dash.haskell
+L         <*> o .: "name"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 22 source.haskell string.quoted.double.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "description"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 30 source.haskell string.quoted.double.haskell
+T 31 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- PullRequestReference
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 23 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L data PullRequestReference = PullRequestReference
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell
+T 48 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L     { pullRequestReferenceHtmlUrl  :: !(Maybe URL)
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 40 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 49 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 50 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , pullRequestReferencePatchUrl :: !(Maybe URL)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 40 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 49 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 50 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , pullRequestReferenceDiffUrl  :: !(Maybe URL)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 40 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 49 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 50 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     }
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L     deriving (Show)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance NFData PullRequestReference where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 36 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 37 source.haskell meta.declaration.instance.haskell
+T 42 source.haskell keyword.other.where.haskell
+L     rnf PullRequestReference {..} =
+T 8 source.haskell
+T 28 source.haskell constant.other.haskell
+T 29 source.haskell
+T 30 source.haskell meta.record.haskell punctuation.brace.haskell
+T 32 source.haskell meta.record.haskell variable.other.member.wildcard.haskell
+T 33 source.haskell meta.record.haskell punctuation.brace.haskell
+T 34 source.haskell
+T 35 source.haskell keyword.operator.eq.haskell
+L         rnf pullRequestReferenceHtmlUrl `seq`
+T 40 source.haskell
+T 41 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 44 source.haskell keyword.operator.function.infix.haskell
+T 45 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+L         rnf pullRequestReferencePatchUrl `seq`
+T 41 source.haskell
+T 42 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 45 source.haskell keyword.operator.function.infix.haskell
+T 46 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+L         rnf pullRequestReferenceDiffUrl
+T 39 source.haskell
+L 
+L instance FromJSON PullRequestReference where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 38 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 39 source.haskell meta.declaration.instance.haskell
+T 44 source.haskell keyword.other.where.haskell
+L     parseJSON = withObject "PullRequestReference" $ \o -> PullRequestReference
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 27 source.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 48 source.haskell string.quoted.double.haskell
+T 49 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 50 source.haskell
+T 51 source.haskell keyword.operator.infix.haskell
+T 52 source.haskell
+T 53 source.haskell keyword.operator.lambda.haskell
+T 55 source.haskell
+T 57 source.haskell keyword.operator.arrow.haskell
+T 58 source.haskell
+T 78 source.haskell constant.other.haskell
+L         <$> o .:? "html_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 27 source.haskell string.quoted.double.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "patch_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "diff_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 27 source.haskell string.quoted.double.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L -- Issue
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 8 source.haskell comment.line.double-dash.haskell
+L -------------------------------------------------------------------------------
+T 2 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 79 source.haskell comment.line.double-dash.haskell
+L 
+L data Issue = Issue
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L     { issueClosedAt    :: !(Maybe UTCTime)
+T 4 source.haskell meta.declaration.data.algebraic.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 41 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 42 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueUpdatedAt   :: !UTCTime
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueEventsUrl   :: !URL
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueHtmlUrl     :: !(Maybe URL)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueClosedBy    :: !(Maybe SimpleUser)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 44 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueLabels      :: !(Vector IssueLabel)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueNumber      :: !IssueNumber
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueAssignees   :: !(Vector SimpleUser)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueUser        :: !SimpleUser
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueTitle       :: !Text
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issuePullRequest :: !(Maybe PullRequestReference)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 54 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 55 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueUrl         :: !URL
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueCreatedAt   :: !UTCTime
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueBody        :: !(Maybe Text)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueState       :: !IssueState
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     , issueId          :: !(Id Issue)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 36 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+L     , issueComments    :: !Int
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.prefix.bang.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L     -- , issueMilestone   :: !(Maybe Milestone)
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 47 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell comment.line.double-dash.haskell
+L     }
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L instance NFData Issue where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.instance.haskell
+T 27 source.haskell keyword.other.where.haskell
+L     rnf Issue {..} =
+T 8 source.haskell
+T 13 source.haskell constant.other.haskell
+T 14 source.haskell
+T 15 source.haskell meta.record.haskell punctuation.brace.haskell
+T 17 source.haskell meta.record.haskell variable.other.member.wildcard.haskell
+T 18 source.haskell meta.record.haskell punctuation.brace.haskell
+T 19 source.haskell
+T 20 source.haskell keyword.operator.eq.haskell
+L         rnf issueClosedAt `seq`
+T 26 source.haskell
+T 27 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 30 source.haskell keyword.operator.function.infix.haskell
+T 31 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+L         rnf issueUpdatedAt
+T 26 source.haskell
+L 
+L instance FromJSON Issue where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 17 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.instance.haskell
+T 23 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 24 source.haskell meta.declaration.instance.haskell
+T 29 source.haskell keyword.other.where.haskell
+L     parseJSON = withObject "Issue" $ \o -> Issue
+T 14 source.haskell
+T 15 source.haskell keyword.operator.eq.haskell
+T 27 source.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 33 source.haskell string.quoted.double.haskell
+T 34 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 35 source.haskell
+T 36 source.haskell keyword.operator.infix.haskell
+T 37 source.haskell
+T 38 source.haskell keyword.operator.lambda.haskell
+T 40 source.haskell
+T 42 source.haskell keyword.operator.arrow.haskell
+T 43 source.haskell
+T 48 source.haskell constant.other.haskell
+L         <$> o .:? "closed_at"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "updated_at"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "events_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "html_url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 26 source.haskell string.quoted.double.haskell
+T 27 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "closed_by"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "labels"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 24 source.haskell string.quoted.double.haskell
+T 25 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "number"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 24 source.haskell string.quoted.double.haskell
+T 25 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "assignees"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 27 source.haskell string.quoted.double.haskell
+T 28 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "user"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 22 source.haskell string.quoted.double.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "title"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 23 source.haskell string.quoted.double.haskell
+T 24 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .:? "pull_request"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 18 source.haskell
+T 19 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 31 source.haskell string.quoted.double.haskell
+T 32 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "url"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 21 source.haskell string.quoted.double.haskell
+T 22 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "created_at"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 28 source.haskell string.quoted.double.haskell
+T 29 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "body"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 22 source.haskell string.quoted.double.haskell
+T 23 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "state"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 23 source.haskell string.quoted.double.haskell
+T 24 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "id"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 20 source.haskell string.quoted.double.haskell
+T 21 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         <*> o .: "comments"
+T 8 source.haskell
+T 11 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.infix.haskell
+T 17 source.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 26 source.haskell string.quoted.double.haskell
+T 27 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L         -- <*> o .:? "milestone"
+T 8 source.haskell punctuation.whitespace.comment.leading.haskell
+T 10 source.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 32 source.haskell comment.line.double-dash.haskell
+L 

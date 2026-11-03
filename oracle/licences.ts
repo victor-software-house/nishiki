@@ -44,6 +44,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "BSD-3-Clause",
     file: "LICENSE",
   },
+  haskell: {
+    bundled: "octref/language-haskell@ae87982aac2bf5cf6334c067e49c5ec8fc08b871",
+    origin: "octref/language-haskell",
+    licence: "BSD-3-Clause",
+    file: "LICENSE",
+  },
   html: {
     bundled: "microsoft/vscode@45324363153075dab0482312ae24d8c068d81e4f",
     origin: "textmate/html.tmbundle",

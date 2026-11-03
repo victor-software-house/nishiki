@@ -12,6 +12,8 @@ export type Input = {
 
 const abseil =
   "https://raw.githubusercontent.com/abseil/abseil-cpp/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8";
+const aeson =
+  "https://raw.githubusercontent.com/haskell/aeson/42190167dbe120578a06d67b13b4d96991b34e01";
 const airflow =
   "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
 const alamofire =
@@ -446,6 +448,12 @@ export const inputs: Input[] = [
   { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
   { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
   { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
+  // Haskell runs on the TextMate engine. Shiki's Markdown grammar has no
+  // Haskell fence, so no Markdown input embeds it.
+  { lang: "haskell", name: "aeson-builder", url: `${aeson}/src/Data/Aeson/Encoding/Builder.hs` },
+  { lang: "haskell", name: "aeson-decoding-text", url: `${aeson}/src/Data/Aeson/Decoding/Text.hs` },
+  { lang: "haskell", name: "aeson-github", url: `${aeson}/examples/src/GitHub.hs` },
+  { lang: "haskell", name: "sample", url: `${samples}/haskell.sample` },
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },

@@ -128,6 +128,7 @@ assert_eq!(highlighter.limits().depth, None);
 | ERB | `Language::Erb` | `lang-erb` | `erb` |
 | Go | `Language::Go` | `lang-go` | `go`, `golang` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
+| Haskell | `Language::Haskell` | `lang-haskell` | `haskell`, `hs` |
 | HTML | `Language::Html` | `lang-html` | `html` |
 | HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `html-derivative` |
 | INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
@@ -182,7 +183,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid |
+  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid, Haskell |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.

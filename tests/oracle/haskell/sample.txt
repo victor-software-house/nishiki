@@ -1,0 +1,98 @@
+L {-# LANGUAGE OverloadedStrings #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 30 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 31 source.haskell meta.preprocessor.haskell
+T 34 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE TypeFamilies #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 25 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 26 source.haskell meta.preprocessor.haskell
+T 29 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE QuasiQuotes #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 24 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 25 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE TemplateHaskell #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 29 source.haskell meta.preprocessor.haskell
+T 32 source.haskell meta.preprocessor.haskell
+L {-# LANGUAGE MultiParamTypeClasses #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 34 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 35 source.haskell meta.preprocessor.haskell
+T 38 source.haskell meta.preprocessor.haskell
+L 
+L import Yesod
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 12 source.haskell meta.import.haskell entity.name.namespace.haskell
+L 
+L data WebApp = WebApp
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L 
+L instance Yesod WebApp
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 14 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 15 source.haskell meta.declaration.instance.haskell
+T 21 source.haskell meta.declaration.instance.haskell storage.type.haskell
+L 
+L mkYesod "WebApp" [parseRoutes|
+T 8 source.haskell
+T 9 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 15 source.haskell string.quoted.double.haskell
+T 16 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 17 source.haskell
+T 18 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 29 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 30 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+L   / HomeR GET
+T 13 source.haskell meta.quasi-quotation.haskell
+L |]
+T 2 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L 
+L getHomeR = defaultLayout [whamlet|
+T 9 source.haskell
+T 10 source.haskell keyword.operator.eq.haskell
+T 25 source.haskell
+T 26 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 33 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 34 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+L   <div>Hello, world!
+T 20 source.haskell meta.quasi-quotation.haskell
+L |]
+T 2 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L 
+L main = warpEnv WebApp
+T 5 source.haskell
+T 6 source.haskell keyword.operator.eq.haskell
+T 15 source.haskell
+T 21 source.haskell constant.other.haskell
+L 
+L {-# From https://www.schoolofhaskell.com/user/eriks/Simple%20examples }
+T 3 source.haskell meta.preprocessor.haskell
+T 71 source.haskell meta.preprocessor.haskell
+L 

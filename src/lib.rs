@@ -82,6 +82,8 @@ mod fnv;
 mod go;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
+#[cfg(feature = "lang-haskell")]
+mod haskell;
 mod highlighter;
 #[cfg(feature = "lang-html")]
 mod html;
