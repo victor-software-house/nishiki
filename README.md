@@ -127,6 +127,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Go | `Language::Go` | `lang-go` | `go`, `golang` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
 | HTML | `Language::Html` | `lang-html` | `html` |
+| HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `html-derivative` |
 | INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
 | Java | `Language::Java` | `lang-java` | `java` |
 | JavaScript | `Language::JavaScript` | `lang-javascript` | `javascript`, `js`, `cjs`, `mjs` |
@@ -172,7 +173,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   |:--|:--|
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative) |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
   | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf |
@@ -212,7 +213,14 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - An empty line leaves the state unchanged.
   A line of spaces does not.
-- HTML blocks other than comments are plain text.
+- With `lang-html-derivative`, html-derivative lexes the HTML in the five places below, where Shiki's grammar includes it.
+  Without it, that HTML is plain text, as in Shiki without the grammar.
+- An HTML block, a line that starts with a tag, runs to a line of blanks, not to an empty line, which Shiki does not tokenize.
+- A `<script>`, `<style>` or `<pre>` block that its first line does not close runs to the line with the closing tag, whose text before the tag html-derivative lexes from a fresh state.
+- In a paragraph, html-derivative's root rules come after the inline rules at each position, and a tag or entity hands the line back once it ends.
+- In a heading, html-derivative reads the heading's text the same way, cut at the end of that text.
+- In bold, italic and strikethrough, a `<` with a `>` later on the line hands the tags there to html-derivative, up to the first place after a `>` where no tag starts.
+- An HTML block inside a quote or a list starts again on each line, from a fresh HTML state, because the grammar's `while` rules match only at the start of a line.
 - A label or link destination nested deeper than 32 brackets ends there.
 - The grammar's backtracking is followed where it matters in practice, not everywhere.
   A code span gives back backticks,
@@ -474,6 +482,12 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - In a `<style>` element ERB opens between CSS rules, and in a `<script>` element where no JavaScript rule matches, so JavaScript's `<` operator takes `<%=` in code.
 - A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
 - ERB that Shiki opens inside a CSS rule or string, or inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script, stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
+
+### HTML (Derivative)
+
+- The HTML lexer runs html-derivative, the HTML grammar with a rule of its own for a tag that no rule before it takes, such as `<Foo/>` or `<x:y>`: `meta.tag.other.unrecognized.html.derivative`, where HTML reads an invalid tag.
+- That rule applies at the document's top level only; inside a template `<script>`, which the grammar reads as `text.html.basic`, unknown tags are HTML's invalid tags.
+- A bare `<` is an illegal angle bracket, as in HTML, but not where another grammar embeds html-derivative, as Vue's templates do, since Shiki applies an embedded grammar's injection nowhere.
 
 ### Lua
 

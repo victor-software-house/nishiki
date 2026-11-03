@@ -4,7 +4,7 @@
 
 use memchr::{memchr, memchr2};
 
-use super::engine::{Hit, Lexer, Pat};
+use super::engine::{Document, Hit, Lexer, Pat};
 use super::state::{
     AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind,
 };
@@ -185,9 +185,10 @@ impl Lexer<'_> {
             }
             Rule::Tag => {
                 let mut q = p;
-                if TagInfo::from_bits(super::state::info(self.top().payload)).kind
-                    == TagKind::Unrecognized
-                {
+                if matches!(
+                    TagInfo::from_bits(super::state::info(self.top().payload)).kind,
+                    TagKind::Unrecognized | TagKind::Derivative
+                ) {
                     while q < self.lim
                         && crate::classes::is_ascii_space(self.s[q])
                         && !(self.s[q] == b' ' && self.starts(q + 1, b"/>"))
@@ -284,7 +285,7 @@ impl Lexer<'_> {
                             self.starts(p, b"/>").then(|| one(2))
                         }
                     }
-                    TagKind::Unrecognized => {
+                    TagKind::Unrecognized | TagKind::Derivative => {
                         if b == b'>' {
                             Some(one(1))
                         } else if self.starts(p, b"/>") {
@@ -434,7 +435,9 @@ impl Lexer<'_> {
     /// The patterns of `rule` at `p`, in the grammar's order.
     /// The rule of the tags the grammar does not know is compiled first from
     /// inside the `math` rules, so its `#attribute` is the `math` list wherever
-    /// the rule is used.
+    /// the rule is used. In an html-derivative document the grammar's own tag
+    /// rule compiles `#attribute` first, with HTML's list, which every use
+    /// then shares.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per rule, in the order of the grammar"
@@ -466,10 +469,18 @@ impl Lexer<'_> {
             }
             Rule::Tag => {
                 let kind = TagInfo::from_bits(super::state::info(self.top().payload)).kind;
-                let which = if kind == TagKind::Unrecognized {
-                    Attributes::Math
-                } else {
-                    Attributes::Html
+                let which = match (kind, self.document) {
+                    (TagKind::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
+                    (TagKind::Unrecognized, Document::Derivative)
+                    | (
+                        TagKind::Start
+                        | TagKind::End
+                        | TagKind::Void
+                        | TagKind::CustomStart
+                        | TagKind::CustomEnd
+                        | TagKind::Derivative,
+                        Document::Html | Document::Derivative | Document::Erb,
+                    ) => Attributes::Html,
                 };
                 self.attribute_patterns(p, which)
             }
@@ -783,7 +794,8 @@ impl Lexer<'_> {
             .or_else(|| self.element_root(p, Namespace::Math))
             .or_else(|| self.element_root(p, Namespace::Svg))
             .or_else(|| self.custom_tag(p))
-            .or_else(|| self.invalid_tag(p))
+            .or_else(|| self.derivative_tag(p))
+            .or_else(|| self.invalid_tag(p, TagKind::Unrecognized))
     }
 
     /// The name of a tag at `p` that the lists could hold, and where it ends:
@@ -956,13 +968,30 @@ impl Lexer<'_> {
         Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], info))
     }
 
-    /// `(</?)((\w[^>\s]*))(?<!/)`: a tag the grammar does not know.
-    fn invalid_tag(&self, p: usize) -> Option<Hit> {
+    /// `(</?)(\w[^<>\s]*)(?<!/)`: html-derivative's rule for a tag that no
+    /// rule before it takes, tried at the root of a derivative document only,
+    /// where it comes before the HTML grammar's rule for invalid tags.
+    fn derivative_tag(&self, p: usize) -> Option<Hit> {
+        if !matches!(self.document, Document::Derivative) || self.top().rule != Rule::Root {
+            return None;
+        }
+        self.invalid_tag(p, TagKind::Derivative)
+    }
+
+    /// `(</?)((\w[^>\s]*))(?<!/)`: a tag the grammar does not know, as a tag
+    /// of `kind`. html-derivative's rule, of kind [`TagKind::Derivative`],
+    /// stops the name at a `<` as well.
+    fn invalid_tag(&self, p: usize, kind: TagKind) -> Option<Hit> {
         let closing = self.at(p + 1) == b'/';
         let start = p + 1 + usize::from(closing);
         let first = self.word_len(start)?;
         let mut q = start + first;
-        while q < self.lim && self.ws_len(q) == 0 && self.s[q] != b'>' {
+        let derivative = kind == TagKind::Derivative;
+        while q < self.lim
+            && self.ws_len(q) == 0
+            && self.s[q] != b'>'
+            && !(derivative && self.s[q] == b'<')
+        {
             q += crate::utf8::char_len(self.s[q]);
         }
         let mut q = q.min(self.lim);
@@ -972,7 +1001,7 @@ impl Lexer<'_> {
         }
         let info = TagInfo {
             category: Category::Other,
-            kind: TagKind::Unrecognized,
+            kind,
         }
         .bits();
         Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], info))
@@ -1063,7 +1092,7 @@ impl Lexer<'_> {
             return Some(Hit::new(Pat::Cdata, p, p + 9));
         }
         self.child_element(p, element.namespace)
-            .or_else(|| self.invalid_tag(p))
+            .or_else(|| self.invalid_tag(p, TagKind::Unrecognized))
     }
 
     /// An element inside an `svg` or `math` element, from the namespace's

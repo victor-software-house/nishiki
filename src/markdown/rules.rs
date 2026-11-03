@@ -24,6 +24,16 @@ pub(crate) enum P {
     RawBlock,
     LinkDef,
     Comment,
+    /// A raw HTML block: `<script>`, `<style>` or `<pre>`, which its line
+    /// does not close.
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlRaw,
+    /// `(\s*|$)`, which starts the lines inside a raw HTML block.
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlRawBody,
+    /// The two other HTML blocks, whose matches are the same.
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlBlock,
     Table,
     Paragraph,
     /// The rule inside an embedded fence that takes its lines.
@@ -60,6 +70,13 @@ pub(crate) enum P {
     LinkRef,
     LinkRefLiteral,
     LinkRefShortcut,
+    /// The root patterns of html-derivative, which a paragraph and a heading
+    /// include after the inline rules.
+    #[cfg(feature = "lang-html-derivative")]
+    Html,
+    /// `(?=<[^>]*?>)`, which emphasis tries first.
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlWrap,
 }
 
 impl P {
@@ -84,6 +101,10 @@ impl P {
             P::RawBlock => matches!(at, b' ' | b'\t'),
             P::LinkDef => first == b'[',
             P::Comment => first == b'<',
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRaw | P::HtmlBlock => first == b'<',
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRawBody | P::Html | P::HtmlWrap => true,
             P::Table => at == b'|',
             P::Paragraph
             | P::FenceLanguage
@@ -134,6 +155,12 @@ impl P {
             P::LinkInline | P::LinkRef | P::LinkRefLiteral | P::LinkRefShortcut => byte == b'[',
             P::Setext1 => byte == b'=',
             P::Setext2 => byte == b'-',
+            #[cfg(feature = "lang-html-derivative")]
+            P::Html => matches!(byte, b'<' | b'&'),
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlWrap => byte == b'<',
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock => true,
             P::FrontMatter
             | P::FrontMatterBegin
             | P::Separator
@@ -171,6 +198,9 @@ pub(crate) enum End {
     Comment,
     Bold,
     Italic,
+    /// `(?i)(.*)((</)(script|style|pre)(>))`, which closes a raw HTML block.
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlRaw,
 }
 
 /// The rules a capture group hands its text to.
@@ -178,8 +208,10 @@ pub(crate) enum End {
 pub(crate) enum List {
     /// A heading's first group: the rule for its level.
     Heading,
-    /// The text of a heading or a table cell.
+    /// The text of a table cell.
     Inline,
+    /// The text of a heading: the inline rules, then html-derivative.
+    HeadingText,
     /// The text of a link.
     LinkText,
     /// The text of a strikethrough.
@@ -197,6 +229,10 @@ const BLOCK: &[P] = &[
     P::RawBlock,
     P::LinkDef,
     P::Comment,
+    #[cfg(feature = "lang-html-derivative")]
+    P::HtmlRaw,
+    #[cfg(feature = "lang-html-derivative")]
+    P::HtmlBlock,
     P::Table,
     P::Paragraph,
 ];
@@ -219,6 +255,26 @@ const INLINE: &[P] = &[
     P::LinkRefShortcut,
 ];
 
+const HEADING_TEXT: &[P] = &[
+    P::Ampersand,
+    P::Bracket,
+    P::Bold,
+    P::Italic,
+    P::Raw,
+    P::Strike,
+    P::Escape,
+    P::ImageInline,
+    P::ImageRef,
+    P::LinkEmail,
+    P::LinkInet,
+    P::LinkInline,
+    P::LinkRef,
+    P::LinkRefLiteral,
+    P::LinkRefShortcut,
+    #[cfg(feature = "lang-html-derivative")]
+    P::Html,
+];
+
 const PARAGRAPH: &[P] = &[
     P::Ampersand,
     P::Bracket,
@@ -235,11 +291,15 @@ const PARAGRAPH: &[P] = &[
     P::LinkRef,
     P::LinkRefLiteral,
     P::LinkRefShortcut,
+    #[cfg(feature = "lang-html-derivative")]
+    P::Html,
     P::Setext1,
     P::Setext2,
 ];
 
 const BOLD: &[P] = &[
+    #[cfg(feature = "lang-html-derivative")]
+    P::HtmlWrap,
     P::Escape,
     P::Ampersand,
     P::Bracket,
@@ -258,6 +318,8 @@ const BOLD: &[P] = &[
 ];
 
 const ITALIC: &[P] = &[
+    #[cfg(feature = "lang-html-derivative")]
+    P::HtmlWrap,
     P::Escape,
     P::Ampersand,
     P::Bracket,
@@ -275,6 +337,8 @@ const ITALIC: &[P] = &[
 ];
 
 const STRIKE_TEXT: &[P] = &[
+    #[cfg(feature = "lang-html-derivative")]
+    P::HtmlWrap,
     P::Escape,
     P::Ampersand,
     P::Bracket,
@@ -318,6 +382,11 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
             }
         }
         Kind::FencePlain | Kind::FrontMatterBody | Kind::RawBlock | Kind::Comment => &[],
+        #[cfg(feature = "lang-html-derivative")]
+        Kind::HtmlRaw => &[P::HtmlRawBody],
+        #[cfg(not(feature = "lang-html-derivative"))]
+        Kind::HtmlRaw => &[],
+        Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => &[],
         Kind::Table => TABLE,
         Kind::Paragraph => PARAGRAPH,
         Kind::BoldStar | Kind::BoldUnder => BOLD,
@@ -330,6 +399,7 @@ pub(crate) fn list_patterns(list: List) -> &'static [P] {
     match list {
         List::Heading => HEADING,
         List::Inline => INLINE,
+        List::HeadingText => HEADING_TEXT,
         List::LinkText => LINK_TEXT,
         List::StrikeText => STRIKE_TEXT,
     }
@@ -343,6 +413,11 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
         Kind::Comment => Some(End::Comment),
         Kind::BoldStar | Kind::BoldUnder => Some(End::Bold),
         Kind::ItalicStar | Kind::ItalicUnder => Some(End::Italic),
+        #[cfg(feature = "lang-html-derivative")]
+        Kind::HtmlRaw => Some(End::HtmlRaw),
+        #[cfg(not(feature = "lang-html-derivative"))]
+        Kind::HtmlRaw => None,
+        Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => None,
         Kind::Base
         | Kind::Quote
         | Kind::ListBullet
@@ -359,7 +434,15 @@ pub(crate) fn end(kind: Kind) -> Option<End> {
 /// and closes it included.
 pub(crate) fn names(kind: Kind) -> &'static [S] {
     match kind {
-        Kind::Base | Kind::Body(_) | Kind::FrontMatter | Kind::FrontMatterBody => &[],
+        Kind::Base
+        | Kind::Body(_)
+        | Kind::FrontMatter
+        | Kind::FrontMatterBody
+        | Kind::HtmlRaw
+        | Kind::HtmlRawBody
+        | Kind::HtmlBlock
+        | Kind::HtmlInline
+        | Kind::HtmlWrap => &[],
         Kind::Quote => &[S::Quote],
         Kind::ListBullet => &[S::ListBullet],
         Kind::ListOrdered => &[S::ListOrdered],
@@ -459,7 +542,12 @@ pub(crate) fn content_name(kind: Kind) -> Option<S> {
         | Kind::BoldStar
         | Kind::BoldUnder
         | Kind::ItalicStar
-        | Kind::ItalicUnder => None,
+        | Kind::ItalicUnder
+        | Kind::HtmlRaw
+        | Kind::HtmlRawBody
+        | Kind::HtmlBlock
+        | Kind::HtmlInline
+        | Kind::HtmlWrap => None,
     }
 }
 
@@ -507,6 +595,8 @@ pub(crate) fn match_name(rule: P) -> Option<S> {
         | P::TableCell
         | P::Bold
         | P::Italic => return None,
+        #[cfg(feature = "lang-html-derivative")]
+        P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock | P::Html | P::HtmlWrap => return None,
     })
 }
 
@@ -574,7 +664,7 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
         P::Heading => only(group, 1, list(List::Heading)),
         P::Level1 | P::Level2 | P::Level3 | P::Level4 | P::Level5 | P::Level6 => match group {
             1 | 3 => scope(S::HeadingPunct),
-            2 => both(S::HeadingName, List::Inline),
+            2 => both(S::HeadingName, List::HeadingText),
             _ => NONE,
         },
         P::Quote => only(group, 2, scope(S::QuotePunct)),
@@ -619,6 +709,8 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
         | P::Ampersand
         | P::Bracket
         | P::Escape => NONE,
+        #[cfg(feature = "lang-html-derivative")]
+        P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock | P::Html | P::HtmlWrap => NONE,
         P::Bold
         | P::Italic
         | P::Raw

@@ -299,6 +299,13 @@ languages! {
         engine: crate::proto::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// html-derivative, with the scopes of Shiki's `html-derivative`
+    /// grammar: HTML with a rule of its own for the tags no other rule takes.
+    HtmlDerivative {
+        feature: "lang-html-derivative",
+        names: ["html-derivative"],
+        module: html_derivative,
+    }
 }
 
 impl Language {

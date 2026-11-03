@@ -94,6 +94,12 @@ crate::scope::scope_table! {
     TableSeparator "punctuation.separator.table.markdown"
     CommentHtml "comment.block.html"
     CommentHtmlPunct "punctuation.definition.comment.html"
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlTagBegin "punctuation.definition.tag.begin.html"
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlTagName "entity.name.tag.html"
+    #[cfg(feature = "lang-html-derivative")]
+    HtmlTagEnd "punctuation.definition.tag.end.html"
     // Inline.
     Ampersand "meta.other.valid-ampersand.markdown"
     Bracket "meta.other.valid-bracket.markdown"

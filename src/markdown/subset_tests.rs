@@ -47,3 +47,13 @@ fn front_matter_is_plain_text_when_yaml_is_off() {
     assert!(names.iter().any(|name| name.contains("frontmatter")));
     assert!(names.iter().all(|name| !name.contains("yaml")), "{names:?}");
 }
+
+#[cfg(not(feature = "lang-html-derivative"))]
+#[test]
+fn html_is_plain_text_when_html_derivative_is_off() {
+    let names = scopes_of(indoc! {"
+        <div>
+        See <kbd>Ctrl</kbd>"});
+    assert!(names.iter().any(|name| name == "meta.paragraph.markdown"));
+    assert!(names.iter().all(|name| !name.contains("tag")), "{names:?}");
+}

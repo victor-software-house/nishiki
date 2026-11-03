@@ -1225,3 +1225,144 @@ fn a_line_lexes_the_same_from_kept_and_rebuilt_frames() {
         assert_eq!(rebuilt, kept[index], "{line:?}");
     }
 }
+
+/// The scope stacks of the tokens of line `index` of `text`.
+#[cfg(feature = "lang-html-derivative")]
+fn row(text: &str, index: usize) -> Vec<(String, Vec<String>)> {
+    lex(text).swap_remove(index)
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn an_html_block_takes_its_lines_up_to_a_blank_one() {
+    let text = [
+        "<div>",
+        "# not a heading",
+        "",
+        "> still html",
+        " ",
+        "# heading",
+    ]
+    .join("\n");
+    let text = text.as_str();
+    assert_eq!(
+        stack_of(text, "div"),
+        [
+            "text.html.markdown",
+            "meta.tag.structure.div.start.html",
+            "entity.name.tag.html"
+        ]
+    );
+    assert_eq!(stack_of(text, "# not a heading"), ["text.html.markdown"]);
+    assert_eq!(stack_of(text, "> still html"), ["text.html.markdown"]);
+    assert_eq!(scope_of(text, "heading"), "entity.name.section.markdown");
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn a_raw_html_block_names_its_closing_tag_as_spelled() {
+    let text = indoc! {"
+        <SCRIPT>
+        x
+        </SCRIPT> tail"};
+    let last = row(text, 2);
+    assert_eq!(
+        last[1].1,
+        [
+            "text.html.markdown",
+            "meta.tag.structure.SCRIPT.end.html",
+            "entity.name.tag.html"
+        ]
+    );
+    assert_eq!(
+        last[3],
+        (" tail".to_owned(), vec!["text.html.markdown".to_owned()])
+    );
+    assert_eq!(
+        stack_of(text, "x"),
+        [
+            "text.html.markdown",
+            "meta.embedded.block.html",
+            "source.js",
+            "variable.other.readwrite.js"
+        ]
+    );
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn a_raw_html_block_in_a_quote_starts_again_on_each_line() {
+    let text = indoc! {"
+        > <script>
+        > <b>x</b>
+        > </script>"};
+    assert_eq!(
+        stack_of(text, "b"),
+        [
+            "text.html.markdown",
+            "markup.quote.markdown",
+            "meta.tag.inline.b.start.html",
+            "entity.name.tag.html"
+        ]
+    );
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn a_paragraph_reads_tags_and_entities() {
+    assert_eq!(
+        stack_of("See <kbd>Ctrl</kbd> now", "kbd"),
+        [
+            "text.html.markdown",
+            "meta.paragraph.markdown",
+            "meta.tag.inline.kbd.start.html",
+            "entity.name.tag.html"
+        ]
+    );
+    assert_eq!(
+        stack_of("See <kbd>Ctrl</kbd> now", " now"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+    assert_eq!(
+        scope_of("x &amp; y", "amp"),
+        "constant.character.entity.named.amp.html"
+    );
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn a_heading_reads_an_html_comment() {
+    assert_eq!(
+        stack_of("# Title <!-- note -->", " note "),
+        [
+            "text.html.markdown",
+            "markup.heading.markdown",
+            "heading.1.markdown",
+            "entity.name.section.markdown",
+            "comment.block.html"
+        ]
+    );
+}
+
+#[cfg(feature = "lang-html-derivative")]
+#[test]
+fn emphasis_hands_a_tag_to_html() {
+    assert_eq!(
+        stack_of("**a <b>x</b> c**", "b"),
+        [
+            "text.html.markdown",
+            "meta.paragraph.markdown",
+            "markup.bold.markdown",
+            "meta.tag.inline.b.start.html",
+            "entity.name.tag.html"
+        ]
+    );
+    assert_eq!(
+        stack_of("**a> <b** z", "a> <b"),
+        [
+            "text.html.markdown",
+            "meta.paragraph.markdown",
+            "markup.bold.markdown"
+        ]
+    );
+}

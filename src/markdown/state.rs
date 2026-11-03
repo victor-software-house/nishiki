@@ -51,12 +51,28 @@ pub(crate) enum Kind {
     /// The YAML inside [`Kind::FrontMatter`]; the payload is the YAML lexer's
     /// state.
     FrontMatterBody,
+    /// A `<script>`, `<style>` or `<pre>` HTML block whose line does not close
+    /// it, up to the line that does.
+    HtmlRaw,
+    /// The lines inside [`Kind::HtmlRaw`] before the closing one, which
+    /// html-derivative takes; the payload is its state.
+    HtmlRawBody,
+    /// Any other HTML block, up to a blank line, which html-derivative takes;
+    /// the payload is its state.
+    HtmlBlock,
+    /// A match of html-derivative's root patterns in a paragraph or a
+    /// heading, up to where the grammar is back at its root; the payload is
+    /// its state.
+    HtmlInline,
+    /// `(?=<[^>]*?>)` in emphasis up to `(?<=>)`, whose text html-derivative
+    /// takes; the payload is its state.
+    HtmlWrap,
 }
 
 impl Kind {
     /// The kinds that name no language, in code order; a test checks that
     /// [`Kind::code`] agrees.
-    const FIXED: [Kind; 15] = [
+    const FIXED: [Kind; 20] = [
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,
@@ -72,6 +88,11 @@ impl Kind {
         Kind::ItalicUnder,
         Kind::FrontMatter,
         Kind::FrontMatterBody,
+        Kind::HtmlRaw,
+        Kind::HtmlRawBody,
+        Kind::HtmlBlock,
+        Kind::HtmlInline,
+        Kind::HtmlWrap,
     ];
 
     /// The kind as a frame stores it: the Markdown tag in the high byte and,
@@ -95,6 +116,11 @@ impl Kind {
             Kind::ItalicUnder => 12,
             Kind::FrontMatter => 13,
             Kind::FrontMatterBody => 14,
+            Kind::HtmlRaw => 15,
+            Kind::HtmlRawBody => 16,
+            Kind::HtmlBlock => 17,
+            Kind::HtmlInline => 18,
+            Kind::HtmlWrap => 19,
             Kind::Fence(lang) => Kind::FIXED.len() + 2 * lang.index(),
             Kind::Body(lang) => Kind::FIXED.len() + 2 * lang.index() + 1,
         };

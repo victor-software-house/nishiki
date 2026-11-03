@@ -81,6 +81,8 @@ mod graphql;
 mod highlighter;
 #[cfg(feature = "lang-html")]
 mod html;
+#[cfg(feature = "lang-html-derivative")]
+mod html_derivative;
 #[cfg(feature = "lang-ini")]
 mod ini;
 #[cfg(feature = "lang-java")]

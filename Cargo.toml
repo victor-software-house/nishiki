@@ -41,6 +41,7 @@ all = [
   "lang-go",
   "lang-graphql",
   "lang-html",
+  "lang-html-derivative",
   "lang-ini",
   "lang-java",
   "lang-javascript",
@@ -79,6 +80,7 @@ web = [
   "lang-erb",
   "lang-graphql",
   "lang-html",
+  "lang-html-derivative",
   "lang-javascript",
   "lang-json",
   "lang-jsx",
@@ -122,6 +124,7 @@ lang-graphql = [
   "_frame-kinds",
 ]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
+lang-html-derivative = ["lang-html"]
 lang-ini = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-java = ["_scope-table", "_rule-tables", "_classes"]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,

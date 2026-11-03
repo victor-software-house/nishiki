@@ -397,489 +397,247 @@ T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdow
 T 71 text.html.markdown meta.paragraph.markdown
 L 
 L <Listing number="4-1" caption="A variable and the scope in which it is valid">
-T 78 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.other.Listing.start.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 9 text.html.markdown meta.tag.other.Listing.start.html
+T 15 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html entity.other.attribute-name.html
+T 16 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html punctuation.separator.key-value.html
+T 17 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.other.Listing.start.html
+T 29 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html entity.other.attribute-name.html
+T 30 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html punctuation.separator.key-value.html
+T 31 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.begin.html
+T 76 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html
+T 77 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.end.html
+T 78 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.end.html
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 92 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L </Listing>
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.other.Listing.end.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 10 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.end.html
 L 
 L In other words, there are two important points in time here:
-T 60 text.html.markdown meta.paragraph.markdown
+T 60 text.html.markdown
 L 
 L - When `s` comes _into_ scope, it is valid.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 8 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 9 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 10 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 17 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 18 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 22 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown
-T 23 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 43 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 43 text.html.markdown
 L - It remains valid until it goes _out of_ scope.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 33 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 34 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 40 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown
-T 41 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 48 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 48 text.html.markdown
 L 
 L At this point, the relationship between scopes and when variables are valid is
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L similar to that in other programming languages. Now we’ll build on top of this
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L understanding by introducing the `String` type.
-T 33 text.html.markdown meta.paragraph.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 47 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown
 L 
 L ### The `String` Type
-T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
-T 4 text.html.markdown markup.heading.markdown heading.3.markdown
-T 8 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
-T 9 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 15 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown
-T 16 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 21 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 21 text.html.markdown
 L 
 L To illustrate the rules of ownership, we need a data type that is more complex
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L than those we covered in the [“Data Types”][data-types]<!-- ignore --> section
-T 29 text.html.markdown meta.paragraph.markdown
-T 30 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
-T 46 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
-T 47 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
-T 48 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
-T 58 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
-T 59 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
-T 82 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown
+T 63 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 71 text.html.markdown comment.block.html
+T 74 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 82 text.html.markdown
 L of Chapter 3. The types covered previously are of a known size, can be stored
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L on the stack and popped off the stack when their scope is over, and can be
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L quickly and trivially copied to make a new, independent instance if another
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L part of code needs to use the same value in a different scope. But we want to
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L look at data that is stored on the heap and explore how Rust knows when to
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L clean up that data, and the `String` type is a great example.
-T 28 text.html.markdown meta.paragraph.markdown
-T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 61 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown
 L 
 L We’ll concentrate on the parts of `String` that relate to ownership. These
-T 36 text.html.markdown meta.paragraph.markdown
-T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L aspects also apply to other complex data types, whether they are provided by
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L the standard library or created by you. We’ll discuss non-ownership aspects of
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L `String` in [Chapter 8][ch8]<!-- ignore -->.
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 12 text.html.markdown meta.paragraph.markdown
-T 13 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
-T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
-T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
-T 24 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
-T 27 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
-T 28 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
-T 44 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown
+T 32 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 40 text.html.markdown comment.block.html
+T 43 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 44 text.html.markdown
 L 
 L We’ve already seen string literals, where a string value is hardcoded into our
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L program. String literals are convenient, but they aren’t suitable for every
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L situation in which we may want to use text. One reason is that they’re
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L immutable. Another is that not every string value can be known when we write
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L our code: For example, what if we want to take user input and store it? It is
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L for these situations that Rust has the `String` type. This type manages
-T 39 text.html.markdown meta.paragraph.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 71 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown
 L data allocated on the heap and as such is able to store an amount of text that
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L is unknown to us at compile time. You can create a `String` from a string
-T 51 text.html.markdown meta.paragraph.markdown
-T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L literal using the `from` function, like so:
-T 18 text.html.markdown meta.paragraph.markdown
-T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 23 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 43 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L let s = String::from("hello");
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.other.rust storage.type.rust
-T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.assignment.equal.rust
-T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust entity.name.type.rust
-T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.namespace.rust
-T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust entity.name.function.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust punctuation.brackets.round.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust string.quoted.double.rust punctuation.definition.string.rust
-T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust string.quoted.double.rust
-T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust string.quoted.double.rust punctuation.definition.string.rust
-T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust meta.function.call.rust punctuation.brackets.round.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.semi.rust
+T 30 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L The double colon `::` operator allows us to namespace this particular `from`
-T 17 text.html.markdown meta.paragraph.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 70 text.html.markdown meta.paragraph.markdown
-T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 76 text.html.markdown
 L function under the `String` type rather than using some sort of name like
-T 19 text.html.markdown meta.paragraph.markdown
-T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L `string_from`. We’ll discuss this syntax more in the [“Methods”][methods]<!--
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 55 text.html.markdown meta.paragraph.markdown
-T 56 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
-T 69 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
-T 70 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
-T 71 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
-T 78 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
-T 79 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
-T 83 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
+T 83 text.html.markdown comment.block.html punctuation.definition.comment.html
 L ignore --> section of Chapter 5, and when we talk about namespacing with
-T 72 text.html.markdown meta.paragraph.markdown
+T 7 text.html.markdown comment.block.html
+T 10 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 72 text.html.markdown
 L modules in [“Paths for Referring to an Item in the Module
-T 59 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown
 L Tree”][paths-module-tree]<!-- ignore --> in Chapter 7.
-T 56 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown
+T 31 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 39 text.html.markdown comment.block.html
+T 42 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 56 text.html.markdown
 L 
 L This kind of string _can_ be mutated:
-T 20 text.html.markdown meta.paragraph.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 37 text.html.markdown meta.paragraph.markdown
+T 37 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-01-can-mutate-string/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 84 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 100 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 101 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 103 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 104 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 108 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 109 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 110 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 110 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L So, what’s the difference here? Why can `String` be mutated but literals
-T 42 text.html.markdown meta.paragraph.markdown
-T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 50 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L cannot? The difference is in how these two types deal with memory.
-T 66 text.html.markdown meta.paragraph.markdown
+T 66 text.html.markdown
 L 
 L ### Memory and Allocation
-T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
-T 4 text.html.markdown markup.heading.markdown heading.3.markdown
-T 25 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 25 text.html.markdown
 L 
 L In the case of a string literal, we know the contents at compile time, so the
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L text is hardcoded directly into the final executable. This is why string
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L literals are fast and efficient. But these properties only come from the string
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L literal’s immutability. Unfortunately, we can’t put a blob of memory into the
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L binary for each piece of text whose size is unknown at compile time and whose
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L size might change while running the program.
-T 44 text.html.markdown meta.paragraph.markdown
+T 44 text.html.markdown
 L 
 L With the `String` type, in order to support a mutable, growable piece of text,
-T 9 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L we need to allocate an amount of memory on the heap, unknown at compile time,
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L to hold the contents. This means:
-T 33 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown
 L 
 L - The memory must be requested from the memory allocator at runtime.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 68 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 68 text.html.markdown
 L - We need a way of returning this memory to the allocator when we’re done with
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 80 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L   our `String`.
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 6 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 7 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 13 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 14 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 15 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 15 text.html.markdown
 L 
 L That first part is done by us: When we call `String::from`, its implementation
-T 44 text.html.markdown meta.paragraph.markdown
-T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L requests the memory it needs. This is pretty much universal in programming
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L languages.
-T 10 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
 L 
 L However, the second part is different. In languages with a _garbage collector
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L (GC)_, the GC keeps track of and cleans up memory that isn’t being used
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L anymore, and we don’t need to think about it. In most languages without a GC,
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L it’s our responsibility to identify when memory is no longer being used and to
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L call code to explicitly free it, just as we did to request it. Doing this
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L correctly has historically been a difficult programming problem. If we forget,
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L we’ll waste memory. If we do it too early, we’ll have an invalid variable. If
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L we do it twice, that’s a bug too. We need to pair exactly one `allocate` with
-T 64 text.html.markdown meta.paragraph.markdown
-T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L exactly one `free`.
-T 12 text.html.markdown meta.paragraph.markdown
-T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 19 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown
 L 
 L Rust takes a different path: The memory is automatically returned once the
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L variable that owns it goes out of scope. Here’s a version of our scope example
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L from Listing 4-1 using a `String` instead of a string literal:
-T 25 text.html.markdown meta.paragraph.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 62 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-02-string-scope/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 98 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 99 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 103 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 104 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 105 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 105 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L There is a natural point at which we can return the memory our `String` needs
-T 63 text.html.markdown meta.paragraph.markdown
-T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L to the allocator: when `s` goes out of scope. When a variable goes out of
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L scope, Rust calls a special function for us. This function is called
-T 68 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown
 L `drop`, and it’s where the author of `String` can put
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 6 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 39 text.html.markdown meta.paragraph.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 55 text.html.markdown meta.paragraph.markdown
+T 55 text.html.markdown
 L the code to return the memory. Rust calls `drop` automatically at the closing
-T 42 text.html.markdown meta.paragraph.markdown
-T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L curly bracket.
-T 14 text.html.markdown meta.paragraph.markdown
+T 14 text.html.markdown
 L 
 L > Note: In C++, this pattern of deallocating resources at the end of an item’s
-T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
-T 2 text.html.markdown markup.quote.markdown
-T 80 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L > lifetime is sometimes called _Resource Acquisition Is Initialization (RAII)_.
-T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
-T 2 text.html.markdown markup.quote.markdown
-T 31 text.html.markdown markup.quote.markdown meta.paragraph.markdown
-T 32 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 77 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.italic.markdown
-T 78 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 79 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L > The `drop` function in Rust will be familiar to you if you’ve used RAII
-T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
-T 2 text.html.markdown markup.quote.markdown
-T 6 text.html.markdown markup.quote.markdown meta.paragraph.markdown
-T 7 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 11 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 12 text.html.markdown markup.quote.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L > patterns.
-T 1 text.html.markdown markup.quote.markdown punctuation.definition.quote.begin.markdown
-T 2 text.html.markdown markup.quote.markdown
-T 11 text.html.markdown markup.quote.markdown meta.paragraph.markdown
+T 11 text.html.markdown
 L 
 L This pattern has a profound impact on the way Rust code is written. It may seem
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L simple right now, but the behavior of code can be unexpected in more
-T 68 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown
 L complicated situations when we want to have multiple variables use the data
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L we’ve allocated on the heap. Let’s explore some of those situations now.
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L 
 L <!-- Old headings. Do not remove or links may break. -->
 T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
@@ -887,626 +645,483 @@ T 53 text.html.markdown comment.block.html
 T 56 text.html.markdown comment.block.html punctuation.definition.comment.html
 L 
 L <a id="ways-variables-and-data-interact-move"></a>
-T 50 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 2 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 3 text.html.markdown meta.tag.inline.a.start.html
+T 5 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 6 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 7 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html
+T 45 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 48 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 49 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 50 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
 L 
 L #### Variables and Data Interacting with Move
-T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
-T 5 text.html.markdown markup.heading.markdown heading.4.markdown
-T 45 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 45 text.html.markdown
 L 
 L Multiple variables can interact with the same data in different ways in Rust.
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L Listing 4-2 shows an example using an integer.
-T 46 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown
 L 
 L <Listing number="4-2" caption="Assigning the integer value of variable `x` to `y`">
-T 71 text.html.markdown meta.paragraph.markdown
-T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 80 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 81 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 83 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.other.Listing.start.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 9 text.html.markdown meta.tag.other.Listing.start.html
+T 15 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html entity.other.attribute-name.html
+T 16 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html punctuation.separator.key-value.html
+T 17 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.other.Listing.start.html
+T 29 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html entity.other.attribute-name.html
+T 30 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html punctuation.separator.key-value.html
+T 31 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.begin.html
+T 81 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html
+T 82 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.end.html
+T 83 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.end.html
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-02/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 92 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L </Listing>
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.other.Listing.end.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 10 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.end.html
 L 
 L We can probably guess what this is doing: “Bind the value `5` to `x`; then, make
-T 60 text.html.markdown meta.paragraph.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 63 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 67 text.html.markdown meta.paragraph.markdown
-T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 82 text.html.markdown meta.paragraph.markdown
+T 82 text.html.markdown
 L a copy of the value in `x` and bind it to `y`.” We now have two variables, `x`
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 42 text.html.markdown meta.paragraph.markdown
-T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
-T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 80 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown
 L and `y`, and both equal `5`. This is indeed what is happening, because integers
-T 4 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 6 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 24 text.html.markdown meta.paragraph.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L are simple values with a known, fixed size, and these two `5` values are pushed
-T 58 text.html.markdown meta.paragraph.markdown
-T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L onto the stack.
-T 15 text.html.markdown meta.paragraph.markdown
+T 15 text.html.markdown
 L 
 L Now let’s look at the `String` version:
-T 24 text.html.markdown meta.paragraph.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 41 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-03-string-move/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 81 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.other.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 94 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 97 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 98 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 102 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 103 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 104 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 104 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L This looks very similar, so we might assume that the way it works would be the
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L same: That is, the second line would make a copy of the value in `s1` and bind
-T 65 text.html.markdown meta.paragraph.markdown
-T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L it to `s2`. But this isn’t quite what happens.
-T 6 text.html.markdown meta.paragraph.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 9 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 48 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown
 L 
 L Take a look at Figure 4-1 to see what is happening to `String` under the
-T 54 text.html.markdown meta.paragraph.markdown
-T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L covers. A `String` is made up of three parts, shown on the left: a pointer to
-T 10 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L the memory that holds the contents of the string, a length, and a capacity.
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L This group of data is stored on the stack. On the right is the memory on the
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L heap that holds the contents.
-T 29 text.html.markdown meta.paragraph.markdown
+T 29 text.html.markdown
 L 
 L <img alt="Two tables: the first table contains the representation of s1 on the
-T 78 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.object.img.void.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 9 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 10 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 78 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L stack, consisting of its length (5), capacity (5), and a pointer to the first
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L value in the second table. The second table contains the representation of the
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L string data on the heap, byte by byte." src="img/trpl04-01.svg" class="center"
-T 78 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 39 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.markdown meta.tag.object.img.void.html
+T 43 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 44 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 45 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 62 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 63 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 64 text.html.markdown meta.tag.object.img.void.html
+T 69 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 70 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 71 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 77 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 78 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
 L style="width: 50%;" />
-T 22 text.html.markdown meta.paragraph.markdown
+T 5 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html entity.other.attribute-name.html
+T 6 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html punctuation.separator.key-value.html
+T 7 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 19 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 20 text.html.markdown meta.tag.object.img.void.html
+T 22 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.end.html
 L 
 L <span class="caption">Figure 4-1: The representation in memory of a `String`
-T 68 text.html.markdown meta.paragraph.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 1 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.inline.span.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.inline.span.start.html
+T 11 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 76 text.html.markdown
 L holding the value `"hello"` bound to `s1`</span>
-T 18 text.html.markdown meta.paragraph.markdown
-T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 37 text.html.markdown meta.paragraph.markdown
-T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 48 text.html.markdown meta.paragraph.markdown
+T 41 text.html.markdown
+T 43 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 47 text.html.markdown meta.tag.inline.span.end.html entity.name.tag.html
+T 48 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.end.html
 L 
 L The length is how much memory, in bytes, the contents of the `String` are
-T 61 text.html.markdown meta.paragraph.markdown
-T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L currently using. The capacity is the total amount of memory, in bytes, that the
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L `String` has received from the allocator. The difference between length and
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L capacity matters, but not in this context, so for now, it’s fine to ignore the
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L capacity.
-T 9 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown
 L 
 L When we assign `s1` to `s2`, the `String` data is copied, meaning we copy the
-T 15 text.html.markdown meta.paragraph.markdown
-T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 33 text.html.markdown meta.paragraph.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L pointer, the length, and the capacity that are on the stack. We do not copy the
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L data on the heap that the pointer refers to. In other words, the data
-T 69 text.html.markdown meta.paragraph.markdown
+T 69 text.html.markdown
 L representation in memory looks like Figure 4-2.
-T 47 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown
 L 
 L <img alt="Three tables: tables s1 and s2 representing those strings on the
-T 74 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.object.img.void.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 9 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 10 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L stack, respectively, and both pointing to the same string data on the heap."
-T 76 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 76 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
 L src="img/trpl04-02.svg" class="center" style="width: 50%;" />
-T 61 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 4 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 5 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 23 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.markdown meta.tag.object.img.void.html
+T 29 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 38 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.markdown meta.tag.object.img.void.html
+T 44 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html entity.other.attribute-name.html
+T 45 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html punctuation.separator.key-value.html
+T 46 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 58 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 59 text.html.markdown meta.tag.object.img.void.html
+T 61 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.end.html
 L 
 L <span class="caption">Figure 4-2: The representation in memory of the variable
-T 78 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.inline.span.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.inline.span.start.html
+T 11 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 78 text.html.markdown
 L `s2` that has a copy of the pointer, length, and capacity of `s1`</span>
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 3 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 61 text.html.markdown meta.paragraph.markdown
-T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 72 text.html.markdown meta.paragraph.markdown
+T 65 text.html.markdown
+T 67 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 71 text.html.markdown meta.tag.inline.span.end.html entity.name.tag.html
+T 72 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.end.html
 L 
 L The representation does _not_ look like Figure 4-3, which is what memory would
-T 24 text.html.markdown meta.paragraph.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 28 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 29 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L look like if Rust instead copied the heap data as well. If Rust did this, the
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L operation `s2 = s1` could be very expensive in terms of runtime performance if
-T 10 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L the data on the heap were large.
-T 32 text.html.markdown meta.paragraph.markdown
+T 32 text.html.markdown
 L 
 L <img alt="Four tables: two tables representing the stack data for s1 and s2,
-T 76 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.object.img.void.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 9 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 10 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 76 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L and each points to its own copy of string data on the heap."
-T 60 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 60 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
 L src="img/trpl04-03.svg" class="center" style="width: 50%;" />
-T 61 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 4 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 5 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 23 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.markdown meta.tag.object.img.void.html
+T 29 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 38 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.markdown meta.tag.object.img.void.html
+T 44 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html entity.other.attribute-name.html
+T 45 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html punctuation.separator.key-value.html
+T 46 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 58 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 59 text.html.markdown meta.tag.object.img.void.html
+T 61 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.end.html
 L 
 L <span class="caption">Figure 4-3: Another possibility for what `s2 = s1` might
-T 63 text.html.markdown meta.paragraph.markdown
-T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.inline.span.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.inline.span.start.html
+T 11 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 78 text.html.markdown
 L do if Rust copied the heap data as well</span>
-T 46 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown
+T 41 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 45 text.html.markdown meta.tag.inline.span.end.html entity.name.tag.html
+T 46 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.end.html
 L 
 L Earlier, we said that when a variable goes out of scope, Rust automatically
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L calls the `drop` function and cleans up the heap memory for that variable. But
-T 10 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L Figure 4-2 shows both data pointers pointing to the same location. This is a
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L problem: When `s2` and `s1` go out of scope, they will both try to free the
-T 14 text.html.markdown meta.paragraph.markdown
-T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L same memory. This is known as a _double free_ error and is one of the memory
-T 32 text.html.markdown meta.paragraph.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 44 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 45 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L safety bugs we mentioned previously. Freeing memory twice can lead to memory
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L corruption, which can potentially lead to security vulnerabilities.
-T 67 text.html.markdown meta.paragraph.markdown
+T 67 text.html.markdown
 L 
 L To ensure memory safety, after the line `let s2 = s1;`, Rust considers `s1` as
-T 40 text.html.markdown meta.paragraph.markdown
-T 41 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 71 text.html.markdown meta.paragraph.markdown
-T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L no longer valid. Therefore, Rust doesn’t need to free anything when `s1` goes
-T 70 text.html.markdown meta.paragraph.markdown
-T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L out of scope. Check out what happens when you try to use `s1` after `s2` is
-T 57 text.html.markdown meta.paragraph.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 68 text.html.markdown meta.paragraph.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 71 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L created; it won’t work:
-T 25 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown
 L 
 L ```rust,ignore,does_not_compile
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
-T 31 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+T 31 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 88 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 93 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.other.rust
-T 94 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 97 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 98 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 102 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 103 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 105 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 106 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 110 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 111 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 112 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 112 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L You’ll get an error like this because Rust prevents you from using the
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L invalidated reference:
-T 22 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown
 L 
 L ```console
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 10 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 10 text.html.markdown
 L {{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
-T 98 text.html.markdown markup.fenced_code.block.markdown
+T 98 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L If you’ve heard the terms _shallow copy_ and _deep copy_ while working with
-T 28 text.html.markdown meta.paragraph.markdown
-T 29 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 41 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 42 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 47 text.html.markdown meta.paragraph.markdown
-T 48 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L other languages, the concept of copying the pointer, length, and capacity
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L without copying the data probably sounds like making a shallow copy. But
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L because Rust also invalidates the first variable, instead of being called a
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L shallow copy, it’s known as a _move_. In this example, we would say that `s1`
-T 32 text.html.markdown meta.paragraph.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 37 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 38 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 75 text.html.markdown meta.paragraph.markdown
-T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 79 text.html.markdown
 L was _moved_ into `s2`. So, what actually happens is shown in Figure 4-4.
-T 4 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 10 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 11 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 17 text.html.markdown meta.paragraph.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L 
 L <img alt="Three tables: tables s1 and s2 representing those strings on the
-T 74 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.object.img.void.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 9 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 10 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L stack, respectively, and both pointing to the same string data on the heap.
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L Table s1 is grayed out because s1 is no longer valid; only s2 can be used to
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L access the heap data." src="img/trpl04-04.svg" class="center" style="width:
-T 75 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 22 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 text.html.markdown meta.tag.object.img.void.html
+T 26 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 27 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 28 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 46 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.markdown meta.tag.object.img.void.html
+T 52 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 53 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 54 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 60 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 61 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 62 text.html.markdown meta.tag.object.img.void.html
+T 67 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html entity.other.attribute-name.html
+T 68 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html punctuation.separator.key-value.html
+T 69 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 75 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
 L 50%;" />
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 5 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 6 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.end.html
 L 
 L <span class="caption">Figure 4-4: The representation in memory after `s1` has
-T 69 text.html.markdown meta.paragraph.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.inline.span.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.inline.span.start.html
+T 11 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 77 text.html.markdown
 L been invalidated</span>
-T 23 text.html.markdown meta.paragraph.markdown
+T 16 text.html.markdown
+T 18 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 22 text.html.markdown meta.tag.inline.span.end.html entity.name.tag.html
+T 23 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.end.html
 L 
 L That solves our problem! With only `s2` valid, when it goes out of scope it
-T 35 text.html.markdown meta.paragraph.markdown
-T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L alone will free the memory, and we’re done.
-T 45 text.html.markdown meta.paragraph.markdown
+T 45 text.html.markdown
 L 
 L In addition, there’s a design choice that’s implied by this: Rust will never
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L automatically create “deep” copies of your data. Therefore, any _automatic_
-T 68 text.html.markdown meta.paragraph.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 78 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 79 text.html.markdown
 L copying can be assumed to be inexpensive in terms of runtime performance.
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L 
 L #### Scope and Assignment
-T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
-T 5 text.html.markdown markup.heading.markdown heading.4.markdown
-T 25 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 25 text.html.markdown
 L 
 L The inverse of this is true for the relationship between scoping, ownership, and
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L memory being freed via the `drop` function as well. When you assign a completely
-T 27 text.html.markdown meta.paragraph.markdown
-T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L new value to an existing variable, Rust will call `drop` and free the original
-T 50 text.html.markdown meta.paragraph.markdown
-T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 55 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L value’s memory immediately. Consider this code, for example:
-T 62 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04b-replacement-drop/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 100 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 101 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 103 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 104 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 108 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 109 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 110 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 110 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L We initially declare a variable `s` and bind it to a `String` with the value
-T 32 text.html.markdown meta.paragraph.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 53 text.html.markdown meta.paragraph.markdown
-T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L `"hello"`. Then, we immediately create a new `String` with the value `"ahoy"`
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 9 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 45 text.html.markdown meta.paragraph.markdown
-T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 69 text.html.markdown meta.paragraph.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 76 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 77 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 77 text.html.markdown
 L and assign it to `s`. At this point, nothing is referring to the original value
-T 17 text.html.markdown meta.paragraph.markdown
-T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L on the heap at all. Figure 4-5 illustrates the stack and heap data now:
-T 71 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown
 L 
 L <img alt="One table representing the string value on the stack, pointing to
-T 75 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.object.img.void.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.object.img.void.html
+T 8 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html entity.other.attribute-name.html
+T 9 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html punctuation.separator.key-value.html
+T 10 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.begin.html
+T 75 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L the second piece of string data (ahoy) on the heap, with the original string
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
 L data (hello) grayed out because it cannot be accessed anymore."
-T 63 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html
+T 63 text.html.markdown meta.tag.object.img.void.html meta.attribute.alt.html string.quoted.double.html punctuation.definition.string.end.html
 L src="img/trpl04-05.svg" class="center" style="width: 50%;" />
-T 61 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html entity.other.attribute-name.html
+T 4 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html punctuation.separator.key-value.html
+T 5 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html
+T 23 text.html.markdown meta.tag.object.img.void.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.markdown meta.tag.object.img.void.html
+T 29 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html
+T 38 text.html.markdown meta.tag.object.img.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.markdown meta.tag.object.img.void.html
+T 44 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html entity.other.attribute-name.html
+T 45 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html punctuation.separator.key-value.html
+T 46 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 58 text.html.markdown meta.tag.object.img.void.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 59 text.html.markdown meta.tag.object.img.void.html
+T 61 text.html.markdown meta.tag.object.img.void.html punctuation.definition.tag.end.html
 L 
 L <span class="caption">Figure 4-5: The representation in memory after the initial
-T 80 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.inline.span.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.inline.span.start.html
+T 11 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 80 text.html.markdown
 L value has been replaced in its entirety</span>
-T 46 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown
+T 41 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 45 text.html.markdown meta.tag.inline.span.end.html entity.name.tag.html
+T 46 text.html.markdown meta.tag.inline.span.end.html punctuation.definition.tag.end.html
 L 
 L The original string thus immediately goes out of scope. Rust will run the `drop`
-T 74 text.html.markdown meta.paragraph.markdown
-T 75 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 80 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 text.html.markdown
 L function on it and its memory will be freed right away. When we print the value
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L at the end, it will be `"ahoy, world!"`.
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 40 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown
 L 
 L <!-- Old headings. Do not remove or links may break. -->
 T 4 text.html.markdown comment.block.html punctuation.definition.comment.html
@@ -1514,586 +1129,318 @@ T 53 text.html.markdown comment.block.html
 T 56 text.html.markdown comment.block.html punctuation.definition.comment.html
 L 
 L <a id="ways-variables-and-data-interact-clone"></a>
-T 51 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 2 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 3 text.html.markdown meta.tag.inline.a.start.html
+T 5 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 6 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 7 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html
+T 46 text.html.markdown meta.tag.inline.a.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 49 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 50 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 51 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
 L 
 L #### Variables and Data Interacting with Clone
-T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
-T 5 text.html.markdown markup.heading.markdown heading.4.markdown
-T 46 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 46 text.html.markdown
 L 
 L If we _do_ want to deeply copy the heap data of the `String`, not just the
-T 6 text.html.markdown meta.paragraph.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 9 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 10 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 52 text.html.markdown meta.paragraph.markdown
-T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L stack data, we can use a common method called `clone`. We’ll discuss method
-T 46 text.html.markdown meta.paragraph.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L syntax in Chapter 5, but because methods are a common feature in many
-T 69 text.html.markdown meta.paragraph.markdown
+T 69 text.html.markdown
 L programming languages, you’ve probably seen them before.
-T 58 text.html.markdown meta.paragraph.markdown
+T 58 text.html.markdown
 L 
 L Here’s an example of the `clone` method in action:
-T 27 text.html.markdown meta.paragraph.markdown
-T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 52 text.html.markdown meta.paragraph.markdown
+T 52 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-05-clone/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 80 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 84 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 88 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 89 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 92 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 97 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 98 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 98 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L This works just fine and explicitly produces the behavior shown in Figure 4-3,
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L where the heap data _does_ get copied.
-T 20 text.html.markdown meta.paragraph.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.italic.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
-T 38 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown
 L 
 L When you see a call to `clone`, you know that some arbitrary code is being
-T 23 text.html.markdown meta.paragraph.markdown
-T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L executed and that code may be expensive. It’s a visual indicator that something
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L different is going on.
-T 22 text.html.markdown meta.paragraph.markdown
+T 22 text.html.markdown
 L 
 L #### Stack-Only Data: Copy
-T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
-T 5 text.html.markdown markup.heading.markdown heading.4.markdown
-T 26 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 26 text.html.markdown
 L 
 L There’s another wrinkle we haven’t talked about yet. This code using
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L integers—part of which was shown in Listing 4-2—works and is valid:
-T 71 text.html.markdown meta.paragraph.markdown
+T 71 text.html.markdown
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-06-copy/src/main.rs:here}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 79 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 88 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 90 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 91 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.key-value.rust
-T 95 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 96 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 97 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 97 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L But this code seems to contradict what we just learned: We don’t have a call to
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L `clone`, but `x` is still valid and wasn’t moved into `y`.
-T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 6 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 7 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 13 text.html.markdown meta.paragraph.markdown
-T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 56 text.html.markdown meta.paragraph.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 59 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 60 text.html.markdown meta.paragraph.markdown
+T 60 text.html.markdown
 L 
 L The reason is that types such as integers that have a known size at compile
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L time are stored entirely on the stack, so copies of the actual values are quick
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L to make. That means there’s no reason we would want to prevent `x` from being
-T 65 text.html.markdown meta.paragraph.markdown
-T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 67 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L valid after we create the variable `y`. In other words, there’s no difference
-T 35 text.html.markdown meta.paragraph.markdown
-T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 38 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L between deep and shallow copying here, so calling `clone` wouldn’t do anything
-T 50 text.html.markdown meta.paragraph.markdown
-T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L different from the usual shallow copying, and we can leave it out.
-T 66 text.html.markdown meta.paragraph.markdown
+T 66 text.html.markdown
 L 
 L Rust has a special annotation called the `Copy` trait that we can place on
-T 41 text.html.markdown meta.paragraph.markdown
-T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L types that are stored on the stack, as integers are (we’ll talk more about
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L traits in [Chapter 10][traits]<!-- ignore -->). If a type implements the `Copy`
-T 10 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.begin.markdown
-T 21 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown string.other.link.title.markdown
-T 22 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.link.title.end.markdown
-T 23 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.begin.markdown
-T 29 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown constant.other.reference.link.markdown
-T 30 text.html.markdown meta.paragraph.markdown meta.link.reference.markdown punctuation.definition.constant.end.markdown
-T 73 text.html.markdown meta.paragraph.markdown
-T 74 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown
+T 34 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 42 text.html.markdown comment.block.html
+T 45 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 79 text.html.markdown
 L trait, variables that use it do not move, but rather are trivially copied,
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L making them still valid after assignment to another variable.
-T 61 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown
 L 
 L Rust won’t let us annotate a type with `Copy` if the type, or any of its parts,
-T 41 text.html.markdown meta.paragraph.markdown
-T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 46 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L has implemented the `Drop` trait. If the type needs something special to happen
-T 20 text.html.markdown meta.paragraph.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L when the value goes out of scope and we add the `Copy` annotation to that type,
-T 48 text.html.markdown meta.paragraph.markdown
-T 49 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 54 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L we’ll get a compile-time error. To learn about how to add the `Copy` annotation
-T 64 text.html.markdown meta.paragraph.markdown
-T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 81 text.html.markdown meta.paragraph.markdown
+T 81 text.html.markdown
 L to your type to implement the trait, see [“Derivable
-T 54 text.html.markdown meta.paragraph.markdown
+T 54 text.html.markdown
 L Traits”][derivable-traits]<!-- ignore --> in Appendix C.
-T 58 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown
+T 32 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 40 text.html.markdown comment.block.html
+T 43 text.html.markdown comment.block.html punctuation.definition.comment.html
+T 58 text.html.markdown
 L 
 L So, what types implement the `Copy` trait? You can check the documentation for
-T 29 text.html.markdown meta.paragraph.markdown
-T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L the given type to be sure, but as a general rule, any group of simple scalar
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L values can implement `Copy`, and nothing that requires allocation or is some
-T 21 text.html.markdown meta.paragraph.markdown
-T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L form of resource can implement `Copy`. Here are some of the types that
-T 31 text.html.markdown meta.paragraph.markdown
-T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 37 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 70 text.html.markdown meta.paragraph.markdown
+T 70 text.html.markdown
 L implement `Copy`:
-T 10 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 17 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown
 L 
 L - All the integer types, such as `u32`.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 33 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 34 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 37 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 38 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 39 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 39 text.html.markdown
 L - The Boolean type, `bool`, with values `true` and `false`.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 20 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 21 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 25 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 26 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 40 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 41 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 45 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 46 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 51 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 52 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 57 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 58 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 59 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 59 text.html.markdown
 L - All the floating-point types, such as `f64`.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 40 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 41 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 44 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 45 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 46 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 46 text.html.markdown
 L - The character type, `char`.
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 22 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 23 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 27 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 28 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 29 text.html.markdown
 L - Tuples, if they only contain types that also implement `Copy`. For example,
-T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 57 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 58 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 62 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 63 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L   `(i32, i32)` implements `Copy`, but `(i32, String)` does not.
-T 2 text.html.markdown markup.list.unnumbered.markdown
-T 3 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 13 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 14 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 26 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 27 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 31 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 32 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 38 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
-T 39 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 52 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 53 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 63 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 63 text.html.markdown
 L 
 L ### Ownership and Functions
-T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
-T 4 text.html.markdown markup.heading.markdown heading.3.markdown
-T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 27 text.html.markdown
 L 
 L The mechanics of passing a value to a function are similar to those when
-T 72 text.html.markdown meta.paragraph.markdown
+T 72 text.html.markdown
 L assigning a value to a variable. Passing a variable to a function will move or
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L copy, just as assignment does. Listing 4-3 has an example with some annotations
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L showing where variables go into and out of scope.
-T 49 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown
 L 
 L <Listing number="4-3" file-name="src/main.rs" caption="Functions with ownership and scope annotated">
-T 101 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.other.Listing.start.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 9 text.html.markdown meta.tag.other.Listing.start.html
+T 15 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html entity.other.attribute-name.html
+T 16 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html punctuation.separator.key-value.html
+T 17 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.other.Listing.start.html
+T 31 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html entity.other.attribute-name.html
+T 32 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html punctuation.separator.key-value.html
+T 33 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html
+T 45 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.markdown meta.tag.other.Listing.start.html
+T 53 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html entity.other.attribute-name.html
+T 54 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html punctuation.separator.key-value.html
+T 55 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.begin.html
+T 99 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html
+T 100 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.end.html
+T 101 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.end.html
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-03/src/main.rs}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 87 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L </Listing>
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.other.Listing.end.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 10 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.end.html
 L 
 L If we tried to use `s` after the call to `takes_ownership`, Rust would throw a
-T 19 text.html.markdown meta.paragraph.markdown
-T 20 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 41 text.html.markdown meta.paragraph.markdown
-T 42 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 58 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L compile-time error. These static checks protect us from mistakes. Try adding
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L code to `main` that uses `s` and `x` to see where you can use them and where
-T 8 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 13 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 25 text.html.markdown meta.paragraph.markdown
-T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 33 text.html.markdown meta.paragraph.markdown
-T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 36 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L the ownership rules prevent you from doing so.
-T 46 text.html.markdown meta.paragraph.markdown
+T 46 text.html.markdown
 L 
 L ### Return Values and Scope
-T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
-T 4 text.html.markdown markup.heading.markdown heading.3.markdown
-T 27 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 27 text.html.markdown
 L 
 L Returning values can also transfer ownership. Listing 4-4 shows an example of a
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L function that returns some value, with similar annotations as those in Listing
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L 4-3.
-T 4 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
 L 
 L <Listing number="4-4" file-name="src/main.rs" caption="Transferring ownership of return values">
-T 96 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.other.Listing.start.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 9 text.html.markdown meta.tag.other.Listing.start.html
+T 15 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html entity.other.attribute-name.html
+T 16 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html punctuation.separator.key-value.html
+T 17 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.other.Listing.start.html
+T 31 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html entity.other.attribute-name.html
+T 32 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html punctuation.separator.key-value.html
+T 33 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html
+T 45 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.markdown meta.tag.other.Listing.start.html
+T 53 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html entity.other.attribute-name.html
+T 54 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html punctuation.separator.key-value.html
+T 55 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.begin.html
+T 94 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html
+T 95 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.end.html
+T 96 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.end.html
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-04/src/main.rs}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 87 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L </Listing>
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.other.Listing.end.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 10 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.end.html
 L 
 L The ownership of a variable follows the same pattern every time: Assigning a
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L value to another variable moves it. When a variable that includes data on the
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L heap goes out of scope, the value will be cleaned up by `drop` unless ownership
-T 56 text.html.markdown meta.paragraph.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 62 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L of the data has been moved to another variable.
-T 47 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown
 L 
 L While this works, taking ownership and then returning ownership with every
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L function is a bit tedious. What if we want to let a function use a value but
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L not take ownership? It’s quite annoying that anything we pass in also needs to
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L be passed back if we want to use it again, in addition to any data resulting
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L from the body of the function that we might want to return as well.
-T 67 text.html.markdown meta.paragraph.markdown
+T 67 text.html.markdown
 L 
 L Rust does let us return multiple values using a tuple, as shown in Listing 4-5.
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L 
 L <Listing number="4-5" file-name="src/main.rs" caption="Returning ownership of parameters">
-T 90 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.other.Listing.start.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 9 text.html.markdown meta.tag.other.Listing.start.html
+T 15 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html entity.other.attribute-name.html
+T 16 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html punctuation.separator.key-value.html
+T 17 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html
+T 21 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.number.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown meta.tag.other.Listing.start.html
+T 31 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html entity.other.attribute-name.html
+T 32 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html punctuation.separator.key-value.html
+T 33 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html
+T 45 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.file-name.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.markdown meta.tag.other.Listing.start.html
+T 53 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html entity.other.attribute-name.html
+T 54 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html punctuation.separator.key-value.html
+T 55 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.begin.html
+T 88 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html
+T 89 text.html.markdown meta.tag.other.Listing.start.html meta.attribute.unrecognized.caption.html string.quoted.double.html punctuation.definition.string.end.html
+T 90 text.html.markdown meta.tag.other.Listing.start.html punctuation.definition.tag.end.html
 L 
 L ```rust
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 7 text.html.markdown
 L {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-05/src/main.rs}}
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.range.rust
-T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 71 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust constant.numeric.decimal.rust
-T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.math.rust
-T 82 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust variable.other.rust
-T 83 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust keyword.operator.access.dot.rust
-T 85 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust
-T 86 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
-T 87 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.rust punctuation.brackets.curly.rust
+T 87 text.html.markdown
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L 
 L </Listing>
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.other.Listing.end.html entity.name.tag.html invalid.illegal.no-longer-supported.html
+T 10 text.html.markdown meta.tag.other.Listing.end.html punctuation.definition.tag.end.html
 L 
 L But this is too much ceremony and a lot of work for a concept that should be
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L common. Luckily for us, Rust has a feature for using a value without
-T 68 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown
 L transferring ownership: references.
-T 35 text.html.markdown meta.paragraph.markdown
+T 35 text.html.markdown
 L 
 L [data-types]: ch03-02-data-types.html#data-types
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 11 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 12 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 13 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 14 text.html.markdown meta.link.reference.def.markdown
-T 48 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 48 text.html.markdown
 L [ch8]: ch08-02-strings.html
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 4 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 5 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 6 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 7 text.html.markdown meta.link.reference.def.markdown
-T 27 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 27 text.html.markdown
 L [traits]: ch10-02-traits.html
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 7 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 8 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 9 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 10 text.html.markdown meta.link.reference.def.markdown
-T 29 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 29 text.html.markdown
 L [derivable-traits]: appendix-03-derivable-traits.html
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 17 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 18 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 19 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 20 text.html.markdown meta.link.reference.def.markdown
-T 53 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 53 text.html.markdown
 L [methods]: ch05-03-method-syntax.html#methods
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 8 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 9 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 10 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 11 text.html.markdown meta.link.reference.def.markdown
-T 45 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 45 text.html.markdown
 L [paths-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
-T 1 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 18 text.html.markdown meta.link.reference.def.markdown constant.other.reference.link.markdown
-T 19 text.html.markdown meta.link.reference.def.markdown punctuation.definition.constant.markdown
-T 20 text.html.markdown meta.link.reference.def.markdown punctuation.separator.key-value.markdown
-T 21 text.html.markdown meta.link.reference.def.markdown
-T 83 text.html.markdown meta.link.reference.def.markdown markup.underline.link.markdown
+T 83 text.html.markdown
 L 

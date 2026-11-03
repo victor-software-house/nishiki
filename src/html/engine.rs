@@ -119,12 +119,33 @@ pub(super) enum Pat {
 pub(super) enum Document {
     /// HTML.
     Html,
+    /// html-derivative: HTML with a rule of its own for the tags no other
+    /// rule takes, which Vue's templates use.
+    #[cfg_attr(
+        not(feature = "lang-html-derivative"),
+        expect(dead_code, reason = "only the html-derivative language lexes it")
+    )]
+    Derivative,
     /// ERB: HTML with ERB's injection in place of the HTML grammar's.
     #[cfg_attr(
         not(feature = "lang-erb"),
         expect(dead_code, reason = "only the ERB language lexes ERB")
     )]
     Erb,
+}
+
+/// Where html-derivative, lexed inside a rule of another grammar that
+/// includes the grammar's root patterns, gives the line back to that rule.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum GiveBack {
+    /// Back at the root after one root-level construct, because the
+    /// rule's own patterns compete at every position: a Markdown paragraph
+    /// or heading.
+    AtRoot,
+    /// At the root, at the first position after a `>` where no root rule
+    /// matches: the end `(?<=>)`, tried after the patterns, of the rule that
+    /// Markdown's emphasis opens at a tag.
+    AfterTag,
 }
 
 /// A match: the bytes `start..end`, and the positions and bits that the
@@ -228,10 +249,17 @@ pub(super) struct Lexer<'a> {
     /// the text early, forgets it on the way in and out.
     next_lt: Cell<(usize, Option<usize>)>,
     /// The grammar the document is lexed with.
-    document: Document,
+    pub(super) document: Document,
     /// The last place found where ERB's injection matches, kept like
     /// `next_lt`.
     next_erb: Cell<(usize, Option<usize>)>,
+    /// Where the line goes back to the grammar that includes this one; none
+    /// for a document or a body that takes whole lines.
+    pub(super) give_back: Option<GiveBack>,
+    /// Whether a match has been applied on this line.
+    applied: bool,
+    /// Where the line went back to the including grammar.
+    given_back: Option<usize>,
 }
 
 impl<'a> Lexer<'a> {
@@ -266,6 +294,9 @@ impl<'a> Lexer<'a> {
             next_lt: Cell::new((usize::MAX, None)),
             document,
             next_erb: Cell::new((usize::MAX, None)),
+            give_back: None,
+            applied: false,
+            given_back: None,
         };
         let mut chain = std::mem::take(&mut lexer.scratch.html.chain);
         chain.clear();
@@ -316,11 +347,25 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
-    pub(super) fn run(mut self) -> u32 {
+    pub(super) fn run(self) -> u32 {
+        self.run_until().0
+    }
+
+    /// Lexes the line and returns the state after it, with the position
+    /// where the line went back to the including grammar, if it did.
+    pub(super) fn run_until(mut self) -> (u32, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
         self.scratch.html.frames = std::mem::take(&mut self.frames);
-        state
+        (state, self.given_back)
+    }
+
+    /// Whether a root pattern matches at `p`, which lexes nothing.
+    #[cfg(feature = "lang-html-derivative")]
+    pub(super) fn opens_at(mut self, p: usize) -> bool {
+        let opens = self.match_at(Rule::Root, p).is_some();
+        self.scratch.html.frames = std::mem::take(&mut self.frames);
+        opens
     }
 
     // Bytes.
@@ -506,6 +551,10 @@ impl<'a> Lexer<'a> {
                 self.finish();
                 return;
             }
+            if self.give_back == Some(GiveBack::AtRoot) && self.applied && self.frames.len() == 1 {
+                self.given_back = Some(self.pos);
+                return;
+            }
             let found = match self.top().rule {
                 Rule::BodyCss | Rule::BodyJs => self.embedded(),
                 Rule::ErbBlock | Rule::ErbLine => self.ruby(),
@@ -547,6 +596,13 @@ impl<'a> Lexer<'a> {
                 | Rule::ErbTagWrap
                 | Rule::ErbComment => self.search(),
             };
+            if let Some(at) = self.after_tag(found.as_ref()) {
+                let content = self.top().content;
+                self.tok(content, at);
+                self.pos = at;
+                self.given_back = Some(at);
+                return;
+            }
             let Some(hit) = found else {
                 if self.over_budget() {
                     self.report.record(Limit::Work);
@@ -555,6 +611,7 @@ impl<'a> Lexer<'a> {
                 return;
             };
             let before = self.pos;
+            self.applied = true;
             if self.apply(hit) {
                 return;
             }
@@ -575,6 +632,20 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Where the end `(?<=>)` of [`GiveBack::AfterTag`] matches before `found`,
+    /// the root's next match: after a `>` at or past the position.
+    fn after_tag(&self, found: Option<&Hit>) -> Option<usize> {
+        if self.give_back != Some(GiveBack::AfterTag) || self.frames.len() != 1 {
+            return None;
+        }
+        let before = found.map_or(self.lim, |hit| hit.start.saturating_sub(1));
+        let from = self.pos.max(1) - 1;
+        let window = self.s.get(from..before)?;
+        let at = memchr(b'>', window);
+        self.spend(at.unwrap_or(window.len()) / 16);
+        at.map(|at| from + at + 1)
+    }
+
     /// The first match from the position: for each candidate position the
     /// innermost rule's end pattern and then its patterns in order, and the
     /// injection where it starts before every one of them.
@@ -584,8 +655,8 @@ impl<'a> Lexer<'a> {
         let inject = match self.document {
             Document::Erb if self.top().erb == ErbInjection::ShutOut => None,
             Document::Erb => self.find_erb(self.pos),
-            Document::Html if self.top().no_inject => None,
-            Document::Html => self.find_lt(self.pos),
+            Document::Html | Document::Derivative if self.top().no_inject => None,
+            Document::Html | Document::Derivative => self.find_lt(self.pos),
         };
         let cut = inject.map_or(self.lim, |at| at + 1);
         let mut p = self.pos;
@@ -619,7 +690,7 @@ impl<'a> Lexer<'a> {
     fn injection(&self, at: usize) -> Option<Hit> {
         match self.document {
             Document::Erb => self.erb_hit(at),
-            Document::Html => Some(Hit::new(Pat::Inject, at, at + 1)),
+            Document::Html | Document::Derivative => Some(Hit::new(Pat::Inject, at, at + 1)),
         }
     }
 
@@ -655,11 +726,13 @@ impl<'a> Lexer<'a> {
             embedded: false,
         };
         let (next, halt) = match (css, self.document) {
-            (true, Document::Html) => crate::css::lex_until(&mut cx, line, inner, style_end),
+            (true, Document::Html | Document::Derivative) => {
+                crate::css::lex_until(&mut cx, line, inner, style_end)
+            }
             (true, Document::Erb) => crate::css::lex_until(&mut cx, line, inner, style_end_or_erb),
             (false, document) => {
                 let after: Option<crate::language::Halt> = match document {
-                    Document::Html => None,
+                    Document::Html | Document::Derivative => None,
                     Document::Erb => Some(erb::begins),
                 };
                 crate::typescript::lex_until(

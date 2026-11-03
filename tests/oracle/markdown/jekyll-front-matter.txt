@@ -76,515 +76,955 @@ L relies on.
 T 10 text.html.markdown meta.paragraph.markdown
 L 
 L <div class="note warning">
-T 26 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 25 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L   <h5>UTF-8 Character Encoding Warning</h5>
-T 2 text.html.markdown meta.paragraph.markdown
-T 43 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.h5.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.end.html
+T 38 text.html.markdown
+T 40 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.begin.html
+T 42 text.html.markdown meta.tag.structure.h5.end.html entity.name.tag.html
+T 43 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.end.html
 L   <p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L     If you use UTF-8 encoding, make sure that no <code>BOM</code> header
-T 4 text.html.markdown meta.paragraph.markdown
-T 72 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown
+T 50 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 54 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 55 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 58 text.html.markdown
+T 60 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 64 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 65 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 72 text.html.markdown
 L     characters exist in your files or very, very bad things will happen to
-T 4 text.html.markdown meta.paragraph.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L     Jekyll. This is especially relevant if you’re running
-T 4 text.html.markdown meta.paragraph.markdown
-T 59 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown
 L     <a href="{{ '/docs/installation/windows/' | relative_url }}">Jekyll on Windows</a>.
-T 4 text.html.markdown meta.paragraph.markdown
-T 87 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 6 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 7 text.html.markdown meta.tag.inline.a.start.html
+T 11 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 63 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 64 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 65 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 82 text.html.markdown
+T 84 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 85 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 86 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 87 text.html.markdown
 L   </p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 
 L <div class="note">
-T 18 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 17 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L   <h5>Front Matter Variables Are Optional</h5>
-T 2 text.html.markdown meta.paragraph.markdown
-T 46 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.h5.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.end.html
+T 41 text.html.markdown
+T 43 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.begin.html
+T 45 text.html.markdown meta.tag.structure.h5.end.html entity.name.tag.html
+T 46 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.end.html
 L   <p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L     If you want to use <a href="{{ '/docs/variables/' | relative_url }}">Liquid tags and variables</a>
-T 4 text.html.markdown meta.paragraph.markdown
-T 102 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown
+T 24 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 25 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 26 text.html.markdown meta.tag.inline.a.start.html
+T 30 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 31 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 32 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 71 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 72 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 73 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 98 text.html.markdown
+T 100 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 101 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 102 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
 L     but don’t need anything in your front matter, just leave it empty! The set
-T 4 text.html.markdown meta.paragraph.markdown
-T 80 text.html.markdown meta.paragraph.markdown
+T 80 text.html.markdown
 L     of triple-dashed lines with nothing in between will still get Jekyll to
-T 4 text.html.markdown meta.paragraph.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L     process your file. (This is useful for things like CSS and RSS feeds!)
-T 4 text.html.markdown meta.paragraph.markdown
-T 74 text.html.markdown meta.paragraph.markdown
+T 74 text.html.markdown
 L   </p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 
 L ## Predefined Global Variables
-T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
-T 3 text.html.markdown markup.heading.markdown heading.2.markdown
-T 30 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 30 text.html.markdown
 L 
 L There are a number of predefined global variables that you can set in the
-T 73 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown
 L front matter of a page or post.
-T 31 text.html.markdown meta.paragraph.markdown
+T 31 text.html.markdown
 L 
 L <div class="mobile-side-scroller">
-T 34 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L <table>
-T 7 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.table.start.html punctuation.definition.tag.begin.html
+T 6 text.html.markdown meta.tag.structure.table.start.html entity.name.tag.html
+T 7 text.html.markdown meta.tag.structure.table.start.html punctuation.definition.tag.end.html
 L   <thead>
-T 2 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.thead.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.thead.start.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.thead.start.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <th>Variable</th>
-T 6 text.html.markdown meta.paragraph.markdown
-T 23 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.th.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.end.html
+T 18 text.html.markdown
+T 20 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.begin.html
+T 22 text.html.markdown meta.tag.structure.th.end.html entity.name.tag.html
+T 23 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.end.html
 L       <th>Description</th>
-T 6 text.html.markdown meta.paragraph.markdown
-T 26 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.th.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.end.html
+T 21 text.html.markdown
+T 23 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.begin.html
+T 25 text.html.markdown meta.tag.structure.th.end.html entity.name.tag.html
+T 26 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L   </thead>
-T 2 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.thead.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.thead.end.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.thead.end.html punctuation.definition.tag.end.html
 L   <tbody>
-T 2 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.tbody.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tbody.start.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tbody.start.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>layout</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 34 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 23 text.html.markdown
+T 25 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 29 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 30 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 32 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 33 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 34 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L 
 L           If set, this specifies the layout file to use. Use the layout file
-T 10 text.html.markdown meta.paragraph.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L           name without the file extension. Layout files must be placed in the
-T 10 text.html.markdown meta.paragraph.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L           <code>_layouts</code> directory.
-T 10 text.html.markdown meta.paragraph.markdown
-T 42 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
+T 11 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 15 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 16 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 24 text.html.markdown
+T 26 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 30 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 31 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 42 text.html.markdown
 L 
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L         <ul>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.ul.start.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
 L           <li>
-T 10 text.html.markdown meta.paragraph.markdown
-T 14 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
+T 11 text.html.markdown meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 13 text.html.markdown meta.tag.structure.li.start.html entity.name.tag.html
+T 14 text.html.markdown meta.tag.structure.li.start.html punctuation.definition.tag.end.html
 L             Using <code>null</code> will produce a file without using a layout
-T 12 text.html.markdown meta.paragraph.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown
+T 19 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 23 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 24 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 28 text.html.markdown
+T 30 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 34 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 35 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 78 text.html.markdown
 L             file. This is overridden if the file is a post/document and has a
-T 12 text.html.markdown meta.paragraph.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L             layout defined in the <a href="{{ '/docs/configuration/front-matter-defaults/' | relative_url }}">
-T 12 text.html.markdown meta.paragraph.markdown
-T 110 text.html.markdown meta.paragraph.markdown
+T 34 text.html.markdown
+T 35 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 36 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 37 text.html.markdown meta.tag.inline.a.start.html
+T 41 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 42 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 43 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 108 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 109 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 110 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
 L             front matter defaults</a>.
-T 12 text.html.markdown meta.paragraph.markdown
-T 38 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown
+T 35 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 36 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 37 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 38 text.html.markdown
 L           </li>
-T 10 text.html.markdown meta.paragraph.markdown
-T 15 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
+T 12 text.html.markdown meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 14 text.html.markdown meta.tag.structure.li.end.html entity.name.tag.html
+T 15 text.html.markdown meta.tag.structure.li.end.html punctuation.definition.tag.end.html
 L           <li>
-T 10 text.html.markdown meta.paragraph.markdown
-T 14 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
+T 11 text.html.markdown meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 13 text.html.markdown meta.tag.structure.li.start.html entity.name.tag.html
+T 14 text.html.markdown meta.tag.structure.li.start.html punctuation.definition.tag.end.html
 L             Starting from version 3.5.0, using <code>none</code> in a post/document will
-T 12 text.html.markdown meta.paragraph.markdown
-T 88 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown
+T 48 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 52 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 53 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 57 text.html.markdown
+T 59 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 63 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 64 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 88 text.html.markdown
 L             produce a file without using a layout file regardless of front matter defaults.
-T 12 text.html.markdown meta.paragraph.markdown
-T 91 text.html.markdown meta.paragraph.markdown
+T 91 text.html.markdown
 L             Using <code>none</code> in a page will cause Jekyll to attempt to
-T 12 text.html.markdown meta.paragraph.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown
+T 19 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 23 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 24 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 28 text.html.markdown
+T 30 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 34 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 35 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 77 text.html.markdown
 L             use a layout named "none".
-T 12 text.html.markdown meta.paragraph.markdown
-T 38 text.html.markdown meta.paragraph.markdown
+T 38 text.html.markdown
 L           </li>
-T 10 text.html.markdown meta.paragraph.markdown
-T 15 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown
+T 12 text.html.markdown meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 14 text.html.markdown meta.tag.structure.li.end.html entity.name.tag.html
+T 15 text.html.markdown meta.tag.structure.li.end.html punctuation.definition.tag.end.html
 L         </ul>
-T 8 text.html.markdown meta.paragraph.markdown
-T 13 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 12 text.html.markdown meta.tag.structure.ul.end.html entity.name.tag.html
+T 13 text.html.markdown meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>permalink</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 37 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 26 text.html.markdown
+T 28 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 32 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 33 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 35 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 36 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 37 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L 
 L           If you need your processed blog post URLs to be something other than
-T 10 text.html.markdown meta.paragraph.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L           the site-wide style (default <code>/year/month/day/title.html</code>), then you can set
-T 10 text.html.markdown meta.paragraph.markdown
-T 97 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown
+T 40 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 44 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 45 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 71 text.html.markdown
+T 73 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 77 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 78 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 97 text.html.markdown
 L           this variable and it will be used as the final URL.
-T 10 text.html.markdown meta.paragraph.markdown
-T 61 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown
 L 
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>published</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 37 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 26 text.html.markdown
+T 28 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 32 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 33 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 35 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 36 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 37 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L           Set to false if you don’t want a specific post to show up when the
-T 10 text.html.markdown meta.paragraph.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L           site is generated.
-T 10 text.html.markdown meta.paragraph.markdown
-T 28 text.html.markdown meta.paragraph.markdown
+T 28 text.html.markdown
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L   </tbody>
-T 2 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.tbody.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.tbody.end.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.tbody.end.html punctuation.definition.tag.end.html
 L </table>
-T 8 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.table.end.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.table.end.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.table.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 
 L <div class="note">
-T 18 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 17 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L   <h5>Render Posts Marked As Unpublished</h5>
-T 2 text.html.markdown meta.paragraph.markdown
-T 45 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.h5.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.end.html
+T 40 text.html.markdown
+T 42 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.begin.html
+T 44 text.html.markdown meta.tag.structure.h5.end.html entity.name.tag.html
+T 45 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.end.html
 L   <p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L     To preview unpublished pages, run `jekyll serve` or `jekyll build`
-T 4 text.html.markdown meta.paragraph.markdown
-T 38 text.html.markdown meta.paragraph.markdown
-T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 51 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 56 text.html.markdown meta.paragraph.markdown
-T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown
 L     with the `--unpublished` switch. Jekyll also has a handy <a href="{{ '/docs/posts/#drafts' | relative_url }}">drafts</a>
-T 4 text.html.markdown meta.paragraph.markdown
-T 13 text.html.markdown meta.paragraph.markdown
-T 14 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 27 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 124 text.html.markdown meta.paragraph.markdown
+T 61 text.html.markdown
+T 62 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 63 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 64 text.html.markdown meta.tag.inline.a.start.html
+T 68 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 69 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 70 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 112 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 113 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 114 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 120 text.html.markdown
+T 122 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 123 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 124 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
 L     feature tailored specifically for blog posts.
-T 4 text.html.markdown meta.paragraph.markdown
-T 49 text.html.markdown meta.paragraph.markdown
+T 49 text.html.markdown
 L   </p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 
 L ## Custom Variables
-T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
-T 3 text.html.markdown markup.heading.markdown heading.2.markdown
-T 19 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 19 text.html.markdown
 L 
 L You can also set your own front matter variables you can access in Liquid. For
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L instance, if you set a variable called `food`, you can use that in your page:
-T 39 text.html.markdown meta.paragraph.markdown
-T 40 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
-T 45 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L 
 L {% raw %}
-T 9 text.html.markdown meta.paragraph.markdown
+T 9 text.html.markdown
 L ```liquid
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 9 text.html.markdown
 L ---
-T 3 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown
 L food: Pizza
-T 11 text.html.markdown markup.fenced_code.block.markdown
+T 11 text.html.markdown
 L ---
-T 3 text.html.markdown markup.fenced_code.block.markdown
+T 3 text.html.markdown
 L 
 L <h1>{{ page.food }}</h1>
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 3 text.html.markdown meta.tag.structure.h1.start.html entity.name.tag.html
+T 4 text.html.markdown meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 19 text.html.markdown
+T 21 text.html.markdown meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 23 text.html.markdown meta.tag.structure.h1.end.html entity.name.tag.html
+T 24 text.html.markdown meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
 L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 3 text.html.markdown
 L {% endraw %}
-T 12 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown
 L 
 L ## Predefined Variables for Posts
-T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
-T 3 text.html.markdown markup.heading.markdown heading.2.markdown
-T 33 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+T 33 text.html.markdown
 L 
 L These are available out-of-the-box to be used in the front matter for a post.
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L 
 L <div class="mobile-side-scroller">
-T 34 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L <table>
-T 7 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.table.start.html punctuation.definition.tag.begin.html
+T 6 text.html.markdown meta.tag.structure.table.start.html entity.name.tag.html
+T 7 text.html.markdown meta.tag.structure.table.start.html punctuation.definition.tag.end.html
 L   <thead>
-T 2 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.thead.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.thead.start.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.thead.start.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <th>Variable</th>
-T 6 text.html.markdown meta.paragraph.markdown
-T 23 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.th.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.end.html
+T 18 text.html.markdown
+T 20 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.begin.html
+T 22 text.html.markdown meta.tag.structure.th.end.html entity.name.tag.html
+T 23 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.end.html
 L       <th>Description</th>
-T 6 text.html.markdown meta.paragraph.markdown
-T 26 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.th.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.th.start.html punctuation.definition.tag.end.html
+T 21 text.html.markdown
+T 23 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.begin.html
+T 25 text.html.markdown meta.tag.structure.th.end.html entity.name.tag.html
+T 26 text.html.markdown meta.tag.structure.th.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L   </thead>
-T 2 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.thead.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.thead.end.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.thead.end.html punctuation.definition.tag.end.html
 L   <tbody>
-T 2 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.tbody.start.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tbody.start.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tbody.start.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>date</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 32 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 21 text.html.markdown
+T 23 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 27 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 28 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 30 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 31 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 32 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L           A date here overrides the date from the name of the post. This can be
-T 10 text.html.markdown meta.paragraph.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L           used to ensure correct sorting of posts. A date is specified in the
-T 10 text.html.markdown meta.paragraph.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L           format <code>YYYY-MM-DD HH:MM:SS +/-TTTT</code>; hours, minutes, seconds, and timezone offset
-T 10 text.html.markdown meta.paragraph.markdown
-T 103 text.html.markdown meta.paragraph.markdown
+T 17 text.html.markdown
+T 18 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 22 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 23 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 50 text.html.markdown
+T 52 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 56 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 57 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 103 text.html.markdown
 L           are optional.
-T 10 text.html.markdown meta.paragraph.markdown
-T 23 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>category</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 36 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 25 text.html.markdown
+T 27 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 31 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 32 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 34 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 35 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 36 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L         <p><code>categories</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 38 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 27 text.html.markdown
+T 29 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 33 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 34 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 36 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 37 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 38 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L 
 L           Instead of placing posts inside of folders, you can specify one or
-T 10 text.html.markdown meta.paragraph.markdown
-T 76 text.html.markdown meta.paragraph.markdown
+T 76 text.html.markdown
 L           more categories that the post belongs to. When the site is generated
-T 10 text.html.markdown meta.paragraph.markdown
-T 78 text.html.markdown meta.paragraph.markdown
+T 78 text.html.markdown
 L           the post will act as though it had been set with these categories
-T 10 text.html.markdown meta.paragraph.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L           normally. Categories (plural key) can be specified as a <a
-T 10 text.html.markdown meta.paragraph.markdown
-T 68 text.html.markdown meta.paragraph.markdown
+T 66 text.html.markdown
+T 67 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 68 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
 L           href="https://en.wikipedia.org/wiki/YAML#Basic_components">YAML list</a> or a
-T 10 text.html.markdown meta.paragraph.markdown
-T 87 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.tag.inline.a.start.html
+T 14 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 15 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 16 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 67 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 68 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 69 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 78 text.html.markdown
+T 80 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 81 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 82 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 87 text.html.markdown
 L           space-separated string.
-T 10 text.html.markdown meta.paragraph.markdown
-T 33 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown
 L 
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L     <tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 8 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.tr.start.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p><code>tags</code></p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 32 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 12 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.markdown meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.markdown meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 21 text.html.markdown
+T 23 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 27 text.html.markdown meta.tag.inline.code.end.html entity.name.tag.html
+T 28 text.html.markdown meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 30 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 31 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 32 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L       <td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 7 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.td.start.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.td.start.html punctuation.definition.tag.end.html
 L         <p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 9 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L 
 L           Similar to categories, one or multiple tags can be added to a post.
-T 10 text.html.markdown meta.paragraph.markdown
-T 77 text.html.markdown meta.paragraph.markdown
+T 77 text.html.markdown
 L           Also like categories, tags can be specified as a <a
-T 10 text.html.markdown meta.paragraph.markdown
-T 61 text.html.markdown meta.paragraph.markdown
+T 59 text.html.markdown
+T 60 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 61 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
 L           href="https://en.wikipedia.org/wiki/YAML#Basic_components">YAML list</a> or a
-T 10 text.html.markdown meta.paragraph.markdown
-T 87 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.tag.inline.a.start.html
+T 14 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 15 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 16 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 67 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 68 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 69 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 78 text.html.markdown
+T 80 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 81 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 82 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 87 text.html.markdown
 L           space-separated string.
-T 10 text.html.markdown meta.paragraph.markdown
-T 33 text.html.markdown meta.paragraph.markdown
+T 33 text.html.markdown
 L 
 L         </p>
-T 8 text.html.markdown meta.paragraph.markdown
-T 12 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown
+T 10 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L       </td>
-T 6 text.html.markdown meta.paragraph.markdown
-T 11 text.html.markdown meta.paragraph.markdown
+T 6 text.html.markdown
+T 8 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 10 text.html.markdown meta.tag.structure.td.end.html entity.name.tag.html
+T 11 text.html.markdown meta.tag.structure.td.end.html punctuation.definition.tag.end.html
 L     </tr>
-T 4 text.html.markdown meta.paragraph.markdown
-T 9 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 6 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown meta.tag.structure.tr.end.html entity.name.tag.html
+T 9 text.html.markdown meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
 L   </tbody>
-T 2 text.html.markdown meta.paragraph.markdown
-T 10 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.tbody.end.html punctuation.definition.tag.begin.html
+T 9 text.html.markdown meta.tag.structure.tbody.end.html entity.name.tag.html
+T 10 text.html.markdown meta.tag.structure.tbody.end.html punctuation.definition.tag.end.html
 L </table>
-T 8 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.table.end.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown meta.tag.structure.table.end.html entity.name.tag.html
+T 8 text.html.markdown meta.tag.structure.table.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 
 L <div class="note">
-T 18 text.html.markdown meta.paragraph.markdown
+T 1 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.div.start.html
+T 10 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 17 text.html.markdown meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 text.html.markdown meta.tag.structure.div.start.html punctuation.definition.tag.end.html
 L   <h5>Don't repeat yourself</h5>
-T 2 text.html.markdown meta.paragraph.markdown
-T 32 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.h5.start.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.h5.start.html punctuation.definition.tag.end.html
+T 27 text.html.markdown
+T 29 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.begin.html
+T 31 text.html.markdown meta.tag.structure.h5.end.html entity.name.tag.html
+T 32 text.html.markdown meta.tag.structure.h5.end.html punctuation.definition.tag.end.html
 L   <p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 5 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 3 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
 L     If you don't want to repeat your frequently used front matter variables
-T 4 text.html.markdown meta.paragraph.markdown
-T 75 text.html.markdown meta.paragraph.markdown
+T 75 text.html.markdown
 L     over and over, define
-T 4 text.html.markdown meta.paragraph.markdown
-T 25 text.html.markdown meta.paragraph.markdown
+T 25 text.html.markdown
 L     <a href="{{ '/docs/configuration/front-matter-defaults/' | relative_url }}" title="Front Matter defaults">defaults</a>
-T 4 text.html.markdown meta.paragraph.markdown
-T 122 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown
+T 5 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 6 text.html.markdown meta.tag.inline.a.start.html entity.name.tag.html
+T 7 text.html.markdown meta.tag.inline.a.start.html
+T 11 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 12 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 13 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 78 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 79 text.html.markdown meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 80 text.html.markdown meta.tag.inline.a.start.html
+T 85 text.html.markdown meta.tag.inline.a.start.html meta.attribute.title.html entity.other.attribute-name.html
+T 86 text.html.markdown meta.tag.inline.a.start.html meta.attribute.title.html punctuation.separator.key-value.html
+T 87 text.html.markdown meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.begin.html
+T 108 text.html.markdown meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html
+T 109 text.html.markdown meta.tag.inline.a.start.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.end.html
+T 110 text.html.markdown meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 118 text.html.markdown
+T 120 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 121 text.html.markdown meta.tag.inline.a.end.html entity.name.tag.html
+T 122 text.html.markdown meta.tag.inline.a.end.html punctuation.definition.tag.end.html
 L     for them and only override them where necessary (or not at all). This works
-T 4 text.html.markdown meta.paragraph.markdown
-T 79 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown
 L     both for predefined and custom variables.
-T 4 text.html.markdown meta.paragraph.markdown
-T 45 text.html.markdown meta.paragraph.markdown
+T 45 text.html.markdown
 L   </p>
-T 2 text.html.markdown meta.paragraph.markdown
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown
+T 4 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
 L </div>
-T 6 text.html.markdown meta.paragraph.markdown
+T 2 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.markdown meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.markdown meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L 

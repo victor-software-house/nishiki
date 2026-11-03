@@ -49,6 +49,7 @@ impl Lexer<'_> {
                     TagKind::Void => ".void.html",
                     TagKind::CustomStart => return self.path(base, &[S::TagCustomStart]),
                     TagKind::CustomEnd => return self.path(base, &[S::TagCustomEnd]),
+                    TagKind::Derivative => return self.path(base, &[S::TagDerivative]),
                     TagKind::Unrecognized => {
                         return self.dynamic(
                             base,
@@ -254,9 +255,11 @@ impl Lexer<'_> {
         let tag = TagInfo::from_bits(hit.info & 0x3f);
         let word = match tag.kind {
             TagKind::CustomStart | TagKind::CustomEnd => 0,
-            TagKind::Start | TagKind::End | TagKind::Void | TagKind::Unrecognized => {
-                self.intern(from, to)
-            }
+            TagKind::Start
+            | TagKind::End
+            | TagKind::Void
+            | TagKind::Unrecognized
+            | TagKind::Derivative => self.intern(from, to),
         };
         (Rule::Tag, packed(hit.info & 0x3f, word))
     }

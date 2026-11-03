@@ -72,6 +72,8 @@
 mod block;
 mod caps;
 mod fence;
+#[cfg(feature = "lang-html-derivative")]
+mod html;
 mod inline;
 mod lexer;
 mod limits;

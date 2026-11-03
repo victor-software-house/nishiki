@@ -27,6 +27,8 @@ mod scope;
 mod state;
 mod words;
 
+#[cfg(all(feature = "lang-html-derivative", feature = "lang-markdown"))]
+pub(crate) use engine::GiveBack;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
@@ -66,6 +68,76 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
         return state;
     }
     engine::Lexer::new(cx, line, state, engine::Document::Html).run()
+}
+
+/// The state at the start of an html-derivative document whose scopes sit on
+/// the stack `base`: the HTML root rule with `text.html.derivative` on top of
+/// it.
+#[cfg(feature = "lang-html-derivative")]
+pub(crate) fn start_derivative(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena
+        .child(base, S::TextHtmlDerivative.scope())
+        .unwrap_or(base);
+    arena
+        .push(ROOT, Rule::Root.code(), 0, stack)
+        .unwrap_or(ROOT)
+}
+
+/// Lexes a line of an html-derivative document like [`lex`], with the
+/// grammar's own rule for the tags no other rule takes.
+#[cfg(feature = "lang-html-derivative")]
+pub(crate) fn lex_derivative(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    if line.text.len() <= line.start {
+        return state;
+    }
+    engine::Lexer::new(cx, line, state, engine::Document::Derivative).run()
+}
+
+/// Whether a line feed follows the text that html-derivative is given.
+#[cfg(feature = "lang-html-derivative")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Span {
+    /// A line, which a line feed ends.
+    Line,
+    /// A capture group, which `TextMate` lexes again on its text alone.
+    Capture,
+}
+
+/// Lexes html-derivative in a rule of another grammar that includes the
+/// grammar's root patterns or hands it a capture group: from `line.start`
+/// and `state` up to where `give_back` returns the line, or to the end of the
+/// text. Returns the state there and, when the line went back to the including
+/// grammar, where.
+#[cfg(feature = "lang-html-derivative")]
+pub(crate) fn lex_derivative_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    span: Span,
+    give_back: Option<engine::GiveBack>,
+) -> (u32, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (state, None);
+    }
+    let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Derivative);
+    lexer.lf = span == Span::Line;
+    lexer.give_back = give_back;
+    lexer.run_until()
+}
+
+/// Whether one of html-derivative's root patterns matches at `line.start`,
+/// as it would from `state`, an embedded start; it lexes nothing.
+#[cfg(feature = "lang-html-derivative")]
+pub(crate) fn derivative_opens_at(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    span: Span,
+) -> bool {
+    let start = line.start;
+    let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Derivative);
+    lexer.lf = span == Span::Line;
+    lexer.opens_at(start)
 }
 
 /// The state at the start of an ERB document whose scopes sit on the stack

@@ -296,6 +296,9 @@ pub(crate) enum TagKind {
     CustomEnd,
     /// A tag the grammar does not know, ending at `>`, `/>` or ` />`.
     Unrecognized,
+    /// A tag that html-derivative's own rule takes, `(</?)(\w[^<>\s]*)`,
+    /// ending as an unrecognized tag does.
+    Derivative,
 }
 
 impl TagKind {
@@ -314,7 +317,8 @@ impl TagKind {
             2 => TagKind::Void,
             3 => TagKind::CustomStart,
             4 => TagKind::CustomEnd,
-            _ => TagKind::Unrecognized,
+            5 => TagKind::Unrecognized,
+            _ => TagKind::Derivative,
         }
     }
 }

@@ -474,7 +474,10 @@ L
 L #### Support for older versions <!-- omit in toc -->
 T 4 text.html.markdown markup.heading.markdown heading.4.markdown punctuation.definition.heading.markdown
 T 5 text.html.markdown markup.heading.markdown heading.4.markdown
-T 52 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 32 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown
+T 36 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 49 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown comment.block.html
+T 52 text.html.markdown markup.heading.markdown heading.4.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L Please see [SECURITY.md](https://github.com/highlightjs/highlight.js/blob/main/SECURITY.md) for long-term support information.
 T 11 text.html.markdown meta.paragraph.markdown
@@ -1920,7 +1923,10 @@ L
 L ##### Common JS <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 16 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 20 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 33 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
@@ -1979,7 +1985,10 @@ L
 L ##### ES6 Modules <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 22 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 35 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ````html
 T 4 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
@@ -2073,7 +2082,10 @@ L
 L ##### Common JS <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 16 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 20 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 33 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
@@ -2132,7 +2144,10 @@ L
 L ##### ES6 Modules <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 22 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 35 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
@@ -2224,7 +2239,10 @@ L
 L ##### Common JS <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 16 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 20 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 33 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 36 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
@@ -2283,7 +2301,10 @@ L
 L ##### ES6 Modules <!-- omit in toc -->
 T 5 text.html.markdown markup.heading.markdown heading.5.markdown punctuation.definition.heading.markdown
 T 6 text.html.markdown markup.heading.markdown heading.5.markdown
-T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 18 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown
+T 22 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
+T 35 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html
+T 38 text.html.markdown markup.heading.markdown heading.5.markdown entity.name.section.markdown comment.block.html punctuation.definition.comment.html
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown

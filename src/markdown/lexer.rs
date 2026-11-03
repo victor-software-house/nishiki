@@ -13,6 +13,8 @@
 use std::cell::Cell;
 
 use super::caps::{Caps, NESTING};
+#[cfg(feature = "lang-html-derivative")]
+use super::html;
 use super::rules::{self, Capture, End, List, P};
 use super::scope::S;
 use super::state::{Fence, Kind};
@@ -99,9 +101,14 @@ impl Starts {
                 }
             }
             Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
-            Kind::FrontMatterBody | Kind::RawBlock => Starts::Nowhere,
+            Kind::FrontMatterBody
+            | Kind::RawBlock
+            | Kind::HtmlRawBody
+            | Kind::HtmlBlock
+            | Kind::HtmlInline
+            | Kind::HtmlWrap => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
-            Kind::Table => Starts::Anywhere,
+            Kind::HtmlRaw | Kind::Table => Starts::Anywhere,
             Kind::Paragraph
             | Kind::BoldStar
             | Kind::BoldUnder
@@ -113,7 +120,7 @@ impl Starts {
     fn of_list(list: List) -> Starts {
         match list {
             List::Heading => Starts::Anywhere,
-            List::Inline | List::LinkText | List::StrikeText => Starts::Inline,
+            List::Inline | List::HeadingText | List::LinkText | List::StrikeText => Starts::Inline,
         }
     }
 
@@ -381,6 +388,12 @@ impl<'a> Lexer<'a> {
                 Kind::RawBlock => block::raw_block(&cx, pos),
                 Kind::Table => block::table_while(&cx, pos).then_some(pos),
                 Kind::Paragraph => block::paragraph_while(&cx, pos),
+                #[cfg(feature = "lang-html-derivative")]
+                Kind::HtmlRawBody => html::raw_while(&cx, pos),
+                #[cfg(feature = "lang-html-derivative")]
+                Kind::HtmlBlock => html::block_while(&cx, pos),
+                #[cfg(not(feature = "lang-html-derivative"))]
+                Kind::HtmlRawBody | Kind::HtmlBlock => None,
                 Kind::Base
                 | Kind::Fence(_)
                 | Kind::FencePlain
@@ -389,7 +402,10 @@ impl<'a> Lexer<'a> {
                 | Kind::BoldStar
                 | Kind::BoldUnder
                 | Kind::ItalicStar
-                | Kind::ItalicUnder => {
+                | Kind::ItalicUnder
+                | Kind::HtmlRaw
+                | Kind::HtmlInline
+                | Kind::HtmlWrap => {
                     index += 1;
                     continue;
                 }
@@ -530,6 +546,8 @@ impl<'a> Lexer<'a> {
                 block::front_matter_close(&cx, start, dashes, &mut self.caps)
             }
             End::Comment => block::comment_close(&cx, start, &mut self.caps),
+            #[cfg(feature = "lang-html-derivative")]
+            End::HtmlRaw => html::raw_close(&cx, start, &mut self.caps),
             End::Bold => {
                 let mark = if kind == Kind::BoldStar { b'*' } else { b'_' };
                 inline::bold_close(&cx, start, mark, &mut self.caps)
@@ -552,6 +570,14 @@ impl<'a> Lexer<'a> {
     /// blanks can start one.
     fn try_rule(&mut self, rule: P, start: usize) -> Option<Hit> {
         self.caps.clear();
+        #[cfg(feature = "lang-html-derivative")]
+        if rule == P::Html {
+            return self.html_opens(start).then_some(Hit {
+                rule: Some(rule),
+                start,
+                end: start,
+            });
+        }
         let cx = cx!(self);
         let mut rule = rule;
         let end = match rule {
@@ -618,6 +644,16 @@ impl<'a> Lexer<'a> {
             P::LinkRefLiteral => inline::link_reference_literal(&cx, start, &mut self.caps),
             P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, &mut self.caps),
             P::FenceLanguage | P::FencePlain => None,
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRaw => html::raw_open(&cx, start),
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRawBody => Some(cx.skip_space(start)),
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlBlock => html::block_open(&cx, start),
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlWrap => html::wrap_open(&cx, start),
+            #[cfg(feature = "lang-html-derivative")]
+            P::Html => None,
         }?;
         Some(Hit {
             rule: Some(rule),
@@ -665,6 +701,16 @@ impl<'a> Lexer<'a> {
             P::Bold => Kind::BoldUnder,
             P::Italic if byte == Some(b'*') => Kind::ItalicStar,
             P::Italic => Kind::ItalicUnder,
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRaw => Kind::HtmlRaw,
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlRawBody => Kind::HtmlRawBody,
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlBlock => Kind::HtmlBlock,
+            #[cfg(feature = "lang-html-derivative")]
+            P::Html => Kind::HtmlInline,
+            #[cfg(feature = "lang-html-derivative")]
+            P::HtmlWrap => Kind::HtmlWrap,
             P::Separator
             | P::Heading
             | P::Fence
@@ -764,6 +810,12 @@ impl<'a> Lexer<'a> {
                 Kind::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
                 #[cfg(not(feature = "lang-yaml"))]
                 Kind::FrontMatterBody => 0,
+                #[cfg(feature = "lang-html-derivative")]
+                Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => {
+                    Language::HtmlDerivative.start_embedded(self.arena, content)
+                }
+                #[cfg(not(feature = "lang-html-derivative"))]
+                Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => 0,
                 Kind::FrontMatter => {
                     let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
                     u32::try_from(dashes).unwrap_or(u32::MAX)
@@ -780,7 +832,8 @@ impl<'a> Lexer<'a> {
                 | Kind::BoldStar
                 | Kind::BoldUnder
                 | Kind::ItalicStar
-                | Kind::ItalicUnder => 0,
+                | Kind::ItalicUnder
+                | Kind::HtmlRaw => 0,
             };
             let state = if in_capture {
                 None
@@ -826,14 +879,25 @@ impl<'a> Lexer<'a> {
         };
         self.emit(hit.start, frame.content);
         if let Some(end) = rules::end(kind) {
-            self.captures(frame.name, hit.end, caps, |group| {
-                rules::end_capture(end, group)
-            });
+            self.end_captures(end, frame.name, hit.end, caps);
         }
         self.emit(hit.end, frame.name);
         self.frames.pop();
         self.anchor = frame.saved_anchor;
         self.pos = self.pos.max(hit.end);
+    }
+
+    /// The capture groups of `end`'s match, which ends at `match_end`.
+    fn end_captures(&mut self, end: End, base: u32, match_end: usize, caps: &Caps) {
+        match end {
+            #[cfg(feature = "lang-html-derivative")]
+            End::HtmlRaw => self.html_raw_end(base, caps),
+            End::FrontMatter | End::Fence | End::Comment | End::Bold | End::Italic => {
+                self.captures(base, match_end, caps, |group| {
+                    rules::end_capture(end, group)
+                });
+            }
+        }
     }
 
     fn scope_match(&mut self, rule: P, hit: &Hit, caps: &Caps) {
@@ -928,23 +992,25 @@ impl<'a> Lexer<'a> {
 
     // Embedded languages.
 
-    /// Takes the rest of the line for the language of the open fence, from
-    /// the cursor or, when the containers took the line feed too, from the
-    /// line's end. The next line resumes from this body with the embedded
-    /// lexer's new state.
-    fn embedded(&mut self) {
-        let start = self.pos;
-        let Some(frame) = self.frames.last().copied() else {
-            return;
-        };
-        let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
-            return;
-        };
-        if start >= self.line.len() && !lang.reads_line_feed() {
-            return;
+    /// Whether the text the rules see is a line or a capture group.
+    #[cfg(feature = "lang-html-derivative")]
+    fn span(&self) -> crate::html::Span {
+        if self.limit > self.line.len() {
+            crate::html::Span::Line
+        } else {
+            crate::html::Span::Capture
         }
-        let start = start.min(self.line.len());
-        self.emit(start, frame.content);
+    }
+
+    /// Whether one of html-derivative's root patterns matches at `start`.
+    #[cfg(feature = "lang-html-derivative")]
+    fn html_opens(&mut self, start: usize) -> bool {
+        if !matches!(self.line.as_bytes().get(start), Some(b'<' | b'&')) {
+            return false;
+        }
+        let span = self.span();
+        let text = &self.line[..self.limit.min(self.line.len())];
+        let state = crate::html::start_embedded(self.arena, ROOT);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
@@ -953,14 +1019,157 @@ impl<'a> Lexer<'a> {
             report: &mut *self.report,
         };
         let line = Line {
-            text: self.line,
+            text,
             start,
             embedded: true,
         };
+        crate::html::derivative_opens_at(&mut cx, line, state, span)
+    }
+
+    /// Gives the line back from html-derivative, which gave it back at `at`,
+    /// closing its container. A wrapper that closes where it opened would
+    /// open again there, so, as in `TextMate`, it stays open and takes the
+    /// rest of the text.
+    #[cfg(feature = "lang-html-derivative")]
+    fn give_back_at(&mut self, at: usize, start: usize, end: usize, frame: &Frame) {
+        self.last = self.last.max(at);
+        if at == start && matches!(frame.rule, Rule::Open(Kind::HtmlWrap)) {
+            self.emit(end, frame.content);
+            self.pos = self.limit + 1;
+            return;
+        }
+        self.frames.pop();
+        self.anchor = frame.saved_anchor;
+        self.pos = at;
+    }
+
+    /// The closing match of a raw HTML block: the text before the closing
+    /// tag goes to html-derivative from its start, as a capture group, and
+    /// the tag is named after its own spelling, as `$4` names it.
+    #[cfg(feature = "lang-html-derivative")]
+    fn html_raw_end(&mut self, base: u32, caps: &Caps) {
+        let mut groups = [(0, 0); 6];
+        for (group, range) in caps.iter() {
+            if let Some(slot) = groups.get_mut(group) {
+                *slot = range;
+            }
+        }
+        let [_, (text, close), _, _, (name, name_end), _] = groups;
+        if text < close {
+            let state = crate::html::start_embedded(self.arena, base);
+            let mut cx = Context {
+                scratch: &mut *self.scratch,
+                arena: &mut *self.arena,
+                limits: self.limits,
+                out: &mut *self.out,
+                report: &mut *self.report,
+            };
+            let line = Line {
+                text: &self.line[..close],
+                start: text,
+                embedded: false,
+            };
+            crate::html::lex_derivative_until(
+                &mut cx,
+                line,
+                state,
+                crate::html::Span::Capture,
+                None,
+            );
+            self.last = self.last.max(close);
+        }
+        let mut buffer = [0_u8; 40];
+        let tag = self.line.as_bytes().get(name..name_end).unwrap_or_default();
+        let parts: [&[u8]; 3] = [b"meta.tag.structure.", tag, b".end.html"];
+        let mut len = 0;
+        for part in parts {
+            for &b in part {
+                if let Some(slot) = buffer.get_mut(len) {
+                    *slot = b;
+                    len += 1;
+                }
+            }
+        }
+        let named = std::str::from_utf8(&buffer[..len])
+            .ok()
+            .and_then(|scope| self.arena.named_scope(scope));
+        let tag_stack = named
+            .and_then(|scope| self.arena.child(base, scope))
+            .unwrap_or_else(|| {
+                self.report.record(Limit::Nodes);
+                base
+            });
+        self.emit(close, base);
+        let begin = self.child(tag_stack, S::HtmlTagBegin);
+        self.emit(name, begin);
+        let name_stack = self.child(tag_stack, S::HtmlTagName);
+        self.emit(name_end, name_stack);
+        let end_stack = self.child(tag_stack, S::HtmlTagEnd);
+        self.emit(name_end + 1, end_stack);
+    }
+
+    /// Takes the rest of the line, or of the capture group, for the language
+    /// of the open container, from the cursor or, when the containers took
+    /// the line feed too, from the line's end. The next line resumes from
+    /// this container with the embedded lexer's new state.
+    ///
+    /// html-derivative in a paragraph, a heading or emphasis gives the line
+    /// back after its construct, which closes the container.
+    fn embedded(&mut self) {
+        let start = self.pos;
+        let Some(frame) = self.frames.last().copied() else {
+            return;
+        };
+        let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
+            return;
+        };
+        let end = self.limit.min(self.line.len());
+        if start >= end && !lang.reads_line_feed() {
+            return;
+        }
+        let start = start.min(end);
+        self.emit(start, frame.content);
+        #[cfg(feature = "lang-html-derivative")]
+        let span = self.span();
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: self.limits,
+            out: &mut *self.out,
+            report: &mut *self.report,
+        };
+        let line = Line {
+            text: &self.line[..end],
+            start,
+            embedded: true,
+        };
+        #[cfg(feature = "lang-html-derivative")]
+        let (state, back) = match html_give_back(kind) {
+            Some(give_back) => crate::html::lex_derivative_until(
+                &mut cx,
+                line,
+                frame.payload,
+                span,
+                Some(give_back),
+            ),
+            None => (lang.lex(&mut cx, line, frame.payload), None),
+        };
+        #[cfg(feature = "lang-html-derivative")]
+        if let Some(at) = back {
+            self.give_back_at(at, start, end, &frame);
+            return;
+        }
+        #[cfg(not(feature = "lang-html-derivative"))]
         let state = lang.lex(&mut cx, line, frame.payload);
-        self.last = self.line.len();
+        self.last = end;
         self.pos = self.limit;
         if state == frame.payload {
+            return;
+        }
+        if frame.state.is_none() {
+            if let Some(top) = self.frames.last_mut() {
+                top.payload = state;
+            }
             return;
         }
         let below = self
@@ -984,14 +1193,48 @@ impl<'a> Lexer<'a> {
 }
 
 /// The language whose lexer takes the rest of each line inside `rule`: an
-/// embedded fence's, or YAML in front matter. A `markdown` fence takes
-/// Markdown's own rules instead.
+/// embedded fence's, YAML in front matter, or html-derivative in HTML. A
+/// `markdown` fence takes Markdown's own rules instead.
 fn embedded_language(rule: Rule) -> Option<Language> {
     match rule {
         Rule::Open(Kind::Body(lang)) => (lang != Language::Markdown).then_some(lang),
         #[cfg(feature = "lang-yaml")]
         Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
+        #[cfg(feature = "lang-html-derivative")]
+        Rule::Open(Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap) => {
+            Some(Language::HtmlDerivative)
+        }
         Rule::Open(_) | Rule::Capture(_) => None,
+    }
+}
+
+/// Where html-derivative gives the line back inside a container of `kind`:
+/// none where it takes whole lines.
+#[cfg(feature = "lang-html-derivative")]
+fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack> {
+    match kind {
+        Kind::HtmlInline => Some(crate::html::GiveBack::AtRoot),
+        Kind::HtmlWrap => Some(crate::html::GiveBack::AfterTag),
+        Kind::Base
+        | Kind::Quote
+        | Kind::ListBullet
+        | Kind::ListOrdered
+        | Kind::Fence(_)
+        | Kind::FencePlain
+        | Kind::Body(_)
+        | Kind::RawBlock
+        | Kind::Table
+        | Kind::Paragraph
+        | Kind::Comment
+        | Kind::BoldStar
+        | Kind::BoldUnder
+        | Kind::ItalicStar
+        | Kind::ItalicUnder
+        | Kind::FrontMatter
+        | Kind::FrontMatterBody
+        | Kind::HtmlRaw
+        | Kind::HtmlRawBody
+        | Kind::HtmlBlock => None,
     }
 }
 

@@ -313,6 +313,17 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
 | `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
 | `html/todomvc-jquery` | [`examples/jquery/index.html`][todomvc-jquery] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html-derivative/vue-classic-grid` | [`packages/vue/examples/classic/grid.html`][derivative-vue-classic-grid] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-classic-todomvc` | [`packages/vue/examples/classic/todomvc.html`][derivative-vue-classic-todomvc] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-commits` | [`packages/vue/examples/composition/commits.html`][derivative-vue-commits] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-grid` | [`packages/vue/examples/composition/grid.html`][derivative-vue-grid] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-hydration-visible` | [`packages/vue/__tests__/e2e/hydration-strat-visible.html`][derivative-vue-hydration-visible] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-markdown` | [`packages/vue/examples/composition/markdown.html`][derivative-vue-markdown] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-modal` | [`packages/vue/examples/transition/modal.html`][derivative-vue-modal] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-svg` | [`packages/vue/examples/composition/svg.html`][derivative-vue-svg] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-todomvc` | [`packages/vue/examples/composition/todomvc.html`][derivative-vue-todomvc] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-transition-list` | [`packages/vue/examples/transition/list.html`][derivative-vue-transition-list] in vuejs/core | [MIT][vue-licence] |
+| `html-derivative/vue-tree` | [`packages/vue/examples/composition/tree.html`][derivative-vue-tree] in vuejs/core | [MIT][vue-licence] |
 | `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
 | `erb/rails-routes-table` | [`actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb`][rails-routes-table] in rails/rails | [MIT][actionpack-licence] |
@@ -426,6 +437,10 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 `lua/sample`, `lua/inspect`, `lua/lume`, `lua/luals-string` and `lua/lua-literals` are the development inputs for Lua; `lua/lua-literals` holds long strings and a long comment at several levels, across lines.
 `lua/json`, `lua/penlight-stringx`, `lua/luarocks-util` and `lua/luals-table` are held out.
 
+`html-derivative/vue-todomvc`, `html-derivative/vue-grid`, `html-derivative/vue-svg`, `html-derivative/vue-modal` and `html-derivative/vue-tree` are the development inputs for html-derivative.
+`html-derivative/vue-classic-todomvc`, `html-derivative/vue-classic-grid`, `html-derivative/vue-transition-list`, `html-derivative/vue-commits`, `html-derivative/vue-markdown` and `html-derivative/vue-hydration-visible` are held out.
+They are Vue's examples: HTML with custom elements and components at the top level, and templates in `<script type="text/x-template">` blocks, which the HTML grammar reads as `text.html.basic`.
+
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-str-split]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/strings/str_split.h
 [actionpack-licence]: https://github.com/rails/rails/blob/f21e7f42b510327f6bc57dcb7fcc9825d4670a91/actionpack/MIT-LICENSE
@@ -509,6 +524,17 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 [cranelift-tests]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch
 [csharp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/csharp.sample
 [css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
+[derivative-vue-classic-grid]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/grid.html
+[derivative-vue-classic-todomvc]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/todomvc.html
+[derivative-vue-commits]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/commits.html
+[derivative-vue-grid]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/grid.html
+[derivative-vue-hydration-visible]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/__tests__/e2e/hydration-strat-visible.html
+[derivative-vue-markdown]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/markdown.html
+[derivative-vue-modal]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/transition/modal.html
+[derivative-vue-svg]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/svg.html
+[derivative-vue-todomvc]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/todomvc.html
+[derivative-vue-transition-list]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/transition/list.html
+[derivative-vue-tree]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/tree.html
 [device-virtual-licence]: https://github.com/edgexfoundry/device-virtual-go/blob/51a4860f7a496206684d7bc404f1c64d674ea9c4/LICENSE
 [device-virtual-readme]: https://github.com/edgexfoundry/device-virtual-go/blob/51a4860f7a496206684d7bc404f1c64d674ea9c4/README.md
 [devise]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/lib/devise.rb

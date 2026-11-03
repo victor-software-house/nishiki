@@ -300,6 +300,9 @@ function rustString(text: string): string {
     else if (ch === "\r") out += "\\r";
     else if (ch === "\t") out += "\\t";
     else if (code < 0x20 || code === 0x7f) out += `\\u{${code.toString(16)}}`;
+    // A character that NFC changes, such as U+F900, or a combining mark after
+    // a range's dash, would leave the literal non-NFC, which clippy refuses.
+    else if (ch.normalize("NFC") !== ch || /\p{M}/u.test(ch)) out += `\\u{${code.toString(16)}}`;
     else out += ch;
   }
   return out + '"';

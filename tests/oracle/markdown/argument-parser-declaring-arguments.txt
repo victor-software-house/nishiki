@@ -966,6 +966,10 @@ T 24 text.html.markdown meta.paragraph.markdown
 T 25 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
 T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
 T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 116 text.html.markdown meta.paragraph.markdown
+T 117 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 131 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 132 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
 T 160 text.html.markdown meta.paragraph.markdown
 T 161 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
 T 170 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown

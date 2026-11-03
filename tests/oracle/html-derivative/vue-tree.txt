@@ -1,0 +1,883 @@
+L <script src="../../dist/vue.global.js"></script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 38 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 40 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 41 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 47 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 48 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
+L <!-- item template -->
+T 4 text.html.derivative comment.block.html punctuation.definition.comment.html
+T 19 text.html.derivative comment.block.html
+T 22 text.html.derivative comment.block.html punctuation.definition.comment.html
+L <script type="text/x-template" id="item-template">
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html
+T 12 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 13 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 14 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 29 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 30 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 31 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html
+T 33 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 34 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 35 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html
+T 49 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 50 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L   <li>
+T 2 text.html.derivative meta.embedded.block.html text.html.basic
+T 3 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 5 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html entity.name.tag.html
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L     <div
+T 4 text.html.derivative meta.embedded.block.html text.html.basic
+T 5 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+L       :class="{bold: isFolder}"
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html
+T 12 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.:class.html entity.other.attribute-name.html
+T 13 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.:class.html punctuation.separator.key-value.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html
+T 31 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.end.html
+L       @click="toggle"
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html
+T 12 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@click.html entity.other.attribute-name.html
+T 13 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@click.html punctuation.separator.key-value.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html
+T 21 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html punctuation.definition.string.end.html
+L       @dblclick="changeType">
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html
+T 15 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@dblclick.html entity.other.attribute-name.html
+T 16 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@dblclick.html punctuation.separator.key-value.html
+T 17 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@dblclick.html string.quoted.double.html punctuation.definition.string.begin.html
+T 27 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@dblclick.html string.quoted.double.html
+T 28 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.unrecognized.@dblclick.html string.quoted.double.html punctuation.definition.string.end.html
+T 29 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L       {{model.name}}
+T 20 text.html.derivative meta.embedded.block.html text.html.basic
+L       <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
+T 6 text.html.derivative meta.embedded.block.html text.html.basic
+T 7 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 11 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html entity.name.tag.html
+T 12 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html
+T 16 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html entity.other.attribute-name.html
+T 17 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html punctuation.separator.key-value.html
+T 18 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.begin.html
+T 26 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html
+T 27 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.end.html
+T 28 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 50 text.html.derivative meta.embedded.block.html text.html.basic
+T 52 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 56 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html entity.name.tag.html
+T 57 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L     </div>
+T 4 text.html.derivative meta.embedded.block.html text.html.basic
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 9 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 10 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L     <ul v-if="isFolder" v-show="open">
+T 4 text.html.derivative meta.embedded.block.html text.html.basic
+T 5 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html
+T 12 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-if.html entity.other.attribute-name.html
+T 13 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-if.html punctuation.separator.key-value.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html
+T 23 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-if.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html
+T 30 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-show.html entity.other.attribute-name.html
+T 31 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-show.html punctuation.separator.key-value.html
+T 32 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-show.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-show.html string.quoted.double.html
+T 37 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.unrecognized.v-show.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L       <tree-item
+T 6 text.html.derivative meta.embedded.block.html text.html.basic
+T 7 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html punctuation.definition.tag.begin.html
+T 16 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html entity.name.tag.html
+L         class="item"
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html
+T 13 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 15 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html
+T 20 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+L         v-for="model in model.children"
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html
+T 13 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.v-for.html entity.other.attribute-name.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.v-for.html punctuation.separator.key-value.html
+T 15 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.v-for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.v-for.html string.quoted.double.html
+T 39 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.v-for.html string.quoted.double.html punctuation.definition.string.end.html
+L         :model="model">
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html
+T 14 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.:model.html entity.other.attribute-name.html
+T 15 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.:model.html punctuation.separator.key-value.html
+T 16 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html punctuation.definition.string.begin.html
+T 21 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html
+T 22 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.start.html punctuation.definition.tag.end.html
+L       </tree-item>
+T 6 text.html.derivative meta.embedded.block.html text.html.basic
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.end.html punctuation.definition.tag.begin.html
+T 17 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.end.html entity.name.tag.html
+T 18 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.custom.end.html punctuation.definition.tag.end.html
+L       <li class="add" @click="addChild">+</li>
+T 6 text.html.derivative meta.embedded.block.html text.html.basic
+T 7 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 9 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html entity.name.tag.html
+T 10 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html
+T 15 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 16 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 17 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html
+T 28 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.unrecognized.@click.html entity.other.attribute-name.html
+T 29 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.unrecognized.@click.html punctuation.separator.key-value.html
+T 30 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html
+T 39 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html meta.attribute.unrecognized.@click.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 41 text.html.derivative meta.embedded.block.html text.html.basic
+T 43 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 45 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html entity.name.tag.html
+T 46 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L     </ul>
+T 4 text.html.derivative meta.embedded.block.html text.html.basic
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 8 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html entity.name.tag.html
+T 9 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L   </li>
+T 2 text.html.derivative meta.embedded.block.html text.html.basic
+T 4 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 6 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html entity.name.tag.html
+T 7 text.html.derivative meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L </script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html text.html.basic
+T 2 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L <!-- item script -->
+T 4 text.html.derivative comment.block.html punctuation.definition.comment.html
+T 17 text.html.derivative comment.block.html
+T 20 text.html.derivative comment.block.html punctuation.definition.comment.html
+L <script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L   const { reactive, computed, toRefs } = Vue
+T 2 text.html.derivative meta.embedded.block.html source.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js meta.definition.variable.js variable.other.constant.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.separator.comma.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js meta.definition.variable.js variable.other.constant.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.separator.comma.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 36 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js meta.definition.variable.js variable.other.constant.js
+T 37 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 38 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 39 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 40 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 41 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 44 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js variable.other.readwrite.js
+L 
+L   const TreeItem = {
+T 2 text.html.derivative meta.embedded.block.html source.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L     name: 'TreeItem', // necessary for self-reference
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 53 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js comment.line.double-slash.js
+L     template: '#item-template',
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L     props: {
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       model: Object,
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L     },
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L     setup(props) {
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js variable.parameter.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L       const state = reactive({
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js storage.type.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L         open: false,
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js constant.language.boolean.false.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L         isFolder: computed(() => {
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 26 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.type.function.arrow.js
+T 33 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 34 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L           return props.model.children && props.model.children.length
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js keyword.control.flow.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.object.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 37 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.property.js
+T 38 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js
+T 40 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js keyword.operator.logical.js
+T 41 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js
+T 46 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.object.js
+T 47 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 52 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 53 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 61 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 62 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 68 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js support.variable.property.js
+L         }),
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L       })
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.brace.round.js
+L 
+L       function toggle() {
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js storage.type.function.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.definition.function.js entity.name.function.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L         state.open = !state.open
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.object.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.accessor.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.property.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js keyword.operator.assignment.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js keyword.operator.logical.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.object.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.accessor.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.property.js
+L       }
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L 
+L       function changeType() {
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js storage.type.function.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.definition.function.js entity.name.function.js
+T 26 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L         if (!state.isFolder) {
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js keyword.control.conditional.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.brace.round.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js keyword.operator.logical.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.object.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.accessor.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js variable.other.property.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.brace.round.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js punctuation.definition.block.js
+L           props.model.children = []
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js variable.other.object.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js punctuation.accessor.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js variable.other.object.property.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js punctuation.accessor.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js variable.other.property.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js keyword.operator.assignment.js
+T 33 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.array.literal.js
+T 34 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 35 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.array.literal.js meta.brace.square.js
+L           addChild()
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.brace.round.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js meta.brace.round.js
+L           state.open = true
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js variable.other.object.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js punctuation.accessor.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js variable.other.property.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js keyword.operator.assignment.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js constant.language.boolean.true.js
+L         }
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.block.js punctuation.definition.block.js
+L       }
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L 
+L       function addChild() {
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js storage.type.function.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.definition.function.js entity.name.function.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 26 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L         props.model.children.push({ name: 'new stuff' })
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js variable.other.object.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 33 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.function-call.js entity.name.function.js
+T 34 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.brace.round.js
+T 35 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 36 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js
+T 40 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 41 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 42 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 43 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 52 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 53 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 54 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 55 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 56 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js meta.brace.round.js
+L       }
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function.js meta.block.js punctuation.definition.block.js
+L 
+L       return {
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.control.flow.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+L         ...toRefs(state),
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.spread.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+L         toggle,
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+L         changeType,
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+L         addChild,
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+L       }
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+L     },
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 3 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L </script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
+L <p>(You can double click on an item to turn it into a folder.)</p>
+T 1 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.derivative meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 62 text.html.derivative
+T 64 text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 65 text.html.derivative meta.tag.structure.p.end.html entity.name.tag.html
+T 66 text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <!-- the app root element -->
+T 4 text.html.derivative comment.block.html punctuation.definition.comment.html
+T 26 text.html.derivative comment.block.html
+T 29 text.html.derivative comment.block.html punctuation.definition.comment.html
+L <ul id="demo">
+T 1 text.html.derivative meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 3 text.html.derivative meta.tag.structure.ul.start.html entity.name.tag.html
+T 4 text.html.derivative meta.tag.structure.ul.start.html
+T 6 text.html.derivative meta.tag.structure.ul.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 7 text.html.derivative meta.tag.structure.ul.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 8 text.html.derivative meta.tag.structure.ul.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.derivative meta.tag.structure.ul.start.html meta.attribute.id.html string.quoted.double.html
+T 13 text.html.derivative meta.tag.structure.ul.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.derivative meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L   <tree-item class="item" :model="treeData"></tree-item>
+T 2 text.html.derivative
+T 3 text.html.derivative meta.tag.custom.start.html punctuation.definition.tag.begin.html
+T 12 text.html.derivative meta.tag.custom.start.html entity.name.tag.html
+T 13 text.html.derivative meta.tag.custom.start.html
+T 18 text.html.derivative meta.tag.custom.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 19 text.html.derivative meta.tag.custom.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 20 text.html.derivative meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.derivative meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html
+T 25 text.html.derivative meta.tag.custom.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.derivative meta.tag.custom.start.html
+T 32 text.html.derivative meta.tag.custom.start.html meta.attribute.unrecognized.:model.html entity.other.attribute-name.html
+T 33 text.html.derivative meta.tag.custom.start.html meta.attribute.unrecognized.:model.html punctuation.separator.key-value.html
+T 34 text.html.derivative meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.derivative meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html
+T 43 text.html.derivative meta.tag.custom.start.html meta.attribute.unrecognized.:model.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.derivative meta.tag.custom.start.html punctuation.definition.tag.end.html
+T 46 text.html.derivative meta.tag.custom.end.html punctuation.definition.tag.begin.html
+T 55 text.html.derivative meta.tag.custom.end.html entity.name.tag.html
+T 56 text.html.derivative meta.tag.custom.end.html punctuation.definition.tag.end.html
+L </ul>
+T 2 text.html.derivative meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 4 text.html.derivative meta.tag.structure.ul.end.html entity.name.tag.html
+T 5 text.html.derivative meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L 
+L <script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L   const treeData = {
+T 2 text.html.derivative meta.embedded.block.html source.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L     name: 'My Tree',
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L     children: [
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+L       { name: 'hello' },
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L       { name: 'wat' },
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L       {
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+L         name: 'child folder',
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L         children: [
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+L           {
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+L             name: 'child folder',
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 33 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L             children: [{ name: 'hello' }, { name: 'wat' }],
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 37 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 38 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 39 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 40 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 41 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 42 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 43 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 44 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 48 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 49 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 50 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 51 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 54 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 55 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 56 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 57 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 58 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 59 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L           },
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L           { name: 'hello' },
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 26 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 27 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 28 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L           { name: 'wat' },
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 26 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L           {
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+L             name: 'child folder',
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 33 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L             children: [{ name: 'hello' }, { name: 'wat' }],
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 20 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 21 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 23 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 24 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 25 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 29 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 30 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 31 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 32 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 37 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 38 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 39 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 40 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 41 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 42 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 43 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 44 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 48 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 49 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 50 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 51 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.begin.js
+T 54 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js
+T 55 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js string.quoted.single.js punctuation.definition.string.end.js
+T 56 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 57 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 58 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 59 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L           },
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L         ],
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.separator.comma.js
+L       },
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L     ],
+T 4 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.separator.comma.js
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js
+T 3 text.html.derivative meta.embedded.block.html source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L 
+L   Vue.createApp({
+T 2 text.html.derivative meta.embedded.block.html source.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.function-call.js variable.other.object.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.function-call.js punctuation.accessor.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.brace.round.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js punctuation.definition.block.js
+L     components: {
+T 4 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       TreeItem,
+T 6 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L     },
+T 4 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L     data: () => ({
+T 4 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js
+T 8 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js entity.name.function.js
+T 9 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 12 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 13 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.type.function.arrow.js
+T 16 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 17 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 18 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       treeData,
+T 6 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 14 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 15 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L     }),
+T 4 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 6 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 7 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L   }).mount('#demo')
+T 2 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js
+T 3 text.html.derivative meta.embedded.block.html source.js meta.objectliteral.js punctuation.definition.block.js
+T 4 text.html.derivative meta.embedded.block.html source.js meta.brace.round.js
+T 5 text.html.derivative meta.embedded.block.html source.js meta.function-call.js punctuation.accessor.js
+T 10 text.html.derivative meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 11 text.html.derivative meta.embedded.block.html source.js meta.brace.round.js
+T 12 text.html.derivative meta.embedded.block.html source.js string.quoted.single.js punctuation.definition.string.begin.js
+T 17 text.html.derivative meta.embedded.block.html source.js string.quoted.single.js
+T 18 text.html.derivative meta.embedded.block.html source.js string.quoted.single.js punctuation.definition.string.end.js
+T 19 text.html.derivative meta.embedded.block.html source.js meta.brace.round.js
+L </script>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.derivative meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
+L <style>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 6 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+L   body {
+T 2 text.html.derivative meta.embedded.block.html source.css
+T 6 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 7 text.html.derivative meta.embedded.block.html source.css
+T 8 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     font-family: Menlo, Consolas, monospace;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 23 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+T 32 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 33 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+T 34 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 43 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.font-name.css
+T 44 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     color: #444;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 9 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 12 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 15 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 16 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .item {
+T 2 text.html.derivative meta.embedded.block.html source.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 text.html.derivative meta.embedded.block.html source.css
+T 9 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     cursor: pointer;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 10 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 20 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   .bold {
+T 2 text.html.derivative meta.embedded.block.html source.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 7 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 8 text.html.derivative meta.embedded.block.html source.css
+T 9 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     font-weight: bold;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   ul {
+T 2 text.html.derivative meta.embedded.block.html source.css
+T 4 text.html.derivative meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 5 text.html.derivative meta.embedded.block.html source.css
+T 6 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     padding-left: 1em;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 16 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 17 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 18 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 22 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     line-height: 1.5em;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 15 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 22 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 23 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     list-style-type: dot;
+T 4 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 19 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 20 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.derivative meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 25 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.html.derivative meta.embedded.block.html source.css meta.property-list.css
+T 3 text.html.derivative meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L </style>
+T 1 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 2 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 8 text.html.derivative meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L 

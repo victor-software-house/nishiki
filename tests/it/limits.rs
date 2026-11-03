@@ -13,6 +13,7 @@ mod erb;
 mod go;
 mod graphql;
 mod html;
+mod html_derivative;
 mod ini;
 mod java;
 mod json;

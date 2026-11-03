@@ -1162,3 +1162,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+Its html-derivative support emits the scope names of the html-derivative TextMate grammar that Shiki bundles through VS Code as `html-derivative` (`extensions/html/syntaxes/html-derivative.tmLanguage.json` in [microsoft/vscode](https://github.com/microsoft/vscode)), which VS Code converted from `Syntaxes/HTML (Derivative).tmLanguage` in [textmate/html.tmbundle](https://github.com/textmate/html.tmbundle) at commit `390c8870273a2ae80244dae6db6ba064a802f407`.
+It is licensed under the same two texts as the HTML grammar above: VS Code's MIT `LICENSE.txt` and the bundle's `README.mdown` licence, which reads the same at that commit, with no `-license` file beside the grammar.

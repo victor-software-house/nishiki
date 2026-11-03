@@ -26,6 +26,24 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  css: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "microsoft/vscode-css",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
+  html: {
+    bundled: "microsoft/vscode@45324363153075dab0482312ae24d8c068d81e4f",
+    origin: "textmate/html.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
+  "html-derivative": {
+    bundled: "microsoft/vscode@4064f172528461afc6944383d07521f6a30da89c",
+    origin: "textmate/html.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
   javascript: {
     bundled: "microsoft/vscode@210541906e5a96ab39f9c753f921b1bd35f4138b",
     origin: "microsoft/TypeScript-TmLanguage",
