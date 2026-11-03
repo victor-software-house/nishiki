@@ -322,6 +322,14 @@ languages! {
         engine: crate::nix::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// Dart, with the scopes of Shiki's `dart` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Dart {
+        feature: "lang-dart",
+        names: ["dart"],
+        engine: crate::dart::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {

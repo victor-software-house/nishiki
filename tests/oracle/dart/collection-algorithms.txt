@@ -1,0 +1,6162 @@
+L // Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+T 77 source.dart comment.line.double-slash.dart
+L // for details. All rights reserved. Use of this source code is governed by a
+T 77 source.dart comment.line.double-slash.dart
+L // BSD-style license that can be found in the LICENSE file.
+T 59 source.dart comment.line.double-slash.dart
+L 
+L /// A selection of data manipulation algorithms.
+T 3 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart
+L library;
+T 7 source.dart meta.declaration.dart keyword.other.import.dart
+T 8 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import 'dart:math' show Random;
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 17 source.dart meta.declaration.dart string.interpolated.single.dart
+T 18 source.dart meta.declaration.dart string.interpolated.single.dart
+T 19 source.dart meta.declaration.dart
+T 23 source.dart meta.declaration.dart keyword.other.import.dart
+T 30 source.dart meta.declaration.dart
+T 31 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import 'utils.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 18 source.dart meta.declaration.dart string.interpolated.single.dart
+T 19 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L /// Returns a position of the [value] in [sortedList], if it is there.
+T 3 source.dart comment.block.documentation.dart
+T 30 source.dart comment.block.documentation.dart
+T 37 source.dart comment.block.documentation.dart variable.name.source.dart
+T 41 source.dart comment.block.documentation.dart
+T 53 source.dart comment.block.documentation.dart variable.name.source.dart
+T 70 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If the list isn't sorted according to the [compare] function, the result
+T 46 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L /// is unpredictable.
+T 21 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
+T 7 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 54 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// the objects. In this case, the objects must be [Comparable].
+T 51 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.name.source.dart
+T 64 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Returns -1 if [value] is not in the list.
+T 18 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart variable.name.source.dart
+T 45 source.dart comment.block.documentation.dart
+L int binarySearch<E>(
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart other.source.dart
+T 20 source.dart
+L   List<E> sortedList,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L   E value, {
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+T 12 source.dart
+L   int Function(E, E)? compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L }) {
+T 4 source.dart
+L   compare ??= defaultCompare;
+T 10 source.dart
+T 11 source.dart keyword.operator.ternary.dart
+T 12 source.dart keyword.operator.ternary.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L   return binarySearchBy<E, E>(sortedList, identity, compare, value);
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 9 source.dart
+T 23 source.dart entity.name.function.dart
+T 24 source.dart other.source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart
+T 27 source.dart
+T 28 source.dart support.class.dart
+T 29 source.dart other.source.dart
+T 30 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 59 source.dart
+T 60 source.dart punctuation.comma.dart
+T 67 source.dart
+T 68 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Returns a position of the [value] in [sortedList], if it is there.
+T 3 source.dart comment.block.documentation.dart
+T 30 source.dart comment.block.documentation.dart
+T 37 source.dart comment.block.documentation.dart variable.name.source.dart
+T 41 source.dart comment.block.documentation.dart
+T 53 source.dart comment.block.documentation.dart variable.name.source.dart
+T 70 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If the list isn't sorted according to the [compare] function on the [keyOf]
+T 46 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+T 79 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// property of the elements, the result is unpredictable.
+T 58 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Returns -1 if [value] is not in the list by default.
+T 18 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart variable.name.source.dart
+T 56 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [start] and [end] are supplied, only that range is searched,
+T 7 source.dart comment.block.documentation.dart
+T 14 source.dart comment.block.documentation.dart variable.name.source.dart
+T 19 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart variable.name.source.dart
+T 67 source.dart comment.block.documentation.dart
+L /// and only that range need to be sorted.
+T 42 source.dart comment.block.documentation.dart
+L int binarySearchBy<E, K>(
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart other.source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart other.source.dart
+T 25 source.dart
+L   List<E> sortedList,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   E value, [
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+T 12 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ]) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, sortedList.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 57 source.dart
+T 58 source.dart punctuation.dot.dart
+T 65 source.dart
+T 66 source.dart punctuation.terminator.dart
+L   var min = start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L   var max = end;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 16 source.dart punctuation.terminator.dart
+L   var key = keyOf(value);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 12 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.terminator.dart
+L   while (min < max) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 21 source.dart
+L     var mid = min + ((max - min) >> 1);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 35 source.dart keyword.operator.bitwise.dart
+T 36 source.dart
+T 37 source.dart constant.numeric.dart
+T 38 source.dart
+T 39 source.dart punctuation.terminator.dart
+L     var element = sortedList[mid];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L     var comp = compare(keyOf(element), key);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 28 source.dart entity.name.function.dart
+T 29 source.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L     if (comp == 0) return mid;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 16 source.dart
+T 17 source.dart constant.numeric.dart
+T 19 source.dart
+T 25 source.dart keyword.control.return.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     if (comp < 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 15 source.dart
+T 16 source.dart constant.numeric.dart
+T 19 source.dart
+L       min = mid + 1;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.arithmetic.dart
+T 18 source.dart
+T 19 source.dart constant.numeric.dart
+T 20 source.dart punctuation.terminator.dart
+L     } else {
+T 6 source.dart
+T 10 source.dart keyword.control.dart
+T 12 source.dart
+L       max = mid;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 16 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L   return -1;
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 9 source.dart
+T 10 source.dart keyword.operator.arithmetic.dart
+T 11 source.dart constant.numeric.dart
+T 12 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Returns the first position in [sortedList] that does not compare less than
+T 3 source.dart comment.block.documentation.dart
+T 34 source.dart comment.block.documentation.dart
+T 46 source.dart comment.block.documentation.dart variable.name.source.dart
+T 78 source.dart comment.block.documentation.dart
+L /// [value].
+T 4 source.dart comment.block.documentation.dart
+T 11 source.dart comment.block.documentation.dart variable.name.source.dart
+T 12 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Uses binary search to find the location of [value].
+T 47 source.dart comment.block.documentation.dart
+T 54 source.dart comment.block.documentation.dart variable.name.source.dart
+T 55 source.dart comment.block.documentation.dart
+L /// This takes on the order of `log(n)` comparisons.
+T 31 source.dart comment.block.documentation.dart
+T 39 source.dart comment.block.documentation.dart variable.other.source.dart
+T 52 source.dart comment.block.documentation.dart
+L /// If the list isn't sorted according to the [compare] function, the result
+T 46 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L /// is unpredictable.
+T 21 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
+T 7 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 54 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// the objects. In this case, the objects must be [Comparable].
+T 51 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.name.source.dart
+T 64 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Returns the length of [sortedList] if all the items in [sortedList] compare
+T 26 source.dart comment.block.documentation.dart
+T 38 source.dart comment.block.documentation.dart variable.name.source.dart
+T 59 source.dart comment.block.documentation.dart
+T 71 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// less than [value].
+T 14 source.dart comment.block.documentation.dart
+T 21 source.dart comment.block.documentation.dart variable.name.source.dart
+T 22 source.dart comment.block.documentation.dart
+L int lowerBound<E>(List<E> sortedList, E value, {int Function(E, E)? compare}) {
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart other.source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+T 22 source.dart support.class.dart
+T 23 source.dart other.source.dart
+T 24 source.dart support.class.dart
+T 25 source.dart other.source.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 38 source.dart
+T 39 source.dart support.class.dart
+T 40 source.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 48 source.dart
+T 51 source.dart support.class.dart
+T 52 source.dart
+T 60 source.dart support.class.dart
+T 61 source.dart
+T 62 source.dart support.class.dart
+T 63 source.dart punctuation.comma.dart
+T 64 source.dart
+T 65 source.dart support.class.dart
+T 66 source.dart
+T 67 source.dart keyword.operator.ternary.dart
+T 79 source.dart
+L   compare ??= defaultCompare;
+T 10 source.dart
+T 11 source.dart keyword.operator.ternary.dart
+T 12 source.dart keyword.operator.ternary.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L   return lowerBoundBy<E, E>(sortedList, identity, compare, value);
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 9 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart other.source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart
+T 25 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart other.source.dart
+T 28 source.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 48 source.dart
+T 49 source.dart punctuation.comma.dart
+T 57 source.dart
+T 58 source.dart punctuation.comma.dart
+T 65 source.dart
+T 66 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Returns the first position in [sortedList] that is not before [value].
+T 3 source.dart comment.block.documentation.dart
+T 34 source.dart comment.block.documentation.dart
+T 46 source.dart comment.block.documentation.dart variable.name.source.dart
+T 66 source.dart comment.block.documentation.dart
+T 73 source.dart comment.block.documentation.dart variable.name.source.dart
+T 74 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Uses binary search to find the location of [value].
+T 47 source.dart comment.block.documentation.dart
+T 54 source.dart comment.block.documentation.dart variable.name.source.dart
+T 55 source.dart comment.block.documentation.dart
+L /// This takes on the order of `log(n)` comparisons.
+T 31 source.dart comment.block.documentation.dart
+T 39 source.dart comment.block.documentation.dart variable.other.source.dart
+T 52 source.dart comment.block.documentation.dart
+L /// Elements are compared using the [compare] function of the [keyOf] property
+T 36 source.dart comment.block.documentation.dart
+T 45 source.dart comment.block.documentation.dart variable.name.source.dart
+T 62 source.dart comment.block.documentation.dart
+T 69 source.dart comment.block.documentation.dart variable.name.source.dart
+T 78 source.dart comment.block.documentation.dart
+L /// of the elements.
+T 20 source.dart comment.block.documentation.dart
+L /// If the list isn't sorted according to this order, the result is
+T 67 source.dart comment.block.documentation.dart
+L /// unpredictable.
+T 18 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Returns the length of [sortedList] if all the items in [sortedList] are
+T 26 source.dart comment.block.documentation.dart
+T 38 source.dart comment.block.documentation.dart variable.name.source.dart
+T 59 source.dart comment.block.documentation.dart
+T 71 source.dart comment.block.documentation.dart variable.name.source.dart
+T 75 source.dart comment.block.documentation.dart
+L /// before [value].
+T 11 source.dart comment.block.documentation.dart
+T 18 source.dart comment.block.documentation.dart variable.name.source.dart
+T 19 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [start] and [end] are supplied, only that range is searched,
+T 7 source.dart comment.block.documentation.dart
+T 14 source.dart comment.block.documentation.dart variable.name.source.dart
+T 19 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart variable.name.source.dart
+T 67 source.dart comment.block.documentation.dart
+L /// and only that range need to be sorted.
+T 42 source.dart comment.block.documentation.dart
+L int lowerBoundBy<E, K>(
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> sortedList,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   E value, [
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+T 12 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ]) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, sortedList.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 57 source.dart
+T 58 source.dart punctuation.dot.dart
+T 65 source.dart
+T 66 source.dart punctuation.terminator.dart
+L   var min = start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L   var max = end;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 16 source.dart punctuation.terminator.dart
+L   var key = keyOf(value);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 12 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.terminator.dart
+L   while (min < max) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 21 source.dart
+L     var mid = min + ((max - min) >> 1);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 35 source.dart keyword.operator.bitwise.dart
+T 36 source.dart
+T 37 source.dart constant.numeric.dart
+T 38 source.dart
+T 39 source.dart punctuation.terminator.dart
+L     var element = sortedList[mid];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L     var comp = compare(keyOf(element), key);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 28 source.dart entity.name.function.dart
+T 29 source.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L     if (comp < 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 15 source.dart
+T 16 source.dart constant.numeric.dart
+T 19 source.dart
+L       min = mid + 1;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.arithmetic.dart
+T 18 source.dart
+T 19 source.dart constant.numeric.dart
+T 20 source.dart punctuation.terminator.dart
+L     } else {
+T 6 source.dart
+T 10 source.dart keyword.control.dart
+T 12 source.dart
+L       max = mid;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 16 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L   return min;
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 12 source.dart
+T 13 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Shuffles a list randomly.
+T 3 source.dart comment.block.documentation.dart
+T 29 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// A sub-range of a list can be shuffled by providing [start] and [end].
+T 55 source.dart comment.block.documentation.dart
+T 62 source.dart comment.block.documentation.dart variable.name.source.dart
+T 67 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [start] or [end] are omitted,
+T 7 source.dart comment.block.documentation.dart
+T 14 source.dart comment.block.documentation.dart variable.name.source.dart
+T 18 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.name.source.dart
+T 36 source.dart comment.block.documentation.dart
+L /// they default to the start and end of the list.
+T 50 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [random] is omitted, it defaults to a new instance of [Random].
+T 7 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 61 source.dart comment.block.documentation.dart
+T 69 source.dart comment.block.documentation.dart variable.name.source.dart
+T 70 source.dart comment.block.documentation.dart
+L void shuffle(List elements, [int start = 0, int? end, Random? random]) {
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 26 source.dart
+T 27 source.dart punctuation.comma.dart
+T 29 source.dart
+T 32 source.dart support.class.dart
+T 33 source.dart
+T 39 source.dart
+T 40 source.dart keyword.operator.assignment.dart
+T 41 source.dart
+T 42 source.dart constant.numeric.dart
+T 43 source.dart punctuation.comma.dart
+T 44 source.dart
+T 47 source.dart support.class.dart
+T 48 source.dart keyword.operator.ternary.dart
+T 52 source.dart
+T 53 source.dart punctuation.comma.dart
+T 54 source.dart
+T 60 source.dart support.class.dart
+T 61 source.dart keyword.operator.ternary.dart
+T 72 source.dart
+L   random ??= Random();
+T 9 source.dart
+T 10 source.dart keyword.operator.ternary.dart
+T 11 source.dart keyword.operator.ternary.dart
+T 12 source.dart keyword.operator.assignment.dart
+T 13 source.dart
+T 19 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L   end ??= elements.length;
+T 6 source.dart
+T 7 source.dart keyword.operator.ternary.dart
+T 8 source.dart keyword.operator.ternary.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart punctuation.dot.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L   var length = end - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   while (length > 1) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.comparison.dart
+T 18 source.dart
+T 19 source.dart constant.numeric.dart
+T 22 source.dart
+L     var pos = random.nextInt(length);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.dot.dart
+T 28 source.dart entity.name.function.dart
+T 29 source.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     length--;
+T 10 source.dart
+T 12 source.dart keyword.operator.increment-decrement.dart
+T 13 source.dart punctuation.terminator.dart
+L     var tmp1 = elements[start + pos];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.arithmetic.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     elements[start + pos] = elements[start + length];
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.assignment.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 52 source.dart
+T 53 source.dart punctuation.terminator.dart
+L     elements[start + length] = tmp1;
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L /// Reverses a list, or a part of a list, in-place.
+T 3 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart
+L void reverse<E>(List<E> elements, [int start = 0, int? end]) {
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart other.source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart other.source.dart
+T 16 source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart other.source.dart
+T 22 source.dart support.class.dart
+T 23 source.dart other.source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 35 source.dart
+T 38 source.dart support.class.dart
+T 39 source.dart
+T 45 source.dart
+T 46 source.dart keyword.operator.assignment.dart
+T 47 source.dart
+T 48 source.dart constant.numeric.dart
+T 49 source.dart punctuation.comma.dart
+T 50 source.dart
+T 53 source.dart support.class.dart
+T 54 source.dart keyword.operator.ternary.dart
+T 62 source.dart
+L   end = RangeError.checkValidRange(start, end, elements.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L   _reverse<E>(elements, start, end);
+T 2 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart other.source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart other.source.dart
+T 14 source.dart
+T 22 source.dart
+T 23 source.dart punctuation.comma.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Internal helper function that assumes valid arguments.
+T 3 source.dart comment.block.documentation.dart
+T 58 source.dart comment.block.documentation.dart
+L void _reverse<E>(List<E> elements, int start, int end) {
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart other.source.dart
+T 15 source.dart support.class.dart
+T 16 source.dart other.source.dart
+T 17 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart other.source.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+T 35 source.dart
+T 38 source.dart support.class.dart
+T 39 source.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 46 source.dart
+T 49 source.dart support.class.dart
+T 50 source.dart
+T 56 source.dart
+L   for (var i = start, j = end - 1; i < j; i++, j--) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.arithmetic.dart
+T 32 source.dart
+T 33 source.dart constant.numeric.dart
+T 34 source.dart punctuation.terminator.dart
+T 37 source.dart
+T 38 source.dart keyword.operator.comparison.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+T 43 source.dart
+T 45 source.dart keyword.operator.increment-decrement.dart
+T 46 source.dart punctuation.comma.dart
+T 48 source.dart
+T 50 source.dart keyword.operator.increment-decrement.dart
+T 53 source.dart
+L     var tmp = elements[i];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L     elements[i] = elements[j];
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     elements[j] = tmp;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L /// Sort a list between [start] (inclusive) and [end] (exclusive) using
+T 3 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart
+T 31 source.dart comment.block.documentation.dart variable.name.source.dart
+T 48 source.dart comment.block.documentation.dart
+T 53 source.dart comment.block.documentation.dart variable.name.source.dart
+T 71 source.dart comment.block.documentation.dart
+L /// insertion sort.
+T 19 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
+T 7 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 54 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// the objects. In this case, the objects must be [Comparable].
+T 51 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.name.source.dart
+T 64 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Insertion sort is a simple sorting algorithm. For `n` elements it does on
+T 54 source.dart comment.block.documentation.dart
+T 57 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L /// the order of `n * log(n)` comparisons but up to `n` squared moves. The
+T 17 source.dart comment.block.documentation.dart
+T 29 source.dart comment.block.documentation.dart variable.other.source.dart
+T 52 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.other.source.dart
+T 74 source.dart comment.block.documentation.dart
+L /// sorting is performed in-place, without using extra memory.
+T 62 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// For short lists the many moves have less impact than the simple algorithm,
+T 78 source.dart comment.block.documentation.dart
+L /// and it is often the favored sorting algorithm for short lists.
+T 66 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// This insertion sort is stable: Equal elements end up in the same order
+T 74 source.dart comment.block.documentation.dart
+L /// as they started in.
+T 23 source.dart comment.block.documentation.dart
+L void insertionSort<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart other.source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart other.source.dart
+T 22 source.dart
+L   List<E> elements, {
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+T 21 source.dart
+L   int Function(E, E)? compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L }) {
+T 4 source.dart
+L   // If the same method could have both positional and named optional
+T 2 source.dart
+T 69 source.dart comment.line.double-slash.dart
+L   // parameters, this should be (list, [start, end], {compare}).
+T 2 source.dart
+T 64 source.dart comment.line.double-slash.dart
+L   compare ??= defaultCompare;
+T 10 source.dart
+T 11 source.dart keyword.operator.ternary.dart
+T 12 source.dart keyword.operator.ternary.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L   end ??= elements.length;
+T 6 source.dart
+T 7 source.dart keyword.operator.ternary.dart
+T 8 source.dart keyword.operator.ternary.dart
+T 9 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart punctuation.dot.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L 
+L   for (var pos = start + 1; pos < end; pos++) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.arithmetic.dart
+T 25 source.dart
+T 26 source.dart constant.numeric.dart
+T 27 source.dart punctuation.terminator.dart
+T 32 source.dart
+T 33 source.dart keyword.operator.comparison.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+T 42 source.dart
+T 44 source.dart keyword.operator.increment-decrement.dart
+T 47 source.dart
+L     var min = start;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart punctuation.terminator.dart
+L     var max = pos;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L     var element = elements[pos];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L     while (min < max) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.comparison.dart
+T 23 source.dart
+L       var mid = min + ((max - min) >> 1);
+T 6 source.dart
+T 9 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.arithmetic.dart
+T 35 source.dart
+T 37 source.dart keyword.operator.bitwise.dart
+T 38 source.dart
+T 39 source.dart constant.numeric.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L       var comparison = compare(element, elements[mid]);
+T 6 source.dart
+T 9 source.dart storage.type.primitive.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 30 source.dart entity.name.function.dart
+T 31 source.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L       if (comparison < 0) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 23 source.dart
+T 24 source.dart constant.numeric.dart
+T 27 source.dart
+L         max = mid;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L       } else {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 14 source.dart
+L         min = mid + 1;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     }
+T 5 source.dart
+L     elements.setRange(min + 1, pos + 1, elements, min);
+T 12 source.dart
+T 13 source.dart punctuation.dot.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart constant.numeric.dart
+T 30 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart keyword.operator.arithmetic.dart
+T 37 source.dart
+T 38 source.dart constant.numeric.dart
+T 39 source.dart punctuation.comma.dart
+T 48 source.dart
+T 49 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L     elements[min] = element;
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 27 source.dart
+T 28 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L /// Limit below which merge sort defaults to insertion sort.
+T 3 source.dart comment.block.documentation.dart
+T 60 source.dart comment.block.documentation.dart
+L const int _mergeSortLimit = 32;
+T 5 source.dart storage.modifier.dart
+T 6 source.dart
+T 9 source.dart support.class.dart
+T 10 source.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 30 source.dart constant.numeric.dart
+T 31 source.dart punctuation.terminator.dart
+L 
+L /// Sorts a list between [start] (inclusive) and [end] (exclusive) using the
+T 3 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.name.source.dart
+T 49 source.dart comment.block.documentation.dart
+T 54 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L /// merge sort algorithm.
+T 25 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
+T 7 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 54 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// the objects. If any object is not [Comparable], that throws a [TypeError].
+T 38 source.dart comment.block.documentation.dart
+T 50 source.dart comment.block.documentation.dart variable.name.source.dart
+T 66 source.dart comment.block.documentation.dart
+T 77 source.dart comment.block.documentation.dart variable.name.source.dart
+T 78 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Merge-sorting works by splitting the job into two parts, sorting each
+T 73 source.dart comment.block.documentation.dart
+L /// recursively, and then merging the two sorted parts.
+T 55 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// This takes on the order of `n * log(n)` comparisons and moves to sort
+T 31 source.dart comment.block.documentation.dart
+T 43 source.dart comment.block.documentation.dart variable.other.source.dart
+T 73 source.dart comment.block.documentation.dart
+L /// `n` elements, but requires extra space of about the same size as the list
+T 4 source.dart comment.block.documentation.dart
+T 7 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L /// being sorted.
+T 17 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// This merge sort is stable: Equal elements end up in the same order
+T 70 source.dart comment.block.documentation.dart
+L /// as they started in.
+T 23 source.dart comment.block.documentation.dart
+L void mergeSort<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart other.source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+L   List<E> elements, {
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+T 21 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L   int Function(E, E)? compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L }) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, elements.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L   compare ??= defaultCompare;
+T 10 source.dart
+T 11 source.dart keyword.operator.ternary.dart
+T 12 source.dart keyword.operator.ternary.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L 
+L   var length = end - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   if (length < 2) return;
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 15 source.dart
+T 16 source.dart constant.numeric.dart
+T 18 source.dart
+T 24 source.dart keyword.control.return.dart
+T 25 source.dart punctuation.terminator.dart
+L   if (length < _mergeSortLimit) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+L     insertionSort(elements, compare: compare, start: start, end: end);
+T 4 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 26 source.dart
+T 27 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart keyword.operator.ternary.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart keyword.operator.ternary.dart
+T 58 source.dart
+T 59 source.dart punctuation.comma.dart
+T 63 source.dart
+T 64 source.dart keyword.operator.ternary.dart
+T 69 source.dart
+T 70 source.dart punctuation.terminator.dart
+L     return;
+T 4 source.dart
+T 10 source.dart keyword.control.return.dart
+T 11 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   // Special case the first split instead of directly calling
+T 2 source.dart
+T 61 source.dart comment.line.double-slash.dart
+L   // _mergeSort, because the _mergeSort requires its target to
+T 2 source.dart
+T 62 source.dart comment.line.double-slash.dart
+L   // be different from its source, and it requires extra space
+T 2 source.dart
+T 62 source.dart comment.line.double-slash.dart
+L   // of the same size as the list to sort.
+T 2 source.dart
+T 42 source.dart comment.line.double-slash.dart
+L   // This split allows us to have only half as much extra space,
+T 2 source.dart
+T 64 source.dart comment.line.double-slash.dart
+L   // and allows the sorted elements to end up in the original list.
+T 2 source.dart
+T 67 source.dart comment.line.double-slash.dart
+L   var firstLength = (end - start) >> 1;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart keyword.operator.arithmetic.dart
+T 34 source.dart
+T 36 source.dart keyword.operator.bitwise.dart
+T 37 source.dart
+T 38 source.dart constant.numeric.dart
+T 39 source.dart punctuation.terminator.dart
+L   var middle = start + firstLength;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 34 source.dart
+T 35 source.dart punctuation.terminator.dart
+L   var secondLength = end - middle;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   // secondLength is always the same as firstLength, or one greater.
+T 2 source.dart
+T 68 source.dart comment.line.double-slash.dart
+L   var scratchSpace = elements.sublist(0, secondLength);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart entity.name.function.dart
+T 38 source.dart
+T 39 source.dart constant.numeric.dart
+T 40 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L   _mergeSort(elements, identity<E>, compare, middle, end, scratchSpace, 0);
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.comparison.dart
+T 33 source.dart support.class.dart
+T 34 source.dart keyword.operator.comparison.dart
+T 35 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart punctuation.comma.dart
+T 56 source.dart
+T 57 source.dart punctuation.comma.dart
+T 70 source.dart
+T 71 source.dart punctuation.comma.dart
+T 72 source.dart
+T 73 source.dart constant.numeric.dart
+T 74 source.dart
+T 75 source.dart punctuation.terminator.dart
+L   var firstTarget = end - firstLength;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.arithmetic.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+L   _mergeSort(
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     identity<E>,
+T 12 source.dart
+T 13 source.dart keyword.operator.comparison.dart
+T 14 source.dart support.class.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 16 source.dart punctuation.comma.dart
+L     compare,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L     start,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L     middle,
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     firstTarget,
+T 15 source.dart
+T 16 source.dart punctuation.comma.dart
+L   );
+T 3 source.dart
+T 4 source.dart punctuation.terminator.dart
+L   _merge(
+T 2 source.dart
+T 8 source.dart entity.name.function.dart
+T 9 source.dart
+L     identity<E>,
+T 12 source.dart
+T 13 source.dart keyword.operator.comparison.dart
+T 14 source.dart support.class.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 16 source.dart punctuation.comma.dart
+L     compare,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     firstTarget,
+T 15 source.dart
+T 16 source.dart punctuation.comma.dart
+L     end,
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L     scratchSpace,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     0,
+T 4 source.dart
+T 5 source.dart constant.numeric.dart
+T 6 source.dart punctuation.comma.dart
+L     secondLength,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     start,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   );
+T 3 source.dart
+T 4 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Sort [elements] using a merge-sort algorithm.
+T 3 source.dart comment.block.documentation.dart
+T 9 source.dart comment.block.documentation.dart
+T 19 source.dart comment.block.documentation.dart variable.name.source.dart
+T 49 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// The elements are compared using [compare] on the value provided by [keyOf]
+T 36 source.dart comment.block.documentation.dart
+T 45 source.dart comment.block.documentation.dart variable.name.source.dart
+T 71 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// on the element.
+T 19 source.dart comment.block.documentation.dart
+L /// If [start] and [end] are provided, only that range is sorted.
+T 7 source.dart comment.block.documentation.dart
+T 14 source.dart comment.block.documentation.dart variable.name.source.dart
+T 19 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart variable.name.source.dart
+T 65 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Uses insertion sort for smaller sublists.
+T 45 source.dart comment.block.documentation.dart
+L void mergeSortBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K a, K b) compare, [
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 35 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ]) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, elements.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L   var length = end - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   if (length < 2) return;
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 15 source.dart
+T 16 source.dart constant.numeric.dart
+T 18 source.dart
+T 24 source.dart keyword.control.return.dart
+T 25 source.dart punctuation.terminator.dart
+L   if (length < _mergeSortLimit) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+L     _movingInsertionSort(elements, keyOf, compare, start, end, elements, start);
+T 4 source.dart
+T 24 source.dart entity.name.function.dart
+T 25 source.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 56 source.dart
+T 57 source.dart punctuation.comma.dart
+T 61 source.dart
+T 62 source.dart punctuation.comma.dart
+T 71 source.dart
+T 72 source.dart punctuation.comma.dart
+T 79 source.dart
+T 80 source.dart punctuation.terminator.dart
+L     return;
+T 4 source.dart
+T 10 source.dart keyword.control.return.dart
+T 11 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   // Special case the first split instead of directly calling
+T 2 source.dart
+T 61 source.dart comment.line.double-slash.dart
+L   // _mergeSort, because the _mergeSort requires its target to
+T 2 source.dart
+T 62 source.dart comment.line.double-slash.dart
+L   // be different from its source, and it requires extra space
+T 2 source.dart
+T 62 source.dart comment.line.double-slash.dart
+L   // of the same size as the list to sort.
+T 2 source.dart
+T 42 source.dart comment.line.double-slash.dart
+L   // This split allows us to have only half as much extra space,
+T 2 source.dart
+T 64 source.dart comment.line.double-slash.dart
+L   // and it ends up in the original place.
+T 2 source.dart
+T 42 source.dart comment.line.double-slash.dart
+L   var middle = start + (length >> 1);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 31 source.dart
+T 33 source.dart keyword.operator.bitwise.dart
+T 34 source.dart
+T 35 source.dart constant.numeric.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L   var firstLength = middle - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.arithmetic.dart
+T 34 source.dart
+T 35 source.dart punctuation.terminator.dart
+L   var secondLength = end - middle;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   // secondLength is always the same as firstLength, or one greater.
+T 2 source.dart
+T 68 source.dart comment.line.double-slash.dart
+L   var scratchSpace = elements.sublist(0, secondLength);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart entity.name.function.dart
+T 38 source.dart
+T 39 source.dart constant.numeric.dart
+T 40 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L   _mergeSort(elements, keyOf, compare, middle, end, scratchSpace, 0);
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 64 source.dart
+T 65 source.dart punctuation.comma.dart
+T 66 source.dart
+T 67 source.dart constant.numeric.dart
+T 68 source.dart
+T 69 source.dart punctuation.terminator.dart
+L   var firstTarget = end - firstLength;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.arithmetic.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+L   _mergeSort(elements, keyOf, compare, start, middle, elements, firstTarget);
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 52 source.dart
+T 53 source.dart punctuation.comma.dart
+T 62 source.dart
+T 63 source.dart punctuation.comma.dart
+T 76 source.dart
+T 77 source.dart punctuation.terminator.dart
+L   _merge(
+T 2 source.dart
+T 8 source.dart entity.name.function.dart
+T 9 source.dart
+L     keyOf,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L     compare,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     firstTarget,
+T 15 source.dart
+T 16 source.dart punctuation.comma.dart
+L     end,
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L     scratchSpace,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     0,
+T 4 source.dart
+T 5 source.dart constant.numeric.dart
+T 6 source.dart punctuation.comma.dart
+L     secondLength,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     start,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   );
+T 3 source.dart
+T 4 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Performs an insertion sort into a potentially different list than the
+T 3 source.dart comment.block.documentation.dart
+T 73 source.dart comment.block.documentation.dart
+L /// one containing the original values.
+T 39 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// It will work in-place as well.
+T 34 source.dart comment.block.documentation.dart
+L void _movingInsertionSort<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 25 source.dart entity.name.function.dart
+T 26 source.dart other.source.dart
+T 27 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart
+T 30 source.dart support.class.dart
+T 31 source.dart other.source.dart
+T 32 source.dart
+L   List<E> list,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 14 source.dart
+T 15 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   List<E> target,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L   int targetOffset,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   var length = end - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   if (length == 0) return;
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 16 source.dart
+T 17 source.dart constant.numeric.dart
+T 19 source.dart
+T 25 source.dart keyword.control.return.dart
+T 26 source.dart punctuation.terminator.dart
+L   target[targetOffset] = list[start];
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L   for (var i = 1; i < length; i++) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 15 source.dart
+T 16 source.dart constant.numeric.dart
+T 17 source.dart punctuation.terminator.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.comparison.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+T 31 source.dart
+T 33 source.dart keyword.operator.increment-decrement.dart
+T 36 source.dart
+L     var element = list[start + i];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L     var elementKey = keyOf(element);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L     var min = targetOffset;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L     var max = targetOffset + i;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.arithmetic.dart
+T 30 source.dart
+T 31 source.dart punctuation.terminator.dart
+L     while (min < max) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.comparison.dart
+T 23 source.dart
+L       var mid = min + ((max - min) >> 1);
+T 6 source.dart
+T 9 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.arithmetic.dart
+T 35 source.dart
+T 37 source.dart keyword.operator.bitwise.dart
+T 38 source.dart
+T 39 source.dart constant.numeric.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L       if (compare(elementKey, keyOf(target[mid])) < 0) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 30 source.dart
+T 35 source.dart entity.name.function.dart
+T 36 source.dart
+T 50 source.dart
+T 51 source.dart keyword.operator.comparison.dart
+T 52 source.dart
+T 53 source.dart constant.numeric.dart
+T 56 source.dart
+L         max = mid;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L       } else {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 14 source.dart
+L         min = mid + 1;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     }
+T 5 source.dart
+L     target.setRange(min + 1, targetOffset + i + 1, target, min);
+T 10 source.dart
+T 11 source.dart punctuation.dot.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart constant.numeric.dart
+T 28 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart keyword.operator.arithmetic.dart
+T 46 source.dart
+T 47 source.dart keyword.operator.arithmetic.dart
+T 48 source.dart
+T 49 source.dart constant.numeric.dart
+T 50 source.dart punctuation.comma.dart
+T 57 source.dart
+T 58 source.dart punctuation.comma.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L     target[min] = element;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L /// Sorts [elements] from [start] to [end] into [target] at [targetOffset].
+T 3 source.dart comment.block.documentation.dart
+T 10 source.dart comment.block.documentation.dart
+T 20 source.dart comment.block.documentation.dart variable.name.source.dart
+T 26 source.dart comment.block.documentation.dart
+T 33 source.dart comment.block.documentation.dart variable.name.source.dart
+T 37 source.dart comment.block.documentation.dart
+T 42 source.dart comment.block.documentation.dart variable.name.source.dart
+T 48 source.dart comment.block.documentation.dart
+T 56 source.dart comment.block.documentation.dart variable.name.source.dart
+T 60 source.dart comment.block.documentation.dart
+T 74 source.dart comment.block.documentation.dart variable.name.source.dart
+T 75 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// The `target` list must be able to contain the range from `start` to `end`
+T 8 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.other.source.dart
+T 61 source.dart comment.block.documentation.dart
+T 68 source.dart comment.block.documentation.dart variable.other.source.dart
+T 72 source.dart comment.block.documentation.dart
+T 77 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// after `targetOffset`.
+T 10 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart variable.other.source.dart
+T 25 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Allows target to be the same list as [elements], as long as it's not
+T 41 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+L /// overlapping the `start..end` range.
+T 20 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.other.source.dart
+T 39 source.dart comment.block.documentation.dart
+L void _mergeSort<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 19 source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart other.source.dart
+T 22 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   List<E> target,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L   int targetOffset,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   var length = end - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   if (length < _mergeSortLimit) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+L     _movingInsertionSort<E, K>(
+T 4 source.dart
+T 24 source.dart entity.name.function.dart
+T 25 source.dart other.source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart
+T 28 source.dart
+T 29 source.dart support.class.dart
+T 30 source.dart other.source.dart
+T 31 source.dart
+L       elements,
+T 14 source.dart
+T 15 source.dart punctuation.comma.dart
+L       keyOf,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L       compare,
+T 13 source.dart
+T 14 source.dart punctuation.comma.dart
+L       start,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L       end,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L       target,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L       targetOffset,
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L     );
+T 5 source.dart
+T 6 source.dart punctuation.terminator.dart
+L     return;
+T 4 source.dart
+T 10 source.dart keyword.control.return.dart
+T 11 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   var middle = start + (length >> 1);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 31 source.dart
+T 33 source.dart keyword.operator.bitwise.dart
+T 34 source.dart
+T 35 source.dart constant.numeric.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L   var firstLength = middle - start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.arithmetic.dart
+T 34 source.dart
+T 35 source.dart punctuation.terminator.dart
+L   var secondLength = end - middle;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   // Here secondLength >= firstLength (differs by at most one).
+T 2 source.dart
+T 63 source.dart comment.line.double-slash.dart
+L   var targetMiddle = targetOffset + firstLength;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 34 source.dart
+T 35 source.dart keyword.operator.arithmetic.dart
+T 47 source.dart
+T 48 source.dart punctuation.terminator.dart
+L   // Sort the second half into the end of the target area.
+T 2 source.dart
+T 58 source.dart comment.line.double-slash.dart
+L   _mergeSort(elements, keyOf, compare, middle, end, target, targetMiddle);
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 58 source.dart
+T 59 source.dart punctuation.comma.dart
+T 73 source.dart
+T 74 source.dart punctuation.terminator.dart
+L   // Sort the first half into the end of the source area.
+T 2 source.dart
+T 57 source.dart comment.line.double-slash.dart
+L   _mergeSort(elements, keyOf, compare, start, middle, elements, middle);
+T 2 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 52 source.dart
+T 53 source.dart punctuation.comma.dart
+T 62 source.dart
+T 63 source.dart punctuation.comma.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L   // Merge the two parts into the target area.
+T 2 source.dart
+T 46 source.dart comment.line.double-slash.dart
+L   _merge(
+T 2 source.dart
+T 8 source.dart entity.name.function.dart
+T 9 source.dart
+L     keyOf,
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L     compare,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L     elements,
+T 12 source.dart
+T 13 source.dart punctuation.comma.dart
+L     middle,
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L     middle + firstLength,
+T 11 source.dart
+T 12 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart punctuation.comma.dart
+L     target,
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L     targetMiddle,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     targetMiddle + secondLength,
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+L     target,
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L     targetOffset,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L   );
+T 3 source.dart
+T 4 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Merges two lists into a target list.
+T 3 source.dart comment.block.documentation.dart
+T 40 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// One of the input lists may be positioned at the end of the target
+T 69 source.dart comment.block.documentation.dart
+L /// list.
+T 9 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// For equal object, elements from [firstList] are always preferred.
+T 36 source.dart comment.block.documentation.dart
+T 47 source.dart comment.block.documentation.dart variable.name.source.dart
+T 69 source.dart comment.block.documentation.dart
+L /// This allows the merge to be stable if the first list contains elements
+T 74 source.dart comment.block.documentation.dart
+L /// that started out earlier than the ones in [secondList]
+T 46 source.dart comment.block.documentation.dart
+T 58 source.dart comment.block.documentation.dart variable.name.source.dart
+L void _merge<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 11 source.dart entity.name.function.dart
+T 12 source.dart other.source.dart
+T 13 source.dart support.class.dart
+T 14 source.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   List<E> firstList,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+L   int firstStart,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L   int firstEnd,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart
+T 15 source.dart punctuation.comma.dart
+L   List<E> secondList,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L   int secondStart,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 17 source.dart
+T 18 source.dart punctuation.comma.dart
+L   int secondEnd,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 15 source.dart
+T 16 source.dart punctuation.comma.dart
+L   List<E> target,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L   int targetOffset,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   // No empty lists reaches here.
+T 2 source.dart
+T 33 source.dart comment.line.double-slash.dart
+L   assert(firstStart < firstEnd);
+T 2 source.dart
+T 8 source.dart keyword.control.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.comparison.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L   assert(secondStart < secondEnd);
+T 2 source.dart
+T 8 source.dart keyword.control.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   var cursor1 = firstStart;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   var cursor2 = secondStart;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 27 source.dart
+T 28 source.dart punctuation.terminator.dart
+L   var firstElement = firstList[cursor1++];
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 38 source.dart
+T 40 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L   var firstKey = keyOf(firstElement);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L   var secondElement = secondList[cursor2++];
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 40 source.dart
+T 42 source.dart keyword.operator.increment-decrement.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L   var secondKey = keyOf(secondElement);
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 23 source.dart entity.name.function.dart
+T 24 source.dart
+T 38 source.dart
+T 39 source.dart punctuation.terminator.dart
+L   while (true) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 9 source.dart
+T 13 source.dart constant.language.dart
+T 16 source.dart
+L     if (compare(firstKey, secondKey) <= 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.comma.dart
+T 37 source.dart
+T 39 source.dart keyword.operator.comparison.dart
+T 40 source.dart
+T 41 source.dart constant.numeric.dart
+T 44 source.dart
+L       target[targetOffset++] = firstElement;
+T 25 source.dart
+T 27 source.dart keyword.operator.increment-decrement.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.assignment.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L       if (cursor1 == firstEnd) break; // Flushing second list after loop.
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 18 source.dart
+T 20 source.dart keyword.operator.comparison.dart
+T 31 source.dart
+T 36 source.dart keyword.control.dart
+T 37 source.dart punctuation.terminator.dart
+T 38 source.dart
+T 73 source.dart comment.line.double-slash.dart
+L       firstElement = firstList[cursor1++];
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 38 source.dart
+T 40 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L       firstKey = keyOf(firstElement);
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     } else {
+T 6 source.dart
+T 10 source.dart keyword.control.dart
+T 12 source.dart
+L       target[targetOffset++] = secondElement;
+T 25 source.dart
+T 27 source.dart keyword.operator.increment-decrement.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.assignment.dart
+T 44 source.dart
+T 45 source.dart punctuation.terminator.dart
+L       if (cursor2 != secondEnd) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 18 source.dart
+T 20 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+L         secondElement = secondList[cursor2++];
+T 22 source.dart
+T 23 source.dart keyword.operator.assignment.dart
+T 42 source.dart
+T 44 source.dart keyword.operator.increment-decrement.dart
+T 45 source.dart
+T 46 source.dart punctuation.terminator.dart
+L         secondKey = keyOf(secondElement);
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 25 source.dart entity.name.function.dart
+T 26 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L         continue;
+T 8 source.dart
+T 16 source.dart keyword.control.dart
+T 17 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L       // Second list empties first. Flushing first list here.
+T 6 source.dart
+T 61 source.dart comment.line.double-slash.dart
+L       target[targetOffset++] = firstElement;
+T 25 source.dart
+T 27 source.dart keyword.operator.increment-decrement.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.assignment.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L       target.setRange(
+T 12 source.dart
+T 13 source.dart punctuation.dot.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+L         targetOffset,
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L         targetOffset + (firstEnd - cursor1),
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart keyword.operator.arithmetic.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+L         firstList,
+T 17 source.dart
+T 18 source.dart punctuation.comma.dart
+L         cursor1,
+T 15 source.dart
+T 16 source.dart punctuation.comma.dart
+L       );
+T 7 source.dart
+T 8 source.dart punctuation.terminator.dart
+L       return;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L   // First list empties first. Reached by break above.
+T 2 source.dart
+T 54 source.dart comment.line.double-slash.dart
+L   target[targetOffset++] = secondElement;
+T 21 source.dart
+T 23 source.dart keyword.operator.increment-decrement.dart
+T 25 source.dart
+T 26 source.dart keyword.operator.assignment.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L   target.setRange(
+T 8 source.dart
+T 9 source.dart punctuation.dot.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+L     targetOffset,
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L     targetOffset + (secondEnd - cursor2),
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.arithmetic.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+L     secondList,
+T 14 source.dart
+T 15 source.dart punctuation.comma.dart
+L     cursor2,
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   );
+T 3 source.dart
+T 4 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Sorts a list between [start] (inclusive) and [end] (exclusive).
+T 3 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.name.source.dart
+T 49 source.dart comment.block.documentation.dart
+T 54 source.dart comment.block.documentation.dart variable.name.source.dart
+T 67 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// The sorting algorithm is a Pattern-defeating Quicksort (pdqsort), a
+T 71 source.dart comment.block.documentation.dart
+L /// hybrid of Quicksort, Heapsort, and Insertion Sort.
+T 54 source.dart comment.block.documentation.dart
+L void quickSort<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart other.source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E a, E b) compare, [
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 35 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ]) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, elements.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L   if (end - start < 2) return;
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.arithmetic.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.comparison.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 23 source.dart
+T 29 source.dart keyword.control.return.dart
+T 30 source.dart punctuation.terminator.dart
+L   _pdqSortImpl(elements, compare, start, end, _log2(end - start));
+T 2 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart
+T 23 source.dart
+T 24 source.dart punctuation.comma.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 39 source.dart
+T 40 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 46 source.dart
+T 51 source.dart entity.name.function.dart
+T 52 source.dart
+T 56 source.dart
+T 57 source.dart keyword.operator.arithmetic.dart
+T 65 source.dart
+T 66 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Sorts a list between [start] (inclusive) and [end] (exclusive) by key.
+T 3 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.name.source.dart
+T 49 source.dart comment.block.documentation.dart
+T 54 source.dart comment.block.documentation.dart variable.name.source.dart
+T 74 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Elements are ordered by the [compare] function applied to the result of
+T 32 source.dart comment.block.documentation.dart
+T 41 source.dart comment.block.documentation.dart variable.name.source.dart
+T 75 source.dart comment.block.documentation.dart
+L /// the [keyOf] function.
+T 8 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 25 source.dart comment.block.documentation.dart
+L void quickSortBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E element) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+L   int Function(K a, K b) compare, [
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 35 source.dart
+L   int start = 0,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart constant.numeric.dart
+T 16 source.dart punctuation.comma.dart
+L   int? end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ]) {
+T 4 source.dart
+L   end = RangeError.checkValidRange(start, end, elements.length);
+T 6 source.dart
+T 7 source.dart keyword.operator.assignment.dart
+T 8 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart punctuation.dot.dart
+T 34 source.dart entity.name.function.dart
+T 35 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L   if (end - start < 2) return;
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.arithmetic.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.comparison.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 23 source.dart
+T 29 source.dart keyword.control.return.dart
+T 30 source.dart punctuation.terminator.dart
+L   _pdqSortByImpl(elements, keyOf, compare, start, end, _log2(end - start));
+T 2 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart
+T 25 source.dart
+T 26 source.dart punctuation.comma.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 41 source.dart
+T 42 source.dart punctuation.comma.dart
+T 48 source.dart
+T 49 source.dart punctuation.comma.dart
+T 53 source.dart
+T 54 source.dart punctuation.comma.dart
+T 55 source.dart
+T 60 source.dart entity.name.function.dart
+T 61 source.dart
+T 65 source.dart
+T 66 source.dart keyword.operator.arithmetic.dart
+T 74 source.dart
+T 75 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Minimum list size below which pdqsort uses insertion sort.
+T 3 source.dart comment.block.documentation.dart
+T 62 source.dart comment.block.documentation.dart
+L const int _pdqInsertionSortThreshold = 32;
+T 5 source.dart storage.modifier.dart
+T 6 source.dart
+T 9 source.dart support.class.dart
+T 10 source.dart
+T 37 source.dart
+T 38 source.dart keyword.operator.assignment.dart
+T 39 source.dart
+T 41 source.dart constant.numeric.dart
+T 42 source.dart punctuation.terminator.dart
+L 
+L /// Computes the base-2 logarithm of [n].
+T 3 source.dart comment.block.documentation.dart
+T 37 source.dart comment.block.documentation.dart
+T 40 source.dart comment.block.documentation.dart variable.name.source.dart
+T 41 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Uses bitLength to compute the floor(log2(n)) efficiently.
+T 61 source.dart comment.block.documentation.dart
+L /// For n == 0 we return 0.
+T 27 source.dart comment.block.documentation.dart
+L int _log2(int n) => n > 0 ? n.bitLength - 1 : 0;
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 9 source.dart entity.name.function.dart
+T 10 source.dart
+T 13 source.dart support.class.dart
+T 14 source.dart
+T 17 source.dart
+T 19 source.dart keyword.operator.closure.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.comparison.dart
+T 24 source.dart
+T 25 source.dart constant.numeric.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 40 source.dart
+T 41 source.dart keyword.operator.arithmetic.dart
+T 42 source.dart
+T 43 source.dart constant.numeric.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.ternary.dart
+T 46 source.dart
+T 47 source.dart constant.numeric.dart
+T 48 source.dart punctuation.terminator.dart
+L 
+L // ==========================================
+T 45 source.dart comment.line.double-slash.dart
+L // Implementation: Direct Comparison
+T 36 source.dart comment.line.double-slash.dart
+L // ==========================================
+T 45 source.dart comment.line.double-slash.dart
+L 
+L void _pdqSortImpl<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart other.source.dart
+T 19 source.dart support.class.dart
+T 20 source.dart other.source.dart
+T 21 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int badAllowed,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   while (true) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 9 source.dart
+T 13 source.dart constant.language.dart
+T 16 source.dart
+L     final size = end - start;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L     if (size < _pdqInsertionSortThreshold) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 44 source.dart
+L       _insertionSort(elements, compare, start, end);
+T 6 source.dart
+T 20 source.dart entity.name.function.dart
+T 21 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart punctuation.terminator.dart
+L       return;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     if (_handlePresorted(elements, compare, start, end)) return;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 24 source.dart entity.name.function.dart
+T 25 source.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 57 source.dart
+T 63 source.dart keyword.control.return.dart
+T 64 source.dart punctuation.terminator.dart
+L 
+L     if (badAllowed == 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 19 source.dart
+T 21 source.dart keyword.operator.comparison.dart
+T 22 source.dart
+T 23 source.dart constant.numeric.dart
+T 26 source.dart
+L       _heapSort(elements, compare, start, end);
+T 6 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.comma.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart punctuation.terminator.dart
+L       return;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     final mid = start + size ~/ 2;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.bitwise.dart
+T 31 source.dart keyword.operator.arithmetic.dart
+T 32 source.dart
+T 33 source.dart constant.numeric.dart
+T 34 source.dart punctuation.terminator.dart
+L     _selectPivot(elements, compare, start, mid, end, size);
+T 4 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart
+T 25 source.dart
+T 26 source.dart punctuation.comma.dart
+T 34 source.dart
+T 35 source.dart punctuation.comma.dart
+T 41 source.dart
+T 42 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart punctuation.comma.dart
+T 58 source.dart
+T 59 source.dart punctuation.terminator.dart
+L 
+L     final pivot = elements[start];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L     var less = start;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.terminator.dart
+L     var equal = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart constant.numeric.dart
+T 26 source.dart punctuation.terminator.dart
+L     var greater = end;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L 
+L     while (equal < greater) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.comparison.dart
+T 29 source.dart
+L       final element = elements[equal];
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+L       final comparison = compare(element, pivot);
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 48 source.dart
+T 49 source.dart punctuation.terminator.dart
+L 
+L       if (comparison < 0) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 23 source.dart
+T 24 source.dart constant.numeric.dart
+T 27 source.dart
+L         elements[equal] = elements[less];
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L         elements[less] = element;
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart punctuation.terminator.dart
+L         less++;
+T 12 source.dart
+T 14 source.dart keyword.operator.increment-decrement.dart
+T 15 source.dart punctuation.terminator.dart
+L         equal++;
+T 13 source.dart
+T 15 source.dart keyword.operator.increment-decrement.dart
+T 16 source.dart punctuation.terminator.dart
+L       } else if (comparison > 0) {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.control.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.comparison.dart
+T 30 source.dart
+T 31 source.dart constant.numeric.dart
+T 34 source.dart
+L         greater--;
+T 15 source.dart
+T 17 source.dart keyword.operator.increment-decrement.dart
+T 18 source.dart punctuation.terminator.dart
+L         elements[equal] = elements[greater];
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L         elements[greater] = element;
+T 26 source.dart
+T 27 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L       } else {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 14 source.dart
+L         equal++;
+T 13 source.dart
+T 15 source.dart keyword.operator.increment-decrement.dart
+T 16 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     }
+T 5 source.dart
+L 
+L     if ((less - start) < size ~/ 8 || (end - greater) < size ~/ 8) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.comparison.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.bitwise.dart
+T 32 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart constant.numeric.dart
+T 35 source.dart
+T 36 source.dart keyword.operator.bitwise.dart
+T 37 source.dart keyword.operator.bitwise.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.comparison.dart
+T 61 source.dart
+T 62 source.dart keyword.operator.bitwise.dart
+T 63 source.dart keyword.operator.arithmetic.dart
+T 64 source.dart
+T 65 source.dart constant.numeric.dart
+T 68 source.dart
+L       badAllowed--;
+T 16 source.dart
+T 18 source.dart keyword.operator.increment-decrement.dart
+T 19 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     if (less - start < end - greater) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.arithmetic.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+L       _pdqSortImpl(elements, compare, start, less, badAllowed);
+T 6 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart
+T 27 source.dart
+T 28 source.dart punctuation.comma.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 62 source.dart
+T 63 source.dart punctuation.terminator.dart
+L       start = greater;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     } else {
+T 6 source.dart
+T 10 source.dart keyword.control.dart
+T 12 source.dart
+L       _pdqSortImpl(elements, compare, greater, end, badAllowed);
+T 6 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart
+T 27 source.dart
+T 28 source.dart punctuation.comma.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L       end = less;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L bool _handlePresorted<E>(
+T 4 source.dart support.class.dart
+T 5 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart other.source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart other.source.dart
+T 25 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (compare(elements[start], elements[start + 1]) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart keyword.operator.arithmetic.dart
+T 48 source.dart
+T 49 source.dart constant.numeric.dart
+T 52 source.dart
+T 53 source.dart keyword.operator.comparison.dart
+T 54 source.dart
+T 55 source.dart constant.numeric.dart
+T 58 source.dart
+L     // Check strictly decreasing
+T 4 source.dart
+T 32 source.dart comment.line.double-slash.dart
+L     var i = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L     while (i < end && compare(elements[i - 1], elements[i]) >= 0) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.bitwise.dart
+T 21 source.dart keyword.operator.bitwise.dart
+T 22 source.dart
+T 29 source.dart entity.name.function.dart
+T 30 source.dart
+T 41 source.dart
+T 42 source.dart keyword.operator.arithmetic.dart
+T 43 source.dart
+T 44 source.dart constant.numeric.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 60 source.dart
+T 62 source.dart keyword.operator.comparison.dart
+T 63 source.dart
+T 64 source.dart constant.numeric.dart
+T 67 source.dart
+L       i++;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     if (i == end) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 10 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+L       _reverseRange(elements, start, end);
+T 6 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L       return true;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart
+T 17 source.dart constant.language.dart
+T 18 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   } else {
+T 4 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+L     // Check non-decreasing
+T 4 source.dart
+T 27 source.dart comment.line.double-slash.dart
+L     var i = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L     while (i < end && compare(elements[i - 1], elements[i]) <= 0) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.bitwise.dart
+T 21 source.dart keyword.operator.bitwise.dart
+T 22 source.dart
+T 29 source.dart entity.name.function.dart
+T 30 source.dart
+T 41 source.dart
+T 42 source.dart keyword.operator.arithmetic.dart
+T 43 source.dart
+T 44 source.dart constant.numeric.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 60 source.dart
+T 62 source.dart keyword.operator.comparison.dart
+T 63 source.dart
+T 64 source.dart constant.numeric.dart
+T 67 source.dart
+L       i++;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     if (i == end) return true;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 10 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 18 source.dart
+T 24 source.dart keyword.control.return.dart
+T 25 source.dart
+T 29 source.dart constant.language.dart
+T 30 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   return false;
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 9 source.dart
+T 14 source.dart constant.language.dart
+T 15 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L void _reverseRange<E>(List<E> elements, int start, int end) {
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart other.source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart other.source.dart
+T 22 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart other.source.dart
+T 28 source.dart support.class.dart
+T 29 source.dart other.source.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 40 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 54 source.dart support.class.dart
+T 55 source.dart
+T 61 source.dart
+L   var left = start;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 11 source.dart
+T 12 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart punctuation.terminator.dart
+L   var right = end - 1;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L   while (left < right) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 24 source.dart
+L     final temp = elements[left];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L     elements[left] = elements[right];
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     elements[right] = temp;
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L     left++;
+T 8 source.dart
+T 10 source.dart keyword.operator.increment-decrement.dart
+T 11 source.dart punctuation.terminator.dart
+L     right--;
+T 9 source.dart
+T 11 source.dart keyword.operator.increment-decrement.dart
+T 12 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _insertionSort<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart other.source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   for (var i = start + 1; i < end; i++) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart constant.numeric.dart
+T 25 source.dart punctuation.terminator.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+T 36 source.dart
+T 38 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+L     var current = elements[i];
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     var j = i - 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.arithmetic.dart
+T 16 source.dart
+T 17 source.dart constant.numeric.dart
+T 18 source.dart punctuation.terminator.dart
+L     while (j >= start && compare(elements[j], current) > 0) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.bitwise.dart
+T 24 source.dart keyword.operator.bitwise.dart
+T 25 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart keyword.operator.comparison.dart
+T 57 source.dart
+T 58 source.dart constant.numeric.dart
+T 61 source.dart
+L       elements[j + 1] = elements[j];
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 19 source.dart
+T 20 source.dart constant.numeric.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L       j--;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     elements[j + 1] = current;
+T 15 source.dart
+T 16 source.dart keyword.operator.arithmetic.dart
+T 17 source.dart
+T 18 source.dart constant.numeric.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _heapSort<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart other.source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   final n = end - start;
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart punctuation.terminator.dart
+L   for (var i = n ~/ 2 - 1; i >= 0; i--) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.bitwise.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart constant.numeric.dart
+T 26 source.dart punctuation.terminator.dart
+T 29 source.dart
+T 31 source.dart keyword.operator.comparison.dart
+T 32 source.dart
+T 33 source.dart constant.numeric.dart
+T 34 source.dart punctuation.terminator.dart
+T 36 source.dart
+T 38 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+L     _siftDown(elements, compare, i, n, start);
+T 4 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 22 source.dart
+T 23 source.dart punctuation.comma.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 34 source.dart
+T 35 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   for (var i = n - 1; i > 0; i--) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 19 source.dart
+T 20 source.dart constant.numeric.dart
+T 21 source.dart punctuation.terminator.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.comparison.dart
+T 26 source.dart
+T 27 source.dart constant.numeric.dart
+T 28 source.dart punctuation.terminator.dart
+T 30 source.dart
+T 32 source.dart keyword.operator.increment-decrement.dart
+T 35 source.dart
+L     final temp = elements[start];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart punctuation.terminator.dart
+L     elements[start] = elements[start + i];
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 37 source.dart
+T 38 source.dart keyword.operator.arithmetic.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L     elements[start + i] = temp;
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart punctuation.terminator.dart
+L     _siftDown(elements, compare, 0, i, start);
+T 4 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 22 source.dart
+T 23 source.dart punctuation.comma.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 33 source.dart
+T 34 source.dart constant.numeric.dart
+T 35 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _siftDown<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 14 source.dart entity.name.function.dart
+T 15 source.dart other.source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart other.source.dart
+T 18 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int i,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int n,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   var root = i;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 11 source.dart
+T 12 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart punctuation.terminator.dart
+L   while (true) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 9 source.dart
+T 13 source.dart constant.language.dart
+T 16 source.dart
+L     final left = 2 * root + 1;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart constant.numeric.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart constant.numeric.dart
+T 30 source.dart punctuation.terminator.dart
+L     if (left >= n) break;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+T 24 source.dart keyword.control.dart
+T 25 source.dart punctuation.terminator.dart
+L     var largest = root;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L     if (compare(elements[start + left], elements[start + largest]) > 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.arithmetic.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart keyword.operator.arithmetic.dart
+T 67 source.dart
+T 68 source.dart keyword.operator.comparison.dart
+T 69 source.dart
+T 70 source.dart constant.numeric.dart
+T 73 source.dart
+L       largest = left;
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     final right = left + 1;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.arithmetic.dart
+T 25 source.dart
+T 26 source.dart constant.numeric.dart
+T 27 source.dart punctuation.terminator.dart
+L     if (right < n &&
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.bitwise.dart
+T 20 source.dart keyword.operator.bitwise.dart
+L         compare(elements[start + right], elements[start + largest]) > 0) {
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+T 40 source.dart punctuation.comma.dart
+T 56 source.dart
+T 57 source.dart keyword.operator.arithmetic.dart
+T 68 source.dart
+T 69 source.dart keyword.operator.comparison.dart
+T 70 source.dart
+T 71 source.dart constant.numeric.dart
+T 74 source.dart
+L       largest = right;
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     if (largest == root) break;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 16 source.dart
+T 18 source.dart keyword.operator.comparison.dart
+T 25 source.dart
+T 30 source.dart keyword.control.dart
+T 31 source.dart punctuation.terminator.dart
+L     final temp = elements[start + root];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+T 40 source.dart punctuation.terminator.dart
+L     elements[start + root] = elements[start + largest];
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.assignment.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.arithmetic.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L     elements[start + largest] = temp;
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.assignment.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     root = largest;
+T 9 source.dart
+T 10 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _selectPivot<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart other.source.dart
+T 19 source.dart support.class.dart
+T 20 source.dart other.source.dart
+T 21 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int mid,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int size,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (size > 80) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 11 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 13 source.dart
+T 15 source.dart constant.numeric.dart
+T 18 source.dart
+L     final s = size ~/ 8;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.bitwise.dart
+T 21 source.dart keyword.operator.arithmetic.dart
+T 22 source.dart
+T 23 source.dart constant.numeric.dart
+T 24 source.dart punctuation.terminator.dart
+L     _sort3(elements, compare, start, start + s, start + 2 * s);
+T 4 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 46 source.dart
+T 47 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.arithmetic.dart
+T 56 source.dart
+T 57 source.dart constant.numeric.dart
+T 58 source.dart
+T 59 source.dart keyword.operator.arithmetic.dart
+T 62 source.dart
+T 63 source.dart punctuation.terminator.dart
+L     _sort3(elements, compare, mid - s, mid, mid + s);
+T 4 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 34 source.dart
+T 35 source.dart keyword.operator.arithmetic.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart punctuation.comma.dart
+T 48 source.dart
+T 49 source.dart keyword.operator.arithmetic.dart
+T 52 source.dart
+T 53 source.dart punctuation.terminator.dart
+L     _sort3(elements, compare, end - 1 - 2 * s, end - 1 - s, end - 1);
+T 4 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 34 source.dart
+T 35 source.dart keyword.operator.arithmetic.dart
+T 36 source.dart
+T 37 source.dart constant.numeric.dart
+T 38 source.dart
+T 39 source.dart keyword.operator.arithmetic.dart
+T 40 source.dart
+T 41 source.dart constant.numeric.dart
+T 42 source.dart
+T 43 source.dart keyword.operator.arithmetic.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart keyword.operator.arithmetic.dart
+T 53 source.dart
+T 54 source.dart constant.numeric.dart
+T 55 source.dart
+T 56 source.dart keyword.operator.arithmetic.dart
+T 58 source.dart
+T 59 source.dart punctuation.comma.dart
+T 64 source.dart
+T 65 source.dart keyword.operator.arithmetic.dart
+T 66 source.dart
+T 67 source.dart constant.numeric.dart
+T 68 source.dart
+T 69 source.dart punctuation.terminator.dart
+L     _sort3(elements, compare, start + s, mid, end - 1 - s);
+T 4 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 36 source.dart
+T 37 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+T 40 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart keyword.operator.arithmetic.dart
+T 52 source.dart
+T 53 source.dart constant.numeric.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.arithmetic.dart
+T 58 source.dart
+T 59 source.dart punctuation.terminator.dart
+L   } else {
+T 4 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+L     _sort3(elements, compare, start, mid, end - 1);
+T 4 source.dart
+T 10 source.dart entity.name.function.dart
+T 11 source.dart
+T 19 source.dart
+T 20 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart keyword.operator.arithmetic.dart
+T 48 source.dart
+T 49 source.dart constant.numeric.dart
+T 50 source.dart
+T 51 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   final temp = elements[start];
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart punctuation.terminator.dart
+L   elements[start] = elements[mid];
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   elements[mid] = temp;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L void _sort3<E>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 11 source.dart entity.name.function.dart
+T 12 source.dart other.source.dart
+T 13 source.dart support.class.dart
+T 14 source.dart other.source.dart
+T 15 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   int Function(E, E) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int a,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int b,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int c,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (compare(elements[a], elements[b]) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 25 source.dart
+T 26 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart keyword.operator.comparison.dart
+T 42 source.dart
+T 43 source.dart constant.numeric.dart
+T 46 source.dart
+L     final t = elements[a];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L     elements[a] = elements[b];
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     elements[b] = t;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   if (compare(elements[b], elements[c]) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 25 source.dart
+T 26 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart keyword.operator.comparison.dart
+T 42 source.dart
+T 43 source.dart constant.numeric.dart
+T 46 source.dart
+L     final t = elements[b];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L     elements[b] = elements[c];
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     elements[c] = t;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart punctuation.terminator.dart
+L     if (compare(elements[a], elements[b]) > 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 27 source.dart
+T 28 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart keyword.operator.comparison.dart
+T 44 source.dart
+T 45 source.dart constant.numeric.dart
+T 48 source.dart
+L       final t2 = elements[a];
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L       elements[a] = elements[b];
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L       elements[b] = t2;
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L // ==========================================
+T 45 source.dart comment.line.double-slash.dart
+L // Implementation: Keyed Comparison (By)
+T 40 source.dart comment.line.double-slash.dart
+L // ==========================================
+T 45 source.dart comment.line.double-slash.dart
+L 
+L /// [badAllowed] tracks how many bad pivot selections are allowed before
+T 3 source.dart comment.block.documentation.dart
+T 4 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+L /// falling back to heap sort.
+T 30 source.dart comment.block.documentation.dart
+L void _pdqSortByImpl<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart other.source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart
+T 23 source.dart
+T 24 source.dart support.class.dart
+T 25 source.dart other.source.dart
+T 26 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int badAllowed,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 16 source.dart
+T 17 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   while (true) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 9 source.dart
+T 13 source.dart constant.language.dart
+T 16 source.dart
+L     final size = end - start;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L     if (size < _pdqInsertionSortThreshold) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.comparison.dart
+T 44 source.dart
+L       _insertionSortBy(elements, keyOf, compare, start, end);
+T 6 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 47 source.dart
+T 48 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.comma.dart
+T 60 source.dart
+T 61 source.dart punctuation.terminator.dart
+L       return;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     if (_handlePresortedBy(elements, keyOf, compare, start, end)) return;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart punctuation.comma.dart
+T 58 source.dart
+T 59 source.dart punctuation.comma.dart
+T 66 source.dart
+T 72 source.dart keyword.control.return.dart
+T 73 source.dart punctuation.terminator.dart
+L 
+L     if (badAllowed == 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 19 source.dart
+T 21 source.dart keyword.operator.comparison.dart
+T 22 source.dart
+T 23 source.dart constant.numeric.dart
+T 26 source.dart
+L       _heapSortBy(elements, keyOf, compare, start, end);
+T 6 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 26 source.dart
+T 27 source.dart punctuation.comma.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.terminator.dart
+L       return;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     final mid = start + size ~/ 2;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.bitwise.dart
+T 31 source.dart keyword.operator.arithmetic.dart
+T 32 source.dart
+T 33 source.dart constant.numeric.dart
+T 34 source.dart punctuation.terminator.dart
+L     _selectPivotBy(elements, keyOf, compare, start, mid, end, size);
+T 4 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart
+T 27 source.dart
+T 28 source.dart punctuation.comma.dart
+T 34 source.dart
+T 35 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart punctuation.comma.dart
+T 60 source.dart
+T 61 source.dart punctuation.comma.dart
+T 67 source.dart
+T 68 source.dart punctuation.terminator.dart
+L 
+L     final pivotElement = elements[start];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L     final pivotKey = keyOf(pivotElement);
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L 
+L     var less = start;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.terminator.dart
+L     var equal = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart constant.numeric.dart
+T 26 source.dart punctuation.terminator.dart
+L     var greater = end;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L 
+L     while (equal < greater) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.comparison.dart
+T 29 source.dart
+L       final element = elements[equal];
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+L       final elementKey = keyOf(element);
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 30 source.dart entity.name.function.dart
+T 31 source.dart
+T 39 source.dart
+T 40 source.dart punctuation.terminator.dart
+L       final comparison = compare(elementKey, pivotKey);
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L 
+L       if (comparison < 0) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 23 source.dart
+T 24 source.dart constant.numeric.dart
+T 27 source.dart
+L         elements[equal] = elements[less];
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 40 source.dart
+T 41 source.dart punctuation.terminator.dart
+L         elements[less] = element;
+T 23 source.dart
+T 24 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart punctuation.terminator.dart
+L         less++;
+T 12 source.dart
+T 14 source.dart keyword.operator.increment-decrement.dart
+T 15 source.dart punctuation.terminator.dart
+L         equal++;
+T 13 source.dart
+T 15 source.dart keyword.operator.increment-decrement.dart
+T 16 source.dart punctuation.terminator.dart
+L       } else if (comparison > 0) {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.control.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.comparison.dart
+T 30 source.dart
+T 31 source.dart constant.numeric.dart
+T 34 source.dart
+L         greater--;
+T 15 source.dart
+T 17 source.dart keyword.operator.increment-decrement.dart
+T 18 source.dart punctuation.terminator.dart
+L         elements[equal] = elements[greater];
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L         elements[greater] = element;
+T 26 source.dart
+T 27 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L       } else {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 14 source.dart
+L         equal++;
+T 13 source.dart
+T 15 source.dart keyword.operator.increment-decrement.dart
+T 16 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     }
+T 5 source.dart
+L 
+L     if ((less - start) < size ~/ 8 || (end - greater) < size ~/ 8) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.comparison.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.bitwise.dart
+T 32 source.dart keyword.operator.arithmetic.dart
+T 33 source.dart
+T 34 source.dart constant.numeric.dart
+T 35 source.dart
+T 36 source.dart keyword.operator.bitwise.dart
+T 37 source.dart keyword.operator.bitwise.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.comparison.dart
+T 61 source.dart
+T 62 source.dart keyword.operator.bitwise.dart
+T 63 source.dart keyword.operator.arithmetic.dart
+T 64 source.dart
+T 65 source.dart constant.numeric.dart
+T 68 source.dart
+L       badAllowed--;
+T 16 source.dart
+T 18 source.dart keyword.operator.increment-decrement.dart
+T 19 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     if (less - start < end - greater) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.arithmetic.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.comparison.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+L       _pdqSortByImpl(elements, keyOf, compare, start, less, badAllowed);
+T 6 source.dart
+T 20 source.dart entity.name.function.dart
+T 21 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 52 source.dart
+T 53 source.dart punctuation.comma.dart
+T 58 source.dart
+T 59 source.dart punctuation.comma.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L       start = greater;
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     } else {
+T 6 source.dart
+T 10 source.dart keyword.control.dart
+T 12 source.dart
+L       _pdqSortByImpl(elements, keyOf, compare, greater, end, badAllowed);
+T 6 source.dart
+T 20 source.dart entity.name.function.dart
+T 21 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.comma.dart
+T 59 source.dart
+T 60 source.dart punctuation.comma.dart
+T 72 source.dart
+T 73 source.dart punctuation.terminator.dart
+L       end = less;
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L bool _handlePresortedBy<E, K>(
+T 4 source.dart support.class.dart
+T 5 source.dart
+T 23 source.dart entity.name.function.dart
+T 24 source.dart other.source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart
+T 27 source.dart
+T 28 source.dart support.class.dart
+T 29 source.dart other.source.dart
+T 30 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (compare(keyOf(elements[start]), keyOf(elements[start + 1])) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 38 source.dart
+T 43 source.dart entity.name.function.dart
+T 44 source.dart
+T 59 source.dart
+T 60 source.dart keyword.operator.arithmetic.dart
+T 61 source.dart
+T 62 source.dart constant.numeric.dart
+T 66 source.dart
+T 67 source.dart keyword.operator.comparison.dart
+T 68 source.dart
+T 69 source.dart constant.numeric.dart
+T 72 source.dart
+L     var i = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L     while (
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 11 source.dart
+L         i < end && compare(keyOf(elements[i - 1]), keyOf(elements[i])) >= 0) {
+T 10 source.dart
+T 11 source.dart keyword.operator.comparison.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.bitwise.dart
+T 18 source.dart keyword.operator.bitwise.dart
+T 19 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.arithmetic.dart
+T 46 source.dart
+T 47 source.dart constant.numeric.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 56 source.dart entity.name.function.dart
+T 57 source.dart
+T 71 source.dart
+T 73 source.dart keyword.operator.comparison.dart
+T 74 source.dart
+T 75 source.dart constant.numeric.dart
+T 78 source.dart
+L       i++;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     if (i == end) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 10 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+L       _reverseRange(elements, start, end);
+T 6 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L       return true;
+T 6 source.dart
+T 12 source.dart keyword.control.return.dart
+T 13 source.dart
+T 17 source.dart constant.language.dart
+T 18 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   } else {
+T 4 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+L     var i = start + 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart punctuation.terminator.dart
+L     while (
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 11 source.dart
+L         i < end && compare(keyOf(elements[i - 1]), keyOf(elements[i])) <= 0) {
+T 10 source.dart
+T 11 source.dart keyword.operator.comparison.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.bitwise.dart
+T 18 source.dart keyword.operator.bitwise.dart
+T 19 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.arithmetic.dart
+T 46 source.dart
+T 47 source.dart constant.numeric.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 56 source.dart entity.name.function.dart
+T 57 source.dart
+T 71 source.dart
+T 73 source.dart keyword.operator.comparison.dart
+T 74 source.dart
+T 75 source.dart constant.numeric.dart
+T 78 source.dart
+L       i++;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     if (i == end) return true;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 10 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 18 source.dart
+T 24 source.dart keyword.control.return.dart
+T 25 source.dart
+T 29 source.dart constant.language.dart
+T 30 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   return false;
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 9 source.dart
+T 14 source.dart constant.language.dart
+T 15 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L void _insertionSortBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart other.source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart
+T 25 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart other.source.dart
+T 28 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   for (var i = start + 1; i < end; i++) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart constant.numeric.dart
+T 25 source.dart punctuation.terminator.dart
+T 28 source.dart
+T 29 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+T 36 source.dart
+T 38 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+L     final current = elements[i];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L     final currentKey = keyOf(current);
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 28 source.dart entity.name.function.dart
+T 29 source.dart
+T 37 source.dart
+T 38 source.dart punctuation.terminator.dart
+L     var j = i - 1;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.arithmetic.dart
+T 16 source.dart
+T 17 source.dart constant.numeric.dart
+T 18 source.dart punctuation.terminator.dart
+L     while (j >= start && compare(keyOf(elements[j]), currentKey) > 0) {
+T 4 source.dart
+T 9 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.bitwise.dart
+T 24 source.dart keyword.operator.bitwise.dart
+T 25 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 38 source.dart entity.name.function.dart
+T 39 source.dart
+T 51 source.dart
+T 52 source.dart punctuation.comma.dart
+T 65 source.dart
+T 66 source.dart keyword.operator.comparison.dart
+T 67 source.dart
+T 68 source.dart constant.numeric.dart
+T 71 source.dart
+L       elements[j + 1] = elements[j];
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 19 source.dart
+T 20 source.dart constant.numeric.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.assignment.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L       j--;
+T 7 source.dart
+T 9 source.dart keyword.operator.increment-decrement.dart
+T 10 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     elements[j + 1] = current;
+T 15 source.dart
+T 16 source.dart keyword.operator.arithmetic.dart
+T 17 source.dart
+T 18 source.dart constant.numeric.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _heapSortBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   final n = end - start;
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 10 source.dart
+T 11 source.dart keyword.operator.assignment.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.arithmetic.dart
+T 23 source.dart
+T 24 source.dart punctuation.terminator.dart
+L   for (var i = n ~/ 2 - 1; i >= 0; i--) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.bitwise.dart
+T 19 source.dart keyword.operator.arithmetic.dart
+T 20 source.dart
+T 21 source.dart constant.numeric.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart constant.numeric.dart
+T 26 source.dart punctuation.terminator.dart
+T 29 source.dart
+T 31 source.dart keyword.operator.comparison.dart
+T 32 source.dart
+T 33 source.dart constant.numeric.dart
+T 34 source.dart punctuation.terminator.dart
+T 36 source.dart
+T 38 source.dart keyword.operator.increment-decrement.dart
+T 41 source.dart
+L     _siftDownBy(elements, keyOf, compare, i, n, start);
+T 4 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.comma.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   for (var i = n - 1; i > 0; i--) {
+T 2 source.dart
+T 5 source.dart keyword.control.dart
+T 7 source.dart
+T 10 source.dart storage.type.primitive.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.arithmetic.dart
+T 19 source.dart
+T 20 source.dart constant.numeric.dart
+T 21 source.dart punctuation.terminator.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.comparison.dart
+T 26 source.dart
+T 27 source.dart constant.numeric.dart
+T 28 source.dart punctuation.terminator.dart
+T 30 source.dart
+T 32 source.dart keyword.operator.increment-decrement.dart
+T 35 source.dart
+L     final temp = elements[start];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart punctuation.terminator.dart
+L     elements[start] = elements[start + i];
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 37 source.dart
+T 38 source.dart keyword.operator.arithmetic.dart
+T 41 source.dart
+T 42 source.dart punctuation.terminator.dart
+L     elements[start + i] = temp;
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart punctuation.terminator.dart
+L     _siftDownBy(elements, keyOf, compare, 0, i, start);
+T 4 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 24 source.dart
+T 25 source.dart punctuation.comma.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+T 42 source.dart
+T 43 source.dart constant.numeric.dart
+T 44 source.dart punctuation.comma.dart
+T 46 source.dart
+T 47 source.dart punctuation.comma.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _siftDownBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 16 source.dart entity.name.function.dart
+T 17 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart other.source.dart
+T 23 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int i,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int n,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   var root = i;
+T 2 source.dart
+T 5 source.dart storage.type.primitive.dart
+T 11 source.dart
+T 12 source.dart keyword.operator.assignment.dart
+T 14 source.dart
+T 15 source.dart punctuation.terminator.dart
+L   while (true) {
+T 2 source.dart
+T 7 source.dart keyword.control.dart
+T 9 source.dart
+T 13 source.dart constant.language.dart
+T 16 source.dart
+L     final left = 2 * root + 1;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 18 source.dart constant.numeric.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 26 source.dart
+T 27 source.dart keyword.operator.arithmetic.dart
+T 28 source.dart
+T 29 source.dart constant.numeric.dart
+T 30 source.dart punctuation.terminator.dart
+L     if (left >= n) break;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 13 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+T 24 source.dart keyword.control.dart
+T 25 source.dart punctuation.terminator.dart
+L     var largest = root;
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L     var largestKey = keyOf(elements[start + largest]);
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 42 source.dart
+T 43 source.dart keyword.operator.arithmetic.dart
+T 53 source.dart
+T 54 source.dart punctuation.terminator.dart
+L 
+L     final leftKey = keyOf(elements[start + left]);
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 25 source.dart entity.name.function.dart
+T 26 source.dart
+T 41 source.dart
+T 42 source.dart keyword.operator.arithmetic.dart
+T 49 source.dart
+T 50 source.dart punctuation.terminator.dart
+L     if (compare(leftKey, largestKey) > 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 23 source.dart
+T 24 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart keyword.operator.comparison.dart
+T 39 source.dart
+T 40 source.dart constant.numeric.dart
+T 43 source.dart
+L       largest = left;
+T 14 source.dart
+T 15 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 21 source.dart punctuation.terminator.dart
+L       largestKey = leftKey;
+T 17 source.dart
+T 18 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L 
+L     final right = left + 1;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 24 source.dart keyword.operator.arithmetic.dart
+T 25 source.dart
+T 26 source.dart constant.numeric.dart
+T 27 source.dart punctuation.terminator.dart
+L     if (right < n) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 14 source.dart
+T 15 source.dart keyword.operator.comparison.dart
+T 20 source.dart
+L       final rightKey = keyOf(elements[start + right]);
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 21 source.dart
+T 22 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 28 source.dart entity.name.function.dart
+T 29 source.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.arithmetic.dart
+T 53 source.dart
+T 54 source.dart punctuation.terminator.dart
+L       if (compare(rightKey, largestKey) > 0) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 26 source.dart
+T 27 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart keyword.operator.comparison.dart
+T 42 source.dart
+T 43 source.dart constant.numeric.dart
+T 46 source.dart
+L         largest = right;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 23 source.dart
+T 24 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     }
+T 5 source.dart
+L     if (largest == root) break;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 16 source.dart
+T 18 source.dart keyword.operator.comparison.dart
+T 25 source.dart
+T 30 source.dart keyword.control.dart
+T 31 source.dart punctuation.terminator.dart
+L     final temp = elements[start + root];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 32 source.dart
+T 33 source.dart keyword.operator.arithmetic.dart
+T 39 source.dart
+T 40 source.dart punctuation.terminator.dart
+L     elements[start + root] = elements[start + largest];
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 27 source.dart
+T 28 source.dart keyword.operator.assignment.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.arithmetic.dart
+T 54 source.dart
+T 55 source.dart punctuation.terminator.dart
+L     elements[start + largest] = temp;
+T 19 source.dart
+T 20 source.dart keyword.operator.arithmetic.dart
+T 30 source.dart
+T 31 source.dart keyword.operator.assignment.dart
+T 36 source.dart
+T 37 source.dart punctuation.terminator.dart
+L     root = largest;
+T 9 source.dart
+T 10 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 19 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 
+L void _selectPivotBy<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart other.source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart
+T 23 source.dart
+T 24 source.dart support.class.dart
+T 25 source.dart other.source.dart
+T 26 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int start,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 11 source.dart
+T 12 source.dart punctuation.comma.dart
+L   int mid,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int end,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart
+T 10 source.dart punctuation.comma.dart
+L   int size,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 10 source.dart
+T 11 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (size > 80) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 11 source.dart
+T 12 source.dart keyword.operator.comparison.dart
+T 13 source.dart
+T 15 source.dart constant.numeric.dart
+T 18 source.dart
+L     final s = size ~/ 8;
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.bitwise.dart
+T 21 source.dart keyword.operator.arithmetic.dart
+T 22 source.dart
+T 23 source.dart constant.numeric.dart
+T 24 source.dart punctuation.terminator.dart
+L     _sort3By(elements, keyOf, compare, start, start + s, start + 2 * s);
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 52 source.dart
+T 53 source.dart keyword.operator.arithmetic.dart
+T 55 source.dart
+T 56 source.dart punctuation.comma.dart
+T 63 source.dart
+T 64 source.dart keyword.operator.arithmetic.dart
+T 65 source.dart
+T 66 source.dart constant.numeric.dart
+T 67 source.dart
+T 68 source.dart keyword.operator.arithmetic.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L     _sort3By(elements, keyOf, compare, mid - s, mid, mid + s);
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 46 source.dart
+T 47 source.dart punctuation.comma.dart
+T 51 source.dart
+T 52 source.dart punctuation.comma.dart
+T 57 source.dart
+T 58 source.dart keyword.operator.arithmetic.dart
+T 61 source.dart
+T 62 source.dart punctuation.terminator.dart
+L     _sort3By(elements, keyOf, compare, end - 1 - 2 * s, end - 1 - s, end - 1);
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 43 source.dart
+T 44 source.dart keyword.operator.arithmetic.dart
+T 45 source.dart
+T 46 source.dart constant.numeric.dart
+T 47 source.dart
+T 48 source.dart keyword.operator.arithmetic.dart
+T 49 source.dart
+T 50 source.dart constant.numeric.dart
+T 51 source.dart
+T 52 source.dart keyword.operator.arithmetic.dart
+T 54 source.dart
+T 55 source.dart punctuation.comma.dart
+T 60 source.dart
+T 61 source.dart keyword.operator.arithmetic.dart
+T 62 source.dart
+T 63 source.dart constant.numeric.dart
+T 64 source.dart
+T 65 source.dart keyword.operator.arithmetic.dart
+T 67 source.dart
+T 68 source.dart punctuation.comma.dart
+T 73 source.dart
+T 74 source.dart keyword.operator.arithmetic.dart
+T 75 source.dart
+T 76 source.dart constant.numeric.dart
+T 77 source.dart
+T 78 source.dart punctuation.terminator.dart
+L     _sort3By(elements, keyOf, compare, start + s, mid, end - 1 - s);
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 45 source.dart
+T 46 source.dart keyword.operator.arithmetic.dart
+T 48 source.dart
+T 49 source.dart punctuation.comma.dart
+T 53 source.dart
+T 54 source.dart punctuation.comma.dart
+T 59 source.dart
+T 60 source.dart keyword.operator.arithmetic.dart
+T 61 source.dart
+T 62 source.dart constant.numeric.dart
+T 63 source.dart
+T 64 source.dart keyword.operator.arithmetic.dart
+T 67 source.dart
+T 68 source.dart punctuation.terminator.dart
+L   } else {
+T 4 source.dart
+T 8 source.dart keyword.control.dart
+T 10 source.dart
+L     _sort3By(elements, keyOf, compare, start, mid, end - 1);
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 44 source.dart
+T 45 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 55 source.dart
+T 56 source.dart keyword.operator.arithmetic.dart
+T 57 source.dart
+T 58 source.dart constant.numeric.dart
+T 59 source.dart
+T 60 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   final temp = elements[start];
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 13 source.dart
+T 14 source.dart keyword.operator.assignment.dart
+T 30 source.dart
+T 31 source.dart punctuation.terminator.dart
+L   elements[start] = elements[mid];
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   elements[mid] = temp;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L void _sort3By<E, K>(
+T 4 source.dart storage.type.primitive.dart
+T 5 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart other.source.dart
+T 15 source.dart support.class.dart
+T 16 source.dart
+T 17 source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart other.source.dart
+T 20 source.dart
+L   List<E> elements,
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart other.source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart
+T 19 source.dart punctuation.comma.dart
+L   K Function(E) keyOf,
+T 2 source.dart
+T 3 source.dart support.class.dart
+T 4 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 14 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart punctuation.comma.dart
+L   int Function(K, K) compare,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 16 source.dart support.class.dart
+T 17 source.dart punctuation.comma.dart
+T 18 source.dart
+T 19 source.dart support.class.dart
+T 28 source.dart
+T 29 source.dart punctuation.comma.dart
+L   int a,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int b,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L   int c,
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 7 source.dart
+T 8 source.dart punctuation.comma.dart
+L ) {
+T 3 source.dart
+L   if (compare(keyOf(elements[a]), keyOf(elements[b])) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 34 source.dart
+T 39 source.dart entity.name.function.dart
+T 40 source.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.comparison.dart
+T 56 source.dart
+T 57 source.dart constant.numeric.dart
+T 60 source.dart
+L     final t = elements[a];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L     elements[a] = elements[b];
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     elements[b] = t;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L   if (compare(keyOf(elements[b]), keyOf(elements[c])) > 0) {
+T 2 source.dart
+T 4 source.dart keyword.control.dart
+T 6 source.dart
+T 13 source.dart entity.name.function.dart
+T 14 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+T 34 source.dart
+T 39 source.dart entity.name.function.dart
+T 40 source.dart
+T 54 source.dart
+T 55 source.dart keyword.operator.comparison.dart
+T 56 source.dart
+T 57 source.dart constant.numeric.dart
+T 60 source.dart
+L     final t = elements[b];
+T 4 source.dart
+T 9 source.dart storage.modifier.dart
+T 12 source.dart
+T 13 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L     elements[b] = elements[c];
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 29 source.dart
+T 30 source.dart punctuation.terminator.dart
+L     elements[c] = t;
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 20 source.dart punctuation.terminator.dart
+L     if (compare(keyOf(elements[a]), keyOf(elements[b])) > 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+T 34 source.dart
+T 35 source.dart punctuation.comma.dart
+T 36 source.dart
+T 41 source.dart entity.name.function.dart
+T 42 source.dart
+T 56 source.dart
+T 57 source.dart keyword.operator.comparison.dart
+T 58 source.dart
+T 59 source.dart constant.numeric.dart
+T 62 source.dart
+L       final t2 = elements[a];
+T 6 source.dart
+T 11 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L       elements[a] = elements[b];
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 32 source.dart punctuation.terminator.dart
+L       elements[b] = t2;
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L }
+T 1 source.dart
+L 

@@ -62,6 +62,10 @@ const composable =
   "https://raw.githubusercontent.com/pointfreeco/swift-composable-architecture/bb175b544d019c7f23a2e41ae29d8c70592aeb58";
 const coroutines =
   "https://raw.githubusercontent.com/Kotlin/kotlinx.coroutines/7e0d1b3e9ca83652427ae00dda7d1673f058a743";
+const dartCore =
+  "https://raw.githubusercontent.com/dart-lang/core/36f57a994965785d641e436b7dd3aa8a18a26f62";
+const dartHttp =
+  "https://raw.githubusercontent.com/dart-lang/http/8c0d66acd2385761182d34b48c4c80ca6cfa4513";
 const deviceVirtual =
   "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
 const devise =
@@ -360,6 +364,11 @@ export const inputs: Input[] = [
   { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
   { lang: "css", name: "sample", url: `${samples}/css.sample` },
   { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
+  // Dart runs on the TextMate engine.
+  { lang: "dart", name: "collection-algorithms", url: `${dartCore}/pkgs/collection/lib/src/algorithms.dart` },
+  { lang: "dart", name: "http-base-request", url: `${dartHttp}/pkgs/http/lib/src/base_request.dart` },
+  { lang: "dart", name: "http-client", url: `${dartHttp}/pkgs/http/lib/src/client.dart` },
+  { lang: "dart", name: "sample", url: `${samples}/dart.sample` },
   {
     lang: "diff",
     name: "cranelift-stdarch-sve",
@@ -624,6 +633,8 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
   { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
   { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
+  { lang: "markdown", name: "dart-args-readme", url: `${dartCore}/pkgs/args/README.md` },
+  { lang: "markdown", name: "dart-http-readme", url: `${dartHttp}/pkgs/http/README.md` },
   { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
   { lang: "markdown", name: "devise-readme", url: `${devise}/README.md` },
   { lang: "markdown", name: "eslint-mcp", url: `${eslint}/docs/src/use/mcp.md` },

@@ -1,0 +1,945 @@
+L // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+T 77 source.dart comment.line.double-slash.dart
+L // for details. All rights reserved. Use of this source code is governed by a
+T 77 source.dart comment.line.double-slash.dart
+L // BSD-style license that can be found in the LICENSE file.
+T 59 source.dart comment.line.double-slash.dart
+L 
+L import 'dart:collection';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 23 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import 'package:meta/meta.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 30 source.dart meta.declaration.dart string.interpolated.single.dart
+T 31 source.dart meta.declaration.dart string.interpolated.single.dart
+T 32 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import '../http.dart' show ClientException, get;
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart string.interpolated.single.dart
+T 21 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart
+T 26 source.dart meta.declaration.dart keyword.other.import.dart
+T 47 source.dart meta.declaration.dart
+T 48 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'abortable.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart string.interpolated.single.dart
+T 23 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'base_client.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart string.interpolated.single.dart
+T 26 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'base_response.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 26 source.dart meta.declaration.dart string.interpolated.single.dart
+T 27 source.dart meta.declaration.dart string.interpolated.single.dart
+T 28 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'byte_stream.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart string.interpolated.single.dart
+T 26 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'client.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 19 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart string.interpolated.single.dart
+T 21 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'streamed_response.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 30 source.dart meta.declaration.dart string.interpolated.single.dart
+T 31 source.dart meta.declaration.dart string.interpolated.single.dart
+T 32 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'utils.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 18 source.dart meta.declaration.dart string.interpolated.single.dart
+T 19 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L /// The base class for HTTP requests.
+T 3 source.dart comment.block.documentation.dart
+T 37 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Subclasses of [BaseRequest] can be constructed manually and passed to
+T 18 source.dart comment.block.documentation.dart
+T 31 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L /// [BaseClient.send], which allows the user to provide fine-grained control
+T 4 source.dart comment.block.documentation.dart
+T 21 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L /// over the request properties. However, usually it's easier to use convenience
+T 80 source.dart comment.block.documentation.dart
+L /// methods like [get] or [BaseClient.get].
+T 17 source.dart comment.block.documentation.dart
+T 22 source.dart comment.block.documentation.dart variable.name.source.dart
+T 26 source.dart comment.block.documentation.dart
+T 42 source.dart comment.block.documentation.dart variable.name.source.dart
+T 43 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Subclasses/implementers should mixin/implement [Abortable] to support
+T 51 source.dart comment.block.documentation.dart
+T 62 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L /// request cancellation. A future breaking version of 'package:http' will
+T 74 source.dart comment.block.documentation.dart
+L /// merge [Abortable] into [BaseRequest], making it a requirement.
+T 10 source.dart comment.block.documentation.dart
+T 21 source.dart comment.block.documentation.dart variable.name.source.dart
+T 27 source.dart comment.block.documentation.dart
+T 40 source.dart comment.block.documentation.dart variable.name.source.dart
+T 66 source.dart comment.block.documentation.dart
+L abstract class BaseRequest {
+T 8 source.dart keyword.declaration.dart
+T 9 source.dart
+T 14 source.dart keyword.declaration.dart
+T 15 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart
+T 28 source.dart
+L   /// The HTTP method of the request.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 37 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
+T 78 source.dart comment.block.documentation.dart
+L   /// Non-standard method names are also supported.
+T 51 source.dart comment.block.documentation.dart
+L   final String method;
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 8 source.dart
+T 14 source.dart support.class.dart
+T 15 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L 
+L   /// The URL to which the request will be sent.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart
+L   final Uri url;
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 8 source.dart
+T 11 source.dart support.class.dart
+T 12 source.dart
+T 15 source.dart
+T 16 source.dart punctuation.terminator.dart
+L 
+L   /// The size of the request body, in bytes.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 45 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// This defaults to `null`, which indicates that the size of the request is
+T 23 source.dart comment.block.documentation.dart
+T 29 source.dart comment.block.documentation.dart variable.other.source.dart
+T 78 source.dart comment.block.documentation.dart
+L   /// not known in advance. May not be assigned a negative value.
+T 65 source.dart comment.block.documentation.dart
+L   int? get contentLength => _contentLength;
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 7 source.dart
+T 10 source.dart keyword.declaration.dart
+T 25 source.dart
+T 27 source.dart keyword.operator.closure.dart
+T 42 source.dart
+T 43 source.dart punctuation.terminator.dart
+L   int? _contentLength;
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart keyword.operator.ternary.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L 
+L   set contentLength(int? value) {
+T 2 source.dart
+T 5 source.dart keyword.declaration.dart
+T 6 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 23 source.dart support.class.dart
+T 24 source.dart keyword.operator.ternary.dart
+T 33 source.dart
+L     if (value != null && value < 0) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 14 source.dart
+T 16 source.dart keyword.operator.comparison.dart
+T 17 source.dart
+T 21 source.dart constant.language.dart
+T 22 source.dart
+T 23 source.dart keyword.operator.bitwise.dart
+T 24 source.dart keyword.operator.bitwise.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.comparison.dart
+T 33 source.dart
+T 34 source.dart constant.numeric.dart
+T 37 source.dart
+L       throw ArgumentError('Invalid content length $value.');
+T 6 source.dart
+T 11 source.dart keyword.control.catch-exception.dart
+T 12 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart
+T 27 source.dart string.interpolated.single.dart
+T 50 source.dart string.interpolated.single.dart
+T 51 source.dart string.interpolated.single.dart meta.embedded.expression.dart
+T 56 source.dart string.interpolated.single.dart meta.embedded.expression.dart variable.parameter.dart
+T 57 source.dart string.interpolated.single.dart
+T 58 source.dart string.interpolated.single.dart
+T 59 source.dart
+T 60 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     _checkFinalized();
+T 4 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     _contentLength = value;
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 27 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   /// Whether a persistent connection should be maintained with the server.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Defaults to true.
+T 23 source.dart comment.block.documentation.dart
+L   bool get persistentConnection => _persistentConnection;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 10 source.dart keyword.declaration.dart
+T 32 source.dart
+T 34 source.dart keyword.operator.closure.dart
+T 56 source.dart
+T 57 source.dart punctuation.terminator.dart
+L   bool _persistentConnection = true;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 29 source.dart
+T 30 source.dart keyword.operator.assignment.dart
+T 31 source.dart
+T 35 source.dart constant.language.dart
+T 36 source.dart punctuation.terminator.dart
+L 
+L   set persistentConnection(bool value) {
+T 2 source.dart
+T 5 source.dart keyword.declaration.dart
+T 6 source.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 31 source.dart support.class.dart
+T 32 source.dart
+T 40 source.dart
+L     _checkFinalized();
+T 4 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     _persistentConnection = value;
+T 26 source.dart
+T 27 source.dart keyword.operator.assignment.dart
+T 33 source.dart
+T 34 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   /// Whether the client should follow redirects while resolving this request.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Defaults to true.
+T 23 source.dart comment.block.documentation.dart
+L   bool get followRedirects => _followRedirects;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 10 source.dart keyword.declaration.dart
+T 27 source.dart
+T 29 source.dart keyword.operator.closure.dart
+T 46 source.dart
+T 47 source.dart punctuation.terminator.dart
+L   bool _followRedirects = true;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 30 source.dart constant.language.dart
+T 31 source.dart punctuation.terminator.dart
+L 
+L   set followRedirects(bool value) {
+T 2 source.dart
+T 5 source.dart keyword.declaration.dart
+T 6 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart
+T 35 source.dart
+L     _checkFinalized();
+T 4 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     _followRedirects = value;
+T 21 source.dart
+T 22 source.dart keyword.operator.assignment.dart
+T 28 source.dart
+T 29 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   /// The maximum number of redirects to follow when [followRedirects] is true.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 53 source.dart comment.block.documentation.dart
+T 70 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If this number is exceeded the [BaseResponse] future will signal a
+T 37 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+L   /// [ClientException]. Defaults to 5.
+T 6 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.name.source.dart
+T 39 source.dart comment.block.documentation.dart
+L   int get maxRedirects => _maxRedirects;
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 9 source.dart keyword.declaration.dart
+T 23 source.dart
+T 25 source.dart keyword.operator.closure.dart
+T 39 source.dart
+T 40 source.dart punctuation.terminator.dart
+L   int _maxRedirects = 5;
+T 2 source.dart
+T 5 source.dart support.class.dart
+T 6 source.dart
+T 20 source.dart
+T 21 source.dart keyword.operator.assignment.dart
+T 22 source.dart
+T 23 source.dart constant.numeric.dart
+T 24 source.dart punctuation.terminator.dart
+L 
+L   set maxRedirects(int value) {
+T 2 source.dart
+T 5 source.dart keyword.declaration.dart
+T 6 source.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart
+T 22 source.dart support.class.dart
+T 23 source.dart
+T 31 source.dart
+L     _checkFinalized();
+T 4 source.dart
+T 19 source.dart entity.name.function.dart
+T 20 source.dart
+T 21 source.dart
+T 22 source.dart punctuation.terminator.dart
+L     _maxRedirects = value;
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   // TODO(nweiz): automatically parse cookies from headers
+T 2 source.dart
+T 58 source.dart comment.line.double-slash.dart
+L 
+L   /// The HTTP headers sent to the server.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 42 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Header names are converted to lowercase when sent to the server.
+T 70 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Some headers may not be sent by the [Client] for security or privacy
+T 42 source.dart comment.block.documentation.dart
+T 50 source.dart comment.block.documentation.dart variable.name.source.dart
+T 74 source.dart comment.block.documentation.dart
+L   /// reasons. For example, browser-based clients may only sent headers in the
+T 78 source.dart comment.block.documentation.dart
+L   /// CORS safelist or specifically allowed by the server.
+T 58 source.dart comment.block.documentation.dart
+L   final Map<String, String> headers;
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 8 source.dart
+T 11 source.dart support.class.dart
+T 12 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart
+T 20 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart other.source.dart
+T 35 source.dart
+T 36 source.dart punctuation.terminator.dart
+L 
+L   /// Whether [finalize] has been called.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 14 source.dart comment.block.documentation.dart
+T 24 source.dart comment.block.documentation.dart variable.name.source.dart
+T 41 source.dart comment.block.documentation.dart
+L   bool get finalized => _finalized;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 10 source.dart keyword.declaration.dart
+T 21 source.dart
+T 23 source.dart keyword.operator.closure.dart
+T 34 source.dart
+T 35 source.dart punctuation.terminator.dart
+L   bool _finalized = false;
+T 2 source.dart
+T 6 source.dart support.class.dart
+T 7 source.dart
+T 18 source.dart
+T 19 source.dart keyword.operator.assignment.dart
+T 20 source.dart
+T 25 source.dart constant.language.dart
+T 26 source.dart punctuation.terminator.dart
+L 
+L   static final _tokenRE = RegExp(r"^[\w!#%&'*+\-.^`|~]+$");
+T 2 source.dart
+T 8 source.dart storage.modifier.dart
+T 9 source.dart
+T 14 source.dart storage.modifier.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.assignment.dart
+T 26 source.dart
+T 32 source.dart support.class.dart
+T 33 source.dart
+T 35 source.dart string.quoted.double.dart
+T 56 source.dart string.quoted.double.dart
+T 57 source.dart string.quoted.double.dart
+T 58 source.dart
+T 59 source.dart punctuation.terminator.dart
+L   static String _validateMethod(String method) {
+T 2 source.dart
+T 8 source.dart storage.modifier.dart
+T 9 source.dart
+T 15 source.dart support.class.dart
+T 16 source.dart
+T 31 source.dart entity.name.function.dart
+T 32 source.dart
+T 38 source.dart support.class.dart
+T 39 source.dart
+T 48 source.dart
+L     if (!_tokenRE.hasMatch(method)) {
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.logical.dart
+T 17 source.dart
+T 18 source.dart punctuation.dot.dart
+T 26 source.dart entity.name.function.dart
+T 27 source.dart
+T 37 source.dart
+L       throw ArgumentError.value(method, 'method', 'Not a valid method');
+T 6 source.dart
+T 11 source.dart keyword.control.catch-exception.dart
+T 12 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart punctuation.dot.dart
+T 31 source.dart entity.name.function.dart
+T 32 source.dart
+T 38 source.dart
+T 39 source.dart punctuation.comma.dart
+T 40 source.dart
+T 41 source.dart string.interpolated.single.dart
+T 47 source.dart string.interpolated.single.dart
+T 48 source.dart string.interpolated.single.dart
+T 49 source.dart punctuation.comma.dart
+T 50 source.dart
+T 51 source.dart string.interpolated.single.dart
+T 69 source.dart string.interpolated.single.dart
+T 70 source.dart string.interpolated.single.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L     return method;
+T 4 source.dart
+T 10 source.dart keyword.control.return.dart
+T 17 source.dart
+T 18 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   BaseRequest(String method, this.url)
+T 2 source.dart
+T 13 source.dart support.class.dart
+T 14 source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart
+T 27 source.dart
+T 28 source.dart punctuation.comma.dart
+T 29 source.dart
+T 33 source.dart variable.language.dart
+T 34 source.dart punctuation.dot.dart
+T 38 source.dart
+L       : method = _validateMethod(method),
+T 6 source.dart
+T 7 source.dart keyword.operator.ternary.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 32 source.dart entity.name.function.dart
+T 33 source.dart
+T 40 source.dart
+T 41 source.dart punctuation.comma.dart
+L         headers = LinkedHashMap(
+T 16 source.dart
+T 17 source.dart keyword.operator.assignment.dart
+T 18 source.dart
+T 31 source.dart support.class.dart
+T 32 source.dart
+L             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
+T 18 source.dart
+T 19 source.dart keyword.operator.ternary.dart
+T 25 source.dart
+T 26 source.dart punctuation.comma.dart
+T 33 source.dart
+T 35 source.dart keyword.operator.closure.dart
+T 40 source.dart
+T 41 source.dart punctuation.dot.dart
+T 52 source.dart entity.name.function.dart
+T 53 source.dart
+T 55 source.dart
+T 57 source.dart keyword.operator.comparison.dart
+T 62 source.dart
+T 63 source.dart punctuation.dot.dart
+T 74 source.dart entity.name.function.dart
+T 75 source.dart
+T 76 source.dart
+T 77 source.dart punctuation.comma.dart
+L             hashCode: (key) => key.toLowerCase().hashCode);
+T 20 source.dart
+T 21 source.dart keyword.operator.ternary.dart
+T 28 source.dart
+T 30 source.dart keyword.operator.closure.dart
+T 34 source.dart
+T 35 source.dart punctuation.dot.dart
+T 46 source.dart entity.name.function.dart
+T 47 source.dart
+T 48 source.dart
+T 49 source.dart punctuation.dot.dart
+T 58 source.dart
+T 59 source.dart punctuation.terminator.dart
+L 
+L   /// Finalizes the HTTP request in preparation for it being sent.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 66 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
+T 67 source.dart comment.block.documentation.dart
+T 79 source.dart comment.block.documentation.dart variable.name.source.dart
+L   /// that emits the body of the request.
+T 41 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// The base implementation of this returns an empty [ByteStream];
+T 55 source.dart comment.block.documentation.dart
+T 67 source.dart comment.block.documentation.dart variable.name.source.dart
+T 68 source.dart comment.block.documentation.dart
+L   /// subclasses are responsible for creating the return value, which should be
+T 79 source.dart comment.block.documentation.dart
+L   /// single-subscription to ensure that no data is dropped. They should also
+T 77 source.dart comment.block.documentation.dart
+L   /// freeze any additional mutable fields they add that don't make sense to
+T 76 source.dart comment.block.documentation.dart
+L   /// change after the request headers are sent.
+T 48 source.dart comment.block.documentation.dart
+L   @mustCallSuper
+T 2 source.dart
+T 16 source.dart storage.type.annotation.dart
+L   ByteStream finalize() {
+T 2 source.dart
+T 12 source.dart support.class.dart
+T 13 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+T 25 source.dart
+L     // TODO(nweiz): freeze headers
+T 4 source.dart
+T 34 source.dart comment.line.double-slash.dart
+L     if (finalized) throw StateError("Can't finalize a finalized Request.");
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 19 source.dart
+T 24 source.dart keyword.control.catch-exception.dart
+T 25 source.dart
+T 35 source.dart support.class.dart
+T 36 source.dart
+T 37 source.dart string.interpolated.double.dart
+T 72 source.dart string.interpolated.double.dart
+T 73 source.dart string.interpolated.double.dart
+T 74 source.dart
+T 75 source.dart punctuation.terminator.dart
+L     _finalized = true;
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 21 source.dart constant.language.dart
+T 22 source.dart punctuation.terminator.dart
+L     return const ByteStream(Stream.empty());
+T 4 source.dart
+T 10 source.dart keyword.control.return.dart
+T 11 source.dart
+T 16 source.dart storage.modifier.dart
+T 17 source.dart
+T 27 source.dart support.class.dart
+T 28 source.dart
+T 34 source.dart support.class.dart
+T 35 source.dart punctuation.dot.dart
+T 40 source.dart entity.name.function.dart
+T 41 source.dart
+T 43 source.dart
+T 44 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   /// Sends this request.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 25 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// This automatically initializes a new [Client] and closes that client once
+T 43 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L   /// the request is complete. If you're planning on making multiple requests to
+T 80 source.dart comment.block.documentation.dart
+L   /// the same server, you should use a single [Client] for all of those
+T 47 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+L   /// requests.
+T 15 source.dart comment.block.documentation.dart
+L   Future<StreamedResponse> send() async {
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart
+T 31 source.dart entity.name.function.dart
+T 32 source.dart
+T 34 source.dart
+T 39 source.dart keyword.control.dart
+T 41 source.dart
+L     var client = Client();
+T 4 source.dart
+T 7 source.dart storage.type.primitive.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 23 source.dart support.class.dart
+T 25 source.dart
+T 26 source.dart punctuation.terminator.dart
+L 
+L     try {
+T 4 source.dart
+T 7 source.dart keyword.control.catch-exception.dart
+T 9 source.dart
+L       var response = await client.send(this);
+T 6 source.dart
+T 9 source.dart storage.type.primitive.dart
+T 19 source.dart
+T 20 source.dart keyword.operator.assignment.dart
+T 21 source.dart
+T 26 source.dart keyword.control.dart
+T 33 source.dart
+T 34 source.dart punctuation.dot.dart
+T 38 source.dart entity.name.function.dart
+T 39 source.dart
+T 43 source.dart variable.language.dart
+T 44 source.dart
+T 45 source.dart punctuation.terminator.dart
+L       var stream = onDone(response.stream, client.close);
+T 6 source.dart
+T 9 source.dart storage.type.primitive.dart
+T 17 source.dart
+T 18 source.dart keyword.operator.assignment.dart
+T 19 source.dart
+T 25 source.dart entity.name.function.dart
+T 26 source.dart
+T 34 source.dart
+T 35 source.dart punctuation.dot.dart
+T 41 source.dart
+T 42 source.dart punctuation.comma.dart
+T 49 source.dart
+T 50 source.dart punctuation.dot.dart
+T 56 source.dart
+T 57 source.dart punctuation.terminator.dart
+L 
+L       if (response case BaseResponseWithUrl(:final url)) {
+T 6 source.dart
+T 8 source.dart keyword.control.dart
+T 19 source.dart
+T 23 source.dart keyword.control.dart
+T 24 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart
+T 45 source.dart keyword.operator.ternary.dart
+T 50 source.dart storage.modifier.dart
+T 58 source.dart
+L         return StreamedResponseV2(ByteStream(stream), response.statusCode,
+T 8 source.dart
+T 14 source.dart keyword.control.return.dart
+T 15 source.dart
+T 33 source.dart support.class.dart
+T 34 source.dart
+T 44 source.dart support.class.dart
+T 52 source.dart
+T 53 source.dart punctuation.comma.dart
+T 62 source.dart
+T 63 source.dart punctuation.dot.dart
+T 73 source.dart
+T 74 source.dart punctuation.comma.dart
+L             contentLength: response.contentLength,
+T 25 source.dart
+T 26 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.dot.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+L             request: response.request,
+T 19 source.dart
+T 20 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+L             headers: response.headers,
+T 19 source.dart
+T 20 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+L             isRedirect: response.isRedirect,
+T 22 source.dart
+T 23 source.dart keyword.operator.ternary.dart
+T 32 source.dart
+T 33 source.dart punctuation.dot.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+L             url: url,
+T 15 source.dart
+T 16 source.dart keyword.operator.ternary.dart
+T 20 source.dart
+T 21 source.dart punctuation.comma.dart
+L             persistentConnection: response.persistentConnection,
+T 32 source.dart
+T 33 source.dart keyword.operator.ternary.dart
+T 42 source.dart
+T 43 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.comma.dart
+L             reasonPhrase: response.reasonPhrase);
+T 24 source.dart
+T 25 source.dart keyword.operator.ternary.dart
+T 34 source.dart
+T 35 source.dart punctuation.dot.dart
+T 48 source.dart
+T 49 source.dart punctuation.terminator.dart
+L       } else {
+T 8 source.dart
+T 12 source.dart keyword.control.dart
+T 14 source.dart
+L         return StreamedResponse(ByteStream(stream), response.statusCode,
+T 8 source.dart
+T 14 source.dart keyword.control.return.dart
+T 15 source.dart
+T 31 source.dart support.class.dart
+T 32 source.dart
+T 42 source.dart support.class.dart
+T 50 source.dart
+T 51 source.dart punctuation.comma.dart
+T 60 source.dart
+T 61 source.dart punctuation.dot.dart
+T 71 source.dart
+T 72 source.dart punctuation.comma.dart
+L             contentLength: response.contentLength,
+T 25 source.dart
+T 26 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.dot.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+L             request: response.request,
+T 19 source.dart
+T 20 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+L             headers: response.headers,
+T 19 source.dart
+T 20 source.dart keyword.operator.ternary.dart
+T 29 source.dart
+T 30 source.dart punctuation.dot.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+L             isRedirect: response.isRedirect,
+T 22 source.dart
+T 23 source.dart keyword.operator.ternary.dart
+T 32 source.dart
+T 33 source.dart punctuation.dot.dart
+T 43 source.dart
+T 44 source.dart punctuation.comma.dart
+L             persistentConnection: response.persistentConnection,
+T 32 source.dart
+T 33 source.dart keyword.operator.ternary.dart
+T 42 source.dart
+T 43 source.dart punctuation.dot.dart
+T 63 source.dart
+T 64 source.dart punctuation.comma.dart
+L             reasonPhrase: response.reasonPhrase);
+T 24 source.dart
+T 25 source.dart keyword.operator.ternary.dart
+T 34 source.dart
+T 35 source.dart punctuation.dot.dart
+T 48 source.dart
+T 49 source.dart punctuation.terminator.dart
+L       }
+T 7 source.dart
+L     } catch (_) {
+T 6 source.dart
+T 11 source.dart keyword.control.catch-exception.dart
+T 17 source.dart
+L       client.close();
+T 12 source.dart
+T 13 source.dart punctuation.dot.dart
+T 18 source.dart entity.name.function.dart
+T 19 source.dart
+T 20 source.dart
+T 21 source.dart punctuation.terminator.dart
+L       rethrow;
+T 6 source.dart
+T 13 source.dart keyword.control.catch-exception.dart
+T 14 source.dart punctuation.terminator.dart
+L     }
+T 5 source.dart
+L   }
+T 3 source.dart
+L 
+L   /// Throws an error if this request has been finalized.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 57 source.dart comment.block.documentation.dart
+L   void _checkFinalized() {
+T 2 source.dart
+T 6 source.dart storage.type.primitive.dart
+T 7 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 26 source.dart
+L     if (!finalized) return;
+T 4 source.dart
+T 6 source.dart keyword.control.dart
+T 8 source.dart
+T 9 source.dart keyword.operator.logical.dart
+T 20 source.dart
+T 26 source.dart keyword.control.return.dart
+T 27 source.dart punctuation.terminator.dart
+L     throw StateError("Can't modify a finalized Request.");
+T 4 source.dart
+T 9 source.dart keyword.control.catch-exception.dart
+T 10 source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart
+T 22 source.dart string.interpolated.double.dart
+T 55 source.dart string.interpolated.double.dart
+T 56 source.dart string.interpolated.double.dart
+T 57 source.dart
+T 58 source.dart punctuation.terminator.dart
+L   }
+T 3 source.dart
+L 
+L   @override
+T 2 source.dart
+T 11 source.dart storage.type.annotation.dart
+L   String toString() => '$method $url';
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart
+T 17 source.dart entity.name.function.dart
+T 18 source.dart
+T 20 source.dart
+T 22 source.dart keyword.operator.closure.dart
+T 23 source.dart
+T 24 source.dart string.interpolated.single.dart
+T 25 source.dart string.interpolated.single.dart meta.embedded.expression.dart
+T 31 source.dart string.interpolated.single.dart meta.embedded.expression.dart variable.parameter.dart
+T 32 source.dart string.interpolated.single.dart
+T 33 source.dart string.interpolated.single.dart meta.embedded.expression.dart
+T 36 source.dart string.interpolated.single.dart meta.embedded.expression.dart variable.parameter.dart
+T 37 source.dart string.interpolated.single.dart
+T 38 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 

@@ -38,6 +38,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  dart: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "dart-lang/dart-syntax-highlight",
+    licence: "BSD-3-Clause",
+    file: "LICENSE",
+  },
   html: {
     bundled: "microsoft/vscode@45324363153075dab0482312ae24d8c068d81e4f",
     origin: "textmate/html.tmbundle",

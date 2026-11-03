@@ -122,6 +122,7 @@ assert_eq!(highlighter.limits().depth, None);
 | C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
 | C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
 | CSS | `Language::Css` | `lang-css` | `css` |
+| Dart | `Language::Dart` | `lang-dart` | `dart` |
 | Diff | `Language::Diff` | `lang-diff` | `diff` |
 | Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
 | ERB | `Language::Erb` | `lang-erb` | `erb` |
@@ -178,7 +179,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative) |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix |
+  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart |
 
 - `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
   It is off by default and not in `all`, so the default build carries no grammar tables.

@@ -1,0 +1,1084 @@
+L // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+T 77 source.dart comment.line.double-slash.dart
+L // for details. All rights reserved. Use of this source code is governed by a
+T 77 source.dart comment.line.double-slash.dart
+L // BSD-style license that can be found in the LICENSE file.
+T 59 source.dart comment.line.double-slash.dart
+L 
+L import 'dart:async';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 18 source.dart meta.declaration.dart string.interpolated.single.dart
+T 19 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'dart:convert';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart string.interpolated.single.dart
+T 21 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'dart:typed_data';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 23 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import 'package:meta/meta.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 30 source.dart meta.declaration.dart string.interpolated.single.dart
+T 31 source.dart meta.declaration.dart string.interpolated.single.dart
+T 32 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L import '../http.dart' as http;
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 20 source.dart meta.declaration.dart string.interpolated.single.dart
+T 21 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart
+T 24 source.dart meta.declaration.dart keyword.other.import.dart
+T 29 source.dart meta.declaration.dart
+T 30 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'base_client.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart string.interpolated.single.dart
+T 26 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'base_request.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart string.interpolated.single.dart
+T 26 source.dart meta.declaration.dart string.interpolated.single.dart
+T 27 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'client_stub.dart'
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart string.interpolated.single.dart
+T 25 source.dart meta.declaration.dart string.interpolated.single.dart
+L     if (dart.library.js_interop) 'browser_client.dart'
+T 4 source.dart meta.declaration.dart
+T 6 source.dart meta.declaration.dart keyword.control.dart
+T 33 source.dart meta.declaration.dart
+T 34 source.dart meta.declaration.dart string.interpolated.single.dart
+T 53 source.dart meta.declaration.dart string.interpolated.single.dart
+T 54 source.dart meta.declaration.dart string.interpolated.single.dart
+L     if (dart.library.io) 'io_client.dart';
+T 4 source.dart meta.declaration.dart
+T 6 source.dart meta.declaration.dart keyword.control.dart
+T 25 source.dart meta.declaration.dart
+T 26 source.dart meta.declaration.dart string.interpolated.single.dart
+T 40 source.dart meta.declaration.dart string.interpolated.single.dart
+T 41 source.dart meta.declaration.dart string.interpolated.single.dart
+T 42 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'exception.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart string.interpolated.single.dart
+T 23 source.dart meta.declaration.dart string.interpolated.single.dart
+T 24 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'response.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 21 source.dart meta.declaration.dart string.interpolated.single.dart
+T 22 source.dart meta.declaration.dart string.interpolated.single.dart
+T 23 source.dart meta.declaration.dart punctuation.terminator.dart
+L import 'streamed_response.dart';
+T 6 source.dart meta.declaration.dart keyword.other.import.dart
+T 7 source.dart meta.declaration.dart
+T 8 source.dart meta.declaration.dart string.interpolated.single.dart
+T 30 source.dart meta.declaration.dart string.interpolated.single.dart
+T 31 source.dart meta.declaration.dart string.interpolated.single.dart
+T 32 source.dart meta.declaration.dart punctuation.terminator.dart
+L 
+L /// The interface for HTTP clients that take care of maintaining persistent
+T 3 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart
+L /// connections across multiple requests to the same server.
+T 60 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If you only need to send a single request, it's usually easier to use
+T 73 source.dart comment.block.documentation.dart
+L /// [http.head], [http.get], [http.post], [http.put], [http.patch], or
+T 4 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 17 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.name.source.dart
+T 29 source.dart comment.block.documentation.dart
+T 40 source.dart comment.block.documentation.dart variable.name.source.dart
+T 42 source.dart comment.block.documentation.dart
+T 52 source.dart comment.block.documentation.dart variable.name.source.dart
+T 54 source.dart comment.block.documentation.dart
+T 66 source.dart comment.block.documentation.dart variable.name.source.dart
+T 70 source.dart comment.block.documentation.dart
+L /// [http.delete] instead.
+T 4 source.dart comment.block.documentation.dart
+T 17 source.dart comment.block.documentation.dart variable.name.source.dart
+T 26 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// All methods will emit a [ClientException] if there is a transport-level
+T 28 source.dart comment.block.documentation.dart
+T 45 source.dart comment.block.documentation.dart variable.name.source.dart
+T 75 source.dart comment.block.documentation.dart
+L /// failure when communication with the server. For example, if the server could
+T 80 source.dart comment.block.documentation.dart
+L /// not be reached.
+T 19 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// When creating an HTTP client class with additional functionality, you must
+T 78 source.dart comment.block.documentation.dart
+L /// extend [BaseClient] rather than [Client]. In most cases, you can wrap
+T 11 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.name.source.dart
+T 36 source.dart comment.block.documentation.dart
+T 44 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L /// another instance of [Client] and add functionality on top of that. This
+T 24 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.name.source.dart
+T 75 source.dart comment.block.documentation.dart
+L /// allows all classes implementing [Client] to be mutually composable.
+T 36 source.dart comment.block.documentation.dart
+T 44 source.dart comment.block.documentation.dart variable.name.source.dart
+T 71 source.dart comment.block.documentation.dart
+L abstract interface class Client {
+T 8 source.dart keyword.declaration.dart
+T 9 source.dart
+T 18 source.dart keyword.declaration.dart
+T 19 source.dart
+T 24 source.dart keyword.declaration.dart
+T 25 source.dart
+T 31 source.dart support.class.dart
+T 32 source.dart
+T 33 source.dart
+L   /// Creates a new platform appropriate client.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
+T 17 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.other.source.dart
+T 31 source.dart comment.block.documentation.dart
+T 40 source.dart comment.block.documentation.dart variable.other.source.dart
+T 60 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart variable.other.source.dart
+T 78 source.dart comment.block.documentation.dart
+L   /// `dart:js_interop` is available, otherwise it will throw an unsupported
+T 6 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.other.source.dart
+T 76 source.dart comment.block.documentation.dart
+L   /// error.
+T 12 source.dart comment.block.documentation.dart
+L   factory Client() => zoneClient ?? createClient();
+T 2 source.dart
+T 9 source.dart keyword.declaration.dart
+T 10 source.dart
+T 16 source.dart support.class.dart
+T 19 source.dart
+T 21 source.dart keyword.operator.closure.dart
+T 33 source.dart
+T 34 source.dart keyword.operator.ternary.dart
+T 35 source.dart keyword.operator.ternary.dart
+T 36 source.dart
+T 48 source.dart entity.name.function.dart
+T 49 source.dart
+T 50 source.dart
+T 51 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP HEAD request with the given headers to the given URL.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 73 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> head(Uri url, {Map<String, String>? headers});
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 23 source.dart entity.name.function.dart
+T 24 source.dart
+T 27 source.dart support.class.dart
+T 28 source.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+T 34 source.dart
+T 37 source.dart support.class.dart
+T 38 source.dart other.source.dart
+T 44 source.dart support.class.dart
+T 45 source.dart
+T 46 source.dart
+T 52 source.dart support.class.dart
+T 53 source.dart other.source.dart
+T 54 source.dart keyword.operator.ternary.dart
+T 64 source.dart
+T 65 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP GET request with the given headers to the given URL.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> get(Uri url, {Map<String, String>? headers});
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart
+T 30 source.dart
+T 31 source.dart punctuation.comma.dart
+T 33 source.dart
+T 36 source.dart support.class.dart
+T 37 source.dart other.source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart
+T 45 source.dart
+T 51 source.dart support.class.dart
+T 52 source.dart other.source.dart
+T 53 source.dart keyword.operator.ternary.dart
+T 63 source.dart
+T 64 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP POST request with the given headers and body to the given
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// URL.
+T 10 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [body] sets the body of the request. It can be a `String`, a `List<int>`
+T 6 source.dart comment.block.documentation.dart
+T 12 source.dart comment.block.documentation.dart variable.name.source.dart
+T 55 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.other.source.dart
+T 67 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart variable.other.source.dart
+L   /// or a `Map<String, String>`.
+T 11 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.other.source.dart
+T 33 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `String`, it's encoded using [encoding] and used as the
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 29 source.dart comment.block.documentation.dart variable.other.source.dart
+T 50 source.dart comment.block.documentation.dart
+T 60 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L   /// body of the request. The content-type of the request will default to
+T 74 source.dart comment.block.documentation.dart
+L   /// "text/plain".
+T 19 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `List`, it's used as a list of bytes for the body of the
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// request.
+T 14 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `Map`, it's encoded as form fields using [encoding]. The
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 26 source.dart comment.block.documentation.dart variable.other.source.dart
+T 62 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// content-type of the request will be set to
+T 48 source.dart comment.block.documentation.dart
+L   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
+T 6 source.dart comment.block.documentation.dart
+T 43 source.dart comment.block.documentation.dart variable.other.source.dart
+T 71 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [encoding] defaults to [utf8].
+T 6 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 29 source.dart comment.block.documentation.dart
+T 35 source.dart comment.block.documentation.dart variable.name.source.dart
+T 36 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> post(Uri url,
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 23 source.dart entity.name.function.dart
+T 24 source.dart
+T 27 source.dart support.class.dart
+T 28 source.dart
+T 31 source.dart
+T 32 source.dart punctuation.comma.dart
+L       {Map<String, String>? headers, Object? body, Encoding? encoding});
+T 7 source.dart
+T 10 source.dart support.class.dart
+T 11 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 19 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 37 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart keyword.operator.ternary.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 59 source.dart support.class.dart
+T 60 source.dart keyword.operator.ternary.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP PUT request with the given headers and body to the given
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart
+L   /// URL.
+T 10 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [body] sets the body of the request. It can be a `String`, a `List<int>`
+T 6 source.dart comment.block.documentation.dart
+T 12 source.dart comment.block.documentation.dart variable.name.source.dart
+T 55 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.other.source.dart
+T 67 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart variable.other.source.dart
+L   /// or a `Map<String, String>`. If it's a `String`, it's encoded using
+T 11 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.other.source.dart
+T 44 source.dart comment.block.documentation.dart
+T 52 source.dart comment.block.documentation.dart variable.other.source.dart
+T 72 source.dart comment.block.documentation.dart
+L   /// [encoding] and used as the body of the request. The content-type of the
+T 6 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// request will default to "text/plain".
+T 43 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `List`, it's used as a list of bytes for the body of the
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// request.
+T 14 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `Map`, it's encoded as form fields using [encoding]. The
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 26 source.dart comment.block.documentation.dart variable.other.source.dart
+T 62 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// content-type of the request will be set to
+T 48 source.dart comment.block.documentation.dart
+L   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
+T 6 source.dart comment.block.documentation.dart
+T 43 source.dart comment.block.documentation.dart variable.other.source.dart
+T 71 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [encoding] defaults to [utf8].
+T 6 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 29 source.dart comment.block.documentation.dart
+T 35 source.dart comment.block.documentation.dart variable.name.source.dart
+T 36 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> put(Uri url,
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 22 source.dart entity.name.function.dart
+T 23 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart
+T 30 source.dart
+T 31 source.dart punctuation.comma.dart
+L       {Map<String, String>? headers, Object? body, Encoding? encoding});
+T 7 source.dart
+T 10 source.dart support.class.dart
+T 11 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 19 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 37 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart keyword.operator.ternary.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 59 source.dart support.class.dart
+T 60 source.dart keyword.operator.ternary.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP PATCH request with the given headers and body to the given
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart
+L   /// URL.
+T 10 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [body] sets the body of the request. It can be a `String`, a `List<int>`
+T 6 source.dart comment.block.documentation.dart
+T 12 source.dart comment.block.documentation.dart variable.name.source.dart
+T 55 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.other.source.dart
+T 67 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart variable.other.source.dart
+L   /// or a `Map<String, String>`. If it's a `String`, it's encoded using
+T 11 source.dart comment.block.documentation.dart
+T 32 source.dart comment.block.documentation.dart variable.other.source.dart
+T 44 source.dart comment.block.documentation.dart
+T 52 source.dart comment.block.documentation.dart variable.other.source.dart
+T 72 source.dart comment.block.documentation.dart
+L   /// [encoding] and used as the body of the request. The content-type of the
+T 6 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// request will default to "text/plain".
+T 43 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `List`, it's used as a list of bytes for the body of the
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// request.
+T 14 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// If [body] is a `Map`, it's encoded as form fields using [encoding]. The
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 21 source.dart comment.block.documentation.dart
+T 26 source.dart comment.block.documentation.dart variable.other.source.dart
+T 62 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// content-type of the request will be set to
+T 48 source.dart comment.block.documentation.dart
+L   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
+T 6 source.dart comment.block.documentation.dart
+T 43 source.dart comment.block.documentation.dart variable.other.source.dart
+T 71 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// [encoding] defaults to [utf8].
+T 6 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 29 source.dart comment.block.documentation.dart
+T 35 source.dart comment.block.documentation.dart variable.name.source.dart
+T 36 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> patch(Uri url,
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 24 source.dart entity.name.function.dart
+T 25 source.dart
+T 28 source.dart support.class.dart
+T 29 source.dart
+T 32 source.dart
+T 33 source.dart punctuation.comma.dart
+L       {Map<String, String>? headers, Object? body, Encoding? encoding});
+T 7 source.dart
+T 10 source.dart support.class.dart
+T 11 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 19 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 37 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart keyword.operator.ternary.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 59 source.dart support.class.dart
+T 60 source.dart keyword.operator.ternary.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP DELETE request with the given headers to the given URL.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request, use [send] instead.
+T 58 source.dart comment.block.documentation.dart
+T 64 source.dart comment.block.documentation.dart variable.name.source.dart
+T 73 source.dart comment.block.documentation.dart
+L   Future<Response> delete(Uri url,
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 25 source.dart entity.name.function.dart
+T 26 source.dart
+T 29 source.dart support.class.dart
+T 30 source.dart
+T 33 source.dart
+T 34 source.dart punctuation.comma.dart
+L       {Map<String, String>? headers, Object? body, Encoding? encoding});
+T 7 source.dart
+T 10 source.dart support.class.dart
+T 11 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart
+T 19 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 35 source.dart
+T 36 source.dart punctuation.comma.dart
+T 37 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart keyword.operator.ternary.dart
+T 49 source.dart
+T 50 source.dart punctuation.comma.dart
+T 51 source.dart
+T 59 source.dart support.class.dart
+T 60 source.dart keyword.operator.ternary.dart
+T 71 source.dart
+T 72 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP GET request with the given headers to the given URL and
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart
+L   /// returns a Future that completes to the body of the response as a String.
+T 78 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// The Future will emit a [ClientException] if the response doesn't have a
+T 29 source.dart comment.block.documentation.dart
+T 46 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// success status code.
+T 26 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request and response, use [send] or
+T 71 source.dart comment.block.documentation.dart
+T 77 source.dart comment.block.documentation.dart variable.name.source.dart
+T 80 source.dart comment.block.documentation.dart
+L   /// [get] instead.
+T 6 source.dart comment.block.documentation.dart
+T 11 source.dart comment.block.documentation.dart variable.name.source.dart
+T 20 source.dart comment.block.documentation.dart
+L   Future<String> read(Uri url, {Map<String, String>? headers});
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 15 source.dart support.class.dart
+T 16 source.dart other.source.dart
+T 17 source.dart
+T 21 source.dart entity.name.function.dart
+T 22 source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart
+T 29 source.dart
+T 30 source.dart punctuation.comma.dart
+T 32 source.dart
+T 35 source.dart support.class.dart
+T 36 source.dart other.source.dart
+T 42 source.dart support.class.dart
+T 43 source.dart
+T 44 source.dart
+T 50 source.dart support.class.dart
+T 51 source.dart other.source.dart
+T 52 source.dart keyword.operator.ternary.dart
+T 62 source.dart
+T 63 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP GET request with the given headers to the given URL and
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 75 source.dart comment.block.documentation.dart
+L   /// returns a Future that completes to the body of the response as a list of
+T 78 source.dart comment.block.documentation.dart
+L   /// bytes.
+T 12 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// The Future will emit a [ClientException] if the response doesn't have a
+T 29 source.dart comment.block.documentation.dart
+T 46 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// success status code.
+T 26 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// For more fine-grained control over the request and response, use [send] or
+T 71 source.dart comment.block.documentation.dart
+T 77 source.dart comment.block.documentation.dart variable.name.source.dart
+T 80 source.dart comment.block.documentation.dart
+L   /// [get] instead.
+T 6 source.dart comment.block.documentation.dart
+T 11 source.dart comment.block.documentation.dart variable.name.source.dart
+T 20 source.dart comment.block.documentation.dart
+L   Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers});
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 18 source.dart support.class.dart
+T 19 source.dart other.source.dart
+T 20 source.dart
+T 29 source.dart entity.name.function.dart
+T 30 source.dart
+T 33 source.dart support.class.dart
+T 34 source.dart
+T 37 source.dart
+T 38 source.dart punctuation.comma.dart
+T 40 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart other.source.dart
+T 50 source.dart support.class.dart
+T 51 source.dart
+T 52 source.dart
+T 58 source.dart support.class.dart
+T 59 source.dart other.source.dart
+T 60 source.dart keyword.operator.ternary.dart
+T 70 source.dart
+T 71 source.dart punctuation.terminator.dart
+L 
+L   /// Sends an HTTP request and asynchronously returns the response.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 68 source.dart comment.block.documentation.dart
+L   Future<StreamedResponse> send(BaseRequest request);
+T 2 source.dart
+T 8 source.dart support.class.dart
+T 9 source.dart other.source.dart
+T 25 source.dart support.class.dart
+T 26 source.dart other.source.dart
+T 27 source.dart
+T 31 source.dart entity.name.function.dart
+T 32 source.dart
+T 43 source.dart support.class.dart
+T 44 source.dart
+T 52 source.dart
+T 53 source.dart punctuation.terminator.dart
+L 
+L   /// Closes the client and cleans up any resources associated with it.
+T 2 source.dart
+T 5 source.dart comment.block.documentation.dart
+T 71 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// Once [close] is called, no other [Client] methods should be called. If
+T 11 source.dart comment.block.documentation.dart
+T 18 source.dart comment.block.documentation.dart variable.name.source.dart
+T 39 source.dart comment.block.documentation.dart
+T 47 source.dart comment.block.documentation.dart variable.name.source.dart
+T 76 source.dart comment.block.documentation.dart
+L   /// [close] is called while there are active requests, the behavior is
+T 6 source.dart comment.block.documentation.dart
+T 13 source.dart comment.block.documentation.dart variable.name.source.dart
+T 72 source.dart comment.block.documentation.dart
+L   /// undefined.
+T 16 source.dart comment.block.documentation.dart
+L   ///
+T 5 source.dart comment.block.documentation.dart
+L   /// > [!WARNING]
+T 8 source.dart comment.block.documentation.dart
+T 18 source.dart comment.block.documentation.dart variable.name.source.dart
+L   /// > The behavior is undefined if [close] is not called before the isolate
+T 37 source.dart comment.block.documentation.dart
+T 44 source.dart comment.block.documentation.dart variable.name.source.dart
+T 77 source.dart comment.block.documentation.dart
+L   /// > that created this [Client], including the main isolate, exits.
+T 26 source.dart comment.block.documentation.dart
+T 34 source.dart comment.block.documentation.dart variable.name.source.dart
+T 70 source.dart comment.block.documentation.dart
+L   void close();
+T 2 source.dart
+T 6 source.dart storage.type.primitive.dart
+T 7 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 14 source.dart
+T 15 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// The [Client] for the current [Zone], if one has been set.
+T 3 source.dart comment.block.documentation.dart
+T 8 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 33 source.dart comment.block.documentation.dart
+T 39 source.dart comment.block.documentation.dart variable.name.source.dart
+T 61 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// NOTE: This property is explicitly hidden from the public API.
+T 65 source.dart comment.block.documentation.dart
+L @internal
+T 9 source.dart storage.type.annotation.dart
+L Client? get zoneClient {
+T 6 source.dart support.class.dart
+T 7 source.dart keyword.operator.ternary.dart
+T 8 source.dart
+T 11 source.dart keyword.declaration.dart
+T 24 source.dart
+L   final client = Zone.current[#_clientToken];
+T 2 source.dart
+T 7 source.dart storage.modifier.dart
+T 15 source.dart
+T 16 source.dart keyword.operator.assignment.dart
+T 17 source.dart
+T 21 source.dart support.class.dart
+T 22 source.dart punctuation.dot.dart
+T 44 source.dart
+T 45 source.dart punctuation.terminator.dart
+L   return client == null ? null : (client as Client Function())();
+T 2 source.dart
+T 8 source.dart keyword.control.return.dart
+T 16 source.dart
+T 18 source.dart keyword.operator.comparison.dart
+T 19 source.dart
+T 23 source.dart constant.language.dart
+T 24 source.dart
+T 25 source.dart keyword.operator.ternary.dart
+T 26 source.dart
+T 30 source.dart constant.language.dart
+T 31 source.dart
+T 32 source.dart keyword.operator.ternary.dart
+T 41 source.dart
+T 43 source.dart keyword.cast.dart
+T 44 source.dart
+T 50 source.dart support.class.dart
+T 51 source.dart
+T 59 source.dart support.class.dart
+T 64 source.dart
+T 65 source.dart punctuation.terminator.dart
+L }
+T 1 source.dart
+L 
+L /// Runs [body] in its own [Zone] with the [Client] returned by [clientFactory]
+T 3 source.dart comment.block.documentation.dart
+T 9 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.name.source.dart
+T 27 source.dart comment.block.documentation.dart
+T 33 source.dart comment.block.documentation.dart variable.name.source.dart
+T 43 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart variable.name.source.dart
+T 64 source.dart comment.block.documentation.dart
+T 79 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// set as the default [Client].
+T 23 source.dart comment.block.documentation.dart
+T 31 source.dart comment.block.documentation.dart variable.name.source.dart
+T 32 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// For example:
+T 16 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// ```
+T 7 source.dart comment.block.documentation.dart
+L /// class MyAndroidHttpClient extends BaseClient {
+T 4 source.dart comment.block.documentation.dart
+T 50 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   @override
+T 6 source.dart comment.block.documentation.dart
+T 15 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   Future<http.StreamedResponse> send(http.BaseRequest request) {
+T 6 source.dart comment.block.documentation.dart
+T 68 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///     // your implementation here
+T 8 source.dart comment.block.documentation.dart
+T 35 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   }
+T 6 source.dart comment.block.documentation.dart
+T 7 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// }
+T 4 source.dart comment.block.documentation.dart
+T 5 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// void main() {
+T 4 source.dart comment.block.documentation.dart
+T 17 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///  var clientFactory = Client.new; // Constructs the default client.
+T 5 source.dart comment.block.documentation.dart
+T 70 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///  if (Platform.isAndroid) {
+T 5 source.dart comment.block.documentation.dart
+T 30 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///     clientFactory = MyAndroidHttpClient.new;
+T 8 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///  }
+T 5 source.dart comment.block.documentation.dart
+T 6 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///  runWithClient(myFunction, clientFactory);
+T 5 source.dart comment.block.documentation.dart
+T 46 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// }
+T 4 source.dart comment.block.documentation.dart
+T 5 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// void myFunction() {
+T 4 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   // Uses the `Client` configured in `main`.
+T 6 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   final response = await get(Uri.https('www.example.com', ''));
+T 6 source.dart comment.block.documentation.dart
+T 67 source.dart comment.block.documentation.dart variable.other.source.dart
+L ///   final client = Client();
+T 6 source.dart comment.block.documentation.dart
+T 30 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// }
+T 4 source.dart comment.block.documentation.dart
+T 5 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// ```
+T 7 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// The [Client] returned by [clientFactory] is used by the [Client.new] factory
+T 8 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 29 source.dart comment.block.documentation.dart
+T 44 source.dart comment.block.documentation.dart variable.name.source.dart
+T 60 source.dart comment.block.documentation.dart
+T 72 source.dart comment.block.documentation.dart variable.name.source.dart
+T 80 source.dart comment.block.documentation.dart
+L /// and the convenience HTTP functions (e.g. [http.get]). If [clientFactory]
+T 45 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.name.source.dart
+T 61 source.dart comment.block.documentation.dart
+T 76 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// returns `Client()` then the default [Client] is used.
+T 12 source.dart comment.block.documentation.dart
+T 22 source.dart comment.block.documentation.dart variable.other.source.dart
+T 40 source.dart comment.block.documentation.dart
+T 48 source.dart comment.block.documentation.dart variable.name.source.dart
+T 57 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// Only fresh `Client` instances using the default constructor are impacted.
+T 15 source.dart comment.block.documentation.dart
+T 23 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L /// HTTP requests made using `dart:io` or `package:web` APIs,
+T 29 source.dart comment.block.documentation.dart
+T 38 source.dart comment.block.documentation.dart variable.other.source.dart
+T 42 source.dart comment.block.documentation.dart
+T 55 source.dart comment.block.documentation.dart variable.other.source.dart
+T 61 source.dart comment.block.documentation.dart
+L /// or using specifically instantiated client implementations, are not affected.
+T 80 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If [runWithClient] is used and the environment defines
+T 7 source.dart comment.block.documentation.dart
+T 22 source.dart comment.block.documentation.dart variable.name.source.dart
+T 58 source.dart comment.block.documentation.dart
+L /// `no_default_http_client=true` then generated binaries may be smaller e.g.
+T 4 source.dart comment.block.documentation.dart
+T 33 source.dart comment.block.documentation.dart variable.other.source.dart
+T 77 source.dart comment.block.documentation.dart
+L /// ```shell
+T 7 source.dart comment.block.documentation.dart
+T 12 source.dart comment.block.documentation.dart
+L /// $ dart compile exe --define=no_default_http_client=true ...
+T 4 source.dart comment.block.documentation.dart
+T 63 source.dart comment.block.documentation.dart variable.other.source.dart
+L /// ```
+T 7 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// If `no_default_http_client=true` is set then any call to the [Client]
+T 7 source.dart comment.block.documentation.dart
+T 36 source.dart comment.block.documentation.dart variable.other.source.dart
+T 65 source.dart comment.block.documentation.dart
+T 73 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// factory (i.e. `Client()`) outside of the [Zone] created by [runWithClient]
+T 18 source.dart comment.block.documentation.dart
+T 28 source.dart comment.block.documentation.dart variable.other.source.dart
+T 45 source.dart comment.block.documentation.dart
+T 51 source.dart comment.block.documentation.dart variable.name.source.dart
+T 63 source.dart comment.block.documentation.dart
+T 78 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// will throw [StateError].
+T 15 source.dart comment.block.documentation.dart
+T 27 source.dart comment.block.documentation.dart variable.name.source.dart
+T 28 source.dart comment.block.documentation.dart
+L ///
+T 3 source.dart comment.block.documentation.dart
+L /// > [!IMPORTANT]
+T 6 source.dart comment.block.documentation.dart
+T 18 source.dart comment.block.documentation.dart variable.name.source.dart
+L /// > Flutter does not guarantee that callbacks are executed in a particular
+T 76 source.dart comment.block.documentation.dart
+L /// > [Zone].
+T 6 source.dart comment.block.documentation.dart
+T 12 source.dart comment.block.documentation.dart variable.name.source.dart
+T 13 source.dart comment.block.documentation.dart
+L /// >
+T 5 source.dart comment.block.documentation.dart
+L /// > Instead of using [runWithClient], Flutter developers can use a framework,
+T 23 source.dart comment.block.documentation.dart
+T 38 source.dart comment.block.documentation.dart variable.name.source.dart
+T 79 source.dart comment.block.documentation.dart
+L /// > such as [`package:provider`](https://pub.dev/packages/provider), to make
+T 14 source.dart comment.block.documentation.dart
+T 34 source.dart comment.block.documentation.dart variable.name.source.dart
+T 78 source.dart comment.block.documentation.dart
+L /// > a [Client] available throughout their applications.
+T 8 source.dart comment.block.documentation.dart
+T 16 source.dart comment.block.documentation.dart variable.name.source.dart
+T 57 source.dart comment.block.documentation.dart
+L /// >
+T 5 source.dart comment.block.documentation.dart
+L /// > See the
+T 13 source.dart comment.block.documentation.dart
+L /// > [Flutter Http Example](https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example).
+T 6 source.dart comment.block.documentation.dart
+T 28 source.dart comment.block.documentation.dart variable.name.source.dart
+T 102 source.dart comment.block.documentation.dart
+L R runWithClient<R>(R Function() body, Client Function() clientFactory,
+T 1 source.dart support.class.dart
+T 2 source.dart
+T 15 source.dart entity.name.function.dart
+T 16 source.dart other.source.dart
+T 17 source.dart support.class.dart
+T 18 source.dart other.source.dart
+T 19 source.dart
+T 20 source.dart support.class.dart
+T 21 source.dart
+T 29 source.dart support.class.dart
+T 36 source.dart
+T 37 source.dart punctuation.comma.dart
+T 38 source.dart
+T 44 source.dart support.class.dart
+T 45 source.dart
+T 53 source.dart support.class.dart
+T 69 source.dart
+T 70 source.dart punctuation.comma.dart
+L         {ZoneSpecification? zoneSpecification}) =>
+T 9 source.dart
+T 26 source.dart support.class.dart
+T 27 source.dart keyword.operator.ternary.dart
+T 48 source.dart
+T 50 source.dart keyword.operator.closure.dart
+L     runZoned(body,
+T 4 source.dart
+T 12 source.dart entity.name.function.dart
+T 13 source.dart
+T 17 source.dart
+T 18 source.dart punctuation.comma.dart
+L         zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},
+T 18 source.dart
+T 19 source.dart keyword.operator.ternary.dart
+T 34 source.dart
+T 35 source.dart keyword.operator.ternary.dart
+T 36 source.dart
+T 40 source.dart support.class.dart
+T 41 source.dart punctuation.dot.dart
+T 48 source.dart
+T 49 source.dart punctuation.dot.dart
+T 61 source.dart entity.name.function.dart
+T 62 source.dart
+T 77 source.dart
+T 78 source.dart punctuation.comma.dart
+L         zoneSpecification: zoneSpecification);
+T 25 source.dart
+T 26 source.dart keyword.operator.ternary.dart
+T 45 source.dart
+T 46 source.dart punctuation.terminator.dart
+L 

@@ -66,6 +66,8 @@ mod cpp;
 mod csharp;
 #[cfg(feature = "lang-css")]
 mod css;
+#[cfg(feature = "lang-dart")]
+mod dart;
 #[cfg(feature = "lang-diff")]
 mod diff;
 #[cfg(feature = "lang-dockerfile")]

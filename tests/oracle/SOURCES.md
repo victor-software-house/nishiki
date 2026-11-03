@@ -249,6 +249,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
 | `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
 | `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
+| `dart/sample` | [`samples/dart.sample`][dart-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `dart/http-client` | [`pkgs/http/lib/src/client.dart`][dart-http-client] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
+| `dart/http-base-request` | [`pkgs/http/lib/src/base_request.dart`][dart-http-base-request] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
+| `dart/collection-algorithms` | [`pkgs/collection/lib/src/algorithms.dart`][dart-collection-algorithms] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
+| `markdown/dart-http-readme` | [`pkgs/http/README.md`][dart-http-readme] in dart-lang/http | [BSD-3-Clause][dart-http-licence] |
+| `markdown/dart-args-readme` | [`pkgs/args/README.md`][dart-args-readme] in dart-lang/core | [BSD-3-Clause][dart-core-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -438,6 +444,9 @@ Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
 Nix runs on nishiki's TextMate engine as well.
 `nix/sample` and `nix/nixpkgs-ripgrep` are its development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
+Dart runs on nishiki's TextMate engine as well.
+`dart/sample` and `dart/http-client` are its development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
+`dart/http-base-request`, `dart/collection-algorithms` and `markdown/dart-args-readme` are held out.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
@@ -540,6 +549,14 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [cranelift-tests]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch
 [csharp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/csharp.sample
 [css-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/css.sample
+[dart-args-readme]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/args/README.md
+[dart-collection-algorithms]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/pkgs/collection/lib/src/algorithms.dart
+[dart-core-licence]: https://github.com/dart-lang/core/blob/36f57a994965785d641e436b7dd3aa8a18a26f62/LICENSE
+[dart-http-base-request]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/pkgs/http/lib/src/base_request.dart
+[dart-http-client]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/pkgs/http/lib/src/client.dart
+[dart-http-licence]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/LICENSE
+[dart-http-readme]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/pkgs/http/README.md
+[dart-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/dart.sample
 [derivative-vue-classic-grid]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/grid.html
 [derivative-vue-classic-todomvc]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/todomvc.html
 [derivative-vue-commits]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/commits.html
