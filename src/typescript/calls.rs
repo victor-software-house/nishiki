@@ -202,7 +202,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.starts(p, "=>") || self.byte(p) == b'{' {
             return true;
         }
-        if !self.bol(p) {
+        if !Self::bol(p) {
             return false;
         }
         let j = self.ws(0);
@@ -297,7 +297,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?<=\)|^)\s*(:)(?=\s*TYPE+\s*=>)`: the return type of arrow parameters
     /// that began on an earlier line.
     pub(crate) fn possibly_arrow_return_type(&mut self, p: usize) -> Option<usize> {
-        if !(p == 0 || self.prev_char(p) == Some(')')) || self.full() {
+        if !(Self::bol(p) || self.prev_char(p) == Some(')')) || self.full() {
             return None;
         }
         let j = self.ws(p);
@@ -356,7 +356,7 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::Cast);
             return Some(j + 1);
         }
-        if self.bol(p) {
+        if Self::bol(p) {
             let e = self.ident(j + 1);
             if e.is_some_and(|e| self.byte(self.ws(e)) == b'>') {
                 self.flush(p);

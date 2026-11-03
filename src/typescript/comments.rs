@@ -28,7 +28,7 @@ impl<const D: u8> Lexer<'_, D> {
                 None
             }
             b' ' | b'\t' => {
-                if !self.bol(p) {
+                if !Self::bol(p) {
                     return None;
                 }
                 let mut j = p;
@@ -53,7 +53,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut slashes = p;
-        if self.bol(p) {
+        if Self::bol(p) {
             while matches!(self.byte(slashes), b' ' | b'\t') {
                 slashes += 1;
             }
@@ -185,7 +185,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) == b'/' && self.byte(p + 1) == b'/' {
             return self.line_comment_begin(p, p, Kind::CommentLineNl);
         }
-        if self.bol(p) && matches!(self.byte(p), b' ' | b'\t') {
+        if Self::bol(p) && matches!(self.byte(p), b' ' | b'\t') {
             let mut j = p;
             while matches!(self.byte(j), b' ' | b'\t') {
                 j += 1;

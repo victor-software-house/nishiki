@@ -137,7 +137,7 @@ impl<const D: u8> Lexer<'_, D> {
                 self.end_zero(self.starts(p, "</script"), p)
             }
             Kind::CommentLine | Kind::Directive => self.end_zero(self.eol(p), p),
-            Kind::CommentLineNl => self.end_zero(self.bol(p), p),
+            Kind::CommentLineNl => self.end_zero(Self::bol(p), p),
             Kind::Return => self.end_zero(self.statement_end(p), p),
             Kind::SwitchBlock => self.end_zero(self.byte(p) == b'}', p),
             Kind::CaseClause => self.end_zero(self.byte(p) == b':', p),
@@ -152,7 +152,7 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::ObjBindVar | Kind::ArrBindVar | Kind::ObjBindVarConst | Kind::ArrBindVarConst => {
                 self.end_zero(
                     self.eol(p)
-                        || self.bol(p)
+                        || Self::bol(p)
                         || matches!(self.byte(p), b',' | b';' | b'=' | b'}')
                         || self.of_in_ahead(p),
                     p,
@@ -255,7 +255,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             Kind::Import => self.end_zero(
                 !self.word_before_text(p, "import")
-                    && (self.byte(p) == b';' || self.eol(p) || self.bol(p)),
+                    && (self.byte(p) == b';' || self.eol(p) || Self::bol(p)),
                 p,
             ),
             Kind::ImportFrom => {
@@ -265,7 +265,7 @@ impl<const D: u8> Lexer<'_, D> {
                 None
             }
             Kind::ImportEqInt => {
-                self.end_zero(self.byte(p) == b';' || self.eol(p) || self.bol(p), p)
+                self.end_zero(self.byte(p) == b';' || self.eol(p) || Self::bol(p), p)
             }
             Kind::Indexer | Kind::IndexerMapped => self.end_indexer(kind, p),
             Kind::InstanceOf => self.end_zero(self.instanceof_end(p), p),
@@ -337,7 +337,7 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::ReturnType1 => self.end_zero(
                 !matches!(self.prev_char(p), Some('&' | ':' | '|'))
                     && (self.eol(p)
-                        || self.bol(p)
+                        || Self::bol(p)
                         || matches!(self.byte(p), b',' | b';' | b'{' | b'}')
                         || self.starts(p, "//")),
                 p,
@@ -408,7 +408,7 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::VarComma | Kind::VarCommaConst | Kind::VarCommaUsing => self.end_var_comma(p),
             Kind::VarSingle => self.end_zero(
                 self.eol(p)
-                    || self.bol(p)
+                    || Self::bol(p)
                     || matches!(self.byte(p), b',' | b';' | b'=' | b'}')
                     || self.of_in_ahead(p)
                     || self.blank_line_at(p)
@@ -417,7 +417,7 @@ impl<const D: u8> Lexer<'_, D> {
             ),
             Kind::VarInit1 => self.end_zero(
                 self.eol(p)
-                    || self.bol(p)
+                    || Self::bol(p)
                     || matches!(self.byte(p), b']' | b')' | b',' | b';' | b'}')
                     || self.of_in_ahead(p),
                 p,
@@ -475,7 +475,7 @@ impl<const D: u8> Lexer<'_, D> {
         {
             return true;
         }
-        self.bol(p)
+        Self::bol(p)
             && !self
                 .field_tail(0)
                 .is_some_and(|m| matches!(self.byte(m), b',' | b':' | b';' | b'=') || self.eol(m))
@@ -601,7 +601,7 @@ impl<const D: u8> Lexer<'_, D> {
             || self.starts(p, "&&")
             || self.starts(p, "!==")
             || self.eol(p)
-            || self.bol(p);
+            || Self::bol(p);
         if simple {
             return true;
         }
@@ -683,7 +683,7 @@ impl<const D: u8> Lexer<'_, D> {
         let next = self.byte(p);
         let stop = matches!(next, b']' | b')' | b',' | b';' | b'}')
             || self.starts(p, "//")
-            || (first && self.bol(p));
+            || (first && Self::bol(p));
         let equals = next == b'=' && self.byte(p + 1) != b'>';
         let blank = !first && self.blank_line_at(p);
         let brace = self
@@ -759,7 +759,7 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.statement_start_at(p)
             }
             VarKind::Let | VarKind::Const => {
-                self.bol(p)
+                Self::bol(p)
                     || matches!(self.byte(p), b';' | b'}')
                     || self.of_in_ahead(p)
                     || self.blank_line_at(p)

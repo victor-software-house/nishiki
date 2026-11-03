@@ -168,7 +168,7 @@ impl<const D: u8> Lexer<'_, D> {
                 j += self.char_len(j);
             }
         }
-        j.min(self.len + 1)
+        j.min(self.window())
     }
 
     /// `(?:[^*/@\s]|\*[^/])+`, as a run from `i` of at least one item.
@@ -783,7 +783,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Inside `@example`: the line prefix, a caption and the code.
     pub(crate) fn doc_example_rules(&mut self, p: usize) -> Option<usize> {
-        if self.bol(p) && self.space_at(0) {
+        if Self::bol(p) && self.space_at(0) {
             let j = 1;
             if self.byte(j) == b'*' {
                 let e = self.ws(j + 1);

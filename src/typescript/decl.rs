@@ -615,7 +615,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `^\s*` followed by one of the statement keywords the grammar treats as
     /// the start of a new statement, as the end rules spell it.
     pub(crate) fn statement_start_at(&self, p: usize) -> bool {
-        if !self.bol(p) {
+        if !Self::bol(p) {
             return false;
         }
         let j = self.ws(0);

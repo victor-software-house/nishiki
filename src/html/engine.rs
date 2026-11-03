@@ -827,7 +827,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the text `from..to` with the JavaScript lexer, from a fresh
-    /// state, under `base`.
+    /// state, under `base`, as `TextMate` lexes a capture group again: the
+    /// text before `from` stays visible to lookbehinds, and no line feed
+    /// follows `to`.
     pub(super) fn javascript(&mut self, from: usize, to: usize, base: u32) {
         if from >= to {
             return;
@@ -848,7 +850,7 @@ impl<'a> Lexer<'a> {
             start: from,
             embedded: false,
         };
-        crate::typescript::lex(&mut cx, crate::typescript::Dialect::JavaScript, line, state);
+        crate::typescript::lex_capture(&mut cx, line, state);
         self.last = self.last.max(to);
     }
 }

@@ -50,11 +50,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
         is_ascii_space(self.byte(i)) || space::len(self.bytes.get(i..).unwrap_or_default()) > 0
     }
 
-    /// The character before `i`; the newline that ends the line is the one
-    /// before `len + 1`.
+    /// The character before `i`; the newline that ends the line, when one
+    /// follows, is the one before `len + 1`.
     pub(crate) fn prev_char(&self, i: usize) -> Option<char> {
         if i == self.len + 1 {
-            return Some('\n');
+            return (self.byte(self.len) == b'\n').then_some('\n');
         }
         self.src.get(..i).and_then(|head| head.chars().next_back())
     }
@@ -215,7 +215,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// `^\s*$`: a blank line, at its start.
     pub(crate) fn blank_line_at(&self, p: usize) -> bool {
-        self.bol(p) && self.eol(self.ws(0))
+        Self::bol(p) && self.eol(self.ws(0))
     }
 
     /// Whether the text before `p` ends in what `before` accepts: one of its

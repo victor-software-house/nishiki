@@ -55,8 +55,8 @@ mod typ;
 mod type_aliases;
 
 use kind::Kind;
+use lexer::Halts;
 pub(crate) use lexer::Opened;
-use lexer::{Halts, TextStart};
 pub(crate) use scope::NAMES;
 use scope::S;
 
@@ -95,14 +95,18 @@ impl Dialect {
     pub(crate) const JSX: u8 = 2;
     /// The index of TSX.
     pub(crate) const TSX: u8 = 3;
+    /// The bit that marks a lexer of a capture group that another grammar
+    /// lexes again, added to the dialect's index.
+    pub(crate) const BARE: u8 = 4;
 
-    /// The dialect at position `index` among the four.
+    /// The dialect at position `index` among the four, whatever
+    /// [`Dialect::BARE`] says.
     ///
     /// Evaluated at compile time for each `D` that [`line`] instantiates, so
     /// the arm of a dialect whose feature is off is never reached, and
     /// reaching it fails the build.
     pub(crate) const fn of(index: u8) -> Dialect {
-        match index {
+        match index & !Self::BARE {
             #[cfg(feature = "lang-typescript")]
             Self::TYPESCRIPT => Dialect::TypeScript,
             #[cfg(feature = "lang-javascript")]
@@ -167,45 +171,48 @@ pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
+/// Lexes the text of `line` from byte `from` and `state`, appending its
+/// tokens with ends counted from the start of `line`, and returns the state
+/// after it and where `halts` stopped it. The bytes before `from` belong to
+/// the language that embeds this one, which lookbehinds read as `TextMate`
+/// does.
 ///
-/// An empty line appends nothing and leaves the state as it is, which is how
+/// An empty text appends nothing and leaves the state as it is, which is how
 /// Shiki treats it: the end rules that test for a blank line (`^\s*$`) never
 /// run on an empty one.
-pub(crate) fn line(
+fn line(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,
     line: &str,
-    start: TextStart,
+    from: usize,
     state: u32,
-    halts: Option<Halts<'_>>,
+    halts: Option<Halts>,
 ) -> (u32, Option<usize>) {
-    if line.is_empty() {
+    if line.len() <= from {
         return (state, None);
     }
     match dialect {
         #[cfg(feature = "lang-typescript")]
-        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT }>(cx, line, start, state, halts),
+        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT }>(cx, line, from, state, halts),
         #[cfg(feature = "lang-javascript")]
-        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT }>(cx, line, start, state, halts),
+        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT }>(cx, line, from, state, halts),
         #[cfg(feature = "lang-jsx")]
-        Dialect::Jsx => run::<{ Dialect::JSX }>(cx, line, start, state, halts),
+        Dialect::Jsx => run::<{ Dialect::JSX }>(cx, line, from, state, halts),
         #[cfg(feature = "lang-tsx")]
-        Dialect::Tsx => run::<{ Dialect::TSX }>(cx, line, start, state, halts),
+        Dialect::Tsx => run::<{ Dialect::TSX }>(cx, line, from, state, halts),
     }
 }
 
-/// Lexes the non-empty `line` as the dialect `D` numbers, and returns the
-/// state after it and where `halts` stopped it.
+/// Lexes the text of `line` from `from` as the dialect `D` numbers, and
+/// returns the state after it and where `halts` stopped it.
 fn run<const D: u8>(
     cx: &mut crate::language::Context<'_>,
     line: &str,
-    start: TextStart,
+    from: usize,
     state: u32,
-    halts: Option<Halts<'_>>,
+    halts: Option<Halts>,
 ) -> (u32, Option<usize>) {
-    let mut lexer = lexer::Lexer::<D>::new(cx, line, start, state, halts);
+    let mut lexer = lexer::Lexer::<D>::new(cx, line, from, state, halts);
     lexer.run();
     let halt = lexer.halted_at();
     (lexer.into_state(), halt)
@@ -230,9 +237,26 @@ pub(crate) fn lex(
     line: crate::language::Line<'_>,
     state: u32,
 ) -> u32 {
-    cx.lex_from_start(line, |cx, rest| {
-        self::line(cx, dialect, rest, TextStart::at(line.start), state, None).0
-    })
+    self::line(cx, dialect, line.text, line.start, state, None).0
+}
+
+/// Lexes as JavaScript a capture group of another grammar that `TextMate`
+/// lexes again with this one: `line.text` is the line up to the group's end,
+/// with no line feed after it, and the group starts at `line.start`. Returns
+/// the state after it.
+///
+/// Only HTML's event handlers need it, so only `JavaScript` has the lexer that
+/// reads no line feed.
+#[cfg(feature = "lang-html")]
+pub(crate) fn lex_capture(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    state: u32,
+) -> u32 {
+    if line.text.len() <= line.start {
+        return state;
+    }
+    run::<{ Dialect::JAVASCRIPT | Dialect::BARE }>(cx, line.text, line.start, state, None).0
 }
 
 /// Lexes `line` in `dialect` from `state` like [`lex`], and halts where the
@@ -253,24 +277,6 @@ pub(crate) fn lex_until(
     end: Halt,
     after: Option<Halt>,
 ) -> (u32, Option<usize>) {
-    let halts = Halts {
-        line: line.text.as_bytes(),
-        offset: line.start,
-        end,
-        after,
-    };
-    let mut halt = None;
-    let next = cx.lex_from_start(line, |cx, rest| {
-        let (next, at) = self::line(
-            cx,
-            dialect,
-            rest,
-            TextStart::at(line.start),
-            state,
-            Some(halts),
-        );
-        halt = at;
-        next
-    });
-    (next, halt.map(|at| at + line.start))
+    let halts = Halts { end, after };
+    self::line(cx, dialect, line.text, line.start, state, Some(halts))
 }

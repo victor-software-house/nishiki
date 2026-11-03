@@ -7,7 +7,7 @@ use super::scope::S;
 impl<const D: u8> Lexer<'_, D> {
     /// `^(///)\s*(?=<(reference|amd-dependency|amd-module)(…)+\s*/>\s*$)`.
     pub(crate) fn directive(&mut self, p: usize) -> Option<usize> {
-        if !self.bol(p) || !self.starts(0, "///") || self.full() {
+        if !Self::bol(p) || !self.starts(0, "///") || self.full() {
             return None;
         }
         let j = self.ws(3);

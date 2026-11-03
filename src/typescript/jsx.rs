@@ -104,7 +104,7 @@ impl<const D: u8> Lexer<'_, D> {
             words: &["await", "return", "default", "yield"],
             never: &["++", "--"],
         };
-        p == 0 || self.operator_before(p.min(self.len), &TAG)
+        Self::bol(p) || self.operator_before(p.min(self.len), &TAG)
     }
 
     /// `(<)\s*(?:(ns)(:))?(tag)?\s*(>)` at `i`: a tag without attributes.
@@ -375,10 +375,12 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `=(?=\s*(?:["'{]|/\*|//|\n))`: what may follow an attribute's `=`, a
-    /// quote, a brace, a comment or the line's end.
+    /// quote, a brace, a comment or the line feed, which a capture group lexed
+    /// again does not have. The blanks skipped include that line feed, so
+    /// reaching past the text means one was there.
     fn assignment_ahead(&self, i: usize) -> bool {
         let j = self.ws(i);
-        j >= self.len
+        j > self.len
             || matches!(self.byte(j), b'"' | b'\'' | b'{')
             || self.starts(j, "/*")
             || self.starts(j, "//")

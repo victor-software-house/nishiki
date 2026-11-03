@@ -1,7 +1,7 @@
 use indoc::indoc;
 
 use crate::Language;
-use crate::test_support::{leaf, lex};
+use crate::test_support::{leaf, lex, scopes_of};
 
 /// The innermost scope of each token of `row`.
 fn leaves(row: &[(String, Vec<String>)]) -> Vec<(&str, &str)> {
@@ -116,4 +116,51 @@ fn a_no_break_space_starts_an_attribute_name() {
         "{:?}",
         rows[0][2].1
     );
+}
+
+/// The JavaScript of a `<script>` element sees the `>` of its tag, as
+/// `TextMate` does: a `{` right after it opens an object literal.
+#[test]
+fn a_brace_right_after_a_script_tag_opens_an_object_literal() {
+    assert_eq!(
+        scopes_of(Language::Html, "<script>{", "{")[2..],
+        [
+            "source.js",
+            "meta.objectliteral.js",
+            "punctuation.definition.block.js"
+        ]
+    );
+}
+
+/// An event handler's code is a capture group that the JavaScript lexer lexes
+/// again: it sees the quote before it, so `<` after the quote and blanks is no
+/// tag, and no line feed follows the group's end.
+#[test]
+fn an_event_handler_reads_a_less_than_after_its_quote_as_an_operator() {
+    for text in ["<a onclick=\"  <b c=d\">", "<a onclick=\"x <b\">"] {
+        assert_eq!(
+            leaf(Language::Html, text, "b"),
+            "variable.other.readwrite.js",
+            "{text}"
+        );
+    }
+}
+
+/// An attribute's `=` in JSX needs a quote, a brace, a comment or a line feed
+/// after it. An event handler's code ends before its line's line feed, so an
+/// `=` at the end of a quoted value's line is an illegal attribute.
+#[test]
+fn an_event_handler_line_ending_in_a_jsx_assignment_has_no_line_feed() {
+    let rows = lex(
+        Language::Html,
+        indoc! {r#"
+            <a onclick="x
+                <meta charset="utf-8" />
+        "#},
+    );
+    let equals = leaves(&rows[1])
+        .into_iter()
+        .find(|(token, _)| *token == "=")
+        .map(|(_, scope)| scope);
+    assert_eq!(equals, Some("invalid.illegal.attribute.js"));
 }

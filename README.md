@@ -457,10 +457,6 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   At one byte a run of such steps opens and closes each rule of the grammar at most once, because a rule that repeats stops the line, so no line comes near it.
   The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
 - A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
-- Three cases differ from Shiki, all in the embedded languages and found by mutating the inputs, never in the inputs themselves:
-  - a `{` that starts a script on the line of its `<script>` tag is a block, where Shiki reads an object literal after the tag's `>`;
-  - in an event handler, a `<` after the value's opening quote and blanks opens a JSX tag, where Shiki reads a relational operator, because the JavaScript lexer does not see the text before the handler's code;
-  - inside a CSS property list, a word with no `:` after it on its line, such as `ul` in `<ul class=x>`, can be read as a property name where Shiki reads a nested selector's tag.
 
 ## Licence
 

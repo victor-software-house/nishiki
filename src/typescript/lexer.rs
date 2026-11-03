@@ -52,11 +52,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
     stuck: bool,
     /// Where the language that embeds this one takes the line back, if it
     /// does.
-    pub(crate) halts: Option<Halts<'a>>,
+    pub(crate) halts: Option<Halts>,
     /// Where `halts` stopped the line.
     halt: Option<usize>,
-    /// Whether the text starts the line, which decides where `^` matches.
-    start: TextStart,
     /// Set when a context was refused for depth; recorded at the line's end.
     depth_hit: Cell<bool>,
     /// The last run of blanks that [`Lexer::ws`] scanned, as start and end.
@@ -73,38 +71,13 @@ pub(crate) struct Lexer<'a, const D: u8> {
     next_bracket: Cell<(usize, Option<usize>)>,
 }
 
-/// The tests of the language that embeds this one, on the whole line: `end`
+/// The tests of the language that embeds this one, on the line: `end`
 /// before this grammar's rules and `after` where none matches (see
-/// [`lex_until`](super::lex_until)). The lexer's place `p` is `offset + p` on
-/// `line`.
+/// [`lex_until`](super::lex_until)).
 #[derive(Clone, Copy)]
-pub(crate) struct Halts<'a> {
-    pub(crate) line: &'a [u8],
-    pub(crate) offset: usize,
+pub(crate) struct Halts {
     pub(crate) end: Halt,
     pub(crate) after: Option<Halt>,
-}
-
-/// Whether the text a lexer reads starts its line, which decides where `^`
-/// matches.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum TextStart {
-    /// The text starts the line, so `^` matches at its first byte.
-    Line,
-    /// A Markdown container took the start of the line, so `^` matches
-    /// nowhere in the text.
-    Inside,
-}
-
-impl TextStart {
-    /// The start of text that begins at byte `start` of its line.
-    pub(crate) fn at(start: usize) -> Self {
-        if start == 0 {
-            TextStart::Line
-        } else {
-            TextStart::Inside
-        }
-    }
 }
 
 /// A context opened on the current line, which `TextMate` remembers to
@@ -129,20 +102,31 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// the type, so the TypeScript lexer compiles with no JSX branches.
     pub(crate) const DIALECT: Dialect = Dialect::of(D);
 
-    /// The lexer of the line `src` from `state`, which `halts` may stop.
+    /// Whether the text is a capture group that another grammar lexes again,
+    /// which `TextMate` cuts from the line without the line feed it appends
+    /// to every line. A const, so the lexers of whole lines pay nothing for
+    /// it.
+    const BARE: bool = D & Dialect::BARE != 0;
+
+    /// The lexer of the line `src` from byte `from` and `state`, which `halts`
+    /// may stop. The bytes before `from` belong to the language that embeds
+    /// this one: the scan never starts there, but lookbehinds read them, and
+    /// `^` matches only at byte 0, as in `TextMate`, where an embedded grammar
+    /// sees the whole line.
     ///
     /// Everything on the first line opens above a `Started` marker, so the
     /// document start is never reached again and `\A` matches once.
     pub(crate) fn new(
         cx: &'a mut Context<'_>,
         src: &'a str,
-        start: TextStart,
+        from: usize,
         state: u32,
-        halts: Option<Halts<'a>>,
+        halts: Option<Halts>,
     ) -> Self {
         let frame = cx.arena.frame(state);
         let limits = cx.limits;
-        let budget = limits.work.map_or(u64::MAX, |work| work.steps(src.len()));
+        let text = src.len().saturating_sub(from);
+        let budget = limits.work.map_or(u64::MAX, |work| work.steps(text));
         let opened = &mut cx.scratch.typescript;
         opened.clear();
         let mut lexer = Lexer {
@@ -153,19 +137,18 @@ impl<'a, const D: u8> Lexer<'a, D> {
             arena: &mut *cx.arena,
             limits,
             report: &mut *cx.report,
-            pos: 0,
+            pos: from,
             state,
             frame,
             steps: Cell::new(0),
             budget,
             opened,
-            line_pos: 0,
+            line_pos: from,
             anchor: usize::MAX,
             first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
             stuck: false,
             halts,
             halt: None,
-            start,
             depth_hit: Cell::new(false),
             blanks: Cell::new((0, 0)),
             last_ident: Cell::new((usize::MAX, None)),
@@ -177,7 +160,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
                 text.ends_with("=>").then(|| text.len() - 2)
             },
         };
-        lexer.spend(src.len());
+        lexer.spend(text);
         if lexer.first_line {
             lexer.push(Kind::Started);
         }
@@ -189,9 +172,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.state
     }
 
-    /// `^` at `p`.
-    pub(crate) fn bol(&self, p: usize) -> bool {
-        p == 0 && self.start == TextStart::Line
+    /// `^` at `p`: only the line's first byte, which an embedded text that
+    /// starts later never reaches.
+    pub(crate) fn bol(p: usize) -> bool {
+        p == 0
     }
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
@@ -243,10 +227,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// `TextMate` keeps matching after a rule has consumed the newline, at the
     /// end of the line, where a rule that tests for `$` can still end.
     pub(crate) fn run(&mut self) {
-        let mut p = 0;
+        let mut p = self.line_pos;
         #[cfg(debug_assertions)]
         let (mut still, mut bound) = (0usize, 0usize);
-        while p <= self.len + 1 && !self.stuck && self.halt.is_none() {
+        while p <= self.window() && !self.stuck && self.halt.is_none() {
             self.spend(1);
             if self.steps.get() > self.budget {
                 self.report.record(Limit::Work);
@@ -288,12 +272,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// holds there while no context of the code is open beyond the one the
     /// embedding started.
     pub(crate) fn halt_if(&mut self, p: usize, test: Option<Halt>) -> bool {
-        let (Some(test), Some(halts)) = (test, self.halts) else {
+        let Some(test) = test else {
             return false;
         };
         if p > self.len
             || !matches!(self.top(), Kind::Top | Kind::Started | Kind::Script)
-            || !test(halts.line, halts.offset + p)
+            || !test(self.bytes, p)
         {
             return false;
         }
@@ -438,19 +422,21 @@ impl<'a, const D: u8> Lexer<'a, D> {
         }
     }
 
-    /// The byte at `i`: a newline at the end of the line, 0 beyond.
+    /// The byte at `i`: the newline at the end of the line when one follows
+    /// (see [`Lexer::BARE`]), 0 beyond.
     pub(crate) fn byte(&self, i: usize) -> u8 {
         match i.cmp(&self.len) {
             std::cmp::Ordering::Less => self.bytes[i],
+            std::cmp::Ordering::Equal if Self::BARE => 0,
             std::cmp::Ordering::Equal => b'\n',
             std::cmp::Ordering::Greater => 0,
         }
     }
 
-    /// The end of every scan ahead: the line, with its newline. Every step
-    /// of a scan is counted against the line's work.
+    /// The end of every scan ahead: the line, with its newline when one
+    /// follows. Every step of a scan is counted against the line's work.
     pub(crate) fn window(&self) -> usize {
-        self.len + 1
+        self.len + usize::from(!Self::BARE)
     }
 
     /// `base` with `scopes` pushed; stops short when the node limit is
