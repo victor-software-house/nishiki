@@ -1,0 +1,239 @@
+L const std = @import("std");
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.assignment.zig
+T 12 source.zig
+T 19 source.zig support.function.builtin.zig
+T 20 source.zig
+T 21 source.zig string.quoted.double.zig
+T 24 source.zig string.quoted.double.zig
+T 25 source.zig string.quoted.double.zig
+T 26 source.zig
+T 27 source.zig punctuation.terminator.statement.zig
+L const parseInt = std.fmt.parseInt;
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig punctuation.accessor.zig
+T 24 source.zig variable.zig
+T 25 source.zig punctuation.accessor.zig
+T 33 source.zig variable.zig
+T 34 source.zig punctuation.terminator.statement.zig
+L 
+L test "parse integers" {
+T 4 source.zig keyword.default.zig
+T 5 source.zig
+T 6 source.zig string.quoted.double.zig
+T 20 source.zig string.quoted.double.zig
+T 21 source.zig string.quoted.double.zig
+T 23 source.zig
+L     const input = "123 67 89,99";
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 19 source.zig string.quoted.double.zig
+T 31 source.zig string.quoted.double.zig
+T 32 source.zig string.quoted.double.zig
+T 33 source.zig punctuation.terminator.statement.zig
+L     const ally = std.testing.allocator;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig
+T 16 source.zig keyword.operator.assignment.zig
+T 17 source.zig
+T 20 source.zig variable.zig
+T 21 source.zig punctuation.accessor.zig
+T 28 source.zig variable.zig
+T 29 source.zig punctuation.accessor.zig
+T 38 source.zig variable.zig
+T 39 source.zig punctuation.terminator.statement.zig
+L 
+L     var list = std.ArrayList(u32).init(ally);
+T 4 source.zig
+T 7 source.zig keyword.default.zig
+T 8 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 14 source.zig keyword.operator.assignment.zig
+T 15 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig punctuation.accessor.zig
+T 28 source.zig entity.name.type.zig
+T 29 source.zig
+T 32 source.zig keyword.type.integer.zig
+T 33 source.zig
+T 34 source.zig punctuation.accessor.zig
+T 38 source.zig entity.name.function.zig
+T 39 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig
+T 45 source.zig punctuation.terminator.statement.zig
+L     // Ensure the list is freed at scope exit.
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 46 source.zig comment.line.double-slash.zig
+L     // Try commenting out this line!
+T 4 source.zig
+T 6 source.zig comment.line.double-slash.zig
+T 36 source.zig comment.line.double-slash.zig
+L     defer list.deinit();
+T 4 source.zig
+T 9 source.zig keyword.control.flow.zig
+T 10 source.zig
+T 14 source.zig variable.zig
+T 15 source.zig punctuation.accessor.zig
+T 21 source.zig entity.name.function.zig
+T 23 source.zig
+T 24 source.zig punctuation.terminator.statement.zig
+L 
+L     var it = std.mem.tokenize(u8, input, " ,");
+T 4 source.zig
+T 7 source.zig keyword.default.zig
+T 8 source.zig
+T 10 source.zig variable.zig
+T 11 source.zig
+T 12 source.zig keyword.operator.assignment.zig
+T 13 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.accessor.zig
+T 20 source.zig variable.zig
+T 21 source.zig punctuation.accessor.zig
+T 29 source.zig entity.name.function.zig
+T 30 source.zig
+T 32 source.zig keyword.type.integer.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 42 source.zig string.quoted.double.zig
+T 44 source.zig string.quoted.double.zig
+T 45 source.zig string.quoted.double.zig
+T 46 source.zig
+T 47 source.zig punctuation.terminator.statement.zig
+L     while (it.next()) |num| {
+T 4 source.zig
+T 9 source.zig keyword.control.repeat.zig
+T 11 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.accessor.zig
+T 18 source.zig entity.name.function.zig
+T 22 source.zig
+T 23 source.zig keyword.operator.bitwise.zig
+T 26 source.zig variable.zig
+T 27 source.zig keyword.operator.bitwise.zig
+T 29 source.zig
+L         const n = try parseInt(u32, num, 10);
+T 8 source.zig
+T 13 source.zig keyword.default.zig
+T 14 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 21 source.zig keyword.control.trycatch.zig
+T 22 source.zig
+T 30 source.zig entity.name.function.zig
+T 31 source.zig
+T 34 source.zig keyword.type.integer.zig
+T 35 source.zig punctuation.comma.zig
+T 36 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 43 source.zig constant.numeric.float.zig
+T 44 source.zig
+T 45 source.zig punctuation.terminator.statement.zig
+L         try list.append(n);
+T 8 source.zig
+T 11 source.zig keyword.control.trycatch.zig
+T 12 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.accessor.zig
+T 23 source.zig entity.name.function.zig
+T 24 source.zig
+T 25 source.zig variable.zig
+T 26 source.zig
+T 27 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L 
+L     const expected = [_]u32{ 123, 67, 89, 99 };
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 18 source.zig variable.zig
+T 19 source.zig
+T 20 source.zig keyword.operator.assignment.zig
+T 22 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 27 source.zig keyword.type.integer.zig
+T 29 source.zig
+T 32 source.zig constant.numeric.float.zig
+T 33 source.zig punctuation.comma.zig
+T 34 source.zig
+T 36 source.zig constant.numeric.float.zig
+T 37 source.zig punctuation.comma.zig
+T 38 source.zig
+T 40 source.zig constant.numeric.float.zig
+T 41 source.zig punctuation.comma.zig
+T 42 source.zig
+T 44 source.zig constant.numeric.float.zig
+T 46 source.zig
+T 47 source.zig punctuation.terminator.statement.zig
+L 
+L     for (expected, list.items) |exp, actual| {
+T 4 source.zig
+T 7 source.zig keyword.control.repeat.zig
+T 9 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.comma.zig
+T 19 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig punctuation.accessor.zig
+T 29 source.zig variable.zig
+T 31 source.zig
+T 32 source.zig keyword.operator.bitwise.zig
+T 35 source.zig variable.zig
+T 36 source.zig punctuation.comma.zig
+T 37 source.zig
+T 43 source.zig variable.zig
+T 44 source.zig keyword.operator.bitwise.zig
+T 46 source.zig
+L         try std.testing.expectEqual(exp, actual);
+T 8 source.zig
+T 11 source.zig keyword.control.trycatch.zig
+T 12 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig punctuation.accessor.zig
+T 23 source.zig variable.zig
+T 24 source.zig punctuation.accessor.zig
+T 35 source.zig entity.name.function.zig
+T 36 source.zig
+T 39 source.zig variable.zig
+T 40 source.zig punctuation.comma.zig
+T 41 source.zig
+T 47 source.zig variable.zig
+T 48 source.zig
+T 49 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L }
+T 1 source.zig
+L 
+L // from https://ziglang.org
+T 2 source.zig comment.line.double-slash.zig
+T 27 source.zig comment.line.double-slash.zig

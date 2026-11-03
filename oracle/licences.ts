@@ -110,6 +110,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "Syntaxes/YAML-license.txt",
   },
+  zig: {
+    bundled: "ziglang/vscode-zig@9c7bb7631f3af99331475b633aaf5b70345c6713",
+    origin: "ziglang/vscode-zig",
+    licence: "MIT",
+    file: "LICENSE",
+  },
 };
 
 /** Grammars that must never be bundled, with the reason. */

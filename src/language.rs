@@ -270,6 +270,14 @@ languages! {
     }
     /// HTML, with the scopes of Shiki's `html` grammar.
     Html { feature: "lang-html", names: ["html"], module: html }
+    /// Zig, with the scopes of Shiki's `zig` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Zig {
+        feature: "lang-zig",
+        names: ["zig"],
+        engine: crate::zig::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {
