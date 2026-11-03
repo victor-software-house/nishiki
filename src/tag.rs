@@ -102,6 +102,9 @@ tags! {
     /// Rust.
     #[cfg(feature = "lang-rust")]
     RUST = 0x0100,
+    /// SCSS.
+    #[cfg(feature = "lang-scss")]
+    SCSS = 0x2e00,
     /// Shell.
     #[cfg(feature = "lang-shell")]
     SHELL = 0x0400,

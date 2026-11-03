@@ -338,6 +338,8 @@ languages! {
         engine: crate::julia::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// SCSS, with the scopes of Shiki's `scss` grammar.
+    Scss { feature: "lang-scss", names: ["scss"], module: scss }
 }
 
 impl Language {

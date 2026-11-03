@@ -2,9 +2,9 @@
 //! runs of them that its lookaheads and lookbehinds look at.
 
 use super::super::ahead::Find;
-use super::super::engine::Lexer;
+use super::super::engine::CssLike;
 use crate::classes;
-use crate::rules::Chars;
+use crate::rules::{Chars, Lexer};
 
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
@@ -18,7 +18,7 @@ pub(in crate::css) enum Letters {
     Dashed,
 }
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// The end of the run of `letters` from `p`: `[a-z]*` or `[-a-z]*` under
     /// `(?i)`, where the long s and the Kelvin sign are letters too.
     pub(in crate::css) fn letters_ci(&self, mut p: usize, letters: Letters) -> usize {
@@ -34,7 +34,7 @@ impl Lexer<'_> {
 
     /// The first `what` at or after `from`.
     pub(in crate::css) fn find(&self, what: Find, from: usize) -> Option<usize> {
-        let (found, read) = self.x.ahead.next(self.s, what, from);
+        let (found, read) = G::css_extra(&self.x).ahead.next(self.s, what, from);
         self.spend(read);
         found
     }
@@ -44,8 +44,8 @@ impl Lexer<'_> {
     /// It stays out of line: inlined into the matcher's dispatch, its loop
     /// made every pattern try save and restore six registers.
     #[inline(never)]
-    pub(in crate::css) fn spaces(&self, p: usize) -> usize {
-        let (from, to) = self.x.space_run.get();
+    pub(crate) fn spaces(&self, p: usize) -> usize {
+        let (from, to) = G::css_extra(&self.x).space_run.get();
         if from <= p && p < to {
             self.spend(1);
             return to;
@@ -59,7 +59,7 @@ impl Lexer<'_> {
             i += width;
         }
         self.spend(i - p + 1);
-        self.x.space_run.set((p, i));
+        G::css_extra(&self.x).space_run.set((p, i));
         i
     }
 
@@ -78,7 +78,7 @@ impl Lexer<'_> {
     }
 
     /// Whether the character at `p` is in `[-\w]`.
-    pub(in crate::css) fn wordish_at(&self, p: usize) -> bool {
+    pub(crate) fn wordish_at(&self, p: usize) -> bool {
         self.at(p) == b'-' && p < self.lim() || self.word_at(p).is_some()
     }
 
@@ -93,8 +93,8 @@ impl Lexer<'_> {
     }
 
     /// The end of the run of `[-\w]` characters from `p`.
-    pub(in crate::css) fn wordish_run(&self, p: usize) -> usize {
-        let (from, to) = self.x.word_run.get();
+    pub(crate) fn wordish_run(&self, p: usize) -> usize {
+        let (from, to) = G::css_extra(&self.x).word_run.get();
         if from <= p && p < to {
             self.spend(1);
             return to;
@@ -104,7 +104,7 @@ impl Lexer<'_> {
             i = self.char_end(i);
         }
         self.spend(i - p + 1);
-        self.x.word_run.set((p, i));
+        G::css_extra(&self.x).word_run.set((p, i));
         i
     }
 
@@ -156,7 +156,7 @@ impl Lexer<'_> {
     /// The end of the run of `(?:[-0-9A-Z_a-z[^\x00-\x7F]]|\\(?:\h{1,6}|.))`
     /// from `p`.
     pub(in crate::css) fn ident_run(&self, p: usize) -> usize {
-        let (from, to) = self.x.ident_run.get();
+        let (from, to) = G::css_extra(&self.x).ident_run.get();
         if from <= p && p < to {
             self.spend(1);
             return to;
@@ -171,7 +171,7 @@ impl Lexer<'_> {
             i = end;
         }
         self.spend(i - p + 1);
-        self.x
+        G::css_extra(&self.x)
             .ident_run
             .set(if escaped { (usize::MAX, 0) } else { (p, i) });
         i

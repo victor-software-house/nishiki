@@ -1326,3 +1326,57 @@ The atom-language-julia package is licensed under the MIT "Expat" License:
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
 The Julia tables also hold the Python, JavaScript and SQL grammars that Julia embeds, whose licences are above; they leave out the C++ and R grammars it embeds.
+
+Its SCSS lexer emits the scope names of the SCSS TextMate grammar that Shiki bundles through VS Code as `scss` (`extensions/scss` in [microsoft/vscode](https://github.com/microsoft/vscode)), which VS Code converted from [atom/language-sass](https://github.com/atom/language-sass) at commit `f52ab12f7f9346cc2568129d8c4419bd3d506b47`, and tries that grammar's rules in its order.
+VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
+That repository's `LICENSE.md` reads as follows, and the grammar derives from a TextMate bundle that carries its own licence, which the second paragraph below quotes:
+
+```text
+Copyright (c) 2014 GitHub Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------
+
+This package was derived from a TextMate bundle located at
+https://github.com/alexsancho/Sass.tmbundle and distributed under the following
+license, located in `LICENSE.md`:
+
+Copyright (c) 2012 Alex Sancho, http://alexsancho.name/
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```

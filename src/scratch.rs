@@ -50,6 +50,9 @@ pub(crate) struct Scratch {
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,
+    /// The SCSS lexer's, for SCSS documents and Markdown SCSS fences.
+    #[cfg(feature = "lang-scss")]
+    pub(crate) scss: crate::scss::Scratch,
     /// The shell lexer's, for shell documents and Markdown shell fences.
     #[cfg(feature = "lang-shell")]
     pub(crate) shell: crate::shell::Scratch,

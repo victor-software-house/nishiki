@@ -10,7 +10,7 @@ import css from "@shikijs/langs@4.6.0/css";
 import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
-type Node = {
+export type Node = {
   name?: string;
   contentName?: string;
   match?: string;
@@ -25,7 +25,7 @@ type Node = {
 type CaptureNode = { name?: string; patterns?: Node[] };
 
 const grammar = (css as unknown as { repository: Record<string, Node>; patterns: Node[] }[])[0]!;
-const repository = grammar.repository;
+export const repository = grammar.repository;
 
 /** Replaces `${n:/downcase}` in a scope name. */
 const downcase = (name: string | undefined, group: number, word: string) =>
@@ -140,7 +140,7 @@ function scopeIdent(name: string): string {
   return out + suffix;
 }
 
-const scopes = new Map<string, string>([["Source", "source.css"]]);
+export const scopes = new Map<string, string>([["Source", "source.css"]]);
 function scope(name: string): string {
   const ident = scopeIdent(name);
   const known = scopes.get(ident);
@@ -156,13 +156,13 @@ function scopeList(name: string | undefined): string[] {
 
 // The grammar spells `character` wrong in one key (split here so that the
 // spelling check passes); the Rust names do not.
-const pascal = (key: string) =>
+export const pascal = (key: string) =>
   key
     .split(/[-_.]/)
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Pat = {
+export type Pat = {
   id: string;
   regex: string;
   act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
@@ -172,7 +172,7 @@ type Pat = {
   /** The key of the repository entry it comes from, for flavours. */
   key: string;
 };
-type Rule = {
+export type Rule = {
   id: string;
   key: string;
   name: string[];
@@ -181,8 +181,8 @@ type Rule = {
   patterns: string[];
 };
 
-const pats = new Map<string, Pat>();
-const rules = new Map<string, Rule>();
+export const pats = new Map<string, Pat>();
+export const rules = new Map<string, Rule>();
 
 /** The capture groups whose text the grammar tokenizes with patterns, by kind. */
 function nestedList(captures: Captures | undefined): [number, string][] {
@@ -277,7 +277,7 @@ function flatten(list: Node[], context: string): string[] {
   return out;
 }
 
-function expand(node: Node, id: string, key: string): string[] {
+export function expand(node: Node, id: string, key: string): string[] {
   if (node.match !== undefined || node.begin !== undefined) return [register(node, id, key)];
   if (node.patterns) return flatten(node.patterns, id);
   throw new Error(`${id}: empty rule`);
@@ -293,6 +293,8 @@ rules.set("Root", {
   patterns: rootPatterns,
 });
 
+// Output, when run rather than imported by another generator.
+if (import.meta.main) {
 // Output.
 
 const list = (names: string[]) => (names.length ? `&[${names.map((n) => `S::${n}`).join(", ")}]` : "&[]");
@@ -385,3 +387,4 @@ const s = scopeFile("css-grammar.ts", "CSS", scopes, `    #[expect(
 await Bun.write(`${root_dir}src/css/scope.rs`, s);
 if (Bun.env.CSS_DUMP) await Bun.write(Bun.env.CSS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, kind: p.act.kind, regex: p.regex, captures: p.captures, nested: p.nested })), null, 0));
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
+}

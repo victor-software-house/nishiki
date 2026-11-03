@@ -54,6 +54,7 @@ all = [
   "lang-python",
   "lang-ruby",
   "lang-rust",
+  "lang-scss",
   "lang-shell",
   "lang-sql",
   "lang-swift",
@@ -84,6 +85,7 @@ web = [
   "lang-javascript",
   "lang-json",
   "lang-jsx",
+  "lang-scss",
   "lang-tsx",
   "lang-typescript",
 ]
@@ -156,6 +158,7 @@ lang-python = ["_scope-table", "_rule-tables"]
 lang-ruby = ["_scope-table", "_rule-tables", "_classes"]
 lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]
 lang-scala = ["_textmate"]
+lang-scss = ["lang-css"]
 lang-shell = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-sql = ["_scope-table", "_rule-engine", "_classes", "_utf8", "_frame-kinds"]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]

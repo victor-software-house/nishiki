@@ -2,10 +2,10 @@
 //! pseudo-classes.
 
 use super::super::ahead::Find;
-use super::super::engine::Lexer;
+use super::super::engine::CssLike;
 use super::super::words;
 use super::chars::Letters;
-use crate::rules::Chars;
+use crate::rules::{Chars, Lexer};
 
 /// The characters that end a name in a selector: `[#\&)+,.:>\[{|~\s]`.
 fn selector_stop(b: u8) -> bool {
@@ -25,7 +25,7 @@ pub(in crate::css) enum Tail {
     Folded,
 }
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// The lookahead `(?=$|[#\&)+,.:>\[{|~\s]|/\*)` at `p`.
     fn selector_stop_ahead(&self, p: usize) -> bool {
         self.at_eol(p)

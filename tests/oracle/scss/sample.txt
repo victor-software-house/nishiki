@@ -1,0 +1,88 @@
+L nav {
+T 3 source.css.scss entity.name.tag.css
+T 4 source.css.scss
+T 5 source.css.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L   ul {
+T 2 source.css.scss meta.property-list.scss
+T 4 source.css.scss meta.property-list.scss entity.name.tag.css
+T 5 source.css.scss meta.property-list.scss
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L     margin: 0;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 10 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 12 source.css.scss meta.property-list.scss meta.property-list.scss
+T 13 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L     padding: 0;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 12 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 13 source.css.scss meta.property-list.scss meta.property-list.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L     list-style: none;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss
+T 20 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 21 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L   }
+T 2 source.css.scss meta.property-list.scss meta.property-list.scss
+T 3 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L 
+L   li { display: inline-block; }
+T 2 source.css.scss meta.property-list.scss
+T 4 source.css.scss meta.property-list.scss entity.name.tag.css
+T 5 source.css.scss meta.property-list.scss
+T 6 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+T 7 source.css.scss meta.property-list.scss meta.property-list.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 15 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss
+T 28 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 29 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+T 30 source.css.scss meta.property-list.scss meta.property-list.scss
+T 31 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L 
+L   a {
+T 2 source.css.scss meta.property-list.scss
+T 3 source.css.scss meta.property-list.scss entity.name.tag.css
+T 4 source.css.scss meta.property-list.scss
+T 5 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+L     display: block;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 12 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 13 source.css.scss meta.property-list.scss meta.property-list.scss
+T 18 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L     padding: 6px 12px;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 11 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 12 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 13 source.css.scss meta.property-list.scss meta.property-list.scss
+T 14 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css
+T 16 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css keyword.other.unit.px.css
+T 17 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css
+T 21 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss constant.numeric.css keyword.other.unit.px.css
+T 22 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L     text-decoration: none;
+T 4 source.css.scss meta.property-list.scss meta.property-list.scss
+T 19 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 20 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 21 source.css.scss meta.property-list.scss meta.property-list.scss
+T 25 source.css.scss meta.property-list.scss meta.property-list.scss meta.property-value.scss support.constant.property-value.css
+T 26 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.terminator.rule.scss
+L   }
+T 2 source.css.scss meta.property-list.scss meta.property-list.scss
+T 3 source.css.scss meta.property-list.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L }
+T 1 source.css.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L 
+L // From https://sass-lang.com/guide/
+T 2 source.css.scss comment.line.scss punctuation.definition.comment.scss
+T 36 source.css.scss comment.line.scss
+L 

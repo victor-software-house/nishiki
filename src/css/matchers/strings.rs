@@ -1,9 +1,9 @@
 //! Comments, escapes and strings.
 
-use super::super::engine::Lexer;
-use crate::rules::Chars;
+use super::super::engine::CssLike;
+use crate::rules::{Chars, Lexer};
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// `/\*`
     pub(in crate::css) fn comment_block(&mut self, p: usize) -> Option<usize> {
         self.lit(p, b"/*")

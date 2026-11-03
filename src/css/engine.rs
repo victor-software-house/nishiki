@@ -18,6 +18,26 @@ pub(crate) type Scratch = rules::Scratch<Css>;
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Css;
 
+/// A grammar that runs CSS's matchers on its lines: CSS, and SCSS, whose
+/// grammar includes CSS's rules. Its per-line memory holds CSS's.
+pub(crate) trait CssLike: Grammar {
+    /// The CSS matchers' memory within the grammar's.
+    fn css_extra(extra: &Self::Extra) -> &Extra;
+    /// The stack `base` with CSS's scope `scope` on top.
+    fn css_path(lexer: &mut rules::Lexer<'_, Self>, base: u32, scope: S) -> u32;
+}
+
+impl CssLike for Css {
+    #[inline]
+    fn css_extra(extra: &Extra) -> &Extra {
+        extra
+    }
+
+    fn css_path(lexer: &mut Lexer<'_>, base: u32, scope: S) -> u32 {
+        lexer.path(base, &[scope])
+    }
+}
+
 /// What the CSS matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
@@ -106,10 +126,10 @@ impl Grammar for Css {
     }
 
     fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+        lexer.css_matcher(pat, p)
     }
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        lexer.tokenize_capture(kind, from, to, base);
+        lexer.css_capture(kind, from, to, base);
     }
 }

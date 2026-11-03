@@ -278,6 +278,12 @@ const NAMES: &[Name] = &[
         brace: Some("julia"),
         lang: Language::Julia,
     },
+    #[cfg(feature = "lang-scss")]
+    Name {
+        words: &["scss"],
+        brace: None,
+        lang: Language::Scss,
+    },
 ];
 
 /// A language found in an info string.

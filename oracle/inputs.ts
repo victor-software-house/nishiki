@@ -36,6 +36,8 @@ const bootstrap3 =
   "https://raw.githubusercontent.com/twbs/bootstrap/68b0d231a13201eb14acd3dc84e51543d16e5f7e";
 const buildx =
   "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
+const bulma =
+  "https://raw.githubusercontent.com/jgthms/bulma/c5cd04baf0258cfcc77b4e8610488a0d439effa2";
 const burntsushiToml =
   "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
 const cargo =
@@ -785,6 +787,16 @@ export const inputs: Input[] = [
   { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
   { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
   { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
+  { lang: "scss", name: "bootstrap-button", url: `${bootstrap}/scss/buttons/_button.scss` },
+  { lang: "scss", name: "bootstrap-functions", url: `${bootstrap}/scss/_functions.scss` },
+  { lang: "scss", name: "bootstrap-mixins-grid", url: `${bootstrap}/scss/mixins/_grid.scss` },
+  { lang: "scss", name: "bootstrap-navbar", url: `${bootstrap}/scss/_navbar.scss` },
+  { lang: "scss", name: "bootstrap-root", url: `${bootstrap}/scss/_root.scss` },
+  { lang: "scss", name: "bootstrap-utilities", url: `${bootstrap}/scss/_utilities.scss` },
+  { lang: "scss", name: "bulma-button", url: `${bulma}/sass/elements/button.scss` },
+  { lang: "scss", name: "bulma-functions", url: `${bulma}/sass/utilities/functions.scss` },
+  { lang: "scss", name: "bulma-mixins", url: `${bulma}/sass/utilities/mixins.scss` },
+  { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },

@@ -1,11 +1,11 @@
 //! At-rules.
 
 use super::super::ahead::Find;
-use super::super::engine::Lexer;
+use super::super::engine::CssLike;
 use super::chars::Letters;
-use crate::rules::Chars;
+use crate::rules::{Chars, Lexer};
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// The lookahead `(["';{\s]|/\*|$)` and its kin at `p`: white space, a
     /// comment, the end, or one of `set`.
     fn at_follows(&self, p: usize, set: &[u8]) -> bool {

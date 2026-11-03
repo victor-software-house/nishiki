@@ -740,6 +740,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         stack
     }
 
+    /// The stack `base` with `scope` on top: a scope outside the grammar's
+    /// own table, such as CSS's in SCSS, which runs CSS's nested patterns.
+    pub(crate) fn path_fixed(&mut self, base: u32, scope: crate::scope::Scope) -> u32 {
+        self.arena.child(base, scope).unwrap_or_else(|| {
+            self.report.record(Limit::Nodes);
+            self.flags.failed = true;
+            base
+        })
+    }
+
     /// The stack `base` with one scope on top, which is not cached: it is the
     /// scope of a run-time choice, with no slice of its own to key a cache.
     fn path_one(&mut self, base: u32, scope: G::Scope) -> u32 {

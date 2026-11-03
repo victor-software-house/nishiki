@@ -1,13 +1,14 @@
 //! The capture groups that the grammar tokenizes with patterns of their own.
 
-use super::engine::Lexer;
+use super::engine::CssLike;
 use super::grammar::Nested;
 use super::scope::S;
+use crate::rules::Lexer;
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// Emits the tokens of capture group text `from..to`, which sits under
     /// the stack `base`, and leaves the cursor at `to`.
-    pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
+    pub(crate) fn css_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
         match kind {
             Nested::Escapes => self.escapes(from, to, base),
             Nested::CommentBlock => self.comments(from, to, base),
@@ -34,7 +35,7 @@ impl Lexer<'_> {
                 (self.char_end(i + 1).min(to), S::ConstCharacterEscape)
             };
             self.emit(i, base);
-            let node = self.path(base, &[scope]);
+            let node = G::css_path(self, base, scope);
             self.emit(end, node);
             i = end;
         }
@@ -49,8 +50,8 @@ impl Lexer<'_> {
                 i += 1;
                 continue;
             }
-            let comment = self.path(base, &[S::CmtBlock]);
-            let begin = self.path(comment, &[S::PDefinitionCommentBegin]);
+            let comment = G::css_path(self, base, S::CmtBlock);
+            let begin = G::css_path(self, comment, S::PDefinitionCommentBegin);
             self.emit(i, base);
             self.emit(i + 2, begin);
             let mut j = i + 2;
@@ -59,7 +60,7 @@ impl Lexer<'_> {
             }
             if j + 1 < to {
                 self.emit(j, comment);
-                let end = self.path(comment, &[S::PDefinitionCommentEnd]);
+                let end = G::css_path(self, comment, S::PDefinitionCommentEnd);
                 self.emit(j + 2, end);
                 i = j + 2;
             } else {

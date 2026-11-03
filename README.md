@@ -149,6 +149,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
 | Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
 | Scala | `Language::Scala` | `lang-scala` | `scala` |
+| SCSS | `Language::Scss` | `lang-scss` | `scss` |
 | Shell | `Language::Shell` | `lang-shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
 | SQL | `Language::Sql` | `lang-sql` | `sql` |
 | Swift | `Language::Swift` | `lang-swift` | `swift` |
@@ -170,14 +171,14 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - Each language is a `lang-*` feature, named in the table above.
   One module lexes TypeScript, JavaScript, JSX and TSX, so each of the four is its own feature and a build pays for the copies it turns on.
-- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, `lang-xml` turns on `lang-java`, and `lang-html` turns on `lang-css` and `lang-javascript`.
+- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, `lang-xml` turns on `lang-java`, `lang-html` turns on `lang-css` and `lang-javascript`, and `lang-scss` turns on `lang-css`.
 - Tiers turn on several at once, and overlap:
 
   | Feature | Languages |
   |:--|:--|
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative) |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
   | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia |
@@ -505,6 +506,15 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   Julia's table leaves out the C++ and R grammars, which Julia embeds: R's may not be bundled, and C++'s brings GLSL's, which may not either.
   The macro and its quotes keep Shiki's scopes, and so does `$` interpolation inside.
 - The Python, JavaScript and SQL inside `py"""`, `js"""` and `sql"""` string macros are lexed as Shiki lexes them, by engine copies of those grammars in Julia's table.
+
+### SCSS
+
+- The rules the grammar takes from CSS run on the CSS lexer's matchers, and keep CSS's scope names.
+- A `///` comment is a plain line comment.
+  The grammar's doc-comment rule includes only SassDoc's grammar, which Shiki does not bundle, so Shiki drops the rule.
+- The whole suffix after a parent selector, as `-b` in `&-b`, is `punctuation.definition.entity.css`.
+- In an attribute selector such as `[x="y"]`, the quotes of the value are a string and the text between them, `y`, is not.
+- A Markdown fence names the language `scss`.
 
 ## Licence
 

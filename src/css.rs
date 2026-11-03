@@ -18,7 +18,13 @@ mod words;
 
 use engine::Css;
 pub(crate) use engine::Scratch;
+#[cfg(feature = "lang-scss")]
+pub(crate) use engine::{CssLike, Extra};
+#[cfg(feature = "lang-scss")]
+pub(crate) use grammar::{Nested, Pat};
 pub(crate) use scope::NAMES;
+#[cfg(feature = "lang-scss")]
+pub(crate) use scope::S;
 
 use crate::arena::Arena;
 use crate::language::{Context, Line};

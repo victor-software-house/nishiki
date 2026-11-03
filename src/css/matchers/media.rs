@@ -1,8 +1,8 @@
 //! Media queries, feature queries and layer names.
 
-use super::super::engine::Lexer;
+use super::super::engine::CssLike;
 use super::chars::Letters;
-use crate::rules::Chars;
+use crate::rules::{Chars, Lexer};
 
 /// The words of the grammar's media features, without a `min-` or `max-`.
 const FEATURES: &[&str] = &[
@@ -34,7 +34,7 @@ const FEATURE_KEYWORDS: &[&str] = &[
     "standalone",
 ];
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// `/\*(?:[^*]|\*[^/])*\*/` at `p`: the end of the comment. As the
     /// expression reads it, a `*` takes the character after it too, so a `*/`
     /// that starts at such a second character is not seen.

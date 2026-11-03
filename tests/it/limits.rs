@@ -38,6 +38,7 @@ mod ruby;
 mod rust;
 #[cfg(feature = "lang-scala")]
 mod scala;
+mod scss;
 mod shell;
 mod sql;
 mod swift;

@@ -124,6 +124,16 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `rust/ripgrep-searcher` | [`crates/searcher/src/searcher/mod.rs`][ripgrep-searcher] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `rust/sample` | [`samples/rust.sample`][rust-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `rust/serde-de` | [`serde_core/src/de/mod.rs`][serde-de] in serde-rs/serde | [MIT or Apache-2.0][serde-licence] |
+| `scss/bootstrap-button` | [`scss/buttons/_button.scss`][scss-bootstrap-button] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-functions` | [`scss/_functions.scss`][scss-bootstrap-functions] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-mixins-grid` | [`scss/mixins/_grid.scss`][scss-bootstrap-mixins-grid] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-navbar` | [`scss/_navbar.scss`][scss-bootstrap-navbar] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-root` | [`scss/_root.scss`][scss-bootstrap-root] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bootstrap-utilities` | [`scss/_utilities.scss`][scss-bootstrap-utilities] in twbs/bootstrap | [MIT][bootstrap-licence] |
+| `scss/bulma-button` | [`sass/elements/button.scss`][scss-bulma-button] in jgthms/bulma | [MIT][bulma-licence] |
+| `scss/bulma-functions` | [`sass/utilities/functions.scss`][scss-bulma-functions] in jgthms/bulma | [MIT][bulma-licence] |
+| `scss/bulma-mixins` | [`sass/utilities/mixins.scss`][scss-bulma-mixins] in jgthms/bulma | [MIT][bulma-licence] |
+| `scss/sample` | [`samples/scss.sample`][scss-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `shellscript/nvm` | [`nvm.sh`][nvm] in nvm-sh/nvm | [MIT][nvm-licence] |
 | `shellscript/pyenv-init` | [`libexec/pyenv-init`][pyenv-init] in pyenv/pyenv | [MIT][pyenv-licence] |
 | `shellscript/ruby-build` | [`bin/ruby-build`][ruby-build] in rbenv/ruby-build | [MIT][ruby-build-licence] |
@@ -471,6 +481,9 @@ Rails licenses each of its gems by the `MIT-LICENSE` at the gem's root, `railtie
 `lua/sample`, `lua/inspect`, `lua/lume`, `lua/luals-string` and `lua/lua-literals` are the development inputs for Lua; `lua/lua-literals` holds long strings and a long comment at several levels, across lines.
 `lua/json`, `lua/penlight-stringx`, `lua/luarocks-util` and `lua/luals-table` are held out.
 
+`scss/sample`, `scss/bootstrap-functions`, `scss/bootstrap-button`, `scss/bootstrap-mixins-grid` and `scss/bulma-mixins` are the development inputs for SCSS.
+`scss/bootstrap-utilities`, `scss/bootstrap-navbar`, `scss/bootstrap-root`, `scss/bulma-functions` and `scss/bulma-button` are held out.
+
 `html-derivative/vue-todomvc`, `html-derivative/vue-grid`, `html-derivative/vue-svg`, `html-derivative/vue-modal` and `html-derivative/vue-tree` are the development inputs for html-derivative.
 `html-derivative/vue-classic-todomvc`, `html-derivative/vue-classic-grid`, `html-derivative/vue-transition-list`, `html-derivative/vue-commits`, `html-derivative/vue-markdown` and `html-derivative/vue-hydration-visible` are held out.
 They are Vue's examples: HTML with custom elements and components at the top level, and templates in `<script type="text/x-template">` blocks, which the HTML grammar reads as `text.html.basic`.
@@ -513,6 +526,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [bootstrap3-visual-modal]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/js/tests/visual/modal.html
 [buildx-docker]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/Dockerfile
 [buildx-licence]: https://github.com/docker/buildx/blob/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d/LICENSE
+[bulma-licence]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/LICENSE
 [burntsushi-example]: https://github.com/BurntSushi/toml/blob/d733fc535e4a9f3c454e421a87b90ade5d49bf31/_example/example.toml
 [burntsushi-toml-licence]: https://github.com/BurntSushi/toml/blob/d733fc535e4a9f3c454e421a87b90ade5d49bf31/COPYING
 [c-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/c.sample
@@ -877,6 +891,16 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [scala3-givens]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/docs/_docs/reference/contextual/givens.md
 [scala3-licence]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/LICENSE
 [scala3-source-position]: https://github.com/scala/scala3/blob/d71919d08172571e6a5c9392f186b2a6a4413097/compiler/src/dotty/tools/dotc/util/SourcePosition.scala
+[scss-bootstrap-button]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/buttons/_button.scss
+[scss-bootstrap-functions]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_functions.scss
+[scss-bootstrap-mixins-grid]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/mixins/_grid.scss
+[scss-bootstrap-navbar]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_navbar.scss
+[scss-bootstrap-root]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_root.scss
+[scss-bootstrap-utilities]: https://github.com/twbs/bootstrap/blob/2871f2a55ccf18af64045b8fc37529391b285900/scss/_utilities.scss
+[scss-bulma-button]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/elements/button.scss
+[scss-bulma-functions]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/functions.scss
+[scss-bulma-mixins]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/mixins.scss
+[scss-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/scss.sample
 [serde-de]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/serde_core/src/de/mod.rs
 [serde-licence]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/LICENSE-MIT
 [serde-readme]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/README.md

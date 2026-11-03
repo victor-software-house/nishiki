@@ -1,10 +1,10 @@
 //! Property names and values: keywords, functions, numbers and colours.
 
 use super::super::ahead::Find;
-use super::super::engine::Lexer;
+use super::super::engine::CssLike;
 use super::super::words;
 use super::selectors::Tail;
-use crate::rules::Chars;
+use crate::rules::{Chars, Lexer};
 
 /// Which of the grammar's two lists of names that begin a selector is
 /// being matched, which decides what may follow a `:` after the name.
@@ -16,7 +16,7 @@ enum SharedList {
     Second,
 }
 
-impl Lexer<'_> {
+impl<G: CssLike> Lexer<'_, G> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
     /// the parenthesis group 2.
     fn function_begin(&mut self, p: usize, list: &[&str]) -> Option<usize> {
@@ -347,12 +347,12 @@ impl Lexer<'_> {
     /// `(?<![-\w])[-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)(?:(?<=[0-9])E[-+]?
     /// [0-9]+)?`.
     fn number_end(&self, p: usize) -> Option<usize> {
-        let (at, end) = self.x.number.get();
+        let (at, end) = G::css_extra(&self.x).number.get();
         if at == p {
             return end;
         }
         let end = self.number_scan(p);
-        self.x.number.set((p, end));
+        G::css_extra(&self.x).number.set((p, end));
         end
     }
 

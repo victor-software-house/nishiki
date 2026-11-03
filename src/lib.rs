@@ -123,6 +123,8 @@ mod rust;
 mod scala;
 mod scope;
 mod scratch;
+#[cfg(feature = "lang-scss")]
+mod scss;
 #[cfg(feature = "lang-shell")]
 mod shell;
 #[cfg(feature = "_space")]
