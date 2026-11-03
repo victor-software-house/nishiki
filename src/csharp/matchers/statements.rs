@@ -380,12 +380,11 @@ impl Lexer<'_> {
 
     /// `(?:(?:\b(ref)\s+)?\b(var)\b|T)\s+(\g<identifier>)\s+\b(in)\b`
     pub(in crate::csharp) fn foreach_variable(&mut self, p: usize) -> Option<usize> {
-        let finish = |lx: &Self, after: usize| -> Option<(usize, usize, usize, usize)> {
-            let name_start = lx.blanks1(after)?;
+        let finish = |lx: &Self, name_start: usize| -> Option<(usize, usize, usize)> {
             let name_end = lx.ident(name_start)?;
             let in_start = lx.blanks1(name_end)?;
             let in_end = lx.keyword(in_start, b"in")?;
-            Some((name_start, name_end, in_start, in_end))
+            Some((name_end, in_start, in_end))
         };
         let with_ref = self
             .keyword(p, b"ref")
@@ -394,7 +393,10 @@ impl Lexer<'_> {
             let Some(var_end) = self.keyword(at, b"var") else {
                 continue;
             };
-            let Some((name_start, name_end, in_start, in_end)) = finish(self, var_end) else {
+            let Some(name_start) = self.blanks1(var_end) else {
+                continue;
+            };
+            let Some((name_end, in_start, in_end)) = finish(self, name_start) else {
                 continue;
             };
             if let Some(end) = ref_end {
@@ -406,9 +408,9 @@ impl Lexer<'_> {
             return Some(in_end);
         }
         self.type_name(p, Shape::REF, &mut |lx, ty: Ty| {
-            let (name_start, name_end, in_start, in_end) =
-                finish(lx, ty.end.max(ty.core)).or_else(|| finish(lx, ty.core))?;
-            lx.cap(3, ty.start, ty.core);
+            let (name_start, type_end) = lx.plus_blanks(ty)?;
+            let (name_end, in_start, in_end) = finish(lx, name_start)?;
+            lx.cap(3, ty.start, type_end);
             lx.cap(8, name_start, name_end);
             lx.cap(9, in_start, in_end);
             Some(in_end)

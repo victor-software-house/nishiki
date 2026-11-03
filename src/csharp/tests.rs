@@ -1,14 +1,96 @@
 //! Tests of the C# lexer.
 
+use crate::arena::{Arena, ROOT};
+use crate::csharp::engine::{Lexer, Scratch};
+use crate::csharp::grammar::Pat;
+use crate::csharp::matchers::ProbeGroups;
+use crate::limits::{Limits, LineReport};
+use crate::rules::Text;
+
+/// Whether `\G` holds where a matcher is tried.
+#[derive(Clone, Copy, Debug)]
+enum Anchor {
+    G,
+    Free,
+}
+
+/// What follows the text a matcher is tried on.
+#[derive(Clone, Copy, Debug)]
+enum After {
+    LineFeed,
+    Nothing,
+}
+
+/// What `pat` answers at `p` in `text`: where its match ends and the span of
+/// each capture group, or `None` where it does not match.
+fn answer(
+    arena: &mut Arena,
+    pat: Pat,
+    text: &str,
+    p: usize,
+    anchor: Anchor,
+    after: After,
+) -> Option<(usize, ProbeGroups)> {
+    let limits = Limits::default();
+    let mut tokens = Vec::new();
+    let mut report = LineReport::default();
+    let mut scratch = Scratch::default();
+    let mut lexer = Lexer::new(
+        arena,
+        &limits,
+        Text {
+            bytes: text.as_bytes(),
+            start: 0,
+            anchored: false,
+        },
+        &mut tokens,
+        ROOT,
+        &mut report,
+        &mut scratch,
+    );
+    lexer.nl = matches!(after, After::LineFeed);
+    lexer.pos = p;
+    lexer.g = matches!(anchor, Anchor::G);
+    lexer.probe(pat, p)
+}
+
+/// The type and the name in `foreach` split the blanks between them as
+/// Oniguruma does, which `oracle/onig.ts` gave for each case: the type's
+/// last part takes them all and gives back one to `\s+`, so the type's
+/// group keeps all but the last.
+#[test]
+fn a_foreach_type_keeps_all_but_the_last_blank_before_the_name() {
+    let mut arena = Arena::new(None);
+    let cases = [
+        ("int x in xs", (0, 3), (4, 5)),
+        ("int  x in xs", (0, 4), (5, 6)),
+        ("int\t \tx in xs", (0, 5), (6, 7)),
+        ("List<int>   x in xs", (0, 11), (12, 13)),
+        ("int?  x in xs", (0, 5), (6, 7)),
+        ("int[]  x in xs", (0, 6), (7, 8)),
+        ("c  ent in source)", (0, 2), (3, 6)),
+    ];
+    for (text, ty, name) in cases {
+        let (_, caps) = answer(
+            &mut arena,
+            Pat::ForeachStatementAt1At1,
+            text,
+            0,
+            Anchor::Free,
+            After::LineFeed,
+        )
+        .unwrap_or_else(|| panic!("no match in {text:?}"));
+        assert_eq!((caps[3], caps[8]), (Some(ty), Some(name)), "{text:?}");
+    }
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use serde_json::{Value, json};
 
+    use super::{After, Anchor, answer};
     use crate::arena::Arena;
-    use crate::csharp::engine::{Lexer, Scratch};
     use crate::csharp::grammar::Pat;
-    use crate::limits::{Limits, LineReport};
-    use crate::rules::Text;
 
     /// Runs the matchers on the cases in the file that `PROBE_IN` names, one
     /// JSON object per line (`rx`, `text`, `p`, `g`, `nl`), and writes their
@@ -22,8 +104,6 @@ mod probe {
         let cases = std::fs::read_to_string(input).expect("cases");
         let mut out = String::new();
         let mut arena = Arena::new(None);
-        let limits = Limits::default();
-        let mut scratch = Scratch::default();
         for line in cases.lines() {
             let case: Value = serde_json::from_str(line).expect("a case");
             let name = case["rx"].as_str().expect("rx");
@@ -34,26 +114,16 @@ mod probe {
                 .expect("a known pattern");
             let text = case["text"].as_str().expect("text");
             let p = usize::try_from(case["p"].as_u64().expect("p")).expect("p");
-            let mut tokens = Vec::new();
-            let mut report = LineReport::default();
-            let mut lexer = Lexer::new(
-                &mut arena,
-                &limits,
-                Text {
-                    bytes: text.as_bytes(),
-                    start: 0,
-                    anchored: false,
-                },
-                &mut tokens,
-                crate::arena::ROOT,
-                &mut report,
-                &mut scratch,
-            );
-            lexer.nl = case["nl"].as_bool().unwrap_or(true);
-            lexer.pos = p;
-            lexer.g = case["g"].as_bool().unwrap_or(false);
-            let answer = lexer.probe(pat, p);
-            let value = answer.map_or(Value::Null, |(end, caps)| {
+            let anchor = match case["g"].as_bool() {
+                Some(true) => Anchor::G,
+                _ => Anchor::Free,
+            };
+            let after = match case["nl"].as_bool() {
+                Some(false) => After::Nothing,
+                _ => After::LineFeed,
+            };
+            let found = answer(&mut arena, pat, text, p, anchor, after);
+            let value = found.map_or(Value::Null, |(end, caps)| {
                 json!({ "end": end, "caps": caps.iter().map(|c| c.map(|(a, b)| [a, b])).collect::<Vec<_>>() })
             });
             out.push_str(&value.to_string());
