@@ -14,8 +14,11 @@ mod tables;
 
 use std::fmt::Debug;
 
+#[cfg(feature = "lang-kotlin")]
 pub(crate) use chars::Chars;
-pub(crate) use lexer::{FIRST_LINE, Lexer, Scratch};
+#[cfg(feature = "lang-css")]
+pub(crate) use lexer::FIRST_LINE;
+pub(crate) use lexer::{Lexer, Scratch};
 pub(crate) use tables::{Place, Tables};
 
 use crate::scope::Scope;

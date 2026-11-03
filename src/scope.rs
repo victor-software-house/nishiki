@@ -125,6 +125,7 @@ const _: () = {
 /// The scope table of a language whose names are one list: the enum of
 /// scopes, the table of their names in Shiki's spelling, and the conversion
 /// to a [`Scope`] numbered from the language's base.
+#[cfg(feature = "_scope-table")]
 macro_rules! scope_table {
     (
         $(#[$meta:meta])* $base:ident;
@@ -152,6 +153,7 @@ macro_rules! scope_table {
     };
 }
 
+#[cfg(feature = "_scope-table")]
 pub(crate) use scope_table;
 
 impl Scope {

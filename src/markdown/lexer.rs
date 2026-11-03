@@ -90,13 +90,16 @@ enum Starts {
 impl Starts {
     fn of(kind: Kind) -> Starts {
         match kind {
-            Kind::Base
-            | Kind::Quote
-            | Kind::ListBullet
-            | Kind::ListOrdered
-            | Kind::Body(Language::Markdown) => Starts::Block,
+            Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => Starts::Block,
+            Kind::Body(language) => {
+                if language == Language::Markdown {
+                    Starts::Block
+                } else {
+                    Starts::Nowhere
+                }
+            }
             Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
-            Kind::Body(_) | Kind::FrontMatterBody | Kind::RawBlock => Starts::Nowhere,
+            Kind::FrontMatterBody | Kind::RawBlock => Starts::Nowhere,
             Kind::Comment => Starts::Dash,
             Kind::Table => Starts::Anywhere,
             Kind::Paragraph
@@ -981,8 +984,7 @@ impl<'a> Lexer<'a> {
 /// Markdown's own rules instead.
 fn embedded_language(rule: Rule) -> Option<Language> {
     match rule {
-        Rule::Open(Kind::Body(Language::Markdown)) => None,
-        Rule::Open(Kind::Body(lang)) => Some(lang),
+        Rule::Open(Kind::Body(lang)) => (lang != Language::Markdown).then_some(lang),
         #[cfg(feature = "lang-yaml")]
         Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
         Rule::Open(_) | Rule::Capture(_) => None,

@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 #MISE description="Each advertised feature set compiles alone"
-#MISE env={CARGO_TARGET_DIR = "target/features"}
-# verify depends on check:features. Each language, each tier and the empty set
-# build with nothing else on. A set that leaves another language off leaves its
-# helpers unused, so these are `cargo check`, which warns of that and does not
-# fail on it; the clippy run in `lint` holds `--all-features` to no warnings.
-# The empty set has no language: `Language` has no variants. `json` is the
+#MISE env={CARGO_TARGET_DIR = "target/features", RUSTFLAGS = "-D warnings -A dead_code"}
+# verify depends on check:features. Each language and each tier builds with
+# nothing else on, and warns of nothing but dead code: a language built
+# without the ones that embed it leaves some of their helpers unused, which
+# no set can avoid, while an unused import or an unreachable pattern is a
+# bug. The empty set has no language, so `Language` has no variants and the
+# engine is unused; it only has to compile, and so has `json`, which is the
 # theme files feature, not the JSON language.
 set -euo pipefail
-cargo check --locked --tests --no-default-features
+RUSTFLAGS="" cargo check --locked --tests --no-default-features
 cargo check --locked --tests --no-default-features --features lang-rust
 cargo check --locked --tests --no-default-features --features lang-markdown
 cargo check --locked --tests --no-default-features --features lang-typescript
@@ -29,10 +30,11 @@ cargo check --locked --tests --no-default-features --features lang-sql
 cargo check --locked --tests --no-default-features --features lang-ini
 cargo check --locked --tests --no-default-features --features lang-graphql
 cargo check --locked --tests --no-default-features --features lang-css
+cargo check --locked --tests --no-default-features --features lang-kotlin
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features web
 cargo check --locked --tests --no-default-features --features systems
 cargo check --locked --tests --no-default-features --features docs
-cargo check --locked --tests --no-default-features --features json
+RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
 # Markdown alone: its own tests, which need no other language.
 cargo test --locked --lib --no-default-features --features lang-markdown

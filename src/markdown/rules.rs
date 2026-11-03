@@ -309,16 +309,15 @@ pub(crate) fn patterns(kind: Kind) -> &'static [P] {
     match kind {
         Kind::Fence(_) => &[P::EmbedBegin],
         Kind::FrontMatter => &[P::FrontMatterBegin],
-        Kind::Base
-        | Kind::Quote
-        | Kind::ListBullet
-        | Kind::ListOrdered
-        | Kind::Body(Language::Markdown) => BLOCK,
-        Kind::FencePlain
-        | Kind::Body(_)
-        | Kind::FrontMatterBody
-        | Kind::RawBlock
-        | Kind::Comment => &[],
+        Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => BLOCK,
+        Kind::Body(language) => {
+            if language == Language::Markdown {
+                BLOCK
+            } else {
+                &[]
+            }
+        }
+        Kind::FencePlain | Kind::FrontMatterBody | Kind::RawBlock | Kind::Comment => &[],
         Kind::Table => TABLE,
         Kind::Paragraph => PARAGRAPH,
         Kind::BoldStar | Kind::BoldUnder => BOLD,

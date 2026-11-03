@@ -246,7 +246,8 @@ A new file is a module there, not a new binary.
 - Wiring a language for features means a `cfg` on each of: its `mod` in `src/lib.rs`, its row in `src/language.rs`, its constant in `src/tag.rs`, its line in `src/scope.rs`, its fence names, and its `Scratch` field.
 - A fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
 - `check:features` builds each language, each tier and the empty set alone.
-  It does not deny warnings: a language built without the ones that embed it leaves some embedding code unused, which only `--all-features` must be free of.
+  It denies every warning except dead code: a language built without the ones that embed it leaves some embedding code unused, which no set avoids.
+  The empty set and `json` alone only have to compile.
 - Unit tests that name another language are gated on its feature.
 
 ### 5.3 What ships
