@@ -54,7 +54,38 @@ pub(super) const NEEDS: &[&[u8]] = &[
     b"(*",
     b".",
     b"->",
+    b":",
+    b"goto",
+    b"tatic_assert",
+    b"new",
+    b"delete",
+    b"pragma",
+    b"typename",
 ];
+
+/// The index in [`NEEDS`] of `(`, which a builtin type's initializer,
+/// `GAP(int)GAP(\()`, ends with.
+const NEED_OPEN_PAREN: usize = 1;
+/// The index in [`NEEDS`] of `:`, which an access specifier,
+/// `GAP(public)\s*(:)`, and a label, `GAP(ID)GAP(:)(?!:)`, end with.
+const NEED_COLON: usize = 12;
+/// The index in [`NEEDS`] of `goto`, the keyword of `GAP(goto)GAP(ID)`.
+const NEED_GOTO: usize = 13;
+/// The index in [`NEEDS`] of `tatic_assert`, which both of
+/// `(?<!\w)static_assert|_Static_assert(?!\w)` contain.
+const NEED_STATIC_ASSERT: usize = 14;
+/// The index in [`NEEDS`] of `new`, one of the two words of
+/// `GAP((?:delete\s*\[]|delete)|new)(?!\w)`.
+const NEED_NEW: usize = 15;
+/// The index in [`NEEDS`] of `delete`, the other word of the memory
+/// operators.
+const NEED_DELETE: usize = 16;
+/// The index in [`NEEDS`] of `pragma`, which `^GAP(#)\s*pragma\s+mark`
+/// spells out.
+const NEED_PRAGMA: usize = 17;
+/// The index in [`NEEDS`] of `typename`, the keyword the dependent type
+/// name `GAP(typename)GAP…` starts with.
+const NEED_TYPENAME: usize = 18;
 
 /// The index in [`NEEDS`] of `]]`, which closes an attribute.
 pub(super) const NEED_BRACKETS: usize = 7;
@@ -78,6 +109,13 @@ fn need(rx: Rx) -> Option<&'static [usize]> {
         Rx::ConstructorRoot | Rx::ScopeResolutionInnerGenerated => &[4],
         Rx::OperatorOverload => &[5],
         Rx::ConstructorBracketCall | Rx::CurlyInitializer => &[6],
+        Rx::BuiltinStorageTypeInitializer => &[NEED_OPEN_PAREN],
+        Rx::AccessControlKeywords | Rx::Label => &[NEED_COLON],
+        Rx::GotoStatement => &[NEED_GOTO],
+        Rx::StaticAssert => &[NEED_STATIC_ASSERT],
+        Rx::MemoryOperators => &[NEED_NEW, NEED_DELETE],
+        Rx::PragmaMark => &[NEED_PRAGMA],
+        Rx::Typename => &[NEED_TYPENAME],
         _ => return None,
     })
 }
