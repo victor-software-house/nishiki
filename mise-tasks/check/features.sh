@@ -10,41 +10,41 @@
 # theme files feature, not the JSON language.
 set -euo pipefail
 RUSTFLAGS="" cargo check --locked --tests --no-default-features
-cargo check --locked --tests --no-default-features --features lang-rust
-cargo check --locked --tests --no-default-features --features lang-markdown
-cargo check --locked --tests --no-default-features --features lang-typescript
-cargo check --locked --tests --no-default-features --features lang-javascript
-cargo check --locked --tests --no-default-features --features lang-jsx
-cargo check --locked --tests --no-default-features --features lang-tsx
-cargo check --locked --tests --no-default-features --features lang-shell
-cargo check --locked --tests --no-default-features --features lang-json
-cargo check --locked --tests --no-default-features --features lang-python
-cargo check --locked --tests --no-default-features --features lang-yaml
-cargo check --locked --tests --no-default-features --features lang-toml
-cargo check --locked --tests --no-default-features --features lang-make
-cargo check --locked --tests --no-default-features --features lang-diff
-cargo check --locked --tests --no-default-features --features lang-dockerfile
-cargo check --locked --tests --no-default-features --features lang-java
+# Markdown alone: its own tests, which need no other language.
+RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
+cargo check --locked --tests --no-default-features --features config
+cargo check --locked --tests --no-default-features --features docs
 cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cpp
-cargo check --locked --tests --no-default-features --features lang-sql
-cargo check --locked --tests --no-default-features --features lang-ini
-cargo check --locked --tests --no-default-features --features lang-graphql
-cargo check --locked --tests --no-default-features --features lang-css
-cargo check --locked --tests --no-default-features --features lang-kotlin
-cargo check --locked --tests --no-default-features --features lang-go
-cargo check --locked --tests --no-default-features --features lang-ruby
 cargo check --locked --tests --no-default-features --features lang-csharp
-cargo check --locked --tests --no-default-features --features lang-xml
-cargo check --locked --tests --no-default-features --features lang-swift
-cargo check --locked --tests --no-default-features --features lang-html
+cargo check --locked --tests --no-default-features --features lang-css
+cargo check --locked --tests --no-default-features --features lang-diff
+cargo check --locked --tests --no-default-features --features lang-dockerfile
 cargo check --locked --tests --no-default-features --features lang-erb
+cargo check --locked --tests --no-default-features --features lang-go
+cargo check --locked --tests --no-default-features --features lang-graphql
+cargo check --locked --tests --no-default-features --features lang-html
+cargo check --locked --tests --no-default-features --features lang-ini
+cargo check --locked --tests --no-default-features --features lang-java
+cargo check --locked --tests --no-default-features --features lang-javascript
+cargo check --locked --tests --no-default-features --features lang-json
+cargo check --locked --tests --no-default-features --features lang-jsx
+cargo check --locked --tests --no-default-features --features lang-kotlin
 cargo check --locked --tests --no-default-features --features lang-lua
-cargo check --locked --tests --no-default-features --features config
-cargo check --locked --tests --no-default-features --features web
+cargo check --locked --tests --no-default-features --features lang-make
+cargo check --locked --tests --no-default-features --features lang-markdown
+cargo check --locked --tests --no-default-features --features lang-python
+cargo check --locked --tests --no-default-features --features lang-ruby
+cargo check --locked --tests --no-default-features --features lang-rust
+cargo check --locked --tests --no-default-features --features lang-shell
+cargo check --locked --tests --no-default-features --features lang-sql
+cargo check --locked --tests --no-default-features --features lang-swift
+cargo check --locked --tests --no-default-features --features lang-toml
+cargo check --locked --tests --no-default-features --features lang-tsx
+cargo check --locked --tests --no-default-features --features lang-typescript
+cargo check --locked --tests --no-default-features --features lang-xml
+cargo check --locked --tests --no-default-features --features lang-yaml
 cargo check --locked --tests --no-default-features --features systems
-cargo check --locked --tests --no-default-features --features docs
 cargo check --locked --tests --no-default-features --features textmate
-RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
-# Markdown alone: its own tests, which need no other language.
+cargo check --locked --tests --no-default-features --features web
 cargo test --locked --lib --no-default-features --features lang-markdown

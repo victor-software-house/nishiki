@@ -10,557 +10,340 @@ export type Input = {
   url: string;
 };
 
-const samples =
-  "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/8f1828ebccc57930cf0adde9b35ae929584fe191/samples";
-const todomvc =
-  "https://raw.githubusercontent.com/tastejs/todomvc/ff43b02e59dfa604386bb382034b2cd07c2bcd8a";
-const h5bp =
-  "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
-const threeJs =
-  "https://raw.githubusercontent.com/mrdoob/three.js/f06340e459f19609d3dd82253f38831f58ab6c84";
-const mathjaxDemos =
-  "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
-const bootstrap3 =
-  "https://raw.githubusercontent.com/twbs/bootstrap/68b0d231a13201eb14acd3dc84e51543d16e5f7e";
-const jquery =
-  "https://raw.githubusercontent.com/jquery/jquery/feaa9fcdb68cdeadf013d97d8fd40848d4618578";
-
-const ripgrep =
-  "https://raw.githubusercontent.com/BurntSushi/ripgrep/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b";
-const serde =
-  "https://raw.githubusercontent.com/serde-rs/serde/0db9b3b504bcb0a7fa9cf001429869519afd3e9a";
-const vue =
-  "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
-const zod =
-  "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
-const ky =
-  "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
-
-const tokio =
-  "https://raw.githubusercontent.com/tokio-rs/tokio/b499257ef62bd631b83a988d371f4330f545670c";
-const book =
-  "https://raw.githubusercontent.com/rust-lang/book/2771df165f092a4fbb9f46b5b2e7450f19010adb";
-const clap =
-  "https://raw.githubusercontent.com/clap-rs/clap/db30b39a55c188763666268447050a0dacba3bf0";
-
-const cargo =
-  "https://raw.githubusercontent.com/rust-lang/cargo/6238f6fd61bffc158aabeb77b779fc16d6e7b5fc";
-
-const nvm =
-  "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
-
-const rubyBuild =
-  "https://raw.githubusercontent.com/rbenv/ruby-build/4ef3159f94dd66c8325efb42db2faeb7d5732db0";
-
-const pyenv =
-  "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
-
-const vscode =
-  "https://raw.githubusercontent.com/microsoft/vscode/a4e689ae13ef7a1fe9b515656b51c9be7c274294";
-
-const eslint =
-  "https://raw.githubusercontent.com/eslint/eslint/11c66ba08381cb7cff7679d662c9f6654b6fe712";
-
-const rag =
-  "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
-
-const guava =
-  "https://raw.githubusercontent.com/google/guava/e98ea2340f6acc94ed9e2cca08976ccae68c3412";
-const gson =
-  "https://raw.githubusercontent.com/google/gson/57731049da3e415be3d5d34db1ca3b80f3c73810";
-const commonsLang =
-  "https://raw.githubusercontent.com/apache/commons-lang/d8470d57fda340864acf5194bb56305a133fba0e";
-const rewrite =
-  "https://raw.githubusercontent.com/openrewrite/rewrite/03d32965a3cdbf06f2717eb3ca706a162039703c";
-const javapoet =
-  "https://raw.githubusercontent.com/square/javapoet/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0";
-const requests =
-  "https://raw.githubusercontent.com/psf/requests/3c7baaa05ab4aa49cc819ce3a819d260de19c157";
-const black =
-  "https://raw.githubusercontent.com/psf/black/945d902bef347d2e7e1d26897aa89a9c177fb535";
-const flask =
-  "https://raw.githubusercontent.com/pallets/flask/49943b5a94413a530761350f04e896f76e8d620e";
-const rich =
-  "https://raw.githubusercontent.com/Textualize/rich/9d8f9a372cc5916fd4781fec207ced7ddac2f08f";
-const fastapi =
-  "https://raw.githubusercontent.com/tiangolo/fastapi/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0";
-const pytest =
-  "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
-
-const checkout =
-  "https://raw.githubusercontent.com/actions/checkout/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a";
-
-const petstore =
-  "https://raw.githubusercontent.com/swagger-api/swagger-petstore/5cb909fc7780bc708151bce0014939acba8b212a";
-
-const airflow =
-  "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
-const nvmMake =
-  "https://raw.githubusercontent.com/nvm-sh/nvm/16df5aa69aeda3814703e14f9d35a4f60220dd37";
-
-const cjson =
-  "https://raw.githubusercontent.com/DaveGamble/cJSON/6d9f2443ab071f86e5d9b43025a40929ec41c46c";
-
-const prometheus =
-  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
-
-const traefik =
-  "https://raw.githubusercontent.com/traefik/traefik/38d53dd06c53c7e9bd08e57b217e72686d823610";
-
-const jekyll =
-  "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
-const nodejs =
-  "https://raw.githubusercontent.com/nodejs/node/3556d018a4863a42fba62a927e7e605c1e8cf128";
-
-const minikube =
-  "https://raw.githubusercontent.com/kubernetes/minikube/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996";
-
-const moby =
-  "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
-
-const zlib =
-  "https://raw.githubusercontent.com/madler/zlib/aaa772ce5c6d0023204c6ee45c59cf70c8372c51";
-
-const helm =
-  "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
-
-const clickMan =
-  "https://raw.githubusercontent.com/click-contrib/click-man/be9eac7642e32a43a93ec2c1f5deea7047bb7288";
-
-const httparser =
-  "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
-
-const latexrun =
-  "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
-
-const deviceVirtual =
-  "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
-
-const express =
-  "https://raw.githubusercontent.com/expressjs/express/bcc0551cb7a785b7772f77cb59ce55a2bc94975a";
-
-const preact =
-  "https://raw.githubusercontent.com/preactjs/preact/81dbe69d39e948b2305193d2622c225699311083";
-
-const shadcn =
-  "https://raw.githubusercontent.com/shadcn-ui/ui/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610";
-
-const axios =
-  "https://raw.githubusercontent.com/axios/axios/7324e94d8a7b5156a4baf3c86c8b5daa242daee3";
-
-const burntsushiToml =
-  "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
-const poetry =
-  "https://raw.githubusercontent.com/python-poetry/poetry/6ecadf5b71309b1da4f00949cc349a79884cff8f";
-const ruff =
-  "https://raw.githubusercontent.com/astral-sh/ruff/f10755306e3e932fd127960acb2c892fafb87410";
-const vitest =
-  "https://raw.githubusercontent.com/vitest-dev/vitest/7a3844954d8753fc0d5bed76a96ffd3a21716c22";
-
-const vite =
-  "https://raw.githubusercontent.com/vitejs/vite/b3cb0575aff63004a71301a1ec798aeea2aa05d7";
-
-const prettier =
-  "https://raw.githubusercontent.com/prettier/prettier/a02e92be26ec8963a07aa9500a6c20e24599e95b";
-
-const rustc =
-  "https://raw.githubusercontent.com/rust-lang/rust/ae36fe22c7e590df40ffd53ac25fea35597c3f3d";
-
-const dockerPython =
-  "https://raw.githubusercontent.com/docker-library/python/f4c67ece208dead594e43628d22e3c6027dd97ab";
-const dockerPostgres =
-  "https://raw.githubusercontent.com/docker-library/postgres/dfc76bb299b057785026eb2eea39556b6fe52983";
-const nextjs =
-  "https://raw.githubusercontent.com/vercel/next.js/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378";
-const buildx =
-  "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
-const linenoise =
-  "https://raw.githubusercontent.com/antirez/linenoise/a473823d74b93eab2ba83480df16ed37617493f2";
-const libuv =
-  "https://raw.githubusercontent.com/libuv/libuv/7228e05f3e407ed3fa59edba920b8cd825b5d83d";
-const jq =
-  "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
-const lua =
-  "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
-const unity =
-  "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
-const leveldb =
-  "https://raw.githubusercontent.com/google/leveldb/bb74ef739973a70ca9f0d90788a1da89b788c0ad";
-const rapidjson =
-  "https://raw.githubusercontent.com/Tencent/rapidjson/24b5e7a8b27f42fa16b96fc70aade9106cf7102f";
-const spdlog =
-  "https://raw.githubusercontent.com/gabime/spdlog/6d9805df3f588402b17073dcd13eb569ceda864d";
 const abseil =
   "https://raw.githubusercontent.com/abseil/abseil-cpp/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8";
-const benchmark =
-  "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
-const fmt =
-  "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
-const catch2 =
-  "https://raw.githubusercontent.com/catchorg/Catch2/a1a991fee5f217b40035cb2f8ebc83864d66408d";
-
-const postgres =
-  "https://raw.githubusercontent.com/postgres/postgres/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3";
-
-const sqlServerSamples =
-  "https://raw.githubusercontent.com/microsoft/sql-server-samples/3c71696a3942879f0481f3bd65fe112a40023f18";
-
-const pgvector =
-  "https://raw.githubusercontent.com/pgvector/pgvector/1d5ef0a160cadec08f754528669ce17e20eab38c";
-
-const typeorm =
-  "https://raw.githubusercontent.com/typeorm/typeorm/5bdc67882dee5a02d975d5ed140c9c3f91661116";
-
-const knex =
-  "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
-const django =
-  "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
-const sqlalchemy =
-  "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/679372836fe7343683248467d276036a6d6f1673";
-const kafka =
-  "https://raw.githubusercontent.com/apache/kafka/da5316228ee604724dbcede405ebbf7f18f1dbf3";
-const tomcat =
-  "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
-
-const ant =
-  "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
-const viewsWidgets =
-  "https://raw.githubusercontent.com/android/views-widgets-samples/2238cc873501f9cda63605051de11832bb736a8a";
-const rome =
-  "https://raw.githubusercontent.com/rometools/rome/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75";
-const xerces =
-  "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
-const foundation =
-  "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/cbfe1c7376ffe869d08b1b5f643d747ef0a16069";
-const bootstrap =
-  "https://raw.githubusercontent.com/twbs/bootstrap/2871f2a55ccf18af64045b8fc37529391b285900";
-const graphqlJs =
-  "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
-const graphiql =
-  "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
-const codegen =
-  "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
-const normalize =
-  "https://raw.githubusercontent.com/necolas/normalize.css/fc091cce1534909334c1911709a39c22d406977b";
-const tailwind =
-  "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a";
-const highlightjs =
-  "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
-const githubMarkdownCss =
-  "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/7f38dcb9054bc5d860fac65291f5c98fef47932c";
-const milligram =
-  "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
-
-const coroutines =
-  "https://raw.githubusercontent.com/Kotlin/kotlinx.coroutines/7e0d1b3e9ca83652427ae00dda7d1673f058a743";
-const okhttp =
-  "https://raw.githubusercontent.com/square/okhttp/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf";
-const exposed =
-  "https://raw.githubusercontent.com/JetBrains/Exposed/2bdb13cd7b4b511b07de3dde109878b6f8b06d48";
-const moshi =
-  "https://raw.githubusercontent.com/square/moshi/889013ec2edb8d8034902662a1dc8c4f3b3f8111";
-const turbine =
-  "https://raw.githubusercontent.com/cashapp/turbine/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0";
-const ktor =
-  "https://raw.githubusercontent.com/ktorio/ktor/b7809b1eb47ec68cbb9c78a52a23880caca710cd";
-const kotlinxSerialization =
-  "https://raw.githubusercontent.com/Kotlin/kotlinx.serialization/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22";
-const golang =
-  "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
-const cobra =
-  "https://raw.githubusercontent.com/spf13/cobra/adbc8813901bba65827259daa8e22ff94ec1f30e";
-const gin =
-  "https://raw.githubusercontent.com/gin-gonic/gin/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646";
-const kubernetes =
-  "https://raw.githubusercontent.com/kubernetes/kubernetes/98687f28e4fed347d30fcd483edc8b8ee74c583c";
-const testify =
-  "https://raw.githubusercontent.com/stretchr/testify/87a7b9d57689f6579db2da795ab8deeab29cb724";
-const zap =
-  "https://raw.githubusercontent.com/uber-go/zap/4892335e05f14bce8a98a69a577fcf3844a42623";
-const viper =
-  "https://raw.githubusercontent.com/spf13/viper/528f7416c4b56a4948673984b190bf8713f0c3c4";
-const prometheusGo =
-  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
-const dotnetRuntime =
-  "https://raw.githubusercontent.com/dotnet/runtime/6375d63af99b6812f11b4dd8c4a18d227e277d73";
-const newtonsoft =
-  "https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa";
-const roslyn =
-  "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a";
-const aspnetcore =
-  "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
-const argumentParser =
-  "https://raw.githubusercontent.com/apple/swift-argument-parser/38ca4eceb349155836701b88da3e0986eb9d1e1c";
-const swiftAlgorithms =
-  "https://raw.githubusercontent.com/apple/swift-algorithms/5b7143f8e291dee0e14c118fd0212487f0b37af5";
+const airflow =
+  "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
 const alamofire =
   "https://raw.githubusercontent.com/Alamofire/Alamofire/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb";
-const composable =
-  "https://raw.githubusercontent.com/pointfreeco/swift-composable-architecture/bb175b544d019c7f23a2e41ae29d8c70592aeb58";
-const nio =
-  "https://raw.githubusercontent.com/apple/swift-nio/2f58d8ef84438d6517fc78bcea2f8527e3c72936";
-const swiftTesting =
-  "https://raw.githubusercontent.com/swiftlang/swift-testing/87ec972e0b5725ee02b31a6e9ed690d85abb460a";
-const kingfisher =
-  "https://raw.githubusercontent.com/onevcat/Kingfisher/770465258c652c73fdef447c10004765c440e993";
-const snapshotTesting =
-  "https://raw.githubusercontent.com/pointfreeco/swift-snapshot-testing/0c6380dd46cd45e00f2bf87cf6002f3478e84452";
-const stringProcessing =
-  "https://raw.githubusercontent.com/swiftlang/swift-experimental-string-processing/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee";
-
-const rack =
-  "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
-const rubocop =
-  "https://raw.githubusercontent.com/rubocop/rubocop/09c38e2526622e5c08a73ebff58fd2f4bed35ffe";
-const rails =
-  "https://raw.githubusercontent.com/rails/rails/f21e7f42b510327f6bc57dcb7fcc9825d4670a91";
-const devise =
-  "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
-const puma =
-  "https://raw.githubusercontent.com/puma/puma/c0df0c19dde943c3f5c25cd67caa984dfa84e3da";
-const rspecCore =
-  "https://raw.githubusercontent.com/rspec/rspec-core/aec5f49485d97908183dbe790a7fefb8baaa8091";
-const thor =
-  "https://raw.githubusercontent.com/rails/thor/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d";
-const rake =
-  "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
-const inspectLua =
-  "https://raw.githubusercontent.com/kikito/inspect.lua/a8ca3120dfec48801036eaeff9335ab7a096dd24";
-const lume =
-  "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
-const jsonLua =
-  "https://raw.githubusercontent.com/rxi/json.lua/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94";
-const penlight =
-  "https://raw.githubusercontent.com/lunarmodules/Penlight/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985";
-const luarocks =
-  "https://raw.githubusercontent.com/luarocks/luarocks/85bfe36c812465b2f377877939d884a4db829a25";
-const luaLanguageServer =
-  "https://raw.githubusercontent.com/LuaLS/lua-language-server/a58fc7b01e1746c46275c71b0e61bfed40a6296d";
-
-const powershell =
-  "https://raw.githubusercontent.com/PowerShell/PowerShell/2725d6aaa6e67219b6c9902adf7b74c52e0371a3";
-const dotnetInstall =
-  "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
-
-const scala3 =
-  "https://raw.githubusercontent.com/scala/scala3/d71919d08172571e6a5c9392f186b2a6a4413097";
+const ant =
+  "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
+const argumentParser =
+  "https://raw.githubusercontent.com/apple/swift-argument-parser/38ca4eceb349155836701b88da3e0986eb9d1e1c";
+const aspnetcore =
+  "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
+const axios =
+  "https://raw.githubusercontent.com/axios/axios/7324e94d8a7b5156a4baf3c86c8b5daa242daee3";
+const benchmark =
+  "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
+const black =
+  "https://raw.githubusercontent.com/psf/black/945d902bef347d2e7e1d26897aa89a9c177fb535";
+const book =
+  "https://raw.githubusercontent.com/rust-lang/book/2771df165f092a4fbb9f46b5b2e7450f19010adb";
+const bootstrap =
+  "https://raw.githubusercontent.com/twbs/bootstrap/2871f2a55ccf18af64045b8fc37529391b285900";
+const bootstrap3 =
+  "https://raw.githubusercontent.com/twbs/bootstrap/68b0d231a13201eb14acd3dc84e51543d16e5f7e";
+const buildx =
+  "https://raw.githubusercontent.com/docker/buildx/6997c2578c3fb0ac66e883ceaa535aae90c1ee3d";
+const burntsushiToml =
+  "https://raw.githubusercontent.com/BurntSushi/toml/d733fc535e4a9f3c454e421a87b90ade5d49bf31";
+const cargo =
+  "https://raw.githubusercontent.com/rust-lang/cargo/6238f6fd61bffc158aabeb77b779fc16d6e7b5fc";
+const catch2 =
+  "https://raw.githubusercontent.com/catchorg/Catch2/a1a991fee5f217b40035cb2f8ebc83864d66408d";
+const checkout =
+  "https://raw.githubusercontent.com/actions/checkout/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a";
 const circe =
   "https://raw.githubusercontent.com/circe/circe/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d";
-
-const zig =
-  "https://raw.githubusercontent.com/ziglang/zig/738d2be9d6b6ef3ff3559130c05159ef53336224";
-const zls =
-  "https://raw.githubusercontent.com/zigtools/zls/b3e65123f1bf455cea491ba7069bebd5f93e6839";
-
-const nlohmannJson =
-  "https://raw.githubusercontent.com/nlohmann/json/e32051125faf95dc64d49a129959b6742b9ffee9";
+const cjson =
+  "https://raw.githubusercontent.com/DaveGamble/cJSON/6d9f2443ab071f86e5d9b43025a40929ec41c46c";
+const clap =
+  "https://raw.githubusercontent.com/clap-rs/clap/db30b39a55c188763666268447050a0dacba3bf0";
+const clickMan =
+  "https://raw.githubusercontent.com/click-contrib/click-man/be9eac7642e32a43a93ec2c1f5deea7047bb7288";
+const cobra =
+  "https://raw.githubusercontent.com/spf13/cobra/adbc8813901bba65827259daa8e22ff94ec1f30e";
+const codegen =
+  "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
+const commonsLang =
+  "https://raw.githubusercontent.com/apache/commons-lang/d8470d57fda340864acf5194bb56305a133fba0e";
+const composable =
+  "https://raw.githubusercontent.com/pointfreeco/swift-composable-architecture/bb175b544d019c7f23a2e41ae29d8c70592aeb58";
+const coroutines =
+  "https://raw.githubusercontent.com/Kotlin/kotlinx.coroutines/7e0d1b3e9ca83652427ae00dda7d1673f058a743";
+const deviceVirtual =
+  "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
+const devise =
+  "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
+const django =
+  "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
+const dockerPostgres =
+  "https://raw.githubusercontent.com/docker-library/postgres/dfc76bb299b057785026eb2eea39556b6fe52983";
+const dockerPython =
+  "https://raw.githubusercontent.com/docker-library/python/f4c67ece208dead594e43628d22e3c6027dd97ab";
+const dotnetInstall =
+  "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
+const dotnetRuntime =
+  "https://raw.githubusercontent.com/dotnet/runtime/6375d63af99b6812f11b4dd8c4a18d227e277d73";
+const eslint =
+  "https://raw.githubusercontent.com/eslint/eslint/11c66ba08381cb7cff7679d662c9f6654b6fe712";
+const exposed =
+  "https://raw.githubusercontent.com/JetBrains/Exposed/2bdb13cd7b4b511b07de3dde109878b6f8b06d48";
+const express =
+  "https://raw.githubusercontent.com/expressjs/express/bcc0551cb7a785b7772f77cb59ce55a2bc94975a";
+const fastapi =
+  "https://raw.githubusercontent.com/tiangolo/fastapi/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0";
+const flask =
+  "https://raw.githubusercontent.com/pallets/flask/49943b5a94413a530761350f04e896f76e8d620e";
+const fmt =
+  "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
+const foundation =
+  "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/cbfe1c7376ffe869d08b1b5f643d747ef0a16069";
+const gin =
+  "https://raw.githubusercontent.com/gin-gonic/gin/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646";
+const githubMarkdownCss =
+  "https://raw.githubusercontent.com/sindresorhus/github-markdown-css/7f38dcb9054bc5d860fac65291f5c98fef47932c";
+const golang =
+  "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
 const googletest =
   "https://raw.githubusercontent.com/google/googletest/a8380b01a25ebdb130097b607b3afed2a58d04ba";
+const graphiql =
+  "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
+const graphqlJs =
+  "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
+const gson =
+  "https://raw.githubusercontent.com/google/gson/57731049da3e415be3d5d34db1ca3b80f3c73810";
+const guava =
+  "https://raw.githubusercontent.com/google/guava/e98ea2340f6acc94ed9e2cca08976ccae68c3412";
+const h5bp =
+  "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
+const helm =
+  "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
+const highlightjs =
+  "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
+const httparser =
+  "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
+const inspectLua =
+  "https://raw.githubusercontent.com/kikito/inspect.lua/a8ca3120dfec48801036eaeff9335ab7a096dd24";
+const javapoet =
+  "https://raw.githubusercontent.com/square/javapoet/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0";
+const jekyll =
+  "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
+const jq =
+  "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
+const jquery =
+  "https://raw.githubusercontent.com/jquery/jquery/feaa9fcdb68cdeadf013d97d8fd40848d4618578";
+const jsonLua =
+  "https://raw.githubusercontent.com/rxi/json.lua/dbf4b2dd2eb7c23be2773c89eb059dadd6436f94";
+const kafka =
+  "https://raw.githubusercontent.com/apache/kafka/da5316228ee604724dbcede405ebbf7f18f1dbf3";
+const kingfisher =
+  "https://raw.githubusercontent.com/onevcat/Kingfisher/770465258c652c73fdef447c10004765c440e993";
+const knex =
+  "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
+const kotlinxSerialization =
+  "https://raw.githubusercontent.com/Kotlin/kotlinx.serialization/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22";
+const ktor =
+  "https://raw.githubusercontent.com/ktorio/ktor/b7809b1eb47ec68cbb9c78a52a23880caca710cd";
+const kubernetes =
+  "https://raw.githubusercontent.com/kubernetes/kubernetes/98687f28e4fed347d30fcd483edc8b8ee74c583c";
+const ky =
+  "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
+const latexrun =
+  "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
+const leveldb =
+  "https://raw.githubusercontent.com/google/leveldb/bb74ef739973a70ca9f0d90788a1da89b788c0ad";
+const libuv =
+  "https://raw.githubusercontent.com/libuv/libuv/7228e05f3e407ed3fa59edba920b8cd825b5d83d";
+const linenoise =
+  "https://raw.githubusercontent.com/antirez/linenoise/a473823d74b93eab2ba83480df16ed37617493f2";
+const lua =
+  "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
+const luaLanguageServer =
+  "https://raw.githubusercontent.com/LuaLS/lua-language-server/a58fc7b01e1746c46275c71b0e61bfed40a6296d";
+const luarocks =
+  "https://raw.githubusercontent.com/luarocks/luarocks/85bfe36c812465b2f377877939d884a4db829a25";
+const lume =
+  "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
+const mathjaxDemos =
+  "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
+const milligram =
+  "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
+const minikube =
+  "https://raw.githubusercontent.com/kubernetes/minikube/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996";
+const moby =
+  "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
+const moshi =
+  "https://raw.githubusercontent.com/square/moshi/889013ec2edb8d8034902662a1dc8c4f3b3f8111";
+const newtonsoft =
+  "https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa";
+const nextjs =
+  "https://raw.githubusercontent.com/vercel/next.js/5a5a4cdc5263ee3ca5a14378de78d2b97dbc4378";
+const nio =
+  "https://raw.githubusercontent.com/apple/swift-nio/2f58d8ef84438d6517fc78bcea2f8527e3c72936";
+const nlohmannJson =
+  "https://raw.githubusercontent.com/nlohmann/json/e32051125faf95dc64d49a129959b6742b9ffee9";
+const nodejs =
+  "https://raw.githubusercontent.com/nodejs/node/3556d018a4863a42fba62a927e7e605c1e8cf128";
+const normalize =
+  "https://raw.githubusercontent.com/necolas/normalize.css/fc091cce1534909334c1911709a39c22d406977b";
+const nvm =
+  "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
+const nvmMake =
+  "https://raw.githubusercontent.com/nvm-sh/nvm/16df5aa69aeda3814703e14f9d35a4f60220dd37";
+const okhttp =
+  "https://raw.githubusercontent.com/square/okhttp/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf";
+const penlight =
+  "https://raw.githubusercontent.com/lunarmodules/Penlight/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985";
+const petstore =
+  "https://raw.githubusercontent.com/swagger-api/swagger-petstore/5cb909fc7780bc708151bce0014939acba8b212a";
+const pgvector =
+  "https://raw.githubusercontent.com/pgvector/pgvector/1d5ef0a160cadec08f754528669ce17e20eab38c";
+const poetry =
+  "https://raw.githubusercontent.com/python-poetry/poetry/6ecadf5b71309b1da4f00949cc349a79884cff8f";
+const postgres =
+  "https://raw.githubusercontent.com/postgres/postgres/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3";
+const powershell =
+  "https://raw.githubusercontent.com/PowerShell/PowerShell/2725d6aaa6e67219b6c9902adf7b74c52e0371a3";
+const preact =
+  "https://raw.githubusercontent.com/preactjs/preact/81dbe69d39e948b2305193d2622c225699311083";
+const prettier =
+  "https://raw.githubusercontent.com/prettier/prettier/a02e92be26ec8963a07aa9500a6c20e24599e95b";
+const prometheus =
+  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
+const prometheusGo =
+  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
+const puma =
+  "https://raw.githubusercontent.com/puma/puma/c0df0c19dde943c3f5c25cd67caa984dfa84e3da";
+const pyenv =
+  "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
+const pytest =
+  "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
+const rack =
+  "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
+const rag =
+  "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
+const rails =
+  "https://raw.githubusercontent.com/rails/rails/f21e7f42b510327f6bc57dcb7fcc9825d4670a91";
+const rake =
+  "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
+const rapidjson =
+  "https://raw.githubusercontent.com/Tencent/rapidjson/24b5e7a8b27f42fa16b96fc70aade9106cf7102f";
+const requests =
+  "https://raw.githubusercontent.com/psf/requests/3c7baaa05ab4aa49cc819ce3a819d260de19c157";
+const rewrite =
+  "https://raw.githubusercontent.com/openrewrite/rewrite/03d32965a3cdbf06f2717eb3ca706a162039703c";
+const rich =
+  "https://raw.githubusercontent.com/Textualize/rich/9d8f9a372cc5916fd4781fec207ced7ddac2f08f";
+const ripgrep =
+  "https://raw.githubusercontent.com/BurntSushi/ripgrep/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b";
+const rome =
+  "https://raw.githubusercontent.com/rometools/rome/6b4a7e89cbf67dab0be32e7517f3d8ae3c2b4d75";
+const roslyn =
+  "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a";
+const rspecCore =
+  "https://raw.githubusercontent.com/rspec/rspec-core/aec5f49485d97908183dbe790a7fefb8baaa8091";
+const rubocop =
+  "https://raw.githubusercontent.com/rubocop/rubocop/09c38e2526622e5c08a73ebff58fd2f4bed35ffe";
+const rubyBuild =
+  "https://raw.githubusercontent.com/rbenv/ruby-build/4ef3159f94dd66c8325efb42db2faeb7d5732db0";
+const ruff =
+  "https://raw.githubusercontent.com/astral-sh/ruff/f10755306e3e932fd127960acb2c892fafb87410";
+const rustc =
+  "https://raw.githubusercontent.com/rust-lang/rust/ae36fe22c7e590df40ffd53ac25fea35597c3f3d";
+const samples =
+  "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/8f1828ebccc57930cf0adde9b35ae929584fe191/samples";
+const scala3 =
+  "https://raw.githubusercontent.com/scala/scala3/d71919d08172571e6a5c9392f186b2a6a4413097";
+const serde =
+  "https://raw.githubusercontent.com/serde-rs/serde/0db9b3b504bcb0a7fa9cf001429869519afd3e9a";
+const shadcn =
+  "https://raw.githubusercontent.com/shadcn-ui/ui/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610";
+const snapshotTesting =
+  "https://raw.githubusercontent.com/pointfreeco/swift-snapshot-testing/0c6380dd46cd45e00f2bf87cf6002f3478e84452";
+const spdlog =
+  "https://raw.githubusercontent.com/gabime/spdlog/6d9805df3f588402b17073dcd13eb569ceda864d";
+const sqlalchemy =
+  "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/679372836fe7343683248467d276036a6d6f1673";
+const sqlServerSamples =
+  "https://raw.githubusercontent.com/microsoft/sql-server-samples/3c71696a3942879f0481f3bd65fe112a40023f18";
+const stringProcessing =
+  "https://raw.githubusercontent.com/swiftlang/swift-experimental-string-processing/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee";
+const swiftAlgorithms =
+  "https://raw.githubusercontent.com/apple/swift-algorithms/5b7143f8e291dee0e14c118fd0212487f0b37af5";
+const swiftTesting =
+  "https://raw.githubusercontent.com/swiftlang/swift-testing/87ec972e0b5725ee02b31a6e9ed690d85abb460a";
+const tailwind =
+  "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a";
+const testify =
+  "https://raw.githubusercontent.com/stretchr/testify/87a7b9d57689f6579db2da795ab8deeab29cb724";
+const thor =
+  "https://raw.githubusercontent.com/rails/thor/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d";
+const threeJs =
+  "https://raw.githubusercontent.com/mrdoob/three.js/f06340e459f19609d3dd82253f38831f58ab6c84";
+const todomvc =
+  "https://raw.githubusercontent.com/tastejs/todomvc/ff43b02e59dfa604386bb382034b2cd07c2bcd8a";
+const tokio =
+  "https://raw.githubusercontent.com/tokio-rs/tokio/b499257ef62bd631b83a988d371f4330f545670c";
+const tomcat =
+  "https://raw.githubusercontent.com/apache/tomcat/1b2785c63ca0e0f9a242745b16f26924b5488ddd";
+const traefik =
+  "https://raw.githubusercontent.com/traefik/traefik/38d53dd06c53c7e9bd08e57b217e72686d823610";
+const turbine =
+  "https://raw.githubusercontent.com/cashapp/turbine/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0";
+const typeorm =
+  "https://raw.githubusercontent.com/typeorm/typeorm/5bdc67882dee5a02d975d5ed140c9c3f91661116";
+const unity =
+  "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
+const viewsWidgets =
+  "https://raw.githubusercontent.com/android/views-widgets-samples/2238cc873501f9cda63605051de11832bb736a8a";
+const viper =
+  "https://raw.githubusercontent.com/spf13/viper/528f7416c4b56a4948673984b190bf8713f0c3c4";
+const vite =
+  "https://raw.githubusercontent.com/vitejs/vite/b3cb0575aff63004a71301a1ec798aeea2aa05d7";
+const vitest =
+  "https://raw.githubusercontent.com/vitest-dev/vitest/7a3844954d8753fc0d5bed76a96ffd3a21716c22";
+const vscode =
+  "https://raw.githubusercontent.com/microsoft/vscode/a4e689ae13ef7a1fe9b515656b51c9be7c274294";
+const vue =
+  "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
+const xerces =
+  "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
+const zap =
+  "https://raw.githubusercontent.com/uber-go/zap/4892335e05f14bce8a98a69a577fcf3844a42623";
+const zig =
+  "https://raw.githubusercontent.com/ziglang/zig/738d2be9d6b6ef3ff3559130c05159ef53336224";
+const zlib =
+  "https://raw.githubusercontent.com/madler/zlib/aaa772ce5c6d0023204c6ee45c59cf70c8372c51";
+const zls =
+  "https://raw.githubusercontent.com/zigtools/zls/b3e65123f1bf455cea491ba7069bebd5f93e6839";
+const zod =
+  "https://raw.githubusercontent.com/colinhacks/zod/2554b70c3d4a80273381e61d527d820720626440";
 
 export const inputs: Input[] = [
-  { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
-  {
-    lang: "rust",
-    name: "ripgrep-searcher",
-    url: `${ripgrep}/crates/searcher/src/searcher/mod.rs`,
-  },
-  { lang: "rust", name: "serde-de", url: `${serde}/serde_core/src/de/mod.rs` },
-  { lang: "markdown", name: "sample", url: `${samples}/markdown.sample` },
-  { lang: "markdown", name: "tokio-readme", url: `${tokio}/README.md` },
-  { lang: "markdown", name: "serde-readme", url: `${serde}/README.md` },
-  {
-    lang: "markdown",
-    name: "book-ownership",
-    url: `${book}/src/ch04-01-what-is-ownership.md`,
-  },
-  {
-    lang: "markdown",
-    name: "book-strings",
-    url: `${book}/src/ch08-02-strings.md`,
-  },
-  { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
-  {
-    lang: "markdown",
-    name: "zod-readme",
-    url: `${zod}/packages/zod/README.md`,
-  },
-  { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
-  {
-    lang: "markdown",
-    name: "zod-api",
-    url: `${zod}/packages/docs/content/api.mdx`,
-  },
-  { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
-  { lang: "markdown", name: "pyenv-readme", url: `${pyenv}/README.md` },
-  {
-    lang: "markdown",
-    name: "cargo-release",
-    url: `${cargo}/doc/contrib/src/process/release.md`,
-  },
-  {
-    lang: "markdown",
-    name: "eslint-no-restricted-imports",
-    url: `${eslint}/docs/src/rules/no-restricted-imports.md`,
-  },
-  { lang: "markdown", name: "eslint-mcp", url: `${eslint}/docs/src/use/mcp.md` },
-  {
-    lang: "markdown",
-    name: "traefik-docker",
-    url: `${traefik}/docs/content/getting-started/docker.md`,
-  },
-  {
-    lang: "markdown",
-    name: "jekyll-front-matter",
-    url: `${jekyll}/docs/_docs/front-matter.md`,
-  },
-  { lang: "toml", name: "sample", url: `${samples}/toml.sample` },
-  { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
-  { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
-  { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
-  { lang: "toml", name: "ripgrep-manifest", url: `${ripgrep}/Cargo.toml` },
-  { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
-  { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
-  { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
-  { lang: "java", name: "sample", url: `${samples}/java.sample` },
-  {
-    lang: "java",
-    name: "guava-preconditions",
-    url: `${guava}/guava/src/com/google/common/base/Preconditions.java`,
-  },
-  {
-    lang: "java",
-    name: "gson-gson",
-    url: `${gson}/gson/src/main/java/com/google/gson/Gson.java`,
-  },
-  {
-    lang: "java",
-    name: "commons-lang-validate",
-    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Validate.java`,
-  },
-  {
-    lang: "java",
-    name: "guava-immutable-list",
-    url: `${guava}/guava/src/com/google/common/collect/ImmutableList.java`,
-  },
-  {
-    lang: "java",
-    name: "gson-json-reader",
-    url: `${gson}/gson/src/main/java/com/google/gson/stream/JsonReader.java`,
-  },
-  {
-    lang: "java",
-    name: "commons-lang-range",
-    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Range.java`,
-  },
-  {
-    lang: "java",
-    name: "rewrite-switch-patterns",
-    url: `${rewrite}/rewrite-java-tck/src/main/java/org/openrewrite/java/tree/SwitchPatternMatchingTest.java`,
-  },
-  { lang: "markdown", name: "gson-user-guide", url: `${gson}/UserGuide.md` },
-  { lang: "markdown", name: "javapoet-readme", url: `${javapoet}/README.md` },
-  { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
-  {
-    lang: "typescript",
-    name: "vue-effect",
-    url: `${vue}/packages/reactivity/src/effect.ts`,
-  },
-  {
-    lang: "typescript",
-    name: "vue-api-create-app",
-    url: `${vue}/packages/runtime-core/src/apiCreateApp.ts`,
-  },
-  {
-    lang: "typescript",
-    name: "zod-classic-schemas",
-    url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
-  },
-  { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
-  { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
-  { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
-  { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
-  { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
-  {
-    lang: "shellscript",
-    name: "unicode-words",
-    url: new URL("inputs/shellscript-unicode-words.sh", import.meta.url).href,
-  },
-  { lang: "json", name: "sample", url: `${samples}/json.sample` },
-  { lang: "json", name: "vue-package", url: `${vue}/package.json` },
-  { lang: "json", name: "zod-package", url: `${zod}/packages/zod/package.json` },
-  {
-    lang: "json",
-    name: "vscode-typescript-grammar",
-    url: `${vscode}/extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`,
-  },
-  { lang: "jsonc", name: "sample", url: `${samples}/jsonc.sample` },
-  { lang: "jsonc", name: "vscode-launch", url: `${vscode}/.vscode/launch.json` },
-  { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },
-  { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
-  { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
-  { lang: "python", name: "sample", url: `${samples}/python.sample` },
-  { lang: "python", name: "requests-models", url: `${requests}/src/requests/models.py` },
-  { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
-  { lang: "python", name: "flask-helpers", url: `${flask}/src/flask/helpers.py` },
-  { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
-  { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
-  { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
-  { lang: "markdown", name: "fastapi-readme", url: `${fastapi}/README.md` },
-  { lang: "markdown", name: "rich-readme", url: `${rich}/README.md` },
-  { lang: "yaml", name: "sample", url: `${samples}/yaml.sample` },
-  {
-    lang: "yaml",
-    name: "checkout-test",
-    url: `${checkout}/.github/workflows/test.yml`,
-  },
-  {
-    lang: "yaml",
-    name: "petstore-openapi",
-    url: `${petstore}/src/main/resources/openapi.yaml`,
-  },
-  {
-    lang: "yaml",
-    name: "airflow-compose",
-    url: `${airflow}/airflow-core/docs/howto/docker-compose/docker-compose.yaml`,
-  },
-  {
-    lang: "yaml",
-    name: "ripgrep-ci",
-    url: `${ripgrep}/.github/workflows/ci.yml`,
-  },
-  {
-    lang: "yaml",
-    name: "prometheus-config",
-    url: `${prometheus}/documentation/examples/prometheus.yml`,
-  },
-  { lang: "make", name: "sample", url: `${samples}/make.sample` },
-  { lang: "make", name: "nvm", url: `${nvmMake}/Makefile` },
-  { lang: "make", name: "cjson", url: `${cjson}/Makefile` },
-  { lang: "make", name: "prometheus-common", url: `${prometheus}/Makefile.common` },
-  { lang: "make", name: "node", url: `${nodejs}/Makefile` },
-  { lang: "make", name: "minikube", url: `${minikube}/Makefile` },
-  { lang: "make", name: "moby", url: `${moby}/Makefile` },
-  { lang: "make", name: "zlib", url: `${zlib}/Makefile.in` },
-  { lang: "make", name: "helm", url: `${helm}/Makefile` },
-  { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
-  { lang: "markdown", name: "httparser-readme", url: `${httparser}/README.md` },
-  { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
-  { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
-  { lang: "javascript", name: "sample", url: `${samples}/javascript.sample` },
-  { lang: "javascript", name: "express-application", url: `${express}/lib/application.js` },
-  { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
-  { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
-  { lang: "tsx", name: "sample", url: `${samples}/tsx.sample` },
-  { lang: "tsx", name: "shadcn-sidebar", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/sidebar.tsx` },
-  { lang: "javascript", name: "express-response", url: `${express}/lib/response.js` },
-  { lang: "javascript", name: "axios-xhr", url: `${axios}/lib/adapters/xhr.js` },
-  { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
-  { lang: "tsx", name: "shadcn-chart", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/chart.tsx` },
-  { lang: "tsx", name: "shadcn-combobox", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx` },
-  { lang: "markdown", name: "shadcn-data-table", url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx` },
-  { lang: "markdown", name: "shadcn-message-scroller", url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx` },
-  { lang: "markdown", name: "preact-readme", url: `${preact}/README.md` },
-  { lang: "diff", name: "sample", url: `${samples}/diff.sample` },
+  { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
+  { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },
+  { lang: "c", name: "libuv-core", url: `${libuv}/src/unix/core.c` },
+  { lang: "c", name: "linenoise", url: `${linenoise}/linenoise.c` },
+  { lang: "c", name: "lua-vm", url: `${lua}/lvm.c` },
+  { lang: "c", name: "sample", url: `${samples}/c.sample` },
+  { lang: "c", name: "zlib-inflate", url: `${zlib}/inflate.c` },
+  // CMake runs on the TextMate engine. Shiki's Markdown grammar has no CMake
+  // fence, so no Markdown input embeds it.
+  { lang: "cmake", name: "catch2-lists", url: `${catch2}/CMakeLists.txt` },
+  { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
+  { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
+  { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },
+  { lang: "cpp", name: "absl-str-split", url: `${abseil}/absl/strings/str_split.h` },
+  { lang: "cpp", name: "benchmark-core", url: `${benchmark}/src/benchmark.cc` },
+  { lang: "cpp", name: "fmt-ranges", url: `${fmt}/include/fmt/ranges.h` },
+  { lang: "cpp", name: "leveldb-version-set", url: `${leveldb}/db/version_set.cc` },
+  { lang: "cpp", name: "rapidjson-reader", url: `${rapidjson}/include/rapidjson/reader.h` },
+  { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
+  { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
+  { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
+  { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
+  { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
+  { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
+  { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
+  { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
+  { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
+  { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
+  { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
+  { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
+  { lang: "css", name: "sample", url: `${samples}/css.sample` },
+  { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
   {
     lang: "diff",
     name: "cranelift-stdarch-sve",
@@ -573,59 +356,300 @@ export const inputs: Input[] = [
   },
   {
     lang: "diff",
-    name: "mir-opt-gvn-cast",
-    url: `${rustc}/tests/mir-opt/const_prop/cast.main.GVN.diff`,
+    name: "cranelift-sysroot-tests",
+    url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch`,
   },
   {
     lang: "diff",
-    name: "cranelift-sysroot-tests",
-    url: `${rustc}/compiler/rustc_codegen_cranelift/patches/0028-sysroot_tests-Disable-long-running-tests.patch`,
+    name: "mir-opt-gvn-cast",
+    url: `${rustc}/tests/mir-opt/const_prop/cast.main.GVN.diff`,
   },
   {
     lang: "diff",
     name: "mir-opt-gvn-slices",
     url: `${rustc}/tests/mir-opt/gvn.slices.GVN.panic-abort.diff`,
   },
+  { lang: "diff", name: "sample", url: `${samples}/diff.sample` },
   {
     lang: "diff",
     name: "vscode-foundry-local-sdk",
     url: `${vscode}/build/npm/patches/foundry-local-sdk.patch`,
   },
-  {
-    lang: "markdown",
-    name: "vitest-migration-jest",
-    url: `${vitest}/docs/guide/migration/jest.md`,
-  },
-  { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
-  {
-    lang: "markdown",
-    name: "vite-features",
-    url: `${vite}/docs/guide/features.md`,
-  },
-  {
-    lang: "markdown",
-    name: "vite-api-plugin",
-    url: `${vite}/docs/guide/api-plugin.md`,
-  },
-  { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
-  { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
-  { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
-  { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
-  { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
-  { lang: "docker", name: "moby", url: `${moby}/Dockerfile` },
-  { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
   { lang: "docker", name: "buildx", url: `${buildx}/Dockerfile` },
-  { lang: "markdown", name: "fastapi-docker", url: `${fastapi}/docs/en/docs/deployment/docker.md` },
-  { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
-  { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
-  { lang: "c", name: "sample", url: `${samples}/c.sample` },
-  { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
-  { lang: "c", name: "linenoise", url: `${linenoise}/linenoise.c` },
-  { lang: "c", name: "libuv-core", url: `${libuv}/src/unix/core.c` },
-  { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },
-  { lang: "c", name: "lua-vm", url: `${lua}/lvm.c` },
-  { lang: "c", name: "zlib-inflate", url: `${zlib}/inflate.c` },
+  { lang: "docker", name: "moby", url: `${moby}/Dockerfile` },
+  { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
+  { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
+  { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
+  { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
+  { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
+  { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
+  { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },
+  { lang: "erb", name: "devise-registrations-edit", url: `${devise}/app/views/devise/registrations/edit.html.erb` },
+  { lang: "erb", name: "devise-sessions-new", url: `${devise}/app/views/devise/sessions/new.html.erb` },
+  { lang: "erb", name: "devise-shared-links", url: `${devise}/app/views/devise/shared/_links.html.erb` },
+  { lang: "erb", name: "rails-app-layout", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt` },
+  { lang: "erb", name: "rails-info-notes", url: `${rails}/railties/lib/rails/templates/rails/info/notes.html.erb` },
+  { lang: "erb", name: "rails-mailer-email", url: `${rails}/railties/lib/rails/templates/rails/mailers/email.html.erb` },
+  { lang: "erb", name: "rails-pwa-offline", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb` },
+  { lang: "erb", name: "rails-rescues-diagnostics", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb` },
+  { lang: "erb", name: "rails-rescues-source", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb` },
+  { lang: "erb", name: "rails-routes-table", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb` },
+  { lang: "erb", name: "rails-scaffold-form", url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt` },
+  { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
+  { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
+  { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
+  { lang: "go", name: "gin-context", url: `${gin}/context.go` },
+  { lang: "go", name: "go-json-decode", url: `${golang}/src/encoding/json/decode.go` },
+  { lang: "go", name: "go-slices", url: `${golang}/src/slices/slices.go` },
+  { lang: "go", name: "go-sort", url: `${golang}/src/sort/sort.go` },
+  { lang: "go", name: "kubernetes-sets", url: `${kubernetes}/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go` },
+  { lang: "go", name: "prometheus-storage", url: `${prometheusGo}/storage/interface.go` },
+  { lang: "go", name: "sample", url: `${samples}/go.sample` },
+  { lang: "go", name: "testify-assertions", url: `${testify}/assert/assertions.go` },
+  { lang: "go", name: "viper-viper", url: `${viper}/viper.go` },
+  { lang: "go", name: "zap-logger", url: `${zap}/logger.go` },
+  { lang: "graphql", name: "codegen-apollo-tooling", url: `${codegen}/dev-test/apollo-tooling/schema.graphql` },
+  { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
+  { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
+  { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },
+  { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
+  { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
+  { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
+  { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
+  { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
+  { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
+  { lang: "html", name: "jquery-delegatetest", url: `${jquery}/test/delegatetest.html` },
+  { lang: "html", name: "jquery-qunit-fixture", url: `${jquery}/test/data/qunit-fixture.html` },
+  { lang: "html", name: "mathjax-mml-chtml", url: `${mathjaxDemos}/page/mml-chtml.html` },
+  { lang: "html", name: "mathjax-tex-mml", url: `${mathjaxDemos}/page/tex-mml.html` },
+  { lang: "html", name: "sample", url: `${samples}/html.sample` },
+  { lang: "html", name: "three-animation-keyframes", url: `${threeJs}/examples/webgl_animation_keyframes.html` },
+  { lang: "html", name: "three-css3d-periodictable", url: `${threeJs}/examples/css3d_periodictable.html` },
+  { lang: "html", name: "three-geometry-colors", url: `${threeJs}/examples/webgl_geometry_colors.html` },
+  { lang: "html", name: "three-loader-gltf", url: `${threeJs}/examples/webgl_loader_gltf.html` },
+  { lang: "html", name: "todomvc-backbone", url: `${todomvc}/examples/backbone/index.html` },
+  { lang: "html", name: "todomvc-jquery", url: `${todomvc}/examples/jquery/index.html` },
+  { lang: "html", name: "todomvc-knockoutjs", url: `${todomvc}/examples/knockoutjs/index.html` },
+  { lang: "html", name: "todomvc-lit", url: `${todomvc}/examples/lit/index.html` },
+  { lang: "html", name: "todomvc-polymer", url: `${todomvc}/examples/polymer/index.html` },
+  { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
+  { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
+  { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
+  { lang: "ini", name: "kafka-server", url: `${kafka}/config/server.properties` },
+  { lang: "ini", name: "pytest-tox", url: `${pytest}/tox.ini` },
+  { lang: "ini", name: "sample", url: `${samples}/ini.sample` },
+  { lang: "ini", name: "sqlalchemy-tox", url: `${sqlalchemy}/tox.ini` },
+  { lang: "ini", name: "tomcat-catalina", url: `${tomcat}/conf/catalina.properties` },
+  {
+    lang: "java",
+    name: "commons-lang-range",
+    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Range.java`,
+  },
+  {
+    lang: "java",
+    name: "commons-lang-validate",
+    url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Validate.java`,
+  },
+  {
+    lang: "java",
+    name: "gson-gson",
+    url: `${gson}/gson/src/main/java/com/google/gson/Gson.java`,
+  },
+  {
+    lang: "java",
+    name: "gson-json-reader",
+    url: `${gson}/gson/src/main/java/com/google/gson/stream/JsonReader.java`,
+  },
+  {
+    lang: "java",
+    name: "guava-immutable-list",
+    url: `${guava}/guava/src/com/google/common/collect/ImmutableList.java`,
+  },
+  {
+    lang: "java",
+    name: "guava-preconditions",
+    url: `${guava}/guava/src/com/google/common/base/Preconditions.java`,
+  },
+  {
+    lang: "java",
+    name: "rewrite-switch-patterns",
+    url: `${rewrite}/rewrite-java-tck/src/main/java/org/openrewrite/java/tree/SwitchPatternMatchingTest.java`,
+  },
+  { lang: "java", name: "sample", url: `${samples}/java.sample` },
+  { lang: "javascript", name: "axios-xhr", url: `${axios}/lib/adapters/xhr.js` },
+  { lang: "javascript", name: "express-application", url: `${express}/lib/application.js` },
+  { lang: "javascript", name: "express-response", url: `${express}/lib/response.js` },
+  { lang: "javascript", name: "sample", url: `${samples}/javascript.sample` },
+  { lang: "json", name: "sample", url: `${samples}/json.sample` },
+  {
+    lang: "json",
+    name: "vscode-typescript-grammar",
+    url: `${vscode}/extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`,
+  },
+  { lang: "json", name: "vue-package", url: `${vue}/package.json` },
+  { lang: "json", name: "zod-package", url: `${zod}/packages/zod/package.json` },
+  { lang: "jsonc", name: "sample", url: `${samples}/jsonc.sample` },
+  { lang: "jsonc", name: "vscode-launch", url: `${vscode}/.vscode/launch.json` },
+  { lang: "jsonl", name: "rag-output", url: `${rag}/output.jsonl` },
+  { lang: "jsonl", name: "rag-output-50", url: `${rag}/output-50.jsonl` },
+  { lang: "jsonl", name: "sample", url: `${samples}/jsonl.sample` },
+  { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
+  { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
+  { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
+  {
+    lang: "kotlin",
+    name: "coroutines-produce",
+    url: `${coroutines}/kotlinx-coroutines-core/common/src/channels/Produce.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "coroutines-state-flow",
+    url: `${coroutines}/kotlinx-coroutines-core/common/src/flow/StateFlow.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "exposed-op",
+    url: `${exposed}/exposed-core/src/main/kotlin/org/jetbrains/exposed/v1/core/Op.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "ktor-logging",
+    url: `${ktor}/ktor-client/ktor-client-plugins/ktor-client-logging/common/src/io/ktor/client/plugins/logging/Logging.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "moshi-util",
+    url: `${moshi}/moshi/src/main/java/com/squareup/moshi/internal/Util.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-build",
+    url: `${okhttp}/okhttp/build.gradle.kts`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-cookie",
+    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Cookie.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "okhttp-request",
+    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Request.kt`,
+  },
+  { lang: "kotlin", name: "sample", url: `${samples}/kotlin.sample` },
+  {
+    lang: "kotlin",
+    name: "serialization-json",
+    url: `${kotlinxSerialization}/formats/json/commonMain/src/kotlinx/serialization/json/Json.kt`,
+  },
+  {
+    lang: "kotlin",
+    name: "turbine-flow-test",
+    url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
+  },
+  { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
+  { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
+  { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },
+  { lang: "lua", name: "luals-string", url: `${luaLanguageServer}/meta/template/string.lua` },
+  { lang: "lua", name: "luals-table", url: `${luaLanguageServer}/meta/template/table.lua` },
+  { lang: "lua", name: "luarocks-util", url: `${luarocks}/src/luarocks/core/util.lua` },
+  { lang: "lua", name: "lume", url: `${lume}/lume.lua` },
+  { lang: "lua", name: "penlight-stringx", url: `${penlight}/lua/pl/stringx.lua` },
+  { lang: "lua", name: "sample", url: `${samples}/lua.sample` },
+  { lang: "make", name: "cjson", url: `${cjson}/Makefile` },
+  { lang: "make", name: "helm", url: `${helm}/Makefile` },
+  { lang: "make", name: "minikube", url: `${minikube}/Makefile` },
+  { lang: "make", name: "moby", url: `${moby}/Makefile` },
+  { lang: "make", name: "node", url: `${nodejs}/Makefile` },
+  { lang: "make", name: "nvm", url: `${nvmMake}/Makefile` },
+  { lang: "make", name: "prometheus-common", url: `${prometheus}/Makefile.common` },
+  { lang: "make", name: "sample", url: `${samples}/make.sample` },
+  { lang: "make", name: "zlib", url: `${zlib}/Makefile.in` },
+  {
+    lang: "markdown",
+    name: "argument-parser-declaring-arguments",
+    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md`,
+  },
+  {
+    lang: "markdown",
+    name: "argument-parser-getting-started",
+    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md`,
+  },
+  { lang: "markdown", name: "benchmark-user-guide", url: `${benchmark}/docs/user_guide.md` },
+  { lang: "markdown", name: "black-other-tools", url: `${black}/docs/guides/using_black_with_other_tools.md` },
+  {
+    lang: "markdown",
+    name: "book-ownership",
+    url: `${book}/src/ch04-01-what-is-ownership.md`,
+  },
+  {
+    lang: "markdown",
+    name: "book-strings",
+    url: `${book}/src/ch08-02-strings.md`,
+  },
+  {
+    lang: "markdown",
+    name: "cargo-release",
+    url: `${cargo}/doc/contrib/src/process/release.md`,
+  },
+  { lang: "markdown", name: "catch2-tutorial", url: `${catch2}/docs/tutorial.md` },
   { lang: "markdown", name: "cjson-readme", url: `${cjson}/README.md` },
+  { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
+  { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
+  { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
+  { lang: "markdown", name: "device-virtual-readme", url: `${deviceVirtual}/README.md` },
+  { lang: "markdown", name: "devise-readme", url: `${devise}/README.md` },
+  { lang: "markdown", name: "eslint-mcp", url: `${eslint}/docs/src/use/mcp.md` },
+  {
+    lang: "markdown",
+    name: "eslint-no-restricted-imports",
+    url: `${eslint}/docs/src/rules/no-restricted-imports.md`,
+  },
+  { lang: "markdown", name: "fastapi-docker", url: `${fastapi}/docs/en/docs/deployment/docker.md` },
+  { lang: "markdown", name: "fastapi-readme", url: `${fastapi}/README.md` },
+  { lang: "markdown", name: "gin-readme", url: `${gin}/README.md` },
+  { lang: "markdown", name: "gson-user-guide", url: `${gson}/UserGuide.md` },
+  { lang: "markdown", name: "highlightjs-readme", url: `${highlightjs}/README.md` },
+  { lang: "markdown", name: "httparser-readme", url: `${httparser}/README.md` },
+  { lang: "markdown", name: "javapoet-readme", url: `${javapoet}/README.md` },
+  {
+    lang: "markdown",
+    name: "jekyll-front-matter",
+    url: `${jekyll}/docs/_docs/front-matter.md`,
+  },
+  {
+    lang: "markdown",
+    name: "kingfisher-common-tasks-cache",
+    url: `${kingfisher}/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md`,
+  },
+  { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
+  { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
+  { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
+  { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
+  { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
+  { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
+  { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
+  { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
+  { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
+  { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
+  { lang: "markdown", name: "preact-readme", url: `${preact}/README.md` },
+  { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
+  { lang: "markdown", name: "pyenv-readme", url: `${pyenv}/README.md` },
+  { lang: "markdown", name: "rack-readme", url: `${rack}/README.md` },
+  { lang: "markdown", name: "rich-readme", url: `${rich}/README.md` },
+  { lang: "markdown", name: "sample", url: `${samples}/markdown.sample` },
+  { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
+  { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
+  { lang: "markdown", name: "serde-readme", url: `${serde}/README.md` },
+  { lang: "markdown", name: "shadcn-data-table", url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx` },
+  { lang: "markdown", name: "shadcn-message-scroller", url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx` },
+  { lang: "markdown", name: "tokio-readme", url: `${tokio}/README.md` },
+  {
+    lang: "markdown",
+    name: "traefik-docker",
+    url: `${traefik}/docs/content/getting-started/docker.md`,
+  },
+  { lang: "markdown", name: "typeorm-indexes", url: `${typeorm}/docs/docs/indexes.md` },
   {
     lang: "markdown",
     name: "unity-assertions",
@@ -636,122 +660,97 @@ export const inputs: Input[] = [
     name: "unity-getting-started",
     url: `${unity}/docs/UnityGettingStartedGuide.md`,
   },
-  { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
-  { lang: "cpp", name: "leveldb-version-set", url: `${leveldb}/db/version_set.cc` },
-  { lang: "cpp", name: "rapidjson-reader", url: `${rapidjson}/include/rapidjson/reader.h` },
-  { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
-  { lang: "cpp", name: "absl-str-split", url: `${abseil}/absl/strings/str_split.h` },
-  { lang: "cpp", name: "benchmark-core", url: `${benchmark}/src/benchmark.cc` },
-  { lang: "cpp", name: "fmt-ranges", url: `${fmt}/include/fmt/ranges.h` },
-  { lang: "markdown", name: "catch2-tutorial", url: `${catch2}/docs/tutorial.md` },
-  { lang: "markdown", name: "benchmark-user-guide", url: `${benchmark}/docs/user_guide.md` },
-  { lang: "sql", name: "sample", url: `${samples}/sql.sample` },
-  { lang: "sql", name: "postgres-select", url: `${postgres}/src/test/regress/sql/select.sql` },
   {
-    lang: "sql",
-    name: "postgres-create-table",
-    url: `${postgres}/src/test/regress/sql/create_table.sql`,
+    lang: "markdown",
+    name: "vite-api-plugin",
+    url: `${vite}/docs/guide/api-plugin.md`,
   },
   {
-    lang: "sql",
-    name: "ssms-create-table",
-    url: `${sqlServerSamples}/samples/features/ssms-templates/Sql/Table/Create%20Table.sql`,
+    lang: "markdown",
+    name: "vite-features",
+    url: `${vite}/docs/guide/features.md`,
   },
-  { lang: "sql", name: "postgres-with", url: `${postgres}/src/test/regress/sql/with.sql` },
+  { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
+  {
+    lang: "markdown",
+    name: "vitest-migration-jest",
+    url: `${vitest}/docs/guide/migration/jest.md`,
+  },
+  {
+    lang: "markdown",
+    name: "zod-api",
+    url: `${zod}/packages/docs/content/api.mdx`,
+  },
+  {
+    lang: "markdown",
+    name: "zod-readme",
+    url: `${zod}/packages/zod/README.md`,
+  },
+  // PowerShell runs on the TextMate engine.
+  { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
+  { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
+  { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },
+  { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
+  { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
+  { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
+  { lang: "python", name: "flask-helpers", url: `${flask}/src/flask/helpers.py` },
+  { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
+  { lang: "python", name: "requests-models", url: `${requests}/src/requests/models.py` },
+  { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
+  { lang: "python", name: "sample", url: `${samples}/python.sample` },
+  { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
+  { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
+  { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
+  { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
+  {
+    lang: "ruby",
+    name: "rails-inflector",
+    url: `${rails}/activesupport/lib/active_support/inflector/methods.rb`,
+  },
+  { lang: "ruby", name: "rake-task", url: `${rake}/lib/rake/task.rb` },
+  { lang: "ruby", name: "rspec-example", url: `${rspecCore}/lib/rspec/core/example.rb` },
+  { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
+  { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
+  { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
+  {
+    lang: "rust",
+    name: "ripgrep-searcher",
+    url: `${ripgrep}/crates/searcher/src/searcher/mod.rs`,
+  },
+  { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
+  { lang: "rust", name: "serde-de", url: `${serde}/serde_core/src/de/mod.rs` },
+  // Scala runs on the TextMate engine.
+  { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
+  { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
+  { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
+  { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
+  { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
+  { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
+  { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
+  { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
+  { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
+  {
+    lang: "shellscript",
+    name: "unicode-words",
+    url: new URL("inputs/shellscript-unicode-words.sh", import.meta.url).href,
+  },
   {
     lang: "sql",
     name: "northwind-pubs",
     url: `${sqlServerSamples}/samples/databases/northwind-pubs/instpubs.sql`,
   },
-  { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
-  { lang: "markdown", name: "typeorm-indexes", url: `${typeorm}/docs/docs/indexes.md` },
-  { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
-  { lang: "ini", name: "sample", url: `${samples}/ini.sample` },
-  { lang: "ini", name: "pytest-tox", url: `${pytest}/tox.ini` },
-  { lang: "ini", name: "kafka-server", url: `${kafka}/config/server.properties` },
-  { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
-  { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
-  { lang: "ini", name: "sqlalchemy-tox", url: `${sqlalchemy}/tox.ini` },
-  { lang: "ini", name: "tomcat-catalina", url: `${tomcat}/conf/catalina.properties` },
-  { lang: "ini", name: "kafka-consumer", url: `${kafka}/config/consumer.properties` },
-  { lang: "markdown", name: "black-other-tools", url: `${black}/docs/guides/using_black_with_other_tools.md` },
-  { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
-  { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
-  { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
-  { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },
-  { lang: "graphql", name: "codegen-apollo-tooling", url: `${codegen}/dev-test/apollo-tooling/schema.graphql` },
-  { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
-  { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
-  { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
-  { lang: "css", name: "sample", url: `${samples}/css.sample` },
-  { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
-  { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
-  { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
-  { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
-  { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
-  { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
-  { lang: "markdown", name: "highlightjs-readme", url: `${highlightjs}/README.md` },
-  { lang: "kotlin", name: "sample", url: `${samples}/kotlin.sample` },
   {
-    lang: "kotlin",
-    name: "coroutines-state-flow",
-    url: `${coroutines}/kotlinx-coroutines-core/common/src/flow/StateFlow.kt`,
+    lang: "sql",
+    name: "postgres-create-table",
+    url: `${postgres}/src/test/regress/sql/create_table.sql`,
   },
+  { lang: "sql", name: "postgres-select", url: `${postgres}/src/test/regress/sql/select.sql` },
+  { lang: "sql", name: "postgres-with", url: `${postgres}/src/test/regress/sql/with.sql` },
+  { lang: "sql", name: "sample", url: `${samples}/sql.sample` },
   {
-    lang: "kotlin",
-    name: "okhttp-cookie",
-    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Cookie.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "exposed-op",
-    url: `${exposed}/exposed-core/src/main/kotlin/org/jetbrains/exposed/v1/core/Op.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "serialization-json",
-    url: `${kotlinxSerialization}/formats/json/commonMain/src/kotlinx/serialization/json/Json.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "coroutines-produce",
-    url: `${coroutines}/kotlinx-coroutines-core/common/src/channels/Produce.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "okhttp-request",
-    url: `${okhttp}/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Request.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "moshi-util",
-    url: `${moshi}/moshi/src/main/java/com/squareup/moshi/internal/Util.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "turbine-flow-test",
-    url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "ktor-logging",
-    url: `${ktor}/ktor-client/ktor-client-plugins/ktor-client-logging/common/src/io/ktor/client/plugins/logging/Logging.kt`,
-  },
-  {
-    lang: "kotlin",
-    name: "okhttp-build",
-    url: `${okhttp}/okhttp/build.gradle.kts`,
-  },
-  { lang: "swift", name: "sample", url: `${samples}/swift.sample` },
-  {
-    lang: "swift",
-    name: "argument-parser-argument",
-    url: `${argumentParser}/Sources/ArgumentParser/Parsable%20Properties/Argument.swift`,
-  },
-  {
-    lang: "swift",
-    name: "algorithms-chunked",
-    url: `${swiftAlgorithms}/Sources/Algorithms/Chunked.swift`,
+    lang: "sql",
+    name: "ssms-create-table",
+    url: `${sqlServerSamples}/samples/features/ssms-templates/Sql/Table/Create%20Table.sql`,
   },
   {
     lang: "swift",
@@ -760,64 +759,14 @@ export const inputs: Input[] = [
   },
   {
     lang: "swift",
-    name: "composable-store",
-    url: `${composable}/Sources/ComposableArchitecture/Store.swift`,
+    name: "algorithms-chunked",
+    url: `${swiftAlgorithms}/Sources/Algorithms/Chunked.swift`,
   },
   {
     lang: "swift",
-    name: "string-processing-algorithms-tests",
-    url: `${stringProcessing}/Tests/RegexTests/AlgorithmsTests.swift`,
+    name: "argument-parser-argument",
+    url: `${argumentParser}/Sources/ArgumentParser/Parsable%20Properties/Argument.swift`,
   },
-  { lang: "go", name: "sample", url: `${samples}/go.sample` },
-  { lang: "go", name: "go-sort", url: `${golang}/src/sort/sort.go` },
-  { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
-  { lang: "go", name: "gin-context", url: `${gin}/context.go` },
-  { lang: "go", name: "testify-assertions", url: `${testify}/assert/assertions.go` },
-  { lang: "go", name: "go-slices", url: `${golang}/src/slices/slices.go` },
-  { lang: "go", name: "go-json-decode", url: `${golang}/src/encoding/json/decode.go` },
-  { lang: "go", name: "kubernetes-sets", url: `${kubernetes}/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go` },
-  { lang: "go", name: "zap-logger", url: `${zap}/logger.go` },
-  { lang: "go", name: "viper-viper", url: `${viper}/viper.go` },
-  { lang: "go", name: "prometheus-storage", url: `${prometheusGo}/storage/interface.go` },
-  { lang: "markdown", name: "gin-readme", url: `${gin}/README.md` },
-  { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
-  { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
-  { lang: "ruby", name: "rack-request", url: `${rack}/lib/rack/request.rb` },
-  { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
-  {
-    lang: "ruby",
-    name: "rails-inflector",
-    url: `${rails}/activesupport/lib/active_support/inflector/methods.rb`,
-  },
-  { lang: "ruby", name: "jekyll-site", url: `${jekyll}/lib/jekyll/site.rb` },
-  { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },
-  { lang: "ruby", name: "puma-server", url: `${puma}/lib/puma/server.rb` },
-  { lang: "ruby", name: "rspec-example", url: `${rspecCore}/lib/rspec/core/example.rb` },
-  { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
-  { lang: "ruby", name: "rake-task", url: `${rake}/lib/rake/task.rb` },
-  { lang: "markdown", name: "rack-readme", url: `${rack}/README.md` },
-  { lang: "markdown", name: "devise-readme", url: `${devise}/README.md` },
-  { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
-  { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
-  { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
-  { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
-  { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
-  { lang: "xml", name: "sample", url: `${samples}/xml.sample` },
-  { lang: "xml", name: "ant-build", url: `${ant}/build.xml` },
-  { lang: "xml", name: "commons-lang-pom", url: `${commonsLang}/pom.xml` },
-  { lang: "xml", name: "views-lots-of-cards", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml` },
-  { lang: "xml", name: "ant-junit-frames", url: `${ant}/src/etc/junit-frames.xsl` },
-  { lang: "xml", name: "rome-slashdot", url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml` },
-  { lang: "xml", name: "xerces-design", url: `${xerces}/design/xml/design.xml` },
-  { lang: "xml", name: "xerces-xni-config", url: `${xerces}/docs/xni-config.xml` },
-  { lang: "xml", name: "foundation-keyed-archive", url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist` },
-  { lang: "xml", name: "bootstrap-logo", url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg` },
-  { lang: "xml", name: "xerces-schedule", url: `${xerces}/design/xml/schedule.xml` },
-  { lang: "xml", name: "ant-checkstyle-frames", url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl` },
-  { lang: "xml", name: "rome-at", url: `${rome}/rome-modules/src/test/resources/xml/at.xml` },
-  { lang: "xml", name: "rome-yahoo-top-songs", url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml` },
-  { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
-  { lang: "xml", name: "views-activity-entrance", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml` },
   {
     lang: "swift",
     name: "argument-parser-command-parser",
@@ -825,8 +774,29 @@ export const inputs: Input[] = [
   },
   {
     lang: "swift",
+    name: "composable-store",
+    url: `${composable}/Sources/ComposableArchitecture/Store.swift`,
+  },
+  {
+    lang: "swift",
+    name: "kingfisher-image-processor",
+    url: `${kingfisher}/Sources/Image/ImageProcessor.swift`,
+  },
+  {
+    lang: "swift",
     name: "nio-codec",
     url: `${nio}/Sources/NIOCore/Codec.swift`,
+  },
+  { lang: "swift", name: "sample", url: `${samples}/swift.sample` },
+  {
+    lang: "swift",
+    name: "snapshot-assert-snapshot",
+    url: `${snapshotTesting}/Sources/SnapshotTesting/AssertSnapshot.swift`,
+  },
+  {
+    lang: "swift",
+    name: "string-processing-algorithms-tests",
+    url: `${stringProcessing}/Tests/RegexTests/AlgorithmsTests.swift`,
   },
   {
     lang: "swift",
@@ -838,98 +808,82 @@ export const inputs: Input[] = [
     name: "testing-runner-tests",
     url: `${swiftTesting}/Tests/TestingTests/RunnerTests.swift`,
   },
+  { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
+  { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
+  { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },
+  { lang: "toml", name: "poetry-pyproject", url: `${poetry}/pyproject.toml` },
+  { lang: "toml", name: "ripgrep-manifest", url: `${ripgrep}/Cargo.toml` },
+  { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
+  { lang: "toml", name: "sample", url: `${samples}/toml.sample` },
+  { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
+  { lang: "tsx", name: "sample", url: `${samples}/tsx.sample` },
+  { lang: "tsx", name: "shadcn-chart", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/chart.tsx` },
+  { lang: "tsx", name: "shadcn-combobox", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx` },
+  { lang: "tsx", name: "shadcn-sidebar", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/sidebar.tsx` },
+  { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
+  { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
   {
-    lang: "swift",
-    name: "kingfisher-image-processor",
-    url: `${kingfisher}/Sources/Image/ImageProcessor.swift`,
+    lang: "typescript",
+    name: "vue-api-create-app",
+    url: `${vue}/packages/runtime-core/src/apiCreateApp.ts`,
   },
   {
-    lang: "swift",
-    name: "snapshot-assert-snapshot",
-    url: `${snapshotTesting}/Sources/SnapshotTesting/AssertSnapshot.swift`,
+    lang: "typescript",
+    name: "vue-effect",
+    url: `${vue}/packages/reactivity/src/effect.ts`,
   },
   {
-    lang: "markdown",
-    name: "argument-parser-declaring-arguments",
-    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/DeclaringArguments.md`,
+    lang: "typescript",
+    name: "zod-classic-schemas",
+    url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
+  },
+  { lang: "xml", name: "ant-build", url: `${ant}/build.xml` },
+  { lang: "xml", name: "ant-checkstyle-frames", url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl` },
+  { lang: "xml", name: "ant-junit-frames", url: `${ant}/src/etc/junit-frames.xsl` },
+  { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
+  { lang: "xml", name: "bootstrap-logo", url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg` },
+  { lang: "xml", name: "commons-lang-pom", url: `${commonsLang}/pom.xml` },
+  { lang: "xml", name: "foundation-keyed-archive", url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist` },
+  { lang: "xml", name: "rome-at", url: `${rome}/rome-modules/src/test/resources/xml/at.xml` },
+  { lang: "xml", name: "rome-slashdot", url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml` },
+  { lang: "xml", name: "rome-yahoo-top-songs", url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml` },
+  { lang: "xml", name: "sample", url: `${samples}/xml.sample` },
+  { lang: "xml", name: "views-activity-entrance", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml` },
+  { lang: "xml", name: "views-lots-of-cards", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml` },
+  { lang: "xml", name: "xerces-design", url: `${xerces}/design/xml/design.xml` },
+  { lang: "xml", name: "xerces-schedule", url: `${xerces}/design/xml/schedule.xml` },
+  { lang: "xml", name: "xerces-xni-config", url: `${xerces}/docs/xni-config.xml` },
+  {
+    lang: "yaml",
+    name: "airflow-compose",
+    url: `${airflow}/airflow-core/docs/howto/docker-compose/docker-compose.yaml`,
   },
   {
-    lang: "markdown",
-    name: "kingfisher-common-tasks-cache",
-    url: `${kingfisher}/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md`,
+    lang: "yaml",
+    name: "checkout-test",
+    url: `${checkout}/.github/workflows/test.yml`,
   },
   {
-    lang: "markdown",
-    name: "argument-parser-getting-started",
-    url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md`,
+    lang: "yaml",
+    name: "petstore-openapi",
+    url: `${petstore}/src/main/resources/openapi.yaml`,
   },
-  // PowerShell runs on the TextMate engine.
-  { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },
-  { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
-  { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
-  { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
-  { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
-  { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
-  // Scala runs on the TextMate engine.
-  { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
-  { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
-  { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
-  { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
-  { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
-  { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
-  { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
-  { lang: "html", name: "sample", url: `${samples}/html.sample` },
-  { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
-  { lang: "html", name: "todomvc-backbone", url: `${todomvc}/examples/backbone/index.html` },
-  { lang: "html", name: "three-animation-keyframes", url: `${threeJs}/examples/webgl_animation_keyframes.html` },
-  { lang: "html", name: "mathjax-mml-chtml", url: `${mathjaxDemos}/page/mml-chtml.html` },
-  { lang: "html", name: "three-css3d-periodictable", url: `${threeJs}/examples/css3d_periodictable.html` },
-  { lang: "html", name: "jquery-qunit-fixture", url: `${jquery}/test/data/qunit-fixture.html` },
-  { lang: "html", name: "todomvc-polymer", url: `${todomvc}/examples/polymer/index.html` },
-  { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
-  { lang: "html", name: "todomvc-lit", url: `${todomvc}/examples/lit/index.html` },
-  { lang: "html", name: "three-geometry-colors", url: `${threeJs}/examples/webgl_geometry_colors.html` },
-  { lang: "html", name: "mathjax-tex-mml", url: `${mathjaxDemos}/page/tex-mml.html` },
-  { lang: "html", name: "three-loader-gltf", url: `${threeJs}/examples/webgl_loader_gltf.html` },
-  { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
-  { lang: "html", name: "jquery-delegatetest", url: `${jquery}/test/delegatetest.html` },
-  { lang: "html", name: "todomvc-knockoutjs", url: `${todomvc}/examples/knockoutjs/index.html` },
-  { lang: "html", name: "todomvc-jquery", url: `${todomvc}/examples/jquery/index.html` },
+  {
+    lang: "yaml",
+    name: "prometheus-config",
+    url: `${prometheus}/documentation/examples/prometheus.yml`,
+  },
+  {
+    lang: "yaml",
+    name: "ripgrep-ci",
+    url: `${ripgrep}/.github/workflows/ci.yml`,
+  },
+  { lang: "yaml", name: "sample", url: `${samples}/yaml.sample` },
   // Zig runs on the TextMate engine. Shiki's Markdown grammar has no Zig
   // fence, so no Markdown input embeds it.
   { lang: "zig", name: "sample", url: `${samples}/zig.sample` },
   { lang: "zig", name: "std-allocator", url: `${zig}/lib/std/mem/Allocator.zig` },
   { lang: "zig", name: "std-fmt", url: `${zig}/lib/std/fmt.zig` },
-  { lang: "zig", name: "zls-offsets", url: `${zls}/src/offsets.zig` },
   { lang: "zig", name: "zls-build", url: `${zls}/build.zig` },
-  { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
-  { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
-  { lang: "erb", name: "rails-routes-table", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb` },
-  { lang: "erb", name: "rails-rescues-source", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb` },
-  { lang: "erb", name: "devise-registrations-edit", url: `${devise}/app/views/devise/registrations/edit.html.erb` },
-  { lang: "erb", name: "rails-scaffold-form", url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt` },
-  { lang: "erb", name: "rails-mailer-email", url: `${rails}/railties/lib/rails/templates/rails/mailers/email.html.erb` },
-  { lang: "erb", name: "rails-rescues-diagnostics", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb` },
-  { lang: "erb", name: "rails-info-notes", url: `${rails}/railties/lib/rails/templates/rails/info/notes.html.erb` },
-  { lang: "erb", name: "rails-app-layout", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt` },
-  { lang: "erb", name: "rails-pwa-offline", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb` },
-  { lang: "erb", name: "devise-shared-links", url: `${devise}/app/views/devise/shared/_links.html.erb` },
-  { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
-  { lang: "erb", name: "devise-sessions-new", url: `${devise}/app/views/devise/sessions/new.html.erb` },
-  { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },
-  { lang: "lua", name: "sample", url: `${samples}/lua.sample` },
-  { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
-  { lang: "lua", name: "lume", url: `${lume}/lume.lua` },
-  { lang: "lua", name: "json", url: `${jsonLua}/json.lua` },
-  { lang: "lua", name: "penlight-stringx", url: `${penlight}/lua/pl/stringx.lua` },
-  { lang: "lua", name: "luarocks-util", url: `${luarocks}/src/luarocks/core/util.lua` },
-  { lang: "lua", name: "luals-string", url: `${luaLanguageServer}/meta/template/string.lua` },
-  { lang: "lua", name: "luals-table", url: `${luaLanguageServer}/meta/template/table.lua` },
-  { lang: "lua", name: "lua-literals", url: `${lua}/testes/literals.lua` },
-  // CMake runs on the TextMate engine. Shiki's Markdown grammar has no CMake
-  // fence, so no Markdown input embeds it.
-  { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },
-  { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
-  { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
-  { lang: "cmake", name: "catch2-lists", url: `${catch2}/CMakeLists.txt` },
+  { lang: "zig", name: "zls-offsets", url: `${zls}/src/offsets.zig` },
 ];

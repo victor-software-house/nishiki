@@ -45,12 +45,78 @@ macro_rules! tags {
 }
 
 tags! {
-    /// Rust.
-    #[cfg(feature = "lang-rust")]
-    RUST = 0x0100,
+    /// C, with the next byte for its end-of-line flag.
+    #[cfg(feature = "lang-c")]
+    C = 0x0c00 mask 0xfe00,
+    /// C++, with the next byte for the number of its rule.
+    #[cfg(feature = "lang-cpp")]
+    CPP = 0x2400 mask 0xfe00,
+    /// C#.
+    #[cfg(feature = "lang-csharp")]
+    CSHARP = 0x2c00,
+    /// CSS.
+    #[cfg(feature = "lang-css")]
+    CSS = 0x2600,
+    /// Diff.
+    #[cfg(feature = "lang-diff")]
+    DIFF = 0x0e00,
+    /// Dockerfiles.
+    #[cfg(feature = "lang-dockerfile")]
+    DOCKERFILE = 0x2000,
+    /// Go.
+    #[cfg(feature = "lang-go")]
+    GO = 0x2300,
+    /// GraphQL.
+    #[cfg(feature = "lang-graphql")]
+    GRAPHQL = 0x2200,
+    /// HTML.
+    #[cfg(feature = "lang-html")]
+    HTML = 0x2800,
+    /// INI files.
+    #[cfg(feature = "lang-ini")]
+    INI = 0x2100,
+    /// Java.
+    #[cfg(feature = "lang-java")]
+    JAVA = 0x0a00,
+    /// JSON.
+    #[cfg(feature = "lang-json")]
+    JSON = 0x0500,
+    /// Kotlin.
+    #[cfg(feature = "lang-kotlin")]
+    KOTLIN = 0x2a00,
+    /// Lua.
+    #[cfg(feature = "lang-lua")]
+    LUA = 0x2d00,
+    /// Makefiles.
+    #[cfg(feature = "lang-make")]
+    MAKE = 0x0b00,
     /// Markdown.
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = 0x0200,
+    /// Python.
+    #[cfg(feature = "lang-python")]
+    PYTHON = 0x0600,
+    /// Ruby.
+    #[cfg(feature = "lang-ruby")]
+    RUBY = 0x2700,
+    /// Rust.
+    #[cfg(feature = "lang-rust")]
+    RUST = 0x0100,
+    /// Shell.
+    #[cfg(feature = "lang-shell")]
+    SHELL = 0x0400,
+    /// SQL.
+    #[cfg(feature = "lang-sql")]
+    SQL = 0x0f00,
+    /// Swift.
+    #[cfg(feature = "lang-swift")]
+    SWIFT = 0x2b00,
+    /// The `TextMate` engine's, for every language it runs.
+    #[cfg(feature = "_textmate")]
+    TEXTMATE = 0x1000,
+    /// TOML.
+    #[cfg(feature = "lang-toml")]
+    TOML = 0x0900,
     /// TypeScript, JavaScript, JSX and TSX.
     #[cfg(any(
     feature = "lang-typescript",
@@ -59,78 +125,12 @@ tags! {
     feature = "lang-tsx"
 ))]
     TYPESCRIPT = 0x0300,
-    /// Shell.
-    #[cfg(feature = "lang-shell")]
-    SHELL = 0x0400,
-    /// JSON.
-    #[cfg(feature = "lang-json")]
-    JSON = 0x0500,
-    /// Python.
-    #[cfg(feature = "lang-python")]
-    PYTHON = 0x0600,
-    /// YAML.
-    #[cfg(feature = "lang-yaml")]
-    YAML = 0x0800,
-    /// TOML.
-    #[cfg(feature = "lang-toml")]
-    TOML = 0x0900,
-    /// Diff.
-    #[cfg(feature = "lang-diff")]
-    DIFF = 0x0e00,
-    /// Java.
-    #[cfg(feature = "lang-java")]
-    JAVA = 0x0a00,
-    /// Makefiles.
-    #[cfg(feature = "lang-make")]
-    MAKE = 0x0b00,
-    /// The `TextMate` engine's, for every language it runs.
-    #[cfg(feature = "_textmate")]
-    TEXTMATE = 0x1000,
-    /// Dockerfiles.
-    #[cfg(feature = "lang-dockerfile")]
-    DOCKERFILE = 0x2000,
-    /// C, with the next byte for its end-of-line flag.
-    #[cfg(feature = "lang-c")]
-    C = 0x0c00 mask 0xfe00,
-    /// C++, with the next byte for the number of its rule.
-    #[cfg(feature = "lang-cpp")]
-    CPP = 0x2400 mask 0xfe00,
-    /// SQL.
-    #[cfg(feature = "lang-sql")]
-    SQL = 0x0f00,
-    /// INI files.
-    #[cfg(feature = "lang-ini")]
-    INI = 0x2100,
-    /// GraphQL.
-    #[cfg(feature = "lang-graphql")]
-    GRAPHQL = 0x2200,
-    /// Go.
-    #[cfg(feature = "lang-go")]
-    GO = 0x2300,
-    /// CSS.
-    #[cfg(feature = "lang-css")]
-    CSS = 0x2600,
-    /// Ruby.
-    #[cfg(feature = "lang-ruby")]
-    RUBY = 0x2700,
-    /// Kotlin.
-    #[cfg(feature = "lang-kotlin")]
-    KOTLIN = 0x2a00,
-    /// Swift.
-    #[cfg(feature = "lang-swift")]
-    SWIFT = 0x2b00,
-    /// C#.
-    #[cfg(feature = "lang-csharp")]
-    CSHARP = 0x2c00,
     /// XML.
     #[cfg(feature = "lang-xml")]
     XML = 0x2900,
-    /// HTML.
-    #[cfg(feature = "lang-html")]
-    HTML = 0x2800,
-    /// Lua.
-    #[cfg(feature = "lang-lua")]
-    LUA = 0x2d00,
+    /// YAML.
+    #[cfg(feature = "lang-yaml")]
+    YAML = 0x0800,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

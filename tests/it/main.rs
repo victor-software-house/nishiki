@@ -4,3 +4,4 @@ mod alloc;
 mod fuzz;
 mod limits;
 mod oracle;
+mod sorted;

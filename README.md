@@ -116,42 +116,42 @@ assert_eq!(highlighter.limits().depth, None);
 
 | Language | Variant | Feature | Names `Language::from_name` takes |
 |:--|:--|:--|:--|
-| Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
-| Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
-| TypeScript | `Language::TypeScript` | `lang-typescript` | `typescript`, `ts`, `cts`, `mts` |
+| C | `Language::C` | `lang-c` | `c` |
+| CMake | `Language::CMake` | `lang-cmake` | `cmake` |
+| C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
+| C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
+| CSS | `Language::Css` | `lang-css` | `css` |
+| Diff | `Language::Diff` | `lang-diff` | `diff` |
+| Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
+| ERB | `Language::Erb` | `lang-erb` | `erb` |
+| Go | `Language::Go` | `lang-go` | `go`, `golang` |
+| GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
+| HTML | `Language::Html` | `lang-html` | `html` |
+| INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
+| Java | `Language::Java` | `lang-java` | `java` |
 | JavaScript | `Language::JavaScript` | `lang-javascript` | `javascript`, `js`, `cjs`, `mjs` |
-| JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
-| TSX | `Language::Tsx` | `lang-tsx` | `tsx` |
-| Shell | `Language::Shell` | `lang-shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
 | JSON | `Language::Json` | `lang-json` | `json` |
 | JSON with comments | `Language::Jsonc` | `lang-json` | `jsonc` |
 | JSON Lines | `Language::Jsonl` | `lang-json` | `jsonl` |
-| Python | `Language::Python` | `lang-python` | `python`, `py` |
-| YAML | `Language::Yaml` | `lang-yaml` | `yaml`, `yml` |
-| TOML | `Language::Toml` | `lang-toml` | `toml` |
-| Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
-| Diff | `Language::Diff` | `lang-diff` | `diff` |
-| Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
-| Java | `Language::Java` | `lang-java` | `java` |
-| C | `Language::C` | `lang-c` | `c` |
-| C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
-| SQL | `Language::Sql` | `lang-sql` | `sql` |
-| INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
-| GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
-| CSS | `Language::Css` | `lang-css` | `css` |
+| JSX | `Language::Jsx` | `lang-jsx` | `jsx` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
-| Go | `Language::Go` | `lang-go` | `go`, `golang` |
-| Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
-| C# | `Language::CSharp` | `lang-csharp` | `csharp`, `c#`, `cs` |
-| XML | `Language::Xml` | `lang-xml` | `xml` |
-| Swift | `Language::Swift` | `lang-swift` | `swift` |
-| PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
-| Scala | `Language::Scala` | `lang-scala` | `scala` |
-| HTML | `Language::Html` | `lang-html` | `html` |
-| Zig | `Language::Zig` | `lang-zig` | `zig` |
-| ERB | `Language::Erb` | `lang-erb` | `erb` |
 | Lua | `Language::Lua` | `lang-lua` | `lua` |
-| CMake | `Language::CMake` | `lang-cmake` | `cmake` |
+| Makefile | `Language::Make` | `lang-make` | `make`, `makefile` |
+| Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
+| PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
+| Python | `Language::Python` | `lang-python` | `python`, `py` |
+| Ruby | `Language::Ruby` | `lang-ruby` | `ruby`, `rb` |
+| Rust | `Language::Rust` | `lang-rust` | `rust`, `rs` |
+| Scala | `Language::Scala` | `lang-scala` | `scala` |
+| Shell | `Language::Shell` | `lang-shell` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
+| SQL | `Language::Sql` | `lang-sql` | `sql` |
+| Swift | `Language::Swift` | `lang-swift` | `swift` |
+| TOML | `Language::Toml` | `lang-toml` | `toml` |
+| TSX | `Language::Tsx` | `lang-tsx` | `tsx` |
+| TypeScript | `Language::TypeScript` | `lang-typescript` | `typescript`, `ts`, `cts`, `mts` |
+| XML | `Language::Xml` | `lang-xml` | `xml` |
+| YAML | `Language::Yaml` | `lang-yaml` | `yaml`, `yml` |
+| Zig | `Language::Zig` | `lang-zig` | `zig` |
 
 ### Features
 

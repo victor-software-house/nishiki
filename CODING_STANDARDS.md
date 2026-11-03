@@ -43,13 +43,18 @@ The table generates `Language`, `Language::ALL`, `Language::id`, the names `Lang
 The `Highlighter` and the Markdown fences both call `Language::lex`.
 A row names the language's module, and a dialect when one module serves several languages.
 
-A new language is wired in by appending:
+A new language is wired in with:
 
 1. its row in `src/language.rs`;
 2. its scope table: one line in `src/scope.rs`;
 3. its frame tag in `src/tag.rs`;
 4. its fence names in `src/markdown/fence.rs`;
 5. its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of the above (5.2).
+
+The scope tables, the frame tags and the `lang-*` features are sorted by language, and so are the other lists a language adds to: the README's language table, `src/scratch.rs`, `mise-tasks/check/features.sh`, `mise-tasks/callgrind.sh`, `oracle/inputs.ts` and `tests/oracle/SOURCES.md`.
+A new row goes in its sorted place, never at the end, so two languages added in parallel edit different lines.
+`tests/it/sorted.rs` fails when a list is out of order.
+The rows of `src/language.rs` stay in the order they were added, with a new row at the end, until the next minor release sorts them: their order sets the discriminants of the public `Language` enum and the order of `Language::ALL`, so moving one is an API break.
 
 A language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API,
