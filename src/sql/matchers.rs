@@ -121,14 +121,25 @@ impl Lexer<'_> {
 
     /// The end of the ASCII word `word` at `i`, matched without regard to
     /// case, as `(?i)` reads it: `ſ` is an `s` and the Kelvin sign a `k`.
+    ///
+    /// An ASCII byte is compared as it is, so only a multibyte character is
+    /// decoded and folded.
     pub(super) fn lit(&self, i: usize, word: &str) -> Option<usize> {
         let mut at = i;
         for &expected in word.as_bytes() {
-            let (c, width) = char_at(self.s, at)?;
-            if fold(c)? != expected.to_ascii_lowercase() {
-                return None;
+            let &byte = self.s.get(at)?;
+            if byte.is_ascii() {
+                if !byte.eq_ignore_ascii_case(&expected) {
+                    return None;
+                }
+                at += 1;
+            } else {
+                let (c, width) = char_at(self.s, at)?;
+                if fold(c)? != expected.to_ascii_lowercase() {
+                    return None;
+                }
+                at += width;
             }
-            at += width;
         }
         Some(at)
     }

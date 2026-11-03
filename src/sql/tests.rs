@@ -43,10 +43,24 @@ fn a_query_keyword_is_one_token_with_its_words() {
 }
 
 #[test]
-fn a_case_fold_of_the_unicode_engine_reads_a_long_s_as_s() {
+fn a_case_fold_of_the_unicode_engine_reads_a_long_s_as_s_and_kelvin_as_k() {
     assert_eq!(
         scopes_of("\u{17f}elect 1", "\u{17f}elect"),
         names(&["keyword.other.DML.sql"])
+    );
+    assert_eq!(
+        scopes_of("select DI\u{17f}tinct x", "select DI\u{17f}tinct"),
+        names(&["keyword.other.DML.sql"]),
+        "in a later word, in mixed case, after ASCII letters"
+    );
+    assert_eq!(
+        scopes_of("a LI\u{212a}E b", "LI\u{212a}E"),
+        names(&["keyword.other.DML.sql"])
+    );
+    assert_eq!(
+        scopes_of("primary \u{212a}EY (x)", "primary \u{212a}EY"),
+        names(&["storage.modifier.sql"]),
+        "in a later word"
     );
 }
 
