@@ -9,7 +9,7 @@ use super::super::engine::Lexer;
 use super::super::few::Few;
 use super::super::limits::MAX_COMMENT_RUNS;
 use super::chars::{is_space, is_word};
-use crate::classes::is_ascii_word;
+use crate::classes::{is_ascii_word, space_width};
 use crate::rules::Chars;
 
 /// One way the block matches at a position.
@@ -39,12 +39,19 @@ pub(crate) enum GapForm {
 /// comment runs, longest first, which most positions have none of, then up
 /// to three ways without a comment. It keeps the longest
 /// [`MAX_COMMENT_RUNS`] runs, so making it allocates nothing.
-pub(crate) struct Gaps {
-    /// The runs found, each at its index modulo [`MAX_COMMENT_RUNS`], so the
-    /// longer ones replace the shortest.
-    runs: [Run; MAX_COMMENT_RUNS],
-    /// How many runs were found.
-    found: usize,
+///
+/// It holds where the first kept run opens rather than every run, and finds
+/// each run again from there as it gives it, so that it stays small enough
+/// to be returned without a call to copy it.
+pub(crate) struct Gaps<'a> {
+    /// The text the runs lie in.
+    s: &'a [u8],
+    /// Whether a line feed follows the text.
+    nl: bool,
+    /// Where the first kept run opens.
+    first: usize,
+    /// How many runs are kept.
+    kept: usize,
     /// How many of the kept runs were given.
     taken: usize,
     /// The ends of the ways without a comment.
@@ -55,19 +62,61 @@ pub(crate) struct Gaps {
 
 /// A run of comments and white space: where its last comment opens and
 /// closes, and where the run ends.
-#[derive(Clone, Copy, Default)]
+#[derive(Clone, Copy)]
 struct Run {
     open: usize,
     close: usize,
     end: usize,
 }
 
-impl Iterator for Gaps {
+impl Run {
+    /// The run whose comment opens at `open` in `s`, which has a `/*`
+    /// there.
+    fn at(s: &[u8], nl: bool, open: usize) -> Option<Run> {
+        let close = comment_close(s, open)?;
+        Some(Run {
+            open,
+            close,
+            end: blank_end(s, nl, close + 2),
+        })
+    }
+}
+
+/// The index of the `*/` that closes a comment whose `/*` is at `open`.
+fn comment_close(s: &[u8], open: usize) -> Option<usize> {
+    memchr::memmem::find(s.get(open + 2..)?, b"*/").map(|i| open + 2 + i)
+}
+
+/// The end of the `\s*` from `i` in `s`, which takes the line feed after it
+/// when `nl` holds, as [`Lexer::skip_space`] does.
+///
+/// It mirrors [`Chars::space_end`] over the text alone, because `Gaps` holds
+/// no lexer. One function shared by both cost Java 2% of its instructions at
+/// one codegen unit, even inlined, so each keeps its own loop.
+fn blank_end(s: &[u8], nl: bool, mut i: usize) -> usize {
+    loop {
+        let width = space_width(s, i);
+        if width == 0 {
+            return if nl && i == s.len() { i + 1 } else { i };
+        }
+        i += width;
+    }
+}
+
+impl Iterator for Gaps<'_> {
     type Item = Gap;
 
+    #[expect(
+        clippy::inline_always,
+        reason = "every matcher with a gap loops over it, and out of line it cost C++ 3.5% of its instructions"
+    )]
+    #[inline(always)]
     fn next(&mut self) -> Option<Gap> {
-        if self.taken < self.found.min(MAX_COMMENT_RUNS) {
-            let run = self.runs[(self.found - 1 - self.taken) % MAX_COMMENT_RUNS];
+        if self.taken < self.kept {
+            let mut run = Run::at(self.s, self.nl, self.first)?;
+            for _ in 1..self.kept - self.taken {
+                run = Run::at(self.s, self.nl, run.end)?;
+            }
             self.taken += 1;
             return Some(Gap {
                 end: run.end,
@@ -89,7 +138,7 @@ impl Iterator for Gaps {
     }
 }
 
-impl Lexer<'_> {
+impl<'a> Lexer<'a> {
     /// Every way the block matches at `p`, in the order the expression tries
     /// them.
     ///
@@ -97,31 +146,18 @@ impl Lexer<'_> {
     /// white space, taken greedily and given back one at a time. The others
     /// are `\s++`, the zero-width `(?<=\W)`, `(?=\W)` and `^`, and `\n?$`,
     /// which takes the line feed when one follows.
-    pub(crate) fn gaps(&self, p: usize) -> Gaps {
+    pub(crate) fn gaps(&self, p: usize) -> Gaps<'a> {
+        let spaces = self.skip_space(p);
+        let (first, kept) = self.comment_runs(spaces);
         let mut out = Gaps {
-            runs: [Run::default(); MAX_COMMENT_RUNS],
-            found: 0,
+            s: self.s,
+            nl: self.nl,
+            first,
+            kept,
             taken: 0,
             plain: Few::new(),
             plain_taken: 0,
         };
-        let spaces = self.skip_space(p);
-        let mut at = p;
-        let mut q = spaces;
-        while let Some(close) = self.comment_close(q) {
-            let end = self.skip_space(close + 2);
-            out.runs[out.found % MAX_COMMENT_RUNS] = Run {
-                open: q,
-                close,
-                end,
-            };
-            out.found += 1;
-            if end == at {
-                break;
-            }
-            at = end;
-            q = self.skip_space(at);
-        }
         if spaces > p {
             out.plain.push(spaces);
         }
@@ -146,12 +182,23 @@ impl Lexer<'_> {
         out
     }
 
-    /// The index of the `*/` that closes a comment that starts at `q`.
-    fn comment_close(&self, q: usize) -> Option<usize> {
-        if !self.starts(q, b"/*") {
-            return None;
+    /// Where the first of the longest [`MAX_COMMENT_RUNS`] comment runs from
+    /// `spaces` opens, and how many runs that is.
+    fn comment_runs(&self, spaces: usize) -> (usize, usize) {
+        if !self.starts(spaces, b"/*") {
+            return (spaces, 0);
         }
-        memchr::memmem::find(&self.s[q + 2..], b"*/").map(|i| q + 2 + i)
+        let mut opens = [spaces; MAX_COMMENT_RUNS];
+        let mut found = 0;
+        let mut q = spaces;
+        while self.starts(q, b"/*")
+            && let Some(close) = comment_close(self.s, q)
+        {
+            opens[found % MAX_COMMENT_RUNS] = q;
+            found += 1;
+            q = self.skip_space(self.skip_space(close + 2));
+        }
+        (opens[found % MAX_COMMENT_RUNS], found.min(MAX_COMMENT_RUNS))
     }
 
     /// Records a way the block matched, which started at `p`, as the groups
