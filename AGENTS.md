@@ -134,6 +134,16 @@ The decisions that created nishiki live in a private planning repository:
 4. `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures,
    which keep their sources' spelling.
    Search them with `rg -u`.
+5. Three tools reach past the fixtures, each run by hand with an ignored test:
+
+   | Tool | Does |
+   |:--|:--|
+   | `oracle/fuzz.ts` | Writes a corpus of mutated and generated documents, bare and in Markdown fences. |
+   | `oracle/dump.ts` | Writes a corpus of held-out files. |
+   | `oracle/onig.ts` | Checks a language's hand matchers against Oniguruma, one expression at a time, through the language's `matchers_answer_the_probe_cases` test. |
+
+   `the_corpus_matches_shiki` in `tests/it/oracle.rs` compares a corpus with nishiki.
+   `oracle/fuzz/<language>.ts` holds what the tools draw on for one language.
 
 ### Benchmarks
 

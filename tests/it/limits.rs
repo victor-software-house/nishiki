@@ -2,6 +2,7 @@
 //! Each language's hostile lines are in `limits/<language>.rs`.
 
 mod c;
+mod cpp;
 mod csharp;
 mod css;
 mod diff;

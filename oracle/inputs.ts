@@ -171,6 +171,20 @@ const lua =
   "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
 const unity =
   "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
+const leveldb =
+  "https://raw.githubusercontent.com/google/leveldb/bb74ef739973a70ca9f0d90788a1da89b788c0ad";
+const rapidjson =
+  "https://raw.githubusercontent.com/Tencent/rapidjson/24b5e7a8b27f42fa16b96fc70aade9106cf7102f";
+const spdlog =
+  "https://raw.githubusercontent.com/gabime/spdlog/6d9805df3f588402b17073dcd13eb569ceda864d";
+const abseil =
+  "https://raw.githubusercontent.com/abseil/abseil-cpp/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8";
+const benchmark =
+  "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
+const fmt =
+  "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
+const catch2 =
+  "https://raw.githubusercontent.com/catchorg/Catch2/a1a991fee5f217b40035cb2f8ebc83864d66408d";
 
 const postgres =
   "https://raw.githubusercontent.com/postgres/postgres/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3";
@@ -577,6 +591,15 @@ export const inputs: Input[] = [
     name: "unity-getting-started",
     url: `${unity}/docs/UnityGettingStartedGuide.md`,
   },
+  { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
+  { lang: "cpp", name: "leveldb-version-set", url: `${leveldb}/db/version_set.cc` },
+  { lang: "cpp", name: "rapidjson-reader", url: `${rapidjson}/include/rapidjson/reader.h` },
+  { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
+  { lang: "cpp", name: "absl-str-split", url: `${abseil}/absl/strings/str_split.h` },
+  { lang: "cpp", name: "benchmark-core", url: `${benchmark}/src/benchmark.cc` },
+  { lang: "cpp", name: "fmt-ranges", url: `${fmt}/include/fmt/ranges.h` },
+  { lang: "markdown", name: "catch2-tutorial", url: `${catch2}/docs/tutorial.md` },
+  { lang: "markdown", name: "benchmark-user-guide", url: `${benchmark}/docs/user_guide.md` },
   { lang: "sql", name: "sample", url: `${samples}/sql.sample` },
   { lang: "sql", name: "postgres-select", url: `${postgres}/src/test/regress/sql/select.sql` },
   {

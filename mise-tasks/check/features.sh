@@ -26,6 +26,7 @@ cargo check --locked --tests --no-default-features --features lang-diff
 cargo check --locked --tests --no-default-features --features lang-dockerfile
 cargo check --locked --tests --no-default-features --features lang-java
 cargo check --locked --tests --no-default-features --features lang-c
+cargo check --locked --tests --no-default-features --features lang-cpp
 cargo check --locked --tests --no-default-features --features lang-sql
 cargo check --locked --tests --no-default-features --features lang-ini
 cargo check --locked --tests --no-default-features --features lang-graphql

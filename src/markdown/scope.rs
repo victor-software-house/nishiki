@@ -58,6 +58,8 @@ crate::scope::scope_table! {
     EmbeddedJava "meta.embedded.block.java"
     #[cfg(feature = "lang-c")]
     EmbeddedC "meta.embedded.block.c"
+    #[cfg(feature = "lang-cpp")]
+    EmbeddedCpp "meta.embedded.block.cpp"
     #[cfg(feature = "lang-sql")]
     EmbeddedSql "meta.embedded.block.sql"
     #[cfg(feature = "lang-ini")]

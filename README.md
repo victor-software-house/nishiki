@@ -135,6 +135,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `docker`, `dockerfile` |
 | Java | `Language::Java` | `lang-java` | `java` |
 | C | `Language::C` | `lang-c` | `c` |
+| C++ | `Language::Cpp` | `lang-cpp` | `cpp`, `c++` |
 | SQL | `Language::Sql` | `lang-sql` | `sql` |
 | INI | `Language::Ini` | `lang-ini` | `ini`, `properties` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
@@ -165,7 +166,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
-  | `systems` | Rust, C, Shell, Java, Kotlin, Go, Swift |
+  | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
 
 - `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
@@ -289,6 +290,22 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   so in a Markdown fence indented by a list item a directive is plain text.
 - An unterminated string keeps every later line.
 - `\d`, `\w` and `\s` for non-ASCII characters come from the JSON table above.
+
+### C++
+
+- A Markdown fence's C++ lines keep `source.cpp` on the stack, where C's lose `source.c`.
+- A Markdown fence names the languages `cpp`, `c++` and `cxx`.
+- Raw strings are lexed without the grammars that Shiki embeds in `R"re(`, `R"_r(`, `R"regex(`, `R"glsl(` and `R"GLSL(`.
+  Their text is plain raw-string text.
+- A raw string whose delimiter is longer than 16 bytes closes on `)"` alone.
+  Shiki closes it on the delimiter.
+- `\d`, `\w` and `\s` for non-ASCII characters come from the JSON table above.
+- Bounds the lexer sets itself, beside `Limits`:
+  - template arguments and bracket groups nested deeper than 20 levels do not match, as in the Oniguruma engine Shiki runs;
+  - a repetition that a matcher follows by recursion, such as a run of type specifiers, stops after 64 iterations;
+  - an attribute tries its first 16 closings, so a line with more reads as having no later ones;
+  - comments between two tokens give back at most 8 of themselves when what follows fails;
+  - capture groups lexed again inside one another, as a long `a::b::c::` chain's are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
 
 ### Java
 

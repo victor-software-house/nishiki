@@ -32,6 +32,9 @@ pub(crate) struct Scratch {
         feature = "lang-tsx"
     ))]
     pub(crate) typescript: Vec<crate::typescript::Opened>,
+    /// The C++ lexer's, for C++ documents and Markdown C++ fences.
+    #[cfg(feature = "lang-cpp")]
+    pub(crate) cpp: crate::cpp::Scratch,
     /// The CSS lexer's, for CSS documents and Markdown CSS fences.
     #[cfg(feature = "lang-css")]
     pub(crate) css: crate::css::Scratch,

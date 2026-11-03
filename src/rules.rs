@@ -17,7 +17,16 @@ mod tables;
 
 use std::fmt::Debug;
 
-#[cfg(feature = "_rule-tables")]
+#[cfg(any(
+    feature = "lang-python",
+    feature = "lang-java",
+    feature = "lang-css",
+    feature = "lang-kotlin",
+    feature = "lang-go",
+    feature = "lang-ruby",
+    feature = "lang-csharp",
+    feature = "lang-swift"
+))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;
 pub(crate) use lexer::{Lexer, Scratch};
@@ -261,13 +270,6 @@ pub(crate) enum ScopeName {
     /// A scope whose name repeats the text of a capture group of the match,
     /// as `storage.type.$1.cpp` does: `prefix`, the text of group `group`
     /// and `suffix`.
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "C and C++ name scopes from capture text; until they land only the unit tests do"
-        )
-    )]
     Capture {
         prefix: &'static str,
         group: u8,

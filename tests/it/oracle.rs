@@ -303,3 +303,39 @@ fn every_language_matches_shiki() {
 fn every_language_colours_match_shiki() {
     every_language(colour_failures);
 }
+
+/// Compares nishiki with Shiki on a corpus that `oracle/fuzz.ts` wrote: every
+/// `<name>.<language>.txt` in the directory `ORACLE_CORPUS` names. It prints
+/// each document that differs and fails when any does.
+#[test]
+#[ignore = "a tool: it needs a corpus from oracle/fuzz.ts in ORACLE_CORPUS"]
+fn the_corpus_matches_shiki() {
+    let dir = std::env::var("ORACLE_CORPUS").expect("ORACLE_CORPUS names a directory");
+    let mut paths: Vec<PathBuf> = fs::read_dir(&dir)
+        .expect("a readable corpus directory")
+        .map(|entry| entry.expect("a readable directory entry").path())
+        .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
+        .collect();
+    paths.sort();
+    let mut differing = 0;
+    let mut bytes = 0;
+    for path in &paths {
+        let name = path
+            .file_stem()
+            .and_then(|stem| Path::new(stem).extension())
+            .and_then(|ext| ext.to_str())
+            .expect("a name `<name>.<language>.txt`");
+        let language = Language::from_name(name).expect("a language nishiki builds");
+        let (checked, misses) = compare(&parse(path), lexer(language));
+        if !misses.is_empty() {
+            differing += 1;
+            bytes += misses.len();
+            println!("{}", report(path, checked, &misses));
+        }
+    }
+    println!(
+        "{} documents, {differing} differ, {bytes} bytes differ",
+        paths.len()
+    );
+    assert_eq!(differing, 0, "{differing} documents differ from Shiki");
+}

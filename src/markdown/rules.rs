@@ -410,6 +410,8 @@ const EMBEDDED: &[(Language, S)] = &[
     (Language::Java, S::EmbeddedJava),
     #[cfg(feature = "lang-c")]
     (Language::C, S::EmbeddedC),
+    #[cfg(feature = "lang-cpp")]
+    (Language::Cpp, S::EmbeddedCpp),
     #[cfg(feature = "lang-sql")]
     (Language::Sql, S::EmbeddedSql),
     #[cfg(feature = "lang-ini")]

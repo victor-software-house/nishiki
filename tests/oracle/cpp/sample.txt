@@ -1,0 +1,113 @@
+L // Working of implicit type-conversion
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 38 source.cpp comment.line.double-slash.cpp
+L 
+L #include <iostream>
+T 1 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 source.cpp meta.preprocessor.include.cpp
+T 10 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 18 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 19 source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L using namespace std;
+T 5 source.cpp meta.using-namespace.cpp keyword.other.using.directive.cpp
+T 6 source.cpp meta.using-namespace.cpp
+T 15 source.cpp meta.using-namespace.cpp keyword.other.namespace.directive.cpp storage.type.namespace.directive.cpp
+T 16 source.cpp meta.using-namespace.cpp
+T 19 source.cpp meta.using-namespace.cpp entity.name.namespace.cpp
+T 20 source.cpp meta.using-namespace.cpp punctuation.terminator.statement.cpp
+L 
+L int main() {
+T 3 source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 4 source.cpp meta.function.definition.cpp
+T 8 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 9 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 10 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 11 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 12 source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L 
+L    int num_int;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.declaration.cpp
+T 6 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.declaration.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 7 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.declaration.cpp
+T 14 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.declaration.cpp meta.declaration.cpp variable.snake-case.cpp variable.other.declare.cpp
+T 15 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L    double num_double = 9.99;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 9 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 20 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.assignment.cpp variable.snake-case.cpp variable.other.assignment.cpp
+T 21 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 22 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp meta.assignment.cpp keyword.operator.assignment.cpp
+T 23 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp
+T 24 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp constant.numeric.decimal.cpp
+T 25 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp constant.numeric.decimal.point.cpp
+T 27 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp meta.assignment.cpp constant.numeric.decimal.cpp
+T 28 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L 
+L    // implicit conversion
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp
+T 5 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 25 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp
+L    // assigning a double value to an int variable
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp
+T 5 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 49 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp comment.line.double-slash.cpp
+L    num_int = num_double;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.snake-case.cpp variable.other.unknown.num_int.cpp
+T 11 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.assignment.cpp
+T 13 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 23 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.snake-case.cpp variable.other.unknown.num_double.cpp
+T 24 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L 
+L    cout << "num_int = " << num_int << endl;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 7 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.cout.cpp
+T 8 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 11 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 22 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp
+T 23 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 24 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 26 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 27 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 34 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.snake-case.cpp variable.other.unknown.num_int.cpp
+T 35 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 37 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 38 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 42 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.endl.cpp
+T 43 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L    cout << "num_double = " << num_double << endl;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 7 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.cout.cpp
+T 8 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 11 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 25 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp
+T 26 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 27 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 29 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 30 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 40 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.snake-case.cpp variable.other.unknown.num_double.cpp
+T 41 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 43 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.bitwise.shift.cpp
+T 44 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 48 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.endl.cpp
+T 49 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L 
+L    return 0;
+T 3 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 9 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 10 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 11 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 12 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L // From https://www.programiz.com/cpp-programming/type-conversion
+T 2 source.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 65 source.cpp comment.line.double-slash.cpp

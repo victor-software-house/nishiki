@@ -1,0 +1,1285 @@
+L <a id="top"></a>
+T 16 text.html.markdown meta.paragraph.markdown
+L # Tutorial
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 10 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L **Contents**<br>
+T 2 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 16 text.html.markdown meta.paragraph.markdown
+L [Getting Catch2](#getting-catch2)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 17 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 32 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 33 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 37 text.html.markdown meta.paragraph.markdown
+L [Writing tests](#writing-tests)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 14 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 15 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 16 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 35 text.html.markdown meta.paragraph.markdown
+L [Test cases and sections](#test-cases-and-sections)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 26 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 55 text.html.markdown meta.paragraph.markdown
+L [BDD style testing](#bdd-style-testing)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 18 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 43 text.html.markdown meta.paragraph.markdown
+L [Data and Type driven tests](#data-and-type-driven-tests)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 28 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 56 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 57 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 61 text.html.markdown meta.paragraph.markdown
+L [Next steps](#next-steps)<br>
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 12 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 13 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 24 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 25 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 29 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Getting Catch2
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 17 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Ideally you should be using Catch2 through its [CMake integration](cmake-integration.md#top).
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 65 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 66 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 67 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 91 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 92 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 93 text.html.markdown meta.paragraph.markdown
+L Catch2 also provides pkg-config files and two file (header + cpp)
+T 65 text.html.markdown meta.paragraph.markdown
+L distribution, but this documentation will assume you are using CMake. If
+T 72 text.html.markdown meta.paragraph.markdown
+L you are using the two file distribution instead, remember to replace
+T 68 text.html.markdown meta.paragraph.markdown
+L the included header with `catch_amalgamated.hpp` ([step by step instructions](migrate-v2-to-v3.md#how-to-migrate-projects-from-v2-to-v3)).
+T 25 text.html.markdown meta.paragraph.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 50 text.html.markdown meta.paragraph.markdown
+T 51 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 135 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 136 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 138 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Writing tests
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 16 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Let's start with a really simple example ([code](../examples/010-TestCase.cpp)). Say you have written a function to calculate factorials and now you want to test it (let's leave aside TDD for now).
+T 42 text.html.markdown meta.paragraph.markdown
+T 43 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 78 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 197 text.html.markdown meta.paragraph.markdown
+L 
+L ```c++
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L unsigned int Factorial( unsigned int number ) {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L     return number <= 1 ? number : Factorial(number-1)*number;
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.comparison.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```c++
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L #include <catch2/catch_test_macros.hpp>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp punctuation.definition.directive.cpp
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp keyword.control.directive.include.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.begin.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.preprocessor.include.cpp string.quoted.other.lt-gt.include.cpp punctuation.definition.string.end.cpp
+L 
+L unsigned int Factorial( unsigned int number ) {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L     return number <= 1 ? number : Factorial(number-1)*number;
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.comparison.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L 
+L TEST_CASE( "Factorials are computed", "[factorial]" ) {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.separator.delimiter.comma.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L     REQUIRE( Factorial(1) == 1 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(2) == 2 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(3) == 6 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(10) == 3628800 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L This will compile to a complete executable which responds to [command line arguments](command-line.md#top). If you just run it with no arguments it will execute all test cases (in this case there is just one), report any failures, report a summary of how many tests passed and failed and return the number of failed tests (useful for if you just want a yes/ no answer to: "did it work").
+T 61 text.html.markdown meta.paragraph.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 84 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 85 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 86 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 105 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 106 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 387 text.html.markdown meta.paragraph.markdown
+L 
+L Anyway, as the tests above as written will pass, but there is a bug.
+T 68 text.html.markdown meta.paragraph.markdown
+L The problem is that `Factorial(0)` should return 1 (due to [its
+T 20 text.html.markdown meta.paragraph.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown
+L definition](https://en.wikipedia.org/wiki/Factorial#Factorial_of_zero)).
+T 72 text.html.markdown meta.paragraph.markdown
+L Let's add that as an assertion to the test case:
+T 48 text.html.markdown meta.paragraph.markdown
+L 
+L ```c++
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L TEST_CASE( "Factorials are computed", "[factorial]" ) {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.separator.delimiter.comma.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 54 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L     REQUIRE( Factorial(0) == 1 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(1) == 1 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(2) == 2 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(3) == 6 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( Factorial(10) == 3628800 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L After another compile & run cycle, we will see a test failure. The output
+T 22 text.html.markdown meta.paragraph.markdown
+T 23 text.html.markdown meta.paragraph.markdown meta.other.valid-ampersand.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L will look something like:
+T 25 text.html.markdown meta.paragraph.markdown
+L 
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L Example.cpp:9: FAILED:
+T 22 text.html.markdown markup.fenced_code.block.markdown
+L   REQUIRE( Factorial(0) == 1 )
+T 30 text.html.markdown markup.fenced_code.block.markdown
+L with expansion:
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L   0 == 1
+T 8 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Note that the output contains both the original expression,
+T 59 text.html.markdown meta.paragraph.markdown
+L `REQUIRE( Factorial(0) == 1 )` and the actual value returned by the call
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+L to the `Factorial` function: `0`.
+T 7 text.html.markdown meta.paragraph.markdown
+T 8 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 29 text.html.markdown meta.paragraph.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown
+L 
+L We can fix this bug by slightly modifying the `Factorial` function to:
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown meta.paragraph.markdown
+L ```c++
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L unsigned int Factorial( unsigned int number ) {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.qualified-type.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp entity.name.function.definition.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.begin.bracket.round.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp variable.parameter.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp meta.function.definition.parameters meta.parameter.cpp
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.parameters.end.bracket.round.cpp
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.head.function.definition.cpp punctuation.section.block.begin.bracket.curly.function.definition.cpp
+L   return number > 1 ? Factorial(number-1)*number : 1;
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.control.return.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.comparison.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp entity.name.function.call.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.arithmetic.cpp
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp variable.lower-case.cpp variable.other.unknown.number.cpp
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp keyword.operator.ternary.cpp
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp constant.numeric.decimal.cpp
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.terminator.statement.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.function.definition.cpp meta.body.function.definition.cpp punctuation.section.block.end.bracket.curly.function.definition.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L 
+L ### What did we do here?
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 24 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+L 
+L Although this was a simple test it's been enough to demonstrate a few
+T 69 text.html.markdown meta.paragraph.markdown
+L things about how Catch2 is used. Let's take a moment to consider those
+T 70 text.html.markdown meta.paragraph.markdown
+L before we move on.
+T 18 text.html.markdown meta.paragraph.markdown
+L 
+L * We introduce test cases with the `TEST_CASE` macro. This macro takes
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 35 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 36 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 45 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 46 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 70 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   one or two string arguments - a free form test name and, optionally,
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 70 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   one or more tags (for more see [Test cases and Sections](#test-cases-and-sections)).
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 33 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 34 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 57 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 58 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 59 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 83 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 84 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 86 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L * The test automatically self-registers with the test runner, and user
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 70 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   does not have do anything more to ensure that it is picked up by the test
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 75 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   framework. _Note that you can run specific test, or set of tests,
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 67 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   through the [command line](command-line.md#top)._
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 14 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 15 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 27 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 28 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 29 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 48 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 49 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 51 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L * The individual test assertions are written using the `REQUIRE` macro.
+T 1 text.html.markdown markup.list.unnumbered.markdown punctuation.definition.list.begin.markdown
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 55 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+T 56 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 64 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 71 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   It accepts a boolean expression, and uses expression templates to
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 67 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   internally decompose it, so that it can be individually stringified
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 69 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L   on test failure.
+T 2 text.html.markdown markup.list.unnumbered.markdown
+T 18 text.html.markdown markup.list.unnumbered.markdown meta.paragraph.markdown
+L 
+L On the last point, note that there are more testing macros available,
+T 69 text.html.markdown meta.paragraph.markdown
+L because not all useful checks can be expressed as a simple boolean
+T 66 text.html.markdown meta.paragraph.markdown
+L expression. As an example, checking that an expression throws an exception
+T 74 text.html.markdown meta.paragraph.markdown
+L is done with the `REQUIRE_THROWS` macro. More on that later.
+T 17 text.html.markdown meta.paragraph.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 32 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Test cases and sections
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 26 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Like most test frameworks, Catch2 supports a class-based fixture mechanism,
+T 75 text.html.markdown meta.paragraph.markdown
+L where individual tests are methods on class and setup/teardown can be
+T 69 text.html.markdown meta.paragraph.markdown
+L done in constructor/destructor of the type.
+T 43 text.html.markdown meta.paragraph.markdown
+L 
+L However, their use in Catch2 is rare, because idiomatic Catch2 tests
+T 68 text.html.markdown meta.paragraph.markdown
+L instead use _sections_ to share setup and teardown code between test code.
+T 12 text.html.markdown meta.paragraph.markdown
+T 13 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 74 text.html.markdown meta.paragraph.markdown
+L This is best explained through an example ([code](../examples/100-Fix-Section.cpp)):
+T 43 text.html.markdown meta.paragraph.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 49 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 50 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 81 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 82 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+L 
+L ```c++
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L TEST_CASE( "vectors can be sized and resized", "[vector]" ) {
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.separator.delimiter.comma.cpp
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L     // This setup will be done 4 times in total, once for each section
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp comment.line.double-slash.cpp
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp comment.line.double-slash.cpp punctuation.definition.comment.cpp
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp comment.line.double-slash.cpp
+L     std::vector<int> v( 5 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.scope-resolution.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.namespace.access.cpp punctuation.separator.scope-resolution.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.qualified-type.cpp entity.name.type.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.begin.template.call.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.qualified-type.cpp meta.template.call.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.qualified-type.cpp meta.template.call.cpp punctuation.section.angle-brackets.end.template.call.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L     REQUIRE( v.size() == 5 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.member.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     REQUIRE( v.capacity() >= 5 );
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L     SECTION( "resizing bigger changes size and capacity" ) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 55 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L         v.resize( 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L         REQUIRE( v.size() == 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         REQUIRE( v.capacity() >= 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L     SECTION( "resizing smaller changes size but not capacity" ) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L         v.resize( 0 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L         REQUIRE( v.size() == 0 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         REQUIRE( v.capacity() >= 5 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L     SECTION( "reserving bigger changes capacity but not size" ) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L         v.reserve( 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L         REQUIRE( v.size() == 5 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         REQUIRE( v.capacity() >= 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L     SECTION( "reserving smaller does not change size or capacity" ) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 66 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L         v.reserve( 0 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L         REQUIRE( v.size() == 5 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         REQUIRE( v.capacity() >= 5 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L For each `SECTION` the `TEST_CASE` is **executed from the start**. This means
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 17 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 18 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 23 text.html.markdown meta.paragraph.markdown
+T 24 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 34 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 38 text.html.markdown meta.paragraph.markdown
+T 40 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 63 text.html.markdown meta.paragraph.markdown markup.bold.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.bold.markdown punctuation.definition.bold.markdown
+T 77 text.html.markdown meta.paragraph.markdown
+L that each section is entered with a freshly constructed vector `v`, that
+T 63 text.html.markdown meta.paragraph.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 66 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+L we know has size 5 and capacity at least 5, because the two assertions
+T 70 text.html.markdown meta.paragraph.markdown
+L are also checked before the section is entered. This behaviour may not be
+T 73 text.html.markdown meta.paragraph.markdown
+L ideal for tests where setup is expensive. Each run through a test case will
+T 75 text.html.markdown meta.paragraph.markdown
+L execute one, and only one, leaf section.
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L Section can also be nested, in which case the parent section can be
+T 67 text.html.markdown meta.paragraph.markdown
+L entered multiple times, once for each leaf section. Nested sections are
+T 71 text.html.markdown meta.paragraph.markdown
+L most useful when you have multiple tests that share part of the set up.
+T 71 text.html.markdown meta.paragraph.markdown
+L To continue on the vector example above, you could add a check that
+T 67 text.html.markdown meta.paragraph.markdown
+L `std::vector::reserve` does not remove unused excess capacity, like this:
+T 1 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 22 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 73 text.html.markdown meta.paragraph.markdown
+L 
+L ```cpp
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L     SECTION( "reserving bigger changes capacity but not size" ) {
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L         v.reserve( 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.member.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L 
+L         REQUIRE( v.size() == 5 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.member.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         REQUIRE( v.capacity() >= 10 );
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         SECTION( "reserving down unused capacity does not change capacity" ) {
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.begin.cpp
+T 73 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp string.quoted.double.cpp punctuation.definition.string.end.cpp
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 76 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 78 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.begin.bracket.curly.cpp
+L             v.reserve( 7 );
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L             REQUIRE( v.size() == 5 );
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L             REQUIRE( v.capacity() >= 10 );
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.call.upper-case.cpp entity.name.function.call.cpp
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp variable.lower-case.cpp variable.other.object.access.v.cpp
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.separator.dot-access.cpp
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp entity.name.function.member.cpp
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.begin.bracket.round.function.member.cpp
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.member.cpp
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp keyword.operator.comparison.cpp
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 39 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp constant.numeric.decimal.cpp
+T 40 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.arguments.end.bracket.round.function.call.cpp punctuation.section.arguments.begin.bracket.round.function.call.upper-case.cpp
+T 42 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.terminator.statement.cpp
+L         }
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L     }
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.cpp source.cpp meta.block.cpp punctuation.section.block.end.bracket.curly.cpp
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Another way to look at sections is that they are a way to define a tree
+T 71 text.html.markdown meta.paragraph.markdown
+L of paths through the test. Each section represents a node, and the final
+T 72 text.html.markdown meta.paragraph.markdown
+L tree is walked in depth-first manner, with each path only visiting only
+T 71 text.html.markdown meta.paragraph.markdown
+L one leaf node.
+T 14 text.html.markdown meta.paragraph.markdown
+L 
+L There is no practical limit on nesting sections, as long as your compiler
+T 73 text.html.markdown meta.paragraph.markdown
+L can handle them, but keep in mind that overly nested sections can become
+T 72 text.html.markdown meta.paragraph.markdown
+L unreadable. From experience, having section nest more than 3 levels is
+T 70 text.html.markdown meta.paragraph.markdown
+L usually very hard to follow and not worth the removed duplication.
+T 66 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## BDD style testing
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 20 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Catch2 also provides some basic support for BDD-style testing. There are
+T 72 text.html.markdown meta.paragraph.markdown
+L macro aliases for `TEST_CASE` and `SECTIONS` that you can use so that
+T 18 text.html.markdown meta.paragraph.markdown
+T 19 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 28 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 29 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 34 text.html.markdown meta.paragraph.markdown
+T 35 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 43 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 44 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown
+L the resulting tests read as BDD spec. `SCENARIO` acts as a `TEST_CASE`
+T 38 text.html.markdown meta.paragraph.markdown
+T 39 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 59 text.html.markdown meta.paragraph.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 70 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L with "Scenario: " name prefix. Then there are `GIVEN`, `WHEN`, `THEN`
+T 46 text.html.markdown meta.paragraph.markdown
+T 47 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 55 text.html.markdown meta.paragraph.markdown
+T 56 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 63 text.html.markdown meta.paragraph.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 69 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L (and their variants with `AND_` prefix), which act as a `SECTION`,
+T 25 text.html.markdown meta.paragraph.markdown
+T 26 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 30 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 31 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 56 text.html.markdown meta.paragraph.markdown
+T 57 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 64 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 65 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 66 text.html.markdown meta.paragraph.markdown
+L similarly prefixed with the macro name.
+T 39 text.html.markdown meta.paragraph.markdown
+L 
+L For more details on the macros look at the [test cases and
+T 58 text.html.markdown meta.paragraph.markdown
+L sections](test-cases-and-sections.md#top) part of the reference docs,
+T 69 text.html.markdown meta.paragraph.markdown
+L or at the [vector example done with BDD macros](../examples/120-Bdd-ScenarioGivenWhenThen.cpp).
+T 10 text.html.markdown meta.paragraph.markdown
+T 11 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 46 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 47 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 48 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 93 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 94 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 95 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Data and Type driven tests
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 29 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L Test cases in Catch2 can also be driven by types, input data, or both
+T 69 text.html.markdown meta.paragraph.markdown
+L at the same time.
+T 17 text.html.markdown meta.paragraph.markdown
+L 
+L For more details look into the Catch2 reference, either at the
+T 62 text.html.markdown meta.paragraph.markdown
+L [type parametrized test cases](test-cases-and-sections.md#type-parametrised-test-cases),
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 29 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 30 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 31 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 86 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 87 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 88 text.html.markdown meta.paragraph.markdown
+L or [data generators](generators.md#top).
+T 3 text.html.markdown meta.paragraph.markdown
+T 4 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 19 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 38 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 39 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 40 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ## Next steps
+T 2 text.html.markdown markup.heading.markdown heading.2.markdown punctuation.definition.heading.markdown
+T 3 text.html.markdown markup.heading.markdown heading.2.markdown
+T 13 text.html.markdown markup.heading.markdown heading.2.markdown entity.name.section.markdown
+L 
+L This page is a brief introduction to get you up and running with Catch2,
+T 72 text.html.markdown meta.paragraph.markdown
+L and to show the basic features of Catch2. The features mentioned here
+T 69 text.html.markdown meta.paragraph.markdown
+L can get you quite far, but there are many more. However, you can read
+T 69 text.html.markdown meta.paragraph.markdown
+L about these as you go, in the ever-growing [reference section](Readme.md#top)
+T 43 text.html.markdown meta.paragraph.markdown
+T 44 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 61 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 62 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 63 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 76 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 77 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L of the documentation.
+T 21 text.html.markdown meta.paragraph.markdown
+L 
+L 
+L ---
+T 3 text.html.markdown meta.paragraph.markdown markup.heading.setext.2.markdown
+L 
+L [Home](Readme.md#top)
+T 1 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.begin.markdown
+T 5 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown string.other.link.title.markdown
+T 6 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.link.title.end.markdown
+T 7 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+T 20 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown markup.underline.link.markdown
+T 21 text.html.markdown meta.paragraph.markdown meta.link.inline.markdown punctuation.definition.metadata.markdown
+L 

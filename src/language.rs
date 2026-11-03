@@ -182,6 +182,8 @@ languages! {
     Java { feature: "lang-java", names: ["java"], module: java }
     /// C, with the scopes of Shiki's `c` grammar.
     C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true }
+    /// C++, with the scopes of Shiki's `cpp` grammar.
+    Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
     Sql { feature: "lang-sql", names: ["sql"], module: sql }
     /// INI, with the scopes of Shiki's `ini` grammar.

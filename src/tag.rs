@@ -5,8 +5,9 @@
 //! Lexers are written in parallel, so the tags are allocated here and nowhere
 //! else; a lexer module takes its constant and never a "next free byte".
 //! A lexer that needs more than the low byte for its own bits (a flag next to
-//! the kind) claims a wider range by giving its row a `mask` that covers
-//! fewer bits of the high byte, and the check below counts the whole range.
+//! the kind, or more kinds than a byte numbers, as C++'s 686 rules) claims a
+//! wider range by giving its row a `mask` that covers fewer bits of the high
+//! byte, and the check below counts the whole range.
 //! Byte `0x10` belongs to the `TextMate` engine, for every language it runs.
 
 /// A claimed range of the code space: the codes `c` with `c & mask == value`.
@@ -91,6 +92,9 @@ tags! {
     /// C, with the next byte for its end-of-line flag.
     #[cfg(feature = "lang-c")]
     C = 0x0c00 mask 0xfe00,
+    /// C++, with the next byte for the number of its rule.
+    #[cfg(feature = "lang-cpp")]
+    CPP = 0x2400 mask 0xfe00,
     /// SQL.
     #[cfg(feature = "lang-sql")]
     SQL = 0x0f00,

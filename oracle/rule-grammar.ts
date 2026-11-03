@@ -492,17 +492,22 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
 
 /** How a `Rule` of the grammar `engine` (such as `Css`) is stored as a frame
  * of the interned state: its language's tag, the constant `tag` of
- * `src/tag.rs`, in the high byte, and its position in `Rule::ALL` in the low
- * one. Then its `Tabled` implementation, which serves the pattern tables
- * above to `rules::table_scan`. */
-export function ruleCodes(engine: string, tag: string): string {
+ * `src/tag.rs`, in the high bits, and its position in `Rule::ALL` in the low
+ * `bits`, 8 unless the grammar has more rules than a byte numbers (C++, whose
+ * tag claims a wider range). Then its `Tabled` implementation, which serves
+ * the pattern tables above to `rules::table_scan`. */
+export function ruleCodes(engine: string, tag: string, bits = 8): string {
+  const low = (1 << bits) - 1;
+  const hex = (n: number) => `0x${n.toString(16)}`;
+  const repr = bits > 8 ? "u16" : "u8";
+  const [high, rest] = bits === 8 ? ["byte", "one"] : ["bits", `${bits} bits`];
   return `
 impl Rule {
-    /// The rule as a frame stores it: the language's tag in the high byte, the
-    /// position in [\`Rule::ALL\`] in the low one.
+    /// The rule as a frame stores it: the language's tag in the high ${high}, the
+    /// position in [\`Rule::ALL\`] in the low ${rest}.
     #[expect(
         clippy::as_conversions,
-        reason = "a fieldless \`repr(u8)\` enum has no \`From\` impl for its discriminant"
+        reason = "a fieldless \`repr(${repr})\` enum has no \`From\` impl for its discriminant"
     )]
     pub(crate) const fn code(self) -> u16 {
         crate::tag::${tag} | self as u16
@@ -511,11 +516,11 @@ impl Rule {
     /// The rule a frame's code names; [\`Rule::Root\`] for a code that is
     /// not the language's, such as the empty state's.
     pub(crate) fn from_code(code: u16) -> Rule {
-        if code & 0xff00 != crate::tag::${tag} {
+        if code & ${hex(0xffff & ~low)} != crate::tag::${tag} {
             return Rule::Root;
         }
         Rule::ALL
-            .get(usize::from(code & 0xff))
+            .get(usize::from(code & ${hex(low)}))
             .copied()
             .unwrap_or(Rule::Root)
     }
@@ -531,7 +536,7 @@ impl rules::Tabled for ${engine} {
             [const { std::sync::OnceLock::new() }; Rule::ALL.len()];
         #[expect(
             clippy::as_conversions,
-            reason = "a fieldless \`repr(u8)\` enum has no \`From\` impl"
+            reason = "a fieldless \`repr(${repr})\` enum has no \`From\` impl"
         )]
         let index = rule as usize;
         TABLES[index].get_or_init(|| rules::Tables::build(rule.data()))

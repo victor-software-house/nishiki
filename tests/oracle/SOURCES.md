@@ -93,6 +93,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `c/jq-print` | [`src/jv_print.c`][jq-print] in jqlang/jq | [MIT][jq-licence] |
 | `c/lua-vm` | [`lvm.c`][lua-vm] in lua/lua | [MIT][lua-licence] |
 | `c/zlib-inflate` | [`inflate.c`][zlib-inflate] in madler/zlib | [zlib][zlib-licence] |
+| `cpp/sample` | [`samples/cpp.sample`][cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `cpp/leveldb-version-set` | [`db/version_set.cc`][leveldb-version-set] in google/leveldb | [BSD-3-Clause][leveldb-licence] |
+| `cpp/rapidjson-reader` | [`include/rapidjson/reader.h`][rapidjson-reader] in Tencent/rapidjson | [MIT][rapidjson-licence] |
+| `cpp/spdlog-logger` | [`include/spdlog/logger.h`][spdlog-logger] in gabime/spdlog | [MIT][spdlog-licence] |
+| `cpp/absl-str-split` | [`absl/strings/str_split.h`][absl-str-split] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
+| `cpp/benchmark-core` | [`src/benchmark.cc`][benchmark-core] in google/benchmark | [Apache-2.0][benchmark-licence] |
+| `cpp/fmt-ranges` | [`include/fmt/ranges.h`][fmt-ranges] in fmtlib/fmt | [MIT][fmt-licence] |
 | `markdown/click-man-readme` | [`README.md`][click-man-readme] in click-contrib/click-man | [MIT][click-man-licence] |
 | `markdown/httparser-readme` | [`README.md`][httparser-readme] in antlabs/httparser | [Apache-2.0][httparser-licence] |
 | `markdown/latexrun-readme` | [`README.md`][latexrun-readme] in aclements/latexrun | [MIT][latexrun-licence] |
@@ -126,6 +133,8 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/cjson-readme` | [`README.md`][cjson-readme] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `markdown/unity-assertions` | [`docs/UnityAssertionsReference.md`][unity-assertions] in ThrowTheSwitch/Unity | [MIT][unity-licence] |
 | `markdown/unity-getting-started` | [`docs/UnityGettingStartedGuide.md`][unity-getting-started] in ThrowTheSwitch/Unity | [MIT][unity-licence] |
+| `markdown/catch2-tutorial` | [`docs/tutorial.md`][catch2-tutorial] in catchorg/Catch2 | [BSL-1.0][catch2-licence] |
+| `markdown/benchmark-user-guide` | [`docs/user_guide.md`][benchmark-user-guide] in google/benchmark | [Apache-2.0][benchmark-licence] |
 | `sql/sample` | [`samples/sql.sample`][sql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `sql/postgres-select` | [`src/test/regress/sql/select.sql`][pg-select] in postgres/postgres | [PostgreSQL][postgres-licence] |
 | `sql/postgres-create-table` | [`src/test/regress/sql/create_table.sql`][pg-create] in postgres/postgres | [PostgreSQL][postgres-licence] |
@@ -297,6 +306,10 @@ The Markdown fixtures `markdown/gson-user-guide` and `markdown/javapoet-readme` 
 `c/sample`, `c/cjson` and `c/linenoise` are the development inputs for C, and `markdown/cjson-readme` is the development input for C fences.
 `c/libuv-core`, `c/jq-print`, `c/lua-vm`, `c/zlib-inflate`, `markdown/unity-assertions` and `markdown/unity-getting-started` are held out.
 Their first scores, before any fix, were 115 of 39,696 bytes different for `libuv-core` and 48 of 9,496 for `jq-print`, from one bug in where a macro's line ends and one in how often the lexer scanned a word, and none for the other two C files or the two Markdown files.
+`cpp/sample`, `cpp/leveldb-version-set`, `cpp/rapidjson-reader` and `cpp/spdlog-logger` are the development inputs for C++, and `markdown/catch2-tutorial` is the development input for C++ fences.
+`cpp/absl-str-split`, `cpp/benchmark-core`, `cpp/fmt-ranges` and `markdown/benchmark-user-guide` are held out.
+Their first scores, before any fix, were 239 of 18,266 bytes different for `absl-str-split`, 327 of 28,465 for `benchmark-core`, 2,762 of 23,892 for `fmt-ranges` and 14,391 of 52,094 for `benchmark-user-guide`.
+They came from six bugs: the generator cut a rule's or a capture's pattern list short at a list being expanded above it, `$0` in a scope name was empty, the first-byte table read the quantifier `{1,0}` as required, an alias whose line ends after `=` did not give back the line feed, captures nested at most 8 deep, and C++ in a Markdown fence lacked `source.cpp`.
 `ini/sample`, `ini/pytest-tox`, `ini/kafka-server` and `ini/black-tox` are the development inputs for INI.
 `ini/django-tox`, `ini/sqlalchemy-tox`, `ini/tomcat-catalina` and `ini/kafka-consumer` are held out.
 `markdown/black-other-tools` is the development input for `ini` fences, and `markdown/poetry-faq` is held out.
@@ -681,3 +694,19 @@ Two causes made them differ: `\G` holds at the start of every line in a fence, w
 [kingfisher-licence]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/LICENSE
 [snapshot-assert-snapshot]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/Sources/SnapshotTesting/AssertSnapshot.swift
 [snapshot-testing-licence]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/LICENSE
+[cpp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/cpp.sample
+[leveldb-version-set]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/db/version_set.cc
+[leveldb-licence]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/LICENSE
+[rapidjson-reader]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/include/rapidjson/reader.h
+[rapidjson-licence]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/license.txt
+[spdlog-logger]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/include/spdlog/logger.h
+[spdlog-licence]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/LICENSE
+[absl-str-split]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/strings/str_split.h
+[abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
+[benchmark-core]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/src/benchmark.cc
+[benchmark-user-guide]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/docs/user_guide.md
+[benchmark-licence]: https://github.com/google/benchmark/blob/1813ad9c3a828cee126f399739443c329e75bc79/LICENSE
+[fmt-ranges]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/include/fmt/ranges.h
+[fmt-licence]: https://github.com/fmtlib/fmt/blob/4ed3535092a96ac9f56fab80df83416d51bcc78e/LICENSE
+[catch2-tutorial]: https://github.com/catchorg/Catch2/blob/a1a991fee5f217b40035cb2f8ebc83864d66408d/docs/tutorial.md
+[catch2-licence]: https://github.com/catchorg/Catch2/blob/a1a991fee5f217b40035cb2f8ebc83864d66408d/LICENSE.txt

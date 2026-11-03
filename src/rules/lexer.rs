@@ -146,6 +146,10 @@ enum NameSource {
     Group(u8),
 }
 
+/// A probe's answer: where the match ends, and its capture groups.
+#[cfg(test)]
+pub(crate) type Probe = (usize, Vec<Option<(usize, usize)>>);
+
 /// The payload of a root frame that is the start of a document: its first
 /// line is the one where `\A` matches, and the root of every state after it
 /// has no payload.
@@ -601,6 +605,24 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.dirty = true;
     }
 
+    /// Runs `matcher` at `p` with `\G` matching there or not, and gives
+    /// where its match ends and its capture groups: for the tests that
+    /// compare matchers with Oniguruma.
+    #[cfg(test)]
+    pub(crate) fn probe_matcher(
+        &mut self,
+        p: usize,
+        g: bool,
+        matcher: impl FnOnce(&mut Self, usize) -> Option<usize>,
+    ) -> Option<Probe> {
+        self.open();
+        self.caps.fill(None);
+        self.pos = p;
+        self.g = g;
+        let end = matcher(self, p)?;
+        Some((end, self.caps.clone()))
+    }
+
     /// Drops the spans of a match that failed after naming some.
     pub(crate) fn clear_spans(&mut self) {
         self.spans.truncate(self.span_base);
@@ -622,6 +644,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     pub(crate) fn payload_at(&self, p: usize) -> Option<usize> {
         let text = self.arena.string(self.top().payload).as_bytes();
         (!text.is_empty() && self.starts(p, text)).then_some(text.len())
+    }
+
+    /// The innermost rule's payload text.
+    pub(crate) fn payload_text(&self) -> &str {
+        self.arena.string(self.top().payload)
     }
 
     /// Whether the line has the innermost rule's payload text just before `p`.

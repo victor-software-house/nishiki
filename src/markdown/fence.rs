@@ -155,6 +155,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::C,
     },
+    #[cfg(feature = "lang-cpp")]
+    Name {
+        words: &["cpp", "c++", "cxx"],
+        brace: None,
+        lang: Language::Cpp,
+    },
     #[cfg(feature = "lang-sql")]
     Name {
         words: &["sql", "ddl", "dml"],

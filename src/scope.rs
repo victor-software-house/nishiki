@@ -98,6 +98,8 @@ tables! {
     JAVA = java;
     #[cfg(feature = "lang-c")]
     C = c;
+    #[cfg(feature = "lang-cpp")]
+    CPP = cpp;
     #[cfg(feature = "lang-sql")]
     SQL = sql;
     #[cfg(feature = "lang-ini")]
