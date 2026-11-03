@@ -1,6 +1,7 @@
 //! Comments, escapes and strings.
 
 use super::super::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// `/\*`

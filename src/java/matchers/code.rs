@@ -1,6 +1,7 @@
 //! Keywords, operators, strings, calls and the small rules of code.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// One of `set` at `p`.

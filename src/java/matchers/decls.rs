@@ -2,6 +2,7 @@
 //! variables, whose rules open on a lookahead over the rest of the line.
 
 use crate::java::engine::{Lexer, RunMemo};
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// Whether the word at `j` is a declaration keyword that a name follows:

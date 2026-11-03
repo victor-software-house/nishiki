@@ -5,6 +5,7 @@
 //! `[$A-Z_a-z][$\w]*([]$,\[\w][],\[\w\s]*)?\s*([:;=]))`
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// Where the type at `p` ends: a primitive type, or dotted names ending

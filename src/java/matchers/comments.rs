@@ -1,6 +1,7 @@
 //! Comments and Javadoc.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// `(^[\t ]+)?(?=//)`: the blanks that start the line, then a `//`.

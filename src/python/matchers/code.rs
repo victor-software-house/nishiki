@@ -4,6 +4,7 @@
 use super::chars::{self, is_alpha};
 use crate::python::engine::{Ahead, Lexer};
 use crate::python::grammar::Pat;
+use crate::rules::Chars;
 
 /// The keywords of `illegal-names` that name flow control.
 const FLOW_KEYWORDS: &[&[u8]] = &[

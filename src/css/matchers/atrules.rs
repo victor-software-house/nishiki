@@ -2,6 +2,7 @@
 
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// The lookahead `(["';{\s]|/\*|$)` and its kin at `p`: white space, a

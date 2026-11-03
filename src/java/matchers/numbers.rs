@@ -6,6 +6,7 @@
 //! which none of the expressions allow there, so it never matters.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 /// Whether a part of a number is required, optional or not there.
 #[derive(Clone, Copy, PartialEq, Eq)]

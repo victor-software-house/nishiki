@@ -1,6 +1,7 @@
 //! Types: generics, primitive types and the dotted names of classes.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// The end of the ASCII identifier `[$A-Z_a-z][$0-9A-Z_a-z]*` at `i`.

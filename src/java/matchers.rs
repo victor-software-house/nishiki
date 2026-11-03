@@ -20,6 +20,7 @@ use code::Property;
 
 use super::engine::Lexer;
 use super::grammar::Pat;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.

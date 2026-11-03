@@ -1,6 +1,7 @@
 //! The `package` and `import` rules and the text inside them.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 /// The words that cannot be part of a package or an import name.
 const RESERVED: &[&[u8]] = &[

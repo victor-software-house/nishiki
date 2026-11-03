@@ -14,7 +14,6 @@ mod tables;
 
 use std::fmt::Debug;
 
-#[cfg(feature = "lang-kotlin")]
 pub(crate) use chars::Chars;
 #[cfg(feature = "lang-css")]
 pub(crate) use lexer::FIRST_LINE;

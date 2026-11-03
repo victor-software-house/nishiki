@@ -3,6 +3,7 @@
 
 use crate::python::engine::{Ahead, Lexer};
 use crate::python::grammar::Pat;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     #[expect(

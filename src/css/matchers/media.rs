@@ -1,6 +1,7 @@
 //! Media queries, feature queries and layer names.
 
 use super::super::engine::Lexer;
+use crate::rules::Chars;
 
 /// The words of the grammar's media features, without a `min-` or `max-`.
 const FEATURES: &[&str] = &[

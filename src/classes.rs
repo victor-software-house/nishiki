@@ -42,11 +42,27 @@ pub(crate) fn is_digit(c: char) -> bool {
     }
 }
 
-/// The regex `\w` for an ASCII byte: a letter, a digit or `_`.
+/// The regex `\w` for a byte: an ASCII letter, a digit or `_`, and false for
+/// every byte of a multibyte character.
+///
+/// One load from a table, which measured faster than the range tests of
+/// [`u8::is_ascii_alphanumeric`] in the rule engine's matchers.
 #[inline]
 pub(crate) fn is_ascii_word(b: u8) -> bool {
-    b.is_ascii_alphanumeric() || b == b'_'
+    WORD_BYTES[usize::from(b)]
 }
+
+/// Which bytes are `\w`: the ASCII digits, upper-case letters, `_` and
+/// lower-case letters.
+const WORD_BYTES: [bool; 256] = {
+    let mut table = [false; 256];
+    let mut i = 0;
+    while i < table.len() {
+        table[i] = matches!(i, 0x30..=0x39 | 0x41..=0x5a | 0x5f | 0x61..=0x7a);
+        i += 1;
+    }
+    table
+};
 
 /// The regex `\s` for an ASCII byte.
 ///

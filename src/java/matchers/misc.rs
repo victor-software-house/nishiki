@@ -2,6 +2,7 @@
 //! `throws` names, and the lookaheads that end a clause.
 
 use crate::java::engine::Lexer;
+use crate::rules::Chars;
 
 /// The storage modifiers, in the grammar's order.
 const MODIFIERS: &[&[u8]] = &[

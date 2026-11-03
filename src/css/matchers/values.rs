@@ -3,6 +3,7 @@
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
 use super::super::words;
+use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and

@@ -5,15 +5,7 @@ use std::sync::OnceLock;
 
 use crate::python::engine::Lexer;
 use crate::python::{classes, words};
-
-/// The regex `\w` for a character.
-pub(super) fn is_word(c: char) -> bool {
-    if c.is_ascii() {
-        c.is_ascii_alphanumeric() || c == '_'
-    } else {
-        classes::is_word(c)
-    }
-}
+use crate::rules::Chars;
 
 /// The regex `[[:alpha:]]` for a character.
 pub(super) fn is_alpha(c: char) -> bool {
@@ -57,32 +49,6 @@ pub(super) fn is_alnum(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// The width of the `\w` character at `i`, when there is one.
-    pub(in crate::python) fn word_at(&self, i: usize) -> Option<usize> {
-        match self.s.get(i) {
-            None => None,
-            Some(&b) if b < 0x80 => (b.is_ascii_alphanumeric() || b == b'_').then_some(1),
-            Some(_) => {
-                let (c, end) = self.char_at(i)?;
-                is_word(c).then_some(end - i)
-            }
-        }
-    }
-
-    /// Whether the character before `i` is a `\w`.
-    pub(in crate::python) fn word_before(&self, i: usize) -> bool {
-        match i.checked_sub(1).and_then(|k| self.s.get(k)) {
-            Some(&b) if b < 0x80 => b.is_ascii_alphanumeric() || b == b'_',
-            Some(_) => self.char_before(i).is_some_and(is_word),
-            None => false,
-        }
-    }
-
-    /// The regex `\b` at `i`.
-    pub(in crate::python) fn boundary(&self, i: usize) -> bool {
-        self.word_before(i) != self.word_at(i).is_some()
-    }
-
     /// The end of the run of `\w` characters from `i`. Patterns ask about
     /// the same word one after another, so the last run is kept.
     pub(in crate::python) fn word_end(&self, i: usize) -> usize {
@@ -98,44 +64,6 @@ impl Lexer<'_> {
             self.x.word_run.set((i, e));
         }
         e
-    }
-
-    /// The width of the `\s` character at `i`, which includes the line feed
-    /// that ends the line.
-    pub(in crate::python) fn space_at(&self, i: usize) -> usize {
-        if i > self.lim() {
-            return 0;
-        }
-        let b = self.at(i);
-        if b < 0x80 {
-            return usize::from(matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r'));
-        }
-        match self.char_at(i) {
-            Some((c, end)) if is_space(c) => end - i,
-            _ => 0,
-        }
-    }
-
-    /// The end of the run of `\d` characters from `i`.
-    pub(in crate::python) fn digit_end(&self, mut i: usize) -> usize {
-        while let Some((c, end)) = self.char_at(i)
-            && i < self.lim()
-            && is_digit(c)
-        {
-            i = end;
-        }
-        i
-    }
-
-    /// The end of the `\s*` from `i`.
-    pub(in crate::python) fn space_end(&self, mut i: usize) -> usize {
-        loop {
-            let width = self.space_at(i);
-            if width == 0 {
-                return i;
-            }
-            i += width;
-        }
     }
 
     /// The end of the identifier `[_[:alpha:]]\w*` at `i`, when one starts.
@@ -173,11 +101,6 @@ impl Lexer<'_> {
             mask
         };
         (mask & bits != 0).then_some(end)
-    }
-
-    /// Whether the character before `i` is `byte`.
-    pub(in crate::python) fn prev_is(&self, i: usize, byte: u8) -> bool {
-        i > 0 && self.s.get(i - 1) == Some(&byte)
     }
 }
 

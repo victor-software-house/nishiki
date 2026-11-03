@@ -5,6 +5,7 @@
 
 use crate::python::engine::{Ahead, Lexer};
 use crate::python::grammar::{Flavour, Pat, Re};
+use crate::rules::Chars;
 
 impl Flavour {
     /// The quote text that closes a string of this style.

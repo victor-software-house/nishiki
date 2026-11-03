@@ -4,6 +4,7 @@
 use super::super::ahead::Find;
 use super::super::engine::Lexer;
 use super::super::words;
+use crate::rules::Chars;
 
 /// The characters that end a name in a selector: `[#\&)+,.:>\[{|~\s]`.
 fn selector_stop(b: u8) -> bool {

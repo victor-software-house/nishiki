@@ -30,11 +30,6 @@ impl Lexer<'_> {
             .next(what, from)
     }
 
-    /// `text` at `p`: the end of it.
-    pub(in crate::css) fn lit(&self, p: usize, text: &[u8]) -> Option<usize> {
-        self.starts(p, text).then_some(p + text.len())
-    }
-
     /// The width of the `\s` character at `p`, 0 when there is none. The line
     /// feed after the line is one.
     pub(in crate::css) fn space_width(&self, p: usize) -> usize {

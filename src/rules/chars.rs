@@ -3,7 +3,7 @@
 //! literal and keyword tests built on them.
 
 use super::{Grammar, Lexer};
-use crate::classes::{is_digit, is_space, is_word};
+use crate::classes::{is_ascii_word, is_digit, is_space, is_word};
 
 /// The character classes and literal tests, for the matchers of every grammar
 /// on the rule engine.
@@ -48,12 +48,16 @@ pub(crate) trait Chars {
     fn word_in(&self, i: usize, words: &[&[u8]]) -> Option<usize>;
 }
 
+/// Every method is `#[inline]`: a language's matchers call them in their own
+/// codegen unit, and without it Python lexed about 3% slower than with the
+/// inherent copies these replace.
 impl<G: Grammar> Chars for Lexer<'_, G> {
     /// The width of the `\w` character at `i`, when there is one.
+    #[inline]
     fn word_at(&self, i: usize) -> Option<usize> {
         match self.s.get(i) {
             None => None,
-            Some(&b) if b < 0x80 => (b.is_ascii_alphanumeric() || b == b'_').then_some(1),
+            Some(&b) if b < 0x80 => is_ascii_word(b).then_some(1),
             Some(_) => {
                 let (c, end) = self.char_at(i)?;
                 is_word(c).then_some(end - i)
@@ -62,21 +66,24 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// Whether the character before `i` is a `\w`.
+    #[inline]
     fn word_before(&self, i: usize) -> bool {
         match i.checked_sub(1).and_then(|k| self.s.get(k)) {
-            Some(&b) if b < 0x80 => b.is_ascii_alphanumeric() || b == b'_',
+            Some(&b) if b < 0x80 => is_ascii_word(b),
             Some(_) => self.char_before(i).is_some_and(is_word),
             None => false,
         }
     }
 
     /// The regex `\b` at `i`.
+    #[inline]
     fn boundary(&self, i: usize) -> bool {
         self.word_before(i) != self.word_at(i).is_some()
     }
 
     /// The width of the `\s` character at `i`, which includes the line feed
     /// that ends the line.
+    #[inline]
     fn space_at(&self, i: usize) -> usize {
         if i > self.lim() {
             return 0;
@@ -92,6 +99,7 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// The end of the run of `\w` characters from `i`.
+    #[inline]
     fn word_end(&self, mut i: usize) -> usize {
         let from = i;
         while let Some(width) = self.word_at(i) {
@@ -102,6 +110,7 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// The end of the `\s*` from `i`.
+    #[inline]
     fn space_end(&self, mut i: usize) -> usize {
         loop {
             let width = self.space_at(i);
@@ -113,6 +122,7 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// The end of the run of `\d` characters from `i`.
+    #[inline]
     fn digit_end(&self, mut i: usize) -> usize {
         while let Some((c, end)) = self.char_at(i)
             && i < self.lim()
@@ -124,16 +134,19 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// Whether the character before `i` is `byte`.
+    #[inline]
     fn prev_is(&self, i: usize, byte: u8) -> bool {
         i > 0 && self.s.get(i - 1) == Some(&byte)
     }
 
     /// The end of `text` at `i` when the line has it there.
+    #[inline]
     fn lit(&self, i: usize, text: &[u8]) -> Option<usize> {
         self.starts(i, text).then(|| i + text.len())
     }
 
     /// The end of the word `text` at `i`, with `\b` before and after it.
+    #[inline]
     fn keyword(&self, i: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(i, text)?;
         (self.boundary(i) && self.word_at(end).is_none()).then_some(end)
@@ -142,6 +155,7 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     /// The end of the word at `i` when `\b` holds before it and the whole word
     /// is one of `words`, which is what `\b(a|b|c)\b` accepts when no word of
     /// the list is a prefix of a word that follows it.
+    #[inline]
     fn word_in(&self, i: usize, words: &[&[u8]]) -> Option<usize> {
         if !self.boundary(i) {
             return None;
