@@ -587,10 +587,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let j = self.ws(p + 1);
         let nonblank = !self.eol(j);
-        let ends_with_arrow = self
-            .s
-            .get(p + 1..)
-            .is_some_and(|rest| rest.trim_ascii_end().ends_with(b"=>"));
+        let ends_with_arrow = self.arrow_ends_line_after(p + 1);
         let kind = if nonblank && !ends_with_arrow {
             Kind::VarInit1
         } else {

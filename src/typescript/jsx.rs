@@ -37,10 +37,11 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let mut e = i + self.char_len(i);
         while let Some(c) = self.char_at(e)
-            && (matches!(c, '-' | '.' | '$' | '_') || c.is_alphanumeric())
+            && (matches!(c, '-' | '.') || is_alnum_char(c))
         {
             e += c.len_utf8();
         }
+        self.spend(e - i);
         (!matches!(self.s.get(e - 1), Some(b'-' | b'.'))).then_some(e)
     }
 
@@ -371,9 +372,10 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         let mut e = p;
-        while e < self.len && !super::lexer::is_ws(self.b(e)) {
+        while e < self.len && !self.space_at(e) {
             e += self.char_len(e);
         }
+        self.spend(e - p);
         (e > p).then(|| self.tok(p, e, S::InvalidIllegalAttribute))?
     }
 
@@ -400,6 +402,7 @@ impl<const D: u8> Lexer<'_, D> {
             {
                 e += c.len_utf8();
             }
+            lexer.spend(e - i);
             Some(e)
         };
         let mut found = None;
@@ -440,7 +443,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn attribute_follows(&self, e: usize) -> bool {
         let c = self.b(e);
         c == b'='
-            || super::lexer::is_ws(c)
+            || self.space_at(e)
             || c == b'>'
             || (c == b'/' && matches!(self.b(e + 1), b'>' | b'*' | b'/'))
     }

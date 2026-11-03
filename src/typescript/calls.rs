@@ -2,7 +2,7 @@
 
 use super::bytes::{Bytes, LITERAL_START, NAME_START};
 use super::kind::Kind;
-use super::lexer::Lexer;
+use super::lexer::{Lexer, is_alnum_char};
 use super::scope::S;
 
 /// The declaration keywords that end the head of an arrow function at the start
@@ -224,8 +224,7 @@ impl<const D: u8> Lexer<'_, D> {
         let prev = self.prev_char(p);
         let after_token = prev.is_some_and(|c| c == '}' || !c.is_whitespace())
             && !(p >= 2 && self.s.get(p - 2..p) == Some(b"=>"));
-        let before_token =
-            self.b(p) != b'{' && !super::lexer::is_ws(self.b(p)) && self.b(p) != 0 && p < self.len;
+        let before_token = self.b(p) != b'{' && !self.space_at(p) && self.b(p) != 0 && p < self.len;
         (after_token || before_token)
             && !(self.b(p) == b'/' && matches!(self.b(p + 1), b'*' | b'/'))
     }
@@ -305,7 +304,7 @@ impl<const D: u8> Lexer<'_, D> {
         start == 0
             || self
                 .prev_char(start)
-                .is_some_and(|c| !(c == '$' || c == '.' || c == '_' || c.is_alphanumeric()))
+                .is_some_and(|c| !(c == '.' || is_alnum_char(c)))
     }
 
     /// `(?<=\)|^)\s*(:)(?=\s*TYPE+\s*=>)`: the return type of arrow parameters

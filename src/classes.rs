@@ -24,6 +24,15 @@ pub(crate) fn is_word(c: char) -> bool {
     }
 }
 
+/// The regex `[[:alpha:]]` for a character, from the same measured table.
+pub(crate) fn is_alpha(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_alphabetic()
+    } else {
+        table::is_alpha(c)
+    }
+}
+
 /// The regex `\d` for a character, from the same measured table.
 pub(crate) fn is_digit(c: char) -> bool {
     if c.is_ascii() {

@@ -79,7 +79,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let rest = self.s.get(i + 2..)?;
-        memchr::memmem::find(rest, b"*/").map(|at| i + 2 + at + 2)
+        let end = memchr::memmem::find(rest, b"*/");
+        self.spend(end.map_or(rest.len(), |at| at + 2));
+        end.map(|at| i + 2 + at + 2)
     }
 
     /// `\s*(/*…*/\s*)*`: skips blanks and block comments.
@@ -355,7 +357,7 @@ impl<const D: u8> Lexer<'_, D> {
         let async_end = self.starts(i, "async").then(|| i + 5);
         // (async\s+)? then function or `name =>`.
         let after_async = async_end
-            .filter(|&a| self.b(a).is_ascii_whitespace() || a >= self.len)
+            .filter(|&a| self.space_at(a) || a >= self.len)
             .map(|a| self.ws(a));
         for j in std::iter::once(i).chain(after_async) {
             if self.function_keyword_head(j)

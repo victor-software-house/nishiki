@@ -1,8 +1,9 @@
 //! Doc comments: the tags and inline tags of `JSDoc`.
 
 use super::kind::Kind;
-use super::lexer::{Lexer, is_ws};
+use super::lexer::Lexer;
 use super::scope::S;
+use crate::classes;
 
 const TAG: S = S::StorageTypeClassJsdoc;
 const AT: S = S::PunctuationDefinitionBlockTagJsdoc;
@@ -150,8 +151,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
     }
 
-    /// `(?:[^S]|\*[^/])*` where `S` is `stop` and the star, run from `i`.
-    fn doc_run(&self, i: usize, stop: impl Fn(u8) -> bool) -> usize {
+    /// `(?:[^S]|\*[^/])*` where `S` is the star and what `stop` holds at a
+    /// position, run from `i`.
+    fn doc_run(&self, i: usize, stop: impl Fn(usize) -> bool) -> usize {
         let mut j = i;
         while j <= self.len {
             let c = self.b(j);
@@ -160,7 +162,7 @@ impl<const D: u8> Lexer<'_, D> {
                     break;
                 }
                 j += 2;
-            } else if stop(c) {
+            } else if stop(j) {
                 break;
             } else {
                 j += self.char_len(j);
@@ -171,7 +173,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(?:[^*/@\s]|\*[^/])+`, as a run from `i` of at least one item.
     fn doc_word(&self, i: usize) -> Option<usize> {
-        let e = self.doc_run(i, |c| matches!(c, b'/' | b'@') || is_ws(c));
+        let e = self.doc_run(i, |j| matches!(self.b(j), b'/' | b'@') || self.space_at(j));
         (e > i).then_some(e)
     }
 
@@ -196,12 +198,13 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = i + 1;
         while j < self.len {
             let Some(c) = self.char_at(j) else { break };
-            if matches!(c, ']' | '$' | '.' | '[' | '_') || c.is_alphanumeric() {
+            if matches!(c, ']' | '$' | '.' | '[') || classes::is_word(c) {
                 j += c.len_utf8();
             } else {
                 break;
             }
         }
+        self.spend(j - i);
         Some(j)
     }
 
@@ -274,7 +277,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         // `@name` followed by blanks.
         let e = self.ident(p + 1)?;
-        (is_ws(self.b(e))).then(|| {
+        self.space_at(e).then(|| {
             self.doc_tag_tokens(p, e);
             Some(e)
         })?
@@ -286,21 +289,21 @@ impl<const D: u8> Lexer<'_, D> {
         if j == e {
             return None;
         }
-        let c = self.b(j);
-        if matches!(c, b'*' | b'/' | b'<' | b'>' | b'@') || is_ws(c) {
+        if matches!(self.b(j), b'*' | b'/' | b'<' | b'>' | b'@') || self.space_at(j) {
             return None;
         }
-        let name_end = self.doc_run(j + self.char_len(j), |c| {
-            matches!(c, b'/' | b'<' | b'>' | b'@')
+        let name_end = self.doc_run(j + self.char_len(j), |k| {
+            matches!(self.b(k), b'/' | b'<' | b'>' | b'@')
         });
         self.doc_tag_tokens(p, e);
         self.cap(Kind::Top, j, name_end.min(self.len), &[INSTANCE]);
         let k = self.ws(name_end);
         if self.b(k) == b'<' {
             let mut m = k + 1;
-            while m < self.len && self.b(m) != b'>' && !is_ws(self.b(m)) {
-                m += 1;
+            while m < self.len && self.b(m) != b'>' && !self.space_at(m) {
+                m += self.char_len(m);
             }
+            self.spend(m - k);
             if m > k + 1 && self.b(m) == b'>' {
                 self.cap(
                     Kind::Top,
@@ -389,7 +392,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         if self.starts(j, "http://") || self.starts(j, "https://") {
-            let z = self.doc_run(j, is_ws);
+            let z = self.doc_run(j, |k| self.space_at(k));
             if z > j {
                 self.doc_tag_tokens(p, e);
                 self.cap(Kind::Top, j, z, &[S::VariableOtherLinkUnderlineJsdoc]);
@@ -416,6 +419,7 @@ impl<const D: u8> Lexer<'_, D> {
             while k < self.len && !matches!(self.b(k), b']' | b'[') {
                 k += 1;
             }
+            self.spend(k - j);
             if self.b(k) == b']' {
                 j = k + 1;
             }
@@ -589,7 +593,9 @@ impl<const D: u8> Lexer<'_, D> {
             }
             let j = self.ws(e);
             if j > e {
-                let z = self.doc_run(j, |c| matches!(c, b'@' | b'{' | b'}') || is_ws(c));
+                let z = self.doc_run(j, |k| {
+                    matches!(self.b(k), b'@' | b'{' | b'}') || self.space_at(k)
+                });
                 if z > j {
                     self.doc_tag_tokens(p, e);
                     self.cap(Kind::Top, j, z, &[INSTANCE]);
@@ -638,9 +644,10 @@ impl<const D: u8> Lexer<'_, D> {
                 continue;
             }
             let mut z = j;
-            while z <= self.len && self.b(z) != b'*' && !is_ws(self.b(z)) {
+            while z <= self.len && self.b(z) != b'*' && !self.space_at(z) {
                 z += self.char_len(z);
             }
+            self.spend(z - j);
             if z > j {
                 self.doc_tag_tokens(p, e);
                 self.cap(Kind::Top, j, z, &[VARIABLE]);
@@ -656,6 +663,7 @@ impl<const D: u8> Lexer<'_, D> {
             while self.b(e) == b'_' || self.b(e).is_ascii_alphanumeric() {
                 e += 1;
             }
+            self.spend(e - p);
             e
         };
         let word = self.text(p + 1, word_end);
@@ -669,11 +677,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(\[)[^]]+(])(?=\{@(?:link|linkcode|linkplain|tutorial))`.
     fn doc_bracket_link(&mut self, p: usize) -> Option<usize> {
-        let mut e = p + 1;
-        while e < self.len && self.b(e) != b']' {
-            e += 1;
-        }
-        if e == p + 1 || self.b(e) != b']' {
+        let e = self.bracket_from(p + 1)?;
+        if e == p + 1 {
             return None;
         }
         let after = e + 1;
@@ -733,7 +738,7 @@ impl<const D: u8> Lexer<'_, D> {
                 let c = self.b(e);
                 if self.starts(e, "*/") {
                     e += 2;
-                } else if c == b'*' || c == b'|' || c == b'}' || is_ws(c) {
+                } else if c == b'*' || c == b'|' || c == b'}' || self.space_at(e) {
                     break;
                 } else {
                     e += self.char_len(e);
@@ -743,7 +748,9 @@ impl<const D: u8> Lexer<'_, D> {
                 return Some(self.doc_link_part(p, e, S::VariableOtherLinkUnderlineJsdoc));
             }
         }
-        let e = self.doc_run(p, |c| matches!(c, b'@' | b'{' | b'|' | b'}') || is_ws(c));
+        let e = self.doc_run(p, |k| {
+            matches!(self.b(k), b'@' | b'{' | b'|' | b'}') || self.space_at(k)
+        });
         if e > p {
             return Some(self.doc_link_part(p, e, S::VariableOtherDescriptionJsdoc));
         }
@@ -762,7 +769,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Inside `@example`: the line prefix, a caption and the code.
     pub(crate) fn doc_example_rules(&mut self, p: usize) -> Option<usize> {
-        if self.bol(p) && is_ws(self.b(0)) {
+        if self.bol(p) && self.space_at(0) {
             let j = 1;
             if self.b(j) == b'*' {
                 let e = self.ws(j + 1);
@@ -791,8 +798,7 @@ impl<const D: u8> Lexer<'_, D> {
             self.push(Kind::JsCaption);
             return Some(e);
         }
-        let c = self.b(p);
-        if !(matches!(c, b'*' | b'@') || is_ws(c)) && p <= self.len {
+        if !(matches!(self.b(p), b'*' | b'@') || self.space_at(p)) && p <= self.len {
             let e = self.doc_run_to_star(p);
             self.flush(p);
             self.cap(Kind::Top, p, e, &[S::SourceEmbedded]);

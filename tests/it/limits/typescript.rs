@@ -34,6 +34,10 @@ fn hostile_typescript_lines_finish_within_the_default_limits() {
         "x = (a, b: ".repeat(50_000),
         "/*".repeat(100_000),
         "/**@param{".repeat(50_000),
+        format!("/**{}", "[".repeat(100_000)),
+        format!("/**{}", "[a".repeat(50_000)),
+        format!("/** @param [a={}", "[".repeat(100_000)),
+        format!("x = <a{}", "-".repeat(100_000)),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
         let report = rows[0].1;

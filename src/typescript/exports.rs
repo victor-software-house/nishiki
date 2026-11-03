@@ -113,7 +113,7 @@ impl<const D: u8> Lexer<'_, D> {
         let Some(e) = self.ident(j) else {
             return false;
         };
-        if !(self.b(e) == b',' || super::lexer::is_ws(self.b(e))) {
+        if !(self.b(e) == b',' || self.space_at(e)) {
             return false;
         }
         !self.statement_keyword_at(j)

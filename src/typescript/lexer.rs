@@ -10,7 +10,7 @@ use super::scope::S;
 use crate::arena::{Arena, Frame};
 use crate::language::Context;
 use crate::limits::{Limit, Limits, LineReport};
-use crate::{Stack, Token};
+use crate::{Stack, Token, classes};
 
 /// Lexes one line. `pos` is the end of the last token emitted; the bytes
 /// between it and a rule's match are plain text of the current context.
@@ -63,6 +63,10 @@ pub(crate) struct Lexer<'a, const D: u8> {
     last_tick: Option<usize>,
     /// The position of the last `(` or `<` on the line, if any.
     last_open: Option<usize>,
+    /// Where the `=>` that ends the line, before trailing blanks, begins.
+    arrow_at_end: Option<usize>,
+    /// The last search for a `]`: where it started and the `]` it found.
+    next_bracket: Cell<(usize, Option<usize>)>,
 }
 
 /// For each ASCII byte: bit 0 is `[$_[:alnum:]]`, bit 1 is `[$_[:alpha:]]`.
@@ -104,13 +108,14 @@ pub(crate) fn is_ws(b: u8) -> bool {
 }
 
 /// `[$_[:alnum:]]`.
+/// Oniguruma's `[[:alnum:]]` is its `[[:alpha:]]` and `\d`.
 pub(crate) fn is_alnum_char(c: char) -> bool {
-    c == '$' || c == '_' || c.is_alphanumeric()
+    c == '$' || c == '_' || classes::is_alpha(c) || classes::is_digit(c)
 }
 
 /// `[$_[:alpha:]]`.
 pub(crate) fn is_alpha_char(c: char) -> bool {
-    c == '$' || c == '_' || c.is_alphabetic()
+    c == '$' || c == '_' || classes::is_alpha(c)
 }
 
 impl<'a, const D: u8> Lexer<'a, D> {
@@ -149,6 +154,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
             last_ident: Cell::new((usize::MAX, None)),
             last_tick: memchr::memrchr(b'`', src.as_bytes()),
             last_open: memchr::memrchr2(b'(', b'<', src.as_bytes()),
+            next_bracket: Cell::new((usize::MAX, None)),
+            arrow_at_end: {
+                let text = src.trim_end_matches(classes::is_space);
+                text.ends_with("=>").then(|| text.len() - 2)
+            },
         };
         lexer.spend(src.len());
         if lexer.first_line {
@@ -179,6 +189,27 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// needs after the name.
     pub(crate) fn has_open_after(&self, p: usize) -> bool {
         self.last_open.is_some_and(|at| at >= p)
+    }
+
+    /// The first `]` at or after `i` on the line. A run of `[` asks at each
+    /// one, so the answer is kept while it still holds, and the line is
+    /// scanned once.
+    pub(crate) fn bracket_from(&self, i: usize) -> Option<usize> {
+        let (from, found) = self.next_bracket.get();
+        if from <= i && found.is_none_or(|at| at >= i) {
+            return found;
+        }
+        let rest = self.s.get(i..).unwrap_or_default();
+        let found = memchr::memchr(b']', rest).map(|at| i + at);
+        self.spend(found.map_or(rest.len(), |at| at - i + 1));
+        self.next_bracket.set((i, found));
+        found
+    }
+
+    /// Whether the line ends, before trailing blanks, in a `=>` that begins at
+    /// or after `p`: `\s*.*=>\s*$` from `p`.
+    pub(crate) fn arrow_ends_line_after(&self, p: usize) -> bool {
+        self.arrow_at_end.is_some_and(|at| at >= p)
     }
 
     /// Whether a backtick lies at or after `p`.
@@ -405,6 +436,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.src.get(i..).and_then(|rest| rest.chars().next())
     }
 
+    /// The regex `\s` at `i`, the newline that ends the line included.
+    pub(crate) fn space_at(&self, i: usize) -> bool {
+        is_ws(self.b(i)) || self.char_at(i).is_some_and(classes::is_space)
+    }
+
     /// The character before `i`; the newline that ends the line is the one
     /// before `len + 1`.
     pub(crate) fn prev_char(&self, i: usize) -> Option<char> {
@@ -525,15 +561,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// The regex `\w` before `i`.
     fn word_before(&self, i: usize) -> bool {
-        self.prev_char(i)
-            .is_some_and(|c| c == '_' || c.is_alphanumeric())
+        self.prev_char(i).is_some_and(classes::is_word)
     }
 
     fn word_at(&self, i: usize) -> bool {
-        i < self.len
-            && self
-                .char_at(i)
-                .is_some_and(|c| c == '_' || c.is_alphanumeric())
+        i < self.len && self.char_at(i).is_some_and(classes::is_word)
     }
 
     /// The regex `\b` at `i`.
@@ -811,6 +843,7 @@ impl<const D: u8> Lexer<'_, D> {
                 break;
             }
         }
+        self.spend(j - i);
         (!self.alnum_at(j)).then_some(j)
     }
 

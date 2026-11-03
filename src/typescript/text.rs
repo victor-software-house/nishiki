@@ -710,8 +710,7 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(e);
         if self.starts(j, "@internal") {
             let after = j + 9;
-            if self.b(after).is_ascii_whitespace() || self.starts(after, "*/") || after >= self.len
-            {
+            if self.space_at(after) || self.starts(after, "*/") || after >= self.len {
                 self.cap(
                     Kind::CommentBlock,
                     j,
@@ -765,7 +764,7 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(e);
         if self.starts(j, "@internal") {
             let after = j + 9;
-            if self.b(after).is_ascii_whitespace() || after >= self.len {
+            if self.space_at(after) || after >= self.len {
                 self.cap(kind, e, j, &[line]);
                 self.cap(
                     kind,

@@ -705,3 +705,35 @@ fn a_modifier_without_a_name_after_it_is_the_parameter_name() {
         "storage.modifier.ts"
     );
 }
+
+#[test]
+fn letters_and_word_characters_are_onigurumas() {
+    // U+0363 is alphabetic in Rust's Unicode but not in Shiki's `[[:alpha:]]`,
+    // so the name stops before it.
+    assert_eq!(
+        scope_of("let a\u{363}b = 1;", "a"),
+        "variable.other.readwrite.ts"
+    );
+    // U+0300 is `\w` for Shiki, so `this` before it has no `\b` after it.
+    assert_ne!(
+        scope_of("x = this\u{300};", "this"),
+        "variable.language.this.ts"
+    );
+}
+
+#[test]
+fn a_unicode_blank_is_a_blank_wherever_the_grammar_reads_s() {
+    // `(?=\S)` does not end the arrow body at a no-break space, so the
+    // declaration goes on to the next line.
+    let (lines, _) = lex("let x = () =>\u{a0}\n  1");
+    let one = &lines[1].last().expect("a token for 1").1;
+    assert!(one.iter().any(|s| s == "meta.var.expr.ts"), "{one:?}");
+    // `@internal` needs `\s` after it.
+    let stack = stack_of("// @internal\u{a0}x", "internal");
+    assert!(
+        stack
+            .iter()
+            .any(|s| s == "storage.type.internaldeclaration.ts"),
+        "{stack:?}"
+    );
+}

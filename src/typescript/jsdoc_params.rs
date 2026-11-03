@@ -4,6 +4,7 @@
 use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use crate::classes;
 
 /// The pieces of an optional parameter, `[name=default]`.
 struct OptionalParam {
@@ -26,7 +27,7 @@ impl<const D: u8> Lexer<'_, D> {
                     break;
                 }
                 j += 2;
-            } else if matches!(c, b'/' | b'@') || super::lexer::is_ws(c) {
+            } else if matches!(c, b'/' | b'@') || self.space_at(j) {
                 break;
             } else {
                 j += self.char_len(j);
@@ -49,6 +50,7 @@ impl<const D: u8> Lexer<'_, D> {
         while name_char(self.b(j)) {
             j += 1;
         }
+        self.spend(j - name_start + 1);
         if j == name_start {
             return None;
         }
@@ -62,6 +64,7 @@ impl<const D: u8> Lexer<'_, D> {
             while name_char(self.b(e)) {
                 e += 1;
             }
+            self.spend(e - k);
             if e == k + 1 {
                 break;
             }
@@ -89,10 +92,14 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 e += 1;
             }
+            self.spend(e - value + 1);
             // Blanks before the closing bracket are not part of the value.
             let mut value_end = e;
-            while value_end > value && self.b(value_end - 1).is_ascii_whitespace() {
-                value_end -= 1;
+            while value_end > value
+                && let Some(c) = self.prev_char(value_end)
+                && classes::is_space(c)
+            {
+                value_end -= c.len_utf8();
             }
             default = Some((k, value, value_end));
             end = e;
@@ -101,9 +108,10 @@ impl<const D: u8> Lexer<'_, D> {
         if self.b(m) == b']' {
             // `((?:[^*\s]|\*[^/\s])+)?`
             let mut t = m + 1;
-            while t < self.len && !self.b(t).is_ascii_whitespace() && self.b(t) != b'*' {
-                t += 1;
+            while t < self.len && !self.space_at(t) && self.b(t) != b'*' {
+                t += self.char_len(t);
             }
+            self.spend(t - m);
             return Some(OptionalParam {
                 default,
                 close: Some(m),

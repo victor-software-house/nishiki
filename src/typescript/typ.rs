@@ -574,7 +574,7 @@ impl<const D: u8> Lexer<'_, D> {
         // `(?!asserts)`: a name that starts with `asserts` is not a predicate.
         if !self.starts(j, "asserts")
             && let Some((name_end, this)) = self.predicate_name(j)
-            && is_space(self.b(name_end))
+            && self.space_at(name_end)
         {
             let m = self.ws(name_end);
             if self.starts(m, "is") && self.kw_after(m + 2) {
@@ -634,8 +634,4 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ident(j)?;
         self.kw_after(e).then_some((e, false))
     }
-}
-
-fn is_space(b: u8) -> bool {
-    super::lexer::is_ws(b)
 }

@@ -6,7 +6,7 @@
 
 use super::decl::VarKind;
 use super::kind::Kind;
-use super::lexer::{Lexer, is_ws};
+use super::lexer::{Lexer, is_alnum_char, is_alpha_char};
 use super::scope::S;
 
 const BLOCK: S = S::PunctuationDefinitionBlock;
@@ -123,7 +123,7 @@ impl<const D: u8> Lexer<'_, D> {
                 None
             }
             Kind::IfOuter => self.end_zero(matches!(self.b(p), b';' | b'}') || self.eol(p), p),
-            Kind::Decorator => self.end_zero(is_ws(self.b(p)), p),
+            Kind::Decorator => self.end_zero(self.space_at(p), p),
             Kind::ObjBindVar | Kind::ArrBindVar | Kind::ObjBindVarConst | Kind::ArrBindVarConst => {
                 self.end_zero(
                     self.eol(p)
@@ -369,12 +369,12 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.prev_char(p) == Some('}'),
                 p,
             ),
-            Kind::TypeOp => self.end_zero(!is_ws(self.b(p)) && p <= self.len && self.b(p) != 0, p),
+            Kind::TypeOp => self.end_zero(!self.space_at(p) && p <= self.len && self.b(p) != 0, p),
             Kind::Typeof => self.end_zero(self.typeof_end(p), p),
             Kind::VarLet => self.end_var(p, VarKind::Let),
             Kind::VarConst => self.end_var(p, VarKind::Const),
             Kind::VarUsing => self.end_var(p, VarKind::Using),
-            Kind::VarKw => self.end_zero(self.b(p) != 0 && !is_ws(self.b(p)) && p < self.len, p),
+            Kind::VarKw => self.end_zero(self.b(p) != 0 && !self.space_at(p) && p < self.len, p),
             Kind::VarComma | Kind::VarCommaConst | Kind::VarCommaUsing => self.end_var_comma(p),
             Kind::VarSingle => self.end_zero(
                 self.eol(p)
@@ -420,7 +420,7 @@ impl<const D: u8> Lexer<'_, D> {
         matches!(
             self.b(p),
             b'-' | b']' | b')' | b'+' | b',' | b':' | b';' | b'}'
-        ) || is_ws(self.b(p))
+        ) || self.space_at(p)
             || self.blank_line_at(p)
             || self.statement_start_at(p)
     }
@@ -428,7 +428,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?=\s|\*/|[^]$A-\[_a-{}])`.
     fn doc_type_tag_end(&self, p: usize) -> bool {
         let c = self.b(p);
-        if is_ws(c) || self.starts(p, "*/") {
+        if self.space_at(p) || self.starts(p, "*/") {
             return true;
         }
         let in_set =
@@ -656,7 +656,7 @@ impl<const D: u8> Lexer<'_, D> {
         let blank = !first && self.blank_line_at(p);
         let brace = self
             .prev_char(p)
-            .is_some_and(|c| matches!(c, ']' | '$' | ')' | '>' | '_' | '}') || c.is_alphabetic())
+            .is_some_and(|c| matches!(c, ']' | ')' | '>' | '}') || is_alpha_char(c))
             && self.b(self.ws(p)) == b'{';
         if stop || equals || blank {
             return Some((p, false));
@@ -757,8 +757,7 @@ impl<const D: u8> Lexer<'_, D> {
         let head = self.text(0, p.saturating_sub(5)).trim_end();
         head.ends_with("await")
             && (head.len() == 5
-                || !head[..head.len() - 5]
-                    .ends_with(|c: char| c == '$' || c == '.' || c == '_' || c.is_alphanumeric()))
+                || !head[..head.len() - 5].ends_with(|c: char| c == '.' || is_alnum_char(c)))
     }
 
     /// `(?<!,)(((?=[;=}]|(B(of|in)\s+)|^\s*$))|((?<=\S)(?=\s*$)))`.

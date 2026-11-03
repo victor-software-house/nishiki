@@ -281,7 +281,7 @@ impl<const D: u8> Lexer<'_, D> {
             return self.tok(p, p + 1, S::KeywordOperatorArithmetic);
         }
         // `/` or `/=` after a closing bracket or a name, with blanks before.
-        if b.is_ascii_whitespace() && self.divide_after_name(p) {
+        if self.space_at(p) && self.divide_after_name(p) {
             return Some(self.divide_with_blanks(p));
         }
         None
