@@ -2,7 +2,9 @@
 
 use std::collections::HashMap;
 
-use super::ast::{Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, prop_named};
+use super::ast::{
+    Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, insensitive_char, prop_named,
+};
 
 /// A pattern that does not compile: what is wrong with it.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -222,6 +224,22 @@ impl Parser {
         None
     }
 
+    /// A character, as the flags read it.
+    fn char_node(&self, c: char) -> Node {
+        match self.flags.case {
+            Case::Sensitive => Node::Char(c),
+            Case::Insensitive => insensitive_char(c),
+        }
+    }
+
+    /// A bracketed class, as the flags read it.
+    fn class_node(&self, class: Class) -> Node {
+        Node::Class(Box::new(match self.flags.case {
+            Case::Sensitive => class,
+            Case::Insensitive => class.insensitive(),
+        }))
+    }
+
     fn atom(&mut self) -> Result<Option<Node>> {
         let Some(c) = self.peek() else {
             return Ok(None);
@@ -231,13 +249,13 @@ impl Parser {
             '(' => return self.group(),
             '[' => {
                 let class = self.class()?;
-                Node::Class(Box::new(class), self.flags.case)
+                self.class_node(class)
             }
             '.' => Node::Any(self.flags.dotall),
             '^' => Node::Anchor(Anchor::Caret),
             '$' => Node::Anchor(Anchor::Dollar),
             '\\' => self.escape()?,
-            c => Node::Char(c, self.flags.case),
+            c => self.char_node(c),
         }))
     }
 
@@ -373,6 +391,9 @@ impl Parser {
     /// In a grammar's pattern, as Shiki runs it, `\z` never matches, not even
     /// after a line's newline, so a rule that ends at `\z` stays open from line
     /// to line.
+    ///
+    /// A property escape outside brackets keeps its case under `(?i)`, as in
+    /// Oniguruma: `(?i)\p{Lu}` refuses `a`, and `(?i)[\p{Lu}]` takes it.
     fn escape(&mut self) -> Result<Node> {
         let Some(c) = self.peek() else {
             return err("trailing backslash");
@@ -380,13 +401,10 @@ impl Parser {
         self.at += 1;
         let case = self.flags.case;
         let prop_class = |prop: Prop, polarity: Polarity| {
-            Node::Class(
-                Box::new(Class {
-                    negated: false,
-                    parts: vec![vec![Item::Prop(prop, polarity)]],
-                }),
-                Case::Sensitive,
-            )
+            Node::Class(Box::new(Class {
+                negated: false,
+                parts: vec![vec![Item::Prop(prop, polarity)]],
+            }))
         };
         Ok(match c {
             'd' => prop_class(builtin("digit"), Polarity::Positive),
@@ -459,7 +477,10 @@ impl Parser {
                     .map_or(0, |d| usize::try_from(d).unwrap_or(0)),
                 case,
             ),
-            _ => Node::Char(self.simple_escape(c)?, case),
+            _ => {
+                let c = self.simple_escape(c)?;
+                self.char_node(c)
+            }
         })
     }
 
@@ -630,20 +651,14 @@ impl Parser {
 fn line_break() -> Node {
     let separator = |code: u32| char::from_u32(code).unwrap_or('\n');
     Node::Atomic(Box::new(Node::Alt(vec![
-        Node::Seq(vec![
-            Node::Char('\r', Case::Sensitive),
-            Node::Char('\n', Case::Sensitive),
-        ]),
-        Node::Class(
-            Box::new(Class {
-                negated: false,
-                parts: vec![vec![
-                    Item::Range('\n', '\r'),
-                    Item::Range(separator(0x85), separator(0x85)),
-                    Item::Range(separator(0x2028), separator(0x2029)),
-                ]],
-            }),
-            Case::Sensitive,
-        ),
+        Node::Seq(vec![Node::Char('\r'), Node::Char('\n')]),
+        Node::Class(Box::new(Class {
+            negated: false,
+            parts: vec![vec![
+                Item::Range('\n', '\r'),
+                Item::Range(separator(0x85), separator(0x85)),
+                Item::Range(separator(0x2028), separator(0x2029)),
+            ]],
+        })),
     ])))
 }

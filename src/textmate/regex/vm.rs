@@ -5,7 +5,7 @@
 //! lookarounds and atomic groups the pattern itself has. Every instruction
 //! costs a step from the caller's budget.
 
-use super::ast::{Anchor, Case, fold, is_word};
+use super::ast::{Anchor, Case, is_word, orbit};
 use super::program::{Inst, Program};
 
 /// A capture slot that holds no position.
@@ -166,11 +166,9 @@ impl Machine<'_> {
                 return None;
             };
             let flow = match inst {
-                Inst::Lit(_)
-                | Inst::Fold(_)
-                | Inst::Any(_)
-                | Inst::Class(_)
-                | Inst::Backref { .. } => self.consume(inst, pc, pos),
+                Inst::Lit(_) | Inst::Any(_) | Inst::Class(_) | Inst::Backref { .. } => {
+                    self.consume(inst, pc, pos)
+                }
                 Inst::Look { .. } | Inst::Atomic { .. } | Inst::BodyEnd | Inst::Match => {
                     self.nested(inst, pc, pos, target)
                 }
@@ -222,12 +220,6 @@ impl Machine<'_> {
                     Flow::Fail
                 }
             }
-            Inst::Fold(c) => match decode(self.text, pos) {
-                Some((code, width)) if char::from_u32(code).is_some_and(|d| fold(d) == *c) => {
-                    step(width)
-                }
-                _ => Flow::Fail,
-            },
             Inst::Any(dotall) => match decode(self.text, pos) {
                 Some((code, width)) if *dotall || code != u32::from(b'\n') => step(width),
                 _ => Flow::Fail,
@@ -322,7 +314,6 @@ impl Machine<'_> {
                 _ => Flow::Go(pc + 1, pos),
             },
             Inst::Lit(_)
-            | Inst::Fold(_)
             | Inst::Any(_)
             | Inst::Class(_)
             | Inst::Look { .. }
@@ -387,7 +378,6 @@ impl Machine<'_> {
             }
             Inst::Match => Flow::Done(pos),
             Inst::Lit(_)
-            | Inst::Fold(_)
             | Inst::Any(_)
             | Inst::Class(_)
             | Inst::Split { .. }
@@ -481,6 +471,13 @@ impl Machine<'_> {
         }
     }
 
+    /// Where the text the group matched ends when it repeats at `pos`.
+    ///
+    /// As in Oniguruma, the repeat is read within as many bytes as the group
+    /// took. Under `(?i)` each character of the group matches one of its
+    /// orbit there, and the repeat ends where the group's characters run out,
+    /// which may be before that window ends: `(?i)(ſ)\1` takes `ſs`, while
+    /// `(?i)(s)\1` refuses `sſ`, whose `ſ` does not fit in one byte.
     fn backref(&self, group: usize, case: Case, pos: usize) -> Option<usize> {
         let start = *self.scratch.slots.get(group * 2)?;
         let end = *self.scratch.slots.get(group * 2 + 1)?;
@@ -488,17 +485,22 @@ impl Machine<'_> {
             return None;
         }
         let word = self.text.get(as_usize(start)..as_usize(end))?;
-        let here = self.text.get(pos..pos + word.len())?;
-        if word == here {
+        let window = self.text.get(pos..pos + word.len())?;
+        if word == window {
             return Some(pos + word.len());
         }
-        if case == Case::Insensitive
-            && let (Ok(a), Ok(b)) = (std::str::from_utf8(word), std::str::from_utf8(here))
-        {
-            let equal = a.chars().map(fold).eq(b.chars().map(fold));
-            return equal.then_some(pos + word.len());
+        if case == Case::Sensitive {
+            return None;
         }
-        None
+        let mut at = 0;
+        for c in std::str::from_utf8(word).ok()?.chars() {
+            let (code, width) = decode(window, at)?;
+            if !orbit(c).members().contains(&char::from_u32(code)?) {
+                return None;
+            }
+            at += width;
+        }
+        Some(pos + at)
     }
 
     /// `^` matches at the start of the text and after a newline, but, as in

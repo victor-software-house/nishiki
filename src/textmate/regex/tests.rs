@@ -254,16 +254,42 @@ fn debug_ruby_lookahead() {
 /// Compares the machine with Oniguruma's recorded answers (`NISHIKI_DIFF`
 /// names a directory with `patterns.hex`, `lines.hex`, `cases.tsv` and
 /// `expected.tsv`; see the scratch script that writes them).
-///
-/// Oniguruma reports as many groups as the pattern has, so those are the
-/// groups compared.
 #[test]
 #[ignore = "a survey over a scratch directory"]
 fn differential_against_oniguruma() {
     let Some(dir) = std::env::var_os("NISHIKI_DIFF") else {
         return;
     };
-    let dir = std::path::PathBuf::from(dir);
+    let differ = differential(std::path::Path::new(&dir));
+    for case in differ.iter().take(50) {
+        eprintln!("{}", case.chars().take(400).collect::<String>());
+    }
+    eprintln!("{} cases differ", differ.len());
+}
+
+/// Under `(?i)` a character matches the characters its simple case folds join
+/// it to, in and out of classes and back-references, as Oniguruma decides
+/// (tests/engine/case-folds, written by `oracle/case-fold-probe.ts`).
+#[test]
+fn case_insensitive_matching_answers_as_oniguruma() {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/case-folds");
+    let differ = differential(&dir);
+    assert!(
+        differ.is_empty(),
+        "{} cases differ from Oniguruma:\n{}",
+        differ.len(),
+        differ.join("\n")
+    );
+}
+
+/// Every case of a directory of recorded answers whose match differs from
+/// Oniguruma's, each naming its pattern, line, recorded answer and the
+/// machine's.
+///
+/// Oniguruma reports as many groups as the pattern has, so those are the
+/// groups compared. A case also differs when the scanner's automaton finds
+/// nothing where Oniguruma matches, since the scanner skips such text.
+fn differential(dir: &std::path::Path) -> Vec<String> {
     let read = |name: &str| std::fs::read_to_string(dir.join(name)).unwrap();
     let unhex = |hex: &str| -> String {
         let bytes: Vec<u8> = (0..hex.len() / 2)
@@ -276,22 +302,29 @@ fn differential_against_oniguruma() {
     let cases = read("cases.tsv");
     let expected = read("expected.tsv");
     let compiled: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::new(p).ok()).collect();
-    let mut bad: std::collections::BTreeMap<usize, Vec<String>> = std::collections::BTreeMap::new();
+    let mut differ = Vec::new();
     let mut scratch = Scratch::default();
-    let mut total = 0;
     for (case, want) in cases.lines().zip(expected.lines()) {
         let mut parts = case.split('\t');
         let pattern: usize = parts.next().unwrap().parse().unwrap();
         let line: usize = parts.next().unwrap().parse().unwrap();
         let from: usize = parts.next().unwrap().parse().unwrap();
-        total += 1;
+        let source = &patterns[pattern];
         let Some(regex) = &compiled[pattern] else {
-            bad.entry(pattern)
-                .or_default()
-                .push("did not compile".to_owned());
+            differ.push(format!("{source} does not compile"));
             continue;
         };
         let text = format!("{}\n", lines[line]);
+        if want != "-"
+            && let Some(relaxed) = regex.relaxed()
+            && !regex_automata::meta::Regex::new(relaxed)
+                .is_ok_and(|automaton| automaton.is_match(&text.as_bytes()[from..]))
+        {
+            differ.push(format!(
+                "{source} on {:?} from {from}: the automaton {relaxed} finds nothing",
+                lines[line]
+            ));
+        }
         let mut steps = 1_000_000_000;
         let context = Context {
             search: Some(from),
@@ -317,22 +350,13 @@ fn differential_against_oniguruma() {
                 && want_cut[..] == got_cut[..want_cut.len()]
                 && got_cut[want_cut.len()..].iter().all(|g| *g == "x"));
         if !same {
-            bad.entry(pattern).or_default().push(format!(
-                "{:?} from {from}: want {want} got {got}",
+            differ.push(format!(
+                "{source} on {:?} from {from}: Oniguruma {want}, nishiki {got}",
                 lines[line]
             ));
         }
     }
-    eprintln!("{total} cases, {} patterns differ", bad.len());
-    for (pattern, cases) in bad.iter().take(25) {
-        eprintln!(
-            "PATTERN {}",
-            patterns[*pattern].chars().take(300).collect::<String>()
-        );
-        for case in cases.iter().take(2) {
-            eprintln!("   {case}");
-        }
-    }
+    differ
 }
 
 /// `a(?i)b|c` is `a(?i:b|c)`: the `a` comes before either alternative.

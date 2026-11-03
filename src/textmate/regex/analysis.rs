@@ -1,7 +1,7 @@
 //! What the compiler learns about a pattern before it runs: where a match can
 //! start and how long text it needs, so that a search can skip ahead.
 
-use super::ast::{Anchor, Case, Node};
+use super::ast::{Anchor, Class, Item, Node};
 
 /// Where a match can start, beyond the character at the start.
 #[derive(Clone, Copy, Debug, Default)]
@@ -61,9 +61,10 @@ pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
 /// Adds the bytes a match of `node` can start with to `set`; true when the
 /// node can match without consuming anything, so what follows counts too.
 ///
-/// A class may hold non-ASCII members, so every non-ASCII lead byte may start
-/// one. A lookahead that needs a character limits the start to the characters
-/// it can begin with.
+/// A class that is a union of ranges adds the lead bytes of its ranges; any
+/// other class may hold any non-ASCII member, so every non-ASCII lead byte may
+/// start one. A lookahead that needs a character limits the start to the
+/// characters it can begin with.
 pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     let all = |set: &mut [bool; 256]| set.iter_mut().for_each(|b| *b = true);
     match node {
@@ -82,28 +83,20 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
             false
         }
         Node::Empty | Node::Anchor(_) | Node::Look { .. } => true,
-        Node::Char(c, case) => {
-            let mut buffer = [0; 4];
-            if let Some(&lead) = c.encode_utf8(&mut buffer).as_bytes().first() {
-                set[usize::from(lead)] = true;
-            }
-            if *case == Case::Insensitive {
-                for other in c.to_lowercase().chain(c.to_uppercase()) {
-                    if let Some(&lead) = other.encode_utf8(&mut buffer).as_bytes().first() {
-                        set[usize::from(lead)] = true;
-                    }
-                }
-            }
+        Node::Char(c) => {
+            set[usize::from(lead_byte(*c))] = true;
             false
         }
-        Node::Class(class, case) => {
+        Node::Class(class) => {
             for b in 0..128u8 {
-                if class.matches(char::from(b), *case) {
+                if class.matches(char::from(b)) {
                     set[usize::from(b)] = true;
                 }
             }
-            for b in 0xc0..=0xffu8 {
-                set[usize::from(b)] = true;
+            for (first, last) in wide_lead_bytes(class) {
+                for b in first..=last {
+                    set[usize::from(b)] = true;
+                }
             }
             false
         }
@@ -177,7 +170,7 @@ pub(super) fn anchors(node: &Node) -> Option<Starts> {
 }
 
 /// The bytes every match of `node` starts with, when there are some: the run
-/// of case-sensitive characters that opens it.
+/// of characters that opens it.
 pub(super) fn literal_prefix(node: &Node) -> Vec<u8> {
     let mut out = Vec::new();
     collect_prefix(node, &mut out);
@@ -188,9 +181,7 @@ pub(super) fn literal_prefix(node: &Node) -> Vec<u8> {
 /// a literal ends the run.
 fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
     match node {
-        Node::Char(c, case)
-            if *case == Case::Sensitive || c.to_lowercase().eq(c.to_uppercase()) =>
-        {
+        Node::Char(c) => {
             let mut buffer = [0; 4];
             out.extend_from_slice(c.encode_utf8(&mut buffer).as_bytes());
             true
@@ -198,8 +189,7 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
         Node::Seq(items) => items.iter().all(|item| collect_prefix(item, out)),
         Node::Group { node, .. } => collect_prefix(node, out),
         Node::Empty => true,
-        Node::Char(..)
-        | Node::Any(_)
+        Node::Any(_)
         | Node::Class(..)
         | Node::Alt(_)
         | Node::Repeat { .. }
@@ -263,7 +253,7 @@ fn rank(byte: u8) -> u8 {
 /// Adds the bytes `node` must find in the text ahead of its start.
 fn collect_required(node: &Node, out: &mut Vec<u8>) {
     match node {
-        Node::Char(c, Case::Sensitive) if c.is_ascii() => {
+        Node::Char(c) if c.is_ascii() => {
             let mut buffer = [0; 4];
             out.extend(c.encode_utf8(&mut buffer).bytes());
         }
@@ -289,4 +279,30 @@ fn collect_required(node: &Node, out: &mut Vec<u8>) {
         | Node::NamedCall(_)
         | Node::Anchor(_) => {}
     }
+}
+
+/// The lead bytes a non-ASCII member of `class` can start with, as inclusive
+/// runs. For a union of ranges each range gives the run from its first lead
+/// byte to its last, since a lead byte never falls as the code point rises;
+/// any other class may hold any non-ASCII character.
+fn wide_lead_bytes(class: &Class) -> Vec<(u8, u8)> {
+    let Some(ranges) = class.ranges() else {
+        return vec![(0xc0, 0xff)];
+    };
+    ranges
+        .iter()
+        .filter_map(|item| match item {
+            Item::Range(lo, hi) if !hi.is_ascii() => {
+                Some((lead_byte((*lo).max('\u{80}')), lead_byte(*hi)))
+            }
+            Item::Range(..) | Item::Prop(..) | Item::Nested(_) => None,
+        })
+        .collect()
+}
+
+/// The first byte of `c` in UTF-8.
+fn lead_byte(c: char) -> u8 {
+    let mut buffer = [0; 4];
+    c.encode_utf8(&mut buffer);
+    buffer[0]
 }

@@ -11,7 +11,7 @@
 
 use std::fmt::Write as _;
 
-use super::ast::{Anchor, Case, Class, Item, Kind, Node};
+use super::ast::{Anchor, Class, Item, Kind, Node};
 
 /// The pattern cut at its first positive lookahead, which is replaced by what
 /// it looks for: a match that starts at `s` has the text before the lookahead
@@ -74,10 +74,12 @@ fn print(node: &Node, out: &mut String) {
         | Node::Anchor(
             Anchor::StartText | Anchor::Search | Anchor::WordBoundary | Anchor::NotWordBoundary,
         ) => {}
-        Node::Char(c, case) => char_class(*c, *case, out),
+        Node::Char(c) => {
+            let _ = write!(out, "\\x{{{:x}}}", u32::from(*c));
+        }
         Node::Any(true) => out.push_str("(?s:.)"),
         Node::Any(false) => out.push_str("[^\\x{a}]"),
-        Node::Class(class, case) => class_source(class, *case, out),
+        Node::Class(class) => class_source(class, out),
         Node::Seq(items) => items.iter().for_each(|item| print(item, out)),
         Node::Alt(alts) => {
             out.push_str("(?:");
@@ -120,22 +122,6 @@ fn print(node: &Node, out: &mut String) {
     }
 }
 
-/// One character as a class, with its other cases when it ignores case.
-fn char_class(c: char, case: Case, out: &mut String) {
-    let mut members = vec![c];
-    if case == Case::Insensitive {
-        members.extend(c.to_lowercase());
-        members.extend(c.to_uppercase());
-        members.sort_unstable();
-        members.dedup();
-    }
-    out.push('[');
-    for member in members {
-        let _ = write!(out, "\\x{{{:x}}}", u32::from(member));
-    }
-    out.push(']');
-}
-
 /// Whether a class can hold a character beyond ASCII.
 fn reaches_beyond_ascii(class: &Class) -> bool {
     class.negated
@@ -146,14 +132,14 @@ fn reaches_beyond_ascii(class: &Class) -> bool {
         })
 }
 
-/// A class with its exact ASCII members, and every other character when it
-/// can have any.
+/// A class with its exact ASCII members, and beyond ASCII its ranges when it
+/// is a union of ranges, or every other character when it can have any.
 ///
 /// A class with no member becomes one that matches nothing.
-fn class_source(class: &Class, case: Case, out: &mut String) {
+fn class_source(class: &Class, out: &mut String) {
     out.push('[');
     let members: Vec<bool> = (0..128_u8)
-        .map(|byte| class.matches(char::from(byte), case))
+        .map(|byte| class.matches(char::from(byte)))
         .collect();
     let mut empty = true;
     let mut byte = 0;
@@ -170,7 +156,17 @@ fn class_source(class: &Class, case: Case, out: &mut String) {
         empty = false;
         byte += 1;
     }
-    if reaches_beyond_ascii(class) {
+    if let Some(ranges) = class.ranges() {
+        for item in ranges {
+            if let Item::Range(lo, hi) = item
+                && !hi.is_ascii()
+            {
+                let lo = u32::from(*lo).max(0x80);
+                let _ = write!(out, "\\x{{{lo:x}}}-\\x{{{:x}}}", u32::from(*hi));
+                empty = false;
+            }
+        }
+    } else if reaches_beyond_ascii(class) {
         out.push_str("\\x{80}-\\x{10ffff}");
         empty = false;
     }

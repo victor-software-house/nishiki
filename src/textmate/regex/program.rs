@@ -7,7 +7,7 @@
 use std::collections::HashMap;
 
 use super::analysis::width;
-use super::ast::{Anchor, Case, Class, Kind, Node, fold};
+use super::ast::{Anchor, Case, Class, Kind, Node};
 use super::parse::{Error, Parsed};
 
 /// The most instructions a pattern may compile to, which bounds the cost of
@@ -19,8 +19,6 @@ const MAX_INSTS: usize = 40_000;
 pub(super) enum Inst {
     /// These bytes, exactly.
     Lit(Box<[u8]>),
-    /// One character, in either case.
-    Fold(char),
     /// Any character; a newline too when the flag is set.
     Any(bool),
     /// One character of the class at this index.
@@ -64,18 +62,17 @@ pub(super) enum Inst {
 pub(super) struct ClassTable {
     ascii: u128,
     class: Class,
-    case: Case,
 }
 
 impl ClassTable {
-    fn new(class: Class, case: Case) -> ClassTable {
+    fn new(class: Class) -> ClassTable {
         let mut ascii = 0_u128;
         for b in 0..128_u8 {
-            if class.matches(char::from(b), case) {
+            if class.matches(char::from(b)) {
                 ascii |= 1 << b;
             }
         }
-        ClassTable { ascii, class, case }
+        ClassTable { ascii, class }
     }
 
     /// Whether the code point is in the class.
@@ -83,7 +80,7 @@ impl ClassTable {
         if c < 128 {
             self.ascii >> c & 1 == 1
         } else {
-            char::from_u32(c).is_some_and(|c| self.class.matches(c, self.case))
+            char::from_u32(c).is_some_and(|c| self.class.matches(c))
         }
     }
 }
@@ -191,7 +188,6 @@ impl Compiler<'_> {
             Inst::Progress { exit, .. } => *exit = target,
             Inst::Look { end, .. } | Inst::Atomic { end } => *end = target,
             Inst::Lit(_)
-            | Inst::Fold(_)
             | Inst::Any(_)
             | Inst::Class(_)
             | Inst::Save(_)
@@ -227,9 +223,9 @@ impl Compiler<'_> {
             Node::Empty => Ok(()),
             Node::Char(..) => self.seq(std::slice::from_ref(node)),
             Node::Any(dotall) => self.push(Inst::Any(*dotall)).map(drop),
-            Node::Class(class, case) => {
+            Node::Class(class) => {
                 let id = u32::try_from(self.classes.len()).unwrap_or(u32::MAX);
-                self.classes.push(ClassTable::new((**class).clone(), *case));
+                self.classes.push(ClassTable::new((**class).clone()));
                 self.push(Inst::Class(id)).map(drop)
             }
             Node::Seq(items) => self.seq(items),
@@ -299,14 +295,9 @@ impl Compiler<'_> {
     fn seq(&mut self, items: &[Node]) -> Result<(), Error> {
         let mut literal: Vec<u8> = Vec::new();
         for item in items {
-            if let Node::Char(c, case) = item {
-                if *case == Case::Sensitive || c.to_lowercase().eq(c.to_uppercase()) {
-                    let mut buffer = [0; 4];
-                    literal.extend_from_slice(c.encode_utf8(&mut buffer).as_bytes());
-                    continue;
-                }
-                self.flush(&mut literal)?;
-                self.push(Inst::Fold(fold(*c)))?;
+            if let Node::Char(c) = item {
+                let mut buffer = [0; 4];
+                literal.extend_from_slice(c.encode_utf8(&mut buffer).as_bytes());
                 continue;
             }
             self.flush(&mut literal)?;

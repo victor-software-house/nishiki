@@ -5,10 +5,13 @@
 //! lookbehind, atomic groups, lazy and possessive quantifiers, back-references,
 //! named groups, subroutine calls (`\g<name>`), inline flags and the anchors
 //! `\A`, `\G`, `^` and `$`. Unicode properties are the character sets
-//! Oniguruma applies, measured into [`unicode`].
+//! Oniguruma applies, measured into [`unicode`]. Under `(?i)` a character
+//! matches every character its simple case folds join it to ([`folds`]),
+//! decided when the pattern compiles.
 
 mod analysis;
 mod ast;
+mod folds;
 mod parse;
 mod program;
 mod relax;

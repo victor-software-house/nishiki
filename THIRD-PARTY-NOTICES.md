@@ -828,7 +828,7 @@ express or implied warranty, and with no claim as to its
 suitability for any purpose.
 ```
 
-Its TextMate engine reads its Unicode character sets (`src/textmate/regex/unicode.rs`) from Unicode character data, as [Oniguruma](https://github.com/kkos/oniguruma) applies it, which is licensed under the Unicode License v3 (<https://www.unicode.org/license.txt>):
+Its TextMate engine reads its Unicode character sets (`src/textmate/regex/unicode.rs`) and its case folds (`src/textmate/regex/folds.rs`) from Unicode character data, as [Oniguruma](https://github.com/kkos/oniguruma) applies it, which is licensed under the Unicode License v3 (<https://www.unicode.org/license.txt>):
 
 ```text
 UNICODE LICENSE V3
