@@ -848,6 +848,9 @@ impl Tokenizer<'_> {
     /// The automaton reads every byte it passes, and the work limit counts
     /// them: a line of candidates that each read to its end would otherwise
     /// cost the square of its length.
+    ///
+    /// The list's automaton cache stays in its slot, borrowed for each search:
+    /// moving it out and back would copy the whole cache on every call.
     fn scan(
         &mut self,
         list_id: usize,
@@ -856,17 +859,19 @@ impl Tokenizer<'_> {
         from: usize,
         end: usize,
     ) -> Option<(usize, usize)> {
-        let mut cache = match self.s.meta_caches.get_mut(list_id)?.take() {
-            Some(cache) => cache,
-            None => scanner.take_cache()?,
-        };
+        let slot = self.s.meta_caches.get_mut(list_id)?;
+        if slot.is_none() {
+            *slot = Some(scanner.take_cache()?);
+        }
         let mut at = from;
         let mut found = None;
         while at < end && !self.stopped {
-            let Some(text) = self.s.text.get(..end) else {
+            let (Some(text), Some(Some(cache))) =
+                (self.s.text.get(..end), self.s.meta_caches.get_mut(list_id))
+            else {
                 break;
             };
-            let candidate = scanner.candidate(&mut cache, text, at);
+            let candidate = scanner.candidate(cache, text, at);
             let read = candidate
                 .map_or(end, |(_, _, stop)| stop)
                 .saturating_sub(at);
@@ -897,9 +902,6 @@ impl Tokenizer<'_> {
             while self.s.text.get(at).is_some_and(|&b| b & 0xc0 == 0x80) {
                 at += 1;
             }
-        }
-        if let Some(slot) = self.s.meta_caches.get_mut(list_id) {
-            *slot = Some(cache);
         }
         found
     }
