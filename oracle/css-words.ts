@@ -6,6 +6,8 @@
 // --all`, and commit the result; the output is generated, do not edit it.
 import css from "@shikijs/langs@4.6.0/css";
 
+import { expand } from "./alternation.ts";
+
 type Node = { match?: string; begin?: string; patterns?: Node[] };
 const repository = (css as unknown as { repository: Record<string, Node> }[])[0]!.repository;
 
@@ -13,68 +15,6 @@ const repository = (css as unknown as { repository: Record<string, Node> }[])[0]
 function regexOf(key: string, index?: number): string {
   const node = index === undefined ? repository[key]! : repository[key]!.patterns![index]!;
   return (node.match ?? node.begin)!;
-}
-
-/** The strings a regular expression made of literals, classes, groups, `|` and `?` spells. */
-function expand(src: string): string[] {
-  let pos = 0;
-  function alternation(): string[] {
-    let out = sequence();
-    while (src[pos] === "|") {
-      pos++;
-      out = out.concat(sequence());
-    }
-    return out;
-  }
-  function sequence(): string[] {
-    let out = [""];
-    while (pos < src.length && src[pos] !== "|" && src[pos] !== ")") {
-      let item = atom();
-      for (;;) {
-        if (src[pos] === "?") {
-          pos++;
-          if (src[pos] === "?") pos++;
-          item = ["", ...item];
-        } else break;
-      }
-      out = out.flatMap((a) => item.map((b) => a + b));
-    }
-    return out;
-  }
-  function atom(): string[] {
-    const c = src[pos]!;
-    if (c === "(") {
-      pos++;
-      if (src.startsWith("?:", pos)) pos += 2;
-      const inner = alternation();
-      if (src[pos] !== ")") throw new Error(`unclosed group in ${src}`);
-      pos++;
-      return inner;
-    }
-    if (c === "[") {
-      pos++;
-      const chars: string[] = [];
-      while (src[pos] !== "]") {
-        const lo = src[pos++]!;
-        if (src[pos] === "-" && src[pos + 1] !== "]") {
-          pos++;
-          const hi = src[pos++]!;
-          for (let code = lo.charCodeAt(0); code <= hi.charCodeAt(0); code++) chars.push(String.fromCharCode(code));
-        } else chars.push(lo);
-      }
-      pos++;
-      return chars;
-    }
-    if (c === "\\") {
-      pos += 2;
-      return [src[pos - 1]!];
-    }
-    pos++;
-    return [c];
-  }
-  const out = alternation();
-  if (pos !== src.length) throw new Error(`stopped at ${pos} in ${src}`);
-  return out;
 }
 
 /** The words of the first group (or `(?:` group) that follows `prefix` in `regex`. */

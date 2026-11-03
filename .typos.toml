@@ -1,6 +1,8 @@
 # Spelling, checked by `mise run lint:typos`.
 [files]
-extend-exclude = ["*.lock"]
+# src/html/words.rs is generated from the html grammar's word lists, whose
+# entity and attribute names (`ofr`, `pluse`, `seeked`) are not English.
+extend-exclude = ["*.lock", "src/html/words.rs"]
 
 # Unicode general-category codes, such as Nd, which are not words.
 [default.extend-words]

@@ -253,6 +253,13 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Scala,
     },
+    // The grammar's `html?|shtml|xhtml|inc|tmpl|tpl`.
+    #[cfg(feature = "lang-html")]
+    Name {
+        words: &["html", "htm", "shtml", "xhtml", "inc", "tmpl", "tpl"],
+        brace: None,
+        lang: Language::Html,
+    },
 ];
 
 /// A language found in an info string.

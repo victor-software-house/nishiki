@@ -68,4 +68,7 @@ pub(crate) struct Scratch {
     /// The `TextMate` engine's, for every language it runs.
     #[cfg(feature = "_textmate")]
     pub(crate) textmate: crate::textmate::Scratch,
+    /// The HTML lexer's, for HTML documents and Markdown HTML fences.
+    #[cfg(feature = "lang-html")]
+    pub(crate) html: crate::html::Scratch,
 }

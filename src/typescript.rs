@@ -158,13 +158,6 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// HTML's grammar names it, and the two comment rules HTML puts before
 /// JavaScript's. HTML lexes it with [`lex_until`] and an end at `</script`.
 #[cfg(feature = "lang-javascript")]
-#[cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "the HTML lexer, which embeds scripts, lands after it"
-    )
-)]
 pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena
         .child(base, S::Source.scope(Dialect::JavaScript))

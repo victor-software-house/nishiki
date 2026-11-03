@@ -171,11 +171,44 @@ T 136 text.html.markdown meta.paragraph.markdown
 L 
 L ```html [index.html]
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 20 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 20 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
 L <div id="app"><!--ssr-outlet--></div>
-T 37 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html comment.block.html punctuation.definition.comment.html
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html comment.block.html
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html comment.block.html punctuation.definition.comment.html
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.end.html entity.name.tag.html
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.structure.div.end.html punctuation.definition.tag.end.html
 L <script type="module" src="/src/entry-client.js"></script>
-T 58 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

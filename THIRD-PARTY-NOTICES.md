@@ -1025,3 +1025,43 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+Its HTML lexer emits the scope names of the HTML TextMate grammar that Shiki bundles through VS Code as `html` (`extensions/html` in [microsoft/vscode](https://github.com/microsoft/vscode)), which VS Code converted from [textmate/html.tmbundle](https://github.com/textmate/html.tmbundle) at commit `0c3d5ee54de3a993f747f54186b73a4d2d3c44a2`, and tries that grammar's rules in its order.
+VS Code's `LICENSE.txt` reads as follows:
+
+```text
+MIT License
+
+Copyright (c) 2015 - present Microsoft Corporation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+The bundle's `README.mdown` licenses its files as follows; the HTML grammar carries no licence of its own:
+
+```text
+If not otherwise specified (see below), files in this repository fall under the following license:
+
+  Permission to copy, use, modify, sell and distribute this
+  software is granted. This software is provided "as is" without
+  express or implied warranty, and with no claim as to its
+  suitability for any purpose.
+
+An exception is made for files in readable text which contain their own license information, or files where an accompanying file exists (in the same directory) with a "-license" suffix added to the base-name name of the original file, and an extension of txt, html, or similar. For example "tidy" is accompanied by "tidy-license.txt".
+```

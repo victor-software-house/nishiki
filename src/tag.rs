@@ -125,6 +125,9 @@ tags! {
     /// XML.
     #[cfg(feature = "lang-xml")]
     XML = 0x2900,
+    /// HTML.
+    #[cfg(feature = "lang-html")]
+    HTML = 0x2800,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on

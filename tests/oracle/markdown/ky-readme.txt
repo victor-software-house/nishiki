@@ -12986,21 +12986,68 @@ T 217 text.html.markdown meta.paragraph.markdown
 L 
 L ```html
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L <script type="module">
-T 22 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
 L import ky from 'https://unpkg.com/ky/distribution/index.js';
-T 60 text.html.markdown markup.fenced_code.block.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js keyword.control.import.js
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js variable.other.readwrite.alias.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js keyword.control.from.js
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js string.quoted.single.js punctuation.definition.string.begin.js
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js string.quoted.single.js
+T 59 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.import.js string.quoted.single.js punctuation.definition.string.end.js
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js punctuation.terminator.statement.js
 L 
 L const json = await ky('https://jsonplaceholder.typicode.com/todos/1').json();
-T 77 text.html.markdown markup.fenced_code.block.markdown
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js keyword.control.flow.js
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.brace.round.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js
+T 68 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 69 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.brace.round.js
+T 70 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 74 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 75 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.brace.round.js
+T 76 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.var.expr.js meta.brace.round.js
+T 77 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js punctuation.terminator.statement.js
 L 
 L console.log(json.title);
-T 24 text.html.markdown markup.fenced_code.block.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.function-call.js variable.other.object.js
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.function-call.js punctuation.accessor.js
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.brace.round.js
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js variable.other.object.js
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js punctuation.accessor.js
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js variable.other.property.js
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js meta.brace.round.js
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js punctuation.terminator.statement.js
 L //=> 'delectus aut autem'
-T 25 text.html.markdown markup.fenced_code.block.markdown
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html source.js comment.line.double-slash.js
 L </script>
-T 9 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

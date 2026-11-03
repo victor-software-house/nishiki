@@ -268,6 +268,8 @@ languages! {
         engine: crate::scala::grammar::GRAMMAR,
         reads_line_feed: true,
     }
+    /// HTML, with the scopes of Shiki's `html` grammar.
+    Html { feature: "lang-html", names: ["html"], module: html }
 }
 
 impl Language {

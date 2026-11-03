@@ -9,6 +9,7 @@ mod diff;
 mod dockerfile;
 mod go;
 mod graphql;
+mod html;
 mod ini;
 mod java;
 mod json;

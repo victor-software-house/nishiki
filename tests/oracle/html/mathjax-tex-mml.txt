@@ -1,0 +1,1205 @@
+L <!DOCTYPE html>
+T 2 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.basic meta.tag.metadata.doctype.html
+T 14 text.html.basic meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html lang="en">
+T 1 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.html.start.html
+T 10 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html
+T 15 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L <head>
+T 1 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.head.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L   <meta charset="utf-8">
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 8 text.html.basic meta.tag.metadata.meta.void.html
+T 15 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html entity.other.attribute-name.html
+T 16 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html punctuation.separator.key-value.html
+T 17 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html
+T 23 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L   <meta name="viewport" content="width=device-width">
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 8 text.html.basic meta.tag.metadata.meta.void.html
+T 12 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 23 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.basic meta.tag.metadata.meta.void.html
+T 31 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 32 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 33 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 52 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 53 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L   <link rel="stylesheet" href="../styles/globals.css">
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 8 text.html.basic meta.tag.metadata.link.void.html
+T 11 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 12 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 24 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.basic meta.tag.metadata.link.void.html
+T 29 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 30 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 31 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 53 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L   <title>MathJax v4 with TeX input and MathML output</title>
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.tag.metadata.title.start.html entity.name.tag.html
+T 9 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 52 text.html.basic
+T 54 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 59 text.html.basic meta.tag.metadata.title.end.html entity.name.tag.html
+T 60 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L   <style class="show">
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html
+T 14 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+L   mjx-container[display="block"] {
+T 2 text.html.basic meta.embedded.block.html source.css
+T 15 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.custom.css
+T 16 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css keyword.operator.pattern.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.begin.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css string.quoted.double.css punctuation.definition.string.end.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 33 text.html.basic meta.embedded.block.html source.css
+T 34 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     display: block;
+T 4 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 11 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 19 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L     margin: 1em 0;
+T 4 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 10 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 15 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 3 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   </style>
+T 2 text.html.basic meta.embedded.block.html source.css
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 4 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L   <style class="show" id="mjx-explorer-styles"></style>
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html
+T 14 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html
+T 24 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 25 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 26 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.id.html string.quoted.double.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L   <script class="show">
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 17 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L   MathJax = {
+T 2 text.html.basic meta.embedded.block.html source.js
+T 9 text.html.basic meta.embedded.block.html source.js variable.other.readwrite.js
+T 10 text.html.basic meta.embedded.block.html source.js
+T 11 text.html.basic meta.embedded.block.html source.js keyword.operator.assignment.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.definition.block.js
+L     //
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L     // Load only TeX input and the contextual menu
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js
+L     //
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L     loader: {load: ['input/tex', 'a11y/explorer', 'ui/menu']},
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js
+T 59 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 61 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L     tex: {inlineMath: {'[+]': [['$', '$']]}},
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js string.quoted.single.js punctuation.definition.string.begin.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js string.quoted.single.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js string.quoted.single.js punctuation.definition.string.end.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js meta.brace.square.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js punctuation.separator.comma.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.begin.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js string.quoted.single.js punctuation.definition.string.end.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.array.literal.js meta.brace.square.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L     startup: {
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       // Set the styles needed for the expression explorer and
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       // disable the assistive MathML menu and renderer menu.
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 61 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       ready() {
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L         MathJax.startup.defaultReady();
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         //
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+L         // Add the CSS needed for the explorer (since that is usually
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js
+L         // done by the output jax, and we don't have one).
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js
+L         //
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+L         const doc = MathJax.startup.document;
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js storage.type.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.object.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.object.property.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.property.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         const {StyleJsonSheet} = MathJax._.util.StyleJson;
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js storage.type.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.object-binding-pattern-variable.js meta.definition.variable.js variable.other.constant.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.object-binding-pattern-variable.js punctuation.definition.binding-pattern.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.object-binding-pattern-variable.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.object.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.object.property.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.object.property.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js variable.other.property.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         const css = new StyleJsonSheet(doc.constructor.speechStyles);
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js storage.type.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js keyword.operator.new.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js meta.function-call.js entity.name.function.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js variable.other.object.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js support.variable.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js punctuation.accessor.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js variable.other.property.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js new.expr.js meta.brace.round.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         const sheet = document.getElementById('mjx-explorer-styles');
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js storage.type.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js string.quoted.single.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         sheet.textContent = css.cssText;
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.operator.assignment.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         //
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+L         // Disable the some menu item.
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js
+L         //
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.whitespace.comment.leading.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+L         doc.menu.menu.findID('Options', 'AssistiveMml').disable();
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.separator.comma.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 64 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L         doc.menu.menu.findID('Settings', 'Renderer').disable();
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.separator.comma.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 61 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L       },
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       // Perform the initial typesetting (we don't have an output
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       // jax, so this isn't done automatically).
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       pageReady() {
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L         return MathJax.startup.document.renderPromise();
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.control.flow.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L       }
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L     },
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L     options: {
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       // Override the usual typeset render action with one that generates MathML output.
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 88 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       renderActions: {
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L         assistiveMml: [],  // disable assistive mathml
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L         typeset: [150,
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js constant.numeric.decimal.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L           (doc) => {for (math of doc.math) {MathJax.config.renderMathML(math, doc)}},
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js storage.type.function.arrow.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js keyword.control.loop.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.brace.round.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js keyword.operator.expression.of.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js variable.other.object.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js variable.other.property.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.brace.round.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js punctuation.definition.block.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.function-call.js variable.other.object.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 59 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 71 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.brace.round.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js variable.other.readwrite.js
+T 77 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js punctuation.separator.comma.js
+T 78 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js
+T 81 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js variable.other.readwrite.js
+T 82 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js meta.brace.round.js
+T 83 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js meta.block.js punctuation.definition.block.js
+T 84 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 85 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+L           (math, doc) => MathJax.config.renderMathML(math, doc)
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js punctuation.separator.parameter.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js storage.type.function.arrow.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.arrow.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.function-call.js variable.other.object.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.function-call.js variable.other.object.property.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.round.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js variable.other.readwrite.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 59 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js variable.other.readwrite.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.round.js
+L         ]
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+L       },
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       // Don't add assistive MathML.
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js
+L       //
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L       menuOptions: {
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L         settings: {
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L           assistiveMml: false,
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js constant.language.boolean.false.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.separator.comma.js
+L         }
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L       }
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+L     },
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js meta.object.member.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.object.member.js meta.objectliteral.js punctuation.definition.block.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.separator.comma.js
+L     //
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L     // The action to use for rendering MathML.
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js
+L     //   Create the container and insert the MathML into it.
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js
+L     //   Mark it as a display expression, if needed.
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js
+L     //
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.whitespace.comment.leading.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js comment.line.double-slash.js punctuation.definition.comment.js
+L     renderMathML(math, doc) {
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js variable.parameter.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.separator.parameter.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js variable.parameter.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L       math.typesetRoot = document.createElement('mjx-container');
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.operator.assignment.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 64 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L       math.typesetRoot.innerHTML = MathJax.startup.toMML(math.root);
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.property.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.operator.assignment.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 61 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L       if (math.display) {
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js keyword.control.conditional.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.object.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+L         math.typesetRoot.setAttribute('display', 'block');
+T 8 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js variable.other.object.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js punctuation.separator.comma.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L       }
+T 6 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+L     }
+T 4 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L   };
+T 2 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js
+T 3 text.html.basic meta.embedded.block.html source.js meta.objectliteral.js punctuation.definition.block.js
+T 4 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L   </script>
+T 2 text.html.basic meta.embedded.block.html source.js
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 4 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L   <script class="show" defer src="https://cdn.jsdelivr.net/npm/mathjax@4/startup.js"></script>
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 17 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 28 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.defer.html entity.other.attribute-name.html
+T 29 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 32 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 33 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 34 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 83 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 84 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 85 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 86 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 87 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 93 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 94 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L </head>
+T 2 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.head.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L <body>
+T 1 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.body.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L 
+L <div id="frame">
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 15 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L 
+L <h1>MathJax v4: TeX input and MathML Output</h1>
+T 1 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 3 text.html.basic meta.tag.structure.h1.start.html entity.name.tag.html
+T 4 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 43 text.html.basic
+T 45 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 47 text.html.basic meta.tag.structure.h1.end.html entity.name.tag.html
+T 48 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L 
+L <div class="inset">
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 10 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 18 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L <p>Note that this example requires a browser with native MathML support.</p>
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 72 text.html.basic
+T 74 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 75 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 76 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L <div class="show display">
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 10 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 25 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L  
+T 1 text.html.basic
+L   <p>
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+L   When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+T 79 text.html.basic
+L   $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+T 43 text.html.basic
+L   </p>
+T 2 text.html.basic
+T 4 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L  
+T 1 text.html.basic
+L </div>
+T 2 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L <div class="explain inset">
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 10 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 25 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 26 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 27 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L 
+L <p>This example shows how to process a complete HTML page containing
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 68 text.html.basic
+L TeX notation into math in MathML format, illustrating one way
+T 61 text.html.basic
+L to get a replacement for the version 2 NativeMML output, which is not
+T 69 text.html.basic
+L included in versions 3 or 4 of MathJax.</p>
+T 39 text.html.basic
+T 41 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 42 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 43 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>The code below sets up a new <code>renderAction</code> that
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 32 text.html.basic
+T 33 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 37 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 38 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 50 text.html.basic
+T 52 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 56 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 57 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 62 text.html.basic
+L replaces the usual typeset one (due to it being named
+T 53 text.html.basic
+L <code>typeset</code> with priority 150). This new action uses the
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 13 text.html.basic
+T 15 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 20 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 65 text.html.basic
+L <code>MathJax.startup.toMML()</code> function to convert the internal
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 29 text.html.basic
+T 31 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 35 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 36 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 69 text.html.basic
+L math items into serialized MathML, and then inserts the results into
+T 68 text.html.basic
+L <code>mjx-container</code> elements that it sets as the
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 19 text.html.basic
+T 21 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 25 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 26 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 55 text.html.basic
+L <code>typesetRoot</code> of the math items. This will be put into the
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 17 text.html.basic
+T 19 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 23 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 24 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 69 text.html.basic
+L page automatically by a later <code>renderAction</code> that updates
+T 30 text.html.basic
+T 31 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 35 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 36 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 48 text.html.basic
+T 50 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 54 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 55 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 68 text.html.basic
+L the page, one of the default actions.</p>
+T 37 text.html.basic
+T 39 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 40 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 41 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>The first <code>&lt;style&gt;</code> element sets up CSS so that the
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 13 text.html.basic
+T 14 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 19 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 22 text.html.basic constant.character.entity.named.lt.html
+T 23 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 28 text.html.basic
+T 29 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 31 text.html.basic constant.character.entity.named.gt.html
+T 32 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 34 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 38 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 39 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 71 text.html.basic
+L <code>mjx-container</code> will be set as a separate line with space
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 19 text.html.basic
+T 21 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 25 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 26 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 68 text.html.basic
+L above and below it when the math is a displayed equation (usually set
+T 69 text.html.basic
+L up by th eoutput jax, but we don't have one).  The second
+T 57 text.html.basic
+L <code>&lt;style&gt;</code> element is used to store the styles needed
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 7 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 9 text.html.basic constant.character.entity.named.lt.html
+T 10 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 15 text.html.basic
+T 16 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 18 text.html.basic constant.character.entity.named.gt.html
+T 19 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 21 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 25 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 26 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 69 text.html.basic
+L by the expression explorer, which is set up below.</p>
+T 50 text.html.basic
+T 52 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 53 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 54 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>The <code>ready()</code> function in the <code>startup</code>
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 7 text.html.basic
+T 8 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 12 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 13 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic
+T 22 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 26 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 27 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 44 text.html.basic
+T 45 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 49 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 50 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 57 text.html.basic
+T 59 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 63 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 64 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+L section first does the usual ready action (setting up the document,
+T 67 text.html.basic
+L theinput and output jax, etc.), and then it gets the styles needed for
+T 70 text.html.basic
+L the explorer and puts them into the <code>&lt;style&gt;</code> element
+T 36 text.html.basic
+T 37 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 41 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 42 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 43 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 45 text.html.basic constant.character.entity.named.lt.html
+T 46 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 51 text.html.basic
+T 52 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 54 text.html.basic constant.character.entity.named.gt.html
+T 55 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 57 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 61 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 62 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 70 text.html.basic
+L described above.</p>
+T 16 text.html.basic
+T 18 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 20 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>The <code>pageReady()</code> function renders the page when it
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 7 text.html.basic
+T 8 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 12 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 13 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 24 text.html.basic
+T 26 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 30 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 31 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 65 text.html.basic
+L first becomes available. This is needed because there is no
+T 59 text.html.basic
+L <code>MathJax.typeset()</code> or
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 23 text.html.basic
+T 25 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 30 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 33 text.html.basic
+L <code>MathJax.typesetPromise()</code>, as no output jax is loaded, so
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 30 text.html.basic
+T 32 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 36 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 37 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 69 text.html.basic
+L the startup code does not create these two functions.</p>
+T 53 text.html.basic
+T 55 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 56 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 57 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>Finally, the menu item for the assistive MathML extension is turned
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 70 text.html.basic
+L off (to prevent it from loading), and the <code>ready()</code>
+T 42 text.html.basic
+T 43 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 47 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 48 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 55 text.html.basic
+T 57 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 61 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 62 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+L function is used to disable its menu item so it can’t be turned on.
+T 69 text.html.basic
+L Since we are producing MathML directly, there is no need for it.</p>
+T 64 text.html.basic
+T 66 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 67 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 68 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L <p>Note that most modern browser implement a limited subset of MathML
+T 1 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 69 text.html.basic
+L called MathML-Core.  MathJax produces MathML3, but MathML-Core does
+T 67 text.html.basic
+L not include a number of the features that MathJax uses.  In
+T 59 text.html.basic
+L particular, the <code>mathvariant</code> attribute is not supported
+T 16 text.html.basic
+T 17 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 21 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 22 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 33 text.html.basic
+T 35 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 39 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 40 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 67 text.html.basic
+L (except on <code>&lt;mi&gt;</code> elements, and then only
+T 11 text.html.basic
+T 12 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 17 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 18 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 20 text.html.basic constant.character.entity.named.lt.html
+T 21 text.html.basic constant.character.entity.named.lt.html punctuation.definition.entity.html
+T 23 text.html.basic
+T 24 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 26 text.html.basic constant.character.entity.named.gt.html
+T 27 text.html.basic constant.character.entity.named.gt.html punctuation.definition.entity.html
+T 29 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 33 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 34 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 58 text.html.basic
+L <code>mathvariant="normal"</code> is allowed.  MathJax uses
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 26 text.html.basic
+T 28 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 32 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 33 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 59 text.html.basic
+L <code>mathvariant</code> to handle characgter variants like those
+T 1 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 17 text.html.basic
+T 19 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 23 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 24 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 65 text.html.basic
+L produced <code>\mathbb</code> and similar macros, and those will not
+T 9 text.html.basic
+T 10 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.inline.code.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.inline.code.start.html punctuation.definition.tag.end.html
+T 22 text.html.basic
+T 24 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.begin.html
+T 28 text.html.basic meta.tag.inline.code.end.html entity.name.tag.html
+T 29 text.html.basic meta.tag.inline.code.end.html punctuation.definition.tag.end.html
+T 68 text.html.basic
+L display properly in browser that only support MathML-Core if this
+T 65 text.html.basic
+L example code is used.  More sophisticated MathML conversion is
+T 62 text.html.basic
+L available in the <a href="input-tex2mml.html">tex2mml with user
+T 17 text.html.basic
+T 18 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 20 text.html.basic meta.tag.inline.a.start.html
+T 24 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 25 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 26 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 45 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 63 text.html.basic
+L input</a> example.</p>
+T 5 text.html.basic
+T 7 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 9 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 18 text.html.basic
+T 20 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 21 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 22 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L </div>
+T 2 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L <script src="../scripts/source.js"></script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 34 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 36 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 37 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 43 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
+L </body>
+T 2 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.body.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L </html>
+T 2 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.html.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L 

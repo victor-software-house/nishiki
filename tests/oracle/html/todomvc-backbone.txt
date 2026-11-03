@@ -1,0 +1,840 @@
+L <!DOCTYPE html>
+T 2 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.basic meta.tag.metadata.doctype.html
+T 14 text.html.basic meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html lang="en" data-framework="backbone">
+T 1 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.html.start.html
+T 10 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html
+T 15 text.html.basic meta.tag.structure.html.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.basic meta.tag.structure.html.start.html
+T 30 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html entity.other.attribute-name.html
+T 31 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html punctuation.separator.key-value.html
+T 32 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html
+T 41 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L     <head>
+T 4 text.html.basic
+T 5 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.structure.head.start.html entity.name.tag.html
+T 10 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L         <meta charset="UTF-8" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html
+T 21 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html
+T 29 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.tag.metadata.meta.void.html
+T 32 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L         <meta name="description" content="A TodoMVC written in Backbone." />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html
+T 18 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 19 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 20 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 32 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.basic meta.tag.metadata.meta.void.html
+T 40 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 41 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 42 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 72 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 73 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 74 text.html.basic meta.tag.metadata.meta.void.html
+T 76 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html
+T 18 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 19 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 20 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html
+T 29 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.tag.metadata.meta.void.html
+T 37 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 38 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 39 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 76 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 77 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 78 text.html.basic meta.tag.metadata.meta.void.html
+T 80 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html
+T 24 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.http-equiv.html entity.other.attribute-name.html
+T 25 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.http-equiv.html punctuation.separator.key-value.html
+T 26 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.http-equiv.html string.quoted.double.html punctuation.definition.string.begin.html
+T 41 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.http-equiv.html string.quoted.double.html
+T 42 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.http-equiv.html string.quoted.double.html punctuation.definition.string.end.html
+T 43 text.html.basic meta.tag.metadata.meta.void.html
+T 50 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html entity.other.attribute-name.html
+T 51 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html punctuation.separator.key-value.html
+T 52 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.begin.html
+T 59 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html
+T 60 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.content.html string.quoted.double.html punctuation.definition.string.end.html
+T 61 text.html.basic meta.tag.metadata.meta.void.html
+T 63 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L         <title>TodoMVC: Backbone</title>
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.metadata.title.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 32 text.html.basic
+T 34 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 39 text.html.basic meta.tag.metadata.title.end.html entity.name.tag.html
+T 40 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L         <link rel="stylesheet" href="node_modules/todomvc-common/base.css" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.link.void.html
+T 17 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 18 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 19 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 29 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 30 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 31 text.html.basic meta.tag.metadata.link.void.html
+T 35 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 36 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 37 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 73 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 74 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 75 text.html.basic meta.tag.metadata.link.void.html
+T 77 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L         <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.link.void.html
+T 17 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 18 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 19 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 29 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 30 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 31 text.html.basic meta.tag.metadata.link.void.html
+T 35 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 36 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 37 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 75 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 76 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 77 text.html.basic meta.tag.metadata.link.void.html
+T 79 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L     </head>
+T 4 text.html.basic
+T 6 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.tag.structure.head.end.html entity.name.tag.html
+T 11 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L     <body>
+T 4 text.html.basic
+T 5 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.structure.body.start.html entity.name.tag.html
+T 10 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L         <section class="todoapp">
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.structure.section.start.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.tag.structure.section.start.html entity.name.tag.html
+T 17 text.html.basic meta.tag.structure.section.start.html
+T 22 text.html.basic meta.tag.structure.section.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 text.html.basic meta.tag.structure.section.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 text.html.basic meta.tag.structure.section.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.basic meta.tag.structure.section.start.html meta.attribute.class.html string.quoted.double.html
+T 32 text.html.basic meta.tag.structure.section.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.basic meta.tag.structure.section.start.html punctuation.definition.tag.end.html
+L             <header class="header">
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.header.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.structure.header.start.html entity.name.tag.html
+T 20 text.html.basic meta.tag.structure.header.start.html
+T 25 text.html.basic meta.tag.structure.header.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.basic meta.tag.structure.header.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 27 text.html.basic meta.tag.structure.header.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 text.html.basic meta.tag.structure.header.start.html meta.attribute.class.html string.quoted.double.html
+T 34 text.html.basic meta.tag.structure.header.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 35 text.html.basic meta.tag.structure.header.start.html punctuation.definition.tag.end.html
+L                 <h1>todos</h1>
+T 16 text.html.basic
+T 17 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.structure.h1.start.html entity.name.tag.html
+T 20 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 25 text.html.basic
+T 27 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.tag.structure.h1.end.html entity.name.tag.html
+T 30 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L                 <input class="new-todo" placeholder="What needs to be done?" autofocus />
+T 16 text.html.basic
+T 17 text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.tag.structure.input.void.html entity.name.tag.html
+T 23 text.html.basic meta.tag.structure.input.void.html
+T 28 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 29 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 30 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html
+T 39 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.basic meta.tag.structure.input.void.html
+T 51 text.html.basic meta.tag.structure.input.void.html meta.attribute.placeholder.html entity.other.attribute-name.html
+T 52 text.html.basic meta.tag.structure.input.void.html meta.attribute.placeholder.html punctuation.separator.key-value.html
+T 53 text.html.basic meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html punctuation.definition.string.begin.html
+T 75 text.html.basic meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html
+T 76 text.html.basic meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html punctuation.definition.string.end.html
+T 77 text.html.basic meta.tag.structure.input.void.html
+T 86 text.html.basic meta.tag.structure.input.void.html meta.attribute.autofocus.html entity.other.attribute-name.html
+T 87 text.html.basic meta.tag.structure.input.void.html
+T 89 text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.end.html
+L             </header>
+T 12 text.html.basic
+T 14 text.html.basic meta.tag.structure.header.end.html punctuation.definition.tag.begin.html
+T 20 text.html.basic meta.tag.structure.header.end.html entity.name.tag.html
+T 21 text.html.basic meta.tag.structure.header.end.html punctuation.definition.tag.end.html
+L             <main class="main">
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.main.start.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.tag.structure.main.start.html entity.name.tag.html
+T 18 text.html.basic meta.tag.structure.main.start.html
+T 23 text.html.basic meta.tag.structure.main.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 24 text.html.basic meta.tag.structure.main.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 25 text.html.basic meta.tag.structure.main.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 29 text.html.basic meta.tag.structure.main.start.html meta.attribute.class.html string.quoted.double.html
+T 30 text.html.basic meta.tag.structure.main.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 31 text.html.basic meta.tag.structure.main.start.html punctuation.definition.tag.end.html
+L                 <div class="toggle-all-container">
+T 16 text.html.basic
+T 17 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 20 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 21 text.html.basic meta.tag.structure.div.start.html
+T 26 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 27 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 28 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 49 text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 50 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L                     <input class="toggle-all" id="toggle-all" type="checkbox" />
+T 20 text.html.basic
+T 21 text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.begin.html
+T 26 text.html.basic meta.tag.structure.input.void.html entity.name.tag.html
+T 27 text.html.basic meta.tag.structure.input.void.html
+T 32 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 33 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 34 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.basic meta.tag.structure.input.void.html
+T 48 text.html.basic meta.tag.structure.input.void.html meta.attribute.id.html entity.other.attribute-name.html
+T 49 text.html.basic meta.tag.structure.input.void.html meta.attribute.id.html punctuation.separator.key-value.html
+T 50 text.html.basic meta.tag.structure.input.void.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 60 text.html.basic meta.tag.structure.input.void.html meta.attribute.id.html string.quoted.double.html
+T 61 text.html.basic meta.tag.structure.input.void.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 62 text.html.basic meta.tag.structure.input.void.html
+T 66 text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 67 text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 68 text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 76 text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html
+T 77 text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 78 text.html.basic meta.tag.structure.input.void.html
+T 80 text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.end.html
+L                     <label for="toggle-all">Mark all as complete</label>
+T 20 text.html.basic
+T 21 text.html.basic meta.tag.structure.label.start.html punctuation.definition.tag.begin.html
+T 26 text.html.basic meta.tag.structure.label.start.html entity.name.tag.html
+T 27 text.html.basic meta.tag.structure.label.start.html
+T 30 text.html.basic meta.tag.structure.label.start.html meta.attribute.for.html entity.other.attribute-name.html
+T 31 text.html.basic meta.tag.structure.label.start.html meta.attribute.for.html punctuation.separator.key-value.html
+T 32 text.html.basic meta.tag.structure.label.start.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.basic meta.tag.structure.label.start.html meta.attribute.for.html string.quoted.double.html
+T 43 text.html.basic meta.tag.structure.label.start.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.basic meta.tag.structure.label.start.html punctuation.definition.tag.end.html
+T 64 text.html.basic
+T 66 text.html.basic meta.tag.structure.label.end.html punctuation.definition.tag.begin.html
+T 71 text.html.basic meta.tag.structure.label.end.html entity.name.tag.html
+T 72 text.html.basic meta.tag.structure.label.end.html punctuation.definition.tag.end.html
+L                 </div>
+T 16 text.html.basic
+T 18 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 21 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 22 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L                 <ul class="todo-list"></ul>
+T 16 text.html.basic
+T 17 text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.structure.ul.start.html entity.name.tag.html
+T 20 text.html.basic meta.tag.structure.ul.start.html
+T 25 text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 27 text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html
+T 37 text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+T 40 text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 42 text.html.basic meta.tag.structure.ul.end.html entity.name.tag.html
+T 43 text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L             </main>
+T 12 text.html.basic
+T 14 text.html.basic meta.tag.structure.main.end.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.tag.structure.main.end.html entity.name.tag.html
+T 19 text.html.basic meta.tag.structure.main.end.html punctuation.definition.tag.end.html
+L             <footer class="footer"></footer>
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.tag.structure.footer.start.html entity.name.tag.html
+T 20 text.html.basic meta.tag.structure.footer.start.html
+T 25 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 27 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html
+T 34 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 35 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.end.html
+T 37 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.begin.html
+T 43 text.html.basic meta.tag.structure.footer.end.html entity.name.tag.html
+T 44 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.end.html
+L         </section>
+T 8 text.html.basic
+T 10 text.html.basic meta.tag.structure.section.end.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.tag.structure.section.end.html entity.name.tag.html
+T 18 text.html.basic meta.tag.structure.section.end.html punctuation.definition.tag.end.html
+L         <footer class="info">
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.tag.structure.footer.start.html entity.name.tag.html
+T 16 text.html.basic meta.tag.structure.footer.start.html
+T 21 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 27 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html
+T 28 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 29 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.end.html
+L             <p>Double-click to edit a todo</p>
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 42 text.html.basic
+T 44 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 45 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 46 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 			<p>Created by the TodoMVC Team</p>
+T 3 text.html.basic
+T 4 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 33 text.html.basic
+T 35 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 36 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 37 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+T 3 text.html.basic
+T 4 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic
+T 15 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 17 text.html.basic meta.tag.inline.a.start.html
+T 21 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 41 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 42 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 43 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 50 text.html.basic
+T 52 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 53 text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 54 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 56 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 57 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 58 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L         </footer>
+T 8 text.html.basic
+T 10 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.tag.structure.footer.end.html entity.name.tag.html
+T 17 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.end.html
+L         <script type="text/template" id="item-template">
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 36 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 37 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 39 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 40 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 56 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L             <div class="view">
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 13 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L                 <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html entity.name.tag.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 28 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html
+T 37 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 42 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 43 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 44 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html
+T 53 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 57 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html invalid.illegal.character-not-allowed-here.html
+T 58 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 67 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.unrecognized.completed.html entity.other.attribute-name.html
+T 68 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 69 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.unrecognized.?.html entity.other.attribute-name.html
+T 70 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 79 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html invalid.illegal.character-not-allowed-here.html
+T 80 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 81 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.unrecognized.:.html entity.other.attribute-name.html
+T 82 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 84 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html invalid.illegal.character-not-allowed-here.html
+T 85 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 86 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.unrecognized.%.html entity.other.attribute-name.html
+T 87 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.end.html
+T 88 text.html.basic meta.embedded.block.html text.html.basic
+L                 <label><%- title %></label>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.start.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.start.html entity.name.tag.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.start.html punctuation.definition.tag.end.html
+T 35 text.html.basic meta.embedded.block.html text.html.basic
+T 37 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.end.html punctuation.definition.tag.begin.html
+T 42 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.end.html entity.name.tag.html
+T 43 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.label.end.html punctuation.definition.tag.end.html
+L                 <button class="destroy"></button>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html punctuation.definition.tag.begin.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html entity.name.tag.html
+T 24 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html
+T 39 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html punctuation.definition.tag.end.html
+T 42 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html punctuation.definition.tag.begin.html
+T 48 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html entity.name.tag.html
+T 49 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html punctuation.definition.tag.end.html
+L             </div>
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 14 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L             <input class="edit" value="<%- title %>">
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 13 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html entity.name.tag.html
+T 19 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 24 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 25 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 26 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html
+T 31 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 32 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html
+T 37 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.value.html entity.other.attribute-name.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.value.html punctuation.separator.key-value.html
+T 39 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.value.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.value.html string.quoted.double.html
+T 52 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html meta.attribute.value.html string.quoted.double.html punctuation.definition.string.end.html
+T 53 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.input.void.html punctuation.definition.tag.end.html
+L         </script>
+T 8 text.html.basic meta.embedded.block.html text.html.basic
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html text.html.basic
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 17 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script type="text/template" id="stats-template">
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 36 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 37 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 39 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 40 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html
+T 56 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 57 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L             <span class="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 13 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html entity.name.tag.html
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 24 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 25 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 36 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 37 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.start.html punctuation.definition.tag.begin.html
+T 44 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.start.html entity.name.tag.html
+T 45 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.start.html punctuation.definition.tag.end.html
+T 61 text.html.basic meta.embedded.block.html text.html.basic
+T 63 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.end.html punctuation.definition.tag.begin.html
+T 69 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.end.html entity.name.tag.html
+T 70 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.strong.end.html punctuation.definition.tag.end.html
+T 117 text.html.basic meta.embedded.block.html text.html.basic
+T 119 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 123 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html entity.name.tag.html
+T 124 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L             <ul class="filters">
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 13 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html
+T 31 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 32 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L                 <li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html entity.name.tag.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                     <a class="selected" href="#/">All</a>
+T 20 text.html.basic meta.embedded.block.html text.html.basic
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html
+T 28 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 30 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 39 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html
+T 44 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 45 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 46 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 48 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 49 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 50 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 53 text.html.basic meta.embedded.block.html text.html.basic
+T 55 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 56 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 57 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                 </li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html entity.name.tag.html
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 <li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html entity.name.tag.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                     <a href="#/active">Active</a>
+T 20 text.html.basic meta.embedded.block.html text.html.basic
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html
+T 27 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 28 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 38 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 45 text.html.basic meta.embedded.block.html text.html.basic
+T 47 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 48 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 49 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                 </li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html entity.name.tag.html
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 <li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html entity.name.tag.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                     <a href="#/completed">Completed</a>
+T 20 text.html.basic meta.embedded.block.html text.html.basic
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 22 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 23 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html
+T 27 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 28 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 29 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 41 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 51 text.html.basic meta.embedded.block.html text.html.basic
+T 53 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 54 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 55 text.html.basic meta.embedded.block.html text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                 </li>
+T 16 text.html.basic meta.embedded.block.html text.html.basic
+T 18 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html entity.name.tag.html
+T 21 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L             </ul>
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 14 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html entity.name.tag.html
+T 17 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L             <% if (completed) { %>
+T 34 text.html.basic meta.embedded.block.html text.html.basic
+L             <button class="clear-completed">Clear completed</button>
+T 12 text.html.basic meta.embedded.block.html text.html.basic
+T 13 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html punctuation.definition.tag.begin.html
+T 19 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html entity.name.tag.html
+T 20 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html
+T 25 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 27 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html
+T 43 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.start.html punctuation.definition.tag.end.html
+T 59 text.html.basic meta.embedded.block.html text.html.basic
+T 61 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html punctuation.definition.tag.begin.html
+T 67 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html entity.name.tag.html
+T 68 text.html.basic meta.embedded.block.html text.html.basic meta.tag.structure.button.end.html punctuation.definition.tag.end.html
+L             <% } %>
+T 19 text.html.basic meta.embedded.block.html text.html.basic
+L         </script>
+T 8 text.html.basic meta.embedded.block.html text.html.basic
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html text.html.basic
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 17 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 		<script src="node_modules/todomvc-common/base.js"></script>
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 14 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 50 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 51 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 53 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 60 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 61 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="node_modules/jquery/dist/jquery.min.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 59 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 60 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 61 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 62 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 63 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 69 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 70 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="node_modules/underscore/underscore-min.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 62 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 63 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 64 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 65 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 66 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 72 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 73 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="node_modules/backbone/backbone-min.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 58 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 59 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 60 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 61 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 62 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 68 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 69 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/sync/backbone.sync.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 50 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 56 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 57 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/models/todo.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 39 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 40 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 43 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 50 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/collections/todos.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 56 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/views/todo-view.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 43 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 53 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/views/app-view.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 43 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 52 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 53 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/routers/router.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 43 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 52 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 53 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script src="src/app.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 19 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 32 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 34 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L             window.Backbone.sync = () => {};
+T 12 text.html.basic meta.embedded.block.html source.js
+T 18 text.html.basic meta.embedded.block.html source.js variable.other.object.js
+T 19 text.html.basic meta.embedded.block.html source.js punctuation.accessor.js
+T 27 text.html.basic meta.embedded.block.html source.js variable.other.object.property.js
+T 28 text.html.basic meta.embedded.block.html source.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js entity.name.function.js
+T 33 text.html.basic meta.embedded.block.html source.js
+T 34 text.html.basic meta.embedded.block.html source.js keyword.operator.assignment.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 44 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L         </script>
+T 8 text.html.basic meta.embedded.block.html source.js
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 17 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L     </body>
+T 4 text.html.basic
+T 6 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.tag.structure.body.end.html entity.name.tag.html
+T 11 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L </html>
+T 2 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.html.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L 

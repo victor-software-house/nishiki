@@ -1,0 +1,468 @@
+L <!DOCTYPE html>
+T 2 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.basic meta.tag.metadata.doctype.html
+T 14 text.html.basic meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html data-framework="lit">
+T 1 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.html.start.html
+T 20 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html entity.other.attribute-name.html
+T 21 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html punctuation.separator.key-value.html
+T 22 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html punctuation.definition.string.begin.html
+T 25 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html
+T 26 text.html.basic meta.tag.structure.html.start.html meta.attribute.data-x.data-framework.html string.quoted.double.html punctuation.definition.string.end.html
+T 27 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L     <head>
+T 4 text.html.basic
+T 5 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.structure.head.start.html entity.name.tag.html
+T 10 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L         <meta charset="utf-8" />
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.begin.html
+T 13 text.html.basic meta.tag.metadata.meta.void.html entity.name.tag.html
+T 14 text.html.basic meta.tag.metadata.meta.void.html
+T 21 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html
+T 29 text.html.basic meta.tag.metadata.meta.void.html meta.attribute.charset.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.tag.metadata.meta.void.html
+T 32 text.html.basic meta.tag.metadata.meta.void.html punctuation.definition.tag.end.html
+L         <title>TodoMVC: Lit</title>
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.metadata.title.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 27 text.html.basic
+T 29 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 34 text.html.basic meta.tag.metadata.title.end.html entity.name.tag.html
+T 35 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L         <script type="module" src="./index.js"></script>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 20 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html entity.other.attribute-name.html
+T 21 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html punctuation.separator.key-value.html
+T 22 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html
+T 29 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 33 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 34 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 56 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L         <style>
+T 8 text.html.basic punctuation.whitespace.embedded.leading.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html entity.name.tag.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.style.start.html punctuation.definition.tag.end.html
+L             html,
+T 12 text.html.basic meta.embedded.block.html source.css
+T 16 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.selector.css punctuation.separator.list.comma.css
+L             body {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 16 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 17 text.html.basic meta.embedded.block.html source.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 margin: 0;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 padding: 0;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L             body {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 16 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 17 text.html.basic meta.embedded.block.html source.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 20 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css string.quoted.double.css punctuation.definition.string.begin.css
+T 42 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css string.quoted.double.css
+T 43 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css string.quoted.double.css punctuation.definition.string.end.css
+T 44 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+T 45 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 54 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.font-name.css
+T 55 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+T 56 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 61 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.font-name.css
+T 62 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+T 63 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 73 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.font-name.css
+T 74 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 line-height: 1.4em;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 34 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 35 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 background: #f5f5f5;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 35 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 36 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 color: #111111;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 min-width: 230px;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 max-width: 550px;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 margin: 0 auto;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 -webkit-font-smoothing: antialiased;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 38 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 39 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 40 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 51 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 52 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 -moz-osx-font-smoothing: grayscale;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 39 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.vendored.property-name.css
+T 40 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 41 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 50 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 51 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 font-weight: 300;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L             .info {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 text.html.basic meta.embedded.block.html source.css
+T 19 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 margin: 65px auto 0;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 34 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 35 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 36 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 color: #4d4d4d;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 24 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 font-size: 11px;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 34 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 35 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 36 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 37 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css
+T 41 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css support.function.misc.css
+T 42 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 45 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 46 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.separator.list.comma.css
+T 47 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 50 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 51 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.separator.list.comma.css
+T 52 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 55 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 56 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.separator.list.comma.css
+T 57 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 60 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 61 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 62 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 text-align: center;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 26 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 34 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 35 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L             .info p {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.selector.css
+T 19 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 20 text.html.basic meta.embedded.block.html source.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 line-height: 1;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L             .info a {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.selector.css
+T 19 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 20 text.html.basic meta.embedded.block.html source.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 color: inherit;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 21 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 22 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 30 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 text-decoration: none;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 37 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 38 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L                 font-weight: 400;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L             .info a:hover {
+T 12 text.html.basic meta.embedded.block.html source.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 17 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.class.css
+T 18 text.html.basic meta.embedded.block.html source.css meta.selector.css
+T 19 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.name.tag.css
+T 20 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 25 text.html.basic meta.embedded.block.html source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 26 text.html.basic meta.embedded.block.html source.css
+T 27 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L                 text-decoration: underline;
+T 16 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 31 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 32 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.separator.key-value.css
+T 33 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 42 text.html.basic meta.embedded.block.html source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 43 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.terminator.rule.css
+L             }
+T 12 text.html.basic meta.embedded.block.html source.css meta.property-list.css
+T 13 text.html.basic meta.embedded.block.html source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L         </style>
+T 8 text.html.basic meta.embedded.block.html source.css
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html source.css-ignored-vscode
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html entity.name.tag.html
+T 16 text.html.basic meta.embedded.block.html meta.tag.metadata.style.end.html punctuation.definition.tag.end.html
+L 		<link rel="stylesheet" href="./base.css"/>
+T 2 text.html.basic
+T 3 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 8 text.html.basic meta.tag.metadata.link.void.html
+T 11 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 12 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 24 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.basic meta.tag.metadata.link.void.html
+T 29 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 30 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 31 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 41 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 42 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L     </head>
+T 4 text.html.basic
+T 6 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.tag.structure.head.end.html entity.name.tag.html
+T 11 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L     <body>
+T 4 text.html.basic
+T 5 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.structure.body.start.html entity.name.tag.html
+T 10 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L         <todo-app></todo-app>
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.custom.start.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.tag.custom.start.html entity.name.tag.html
+T 18 text.html.basic meta.tag.custom.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.tag.custom.end.html punctuation.definition.tag.begin.html
+T 28 text.html.basic meta.tag.custom.end.html entity.name.tag.html
+T 29 text.html.basic meta.tag.custom.end.html punctuation.definition.tag.end.html
+L         <footer class="info">
+T 8 text.html.basic
+T 9 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.begin.html
+T 15 text.html.basic meta.tag.structure.footer.start.html entity.name.tag.html
+T 16 text.html.basic meta.tag.structure.footer.start.html
+T 21 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 27 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html
+T 28 text.html.basic meta.tag.structure.footer.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 29 text.html.basic meta.tag.structure.footer.start.html punctuation.definition.tag.end.html
+L             <p>Double-click to edit a todo</p>
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 42 text.html.basic
+T 44 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 45 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 46 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L             <p>Written by <a href="https://github.com/lit">the lit team</a></p>
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 26 text.html.basic
+T 27 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 28 text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 29 text.html.basic meta.tag.inline.a.start.html
+T 33 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 34 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 35 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 58 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 59 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 71 text.html.basic
+T 73 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 74 text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 75 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 77 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 78 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 79 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L             <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+T 12 text.html.basic
+T 13 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 14 text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 15 text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 23 text.html.basic
+T 24 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 25 text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 26 text.html.basic meta.tag.inline.a.start.html
+T 30 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 31 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 32 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 50 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 51 text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 59 text.html.basic
+T 61 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 62 text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 63 text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 65 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 66 text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 67 text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L         </footer>
+T 8 text.html.basic
+T 10 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.begin.html
+T 16 text.html.basic meta.tag.structure.footer.end.html entity.name.tag.html
+T 17 text.html.basic meta.tag.structure.footer.end.html punctuation.definition.tag.end.html
+L 		<script src="./base.js"></script>
+T 2 text.html.basic punctuation.whitespace.embedded.leading.html
+T 3 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 10 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 14 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 15 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 25 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 27 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 28 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 34 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 35 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L     </body>
+T 4 text.html.basic
+T 6 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.tag.structure.body.end.html entity.name.tag.html
+T 11 text.html.basic meta.tag.structure.body.end.html punctuation.definition.tag.end.html
+L </html>
+T 2 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.html.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.html.end.html punctuation.definition.tag.end.html
+L 

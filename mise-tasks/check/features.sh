@@ -37,6 +37,7 @@ cargo check --locked --tests --no-default-features --features lang-ruby
 cargo check --locked --tests --no-default-features --features lang-csharp
 cargo check --locked --tests --no-default-features --features lang-xml
 cargo check --locked --tests --no-default-features --features lang-swift
+cargo check --locked --tests --no-default-features --features lang-html
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features web
 cargo check --locked --tests --no-default-features --features systems

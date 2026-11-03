@@ -12,6 +12,19 @@ export type Input = {
 
 const samples =
   "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/8f1828ebccc57930cf0adde9b35ae929584fe191/samples";
+const todomvc =
+  "https://raw.githubusercontent.com/tastejs/todomvc/ff43b02e59dfa604386bb382034b2cd07c2bcd8a";
+const h5bp =
+  "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
+const threeJs =
+  "https://raw.githubusercontent.com/mrdoob/three.js/f06340e459f19609d3dd82253f38831f58ab6c84";
+const mathjaxDemos =
+  "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
+const bootstrap3 =
+  "https://raw.githubusercontent.com/twbs/bootstrap/68b0d231a13201eb14acd3dc84e51543d16e5f7e";
+const jquery =
+  "https://raw.githubusercontent.com/jquery/jquery/feaa9fcdb68cdeadf013d97d8fd40848d4618578";
+
 const ripgrep =
   "https://raw.githubusercontent.com/BurntSushi/ripgrep/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b";
 const serde =
@@ -843,4 +856,21 @@ export const inputs: Input[] = [
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
   { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
+  { lang: "html", name: "sample", url: `${samples}/html.sample` },
+  { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
+  { lang: "html", name: "todomvc-backbone", url: `${todomvc}/examples/backbone/index.html` },
+  { lang: "html", name: "three-animation-keyframes", url: `${threeJs}/examples/webgl_animation_keyframes.html` },
+  { lang: "html", name: "mathjax-mml-chtml", url: `${mathjaxDemos}/page/mml-chtml.html` },
+  { lang: "html", name: "three-css3d-periodictable", url: `${threeJs}/examples/css3d_periodictable.html` },
+  { lang: "html", name: "jquery-qunit-fixture", url: `${jquery}/test/data/qunit-fixture.html` },
+  { lang: "html", name: "todomvc-polymer", url: `${todomvc}/examples/polymer/index.html` },
+  { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
+  { lang: "html", name: "todomvc-lit", url: `${todomvc}/examples/lit/index.html` },
+  { lang: "html", name: "three-geometry-colors", url: `${threeJs}/examples/webgl_geometry_colors.html` },
+  { lang: "html", name: "mathjax-tex-mml", url: `${mathjaxDemos}/page/tex-mml.html` },
+  { lang: "html", name: "three-loader-gltf", url: `${threeJs}/examples/webgl_loader_gltf.html` },
+  { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
+  { lang: "html", name: "jquery-delegatetest", url: `${jquery}/test/delegatetest.html` },
+  { lang: "html", name: "todomvc-knockoutjs", url: `${todomvc}/examples/knockoutjs/index.html` },
+  { lang: "html", name: "todomvc-jquery", url: `${todomvc}/examples/jquery/index.html` },
 ];

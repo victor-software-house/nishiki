@@ -41,5 +41,17 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
     rules::lex::<Css>(cx, line, state, |scratch| &mut scratch.css)
 }
 
+/// Lexes `line` like [`lex`], for CSS that another grammar embeds up to its
+/// end (see [`rules::lex_until`]).
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: crate::language::Halt,
+) -> (u32, Option<usize>) {
+    rules::lex_until::<Css>(cx, line, state, |scratch| &mut scratch.css, end)
+}
+
 #[cfg(test)]
 mod tests;

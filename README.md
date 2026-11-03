@@ -147,6 +147,7 @@ assert_eq!(highlighter.limits().depth, None);
 | Swift | `Language::Swift` | `lang-swift` | `swift` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
 | Scala | `Language::Scala` | `lang-scala` | `scala` |
+| HTML | `Language::Html` | `lang-html` | `html` |
 
 ### Features
 
@@ -159,14 +160,14 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 
 - Each language is a `lang-*` feature, named in the table above.
   One module lexes TypeScript, JavaScript, JSX and TSX, so each of the four is its own feature and a build pays for the copies it turns on.
-- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, and `lang-xml` turns on `lang-java`.
+- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, `lang-xml` turns on `lang-java`, and `lang-html` turns on `lang-css` and `lang-javascript`.
 - Tiers turn on several at once, and overlap:
 
   | Feature | Languages |
   |:--|:--|
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
+  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML |
   | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
   | `docs` | Markdown and `config` |
   | `textmate` | PowerShell, Scala |
@@ -441,6 +442,24 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - `<% ... %>` is Java, lexed by the Java lexer.
   A `%>` ends the code only when Java has no context open, so one inside a string, a block or a `//` comment belongs to Java.
 - A Markdown fence names the languages `xml`, `xsd`, `tld`, `jsp`, `pt`, `cpt`, `dtml`, `rss`, `opml`, `xsl` and `xslt`.
+
+### HTML
+
+- A `<` that no rule claims is an illegal angle bracket, even inside a quoted attribute value, as the grammar's injection makes it.
+- An attribute's name is a word of the grammar's lists, or any other run of name characters, which gets a scope built from its text, such as `meta.attribute.unrecognized.fooBar.html`.
+- `svg` and `math` elements have rules of their own, and read the attributes of a start tag that the line holds whole on that text alone.
+- The CSS of a `<style>` element is lexed by the CSS lexer, and the JavaScript of a `<script>` element and of an event handler by the JavaScript lexer.
+  The code ends at its end tag, in any case, only where it has no rule open, so a `</style>` inside an open CSS block is CSS.
+  The grammar's own `//` and `/* */` rules in a script end at a lower-case `</script` only.
+- A `<script>` whose `type` is an HTML template holds HTML, and one of any other type that is not JavaScript is `source.unknown`.
+- A line stops after `MAX_STALLED` (4,096) steps in a row that do not advance, and the rest of it keeps the innermost rule's scope.
+  At one byte a run of such steps opens and closes each rule of the grammar at most once, because a rule that repeats stops the line, so no line comes near it.
+  The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
+- A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
+- Three cases differ from Shiki, all in the embedded languages and found by mutating the inputs, never in the inputs themselves:
+  - a `{` that starts a script on the line of its `<script>` tag is a block, where Shiki reads an object literal after the tag's `>`;
+  - in an event handler, a `<` after the value's opening quote and blanks opens a JSX tag, where Shiki reads a relational operator, because the JavaScript lexer does not see the text before the handler's code;
+  - inside a CSS property list, a word with no `:` after it on its line, such as `ul` in `<ul class=x>`, can be read as a property name where Shiki reads a nested selector's tag.
 
 ## Licence
 

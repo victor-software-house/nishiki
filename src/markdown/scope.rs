@@ -80,6 +80,8 @@ crate::scope::scope_table! {
     EmbeddedPowershell "meta.embedded.block.powershell"
     #[cfg(feature = "lang-scala")]
     EmbeddedScala "meta.embedded.block.scala"
+    #[cfg(feature = "lang-html")]
+    EmbeddedHtml "meta.embedded.block.html"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

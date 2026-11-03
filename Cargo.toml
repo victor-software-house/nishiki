@@ -58,6 +58,7 @@ all = [
   "lang-csharp",
   "lang-xml",
   "lang-swift",
+  "lang-html",
 ]
 
 # Tiers, which overlap.
@@ -79,6 +80,7 @@ web = [
   "lang-css",
   "lang-json",
   "lang-graphql",
+  "lang-html",
 ]
 systems = [
   "lang-rust",
@@ -136,6 +138,7 @@ lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]
 lang-powershell = ["_textmate"]
 lang-scala = ["_textmate"]
+lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
 
 # Shared code that only some languages use; not for callers.
 # The classes read characters through the UTF-8 helpers.

@@ -274,6 +274,23 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `xml/rome-yahoo-top-songs` | [`data/YahooTopSongs.xml`][rome-yahoo-top-songs] in rometools/rome | [Apache-2.0][rome-licence] |
 | `xml/ant-junit-noframes` | [`src/etc/junit-noframes.xsl`][ant-junit-noframes] in apache/ant | [Apache-2.0][ant-licence] |
 | `xml/views-activity-entrance` | [`activity_entrance.xml`][views-activity-entrance] in android/views-widgets-samples | [Apache-2.0][views-licence] |
+| `html/sample` | [`samples/html.sample`][html-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
+| `html/todomvc-backbone` | [`examples/backbone/index.html`][todomvc-backbone] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/three-animation-keyframes` | [`examples/webgl_animation_keyframes.html`][three-animation-keyframes] in mrdoob/three.js | [MIT][three-licence] |
+| `html/mathjax-mml-chtml` | [`page/mml-chtml.html`][mathjax-mml-chtml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
+| `html/three-css3d-periodictable` | [`examples/css3d_periodictable.html`][three-css3d-periodictable] in mrdoob/three.js | [MIT][three-licence] |
+| `html/jquery-qunit-fixture` | [`test/data/qunit-fixture.html`][jquery-qunit-fixture] in jquery/jquery | [MIT][jquery-licence] |
+| `html/todomvc-polymer` | [`examples/polymer/index.html`][todomvc-polymer] in tastejs/todomvc | [BSD-3-Clause][todomvc-polymer-licence] |
+| `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
+| `html/todomvc-lit` | [`examples/lit/index.html`][todomvc-lit] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/three-geometry-colors` | [`examples/webgl_geometry_colors.html`][three-geometry-colors] in mrdoob/three.js | [MIT][three-licence] |
+| `html/mathjax-tex-mml` | [`page/tex-mml.html`][mathjax-tex-mml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
+| `html/three-loader-gltf` | [`examples/webgl_loader_gltf.html`][three-loader-gltf] in mrdoob/three.js | [MIT][three-licence] |
+| `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
+| `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
+| `html/todomvc-jquery` | [`examples/jquery/index.html`][todomvc-jquery] in tastejs/todomvc | [MIT][todomvc-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
@@ -349,6 +366,11 @@ PowerShell runs on nishiki's TextMate engine, not on a hand-written lexer.
 Scala runs on nishiki's TextMate engine as well.
 `scala/sample` and `scala/scala3-boundary` are its development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
 `scala/scala3-source-position`, `scala/circe-json`, `scala/circe-build` and `markdown/scala3-enums` are held out.
+
+`html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
+`html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
+The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
+TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -746,3 +768,27 @@ Scala runs on nishiki's TextMate engine as well.
 [circe-json]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/modules/core/shared/src/main/scala/io/circe/Json.scala
 [circe-build]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/build.sbt
 [circe-licence]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/LICENSE
+[html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
+[h5bp-index]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/index.html
+[h5bp-404]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/404.html
+[h5bp-licence]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/LICENSE.txt
+[todomvc-backbone]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/backbone/index.html
+[todomvc-polymer]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/polymer/index.html
+[todomvc-polymer-licence]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/polymer/LICENSE
+[todomvc-lit]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/lit/index.html
+[todomvc-knockoutjs]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/knockoutjs/index.html
+[todomvc-jquery]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/examples/jquery/index.html
+[todomvc-licence]: https://github.com/tastejs/todomvc/blob/ff43b02e59dfa604386bb382034b2cd07c2bcd8a/license.md
+[three-animation-keyframes]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/examples/webgl_animation_keyframes.html
+[three-css3d-periodictable]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/examples/css3d_periodictable.html
+[three-geometry-colors]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/examples/webgl_geometry_colors.html
+[three-loader-gltf]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/examples/webgl_loader_gltf.html
+[three-licence]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/LICENSE
+[mathjax-mml-chtml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/mml-chtml.html
+[mathjax-tex-mml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/tex-mml.html
+[mathjax-demos-licence]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/LICENSE
+[jquery-qunit-fixture]: https://github.com/jquery/jquery/blob/feaa9fcdb68cdeadf013d97d8fd40848d4618578/test/data/qunit-fixture.html
+[jquery-delegatetest]: https://github.com/jquery/jquery/blob/feaa9fcdb68cdeadf013d97d8fd40848d4618578/test/delegatetest.html
+[jquery-licence]: https://github.com/jquery/jquery/blob/feaa9fcdb68cdeadf013d97d8fd40848d4618578/LICENSE.txt
+[bootstrap3-visual-modal]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/js/tests/visual/modal.html
+[bootstrap3-licence]: https://github.com/twbs/bootstrap/blob/68b0d231a13201eb14acd3dc84e51543d16e5f7e/LICENSE

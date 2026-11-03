@@ -75,6 +75,8 @@ mod go;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
 mod highlighter;
+#[cfg(feature = "lang-html")]
+mod html;
 #[cfg(feature = "lang-ini")]
 mod ini;
 #[cfg(feature = "lang-java")]

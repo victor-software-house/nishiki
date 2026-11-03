@@ -124,6 +124,8 @@ tables! {
     XML = xml;
     #[cfg(feature = "lang-swift")]
     SWIFT = swift;
+    #[cfg(feature = "lang-html")]
+    HTML = html;
 }
 
 // No table is longer than its slot.
