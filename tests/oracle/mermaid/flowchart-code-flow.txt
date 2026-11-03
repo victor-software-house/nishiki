@@ -1,0 +1,1504 @@
+L ---
+T 3 markdown.mermaid.codeblock
+L references:
+T 11 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowDiagram.ts"
+T 67 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowDb.ts"
+T 62 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowDetector.ts"
+T 68 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowDetector-v2.ts"
+T 71 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowRenderer-v3-unified.ts"
+T 79 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/styles.ts"
+T 62 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/types.ts"
+T 61 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/flowChartShapes.js"
+T 71 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/parser/flowParser.ts"
+T 73 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/flowchart/elk/detector.ts"
+T 68 markdown.mermaid.codeblock
+L generationTime: 2025-07-23T10:31:53.266Z
+T 40 markdown.mermaid.codeblock
+L ---
+T 3 markdown.mermaid.codeblock
+L flowchart TD
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 10 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock entity.name.function.mermaid
+L     %% Entry Points and Detection
+T 4 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock comment
+L     Input["User Input Text"] --> Detection{Detection Phase}
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock string
+T 26 markdown.mermaid.codeblock string
+T 27 markdown.mermaid.codeblock string
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock variable
+T 43 markdown.mermaid.codeblock keyword.control.mermaid
+T 58 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Detection --> flowDetector["flowDetector.ts<br/>detector(txt, config)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 73 markdown.mermaid.codeblock string
+T 74 markdown.mermaid.codeblock string
+T 75 markdown.mermaid.codeblock keyword.control.mermaid
+L     Detection --> flowDetectorV2["flowDetector-v2.ts<br/>detector(txt, config)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 78 markdown.mermaid.codeblock string
+T 79 markdown.mermaid.codeblock string
+T 80 markdown.mermaid.codeblock keyword.control.mermaid
+L     Detection --> elkDetector["elk/detector.ts<br/>detector(txt, config)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 72 markdown.mermaid.codeblock string
+T 73 markdown.mermaid.codeblock string
+T 74 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     flowDetector --> |"Checks /^\s*graph/"| DetectLegacy{Legacy Flowchart?}
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock variable
+T 44 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock variable
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+T 74 markdown.mermaid.codeblock string
+T 75 markdown.mermaid.codeblock keyword.control.mermaid
+L     flowDetectorV2 --> |"Checks /^\s*flowchart/"| DetectNew{New Flowchart?}
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock variable
+T 50 markdown.mermaid.codeblock
+T 59 markdown.mermaid.codeblock variable
+T 60 markdown.mermaid.codeblock keyword.control.mermaid
+T 74 markdown.mermaid.codeblock string
+T 75 markdown.mermaid.codeblock keyword.control.mermaid
+L     elkDetector --> |"Checks /^\s*flowchart-elk/"| DetectElk{ELK Layout?}
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock variable
+T 51 markdown.mermaid.codeblock
+T 60 markdown.mermaid.codeblock variable
+T 61 markdown.mermaid.codeblock keyword.control.mermaid
+T 72 markdown.mermaid.codeblock string
+T 73 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     DetectLegacy --> |Yes| LoadDiagram
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+L     DetectNew --> |Yes| LoadDiagram
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+L     DetectElk --> |Yes| LoadDiagram
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Loading Phase
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L     LoadDiagram["loader() function"] --> flowDiagram["flowDiagram.ts<br/>diagram object"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock string
+T 34 markdown.mermaid.codeblock string
+T 35 markdown.mermaid.codeblock string
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock keyword.control.mermaid
+T 41 markdown.mermaid.codeblock
+T 52 markdown.mermaid.codeblock variable
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+T 54 markdown.mermaid.codeblock string
+T 87 markdown.mermaid.codeblock string
+T 88 markdown.mermaid.codeblock string
+T 89 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     flowDiagram --> DiagramStructure{Diagram Components}
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock keyword.control.mermaid
+L     DiagramStructure --> Parser["parser: flowParser"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     DiagramStructure --> Database["db: new FlowDB()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     DiagramStructure --> Renderer["renderer: flowRenderer-v3-unified"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 68 markdown.mermaid.codeblock string
+T 69 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock keyword.control.mermaid
+L     DiagramStructure --> Styles["styles: flowStyles"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     DiagramStructure --> Init["init: (cnf: MermaidConfig)"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Parser Phase
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock comment
+L     Parser --> flowParser["parser/flowParser.ts<br/>newParser.parse(src)"]
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock string
+T 72 markdown.mermaid.codeblock string
+T 73 markdown.mermaid.codeblock string
+T 74 markdown.mermaid.codeblock keyword.control.mermaid
+L     flowParser --> |"Preprocesses src"| RemoveWhitespace["Remove trailing whitespace<br/>src.replace(/}\s*\n/g, '}\n')"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock variable
+T 40 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock variable
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+T 58 markdown.mermaid.codeblock string
+T 118 markdown.mermaid.codeblock string
+T 119 markdown.mermaid.codeblock string
+T 120 markdown.mermaid.codeblock keyword.control.mermaid
+L     RemoveWhitespace --> flowJison["parser/flow.jison<br/>flowJisonParser.parse(newSrc)"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 87 markdown.mermaid.codeblock string
+T 88 markdown.mermaid.codeblock string
+T 89 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     flowJison --> ParseGraph["Parse Graph Structure"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     ParseGraph --> ParseVertices["Parse Vertices"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock keyword.control.mermaid
+L     ParseGraph --> ParseEdges["Parse Edges"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 42 markdown.mermaid.codeblock string
+T 43 markdown.mermaid.codeblock string
+T 44 markdown.mermaid.codeblock keyword.control.mermaid
+L     ParseGraph --> ParseSubgraphs["Parse Subgraphs"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock keyword.control.mermaid
+L     ParseGraph --> ParseClasses["Parse Classes"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 46 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock keyword.control.mermaid
+L     ParseGraph --> ParseStyles["Parse Styles"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 44 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock string
+T 46 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Database Phase - FlowDB Class
+T 4 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock comment
+L     Database --> FlowDBClass["flowDb.ts<br/>FlowDB class"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     FlowDBClass --> DBInit["constructor()<br/>- Initialize counters<br/>- Bind methods<br/>- Setup toolTips<br/>- Call clear()"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock string
+T 126 markdown.mermaid.codeblock string
+T 127 markdown.mermaid.codeblock string
+T 128 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     DBInit --> DBMethods{FlowDB Methods}
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 40 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     DBMethods --> addVertex["addVertex(id, textObj, type, style,<br/>classes, dir, props, metadata)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock string
+T 99 markdown.mermaid.codeblock string
+T 100 markdown.mermaid.codeblock string
+T 101 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> addLink["addLink(_start[], _end[], linkData)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> addSingleLink["addSingleLink(_start, _end, type, id)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock string
+T 71 markdown.mermaid.codeblock string
+T 72 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> setDirection["setDirection(dir)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> addSubGraph["addSubGraph(nodes[], id, title)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> addClass["addClass(id, style)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> setClass["setClass(ids, className)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> setTooltip["setTooltip(ids, tooltip)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> setClickEvent["setClickEvent(id, functionName, args)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock string
+T 71 markdown.mermaid.codeblock string
+T 72 markdown.mermaid.codeblock keyword.control.mermaid
+L     DBMethods --> setClickFun["setClickFun(id, functionName, args)"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock string
+T 67 markdown.mermaid.codeblock string
+T 68 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Vertex Processing
+T 4 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L     addVertex --> VertexProcess{Vertex Processing}
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock keyword.control.mermaid
+L     VertexProcess --> CreateVertex["Create FlowVertex object<br/>- id, labelType, domId<br/>- styles[], classes[]"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 113 markdown.mermaid.codeblock string
+T 114 markdown.mermaid.codeblock string
+T 115 markdown.mermaid.codeblock keyword.control.mermaid
+L     VertexProcess --> SanitizeText["sanitizeText(textObj.text)"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock keyword.control.mermaid
+L     VertexProcess --> ParseMetadata["Parse YAML metadata<br/>yaml.load(yamlData)"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 80 markdown.mermaid.codeblock string
+T 81 markdown.mermaid.codeblock string
+T 82 markdown.mermaid.codeblock keyword.control.mermaid
+L     VertexProcess --> SetVertexProps["Set vertex properties<br/>- shape, label, icon, form<br/>- pos, img, constraint, w, h"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock string
+T 123 markdown.mermaid.codeblock string
+T 124 markdown.mermaid.codeblock string
+T 125 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Edge Processing  
+T 4 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L     addSingleLink --> EdgeProcess{Edge Processing}
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock keyword.control.mermaid
+L     EdgeProcess --> CreateEdge["Create FlowEdge object<br/>- start, end, type, text<br/>- labelType, classes[]"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 110 markdown.mermaid.codeblock string
+T 111 markdown.mermaid.codeblock string
+T 112 markdown.mermaid.codeblock keyword.control.mermaid
+L     EdgeProcess --> ProcessLinkText["Process link text<br/>- sanitizeText()<br/>- strip quotes"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 94 markdown.mermaid.codeblock string
+T 95 markdown.mermaid.codeblock string
+T 96 markdown.mermaid.codeblock keyword.control.mermaid
+L     EdgeProcess --> SetEdgeProps["Set edge properties<br/>- type, stroke, length"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 80 markdown.mermaid.codeblock string
+T 81 markdown.mermaid.codeblock string
+T 82 markdown.mermaid.codeblock keyword.control.mermaid
+L     EdgeProcess --> GenerateEdgeId["Generate edge ID<br/>getEdgeId(start, end, counter)"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 87 markdown.mermaid.codeblock string
+T 88 markdown.mermaid.codeblock string
+T 89 markdown.mermaid.codeblock keyword.control.mermaid
+L     EdgeProcess --> ValidateEdgeLimit["Validate edge limit<br/>maxEdges check"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 77 markdown.mermaid.codeblock string
+T 78 markdown.mermaid.codeblock string
+T 79 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Data Collection
+T 4 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock comment
+L     DBMethods --> GetData["getData()"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock string
+T 36 markdown.mermaid.codeblock string
+T 37 markdown.mermaid.codeblock string
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetData --> CollectNodes["Collect nodes[] from vertices"]
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock string
+T 60 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetData --> CollectEdges["Collect edges[] from edges"]
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetData --> ProcessSubGraphs["Process subgraphs<br/>- parentDB Map<br/>- subGraphDB Map"]
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 91 markdown.mermaid.codeblock string
+T 92 markdown.mermaid.codeblock string
+T 93 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetData --> AddNodeFromVertex["addNodeFromVertex()<br/>for each vertex"]
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 74 markdown.mermaid.codeblock string
+T 75 markdown.mermaid.codeblock string
+T 76 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetData --> ProcessEdgeTypes["destructEdgeType()<br/>arrowTypeStart, arrowTypeEnd"]
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 85 markdown.mermaid.codeblock string
+T 86 markdown.mermaid.codeblock string
+T 87 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Node Creation
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L     AddNodeFromVertex --> NodeCreation{Node Creation}
+T 4 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     NodeCreation --> FindExistingNode["findNode(nodes, vertex.id)"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock string
+T 67 markdown.mermaid.codeblock keyword.control.mermaid
+L     NodeCreation --> CreateBaseNode["Create base node<br/>- id, label, parentId<br/>- cssStyles, cssClasses<br/>- shape, domId, tooltip"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 135 markdown.mermaid.codeblock string
+T 136 markdown.mermaid.codeblock string
+T 137 markdown.mermaid.codeblock keyword.control.mermaid
+L     NodeCreation --> GetCompiledStyles["getCompiledStyles(classDefs)"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+T 40 markdown.mermaid.codeblock string
+T 68 markdown.mermaid.codeblock string
+T 69 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock keyword.control.mermaid
+L     NodeCreation --> GetTypeFromVertex["getTypeFromVertex(vertex)"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+T 40 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock string
+T 67 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Rendering Phase
+T 4 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock comment
+L     Renderer --> flowRendererV3["flowRenderer-v3-unified.ts<br/>draw(text, id, version, diag)"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 93 markdown.mermaid.codeblock string
+T 94 markdown.mermaid.codeblock string
+T 95 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     flowRendererV3 --> RenderInit["Initialize rendering<br/>- getConfig()<br/>- handle securityLevel<br/>- getDiagramElement()"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 126 markdown.mermaid.codeblock string
+T 127 markdown.mermaid.codeblock string
+T 128 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     RenderInit --> GetLayoutData["diag.db.getData()<br/>as LayoutData"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 69 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock string
+T 71 markdown.mermaid.codeblock keyword.control.mermaid
+L     GetLayoutData --> SetupLayoutData["Setup layout data<br/>- type, layoutAlgorithm<br/>- direction, spacing<br/>- markers, diagramId"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 134 markdown.mermaid.codeblock string
+T 135 markdown.mermaid.codeblock string
+T 136 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     SetupLayoutData --> CallRender["render(data4Layout, svg)"]
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 60 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock keyword.control.mermaid
+L     CallRender --> SetupViewPort["setupViewPortForSVG(svg, padding)"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 67 markdown.mermaid.codeblock string
+T 68 markdown.mermaid.codeblock string
+T 69 markdown.mermaid.codeblock keyword.control.mermaid
+L     SetupViewPort --> ProcessLinks["Process vertex links<br/>- create anchor elements<br/>- handle click events"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 111 markdown.mermaid.codeblock string
+T 112 markdown.mermaid.codeblock string
+T 113 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Shape Rendering
+T 4 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock comment
+L     CallRender --> ShapeSystem["flowChartShapes.js<br/>Shape Functions"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock string
+T 71 markdown.mermaid.codeblock string
+T 72 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     ShapeSystem --> ShapeFunctions{Shape Functions}
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> question["question(parent, bbox, node)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> hexagon["hexagon(parent, bbox, node)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock string
+T 60 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> rect_left_inv_arrow["rect_left_inv_arrow(parent, bbox, node)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock variable
+T 43 markdown.mermaid.codeblock keyword.control.mermaid
+T 44 markdown.mermaid.codeblock string
+T 83 markdown.mermaid.codeblock string
+T 84 markdown.mermaid.codeblock string
+T 85 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> lean_right["lean_right(parent, bbox, node)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock string
+T 67 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> lean_left["lean_left(parent, bbox, node)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     ShapeFunctions --> insertPolygonShape["insertPolygonShape(parent, w, h, points)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock variable
+T 42 markdown.mermaid.codeblock keyword.control.mermaid
+T 43 markdown.mermaid.codeblock string
+T 83 markdown.mermaid.codeblock string
+T 84 markdown.mermaid.codeblock string
+T 85 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> intersectPolygon["intersectPolygon(node, points, point)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock variable
+T 40 markdown.mermaid.codeblock keyword.control.mermaid
+T 41 markdown.mermaid.codeblock string
+T 78 markdown.mermaid.codeblock string
+T 79 markdown.mermaid.codeblock string
+T 80 markdown.mermaid.codeblock keyword.control.mermaid
+L     ShapeFunctions --> intersectRect["intersectRect(node, point)"]
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Styling System
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     Styles --> stylesTS["styles.ts<br/>getStyles(options)"]
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock keyword.control.mermaid
+L     stylesTS --> StyleOptions["FlowChartStyleOptions<br/>- arrowheadColor, border2<br/>- clusterBkg, mainBkg<br/>- fontFamily, textColor"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 136 markdown.mermaid.codeblock string
+T 137 markdown.mermaid.codeblock string
+T 138 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     StyleOptions --> GenerateCSS["Generate CSS styles<br/>- .label, .cluster-label<br/>- .node, .edgePaths<br/>- .flowchart-link, .edgeLabel"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 140 markdown.mermaid.codeblock string
+T 141 markdown.mermaid.codeblock string
+T 142 markdown.mermaid.codeblock keyword.control.mermaid
+L     GenerateCSS --> GetIconStyles["getIconStyles()"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Type System
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock comment
+L     Parser --> TypeSystem["types.ts<br/>Type Definitions"]
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock keyword.control.mermaid
+L     TypeSystem --> FlowVertex["FlowVertex interface"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     TypeSystem --> FlowEdge["FlowEdge interface"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock keyword.control.mermaid
+L     TypeSystem --> FlowClass["FlowClass interface"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock keyword.control.mermaid
+L     TypeSystem --> FlowSubGraph["FlowSubGraph interface"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     TypeSystem --> FlowVertexTypeParam["FlowVertexTypeParam<br/>Shape types"]
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+T 40 markdown.mermaid.codeblock string
+T 75 markdown.mermaid.codeblock string
+T 76 markdown.mermaid.codeblock string
+T 77 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Utility Functions
+T 4 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L     DBMethods --> UtilityFunctions{Utility Functions}
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> lookUpDomId["lookUpDomId(id)"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> getClasses["getClasses()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> getDirection["getDirection()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> getVertices["getVertices()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> getEdges["getEdges()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock variable
+T 34 markdown.mermaid.codeblock keyword.control.mermaid
+T 35 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock string
+T 46 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> getSubGraphs["getSubGraphs()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> clear["clear()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock variable
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock string
+T 39 markdown.mermaid.codeblock string
+T 40 markdown.mermaid.codeblock string
+T 41 markdown.mermaid.codeblock keyword.control.mermaid
+L     UtilityFunctions --> defaultConfig["defaultConfig()"]
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock variable
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+T 40 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Event Handling
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     ProcessLinks --> EventHandling{Event Handling}
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock keyword.control.mermaid
+L     EventHandling --> setupToolTips["setupToolTips(element)"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock string
+T 60 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock keyword.control.mermaid
+L     EventHandling --> bindFunctions["bindFunctions(element)"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock string
+T 60 markdown.mermaid.codeblock string
+T 61 markdown.mermaid.codeblock keyword.control.mermaid
+L     EventHandling --> runFunc["utils.runFunc(functionName, args)"]
+T 4 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock string
+T 65 markdown.mermaid.codeblock string
+T 66 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Common Database Functions
+T 4 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock comment
+L     DBMethods --> CommonDB["commonDb.js functions"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> setAccTitle["setAccTitle()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 43 markdown.mermaid.codeblock string
+T 44 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> getAccTitle["getAccTitle()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 43 markdown.mermaid.codeblock string
+T 44 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> setAccDescription["setAccDescription()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> getAccDescription["getAccDescription()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock variable
+T 35 markdown.mermaid.codeblock keyword.control.mermaid
+T 36 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> setDiagramTitle["setDiagramTitle()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> getDiagramTitle["getDiagramTitle()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock keyword.control.mermaid
+L     CommonDB --> commonClear["clear()"]
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 37 markdown.mermaid.codeblock string
+T 38 markdown.mermaid.codeblock string
+T 39 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Final Output
+T 4 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock comment
+L     ProcessLinks --> FinalSVG["Final SVG Output"]
+T 4 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Layout Algorithm Selection
+T 4 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock comment
+L     SetupLayoutData --> LayoutAlgorithm{Layout Algorithm}
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock variable
+T 40 markdown.mermaid.codeblock keyword.control.mermaid
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     LayoutAlgorithm --> Dagre["dagre<br/>(default)"]
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock string
+T 52 markdown.mermaid.codeblock keyword.control.mermaid
+L     LayoutAlgorithm --> DagreWrapper["dagre-wrapper<br/>(v2 renderer)"]
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock variable
+T 37 markdown.mermaid.codeblock keyword.control.mermaid
+T 38 markdown.mermaid.codeblock string
+T 69 markdown.mermaid.codeblock string
+T 70 markdown.mermaid.codeblock string
+T 71 markdown.mermaid.codeblock keyword.control.mermaid
+L     LayoutAlgorithm --> ELK["elk<br/>(external package)"]
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock string
+T 56 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Testing Components
+T 4 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock comment
+L     FlowDBClass --> TestFiles["Test Files"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 41 markdown.mermaid.codeblock string
+T 42 markdown.mermaid.codeblock string
+T 43 markdown.mermaid.codeblock keyword.control.mermaid
+L     TestFiles --> flowDbSpec["flowDb.spec.ts"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock string
+T 44 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock string
+T 46 markdown.mermaid.codeblock keyword.control.mermaid
+L     TestFiles --> flowChartShapesSpec["flowChartShapes.spec.js"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock variable
+T 38 markdown.mermaid.codeblock keyword.control.mermaid
+T 39 markdown.mermaid.codeblock string
+T 62 markdown.mermaid.codeblock string
+T 63 markdown.mermaid.codeblock string
+T 64 markdown.mermaid.codeblock keyword.control.mermaid
+L     TestFiles --> ParserTests["parser/*.spec.js files<br/>- flow-text.spec.js<br/>- flow-edges.spec.js<br/>- flow-style.spec.js<br/>- subgraph.spec.js"]
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 150 markdown.mermaid.codeblock string
+T 151 markdown.mermaid.codeblock string
+T 152 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Configuration
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L     Init --> ConfigSetup["Configuration Setup"]
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock string
+T 45 markdown.mermaid.codeblock string
+T 46 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock keyword.control.mermaid
+L     ConfigSetup --> FlowchartConfig["cnf.flowchart config"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock variable
+T 36 markdown.mermaid.codeblock keyword.control.mermaid
+T 37 markdown.mermaid.codeblock string
+T 57 markdown.mermaid.codeblock string
+T 58 markdown.mermaid.codeblock string
+T 59 markdown.mermaid.codeblock keyword.control.mermaid
+L     ConfigSetup --> ArrowMarkers["arrowMarkerAbsolute"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 53 markdown.mermaid.codeblock string
+T 54 markdown.mermaid.codeblock string
+T 55 markdown.mermaid.codeblock keyword.control.mermaid
+L     ConfigSetup --> LayoutConfig["layout config"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock variable
+T 33 markdown.mermaid.codeblock keyword.control.mermaid
+T 34 markdown.mermaid.codeblock string
+T 47 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock keyword.control.mermaid
+L     ConfigSetup --> SetConfig["setConfig() calls"]
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock string
+T 48 markdown.mermaid.codeblock string
+T 49 markdown.mermaid.codeblock string
+T 50 markdown.mermaid.codeblock keyword.control.mermaid

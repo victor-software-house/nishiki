@@ -1,0 +1,1002 @@
+L ---
+T 3 markdown.mermaid.codeblock
+L references:
+T 11 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/mindmap-definition.ts"
+T 72 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/mindmapDb.ts"
+T 63 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/detector.ts"
+T 62 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/mindmapTypes.ts"
+T 66 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/mindmapRenderer.ts"
+T 69 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/styles.ts"
+T 60 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/diagrams/mindmap/svgDraw.ts"
+T 61 markdown.mermaid.codeblock
+L generationTime: 2025-01-28T16:00:00.000Z
+T 40 markdown.mermaid.codeblock
+L ---
+T 3 markdown.mermaid.codeblock
+L sequenceDiagram
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L     participant User as User Input Text
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     participant Detector as detector.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     participant Loader as DiagramLoader
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     participant Definition as mindmap-definition.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+T 51 markdown.mermaid.codeblock
+L     participant Parser as parser/mindmap.jison
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     participant DB as MindmapDB
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L     participant Renderer as mindmapRenderer.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     participant Cytoscape as cytoscape.js
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     participant SVGDraw as svgDraw.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     participant Styles as styles.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     participant Output as Final SVG
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L 
+L     Note over User, Output: Mindmap Implementation Flow
+T 55 markdown.mermaid.codeblock
+L 
+L     %% Detection Phase
+T 4 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock comment
+L     User->>Detector: /^\s*mindmap/ text input
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     activate Detector
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L     Detector->>Detector: detector(txt) validates pattern
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L     Detector->>Loader: loader() function called
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     deactivate Detector
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     activate Loader
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L     Loader->>Definition: import mindmap-definition.js
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 53 markdown.mermaid.codeblock string
+L     deactivate Loader
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L 
+L     %% Core Structure Setup
+T 4 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock comment
+L     activate Definition
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+L     Definition->>DB: get db() → new MindmapDB()
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L     Definition->>Renderer: setup renderer
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     Definition->>Parser: setup parser
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     Definition->>Styles: setup styles
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     deactivate Definition
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock variable
+L 
+L     %% Database Initialization
+T 4 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock comment
+L     activate DB
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+L     Note over DB: MindmapDB Constructor
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     DB->>DB: initialize nodes array
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     DB->>DB: setup nodeType constants
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     DB->>DB: bind methods
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+L     DB->>DB: clear() state
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     %% Parsing Phase
+T 4 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock comment
+L     activate Parser
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L     User->>Parser: mindmap syntax text
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     loop For each node in hierarchy
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L         Parser->>DB: addNode(level, id, descr, type)
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 52 markdown.mermaid.codeblock string
+L         activate DB
+T 8 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L         DB->>DB: sanitizeText(id, descr)
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L         DB->>DB: getType(startStr, endStr)
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L         Note right of DB: Shape Detection:<br/>[ → RECT<br/>( → ROUNDED_RECT<br/>(( → CIRCLE<br/>)) → BANG<br/>{{ → HEXAGON
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock entity.name.function.mermaid
+T 22 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 133 markdown.mermaid.codeblock string
+L         DB->>DB: getParent(level)
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         DB->>DB: create MindmapNode
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L         DB->>DB: add to hierarchy
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         deactivate DB
+T 8 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     opt Icon/Class Decoration
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock string
+L         Parser->>DB: decorateNode(decoration)
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L         DB->>DB: set icon/class properties
+T 8 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     deactivate Parser
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L 
+L     %% Data Preparation
+T 4 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock comment
+L     Renderer->>DB: getData() for layout
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     activate DB
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+L     DB->>DB: collect all nodes
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L     DB->>DB: build parent-child relationships
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 9 markdown.mermaid.codeblock keyword.control.mermaid
+T 11 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     DB-->>Renderer: return node hierarchy
+T 4 markdown.mermaid.codeblock
+T 6 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     deactivate DB
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+L 
+L     %% Rendering Pipeline
+T 4 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock comment
+L     activate Renderer
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L     Note over Renderer: Rendering Phase
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Renderer->>Cytoscape: initialize cytoscape
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     activate Cytoscape
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     loop For each node in mindmap
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         Renderer->>Cytoscape: addNodes(mindmap, cy, conf, level)
+T 8 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 64 markdown.mermaid.codeblock string
+L         Cytoscape->>Cytoscape: create node data
+T 8 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L         Cytoscape->>Cytoscape: set position (x, y)
+T 8 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     loop For parent-child relationships
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L         Renderer->>Cytoscape: add edges
+T 8 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L         Cytoscape->>Cytoscape: create edge data
+T 8 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     Renderer->>Cytoscape: configure cose-bilkent layout
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L     Cytoscape->>Cytoscape: calculate optimal positions
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 54 markdown.mermaid.codeblock string
+L     Cytoscape-->>Renderer: return positioned graph
+T 4 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L     deactivate Cytoscape
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+L 
+L     %% SVG Generation
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     Renderer->>SVGDraw: drawNodes(db, svg, mindmap, section, conf)
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 66 markdown.mermaid.codeblock string
+L     activate SVGDraw
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     loop For each node recursively
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L         SVGDraw->>SVGDraw: select shape function
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L         
+T 8 markdown.mermaid.codeblock
+L         alt Default Shape
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: defaultBkg() - rounded rectangle
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 63 markdown.mermaid.codeblock string
+L         else Rectangle Shape
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: rectBkg() - sharp corners
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L         else Circle Shape
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: circleBkg() - perfect circle
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 59 markdown.mermaid.codeblock string
+L         else Cloud Shape
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: cloudBkg() - organic curves
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 58 markdown.mermaid.codeblock string
+L         else Bang Shape
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: bangBkg() - explosion style
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 58 markdown.mermaid.codeblock string
+L         else Hexagon Shape
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: hexagonBkg() - six sides
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L         
+T 8 markdown.mermaid.codeblock
+L         SVGDraw->>SVGDraw: create SVG elements
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L         SVGDraw->>SVGDraw: add text labels
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L         SVGDraw->>SVGDraw: position node
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L         
+T 8 markdown.mermaid.codeblock
+L         opt Node has children
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock string
+L             SVGDraw->>SVGDraw: drawNodes() recursive call
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 57 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     deactivate SVGDraw
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+L 
+L     %% Edge Rendering
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     Renderer->>Renderer: drawEdges(edgesEl, cy)
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     loop For each edge
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L         Renderer->>Renderer: extract edge bounds
+T 8 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L         Renderer->>Renderer: draw SVG path
+T 8 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     %% Styling Application
+T 4 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock comment
+L     Renderer->>Styles: getStyles(options)
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     activate Styles
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     Styles->>Styles: genSections(options)
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     loop For THEME_COLOR_LIMIT sections
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L         Styles->>Styles: generate color scale
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L         Styles->>Styles: create CSS rules
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L         Note right of Styles: .section-X fills<br/>.edge-depth-X widths<br/>.node-icon-X colors
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock entity.name.function.mermaid
+T 22 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 95 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Styles->>Styles: apply theme integration
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 44 markdown.mermaid.codeblock string
+L     Styles-->>Renderer: return compiled CSS
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L     deactivate Styles
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L 
+L     %% Final Assembly
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     Renderer->>Output: selectSvgElement()
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     Renderer->>Output: setupGraphViewbox()
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L     Renderer->>Output: apply styles
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     Renderer->>Output: add interactive elements
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     deactivate Renderer
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+L 
+L     activate Output
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+L     Note over Output: Final Mindmap Features
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 44 markdown.mermaid.codeblock string
+L     Output->>Output: responsive layout
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     Output->>Output: accessibility attributes
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     Output->>Output: hover effects
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L     Output->>Output: click handling
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     Output-->>User: rendered mindmap
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock string
+L     deactivate Output
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+L 
+L     %% Configuration Details
+T 4 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock comment
+L     Note over DB, Styles: Configuration Options
+T 47 markdown.mermaid.codeblock
+L     Note right of DB: Padding Calculations:<br/>Base padding from config<br/>RECT: ×2 padding<br/>ROUNDED_RECT: ×2 padding<br/>HEXAGON: ×2 padding
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 149 markdown.mermaid.codeblock string
+L     Note right of Styles: Section Management:<br/>MAX_SECTIONS = 12<br/>Dynamic color generation<br/>Git theme integration
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 122 markdown.mermaid.codeblock string
+L     Note right of Renderer: Layout Parameters:<br/>Cytoscape configuration<br/>coseBilkent settings<br/>Node spacing rules 
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 123 markdown.mermaid.codeblock string

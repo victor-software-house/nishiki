@@ -98,6 +98,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  mermaid: {
+    bundled: "bpruitt-goddard/vscode-mermaid-syntax-highlight@8b62f487cb7a89afcd152febfbf47f5d4787657f",
+    origin: "bpruitt-goddard/vscode-mermaid-syntax-highlight",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   nix: {
     bundled: "nix-community/vscode-nix-ide@effbf3494a43250a537834805b305793994b9ca8",
     origin: "nix-community/vscode-nix-ide",

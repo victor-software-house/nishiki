@@ -105,6 +105,7 @@ textmate = [
   "lang-cmake",
   "lang-dart",
   "lang-julia",
+  "lang-mermaid",
   "lang-nix",
   "lang-powershell",
   "lang-proto",
@@ -151,6 +152,7 @@ lang-make = [
   "_frame-kinds",
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
+lang-mermaid = ["_textmate"]
 lang-nix = ["_textmate"]
 lang-powershell = ["_textmate"]
 lang-proto = ["_textmate"]

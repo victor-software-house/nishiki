@@ -9,6 +9,7 @@ extend-exclude = [
   "src/bat/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",
+  "src/mermaid/grammar.rs",
 ]
 
 # Unicode general-category codes, such as Nd, which are not words.

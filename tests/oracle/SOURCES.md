@@ -271,6 +271,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `julia/strings-util` | [`base/strings/util.jl`][julia-strings-util] in JuliaLang/julia | [MIT][julia-licence] |
 | `markdown/julia-functions` | [`doc/src/manual/functions.md`][julia-manual-functions] in JuliaLang/julia | [MIT][julia-licence] |
 | `markdown/julia-strings` | [`doc/src/manual/strings.md`][julia-manual-strings] in JuliaLang/julia | [MIT][julia-licence] |
+| `mermaid/sample` | [`samples/mermaid.sample`][mermaid-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/api-sequence` | [`docs/diagrams/mermaid-api-sequence.mmd`][mermaid-api-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
+| `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -472,6 +476,9 @@ Julia runs on nishiki's TextMate engine as well.
 `julia/sample` and `julia/base-abstractset` are its development inputs, and `markdown/julia-functions` is the development input for Julia fences.
 `julia/base-sort`, `julia/strings-util` and `markdown/julia-strings` are held out.
 None of them has a `cxx`, `icxx` or `R` string macro, whose contents Shiki lexes as C++ and R and nishiki leaves plain.
+Mermaid runs on nishiki's TextMate engine as well.
+`mermaid/sample` and `mermaid/flowchart-code-flow` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
+Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
@@ -750,6 +757,11 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [mathjax-demos-licence]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/LICENSE
 [mathjax-mml-chtml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/mml-chtml.html
 [mathjax-tex-mml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/tex-mml.html
+[mermaid-api-sequence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/mermaid-api-sequence.mmd
+[mermaid-flowchart-code-flow]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/flowchart-code-flow.mmd
+[mermaid-licence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/LICENSE
+[mermaid-mindmap-sequence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/mindmap-implementation-sequence.mmd
+[mermaid-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/mermaid.sample
 [milligram-css]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/dist/milligram.css
 [milligram-licence]: https://github.com/milligram/milligram/blob/5e56af462aea08baf5011a045bf1bfaaef72552c/license
 [minikube-licence]: https://github.com/kubernetes/minikube/blob/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996/LICENSE

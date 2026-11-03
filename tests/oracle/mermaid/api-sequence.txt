@@ -1,0 +1,1677 @@
+L ---
+T 3 markdown.mermaid.codeblock
+L references:
+T 11 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/mermaidAPI.ts"
+T 47 markdown.mermaid.codeblock
+L   - "File: /packages/mermaid/src/mermaid.ts"
+T 44 markdown.mermaid.codeblock
+L generationTime: 2025-01-28T16:30:00.000Z
+T 40 markdown.mermaid.codeblock
+L ---
+T 3 markdown.mermaid.codeblock
+L sequenceDiagram
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L     participant User as User/Browser
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock string
+L     participant Mermaid as mermaid.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     participant Queue as executionQueue
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     participant API as mermaidAPI.ts
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock string
+L     participant Config as configApi
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     participant Preprocessor as preprocessDiagram
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock keyword.control.mermaid
+T 32 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L     participant DiagramAPI as diagram-api
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+T 41 markdown.mermaid.codeblock
+L     participant Diagram as Diagram.fromText
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L     participant Renderer as diagram.renderer
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 44 markdown.mermaid.codeblock string
+L     participant Styles as Styling System
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L     participant DOM as DOM/SVG
+T 4 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L 
+L     Note over User, DOM: Mermaid Complete API Flow
+T 50 markdown.mermaid.codeblock
+L 
+L     %% Initialization Phase
+T 4 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock comment
+L     User->>+Mermaid: mermaid.initialize(config)
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     Mermaid->>+API: mermaidAPI.initialize(config)
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>API: assignWithDepth({}, userOptions)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     API->>API: handle legacy fontFamily config
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     API->>Config: saveConfigFromInitialize(options)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 51 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     alt Theme Configuration Available
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L         API->>API: check if theme in theme object
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L         API->>API: set themeVariables from theme
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L     else Default Theme
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L         API->>API: use default theme variables
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>Config: setSiteConfig(options) or getSiteConfig()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 59 markdown.mermaid.codeblock string
+L     API->>API: setLogLevel(config.logLevel)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L     API->>DiagramAPI: addDiagrams()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API-->>-Mermaid: initialization complete
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 44 markdown.mermaid.codeblock string
+L     Mermaid-->>-User: ready to render
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L 
+L     %% Content Loaded Event
+T 4 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock comment
+L     User->>DOM: document.load event
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     DOM->>+Mermaid: contentLoaded()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt startOnLoad is true
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L         Mermaid->>Config: getConfig()
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L         Config-->>Mermaid: { startOnLoad: true }
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L         Mermaid->>Mermaid: run()
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid-->>-DOM: event handling complete
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 44 markdown.mermaid.codeblock string
+L 
+L     %% Main Run Function
+T 4 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L     User->>+Mermaid: mermaid.run(options)
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid->>Mermaid: runThrowsErrors(options)
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     Mermaid->>Config: getConfig()
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L     Config-->>Mermaid: configuration object
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     alt nodes provided
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock string
+L         Mermaid->>Mermaid: use provided nodes
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     else querySelector provided
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L         Mermaid->>DOM: document.querySelectorAll(querySelector)
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 63 markdown.mermaid.codeblock string
+L         DOM-->>Mermaid: nodesToProcess
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid->>Mermaid: new InitIDGenerator(deterministicIds, seed)
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 66 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     loop For each diagram element
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         Mermaid->>DOM: check element.getAttribute('data-processed')
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 67 markdown.mermaid.codeblock string
+L         
+T 8 markdown.mermaid.codeblock
+L         opt not processed
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+L             Mermaid->>DOM: element.setAttribute('data-processed', 'true')
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 73 markdown.mermaid.codeblock string
+L             Mermaid->>Mermaid: generate unique id
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L             Mermaid->>DOM: get element.innerHTML
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L             Mermaid->>Mermaid: entityDecode and clean text
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 58 markdown.mermaid.codeblock string
+L             Mermaid->>Mermaid: detectInit(txt)
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock variable
+T 30 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L             
+T 12 markdown.mermaid.codeblock
+L             Mermaid->>Queue: render(id, txt, element)
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock variable
+T 28 markdown.mermaid.codeblock keyword.control.mermaid
+T 29 markdown.mermaid.codeblock
+T 53 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid-->>-User: processing initiated
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L 
+L     %% Render Function (Queued)
+T 4 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock comment
+L     activate Queue
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+L     Queue->>+API: mermaidAPI.render(id, text, container)
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>DiagramAPI: addDiagrams()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     API->>+Preprocessor: processAndSetConfigs(text)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 51 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Preprocessor->>Preprocessor: preprocessDiagram(text)
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L     Preprocessor->>Config: reset()
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L     Preprocessor->>Config: addDirective(processed.config)
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 57 markdown.mermaid.codeblock string
+L     Preprocessor-->>-API: { code, config }
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>Config: getConfig()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock string
+L     Config-->>API: current configuration
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt text length > maxTextSize
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         API->>API: text = MAX_TEXTLENGTH_EXCEEDED_MSG
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 53 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>API: setup id selectors and element IDs
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L     API->>API: determine security level (sandbox/loose)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L 
+L     %% DOM Setup
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock comment
+L     alt svgContainingElement provided
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L         alt isSandboxed
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L             API->>DOM: sandboxedIframe(select(svgContainingElement), iFrameID)
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 78 markdown.mermaid.codeblock string
+L             API->>DOM: select iframe contentDocument body
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 57 markdown.mermaid.codeblock string
+L         else
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L             API->>DOM: select(svgContainingElement)
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 51 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     else no container
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock string
+L         API->>API: removeExistingElements(document, id, divId, iFrameId)
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 72 markdown.mermaid.codeblock string
+L         alt isSandboxed
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L             API->>DOM: sandboxedIframe(select('body'), iFrameID)
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 64 markdown.mermaid.codeblock string
+L         else
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L             API->>DOM: select('body')
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>DOM: appendDivSvgG(root, id, enclosingDivID, fontFamily, XMLNS_XLINK_STD)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 83 markdown.mermaid.codeblock string
+L 
+L     %% Diagram Creation
+T 4 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock comment
+L     API->>+Diagram: Diagram.fromText(text, { title: processed.title })
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 70 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Diagram->>DiagramAPI: detect diagram type
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     Diagram->>DiagramAPI: load appropriate diagram
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L     Diagram-->>-API: diagram instance
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt parsing error occurred
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L         API->>+Diagram: Diagram.fromText('error')
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L         Diagram-->>-API: error diagram
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L         API->>API: store parseEncounteredException
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     %% Style Generation
+T 4 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock comment
+L     API->>DOM: get svg element and firstChild
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     API->>Renderer: diag.renderer.getClasses(text, diag)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L     Renderer-->>API: diagramClassDefs
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 37 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>+Styles: createUserStyles(config, diagramType, diagramClassDefs, idSelector)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 86 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Styles->>Styles: createCssStyles(config, classDefs)
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt config.themeCSS defined
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 31 markdown.mermaid.codeblock string
+L         Styles->>Styles: append themeCSS
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     opt fontFamily configured
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 29 markdown.mermaid.codeblock string
+L         Styles->>Styles: add CSS variables for fonts
+T 8 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 52 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     opt classDefs exist
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L         loop For each styleClassDef
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L             opt has styles
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock string
+L                 Styles->>Styles: cssImportantStyles for each CSS element
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock
+T 72 markdown.mermaid.codeblock string
+L             end
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L             opt has textStyles
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L                 Styles->>Styles: cssImportantStyles for tspan elements
+T 16 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 31 markdown.mermaid.codeblock variable
+T 32 markdown.mermaid.codeblock keyword.control.mermaid
+T 33 markdown.mermaid.codeblock
+T 70 markdown.mermaid.codeblock string
+L             end
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Styles->>Styles: getStyles(graphType, userCSSstyles, themeVariables)
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 72 markdown.mermaid.codeblock string
+L     Styles->>Styles: serialize(compile(svgId{allStyles}), stringify)
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 68 markdown.mermaid.codeblock string
+L     Styles-->>-API: compiled CSS rules
+T 4 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>DOM: create style element
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     API->>DOM: style.innerHTML = rules
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     API->>DOM: svg.insertBefore(style, firstChild)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L 
+L     %% Diagram Rendering
+T 4 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock comment
+L     API->>+Renderer: diag.renderer.draw(text, id, version, diag)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 64 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Renderer->>Renderer: diagram-specific rendering logic
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 57 markdown.mermaid.codeblock string
+L     Renderer->>DOM: create SVG elements
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     Renderer->>DOM: apply positioning and styling
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L     Renderer-->>-API: rendered diagram
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt rendering error
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 23 markdown.mermaid.codeblock string
+L         alt suppressErrorRendering
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L             API->>API: removeTempElements()
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L             API->>Mermaid: throw error
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L         else
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L             API->>Renderer: errorRenderer.draw(text, id, version)
+T 12 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 65 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     %% Accessibility and Cleanup
+T 4 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock comment
+L     API->>DOM: select svg element
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L     API->>Diagram: diag.db.getAccTitle()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 40 markdown.mermaid.codeblock string
+L     API->>Diagram: diag.db.getAccDescription()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     API->>API: addA11yInfo(diagramType, svgNode, a11yTitle, a11yDescr)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 70 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>DOM: set xmlns for foreignobject elements
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 51 markdown.mermaid.codeblock string
+L     API->>DOM: get innerHTML from enclosing div
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 47 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>+API: cleanUpSvgCode(svgCode, isSandboxed, arrowMarkerAbsolute)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 14 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock
+T 73 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt not useArrowMarkerUrls and not sandboxed
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 48 markdown.mermaid.codeblock string
+L         API->>API: replace marker-end URLs with anchors
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>API: decodeEntities(svgCode)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     API->>API: replace <br> with <br/>
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 38 markdown.mermaid.codeblock string
+L     API-->>-API: cleaned SVG code
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     alt isSandboxed
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock string
+L         API->>+API: putIntoIFrame(svgCode, svgEl)
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 49 markdown.mermaid.codeblock string
+L         API->>API: calculate iframe height
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L         API->>API: toBase64 encode SVG content
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L         API->>API: create iframe with sandbox attributes
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L         API-->>-API: iframe HTML
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L     else not loose security
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L         API->>API: DOMPurify.sanitize(svgCode, options)
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 55 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>API: attachFunctions()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock string
+L     API->>API: removeTempElements()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt parseEncounteredException
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 33 markdown.mermaid.codeblock string
+L         API->>Mermaid: throw parseEncounteredException
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 54 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     API-->>-Queue: { diagramType, svg: svgCode, bindFunctions }
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 63 markdown.mermaid.codeblock string
+L 
+L     %% Return to Web Integration
+T 4 markdown.mermaid.codeblock
+T 32 markdown.mermaid.codeblock comment
+L     activate Mermaid
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+L     Queue-->>Mermaid: render result
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     Mermaid->>DOM: element.innerHTML = svg
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt postRenderCallback
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock string
+L         Mermaid->>User: postRenderCallback(id)
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 46 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     opt bindFunctions exist
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L         Mermaid->>DOM: bindFunctions(element)
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     deactivate Mermaid
+T 4 markdown.mermaid.codeblock
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 15 markdown.mermaid.codeblock
+T 22 markdown.mermaid.codeblock variable
+L 
+L     %% Parse Function Flow
+T 4 markdown.mermaid.codeblock
+T 26 markdown.mermaid.codeblock comment
+L     User->>+Mermaid: mermaid.parse(text, parseOptions)
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 54 markdown.mermaid.codeblock string
+L     activate Queue
+T 4 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 13 markdown.mermaid.codeblock
+T 18 markdown.mermaid.codeblock variable
+L     
+T 4 markdown.mermaid.codeblock
+L     Queue->>+API: mermaidAPI.parse(text, parseOptions)
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 13 markdown.mermaid.codeblock keyword.control.mermaid
+T 16 markdown.mermaid.codeblock variable
+T 17 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock
+T 54 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     API->>DiagramAPI: addDiagrams()
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     API->>Preprocessor: processAndSetConfigs(text)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock variable
+T 23 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock
+T 50 markdown.mermaid.codeblock string
+L     Preprocessor-->>API: { code, config }
+T 4 markdown.mermaid.codeblock
+T 16 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock variable
+T 24 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock
+T 41 markdown.mermaid.codeblock string
+L     API->>Diagram: getDiagramFromText(code)
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 10 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L     Diagram-->>API: diagram instance
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 15 markdown.mermaid.codeblock keyword.control.mermaid
+T 18 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock string
+L     API-->>-Queue: { diagramType: diagram.type, config }
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 56 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Queue-->>-Mermaid: parse result
+T 4 markdown.mermaid.codeblock
+T 9 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     Mermaid-->>-User: ParseResult or false
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L 
+L     %% External Diagram Registration
+T 4 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock comment
+L     User->>+Mermaid: registerExternalDiagrams(diagrams, options)
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock variable
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock
+T 64 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid->>DiagramAPI: addDiagrams()
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     Mermaid->>DiagramAPI: registerLazyLoadedDiagrams(...diagrams)
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 65 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     opt lazyLoad is false
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 25 markdown.mermaid.codeblock string
+L         Mermaid->>DiagramAPI: loadRegisteredDiagrams()
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock variable
+T 29 markdown.mermaid.codeblock keyword.control.mermaid
+T 30 markdown.mermaid.codeblock
+T 54 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L     
+T 4 markdown.mermaid.codeblock
+L     Mermaid-->>-User: registration complete
+T 4 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 16 markdown.mermaid.codeblock keyword.control.mermaid
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 43 markdown.mermaid.codeblock string
+L 
+L     %% Error Handling
+T 4 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock comment
+L     Note over Mermaid, API: Error Handling Throughout
+T 53 markdown.mermaid.codeblock
+L     alt Error occurs
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+T 8 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock string
+L         API->>Mermaid: throw error
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock variable
+T 14 markdown.mermaid.codeblock keyword.control.mermaid
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L         Mermaid->>+Mermaid: handleError(error, errors, parseError)
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 19 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 66 markdown.mermaid.codeblock string
+L         
+T 8 markdown.mermaid.codeblock
+L         Mermaid->>Mermaid: log.warn(error)
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 25 markdown.mermaid.codeblock variable
+T 26 markdown.mermaid.codeblock keyword.control.mermaid
+T 27 markdown.mermaid.codeblock
+T 42 markdown.mermaid.codeblock string
+L         
+T 8 markdown.mermaid.codeblock
+L         alt isDetailedError
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 27 markdown.mermaid.codeblock string
+L             Mermaid->>User: parseError(error.str, error.hash)
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 61 markdown.mermaid.codeblock string
+L         else
+T 8 markdown.mermaid.codeblock
+T 12 markdown.mermaid.codeblock keyword.control.mermaid
+L             Mermaid->>User: parseError(error)
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L         
+T 8 markdown.mermaid.codeblock
+L         opt not suppressErrors
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+T 12 markdown.mermaid.codeblock
+T 30 markdown.mermaid.codeblock string
+L             Mermaid->>User: throw error
+T 12 markdown.mermaid.codeblock
+T 19 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock variable
+T 27 markdown.mermaid.codeblock keyword.control.mermaid
+T 28 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L         end
+T 8 markdown.mermaid.codeblock
+T 11 markdown.mermaid.codeblock keyword.control.mermaid
+L         
+T 8 markdown.mermaid.codeblock
+L         Mermaid-->>-User: error handled
+T 8 markdown.mermaid.codeblock
+T 15 markdown.mermaid.codeblock variable
+T 20 markdown.mermaid.codeblock keyword.control.mermaid
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 39 markdown.mermaid.codeblock string
+L     end
+T 4 markdown.mermaid.codeblock
+T 7 markdown.mermaid.codeblock keyword.control.mermaid
+L 
+L     %% Configuration Details
+T 4 markdown.mermaid.codeblock
+T 28 markdown.mermaid.codeblock comment
+L     Note over Config: Configuration Functions
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 45 markdown.mermaid.codeblock string
+L     Note right of Config: Functions:<br/>- reset()<br/>- getConfig()<br/>- setConfig()<br/>- getSiteConfig()<br/>- updateSiteConfig()<br/>- saveConfigFromInitialize()
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 166 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Note over Styles: CSS Generation
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 20 markdown.mermaid.codeblock variable
+T 21 markdown.mermaid.codeblock keyword.control.mermaid
+T 22 markdown.mermaid.codeblock
+T 36 markdown.mermaid.codeblock string
+L     Note right of Styles: Features:<br/>- createCssStyles()<br/>- createUserStyles()<br/>- cssImportantStyles()<br/>- Theme integration<br/>- Class definitions
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 24 markdown.mermaid.codeblock variable
+T 25 markdown.mermaid.codeblock keyword.control.mermaid
+T 26 markdown.mermaid.codeblock
+T 159 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Note over API: Security Levels
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 34 markdown.mermaid.codeblock string
+L     Note right of API: Modes:<br/>- sandbox: iframe isolation<br/>- loose: minimal sanitization<br/>- default: DOMPurify sanitization
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 133 markdown.mermaid.codeblock string
+L     
+T 4 markdown.mermaid.codeblock
+L     Note over API: Helper Functions
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 13 markdown.mermaid.codeblock entity.name.function.mermaid
+T 14 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock variable
+T 18 markdown.mermaid.codeblock keyword.control.mermaid
+T 19 markdown.mermaid.codeblock
+T 35 markdown.mermaid.codeblock string
+L     Note right of API: Utilities:<br/>- cleanUpSvgCode()<br/>- putIntoIFrame()<br/>- appendDivSvgG()<br/>- removeExistingElements() 
+T 4 markdown.mermaid.codeblock
+T 8 markdown.mermaid.codeblock keyword.control.mermaid
+T 9 markdown.mermaid.codeblock
+T 17 markdown.mermaid.codeblock entity.name.function.mermaid
+T 18 markdown.mermaid.codeblock
+T 21 markdown.mermaid.codeblock variable
+T 22 markdown.mermaid.codeblock keyword.control.mermaid
+T 23 markdown.mermaid.codeblock
+T 132 markdown.mermaid.codeblock string

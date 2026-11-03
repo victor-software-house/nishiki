@@ -1,0 +1,141 @@
+L ```mermaid
+T 3 markdown.mermaid.codeblock
+T 10 markdown.mermaid.codeblock
+L graph TB
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid entity.name.function.mermaid
+L     sq[Square shape] --> ci((Circle shape))
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 7 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 19 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 21 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 24 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 25 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 27 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 29 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 41 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 43 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L 
+L     subgraph A
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 12 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 14 markdown.mermaid.codeblock meta.embedded.block.mermaid entity.name.function.mermaid
+L         od>Odd shape]-- Two line<br/>edge comment --> ro
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 11 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 21 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 23 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 50 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 53 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 54 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 56 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+L         di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 11 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 40 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 41 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 42 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 46 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 47 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 49 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 50 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 76 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 77 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L         di==>ro2(Rounded square shape)
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 16 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 17 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 37 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 38 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L     end
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 7 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L 
+L     %% Notice that no text in shape are added here instead that is appended further down
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 88 markdown.mermaid.codeblock meta.embedded.block.mermaid comment
+L     e --> od3>Really long text with linebreak<br>in an Odd shape]
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 6 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 9 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 14 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 64 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 65 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L 
+L     %% Comments after double percent signs
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 42 markdown.mermaid.codeblock meta.embedded.block.mermaid comment
+L     e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 7 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 60 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 62 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 63 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 66 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 67 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 68 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 69 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 74 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 75 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 78 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 79 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+L 
+L     cyr[Cyrillic]-->cyr2((Circle shape Начало));
+T 4 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 7 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 8 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 16 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 17 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 24 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 26 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 51 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+T 53 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 54 markdown.mermaid.codeblock meta.embedded.block.mermaid
+L 
+L      classDef green fill:#9f6,stroke:#333,stroke-width:2px;
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 14 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 19 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 59 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+L      classDef orange fill:#f96,stroke:#333,stroke-width:4px;
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 14 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 21 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 60 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+L      class sq,e green
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 11 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 15 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 16 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 21 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+L      class di orange
+T 5 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 10 markdown.mermaid.codeblock meta.embedded.block.mermaid keyword.control.mermaid
+T 11 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 13 markdown.mermaid.codeblock meta.embedded.block.mermaid variable
+T 14 markdown.mermaid.codeblock meta.embedded.block.mermaid
+T 20 markdown.mermaid.codeblock meta.embedded.block.mermaid string
+L ```
+T 3 markdown.mermaid.codeblock
+L 
+L <!-- From https://mermaid.js.org/syntax/examples.html -->
+T 57 markdown.mermaid.codeblock
+L 

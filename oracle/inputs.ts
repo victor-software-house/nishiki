@@ -174,6 +174,8 @@ const lume =
   "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
 const mathjaxDemos =
   "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
+const mermaid =
+  "https://raw.githubusercontent.com/mermaid-js/mermaid/ea53556f130b397fb6f781818ee0f1e924b429eb";
 const milligram =
   "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
 const minikube =
@@ -735,6 +737,12 @@ export const inputs: Input[] = [
     name: "zod-readme",
     url: `${zod}/packages/zod/README.md`,
   },
+  // Mermaid runs on the TextMate engine. Shiki's Markdown grammar has no
+  // Mermaid fence, so no Markdown input embeds it.
+  { lang: "mermaid", name: "api-sequence", url: `${mermaid}/docs/diagrams/mermaid-api-sequence.mmd` },
+  { lang: "mermaid", name: "flowchart-code-flow", url: `${mermaid}/docs/diagrams/flowchart-code-flow.mmd` },
+  { lang: "mermaid", name: "mindmap-sequence", url: `${mermaid}/docs/diagrams/mindmap-implementation-sequence.mmd` },
+  { lang: "mermaid", name: "sample", url: `${samples}/mermaid.sample` },
   // Nix runs on the TextMate engine. Shiki's Markdown grammar has no Nix
   // fence, so no Markdown input embeds it.
   { lang: "nix", name: "home-manager-flake", url: `${homeManager}/flake.nix` },

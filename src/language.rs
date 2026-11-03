@@ -340,6 +340,14 @@ languages! {
     }
     /// SCSS, with the scopes of Shiki's `scss` grammar.
     Scss { feature: "lang-scss", names: ["scss"], module: scss }
+    /// Mermaid, with the scopes of Shiki's `mermaid` grammar, which nishiki's
+    /// `TextMate` engine runs.
+    Mermaid {
+        feature: "lang-mermaid",
+        names: ["mermaid", "mmd"],
+        engine: crate::mermaid::grammar::GRAMMAR,
+        reads_line_feed: true,
+    }
 }
 
 impl Language {
