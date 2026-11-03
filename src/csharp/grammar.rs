@@ -6282,6 +6282,10 @@ impl Pat {
 
     /// The word of the capture whose alternation the pattern was split on, or
     /// the empty text.
+    ///
+    /// `#[inline]`, as `Pat::how` is, because the matchers call it from another
+    /// module (`bench/AGENTS.md` rule 13).
+    #[inline]
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn word(self) -> &'static [u8] {
         match self {
@@ -6888,6 +6892,12 @@ impl Pat {
     }
 
     /// How the pattern is matched.
+    ///
+    /// `#[inline]` because the matchers, in another module, call it for every
+    /// pattern they try: at the default sixteen codegen units the two land in
+    /// different units, and a function that is not `#[inline]` cannot be
+    /// inlined across them (`bench/AGENTS.md` rule 13).
+    #[inline]
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn how(self) -> How {
         match self {

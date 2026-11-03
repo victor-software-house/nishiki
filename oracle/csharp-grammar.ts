@@ -557,12 +557,12 @@ g += arms(
   }),
   "Pat",
 );
-g += `        }\n    }\n\n    /// The word of the capture whose alternation the pattern was split on, or\n    /// the empty text.\n${tooLong}    pub(crate) fn word(self) -> &'static [u8] {\n        match self {\n`;
+g += `        }\n    }\n\n    /// The word of the capture whose alternation the pattern was split on, or\n    /// the empty text.\n    ///\n    /// \`#[inline]\`, as \`Pat::how\` is, because the matchers call it from another\n    /// module (\`bench/AGENTS.md\` rule 13).\n    #[inline]\n${tooLong}    pub(crate) fn word(self) -> &'static [u8] {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => [p.id, `b"${p.word ?? ""}"`]),
   "Pat",
 );
-g += `        }\n    }\n\n    /// How the pattern is matched.\n${tooLong}    pub(crate) fn how(self) -> How {\n        match self {\n`;
+g += `        }\n    }\n\n    /// How the pattern is matched.\n    ///\n    /// \`#[inline]\` because the matchers, in another module, call it for every\n    /// pattern they try: at the default sixteen codegen units the two land in\n    /// different units, and a function that is not \`#[inline]\` cannot be\n    /// inlined across them (\`bench/AGENTS.md\` rule 13).\n    #[inline]\n${tooLong}    pub(crate) fn how(self) -> How {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const how = howOf(p.regex);
