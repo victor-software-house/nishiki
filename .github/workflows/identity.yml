@@ -35,6 +35,9 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # The whole history, so the base commit is local: with no
+          # credentials kept, a later fetch of this private repository fails.
+          fetch-depth: 0
       - name: Mount the cache volume
         continue-on-error: true
         timeout-minutes: 3
@@ -65,5 +68,4 @@ jobs:
           fi
           IDENTITY_CHANGES=$(printf '%s\n' "$BODY" | tr -d '\r' | sed -n 's/^identity: changes //p' | tr ',' ' ')
           export IDENTITY_CHANGES
-          git fetch --quiet --depth=1 origin "$BASE"
           mise run identity "$BASE"
