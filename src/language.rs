@@ -49,6 +49,18 @@ macro_rules! languages {
             /// Every supported language.
             pub const ALL: &[Language] = &[$(#[cfg(feature = $feature)] Language::$variant),*];
 
+            /// The language's position in [`Language::ALL`]: its discriminant,
+            /// since the enum and `ALL` list the rows in one order, which the
+            /// assertion below checks. Markdown numbers its fence kinds by it.
+            #[cfg(feature = "lang-markdown")]
+            #[expect(
+                clippy::as_conversions,
+                reason = "a fieldless enum's discriminant is its position in `ALL`"
+            )]
+            pub(crate) const fn index(self) -> usize {
+                self as usize
+            }
+
             /// Shiki's id for the language, such as `"rust"`.
             #[must_use]
             pub fn id(self) -> &'static str {
@@ -103,6 +115,19 @@ macro_rules! languages {
         }
     };
 }
+
+/// Every language's [`Language::index`] is its position in [`Language::ALL`].
+#[cfg(feature = "lang-markdown")]
+const _: () = {
+    let mut i = 0;
+    while i < Language::ALL.len() {
+        assert!(
+            Language::ALL[i].index() == i,
+            "Language::ALL is out of order"
+        );
+        i += 1;
+    }
+};
 
 languages! {
     /// Rust, with the scopes of Shiki's `rust` grammar.

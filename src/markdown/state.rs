@@ -79,12 +79,6 @@ impl Kind {
     /// codes per language, its fence then its body, in [`Language::ALL`]
     /// order. A new language therefore needs no code of its own.
     pub(crate) fn code(self) -> u16 {
-        let language = |language: Language| {
-            Language::ALL
-                .iter()
-                .position(|&l| l == language)
-                .unwrap_or(0)
-        };
         let low = match self {
             Kind::Base => 0,
             Kind::Quote => 1,
@@ -101,8 +95,8 @@ impl Kind {
             Kind::ItalicUnder => 12,
             Kind::FrontMatter => 13,
             Kind::FrontMatterBody => 14,
-            Kind::Fence(lang) => Kind::FIXED.len() + 2 * language(lang),
-            Kind::Body(lang) => Kind::FIXED.len() + 2 * language(lang) + 1,
+            Kind::Fence(lang) => Kind::FIXED.len() + 2 * lang.index(),
+            Kind::Body(lang) => Kind::FIXED.len() + 2 * lang.index() + 1,
         };
         TAG | low_byte(low)
     }
