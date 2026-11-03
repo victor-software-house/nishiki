@@ -19,7 +19,8 @@
 // grammar that is not loaded is dropped, as vscode-textmate drops it.
 //
 // Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
-// the run fails, naming the grammar, when one is missing or refused.
+// the run fails, naming the grammar, when one is missing, or when a table the
+// crate ships holds a refused one.
 import { bundledLanguages } from "shiki@4.6.0";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -310,15 +311,16 @@ function hasBackrefs(source: string): boolean {
 }
 
 /** Fails unless every grammar the tables hold has its licence, read at its
- * source, in `oracle/licences.ts`, and, when the tables ship in the crate
- * (under `src/`), its origin in the notices the crate ships. The JSON tables
- * feed a survey and are not kept, so they skip the gate. */
+ * source, in `oracle/licences.ts`. Tables under `src/` ship in the crate, so
+ * each of their grammars must also be allowed, with its origin in the notices
+ * the crate ships. The JSON tables feed a survey and are not kept, so they
+ * skip the gate. */
 function gate(spec: string, used: Set<string>) {
   const shipped = resolve(outDir).startsWith(fileURLToPath(new URL("../src/", import.meta.url)));
   const notices = readFileSync(new URL("../THIRD-PARTY-NOTICES.md", import.meta.url), "utf8");
   const problems = [...used].sort().flatMap((name) => {
     const reason = refused[name];
-    if (reason) return [`${name} is refused: ${reason}`];
+    if (reason) return shipped ? [`${name} is never bundled: ${reason}`] : [];
     const entry = allowed[name];
     if (!entry) return [`${name} has no licence in oracle/licences.ts`];
     if (shipped && !notices.includes(`https://github.com/${entry.origin}`))

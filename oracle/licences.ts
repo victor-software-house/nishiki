@@ -1,10 +1,11 @@
-// The licence of every grammar `engine-tables.ts` may compile into tables,
-// keyed by Shiki's name, and the grammars it must not compile.
+// The licence of every grammar `engine-tables.ts` compiles into tables, keyed
+// by Shiki's name, read at its source.
 //
-// Invariant 2 (AGENTS.md): a third-party grammar is bundled or followed only
-// after its licence is found at its source and permits it. Each entry records
-// where its licence was read; a grammar a shipped table holds also needs its
-// licence text in THIRD-PARTY-NOTICES.md, which the generator checks.
+// Invariant 2 (AGENTS.md): every grammar is read as its language's reference,
+// whatever its licence, but a grammar is bundled only when its licence permits
+// it. Tables under `src/` ship in the crate, so they hold only `allowed`
+// grammars whose origin THIRD-PARTY-NOTICES.md names; test tables may also
+// hold `refused` ones. The generator checks both.
 
 /** A grammar whose licence was read at its source. */
 type Allowed = {
@@ -100,12 +101,12 @@ export const allowed: Record<string, Allowed> = {
   yaml: {
     bundled: "textmate/yaml.tmbundle@e54ceae3b719506dba7e481a77cea4a8b576ae46",
     origin: "textmate/yaml.tmbundle",
-    licence: "TextMate bundle licence",
-    file: "README.mdown",
+    licence: "MIT",
+    file: "Syntaxes/YAML-license.txt",
   },
 };
 
-/** Grammars that must not be compiled, with the reason. */
+/** Grammars that must never be bundled, with the reason. */
 export const refused: Record<string, string> = {
   glsl: "polym0rph/GLSL.tmbundle states no licence, in a file or its README",
   r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
