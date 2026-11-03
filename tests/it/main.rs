@@ -3,5 +3,6 @@
 mod alloc;
 mod fuzz;
 mod limits;
+mod notices;
 mod oracle;
 mod sorted;

@@ -239,6 +239,39 @@ That grammar is licensed under the TextMate bundle licence, which is the one in 
 
 ```text
 Copyright (c) textmate-diff.tmbundle project authors
+
+Permission to copy, use, modify, sell and distribute this
+software is granted. This software is provided "as is" without
+express or implied warranty, and with no claim as to its
+suitability for any purpose.
+```
+
+VS Code's copy of the grammar is licensed under the MIT License:
+
+```text
+MIT License
+
+Copyright (c) 2015 - present Microsoft Corporation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 Its Java lexer emits the scope names of the Java TextMate grammar that Shiki bundles through VS Code as `java`, which VS Code took from [redhat-developer/vscode-java](https://github.com/redhat-developer/vscode-java), and tries that grammar's rules in its order.
 VS Code records the grammar's licence as follows, and the grammar derives from a TextMate bundle that carries its own, which the second paragraph below quotes.
 
@@ -276,31 +309,7 @@ express or implied warranty, and with no claim as to its
 suitability for any purpose.
 ```
 
-VS Code's copy of the grammar is licensed under the MIT License:
-
-```text
-MIT License
-
-Copyright (c) 2015 - present Microsoft Corporation
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
 
 Its Dockerfile lexer emits the scope names of the Dockerfile TextMate grammar in [moby/moby](https://github.com/moby/moby) (`contrib/syntax/textmate/Docker.tmbundle`), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), and tries that grammar's rules in its order.
 That grammar is licensed under the Apache License, Version 2.0, which is moby's licence, and its notice is "Copyright 2013-2018 Docker, Inc.":
@@ -500,9 +509,8 @@ That grammar is licensed under the Apache License, Version 2.0, which is moby's 
 ```
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
-Its C lexer emits the scope names of the C TextMate grammar in [jeff-hykin/better-c-syntax](https://github.com/jeff-hykin/better-c-syntax), which VS Code ships in its C and C++ extension and Shiki bundles as `c`, and tries that grammar's rules in its order.
 
-Its GraphQL lexer emits the scope names of the GraphQL TextMate grammar in [prisma-labs/vscode-graphql](https://github.com/prisma-labs/vscode-graphql) (`grammars/graphql.json`), which Shiki bundles, and tries that grammar's rules in its order.
+Its C lexer emits the scope names of the C TextMate grammar in [jeff-hykin/better-c-syntax](https://github.com/jeff-hykin/better-c-syntax), which VS Code ships in its C and C++ extension and Shiki bundles as `c`, and tries that grammar's rules in its order.
 That grammar is licensed under the MIT License:
 
 ```text
@@ -527,6 +535,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
+
+Its GraphQL lexer emits the scope names of the GraphQL TextMate grammar in [prisma-labs/vscode-graphql](https://github.com/prisma-labs/vscode-graphql) (`grammars/graphql.json`), which Shiki bundles, and tries that grammar's rules in its order.
+That grammar is licensed under the MIT License:
+
+```text
+Copyright (c) 2018 Prisma Data Services <support@prisma.io>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
 Its SQL lexer emits the scope names of the SQL TextMate grammar in [microsoft/vscode-mssql](https://github.com/microsoft/vscode-mssql), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), and tries that grammar's rules in its order.
 It reads the grammar's word lists into a generated table.
 That grammar is licensed under the MIT License:
@@ -566,29 +602,6 @@ suitability for any purpose.
 ```
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
-Copyright (c) 2018 Prisma Data Services <support@prisma.io>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-```text
-```
 
 Its CSS lexer emits the scope names of the CSS TextMate grammar that Shiki bundles through VS Code as `css`, which VS Code converted from [microsoft/vscode-css](https://github.com/microsoft/vscode-css), and tries that grammar's rules in its order.
 That repository's `LICENSE.txt` reads as follows, and the grammar derives from a TextMate bundle that carries its own licence, which the second paragraph below quotes:
@@ -643,6 +656,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
 
 Its C# lexer emits the scope names of the C# TextMate grammar in [dotnet/csharp-tmLanguage](https://github.com/dotnet/csharp-tmLanguage), which VS Code ships and Shiki bundles, and tries that grammar's rules in its order.
 That grammar is licensed under the MIT License:
@@ -812,6 +826,7 @@ Permission to copy, use, modify, sell and distribute this
 software is granted. This software is provided "as is" without
 express or implied warranty, and with no claim as to its
 suitability for any purpose.
+```
 
 Its TextMate engine reads its Unicode character sets (`src/textmate/regex/unicode.rs`) from Unicode character data, as [Oniguruma](https://github.com/kkos/oniguruma) applies it, which is licensed under the Unicode License v3 (<https://www.unicode.org/license.txt>):
 
@@ -892,6 +907,7 @@ Permission to copy, use, modify, sell and distribute this
 software is granted. This software is provided "as is" without
 express or implied warranty, and with no claim as to its
 suitability for any purpose.
+```
 
 Its TextMate engine runs the PowerShell TextMate grammar in [PowerShell/EditorSyntax](https://github.com/PowerShell/EditorSyntax), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode), with its rules compiled into tables (`src/powershell/grammar.rs`).
 That grammar is licensed under the MIT License:
@@ -938,13 +954,36 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 Its C++ lexer emits the scope names of the C++ TextMate grammar in [jeff-hykin/better-cpp-syntax](https://github.com/jeff-hykin/better-cpp-syntax), which VS Code ships in its C and C++ extension and Shiki bundles as `cpp`, and tries that grammar's rules in its order.
 That grammar is licensed under the MIT License:
 
+```text
+MIT License
+
+Copyright (c) 2019 Jeff Hykin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 Its Lua lexer emits the scope names of the Lua TextMate grammar in [sumneko/lua.tmbundle](https://github.com/sumneko/lua.tmbundle), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `lua`, and tries that grammar's rules in its order.
 That repository's `LICENSE` reads as follows:
 
 ```text
 MIT License
 
-Copyright (c) 2019 Jeff Hykin
 Copyright (c) 2022 最萌小汐
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1095,6 +1134,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+```
+
 Its ERB support emits the scope names of the ERB TextMate grammar in [textmate/ruby.tmbundle](https://github.com/textmate/ruby.tmbundle), `Syntaxes/HTML (Ruby - ERB).tmLanguage` at commit `ecf0f1df23984bcff9b51552e35d9696cb0d9539`, which Shiki bundles as `erb`, and tries that grammar's rules in its order.
 The bundle's `README.mdown` licenses its files as follows; the ERB grammar carries no licence of its own, and no `-license` file stands beside it:
 
