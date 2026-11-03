@@ -192,6 +192,7 @@ The release rules in `AGENTS.md` decide its version.
   - The language supplies a `Grammar` implementation: its generated tables, its scope type and its hand-written matchers.
   - It also supplies an `Extra`, for what its matchers remember about a line.
   - It sets `Grammar::GROUPS` to one more than the highest capture group its patterns record, and its `lang-*` feature enables `_rule-tables` when it scans with `table_scan`.
+  - Its generator, `oracle/<language>-grammar.ts`, takes the first-byte analysis, the start table, the scope file and the `GROUPS` check from `oracle/rule-grammar.ts`; the generated grammar fails to compile when `GROUPS` is short of a group its tables name.
   - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.

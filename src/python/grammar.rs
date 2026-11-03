@@ -7542,3 +7542,8 @@ impl Pat {
         }
     }
 }
+
+const _: () = assert!(
+    7 <= <super::engine::Python as crate::rules::Grammar>::GROUPS,
+    "a pattern's table names a capture group past the grammar's GROUPS"
+);

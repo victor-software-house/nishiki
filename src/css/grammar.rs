@@ -5918,3 +5918,8 @@ impl Pat {
         }
     }
 }
+
+const _: () = assert!(
+    8 <= <super::engine::Css as crate::rules::Grammar>::GROUPS,
+    "a pattern's table names a capture group past the grammar's GROUPS"
+);
