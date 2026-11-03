@@ -30,5 +30,6 @@ Rules for measuring nishiki, beside the root guide's invariants.
     The engine's methods on `Lexer<G>` are generic, so each language's copies are placed in one codegen unit, and at the default sixteen units a call from another module cannot be inlined unless the callee is `#[inline]`.
     On 2026-11-03 that alone cost C 1.1% and the SQL port 7.6% more instructions at sixteen units than at one; marking C's `match_pat` and SQL's `hit` and `pat_at` took both below their counts before the port.
     The engine's own accessors were not the cause: marking nine of them changed nothing.
+    The Callgrind job prints a note, never a failure, when a language's head runs more than 3% more instructions at sixteen units than at one: the sign this rule was missed.
 14. A port onto `crate::rules` passes when identity is clean, its own instructions at one codegen unit (rule 12) are at parity with the lexer it replaces or better, and every other rule language stays within ±0.3% there.
     The pull request also records the instructions at sixteen units and the wall time in the default profile, but they do not decide: they follow layout across codegen units, and rule 13 is how a port closes that gap.
