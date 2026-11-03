@@ -1,0 +1,2859 @@
+L // Copyright (c) 2016 Uber Technologies, Inc.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Permission is hereby granted, free of charge, to any person obtaining a copy
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // of this software and associated documentation files (the "Software"), to deal
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L // in the Software without restriction, including without limitation the rights
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // copies of the Software, and to permit persons to whom the Software is
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // furnished to do so, subject to the following conditions:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The above copyright notice and this permission notice shall be included in
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // all copies or substantial portions of the Software.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // THE SOFTWARE.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L 
+L package zap
+T 7 source.go keyword.package.go
+T 8 source.go
+T 11 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"fmt"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 5 source.go string.quoted.double.go entity.name.import.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"io"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 4 source.go string.quoted.double.go entity.name.import.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"os"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 4 source.go string.quoted.double.go entity.name.import.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"strings"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 9 source.go string.quoted.double.go entity.name.import.go
+T 10 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 
+L 	"go.uber.org/zap/internal/bufferpool"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 37 source.go string.quoted.double.go entity.name.import.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"go.uber.org/zap/internal/stacktrace"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 37 source.go string.quoted.double.go entity.name.import.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"go.uber.org/zap/zapcore"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 25 source.go string.quoted.double.go entity.name.import.go
+T 26 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L // A Logger provides fast, leveled, structured logging. All methods are safe
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // for concurrent use.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 22 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The Logger is designed for contexts in which every microsecond and every
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // allocation matters, so its API intentionally favors performance and type
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // safety over brevity. For most applications, the SugaredLogger strikes a
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // better balance between performance and ergonomics.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L type Logger struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 18 source.go keyword.struct.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 	core zapcore.Core
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.other.period.go
+T 18 source.go entity.name.type.go
+L 
+L 	development bool
+T 1 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go
+T 17 source.go storage.type.boolean.go
+L 	addCaller   bool
+T 1 source.go
+T 10 source.go variable.other.property.go
+T 13 source.go
+T 17 source.go storage.type.boolean.go
+L 	onPanic     zapcore.CheckWriteHook // default is WriteThenPanic
+T 1 source.go
+T 8 source.go variable.other.property.go
+T 13 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+T 36 source.go
+T 38 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	onFatal     zapcore.CheckWriteHook // default is WriteThenFatal
+T 1 source.go
+T 8 source.go variable.other.property.go
+T 13 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+T 36 source.go
+T 38 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 
+L 	name        string
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 13 source.go
+T 19 source.go storage.type.string.go
+L 	errorOutput zapcore.WriteSyncer
+T 1 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.other.period.go
+T 32 source.go entity.name.type.go
+L 
+L 	addStack zapcore.LevelEnabler
+T 1 source.go
+T 9 source.go variable.other.property.go
+T 10 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.other.period.go
+T 30 source.go entity.name.type.go
+L 
+L 	callerSkip int
+T 1 source.go
+T 11 source.go variable.other.property.go
+T 12 source.go
+T 15 source.go storage.type.numeric.go
+L 
+L 	clock zapcore.Clock
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.other.period.go
+T 20 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // New constructs a new Logger from the provided zapcore.Core and Options. If
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // the passed zapcore.Core is nil, it falls back to using a no-op
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // implementation.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 18 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // This is the most flexible way to construct a Logger, but also the most
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // verbose. For typical use cases, the highly-opinionated presets
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // (NewProduction, NewDevelopment, and NewExample) or the Config struct are
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // more convenient.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 19 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // For sample code, see the package-level AdvancedConfiguration example.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L func New(core zapcore.Core, options ...Option) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 8 source.go entity.name.function.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.period.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.other.comma.go
+T 28 source.go
+T 35 source.go variable.parameter.go
+T 36 source.go
+T 39 source.go keyword.operator.ellipsis.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.definition.end.bracket.round.go
+T 47 source.go
+T 48 source.go keyword.operator.address.go
+T 54 source.go entity.name.type.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	if core == nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 8 source.go variable.other.go
+T 9 source.go
+T 11 source.go keyword.operator.comparison.go
+T 12 source.go
+T 15 source.go constant.language.null.go
+T 16 source.go
+T 17 source.go punctuation.definition.begin.bracket.curly.go
+L 		return NewNop()
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	log := &Logger{
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.address.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		core:        core,
+T 2 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go punctuation.other.colon.go
+T 15 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+L 		errorOutput: zapcore.Lock(os.Stderr),
+T 2 source.go
+T 13 source.go variable.other.property.go
+T 14 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 27 source.go entity.name.function.support.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.period.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go punctuation.other.comma.go
+L 		addStack:    zapcore.FatalLevel + 1,
+T 2 source.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 33 source.go variable.other.go
+T 34 source.go
+T 35 source.go keyword.operator.arithmetic.go
+T 36 source.go
+T 37 source.go constant.numeric.decimal.go
+T 38 source.go punctuation.other.comma.go
+L 		clock:       zapcore.DefaultClock,
+T 2 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.other.comma.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return log.WithOptions(options...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.other.go
+T 34 source.go keyword.operator.ellipsis.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // NewNop returns a no-op Logger. It never writes out logs or internal errors,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // and it never runs user-defined hooks.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 40 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Using WithOptions to replace the Core or error output of a no-op Logger can
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // re-enable logging.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 21 source.go comment.line.double-slash.go
+L func NewNop() *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 15 source.go keyword.operator.address.go
+T 21 source.go entity.name.type.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	return &Logger{
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.address.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		core:        zapcore.NewNopCore(),
+T 2 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 33 source.go entity.name.function.support.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go punctuation.other.comma.go
+L 		errorOutput: zapcore.AddSync(io.Discard),
+T 2 source.go
+T 13 source.go variable.other.property.go
+T 14 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 30 source.go entity.name.function.support.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.other.period.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go punctuation.other.comma.go
+L 		addStack:    zapcore.FatalLevel + 1,
+T 2 source.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 33 source.go variable.other.go
+T 34 source.go
+T 35 source.go keyword.operator.arithmetic.go
+T 36 source.go
+T 37 source.go constant.numeric.decimal.go
+T 38 source.go punctuation.other.comma.go
+L 		clock:       zapcore.DefaultClock,
+T 2 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go punctuation.other.colon.go
+T 15 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.other.comma.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // NewProduction builds a sensible production Logger that writes InfoLevel and
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // above logs to standard error as JSON.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 40 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // It's a shortcut for NewProductionConfig().Build(...Option).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L func NewProduction(options ...Option) (*Logger, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 30 source.go keyword.operator.ellipsis.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.round.go
+T 40 source.go keyword.operator.address.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 53 source.go storage.type.error.go
+T 54 source.go punctuation.definition.end.bracket.round.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	return NewProductionConfig().Build(options...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 27 source.go entity.name.function.support.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go punctuation.other.period.go
+T 35 source.go entity.name.function.support.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 43 source.go variable.other.go
+T 46 source.go keyword.operator.ellipsis.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // NewDevelopment builds a development Logger that writes DebugLevel and above
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // logs to standard error in a human-friendly format.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // It's a shortcut for NewDevelopmentConfig().Build(...Option).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L func NewDevelopment(options ...Option) (*Logger, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 31 source.go keyword.operator.ellipsis.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.round.go
+T 41 source.go keyword.operator.address.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.other.comma.go
+T 49 source.go
+T 54 source.go storage.type.error.go
+T 55 source.go punctuation.definition.end.bracket.round.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+L 	return NewDevelopmentConfig().Build(options...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go punctuation.other.period.go
+T 36 source.go entity.name.function.support.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 44 source.go variable.other.go
+T 47 source.go keyword.operator.ellipsis.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Must is a helper that wraps a call to a function returning (*Logger, error)
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // and panics if the error is non-nil. It is intended for use in variable
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // initialization such as:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 26 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L //	var logger = zap.Must(zap.NewProduction())
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L func Must(logger *Logger, err error) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 18 source.go keyword.operator.address.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 35 source.go storage.type.error.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go
+T 38 source.go keyword.operator.address.go
+T 44 source.go entity.name.type.go
+T 45 source.go
+T 46 source.go punctuation.definition.begin.bracket.curly.go
+L 	if err != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go
+T 10 source.go keyword.operator.comparison.go
+T 11 source.go
+T 14 source.go constant.language.null.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		panic(err)
+T 2 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	return logger
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // NewExample builds a Logger that's designed for use in zap's testable
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // examples. It writes DebugLevel and above logs to standard out as JSON, but
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // omits the timestamp and calling function to keep example output
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // short and deterministic.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L func NewExample(options ...Option) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.parameter.go
+T 24 source.go
+T 27 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go keyword.operator.address.go
+T 42 source.go entity.name.type.go
+T 43 source.go
+T 44 source.go punctuation.definition.begin.bracket.curly.go
+L 	encoderCfg := zapcore.EncoderConfig{
+T 1 source.go
+T 11 source.go variable.other.assignment.go
+T 12 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.other.period.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.begin.bracket.curly.go
+L 		MessageKey:     "msg",
+T 2 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go punctuation.other.colon.go
+T 18 source.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 22 source.go string.quoted.double.go
+T 23 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 24 source.go punctuation.other.comma.go
+L 		LevelKey:       "level",
+T 2 source.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 18 source.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 24 source.go string.quoted.double.go
+T 25 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 26 source.go punctuation.other.comma.go
+L 		NameKey:        "logger",
+T 2 source.go
+T 9 source.go variable.other.property.go
+T 10 source.go punctuation.other.colon.go
+T 18 source.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 25 source.go string.quoted.double.go
+T 26 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 27 source.go punctuation.other.comma.go
+L 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+T 2 source.go
+T 13 source.go variable.other.property.go
+T 14 source.go punctuation.other.colon.go
+T 18 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 47 source.go variable.other.go
+T 48 source.go punctuation.other.comma.go
+L 		EncodeTime:     zapcore.ISO8601TimeEncoder,
+T 2 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go punctuation.other.colon.go
+T 18 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.other.comma.go
+L 		EncodeDuration: zapcore.StringDurationEncoder,
+T 2 source.go
+T 16 source.go variable.other.property.go
+T 17 source.go punctuation.other.colon.go
+T 18 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 47 source.go variable.other.go
+T 48 source.go punctuation.other.comma.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	core := zapcore.NewCore(zapcore.NewJSONEncoder(encoderCfg), os.Stdout, DebugLevel)
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 24 source.go entity.name.function.support.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.other.period.go
+T 47 source.go entity.name.function.support.go
+T 48 source.go punctuation.definition.begin.bracket.round.go
+T 58 source.go variable.other.go
+T 59 source.go punctuation.definition.end.bracket.round.go
+T 60 source.go punctuation.other.comma.go
+T 61 source.go
+T 63 source.go variable.other.go
+T 64 source.go punctuation.other.period.go
+T 70 source.go variable.other.go
+T 71 source.go punctuation.other.comma.go
+T 72 source.go
+T 82 source.go variable.other.go
+T 83 source.go punctuation.definition.end.bracket.round.go
+L 	return New(core).WithOptions(options...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.other.period.go
+T 29 source.go entity.name.function.support.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.other.go
+T 40 source.go keyword.operator.ellipsis.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sugar wraps the Logger to provide a more ergonomic, but slightly slower,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // API. Sugaring a Logger is quite inexpensive, so it's reasonable for a
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // single application to use both Loggers and SugaredLoggers, converting
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // between them on the boundaries of performance-sensitive code.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L func (log *Logger) Sugar() *SugaredLogger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 28 source.go keyword.operator.address.go
+T 41 source.go entity.name.type.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	core := log.clone()
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.period.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 	core.callerSkip += 2
+T 1 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+T 17 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 21 source.go constant.numeric.decimal.go
+L 	return &SugaredLogger{core}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.address.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Named adds a new path segment to the logger's name. Segments are joined by
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // periods. By default, Loggers are unnamed.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L func (log *Logger) Named(s string) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 33 source.go storage.type.string.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go keyword.operator.address.go
+T 42 source.go entity.name.type.go
+T 43 source.go
+T 44 source.go punctuation.definition.begin.bracket.curly.go
+L 	if s == "" {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 11 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+L 		return log
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	l := log.clone()
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	if log.name == "" {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 12 source.go variable.other.go
+T 13 source.go
+T 15 source.go keyword.operator.comparison.go
+T 16 source.go
+T 17 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 18 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 		l.name = s
+T 2 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 12 source.go variable.other.go
+L 	} else {
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+T 3 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go punctuation.definition.begin.bracket.curly.go
+L 		l.name = strings.Join([]string{l.name, s}, ".")
+T 2 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.begin.bracket.square.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 32 source.go storage.type.string.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.other.period.go
+T 39 source.go variable.other.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.definition.end.bracket.curly.go
+T 44 source.go punctuation.other.comma.go
+T 45 source.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 47 source.go string.quoted.double.go
+T 48 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return l
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // WithOptions clones the current Logger, applies the supplied Options, and
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // returns the resulting Logger. It's safe to use concurrently.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L func (log *Logger) WithOptions(opts ...Option) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.parameter.go
+T 36 source.go
+T 39 source.go keyword.operator.ellipsis.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.definition.end.bracket.round.go
+T 47 source.go
+T 48 source.go keyword.operator.address.go
+T 54 source.go entity.name.type.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	c := log.clone()
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	for _, opt := range opts {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 11 source.go variable.other.assignment.go
+T 12 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 20 source.go keyword.control.go
+T 21 source.go
+T 25 source.go variable.other.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 		opt.apply(c)
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return c
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // With creates a child logger and adds structured context to it. Fields added
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // to the child don't affect the parent, and vice versa. Any fields that
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // require evaluation (such as Objects) are evaluated upon invocation of With.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L func (log *Logger) With(fields ...Field) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 34 source.go keyword.operator.ellipsis.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 42 source.go keyword.operator.address.go
+T 48 source.go entity.name.type.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(fields) == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go keyword.operator.comparison.go
+T 19 source.go
+T 20 source.go constant.numeric.decimal.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 		return log
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	l := log.clone()
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	l.core = l.core.With(fields)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go punctuation.other.period.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 	return l
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // WithLazy creates a child logger and adds structured context to it lazily.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The fields are evaluated only if the logger is further chained with [With]
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // or is written to with any of the log level methods.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Until that occurs, the logger may retain references to objects inside the fields,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L // and logging will reflect the state of an object at the time of logging,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // not the time of WithLazy().
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WithLazy provides a worthwhile performance optimization for contextual loggers
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 81 source.go comment.line.double-slash.go
+L // when the likelihood of using the child logger is low,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L // such as error paths and rarely taken branches.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Similar to [With], fields added to the child don't affect the parent, and vice versa.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 88 source.go comment.line.double-slash.go
+L func (log *Logger) WithLazy(fields ...Field) *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 27 source.go entity.name.function.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go variable.parameter.go
+T 35 source.go
+T 38 source.go keyword.operator.ellipsis.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.definition.end.bracket.round.go
+T 45 source.go
+T 46 source.go keyword.operator.address.go
+T 52 source.go entity.name.type.go
+T 53 source.go
+T 54 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(fields) == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go keyword.operator.comparison.go
+T 19 source.go
+T 20 source.go constant.numeric.decimal.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 		return log
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return log.WithOptions(WrapCore(func(core zapcore.Core) zapcore.Core {
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go entity.name.function.support.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go keyword.function.go
+T 38 source.go punctuation.definition.begin.bracket.round.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.period.go
+T 55 source.go entity.name.type.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+T 57 source.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.period.go
+T 69 source.go entity.name.type.go
+T 70 source.go
+T 71 source.go punctuation.definition.begin.bracket.curly.go
+L 		return zapcore.NewLazyWith(core, fields)
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+L 	}))
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+T 3 source.go punctuation.definition.end.bracket.round.go
+T 4 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Level reports the minimum enabled level for this logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // For NopLoggers, this is [zapcore.InvalidLevel].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L func (log *Logger) Level() zapcore.Level {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.other.period.go
+T 40 source.go entity.name.type.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+L 	return zapcore.LevelOf(log.core)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.other.period.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Check returns a CheckedEntry if logging a message at the specified level
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // is enabled. It's a completely optional optimization; in high-performance
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // applications, Check can help avoid allocating a slice to hold fields.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L func (log *Logger) Check(lvl zapcore.Level, msg string) *zapcore.CheckedEntry {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.other.period.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.other.comma.go
+T 44 source.go
+T 47 source.go variable.parameter.go
+T 48 source.go
+T 54 source.go storage.type.string.go
+T 55 source.go punctuation.definition.end.bracket.round.go
+T 56 source.go
+T 57 source.go keyword.operator.address.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.period.go
+T 77 source.go entity.name.type.go
+T 78 source.go
+T 79 source.go punctuation.definition.begin.bracket.curly.go
+L 	return log.check(lvl, msg)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 17 source.go entity.name.function.support.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.comma.go
+T 23 source.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Log logs a message at the specified level. The message includes any fields
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // passed at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // Any Fields that require  evaluation (such as Objects) are evaluated upon
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // invocation of Log.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 21 source.go comment.line.double-slash.go
+L func (log *Logger) Log(lvl zapcore.Level, msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.other.period.go
+T 40 source.go entity.name.type.go
+T 41 source.go punctuation.other.comma.go
+T 42 source.go
+T 45 source.go variable.parameter.go
+T 46 source.go
+T 52 source.go storage.type.string.go
+T 53 source.go punctuation.other.comma.go
+T 54 source.go
+T 60 source.go variable.parameter.go
+T 61 source.go
+T 64 source.go keyword.operator.ellipsis.go
+T 69 source.go entity.name.type.go
+T 70 source.go punctuation.definition.end.bracket.round.go
+T 71 source.go
+T 72 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(lvl, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go punctuation.terminator.go
+T 31 source.go
+T 33 source.go variable.other.go
+T 34 source.go
+T 36 source.go keyword.operator.comparison.go
+T 37 source.go
+T 40 source.go constant.language.null.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Debug logs a message at DebugLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func (log *Logger) Debug(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 35 source.go storage.type.string.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(DebugLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.terminator.go
+T 38 source.go
+T 40 source.go variable.other.go
+T 41 source.go
+T 43 source.go keyword.operator.comparison.go
+T 44 source.go
+T 47 source.go constant.language.null.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Info logs a message at InfoLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func (log *Logger) Info(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 34 source.go storage.type.string.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 46 source.go keyword.operator.ellipsis.go
+T 51 source.go entity.name.type.go
+T 52 source.go punctuation.definition.end.bracket.round.go
+T 53 source.go
+T 54 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(InfoLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go punctuation.terminator.go
+T 37 source.go
+T 39 source.go variable.other.go
+T 40 source.go
+T 42 source.go keyword.operator.comparison.go
+T 43 source.go
+T 46 source.go constant.language.null.go
+T 47 source.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Warn logs a message at WarnLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func (log *Logger) Warn(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 34 source.go storage.type.string.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 46 source.go keyword.operator.ellipsis.go
+T 51 source.go entity.name.type.go
+T 52 source.go punctuation.definition.end.bracket.round.go
+T 53 source.go
+T 54 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(WarnLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go punctuation.terminator.go
+T 37 source.go
+T 39 source.go variable.other.go
+T 40 source.go
+T 42 source.go keyword.operator.comparison.go
+T 43 source.go
+T 46 source.go constant.language.null.go
+T 47 source.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Error logs a message at ErrorLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func (log *Logger) Error(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 35 source.go storage.type.string.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(ErrorLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.terminator.go
+T 38 source.go
+T 40 source.go variable.other.go
+T 41 source.go
+T 43 source.go keyword.operator.comparison.go
+T 44 source.go
+T 47 source.go constant.language.null.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // DPanic logs a message at DPanicLevel. The message includes any fields
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // passed at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // If the logger is in development mode, it then panics (DPanic means
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L // "development panic"). This is useful for catching errors that are
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L // recoverable, but shouldn't ever happen.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L func (log *Logger) DPanic(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 36 source.go storage.type.string.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 44 source.go variable.parameter.go
+T 45 source.go
+T 48 source.go keyword.operator.ellipsis.go
+T 53 source.go entity.name.type.go
+T 54 source.go punctuation.definition.end.bracket.round.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(DPanicLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.other.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go punctuation.terminator.go
+T 39 source.go
+T 41 source.go variable.other.go
+T 42 source.go
+T 44 source.go keyword.operator.comparison.go
+T 45 source.go
+T 48 source.go constant.language.null.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Panic logs a message at PanicLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The logger then panics, even if logging at PanicLevel is disabled.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L func (log *Logger) Panic(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 35 source.go storage.type.string.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(PanicLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.terminator.go
+T 38 source.go
+T 40 source.go variable.other.go
+T 41 source.go
+T 43 source.go keyword.operator.comparison.go
+T 44 source.go
+T 47 source.go constant.language.null.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Fatal logs a message at FatalLevel. The message includes any fields passed
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // at the log site, as well as any fields accumulated on the logger.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The logger then calls os.Exit(1), even if logging at FatalLevel is
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L // disabled.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 12 source.go comment.line.double-slash.go
+L func (log *Logger) Fatal(msg string, fields ...Field) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 35 source.go storage.type.string.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go punctuation.definition.begin.bracket.curly.go
+L 	if ce := log.check(FatalLevel, msg); ce != nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.terminator.go
+T 38 source.go
+T 40 source.go variable.other.go
+T 41 source.go
+T 43 source.go keyword.operator.comparison.go
+T 44 source.go
+T 47 source.go constant.language.null.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Write(fields...)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 20 source.go keyword.operator.ellipsis.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sync calls the underlying Core's Sync method, flushing any buffered log
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // entries. Applications should take care to call Sync before exiting.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L func (log *Logger) Sync() error {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 31 source.go storage.type.error.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 	return log.core.Sync()
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Core returns the Logger's underlying zapcore.Core.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L func (log *Logger) Core() zapcore.Core {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.period.go
+T 38 source.go entity.name.type.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	return log.core
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Name returns the Logger's underlying name,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L // or an empty string if the logger is unnamed.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L func (log *Logger) Name() string {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 32 source.go storage.type.string.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	return log.name
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (log *Logger) clone() *Logger {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 28 source.go keyword.operator.address.go
+T 34 source.go entity.name.type.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 	clone := *log
+T 1 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go keyword.operator.address.go
+T 14 source.go variable.other.go
+L 	return &clone
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.address.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (log *Logger) check(lvl zapcore.Level, msg string) *zapcore.CheckedEntry {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.parameter.go
+T 11 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.other.period.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.other.comma.go
+T 44 source.go
+T 47 source.go variable.parameter.go
+T 48 source.go
+T 54 source.go storage.type.string.go
+T 55 source.go punctuation.definition.end.bracket.round.go
+T 56 source.go
+T 57 source.go keyword.operator.address.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.period.go
+T 77 source.go entity.name.type.go
+T 78 source.go
+T 79 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Logger.check must always be called directly by a method in the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 	// Logger interface (e.g., Check, Info, Fatal).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	// This skips Logger.check and the Info/Fatal/Check/etc. method that
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L 	// called it.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 14 source.go comment.line.double-slash.go
+L 	const callerSkipOffset = 2
+T 1 source.go
+T 6 source.go keyword.const.go
+T 7 source.go
+T 23 source.go variable.other.constant.go
+T 24 source.go
+T 25 source.go keyword.operator.assignment.go
+T 26 source.go
+T 27 source.go constant.numeric.decimal.go
+L 
+L 	// Check the level first to reduce the cost of disabled log calls.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// Since Panic and higher may exit, we skip the optimization for those levels.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L 	if lvl < zapcore.DPanicLevel && !log.core.Enabled(lvl) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 29 source.go variable.other.go
+T 30 source.go
+T 32 source.go keyword.operator.logical.go
+T 33 source.go
+T 34 source.go keyword.operator.logical.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.other.period.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.other.period.go
+T 50 source.go entity.name.function.support.go
+T 51 source.go punctuation.definition.begin.bracket.round.go
+T 54 source.go variable.other.go
+T 55 source.go punctuation.definition.end.bracket.round.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+L 		return nil
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go constant.language.null.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// Create basic checked entry thru the core; this will be non-nil if the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// log message will actually be written somewhere.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L 	ent := zapcore.Entry{
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.other.period.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 		LoggerName: log.name,
+T 2 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.comma.go
+L 		Time:       log.clock.Now(),
+T 2 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go punctuation.other.colon.go
+T 14 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.other.period.go
+T 27 source.go entity.name.function.support.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go punctuation.other.comma.go
+L 		Level:      lvl,
+T 2 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go punctuation.other.colon.go
+T 14 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+L 		Message:    msg,
+T 2 source.go
+T 9 source.go variable.other.property.go
+T 10 source.go punctuation.other.colon.go
+T 14 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	ce := log.core.Check(ent, nil)
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.comma.go
+T 27 source.go
+T 30 source.go constant.language.null.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+L 	willWrite := ce != nil
+T 1 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 16 source.go variable.other.go
+T 17 source.go
+T 19 source.go keyword.operator.comparison.go
+T 20 source.go
+T 23 source.go constant.language.null.go
+L 
+L 	// Set up any required terminal behavior.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L 	switch ent.Level {
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 	case zapcore.PanicLevel:
+T 1 source.go
+T 5 source.go keyword.control.go
+T 6 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.colon.go
+L 		ce = ce.After(ent, terminalHookOverride(zapcore.WriteThenPanic, log.onPanic))
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 41 source.go entity.name.function.support.go
+T 42 source.go punctuation.definition.begin.bracket.round.go
+T 49 source.go variable.other.go
+T 50 source.go punctuation.other.period.go
+T 64 source.go variable.other.go
+T 65 source.go punctuation.other.comma.go
+T 66 source.go
+T 69 source.go variable.other.go
+T 70 source.go punctuation.other.period.go
+T 77 source.go variable.other.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+T 79 source.go punctuation.definition.end.bracket.round.go
+L 	case zapcore.FatalLevel:
+T 1 source.go
+T 5 source.go keyword.control.go
+T 6 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.colon.go
+L 		ce = ce.After(ent, terminalHookOverride(zapcore.WriteThenFatal, log.onFatal))
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 41 source.go entity.name.function.support.go
+T 42 source.go punctuation.definition.begin.bracket.round.go
+T 49 source.go variable.other.go
+T 50 source.go punctuation.other.period.go
+T 64 source.go variable.other.go
+T 65 source.go punctuation.other.comma.go
+T 66 source.go
+T 69 source.go variable.other.go
+T 70 source.go punctuation.other.period.go
+T 77 source.go variable.other.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+T 79 source.go punctuation.definition.end.bracket.round.go
+L 	case zapcore.DPanicLevel:
+T 1 source.go
+T 5 source.go keyword.control.go
+T 6 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.colon.go
+L 		if log.development {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 20 source.go variable.other.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 			ce = ce.After(ent, terminalHookOverride(zapcore.WriteThenPanic, log.onPanic))
+T 3 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 42 source.go entity.name.function.support.go
+T 43 source.go punctuation.definition.begin.bracket.round.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.other.period.go
+T 65 source.go variable.other.go
+T 66 source.go punctuation.other.comma.go
+T 67 source.go
+T 70 source.go variable.other.go
+T 71 source.go punctuation.other.period.go
+T 78 source.go variable.other.go
+T 79 source.go punctuation.definition.end.bracket.round.go
+T 80 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// Only do further annotation if we're going to write this message; checked
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L 	// entries that exist only for terminal behavior don't benefit from
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	// annotation.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L 	if !willWrite {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 14 source.go variable.other.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		return ce
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// Thread the error output through to the CheckedEntry.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L 	ce.ErrorOutput = log.errorOutput
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 15 source.go variable.other.assignment.go
+T 16 source.go
+T 17 source.go keyword.operator.assignment.go
+T 18 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.period.go
+T 33 source.go variable.other.go
+L 
+L 	addStack := log.addStack.Enabled(ce.Level)
+T 1 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 33 source.go entity.name.function.support.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.other.period.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+L 	if !log.addCaller && !addStack {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 21 source.go keyword.operator.logical.go
+T 22 source.go
+T 23 source.go keyword.operator.logical.go
+T 31 source.go variable.other.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 		return ce
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// Adding the caller or stack trace requires capturing the callers of
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	// this function. We'll share information between these two.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 	stackDepth := stacktrace.First
+T 1 source.go
+T 11 source.go variable.other.assignment.go
+T 12 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 31 source.go variable.other.go
+L 	if addStack {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 12 source.go variable.other.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.curly.go
+L 		stackDepth = stacktrace.Full
+T 2 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 30 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	stack := stacktrace.Capture(log.callerSkip+callerSkipOffset, stackDepth)
+T 1 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.other.period.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.other.period.go
+T 43 source.go variable.other.go
+T 44 source.go keyword.operator.arithmetic.go
+T 60 source.go variable.other.go
+T 61 source.go punctuation.other.comma.go
+T 62 source.go
+T 72 source.go variable.other.go
+T 73 source.go punctuation.definition.end.bracket.round.go
+L 	defer stack.Free()
+T 1 source.go
+T 6 source.go keyword.control.go
+T 7 source.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.period.go
+T 17 source.go entity.name.function.support.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	if stack.Count() == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 20 source.go keyword.operator.comparison.go
+T 21 source.go
+T 22 source.go constant.numeric.decimal.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		if log.addCaller {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 			_, _ = fmt.Fprintf(
+T 3 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go punctuation.other.comma.go
+T 6 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+L 				log.errorOutput,
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+L 				"%v Logger.check error: failed to get caller\n",
+T 4 source.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 7 source.go string.quoted.double.go constant.other.placeholder.go
+T 48 source.go string.quoted.double.go
+T 50 source.go string.quoted.double.go constant.character.escape.go
+T 51 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 52 source.go punctuation.other.comma.go
+L 				ent.Time.UTC(),
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.period.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go punctuation.other.comma.go
+L 			)
+T 3 source.go
+T 4 source.go punctuation.definition.end.bracket.round.go
+L 			_ = log.errorOutput.Sync()
+T 3 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 27 source.go entity.name.function.support.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 		return ce
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	frame, more := stack.Next()
+T 1 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.period.go
+T 26 source.go entity.name.function.support.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	if log.addCaller {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		ce.Caller = zapcore.EntryCaller{
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go punctuation.other.period.go
+T 11 source.go variable.other.assignment.go
+T 12 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.period.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 			Defined:  frame.PC != 0,
+T 3 source.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 13 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 21 source.go variable.other.go
+T 22 source.go
+T 24 source.go keyword.operator.comparison.go
+T 25 source.go
+T 26 source.go constant.numeric.decimal.go
+T 27 source.go punctuation.other.comma.go
+L 			PC:       frame.PC,
+T 3 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go punctuation.other.colon.go
+T 13 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.comma.go
+L 			File:     frame.File,
+T 3 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go punctuation.other.colon.go
+T 13 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.other.comma.go
+L 			Line:     frame.Line,
+T 3 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go punctuation.other.colon.go
+T 13 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.other.comma.go
+L 			Function: frame.Function,
+T 3 source.go
+T 11 source.go variable.other.property.go
+T 12 source.go punctuation.other.colon.go
+T 13 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.other.comma.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	if addStack {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 12 source.go variable.other.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.curly.go
+L 		buffer := bufferpool.Get()
+T 2 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 26 source.go entity.name.function.support.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 		defer buffer.Free()
+T 2 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 
+L 		stackfmt := stacktrace.NewFormatter(buffer)
+T 2 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.period.go
+T 37 source.go entity.name.function.support.go
+T 38 source.go punctuation.definition.begin.bracket.round.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+L 
+L 		// We've already extracted the first frame, so format that
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L 		// separately and defer to stackfmt for the rest.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L 		stackfmt.FormatFrame(frame)
+T 2 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 22 source.go entity.name.function.support.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 		if more {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 11 source.go punctuation.definition.begin.bracket.curly.go
+L 			stackfmt.FormatStack(stack)
+T 3 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 		ce.Stack = buffer.String()
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go punctuation.other.period.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.period.go
+T 26 source.go entity.name.function.support.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	return ce
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 10 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func terminalHookOverride(defaultHook, override zapcore.CheckWriteHook) zapcore.CheckWriteHook {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.parameter.go
+T 38 source.go punctuation.other.comma.go
+T 39 source.go
+T 47 source.go variable.parameter.go
+T 48 source.go
+T 55 source.go entity.name.type.go
+T 56 source.go punctuation.other.period.go
+T 70 source.go entity.name.type.go
+T 71 source.go punctuation.definition.end.bracket.round.go
+T 72 source.go
+T 79 source.go entity.name.type.go
+T 80 source.go punctuation.other.period.go
+T 94 source.go entity.name.type.go
+T 95 source.go
+T 96 source.go punctuation.definition.begin.bracket.curly.go
+L 	// A nil or WriteThenNoop hook will lead to continued execution after
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	// a Panic or Fatal log entry, which is unexpected. For example,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	//   f, err := os.Open(..)
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 	//   if err != nil {
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 21 source.go comment.line.double-slash.go
+L 	//     log.Fatal("cannot open", zap.Error(err))
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	//   }
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 7 source.go comment.line.double-slash.go
+L 	//   fmt.Println(f.Name())
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// The f.Name() will panic if we continue execution after the log.Fatal.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	if override == nil || override == zapcore.WriteThenNoop {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 12 source.go variable.other.go
+T 13 source.go
+T 15 source.go keyword.operator.comparison.go
+T 16 source.go
+T 19 source.go constant.language.null.go
+T 20 source.go
+T 22 source.go keyword.operator.logical.go
+T 23 source.go
+T 31 source.go variable.other.go
+T 32 source.go
+T 34 source.go keyword.operator.comparison.go
+T 35 source.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.other.period.go
+T 56 source.go variable.other.go
+T 57 source.go
+T 58 source.go punctuation.definition.begin.bracket.curly.go
+L 		return defaultHook
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 20 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return override
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 16 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 

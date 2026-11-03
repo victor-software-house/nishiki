@@ -5,6 +5,7 @@ mod c;
 mod css;
 mod diff;
 mod dockerfile;
+mod go;
 mod graphql;
 mod ini;
 mod java;

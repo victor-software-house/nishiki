@@ -62,6 +62,8 @@ mod css;
 mod diff;
 #[cfg(feature = "lang-dockerfile")]
 mod dockerfile;
+#[cfg(feature = "lang-go")]
+mod go;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
 mod highlighter;

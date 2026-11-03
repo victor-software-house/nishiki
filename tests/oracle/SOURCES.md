@@ -154,6 +154,19 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `kotlin/turbine-flow-test` | [`FlowTest.kt`][turbine-flow-test] in cashapp/turbine | [Apache-2.0][turbine-licence] |
 | `kotlin/ktor-logging` | [`Logging.kt`][ktor-logging] in ktorio/ktor | [Apache-2.0][ktor-licence] |
 | `kotlin/okhttp-build` | [`okhttp/build.gradle.kts`][okhttp-build] in square/okhttp | [Apache-2.0][okhttp-licence] |
+| `go/sample` | [`samples/go.sample`][go-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `go/go-sort` | [`src/sort/sort.go`][go-sort] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/cobra-command` | [`command.go`][cobra-command] in spf13/cobra | [Apache-2.0][cobra-licence] |
+| `go/gin-context` | [`context.go`][gin-context] in gin-gonic/gin | [MIT][gin-licence] |
+| `go/testify-assertions` | [`assert/assertions.go`][testify-assertions] in stretchr/testify | [MIT][testify-licence] |
+| `go/go-slices` | [`src/slices/slices.go`][go-slices] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-json-decode` | [`src/encoding/json/decode.go`][go-json-decode] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/kubernetes-sets` | [`staging/src/k8s.io/apimachinery/pkg/util/sets/set.go`][kubernetes-sets] in kubernetes/kubernetes | [Apache-2.0][kubernetes-licence] |
+| `go/zap-logger` | [`logger.go`][zap-logger] in uber-go/zap | [MIT][zap-licence] |
+| `go/viper-viper` | [`viper.go`][viper-viper] in spf13/viper | [MIT][viper-licence] |
+| `go/prometheus-storage` | [`storage/interface.go`][prometheus-storage] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
+| `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
+| `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -237,6 +250,10 @@ The lexer matched every input on its first run, held-out ones included.
 `kotlin/coroutines-produce`, `kotlin/okhttp-request`, `kotlin/moshi-util`, `kotlin/turbine-flow-test`, `kotlin/ktor-logging` and `kotlin/okhttp-build` (a Gradle script, which Shiki lexes as Kotlin) are held out.
 Shiki's Markdown grammar has no rule that embeds Kotlin, so no Markdown input has a Kotlin fence.
 The lexer matched every input on its first run, held-out ones included.
+
+`go/sample`, `go/go-sort`, `go/cobra-command`, `go/gin-context` and `go/testify-assertions` are the development inputs for Go.
+`go/go-slices`, `go/go-json-decode`, `go/kubernetes-sets`, `go/zap-logger`, `go/viper-viper` and `go/prometheus-storage` are held out.
+`markdown/gin-readme` is the development input for `go` fences and `markdown/cobra-user-guide` is held out; `markdown/httparser-readme` has a `go` fence too.
 
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
@@ -507,3 +524,23 @@ The lexer matched every input on its first run, held-out ones included.
 [turbine-licence]: https://github.com/cashapp/turbine/blob/8c4e8c9b391d75ac9d7a168cca34b1bf99ed2cb0/LICENSE.txt
 [ktor-logging]: https://github.com/ktorio/ktor/blob/b7809b1eb47ec68cbb9c78a52a23880caca710cd/ktor-client/ktor-client-plugins/ktor-client-logging/common/src/io/ktor/client/plugins/logging/Logging.kt
 [ktor-licence]: https://github.com/ktorio/ktor/blob/b7809b1eb47ec68cbb9c78a52a23880caca710cd/LICENSE
+[go-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/go.sample
+[go-sort]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/sort/sort.go
+[go-slices]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/slices/slices.go
+[go-json-decode]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/encoding/json/decode.go
+[golang-licence]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/LICENSE
+[cobra-command]: https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/command.go
+[cobra-user-guide]: https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/site/content/user_guide.md
+[cobra-licence]: https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/LICENSE.txt
+[gin-context]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/context.go
+[gin-readme]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/README.md
+[gin-licence]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/LICENSE
+[testify-assertions]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/assert/assertions.go
+[testify-licence]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/LICENSE
+[kubernetes-sets]: https://github.com/kubernetes/kubernetes/blob/98687f28e4fed347d30fcd483edc8b8ee74c583c/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go
+[kubernetes-licence]: https://github.com/kubernetes/kubernetes/blob/98687f28e4fed347d30fcd483edc8b8ee74c583c/LICENSE
+[zap-logger]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/logger.go
+[zap-licence]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/LICENSE
+[viper-viper]: https://github.com/spf13/viper/blob/528f7416c4b56a4948673984b190bf8713f0c3c4/viper.go
+[viper-licence]: https://github.com/spf13/viper/blob/528f7416c4b56a4948673984b190bf8713f0c3c4/LICENSE
+[prometheus-storage]: https://github.com/prometheus/prometheus/blob/b0c3a30ab2a09b88e64d876017a0134aa2f38f40/storage/interface.go

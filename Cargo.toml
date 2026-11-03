@@ -51,6 +51,7 @@ all = [
   "lang-graphql",
   "lang-css",
   "lang-kotlin",
+  "lang-go",
 ]
 
 # Tiers, which overlap.
@@ -72,7 +73,14 @@ web = [
   "lang-json",
   "lang-graphql",
 ]
-systems = ["lang-rust", "lang-c", "lang-shell", "lang-java", "lang-kotlin"]
+systems = [
+  "lang-rust",
+  "lang-c",
+  "lang-shell",
+  "lang-java",
+  "lang-kotlin",
+  "lang-go",
+]
 docs = ["lang-markdown", "config"]
 
 # One feature per lexer module. A language that embeds another needs it.
@@ -98,6 +106,7 @@ lang-ini = ["_scope-table", "_classes", "_utf8"]
 lang-graphql = ["_scope-table", "lang-javascript", "_classes", "_utf8"]
 lang-css = ["_scope-table", "_rule-tables", "_classes"]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
+lang-go = ["_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
 _classes = []

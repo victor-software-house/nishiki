@@ -511,6 +511,38 @@ fn a_css_fence_line_is_anchored_at_its_start() {
 }
 
 #[test]
+fn go_fences_embed_the_go_lexer_without_its_root() {
+    for info in ["go", "golang", "GO", "go title=x"] {
+        let text = formatdoc! {"
+            ```{info}
+            return x
+            ```
+        "};
+        assert_eq!(
+            stack_of(&text, "return"),
+            [
+                "text.html.markdown",
+                "markup.fenced_code.block.markdown",
+                "meta.embedded.block.go",
+                "keyword.control.go",
+            ],
+            "{info}"
+        );
+    }
+}
+
+#[test]
+fn go_state_continues_across_the_lines_of_a_fence() {
+    let text = indoc! {"
+        ```go
+        /* a
+        b */ x := 1
+        ```
+    "};
+    assert_eq!(stack_of(text, "b ")[3], "comment.block.go");
+}
+
+#[test]
 fn java_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"
         ```java

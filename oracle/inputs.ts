@@ -226,6 +226,22 @@ const ktor =
   "https://raw.githubusercontent.com/ktorio/ktor/b7809b1eb47ec68cbb9c78a52a23880caca710cd";
 const kotlinxSerialization =
   "https://raw.githubusercontent.com/Kotlin/kotlinx.serialization/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22";
+const golang =
+  "https://raw.githubusercontent.com/golang/go/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6";
+const cobra =
+  "https://raw.githubusercontent.com/spf13/cobra/adbc8813901bba65827259daa8e22ff94ec1f30e";
+const gin =
+  "https://raw.githubusercontent.com/gin-gonic/gin/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646";
+const kubernetes =
+  "https://raw.githubusercontent.com/kubernetes/kubernetes/98687f28e4fed347d30fcd483edc8b8ee74c583c";
+const testify =
+  "https://raw.githubusercontent.com/stretchr/testify/87a7b9d57689f6579db2da795ab8deeab29cb724";
+const zap =
+  "https://raw.githubusercontent.com/uber-go/zap/4892335e05f14bce8a98a69a577fcf3844a42623";
+const viper =
+  "https://raw.githubusercontent.com/spf13/viper/528f7416c4b56a4948673984b190bf8713f0c3c4";
+const prometheusGo =
+  "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
 
 export const inputs: Input[] = [
   { lang: "rust", name: "sample", url: `${samples}/rust.sample` },
@@ -603,4 +619,17 @@ export const inputs: Input[] = [
     name: "okhttp-build",
     url: `${okhttp}/okhttp/build.gradle.kts`,
   },
+  { lang: "go", name: "sample", url: `${samples}/go.sample` },
+  { lang: "go", name: "go-sort", url: `${golang}/src/sort/sort.go` },
+  { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
+  { lang: "go", name: "gin-context", url: `${gin}/context.go` },
+  { lang: "go", name: "testify-assertions", url: `${testify}/assert/assertions.go` },
+  { lang: "go", name: "go-slices", url: `${golang}/src/slices/slices.go` },
+  { lang: "go", name: "go-json-decode", url: `${golang}/src/encoding/json/decode.go` },
+  { lang: "go", name: "kubernetes-sets", url: `${kubernetes}/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go` },
+  { lang: "go", name: "zap-logger", url: `${zap}/logger.go` },
+  { lang: "go", name: "viper-viper", url: `${viper}/viper.go` },
+  { lang: "go", name: "prometheus-storage", url: `${prometheusGo}/storage/interface.go` },
+  { lang: "markdown", name: "gin-readme", url: `${gin}/README.md` },
+  { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
 ];

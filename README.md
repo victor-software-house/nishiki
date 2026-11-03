@@ -131,6 +131,7 @@ assert_eq!(highlighter.limits().depth, None);
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `graphql`, `gql` |
 | CSS | `Language::Css` | `lang-css` | `css` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `kotlin`, `kt`, `kts` |
+| Go | `Language::Go` | `lang-go` | `go`, `golang` |
 
 ### Features
 
@@ -151,7 +152,7 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
   | `all` (the default) | Every language |
   | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile |
   | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL |
-  | `systems` | Rust, C, Shell, Java, Kotlin |
+  | `systems` | Rust, C, Shell, Java, Kotlin, Go |
   | `docs` | Markdown and `config` |
 
 - `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
@@ -347,6 +348,20 @@ nishiki = { version = "0.1", default-features = false, features = ["lang-rust", 
 - `fun Foo.` with no name after the dot makes `Foo` the function's name.
 - A line that opens a group of generics a hundred thousand times and closes it once runs into the work limit.
   The grammar's pattern scans from each opener, and so does the lexer.
+- `\w`, `\s` and `\d` for non-ASCII characters come from the JSON table above.
+
+### Go
+
+- A number takes every letter, digit, `_` and `.` after it, and a run that is not one literal, such as `1x` or `0x`, is `invalid.illegal.constant.numeric.go`.
+- A `case` line, a label on its own line and a `break`, `goto` or `continue` with its label are read only from the start of the line.
+  Inside a Markdown fence that a quote or list indents, they lose that anchor.
+- A line that opens a struct many times, such as `type T struct {` repeated, may run into the work limit.
+  The grammar's expressions scan from each opener, and so does the lexer.
+- Three cases differ from Shiki, all found by mutating the inputs, never in the inputs themselves:
+  - after a struct or interface field that ends in text such as `interface{&=`, Shiki leaves a different state for the next line;
+  - a non-ASCII character earlier in a line can change which expression Shiki's engine matches;
+  - on a long line of many words Shiki's engine stops an expression at its retry limit and leaves the rest of the line plain, where nishiki lexes it.
+- A Markdown fence names the language `go` or `golang`.
 - `\w`, `\s` and `\d` for non-ASCII characters come from the JSON table above.
 
 ## Licence

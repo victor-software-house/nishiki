@@ -64,6 +64,8 @@ crate::scope::scope_table! {
     EmbeddedIni "meta.embedded.block.ini"
     #[cfg(feature = "lang-css")]
     EmbeddedCss "meta.embedded.block.css"
+    #[cfg(feature = "lang-go")]
+    EmbeddedGo "meta.embedded.block.go"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

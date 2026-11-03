@@ -1,0 +1,122 @@
+L package main
+T 7 source.go keyword.package.go
+T 8 source.go
+T 12 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L     "fmt"
+T 4 source.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L     "log"
+T 4 source.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L     "net/http"
+T 4 source.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 13 source.go string.quoted.double.go entity.name.import.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L func handler(w http.ResponseWriter, r *http.Request) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.period.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 39 source.go keyword.operator.address.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.other.period.go
+T 51 source.go entity.name.type.go
+T 52 source.go punctuation.definition.end.bracket.round.go
+T 53 source.go
+T 54 source.go punctuation.definition.begin.bracket.curly.go
+L     fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 37 source.go string.quoted.double.go
+T 39 source.go string.quoted.double.go constant.other.placeholder.go
+T 40 source.go string.quoted.double.go
+T 41 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.other.period.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.other.period.go
+T 53 source.go variable.other.go
+T 54 source.go punctuation.definition.begin.bracket.square.go
+T 55 source.go constant.numeric.decimal.go
+T 56 source.go punctuation.other.colon.go
+T 57 source.go punctuation.definition.end.bracket.square.go
+T 58 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func main() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+L     http.HandleFunc("/", handler)
+T 4 source.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 22 source.go string.quoted.double.go
+T 23 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+L     log.Fatal(http.ListenAndServe(":8080", nil))
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 33 source.go entity.name.function.support.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 40 source.go string.quoted.double.go
+T 41 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 46 source.go constant.language.null.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // From https://golang.org/doc/articles/wiki/#tmp_3
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go

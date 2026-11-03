@@ -192,6 +192,8 @@ languages! {
     Css { feature: "lang-css", names: ["css"], module: css }
     /// Kotlin, with the scopes of Shiki's `kotlin` grammar.
     Kotlin { feature: "lang-kotlin", names: ["kotlin", "kt", "kts"], module: kotlin }
+    /// Go, with the scopes of Shiki's `go` grammar.
+    Go { feature: "lang-go", names: ["go", "golang"], module: go }
 }
 
 impl Language {

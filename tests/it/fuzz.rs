@@ -11,6 +11,19 @@ use nishiki::{Highlighter, Language, State};
 /// The pieces lines are made of; several bytes long where a lexer reads
 /// them as one construct.
 const PIECES: &[&str] = &[
+    "func (",
+    "type T struct {",
+    "interface{",
+    "map[",
+    "<-chan ",
+    "[]*",
+    "x := ",
+    "%[1]*d",
+    "0x1_p+",
+    "`",
+    "'\\u00e9'",
+    "case a,",
+    "switch x.(type) {",
     "@media ",
     "@import url(",
     "@charset \"",

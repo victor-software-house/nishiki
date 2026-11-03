@@ -1,0 +1,4246 @@
+L // Copyright 2021 The Go Authors. All rights reserved.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use of this source code is governed by a BSD-style
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // license that can be found in the LICENSE file.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 
+L // Package slices defines various functions useful with slices of any type.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L package slices
+T 7 source.go keyword.package.go
+T 8 source.go
+T 14 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"cmp"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 5 source.go string.quoted.double.go entity.name.import.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"math/bits"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 11 source.go string.quoted.double.go entity.name.import.go
+T 12 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"unsafe"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L // Equal reports whether two slices are equal: the same length and all
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // elements equal. If the lengths are different, Equal returns false.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L // Otherwise, the elements are compared in increasing index order, and the
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // comparison stops at the first unequal pair.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 46 source.go comment.line.double-slash.go
+L // Empty and nil slices are considered equal.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L // Floating point NaNs are not considered equal.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L func Equal[S ~[]E, E comparable](s1, s2 S) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 10 source.go entity.name.function.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 14 source.go keyword.operator.arithmetic.bitwise.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 31 source.go entity.name.type.comparable.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.parameter.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 41 source.go entity.name.type.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go
+T 47 source.go storage.type.boolean.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(s1) != len(s2) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 14 source.go keyword.operator.comparison.go
+T 15 source.go
+T 18 source.go entity.name.function.support.builtin.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		return false
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 14 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	for i := range s1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 15 source.go keyword.control.go
+T 16 source.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 		if s1[i] != s2[i] {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.square.go
+T 11 source.go
+T 13 source.go keyword.operator.comparison.go
+T 14 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 			return false
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 15 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return true
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // EqualFunc reports whether two slices are equal using an equality
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // function on each pair of elements. If the lengths are different,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // EqualFunc returns false. Otherwise, the elements are compared in
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // increasing index order, and the comparison stops at the first index
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // for which eq returns false.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L func EqualFunc[S1 ~[]E1, S2 ~[]E2, E1, E2 any](s1 S1, s2 S2, eq func(E1, E2) bool) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 14 source.go entity.name.function.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.parameter.go
+T 18 source.go
+T 19 source.go keyword.operator.arithmetic.bitwise.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 29 source.go keyword.operator.arithmetic.bitwise.go
+T 30 source.go punctuation.definition.begin.bracket.square.go
+T 31 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 37 source.go variable.parameter.go
+T 38 source.go punctuation.other.comma.go
+T 39 source.go
+T 41 source.go variable.parameter.go
+T 42 source.go
+T 45 source.go entity.name.type.any.go
+T 46 source.go punctuation.definition.end.bracket.square.go
+T 47 source.go punctuation.definition.begin.bracket.round.go
+T 49 source.go variable.parameter.go
+T 50 source.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.other.comma.go
+T 54 source.go
+T 56 source.go variable.parameter.go
+T 57 source.go
+T 59 source.go entity.name.type.go
+T 60 source.go punctuation.other.comma.go
+T 61 source.go
+T 63 source.go variable.parameter.go
+T 64 source.go
+T 68 source.go keyword.function.go
+T 69 source.go punctuation.definition.begin.bracket.round.go
+T 71 source.go entity.name.type.go
+T 72 source.go punctuation.other.comma.go
+T 73 source.go
+T 75 source.go entity.name.type.go
+T 76 source.go punctuation.definition.end.bracket.round.go
+T 77 source.go
+T 81 source.go storage.type.boolean.go
+T 82 source.go punctuation.definition.end.bracket.round.go
+T 83 source.go
+T 87 source.go storage.type.boolean.go
+T 88 source.go
+T 89 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(s1) != len(s2) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 14 source.go keyword.operator.comparison.go
+T 15 source.go
+T 18 source.go entity.name.function.support.builtin.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		return false
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 14 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	for i, v1 := range s1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 19 source.go keyword.control.go
+T 20 source.go
+T 22 source.go variable.other.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		v2 := s2[i]
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+L 		if !eq(v1, v2) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go keyword.operator.logical.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 			return false
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 15 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return true
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Compare compares the elements of s1 and s2, using [cmp.Compare] on each pair
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // of elements. The elements are compared sequentially, starting at index 0,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // until one element is not equal to the other.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L // The result of comparing the first non-matching elements is returned.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // If both slices are equal until one of them ends, the shorter slice is
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // considered less than the longer one.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 39 source.go comment.line.double-slash.go
+L // The result is 0 if s1 == s2, -1 if s1 < s2, and +1 if s1 > s2.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func Compare[S ~[]E, E cmp.Ordered](s1, s2 S) int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 16 source.go keyword.operator.arithmetic.bitwise.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.other.period.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.definition.end.bracket.square.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go variable.parameter.go
+T 39 source.go punctuation.other.comma.go
+T 40 source.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go
+T 49 source.go storage.type.numeric.go
+T 50 source.go
+T 51 source.go punctuation.definition.begin.bracket.curly.go
+L 	for i, v1 := range s1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 19 source.go keyword.control.go
+T 20 source.go
+T 22 source.go variable.other.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		if i >= len(s2) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 			return +1
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.go
+T 12 source.go constant.numeric.decimal.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 		v2 := s2[i]
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+L 		if c := cmp.Compare(v1, v2); c != 0 {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go punctuation.terminator.go
+T 31 source.go
+T 32 source.go variable.other.go
+T 33 source.go
+T 35 source.go keyword.operator.comparison.go
+T 36 source.go
+T 37 source.go constant.numeric.decimal.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+L 			return c
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if len(s1) < len(s2) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 13 source.go keyword.operator.comparison.go
+T 14 source.go
+T 17 source.go entity.name.function.support.builtin.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 		return -1
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go keyword.operator.arithmetic.go
+T 11 source.go constant.numeric.decimal.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return 0
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // CompareFunc is like [Compare] but uses a custom comparison function on each
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // pair of elements.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L // The result is the first non-zero result of cmp; if cmp always
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L // returns 0 the result is 0 if len(s1) == len(s2), -1 if len(s1) < len(s2),
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // and +1 if len(s1) > len(s2).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L func CompareFunc[S1 ~[]E1, S2 ~[]E2, E1, E2 any](s1 S1, s2 S2, cmp func(E1, E2) int) int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 16 source.go entity.name.function.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 21 source.go keyword.operator.arithmetic.bitwise.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go entity.name.type.go
+T 26 source.go punctuation.other.comma.go
+T 27 source.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 31 source.go keyword.operator.arithmetic.bitwise.go
+T 32 source.go punctuation.definition.begin.bracket.square.go
+T 33 source.go punctuation.definition.end.bracket.square.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go entity.name.type.any.go
+T 48 source.go punctuation.definition.end.bracket.square.go
+T 49 source.go punctuation.definition.begin.bracket.round.go
+T 51 source.go variable.parameter.go
+T 52 source.go
+T 54 source.go entity.name.type.go
+T 55 source.go punctuation.other.comma.go
+T 56 source.go
+T 58 source.go variable.parameter.go
+T 59 source.go
+T 61 source.go entity.name.type.go
+T 62 source.go punctuation.other.comma.go
+T 63 source.go
+T 66 source.go variable.parameter.go
+T 67 source.go
+T 71 source.go keyword.function.go
+T 72 source.go punctuation.definition.begin.bracket.round.go
+T 74 source.go entity.name.type.go
+T 75 source.go punctuation.other.comma.go
+T 76 source.go
+T 78 source.go entity.name.type.go
+T 79 source.go punctuation.definition.end.bracket.round.go
+T 80 source.go
+T 83 source.go storage.type.numeric.go
+T 84 source.go punctuation.definition.end.bracket.round.go
+T 85 source.go
+T 88 source.go storage.type.numeric.go
+T 89 source.go
+T 90 source.go punctuation.definition.begin.bracket.curly.go
+L 	for i, v1 := range s1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.assignment.go
+T 14 source.go
+T 19 source.go keyword.control.go
+T 20 source.go
+T 22 source.go variable.other.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		if i >= len(s2) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 			return +1
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.go
+T 12 source.go constant.numeric.decimal.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 		v2 := s2[i]
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+L 		if c := cmp(v1, v2); c != 0 {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go punctuation.terminator.go
+T 23 source.go
+T 24 source.go variable.other.go
+T 25 source.go
+T 27 source.go keyword.operator.comparison.go
+T 28 source.go
+T 29 source.go constant.numeric.decimal.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 			return c
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if len(s1) < len(s2) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 13 source.go keyword.operator.comparison.go
+T 14 source.go
+T 17 source.go entity.name.function.support.builtin.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 		return -1
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go keyword.operator.arithmetic.go
+T 11 source.go constant.numeric.decimal.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return 0
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Index returns the index of the first occurrence of v in s,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L // or -1 if not present.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 24 source.go comment.line.double-slash.go
+L func Index[S ~[]E, E comparable](s S, v E) int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 10 source.go entity.name.function.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 14 source.go keyword.operator.arithmetic.bitwise.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 31 source.go entity.name.type.comparable.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go variable.parameter.go
+T 35 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 41 source.go entity.name.type.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go
+T 46 source.go storage.type.numeric.go
+T 47 source.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+L 	for i := range s {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 15 source.go keyword.control.go
+T 16 source.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		if v == s[i] {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 			return i
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return -1
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.arithmetic.go
+T 10 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // IndexFunc returns the first index i satisfying f(s[i]),
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L // or -1 if none do.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L func IndexFunc[S ~[]E, E any](s S, f func(E) bool) int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 14 source.go entity.name.function.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 18 source.go keyword.operator.arithmetic.bitwise.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.comma.go
+T 23 source.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 28 source.go entity.name.type.any.go
+T 29 source.go punctuation.definition.end.bracket.square.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 36 source.go variable.parameter.go
+T 37 source.go
+T 41 source.go keyword.function.go
+T 42 source.go punctuation.definition.begin.bracket.round.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.definition.end.bracket.round.go
+T 45 source.go
+T 49 source.go storage.type.boolean.go
+T 50 source.go punctuation.definition.end.bracket.round.go
+T 51 source.go
+T 54 source.go storage.type.numeric.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	for i := range s {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 15 source.go keyword.control.go
+T 16 source.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		if f(s[i]) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go entity.name.function.support.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.curly.go
+L 			return i
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return -1
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.arithmetic.go
+T 10 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Contains reports whether v is present in s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 46 source.go comment.line.double-slash.go
+L func Contains[S ~[]E, E comparable](s S, v E) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 13 source.go entity.name.function.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 23 source.go variable.parameter.go
+T 24 source.go
+T 34 source.go entity.name.type.comparable.go
+T 35 source.go punctuation.definition.end.bracket.square.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go
+T 50 source.go storage.type.boolean.go
+T 51 source.go
+T 52 source.go punctuation.definition.begin.bracket.curly.go
+L 	return Index(s, v) >= 0
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.comma.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 22 source.go keyword.operator.comparison.go
+T 23 source.go
+T 24 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ContainsFunc reports whether at least one
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L // element e of s satisfies f(e).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L // It stops as soon as a call to f returns true.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L func ContainsFunc[S ~[]E, E any](s S, f func(E) bool) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 17 source.go entity.name.function.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 21 source.go keyword.operator.arithmetic.bitwise.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 31 source.go entity.name.type.any.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go variable.parameter.go
+T 35 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 44 source.go keyword.function.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go
+T 52 source.go storage.type.boolean.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 58 source.go storage.type.boolean.go
+T 59 source.go
+T 60 source.go punctuation.definition.begin.bracket.curly.go
+L 	return IndexFunc(s, f) >= 0
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 17 source.go entity.name.function.support.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 26 source.go keyword.operator.comparison.go
+T 27 source.go
+T 28 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Insert modifies s in place by inserting the values v... at index i,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // and returns the modified slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L // The elements at s[i:] are shifted up to make room.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // In the returned slice r, r[i] == v[0],
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L // and, if i < len(s), r[i+len(v)] == value originally at s[i].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L // Insert panics if i > len(s).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L // This function is O(len(s) + len(v)).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 39 source.go comment.line.double-slash.go
+L // If the result is empty, it has the same nilness as s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func Insert[S ~[]E, E any](s S, i int, v ...E) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 25 source.go entity.name.type.any.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 33 source.go variable.parameter.go
+T 34 source.go
+T 37 source.go storage.type.numeric.go
+T 38 source.go punctuation.other.comma.go
+T 39 source.go
+T 40 source.go variable.parameter.go
+T 41 source.go
+T 44 source.go keyword.operator.ellipsis.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.definition.end.bracket.round.go
+T 47 source.go
+T 48 source.go entity.name.type.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+L 	_ = s[i:] // bounds check
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.colon.go
+T 10 source.go punctuation.definition.end.bracket.square.go
+T 11 source.go
+T 13 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 26 source.go comment.line.double-slash.go
+L 
+L 	m := len(v)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go entity.name.function.support.builtin.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+L 	if m == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go
+T 12 source.go punctuation.definition.begin.bracket.curly.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	n := len(s)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go entity.name.function.support.builtin.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+L 	if i == n {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go
+T 12 source.go punctuation.definition.begin.bracket.curly.go
+L 		return append(s, v...)
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 15 source.go entity.name.function.support.builtin.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.other.go
+T 23 source.go keyword.operator.ellipsis.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if n+m > cap(s) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go keyword.operator.arithmetic.go
+T 7 source.go variable.other.go
+T 8 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 		// Use append rather than make so that we bump the size of
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L 		// the slice up to the next storage class.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L 		// This is what Grow does but we don't call Grow because
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 		// that might copy the values twice.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 38 source.go comment.line.double-slash.go
+L 		s2 := append(s[:i], make(S, n+m-i)...)
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 26 source.go entity.name.function.support.builtin.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.other.go
+T 32 source.go keyword.operator.arithmetic.go
+T 33 source.go variable.other.go
+T 34 source.go keyword.operator.arithmetic.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go keyword.operator.ellipsis.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+L 		copy(s2[i:], v)
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.colon.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 		copy(s2[i+m:], s[i:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go keyword.operator.arithmetic.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.colon.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.other.comma.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.other.colon.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 		return s2
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	s = s[:n+m]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go punctuation.other.colon.go
+T 9 source.go variable.other.go
+T 10 source.go keyword.operator.arithmetic.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+L 
+L 	// before:
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 11 source.go comment.line.double-slash.go
+L 	// s: aaaaaaaabbbbccccccccdddd
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 	//            ^   ^       ^   ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 	//            i  i+m      n  n+m
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 	// after:
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 10 source.go comment.line.double-slash.go
+L 	// s: aaaaaaaavvvvbbbbcccccccc
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 	//            ^   ^       ^   ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 	//            i  i+m      n  n+m
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// a are the values that don't move in s.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L 	// v are the values copied in from v.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 38 source.go comment.line.double-slash.go
+L 	// b and c are the values from s that are shifted up in index.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L 	// d are the values that get overwritten, never to be seen again.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 
+L 	if !overlaps(v, s[i+m:]) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.comma.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go variable.other.go
+T 21 source.go keyword.operator.arithmetic.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.colon.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 		// Easy case - v does not overlap either the c or d regions.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 		// (It might be in some of a or b, or elsewhere entirely.)
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L 		// The data we copy up doesn't write to v at all, so just do it.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 
+L 		copy(s[i+m:], s[i:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go keyword.operator.arithmetic.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.colon.go
+T 21 source.go punctuation.definition.end.bracket.square.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+L 
+L 		// Now we have
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L 		// s: aaaaaaaabbbbbbbbcccccccc
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 		//            ^   ^       ^   ^
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 		//            i  i+m      n  n+m
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L 		// Note the b values are duplicated.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 38 source.go comment.line.double-slash.go
+L 
+L 		copy(s[i:], v)
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 
+L 		// Now we have
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L 		// s: aaaaaaaavvvvbbbbcccccccc
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 		//            ^   ^       ^   ^
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 		//            i  i+m      n  n+m
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L 		// That's the result we want.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// The hard case - v overlaps c or d. We can't just shift up
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 	// the data because we'd move or clobber the values we're trying
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	// to insert.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 14 source.go comment.line.double-slash.go
+L 	// So instead, write v on top of d, then rotate.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	copy(s[n:], v)
+T 1 source.go
+T 5 source.go entity.name.function.support.builtin.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.colon.go
+T 11 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// Now we have
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L 	// s: aaaaaaaabbbbccccccccvvvv
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 	//            ^   ^       ^   ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 	//            i  i+m      n  n+m
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 
+L 	rotateRight(s[i:], m)
+T 1 source.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.colon.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// Now we have
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L 	// s: aaaaaaaavvvvbbbbcccccccc
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 	//            ^   ^       ^   ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 	//            i  i+m      n  n+m
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 	// That's the result we want.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Delete modifies s in place by removing the elements s[i:j],
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L // and returns the modified slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L // Delete panics if j > len(s) or s[i:j] is not a valid slice of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // Delete is O(len(s)-i), so if many items must be deleted, it is better to
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // make a single call deleting them all together than to delete one at a time.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // Delete zeroes the elements s[len(s)-(j-i):len(s)].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // If the result is empty, it has the same nilness as s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func Delete[S ~[]E, E any](s S, i, j int) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 25 source.go entity.name.type.any.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 33 source.go variable.parameter.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 36 source.go variable.parameter.go
+T 37 source.go
+T 40 source.go storage.type.numeric.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+L 	_ = s[i:j:len(s)] // bounds check
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.property.go
+T 9 source.go punctuation.other.colon.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go
+T 21 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L 
+L 	if i == j {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go
+T 12 source.go punctuation.definition.begin.bracket.curly.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	oldlen := len(s)
+T 1 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	s = append(s[:i], s[j:]...)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go punctuation.other.colon.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.colon.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go keyword.operator.ellipsis.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 	clear(s[len(s):oldlen]) // zero/nil out the obsolete elements, for GC
+T 1 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go punctuation.other.colon.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 27 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // DeleteFunc modifies s in place by removing any elements for which del returns true,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L // and returns the modified slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L // DeleteFunc zeroes the elements between the new length and the original length.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 81 source.go comment.line.double-slash.go
+L // If the result is empty, it has the same nilness as s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func DeleteFunc[S ~[]E, E any](s S, del func(E) bool) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.parameter.go
+T 18 source.go
+T 19 source.go keyword.operator.arithmetic.bitwise.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.square.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.other.comma.go
+T 24 source.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 29 source.go entity.name.type.any.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 44 source.go keyword.function.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go
+T 52 source.go storage.type.boolean.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go entity.name.type.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+L 	i := IndexFunc(s, del)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 	if i == -1 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go keyword.operator.arithmetic.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	// Don't start copying elements until we find one to delete.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 	for j := i + 1; j < len(s); j++ {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.go
+T 14 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go punctuation.terminator.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go keyword.operator.comparison.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go punctuation.terminator.go
+T 29 source.go
+T 30 source.go variable.other.go
+T 32 source.go keyword.operator.increment.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 		if v := s[j]; !del(v) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.terminator.go
+T 16 source.go
+T 17 source.go keyword.operator.logical.go
+T 20 source.go entity.name.function.support.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 			s[i] = v
+T 3 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.definition.begin.bracket.square.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.end.bracket.square.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 			i++
+T 3 source.go
+T 4 source.go variable.other.go
+T 6 source.go keyword.operator.increment.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	clear(s[i:]) // zero/nil out the obsolete elements, for GC
+T 1 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 16 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	return s[:i]
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Replace modifies s in place by replacing the elements s[i:j] with the given v,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 81 source.go comment.line.double-slash.go
+L // and returns the modified slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L // Replace panics if j > len(s) or s[i:j] is not a valid slice of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L // When len(v) < (j-i), Replace zeroes the elements between the new length and the original length.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 99 source.go comment.line.double-slash.go
+L // If the result is empty, it has the same nilness as s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func Replace[S ~[]E, E any](s S, i, j int, v ...E) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 16 source.go keyword.operator.arithmetic.bitwise.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 26 source.go entity.name.type.any.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 34 source.go variable.parameter.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 41 source.go storage.type.numeric.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 44 source.go variable.parameter.go
+T 45 source.go
+T 48 source.go keyword.operator.ellipsis.go
+T 49 source.go entity.name.type.go
+T 50 source.go punctuation.definition.end.bracket.round.go
+T 51 source.go
+T 52 source.go entity.name.type.go
+T 53 source.go
+T 54 source.go punctuation.definition.begin.bracket.curly.go
+L 	_ = s[i:j] // bounds check
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.colon.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go
+T 14 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 
+L 	if i == j {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go
+T 12 source.go punctuation.definition.begin.bracket.curly.go
+L 		return Insert(s, i, v...)
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 23 source.go variable.other.go
+T 26 source.go keyword.operator.ellipsis.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if j == len(s) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 17 source.go punctuation.definition.begin.bracket.curly.go
+L 		s2 := append(s[:i], v...)
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 23 source.go variable.other.go
+T 26 source.go keyword.operator.ellipsis.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 		if len(s2) < len(s) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 14 source.go keyword.operator.comparison.go
+T 15 source.go
+T 18 source.go entity.name.function.support.builtin.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 			clear(s[len(s2):]) // zero/nil out the obsolete elements, for GC
+T 3 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go punctuation.other.colon.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 24 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 		return s2
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	tot := len(s[:i]) + len(v) + len(s[j:])
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go punctuation.other.colon.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 20 source.go keyword.operator.arithmetic.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 29 source.go keyword.operator.arithmetic.go
+T 30 source.go
+T 33 source.go entity.name.function.support.builtin.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.begin.bracket.square.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.other.colon.go
+T 39 source.go punctuation.definition.end.bracket.square.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+L 	if tot > cap(s) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.go
+T 8 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 		// Too big to fit, allocate and copy over.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L 		s2 := append(s[:i], make(S, tot-i)...) // See Insert
+T 2 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 26 source.go entity.name.function.support.builtin.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 33 source.go variable.other.go
+T 34 source.go keyword.operator.arithmetic.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go keyword.operator.ellipsis.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 43 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L 		copy(s2[i:], v)
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.colon.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 		copy(s2[i+len(v):], s[j:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go keyword.operator.arithmetic.go
+T 15 source.go entity.name.function.support.builtin.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go punctuation.other.colon.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.begin.bracket.square.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.colon.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 		return s2
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	r := s[:tot]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go punctuation.other.colon.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+L 
+L 	if i+len(v) <= j {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go keyword.operator.arithmetic.go
+T 9 source.go entity.name.function.support.builtin.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 15 source.go keyword.operator.comparison.go
+T 16 source.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		// Easy, as v fits in the deleted portion.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L 		copy(r[i:], v)
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 		copy(r[i+len(v):], s[j:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go keyword.operator.arithmetic.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.colon.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 		clear(s[tot:]) // zero/nil out the obsolete elements, for GC
+T 2 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.colon.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 19 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 		return r
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// We are expanding (v is bigger than j-i).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L 	// The situation is something like this:
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L 	// (example has i=4,j=8,len(s)=16,len(v)=6)
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L 	// s: aaaaxxxxbbbbbbbbyy
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 25 source.go comment.line.double-slash.go
+L 	//        ^   ^       ^ ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 26 source.go comment.line.double-slash.go
+L 	//        i   j  len(s) tot
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 28 source.go comment.line.double-slash.go
+L 	// a: prefix of s
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 18 source.go comment.line.double-slash.go
+L 	// x: deleted range
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L 	// b: more of s
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L 	// y: area to expand into
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 26 source.go comment.line.double-slash.go
+L 
+L 	if !overlaps(r[i+len(v):], v) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go keyword.operator.arithmetic.go
+T 21 source.go entity.name.function.support.builtin.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go punctuation.other.colon.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.other.comma.go
+T 28 source.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 		// Easy, as v is not clobbered by the first copy.
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L 		copy(r[i+len(v):], s[j:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go keyword.operator.arithmetic.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.colon.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 		copy(r[i:], v)
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 		return r
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// This is a situation where we don't have a single place to which
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// we can copy v. Parts of it need to go to two different places.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 	// We want to copy the prefix of v into y and the suffix into x, then
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	// rotate |y| spots to the right.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	//        v[2:]      v[:2]
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 	//         |           |
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 25 source.go comment.line.double-slash.go
+L 	// s: aaaavvvvbbbbbbbbvv
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 25 source.go comment.line.double-slash.go
+L 	//        ^   ^       ^ ^
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 26 source.go comment.line.double-slash.go
+L 	//        i   j  len(s) tot
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 28 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// If either of those two destinations don't alias v, then we're good.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	y := len(v) - (j - i) // length of y portion
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 9 source.go entity.name.function.support.builtin.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 14 source.go keyword.operator.arithmetic.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go
+T 19 source.go keyword.operator.arithmetic.go
+T 20 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 25 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L 
+L 	if !overlaps(r[i:j], v) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 		copy(r[i:j], v[y:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.colon.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 		copy(r[len(s):], v[:y])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go punctuation.other.colon.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go punctuation.other.colon.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+L 		rotateRight(r[i:], y)
+T 2 source.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 		return r
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if !overlaps(r[len(s):], v) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go entity.name.function.support.builtin.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go punctuation.other.colon.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 		copy(r[len(s):], v[:y])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go punctuation.other.colon.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go punctuation.other.colon.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+L 		copy(r[i:j], v[y:])
+T 2 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.colon.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.colon.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 		rotateRight(r[i:], y)
+T 2 source.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 		return r
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	// Now we know that v overlaps both x and y.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L 	// That means that the entirety of b is *inside* v.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 	// So we don't need to preserve b at all; instead we
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L 	// can copy v first, then copy the b part of v out of
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L 	// v to the right destination.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L 	k := startIdx(v, s[j:])
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.colon.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L 	copy(r[i:], v)
+T 1 source.go
+T 5 source.go entity.name.function.support.builtin.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.colon.go
+T 11 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 	copy(r[i+len(v):], r[i+k:])
+T 1 source.go
+T 5 source.go entity.name.function.support.builtin.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go keyword.operator.arithmetic.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go punctuation.other.colon.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go variable.other.go
+T 24 source.go keyword.operator.arithmetic.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.colon.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 	return r
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Clone returns a copy of the slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 37 source.go comment.line.double-slash.go
+L // The elements are copied using assignment, so this is a shallow clone.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // The result may have additional unused capacity.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L // The result preserves the nilness of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func Clone[S ~[]E, E any](s S) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 10 source.go entity.name.function.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 14 source.go keyword.operator.arithmetic.bitwise.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 24 source.go entity.name.type.any.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 32 source.go entity.name.type.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Preserve nilness in case it matters.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 40 source.go comment.line.double-slash.go
+L 	if s == nil {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 12 source.go constant.language.null.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.curly.go
+L 		return nil
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go constant.language.null.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	// Avoid s[:0:0] as it leads to unwanted liveness when cloning a
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	// zero-length slice of a large array; see https://go.dev/issue/68488.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	return append(S{}, s...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.begin.bracket.curly.go
+T 18 source.go punctuation.definition.end.bracket.curly.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.other.go
+T 24 source.go keyword.operator.ellipsis.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Compact replaces consecutive runs of equal elements with a single copy.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // This is like the uniq command found on Unix.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L // Compact modifies the contents of the slice s and returns the modified slice,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // which may have a smaller length.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 35 source.go comment.line.double-slash.go
+L // Compact zeroes the elements between the new length and the original length.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L // The result preserves the nilness of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func Compact[S ~[]E, E comparable](s S) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 16 source.go keyword.operator.arithmetic.bitwise.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 33 source.go entity.name.type.comparable.go
+T 34 source.go punctuation.definition.end.bracket.square.go
+T 35 source.go punctuation.definition.begin.bracket.round.go
+T 36 source.go variable.parameter.go
+T 37 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.end.bracket.round.go
+T 40 source.go
+T 41 source.go entity.name.type.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(s) < 2 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	for k := 1; k < len(s); k++ {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go punctuation.terminator.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go
+T 16 source.go keyword.operator.comparison.go
+T 17 source.go
+T 20 source.go entity.name.function.support.builtin.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go punctuation.terminator.go
+T 25 source.go
+T 26 source.go variable.other.go
+T 28 source.go keyword.operator.increment.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 		if s[k] == s[k-1] {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.end.bracket.square.go
+T 10 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go variable.other.go
+T 17 source.go keyword.operator.arithmetic.go
+T 18 source.go constant.numeric.decimal.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 			s2 := s[k:]
+T 3 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+L 			for k2 := 1; k2 < len(s2); k2++ {
+T 3 source.go
+T 6 source.go keyword.control.go
+T 7 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go punctuation.terminator.go
+T 16 source.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go keyword.operator.comparison.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go punctuation.terminator.go
+T 30 source.go
+T 32 source.go variable.other.go
+T 34 source.go keyword.operator.increment.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 				if s2[k2] != s2[k2-1] {
+T 4 source.go
+T 6 source.go keyword.control.go
+T 7 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go
+T 16 source.go keyword.operator.comparison.go
+T 17 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go variable.other.go
+T 23 source.go keyword.operator.arithmetic.go
+T 24 source.go constant.numeric.decimal.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 					s[k] = s2[k2]
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.end.bracket.square.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+L 					k++
+T 5 source.go
+T 6 source.go variable.other.go
+T 8 source.go keyword.operator.increment.go
+L 				}
+T 4 source.go
+T 5 source.go punctuation.definition.end.bracket.curly.go
+L 			}
+T 3 source.go
+T 4 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 			clear(s[k:]) // zero/nil out the obsolete elements, for GC
+T 3 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 			return s[:k]
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // CompactFunc is like [Compact] but uses an equality function to compare elements.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L // For runs of elements that compare equal, CompactFunc keeps the first one.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // CompactFunc zeroes the elements between the new length and the original length.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 82 source.go comment.line.double-slash.go
+L // The result preserves the nilness of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func CompactFunc[S ~[]E, E any](s S, eq func(E, E) bool) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 16 source.go entity.name.function.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.parameter.go
+T 19 source.go
+T 20 source.go keyword.operator.arithmetic.bitwise.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 30 source.go entity.name.type.any.go
+T 31 source.go punctuation.definition.end.bracket.square.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.parameter.go
+T 34 source.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 44 source.go keyword.function.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 49 source.go entity.name.type.go
+T 50 source.go punctuation.definition.end.bracket.round.go
+T 51 source.go
+T 55 source.go storage.type.boolean.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+T 57 source.go
+T 58 source.go entity.name.type.go
+T 59 source.go
+T 60 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(s) < 2 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		return s
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	for k := 1; k < len(s); k++ {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go punctuation.terminator.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go
+T 16 source.go keyword.operator.comparison.go
+T 17 source.go
+T 20 source.go entity.name.function.support.builtin.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go punctuation.terminator.go
+T 25 source.go
+T 26 source.go variable.other.go
+T 28 source.go keyword.operator.increment.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 		if eq(s[k], s[k-1]) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go keyword.operator.arithmetic.go
+T 19 source.go constant.numeric.decimal.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 			s2 := s[k:]
+T 3 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+L 			for k2 := 1; k2 < len(s2); k2++ {
+T 3 source.go
+T 6 source.go keyword.control.go
+T 7 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go punctuation.terminator.go
+T 16 source.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go keyword.operator.comparison.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go punctuation.terminator.go
+T 30 source.go
+T 32 source.go variable.other.go
+T 34 source.go keyword.operator.increment.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 				if !eq(s2[k2], s2[k2-1]) {
+T 4 source.go
+T 6 source.go keyword.control.go
+T 7 source.go
+T 8 source.go keyword.operator.logical.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go variable.other.go
+T 25 source.go keyword.operator.arithmetic.go
+T 26 source.go constant.numeric.decimal.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 					s[k] = s2[k2]
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.end.bracket.square.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+L 					k++
+T 5 source.go
+T 6 source.go variable.other.go
+T 8 source.go keyword.operator.increment.go
+L 				}
+T 4 source.go
+T 5 source.go punctuation.definition.end.bracket.curly.go
+L 			}
+T 3 source.go
+T 4 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 			clear(s[k:]) // zero/nil out the obsolete elements, for GC
+T 3 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 			return s[:k]
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Grow increases the slice's capacity, if necessary, to guarantee space for
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // another n elements. After Grow(n), at least n elements can be appended
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // to the slice without another allocation. If n is negative or too large to
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // allocate the memory, Grow panics.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 36 source.go comment.line.double-slash.go
+L // The result preserves the nilness of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func Grow[S ~[]E, E any](s S, n int) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.bitwise.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 23 source.go entity.name.type.any.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 35 source.go storage.type.numeric.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	if n < 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 7 source.go keyword.operator.comparison.go
+T 8 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go
+T 11 source.go punctuation.definition.begin.bracket.curly.go
+L 		panic("cannot be negative")
+T 2 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 27 source.go string.quoted.double.go
+T 28 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if n -= cap(s) - len(s); n > 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.go
+T 18 source.go
+T 21 source.go entity.name.function.support.builtin.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go punctuation.terminator.go
+T 26 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go keyword.operator.comparison.go
+T 30 source.go
+T 31 source.go constant.numeric.decimal.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 		// This expression allocates only once (see test).
+T 2 source.go
+T 4 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 		s = append(s[:cap(s)], make([]E, n)...)[:len(s)]
+T 2 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.other.colon.go
+T 19 source.go entity.name.function.support.builtin.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 29 source.go entity.name.function.support.builtin.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go punctuation.definition.begin.bracket.square.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 40 source.go keyword.operator.ellipsis.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go punctuation.definition.begin.bracket.square.go
+T 43 source.go punctuation.other.colon.go
+T 46 source.go entity.name.function.support.builtin.go
+T 47 source.go punctuation.definition.begin.bracket.round.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+T 50 source.go punctuation.definition.end.bracket.square.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Clip removes unused capacity from the slice, returning s[:len(s):len(s)].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // The result preserves the nilness of s.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func Clip[S ~[]E, E any](s S) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.bitwise.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 23 source.go entity.name.type.any.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 	return s[:len(s):len(s)]
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go punctuation.other.colon.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.other.colon.go
+T 21 source.go entity.name.function.support.builtin.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // TODO: There are other rotate algorithms.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L // This algorithm has the desirable property that it moves each element at most twice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L // The follow-cycles algorithm can be 1-write but it is not very cache friendly.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L 
+L // rotateLeft rotates s left by r spaces.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L // s_final[i] = s_orig[i+r], wrapping around.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L func rotateLeft[E any](s []E, r int) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.parameter.go
+T 18 source.go
+T 21 source.go entity.name.type.any.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 35 source.go storage.type.numeric.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go
+T 38 source.go punctuation.definition.begin.bracket.curly.go
+L 	Reverse(s[:r])
+T 1 source.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go punctuation.other.colon.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 	Reverse(s[r:])
+T 1 source.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 	Reverse(s)
+T 1 source.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L func rotateRight[E any](s []E, r int) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 16 source.go entity.name.function.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.parameter.go
+T 19 source.go
+T 22 source.go entity.name.type.any.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.square.go
+T 28 source.go punctuation.definition.end.bracket.square.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 36 source.go storage.type.numeric.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+L 	rotateLeft(s, len(s)-r)
+T 1 source.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 18 source.go entity.name.function.support.builtin.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go keyword.operator.arithmetic.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // overlaps reports whether the memory ranges a[:len(a)] and b[:len(b)] overlap.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L func overlaps[E any](a, b []E) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 13 source.go entity.name.function.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go entity.name.type.any.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.parameter.go
+T 23 source.go punctuation.other.comma.go
+T 24 source.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.square.go
+T 28 source.go punctuation.definition.end.bracket.square.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 35 source.go storage.type.boolean.go
+T 36 source.go
+T 37 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(a) == 0 || len(b) == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go
+T 13 source.go keyword.operator.comparison.go
+T 14 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go
+T 18 source.go keyword.operator.logical.go
+T 19 source.go
+T 22 source.go entity.name.function.support.builtin.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 28 source.go keyword.operator.comparison.go
+T 29 source.go
+T 30 source.go constant.numeric.decimal.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 		return false
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 14 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	elemSize := unsafe.Sizeof(a[0])
+T 1 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.period.go
+T 26 source.go entity.name.function.support.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.definition.begin.bracket.square.go
+T 30 source.go constant.numeric.decimal.go
+T 31 source.go punctuation.definition.end.bracket.square.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+L 	if elemSize == 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 12 source.go variable.other.go
+T 13 source.go
+T 15 source.go keyword.operator.comparison.go
+T 16 source.go
+T 17 source.go constant.numeric.decimal.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		return false
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 14 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	// TODO: use a runtime/unsafe facility once one becomes available. See issue 12445.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L 	// Also see crypto/internal/fips140/alias/alias.go:AnyOverlap
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	return uintptr(unsafe.Pointer(&a[0])) <= uintptr(unsafe.Pointer(&b[len(b)-1]))+(elemSize-1) &&
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 15 source.go storage.type.uintptr.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.period.go
+T 30 source.go entity.name.function.support.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go keyword.operator.address.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.definition.begin.bracket.square.go
+T 35 source.go constant.numeric.decimal.go
+T 36 source.go punctuation.definition.end.bracket.square.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 41 source.go keyword.operator.comparison.go
+T 42 source.go
+T 49 source.go storage.type.uintptr.go
+T 50 source.go punctuation.definition.begin.bracket.round.go
+T 56 source.go variable.other.go
+T 57 source.go punctuation.other.period.go
+T 64 source.go entity.name.function.support.go
+T 65 source.go punctuation.definition.begin.bracket.round.go
+T 66 source.go keyword.operator.address.go
+T 67 source.go variable.other.go
+T 68 source.go punctuation.definition.begin.bracket.square.go
+T 71 source.go entity.name.function.support.builtin.go
+T 72 source.go punctuation.definition.begin.bracket.round.go
+T 73 source.go variable.other.go
+T 74 source.go punctuation.definition.end.bracket.round.go
+T 75 source.go keyword.operator.arithmetic.go
+T 76 source.go constant.numeric.decimal.go
+T 77 source.go punctuation.definition.end.bracket.square.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+T 79 source.go punctuation.definition.end.bracket.round.go
+T 80 source.go keyword.operator.arithmetic.go
+T 81 source.go punctuation.definition.begin.bracket.round.go
+T 89 source.go variable.other.go
+T 90 source.go keyword.operator.arithmetic.go
+T 91 source.go constant.numeric.decimal.go
+T 92 source.go punctuation.definition.end.bracket.round.go
+T 93 source.go
+T 95 source.go keyword.operator.logical.go
+L 		uintptr(unsafe.Pointer(&b[0])) <= uintptr(unsafe.Pointer(&a[len(a)-1]))+(elemSize-1)
+T 2 source.go
+T 9 source.go storage.type.uintptr.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 24 source.go entity.name.function.support.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go keyword.operator.address.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.begin.bracket.square.go
+T 29 source.go constant.numeric.decimal.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 35 source.go keyword.operator.comparison.go
+T 36 source.go
+T 43 source.go storage.type.uintptr.go
+T 44 source.go punctuation.definition.begin.bracket.round.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.other.period.go
+T 58 source.go entity.name.function.support.go
+T 59 source.go punctuation.definition.begin.bracket.round.go
+T 60 source.go keyword.operator.address.go
+T 61 source.go variable.other.go
+T 62 source.go punctuation.definition.begin.bracket.square.go
+T 65 source.go entity.name.function.support.builtin.go
+T 66 source.go punctuation.definition.begin.bracket.round.go
+T 67 source.go variable.other.go
+T 68 source.go punctuation.definition.end.bracket.round.go
+T 69 source.go keyword.operator.arithmetic.go
+T 70 source.go constant.numeric.decimal.go
+T 71 source.go punctuation.definition.end.bracket.square.go
+T 72 source.go punctuation.definition.end.bracket.round.go
+T 73 source.go punctuation.definition.end.bracket.round.go
+T 74 source.go keyword.operator.arithmetic.go
+T 75 source.go punctuation.definition.begin.bracket.round.go
+T 83 source.go variable.other.go
+T 84 source.go keyword.operator.arithmetic.go
+T 85 source.go constant.numeric.decimal.go
+T 86 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // startIdx returns the index in haystack where the needle starts.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // prerequisite: the needle must be aliased entirely inside the haystack.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L func startIdx[E any](haystack, needle []E) int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 13 source.go entity.name.function.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go entity.name.type.any.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.parameter.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go punctuation.definition.end.bracket.square.go
+T 41 source.go entity.name.type.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go
+T 46 source.go storage.type.numeric.go
+T 47 source.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+L 	p := &needle[0]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.address.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+L 	for i := range haystack {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 15 source.go keyword.control.go
+T 16 source.go
+T 24 source.go variable.other.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 		if p == &haystack[i] {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 11 source.go keyword.operator.address.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 			return i
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 11 source.go variable.other.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	// TODO: what if the overlap is by a non-integral number of Es?
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	panic("needle not found")
+T 1 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 24 source.go string.quoted.double.go
+T 25 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Reverse reverses the elements of the slice in place.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L func Reverse[S ~[]E, E any](s S) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 16 source.go keyword.operator.arithmetic.bitwise.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 26 source.go entity.name.type.any.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 19 source.go entity.name.function.support.builtin.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go keyword.operator.arithmetic.go
+T 24 source.go constant.numeric.decimal.go
+T 25 source.go punctuation.terminator.go
+T 26 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go keyword.operator.comparison.go
+T 30 source.go
+T 31 source.go variable.other.go
+T 32 source.go punctuation.terminator.go
+T 33 source.go
+T 34 source.go variable.other.assignment.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 37 source.go variable.other.assignment.go
+T 38 source.go
+T 39 source.go keyword.operator.assignment.go
+T 40 source.go
+T 41 source.go variable.other.go
+T 42 source.go keyword.operator.arithmetic.go
+T 43 source.go constant.numeric.decimal.go
+T 44 source.go punctuation.other.comma.go
+T 45 source.go
+T 46 source.go variable.other.go
+T 47 source.go keyword.operator.arithmetic.go
+T 48 source.go constant.numeric.decimal.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+L 		s[i], s[j] = s[j], s[i]
+T 2 source.go
+T 3 source.go variable.other.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.definition.end.bracket.square.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Concat returns a new slice concatenating the passed in slices.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // If the concatenation is empty, the result is nil.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L func Concat[S ~[]E, E any](slices ...S) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 25 source.go entity.name.type.any.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.parameter.go
+T 34 source.go
+T 37 source.go keyword.operator.ellipsis.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.end.bracket.round.go
+T 40 source.go
+T 41 source.go entity.name.type.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	size := 0
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 10 source.go constant.numeric.decimal.go
+L 	for _, s := range slices {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 18 source.go keyword.control.go
+T 19 source.go
+T 25 source.go variable.other.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 		size += len(s)
+T 2 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 13 source.go entity.name.function.support.builtin.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 		if size < 0 {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 11 source.go keyword.operator.comparison.go
+T 12 source.go
+T 13 source.go constant.numeric.decimal.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.curly.go
+L 			panic("len out of range")
+T 3 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 26 source.go string.quoted.double.go
+T 27 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	// Use Grow, not make, to round up to the size class:
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L 	// the extra space is otherwise unused and helps
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	// callers that append a few elements to the result.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L 	newslice := Grow[S](nil, size)
+T 1 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 17 source.go entity.name.function.support.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go constant.language.null.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+L 	for _, s := range slices {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 18 source.go keyword.control.go
+T 19 source.go
+T 25 source.go variable.other.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 		newslice = append(newslice, s...)
+T 2 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 19 source.go entity.name.function.support.builtin.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.other.go
+T 34 source.go keyword.operator.ellipsis.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return newslice
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 16 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Repeat returns a new slice that repeats the provided slice the given number of times.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 88 source.go comment.line.double-slash.go
+L // The result has length and capacity (len(x) * count).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L // The result is never nil.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L // Repeat panics if count is negative or if the result of (len(x) * count)
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // overflows.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 13 source.go comment.line.double-slash.go
+L func Repeat[S ~[]E, E any](x S, count int) S {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 25 source.go entity.name.type.any.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 41 source.go storage.type.numeric.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go
+T 44 source.go entity.name.type.go
+T 45 source.go
+T 46 source.go punctuation.definition.begin.bracket.curly.go
+L 	if count < 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 11 source.go keyword.operator.comparison.go
+T 12 source.go
+T 13 source.go constant.numeric.decimal.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.curly.go
+L 		panic("cannot be negative")
+T 2 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 27 source.go string.quoted.double.go
+T 28 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	const maxInt = ^uint(0) >> 1
+T 1 source.go
+T 6 source.go keyword.const.go
+T 7 source.go
+T 13 source.go variable.other.constant.go
+T 14 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 21 source.go storage.type.numeric.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go constant.numeric.decimal.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 27 source.go keyword.operator.arithmetic.bitwise.go
+T 28 source.go
+T 29 source.go constant.numeric.decimal.go
+L 	hi, lo := bits.Mul(uint(len(x)), uint(count))
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.comma.go
+T 5 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go entity.name.function.support.builtin.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go punctuation.other.comma.go
+T 34 source.go
+T 38 source.go storage.type.numeric.go
+T 39 source.go punctuation.definition.begin.bracket.round.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go punctuation.definition.end.bracket.round.go
+L 	if hi > 0 || lo > maxInt {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go
+T 13 source.go keyword.operator.logical.go
+T 14 source.go
+T 16 source.go variable.other.go
+T 17 source.go
+T 18 source.go keyword.operator.comparison.go
+T 19 source.go
+T 25 source.go variable.other.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 		panic("the result of (len(x) * count) overflows")
+T 2 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 49 source.go string.quoted.double.go
+T 50 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 51 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	newslice := make(S, int(lo)) // lo = len(x) * count
+T 1 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 17 source.go entity.name.function.support.builtin.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go
+T 32 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 	n := copy(newslice, x)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 10 source.go entity.name.function.support.builtin.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 	for n < len(newslice) {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		n += copy(newslice[n:], newslice[:n])
+T 2 source.go
+T 3 source.go variable.other.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go variable.other.go
+T 23 source.go punctuation.other.colon.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 36 source.go punctuation.other.colon.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.definition.end.bracket.square.go
+T 39 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return newslice
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 16 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 

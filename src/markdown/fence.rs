@@ -175,6 +175,12 @@ const NAMES: &[Name] = &[
         brace: None,
         lang: Language::Css,
     },
+    #[cfg(feature = "lang-go")]
+    Name {
+        words: &["go", "golang"],
+        brace: None,
+        lang: Language::Go,
+    },
 ];
 
 /// A language found in an info string.

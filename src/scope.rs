@@ -108,6 +108,8 @@ tables! {
     CSS = css;
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = kotlin;
+    #[cfg(feature = "lang-go")]
+    GO = go;
 }
 
 // No table is longer than its slot.

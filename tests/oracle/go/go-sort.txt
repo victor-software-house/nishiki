@@ -1,0 +1,1569 @@
+L // Copyright 2009 The Go Authors. All rights reserved.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use of this source code is governed by a BSD-style
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // license that can be found in the LICENSE file.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 
+L //go:generate go run gen_sort_variants.go
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L 
+L // Package sort provides primitives for sorting slices and user-defined collections.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L package sort
+T 7 source.go keyword.package.go
+T 8 source.go
+T 12 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"math/bits"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 11 source.go string.quoted.double.go entity.name.import.go
+T 12 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"slices"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L // An implementation of Interface can be sorted by the routines in this package.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L // The methods refer to elements of the underlying collection by integer index.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L type Interface interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go
+T 24 source.go keyword.interface.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Len is the number of elements in the collection.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 	Len() int
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 10 source.go storage.type.numeric.go
+L 
+L 	// Less reports whether the element with index i
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	// must sort before the element with index j.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 46 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// If both Less(i, j) and Less(j, i) are false,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	// then the elements at index i and j are considered equal.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L 	// Sort may place equal elements in any order in the final result,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// while Stable preserves the original input order of equal elements.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// Less must describe a [Strict Weak Ordering]. For example:
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 	//  - if both Less(i, j) and Less(j, k) are true, then Less(i, k) must be true as well.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 88 source.go comment.line.double-slash.go
+L 	//  - if both Less(i, j) and Less(j, k) are false, then Less(i, k) must be false as well.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 90 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// Note that floating-point comparison (the < operator on float32 or float64 values)
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 85 source.go comment.line.double-slash.go
+L 	// is not a strict weak ordering when not-a-number (NaN) values are involved.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L 	// See Float64Slice.Less for a correct implementation for floating-point values.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 81 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// [Strict Weak Ordering]: https://en.wikipedia.org/wiki/Weak_ordering#Strict_weak_orderings
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 93 source.go comment.line.double-slash.go
+L 	Less(i, j int) bool
+T 1 source.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go variable.parameter.go
+T 8 source.go punctuation.other.comma.go
+T 9 source.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 20 source.go storage.type.boolean.go
+L 
+L 	// Swap swaps the elements with indexes i and j.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	Swap(i, j int)
+T 1 source.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go variable.parameter.go
+T 8 source.go punctuation.other.comma.go
+T 9 source.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sort sorts data in ascending order as determined by the Less method.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // It makes one call to data.Len to determine n and O(n*log(n)) calls to
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // data.Less and data.Swap. The sort is not guaranteed to be stable.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: in many situations, the newer [slices.SortFunc] function is more
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // ergonomic and runs faster.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L func Sort(data Interface) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	n := data.Len()
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 	if n <= 1 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go
+T 12 source.go punctuation.definition.begin.bracket.curly.go
+L 		return
+T 2 source.go
+T 8 source.go keyword.control.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	limit := bits.Len(uint(n))
+T 1 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go storage.type.numeric.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 	pdqsort(data, 0, n, limit)
+T 1 source.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go constant.numeric.decimal.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type sortedHint int // hint for pdqsort when choosing the pivot
+T 4 source.go keyword.type.go
+T 5 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go
+T 22 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L 
+L const (
+T 5 source.go keyword.const.go
+T 6 source.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+L 	unknownHint sortedHint = iota
+T 1 source.go
+T 12 source.go variable.other.constant.go
+T 13 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go
+T 25 source.go keyword.operator.assignment.go
+T 26 source.go
+T 30 source.go constant.language.iota.go
+L 	increasingHint
+T 1 source.go
+T 15 source.go variable.other.constant.go
+L 	decreasingHint
+T 1 source.go
+T 15 source.go variable.other.constant.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L // xorshift paper: https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L type xorshift uint64
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 20 source.go storage.type.numeric.go
+L 
+L func (r *xorshift) Next() uint64 {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 32 source.go storage.type.numeric.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	*r ^= *r << 13
+T 1 source.go
+T 2 source.go keyword.operator.address.go
+T 3 source.go variable.other.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.address.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 12 source.go keyword.operator.arithmetic.bitwise.go
+T 13 source.go
+T 15 source.go constant.numeric.decimal.go
+L 	*r ^= *r >> 7
+T 1 source.go
+T 2 source.go keyword.operator.address.go
+T 3 source.go variable.other.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.address.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 12 source.go keyword.operator.arithmetic.bitwise.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+L 	*r ^= *r << 17
+T 1 source.go
+T 2 source.go keyword.operator.address.go
+T 3 source.go variable.other.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.address.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 12 source.go keyword.operator.arithmetic.bitwise.go
+T 13 source.go
+T 15 source.go constant.numeric.decimal.go
+L 	return uint64(*r)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go keyword.operator.address.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func nextPowerOfTwo(length int) uint {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 30 source.go storage.type.numeric.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go
+T 36 source.go storage.type.numeric.go
+T 37 source.go
+T 38 source.go punctuation.definition.begin.bracket.curly.go
+L 	shift := uint(bits.Len(uint(length)))
+T 1 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.period.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go storage.type.numeric.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+L 	return uint(1 << shift)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go storage.type.numeric.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 18 source.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // lessSwap is a pair of Less and Swap function for use with the
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L // auto-generated func-optimized variant of sort.go in
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // zfuncversion.go.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 19 source.go comment.line.double-slash.go
+L type lessSwap struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 20 source.go keyword.struct.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 	Less func(i, j int) bool
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go
+T 10 source.go keyword.function.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go variable.parameter.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 25 source.go storage.type.boolean.go
+L 	Swap func(i, j int)
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go
+T 10 source.go keyword.function.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go variable.parameter.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type reverse struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go
+T 19 source.go keyword.struct.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 	// This embedded Interface permits Reverse to use the methods of
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	// another Interface implementation.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 37 source.go comment.line.double-slash.go
+L 	Interface
+T 1 source.go
+T 10 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Less returns the opposite of the embedded implementation's Less method.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L func (r reverse) Less(i, j int) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.parameter.go
+T 24 source.go punctuation.other.comma.go
+T 25 source.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 30 source.go storage.type.numeric.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go
+T 36 source.go storage.type.boolean.go
+T 37 source.go
+T 38 source.go punctuation.definition.begin.bracket.curly.go
+L 	return r.Interface.Less(j, i)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.other.period.go
+T 24 source.go entity.name.function.support.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.other.comma.go
+T 28 source.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Reverse returns the reverse order for data.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 46 source.go comment.line.double-slash.go
+L func Reverse(data Interface) Interface {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.parameter.go
+T 18 source.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	return &reverse{data}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go keyword.operator.address.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.begin.bracket.curly.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // IsSorted reports whether data is sorted.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: in many situations, the newer [slices.IsSortedFunc] function is more
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // ergonomic and runs faster.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L func IsSorted(data Interface) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 13 source.go entity.name.function.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.parameter.go
+T 19 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go
+T 34 source.go storage.type.boolean.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 	n := data.Len()
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 5 source.go keyword.operator.assignment.go
+T 6 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 	for i := n - 1; i > 0; i-- {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 11 source.go variable.other.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.go
+T 14 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go punctuation.terminator.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go
+T 20 source.go keyword.operator.comparison.go
+T 21 source.go
+T 22 source.go constant.numeric.decimal.go
+T 23 source.go punctuation.terminator.go
+T 24 source.go
+T 25 source.go variable.other.go
+T 27 source.go keyword.operator.decrement.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		if data.Less(i, i-1) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go keyword.operator.arithmetic.go
+T 21 source.go constant.numeric.decimal.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 			return false
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 15 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return true
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Convenience types for common cases
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 37 source.go comment.line.double-slash.go
+L 
+L // IntSlice attaches the methods of Interface to []int, sorting in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L type IntSlice []int
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go storage.type.numeric.go
+L 
+L func (x IntSlice) Len() int           { return len(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 27 source.go storage.type.numeric.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+T 40 source.go
+T 46 source.go keyword.control.go
+T 47 source.go
+T 50 source.go entity.name.function.support.builtin.go
+T 51 source.go punctuation.definition.begin.bracket.round.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go
+T 55 source.go punctuation.definition.end.bracket.curly.go
+L func (x IntSlice) Less(i, j int) bool { return x[i] < x[j] }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.parameter.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 31 source.go storage.type.numeric.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 37 source.go storage.type.boolean.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+T 40 source.go
+T 46 source.go keyword.control.go
+T 47 source.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.definition.begin.bracket.square.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.definition.end.bracket.square.go
+T 52 source.go
+T 53 source.go keyword.operator.comparison.go
+T 54 source.go
+T 55 source.go variable.other.go
+T 56 source.go punctuation.definition.begin.bracket.square.go
+T 57 source.go variable.other.go
+T 58 source.go punctuation.definition.end.bracket.square.go
+T 59 source.go
+T 60 source.go punctuation.definition.end.bracket.curly.go
+L func (x IntSlice) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.parameter.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 31 source.go storage.type.numeric.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+T 40 source.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.definition.begin.bracket.square.go
+T 43 source.go variable.other.go
+T 44 source.go punctuation.definition.end.bracket.square.go
+T 45 source.go punctuation.other.comma.go
+T 46 source.go
+T 47 source.go variable.other.go
+T 48 source.go punctuation.definition.begin.bracket.square.go
+T 49 source.go variable.other.go
+T 50 source.go punctuation.definition.end.bracket.square.go
+T 51 source.go
+T 52 source.go keyword.operator.assignment.go
+T 53 source.go
+T 54 source.go variable.other.go
+T 55 source.go punctuation.definition.begin.bracket.square.go
+T 56 source.go variable.other.go
+T 57 source.go punctuation.definition.end.bracket.square.go
+T 58 source.go punctuation.other.comma.go
+T 59 source.go
+T 60 source.go variable.other.go
+T 61 source.go punctuation.definition.begin.bracket.square.go
+T 62 source.go variable.other.go
+T 63 source.go punctuation.definition.end.bracket.square.go
+T 64 source.go
+T 65 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sort is a convenience method: x.Sort() calls Sort(x).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func (x IntSlice) Sort() { Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+T 27 source.go
+T 31 source.go entity.name.function.support.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Float64Slice implements Interface for a []float64, sorting in increasing order,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 82 source.go comment.line.double-slash.go
+L // with not-a-number (NaN) values ordered before other values.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L type Float64Slice []float64
+T 4 source.go keyword.type.go
+T 5 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go storage.type.numeric.go
+L 
+L func (x Float64Slice) Len() int { return len(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 31 source.go storage.type.numeric.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+T 34 source.go
+T 40 source.go keyword.control.go
+T 41 source.go
+T 44 source.go entity.name.function.support.builtin.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go variable.other.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go
+T 49 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Less reports whether x[i] should be ordered before x[j], as required by the sort Interface.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 94 source.go comment.line.double-slash.go
+L // Note that floating-point comparison by itself is not a transitive relation: it does not
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 90 source.go comment.line.double-slash.go
+L // report a consistent ordering for not-a-number (NaN) values.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L // This implementation of Less places NaN values before any others, by using:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L //	x[i] < x[j] || (math.IsNaN(x[i]) && !math.IsNaN(x[j]))
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L func (x Float64Slice) Less(i, j int) bool { return x[i] < x[j] || (isNaN(x[i]) && !isNaN(x[j])) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 26 source.go entity.name.function.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 35 source.go storage.type.numeric.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go
+T 41 source.go storage.type.boolean.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+T 44 source.go
+T 50 source.go keyword.control.go
+T 51 source.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.begin.bracket.square.go
+T 54 source.go variable.other.go
+T 55 source.go punctuation.definition.end.bracket.square.go
+T 56 source.go
+T 57 source.go keyword.operator.comparison.go
+T 58 source.go
+T 59 source.go variable.other.go
+T 60 source.go punctuation.definition.begin.bracket.square.go
+T 61 source.go variable.other.go
+T 62 source.go punctuation.definition.end.bracket.square.go
+T 63 source.go
+T 65 source.go keyword.operator.logical.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.round.go
+T 72 source.go entity.name.function.support.go
+T 73 source.go punctuation.definition.begin.bracket.round.go
+T 74 source.go variable.other.go
+T 75 source.go punctuation.definition.begin.bracket.square.go
+T 76 source.go variable.other.go
+T 77 source.go punctuation.definition.end.bracket.square.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+T 79 source.go
+T 81 source.go keyword.operator.logical.go
+T 82 source.go
+T 83 source.go keyword.operator.logical.go
+T 88 source.go entity.name.function.support.go
+T 89 source.go punctuation.definition.begin.bracket.round.go
+T 90 source.go variable.other.go
+T 91 source.go punctuation.definition.begin.bracket.square.go
+T 92 source.go variable.other.go
+T 93 source.go punctuation.definition.end.bracket.square.go
+T 94 source.go punctuation.definition.end.bracket.round.go
+T 95 source.go punctuation.definition.end.bracket.round.go
+T 96 source.go
+T 97 source.go punctuation.definition.end.bracket.curly.go
+L func (x Float64Slice) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 26 source.go entity.name.function.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 35 source.go storage.type.numeric.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+T 44 source.go
+T 45 source.go variable.other.go
+T 46 source.go punctuation.definition.begin.bracket.square.go
+T 47 source.go variable.other.go
+T 48 source.go punctuation.definition.end.bracket.square.go
+T 49 source.go punctuation.other.comma.go
+T 50 source.go
+T 51 source.go variable.other.go
+T 52 source.go punctuation.definition.begin.bracket.square.go
+T 53 source.go variable.other.go
+T 54 source.go punctuation.definition.end.bracket.square.go
+T 55 source.go
+T 56 source.go keyword.operator.assignment.go
+T 57 source.go
+T 58 source.go variable.other.go
+T 59 source.go punctuation.definition.begin.bracket.square.go
+T 60 source.go variable.other.go
+T 61 source.go punctuation.definition.end.bracket.square.go
+T 62 source.go punctuation.other.comma.go
+T 63 source.go
+T 64 source.go variable.other.go
+T 65 source.go punctuation.definition.begin.bracket.square.go
+T 66 source.go variable.other.go
+T 67 source.go punctuation.definition.end.bracket.square.go
+T 68 source.go
+T 69 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // isNaN is a copy of math.IsNaN to avoid a dependency on the math package.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L func isNaN(f float64) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 10 source.go entity.name.function.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 20 source.go storage.type.numeric.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 26 source.go storage.type.boolean.go
+T 27 source.go
+T 28 source.go punctuation.definition.begin.bracket.curly.go
+L 	return f != f
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sort is a convenience method: x.Sort() calls Sort(x).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func (x Float64Slice) Sort() { Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 26 source.go entity.name.function.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+T 31 source.go
+T 35 source.go entity.name.function.support.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 40 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // StringSlice attaches the methods of Interface to []string, sorting in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 90 source.go comment.line.double-slash.go
+L type StringSlice []string
+T 4 source.go keyword.type.go
+T 5 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go storage.type.string.go
+L 
+L func (x StringSlice) Len() int           { return len(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 30 source.go storage.type.numeric.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+T 43 source.go
+T 49 source.go keyword.control.go
+T 50 source.go
+T 53 source.go entity.name.function.support.builtin.go
+T 54 source.go punctuation.definition.begin.bracket.round.go
+T 55 source.go variable.other.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+T 57 source.go
+T 58 source.go punctuation.definition.end.bracket.curly.go
+L func (x StringSlice) Less(i, j int) bool { return x[i] < x[j] }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 34 source.go storage.type.numeric.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 40 source.go storage.type.boolean.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+T 43 source.go
+T 49 source.go keyword.control.go
+T 50 source.go
+T 51 source.go variable.other.go
+T 52 source.go punctuation.definition.begin.bracket.square.go
+T 53 source.go variable.other.go
+T 54 source.go punctuation.definition.end.bracket.square.go
+T 55 source.go
+T 56 source.go keyword.operator.comparison.go
+T 57 source.go
+T 58 source.go variable.other.go
+T 59 source.go punctuation.definition.begin.bracket.square.go
+T 60 source.go variable.other.go
+T 61 source.go punctuation.definition.end.bracket.square.go
+T 62 source.go
+T 63 source.go punctuation.definition.end.bracket.curly.go
+L func (x StringSlice) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 34 source.go storage.type.numeric.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+T 43 source.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.definition.begin.bracket.square.go
+T 46 source.go variable.other.go
+T 47 source.go punctuation.definition.end.bracket.square.go
+T 48 source.go punctuation.other.comma.go
+T 49 source.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.definition.begin.bracket.square.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.end.bracket.square.go
+T 54 source.go
+T 55 source.go keyword.operator.assignment.go
+T 56 source.go
+T 57 source.go variable.other.go
+T 58 source.go punctuation.definition.begin.bracket.square.go
+T 59 source.go variable.other.go
+T 60 source.go punctuation.definition.end.bracket.square.go
+T 61 source.go punctuation.other.comma.go
+T 62 source.go
+T 63 source.go variable.other.go
+T 64 source.go punctuation.definition.begin.bracket.square.go
+T 65 source.go variable.other.go
+T 66 source.go punctuation.definition.end.bracket.square.go
+T 67 source.go
+T 68 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Sort is a convenience method: x.Sort() calls Sort(x).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L func (x StringSlice) Sort() { Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+T 30 source.go
+T 34 source.go entity.name.function.support.go
+T 35 source.go punctuation.definition.begin.bracket.round.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Convenience wrappers for common cases
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 40 source.go comment.line.double-slash.go
+L 
+L // Ints sorts a slice of ints in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.Sort].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func Ints(x []int) { slices.Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go storage.type.numeric.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+T 21 source.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.other.period.go
+T 32 source.go entity.name.function.support.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 37 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Float64s sorts a slice of float64s in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L // Not-a-number (NaN) values are ordered before other values.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.Sort].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func Float64s(x []float64) { slices.Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 13 source.go entity.name.function.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go storage.type.numeric.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 28 source.go punctuation.definition.begin.bracket.curly.go
+T 29 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.other.period.go
+T 40 source.go entity.name.function.support.go
+T 41 source.go punctuation.definition.begin.bracket.round.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+T 44 source.go
+T 45 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Strings sorts a slice of strings in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.Sort].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func Strings(x []string) { slices.Sort(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go storage.type.string.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+T 27 source.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.other.period.go
+T 38 source.go entity.name.function.support.go
+T 39 source.go punctuation.definition.begin.bracket.round.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go
+T 43 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // IntsAreSorted reports whether the slice x is sorted in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.IsSorted].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L func IntsAreSorted(x []int) bool { return slices.IsSorted(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go storage.type.numeric.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 32 source.go storage.type.boolean.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+T 35 source.go
+T 41 source.go keyword.control.go
+T 42 source.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.other.period.go
+T 57 source.go entity.name.function.support.go
+T 58 source.go punctuation.definition.begin.bracket.round.go
+T 59 source.go variable.other.go
+T 60 source.go punctuation.definition.end.bracket.round.go
+T 61 source.go
+T 62 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Float64sAreSorted reports whether the slice x is sorted in increasing order,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // with not-a-number (NaN) values before any other values.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.IsSorted].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L func Float64sAreSorted(x []float64) bool { return slices.IsSorted(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 34 source.go storage.type.numeric.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 40 source.go storage.type.boolean.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+T 43 source.go
+T 49 source.go keyword.control.go
+T 50 source.go
+T 56 source.go variable.other.go
+T 57 source.go punctuation.other.period.go
+T 65 source.go entity.name.function.support.go
+T 66 source.go punctuation.definition.begin.bracket.round.go
+T 67 source.go variable.other.go
+T 68 source.go punctuation.definition.end.bracket.round.go
+T 69 source.go
+T 70 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // StringsAreSorted reports whether the slice x is sorted in increasing order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: as of Go 1.22, this function simply calls [slices.IsSorted].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L func StringsAreSorted(x []string) bool { return slices.IsSorted(x) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.parameter.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.square.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 32 source.go storage.type.string.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 38 source.go storage.type.boolean.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+T 41 source.go
+T 47 source.go keyword.control.go
+T 48 source.go
+T 54 source.go variable.other.go
+T 55 source.go punctuation.other.period.go
+T 63 source.go entity.name.function.support.go
+T 64 source.go punctuation.definition.begin.bracket.round.go
+T 65 source.go variable.other.go
+T 66 source.go punctuation.definition.end.bracket.round.go
+T 67 source.go
+T 68 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Notes on stable sorting:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L // The used algorithms are simple and provably correct on all input and use
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // only logarithmic additional stack space. They perform well if compared
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // experimentally to other stable in-place sorting algorithms.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Remarks on other algorithms evaluated:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L //  - GCC's 4.6.3 stable_sort with merge_without_buffer from libstdc++:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L //    Not faster.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 17 source.go comment.line.double-slash.go
+L //  - GCC's __rotate for block rotations: Not faster.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L //  - "Practical in-place mergesort" from  Jyrki Katajainen, Tomi A. Pasanen
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L //    and Jukka Teuhola; Nordic Journal of Computing 3,1 (1996), 27-40:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L //    The given algorithms are in-place, number of Swap and Assignments
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L //    grow as n log n but the algorithm is not stable.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L //  - "Fast Stable In-Place Sorting with O(n) Data Moves" J.I. Munro and
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L //    V. Raman in Algorithmica (1996) 16, 115-160:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L //    This algorithm either needs additional 2n bits or works only if there
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L //    are enough different elements available to encode some permutations
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L //    which have to be undone later (so not stable on any input).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L //  - All the optimal in-place sorting/merging algorithms I found are either
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L //    unstable or rely on enough different elements in each step to encode the
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L //    performed block rearrangements. See also "In-Place Merging Algorithms",
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L //    Denham Coates-Evely, Department of Computer Science, Kings College,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L //    January 2004 and the references in there.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L //  - Often "optimal" algorithms are optimal in the number of assignments
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L //    but Interface has only Swap as operation.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L 
+L // Stable sorts data in ascending order as determined by the Less method,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // while keeping the original order of equal elements.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // It makes one call to data.Len to determine n, O(n*log(n)) calls to
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L // data.Less and O(n*log(n)*log(n)) calls to data.Swap.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Note: in many situations, the newer slices.SortStableFunc function is more
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // ergonomic and runs faster.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L func Stable(data Interface) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	stable(data, data.Len())
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 22 source.go entity.name.function.support.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L /*
+T 2 source.go comment.block.go punctuation.definition.comment.go
+L Complexity of Stable Sorting
+T 28 source.go comment.block.go
+L 
+L 
+L Complexity of block swapping rotation
+T 37 source.go comment.block.go
+L 
+L Each Swap puts one new element into its correct, final position.
+T 64 source.go comment.block.go
+L Elements which reach their final position are no longer moved.
+T 62 source.go comment.block.go
+L Thus block swapping rotation needs |u|+|v| calls to Swaps.
+T 58 source.go comment.block.go
+L This is best possible as each element might need a move.
+T 56 source.go comment.block.go
+L 
+L Pay attention when comparing to other optimal algorithms which
+T 62 source.go comment.block.go
+L typically count the number of assignments instead of swaps:
+T 59 source.go comment.block.go
+L E.g. the optimal algorithm of Dudzinski and Dydek for in-place
+T 62 source.go comment.block.go
+L rotations uses O(u + v + gcd(u,v)) assignments which is
+T 55 source.go comment.block.go
+L better than our O(3 * (u+v)) as gcd(u,v) <= u.
+T 46 source.go comment.block.go
+L 
+L 
+L Stable sorting by SymMerge and BlockSwap rotations
+T 50 source.go comment.block.go
+L 
+L SymMerg complexity for same size input M = N:
+T 45 source.go comment.block.go
+L Calls to Less:  O(M*log(N/M+1)) = O(N*log(2)) = O(N)
+T 52 source.go comment.block.go
+L Calls to Swap:  O((M+N)*log(M)) = O(2*N*log(N)) = O(N*log(N))
+T 61 source.go comment.block.go
+L 
+L (The following argument does not fuzz over a missing -1 or
+T 58 source.go comment.block.go
+L other stuff which does not impact the final result).
+T 52 source.go comment.block.go
+L 
+L Let n = data.Len(). Assume n = 2^k.
+T 35 source.go comment.block.go
+L 
+L Plain merge sort performs log(n) = k iterations.
+T 48 source.go comment.block.go
+L On iteration i the algorithm merges 2^(k-i) blocks, each of size 2^i.
+T 69 source.go comment.block.go
+L 
+L Thus iteration i of merge sort performs:
+T 40 source.go comment.block.go
+L Calls to Less  O(2^(k-i) * 2^i) = O(2^k) = O(2^log(n)) = O(n)
+T 61 source.go comment.block.go
+L Calls to Swap  O(2^(k-i) * 2^i * log(2^i)) = O(2^k * i) = O(n*i)
+T 64 source.go comment.block.go
+L 
+L In total k = log(n) iterations are performed; so in total:
+T 58 source.go comment.block.go
+L Calls to Less O(log(n) * n)
+T 27 source.go comment.block.go
+L Calls to Swap O(n + 2*n + 3*n + ... + (k-1)*n + k*n)
+T 52 source.go comment.block.go
+L    = O((k/2) * k * n) = O(n * k^2) = O(n * log^2(n))
+T 52 source.go comment.block.go
+L 
+L 
+L Above results should generalize to arbitrary n = 2^k + p
+T 56 source.go comment.block.go
+L and should not be influenced by the initial insertion sort phase:
+T 65 source.go comment.block.go
+L Insertion sort is O(n^2) on Swap and Less, thus O(bs^2) per block of
+T 68 source.go comment.block.go
+L size bs at n/bs blocks:  O(bs*n) Swaps and Less during insertion sort.
+T 70 source.go comment.block.go
+L Merge sort iterations start at i = log(bs). With t = log(bs) constant:
+T 70 source.go comment.block.go
+L Calls to Less O((log(n)-t) * n + bs*n) = O(log(n)*n + (bs-t)*n)
+T 63 source.go comment.block.go
+L    = O(n * log(n))
+T 18 source.go comment.block.go
+L Calls to Swap O(n * log^2(n) - (t^2+t)/2*n) = O(n * log^2(n))
+T 61 source.go comment.block.go
+L 
+L */
+T 2 source.go comment.block.go punctuation.definition.comment.go
+L 

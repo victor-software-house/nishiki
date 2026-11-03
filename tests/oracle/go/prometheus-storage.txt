@@ -1,0 +1,4214 @@
+L // Copyright The Prometheus Authors
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 35 source.go comment.line.double-slash.go
+L // Licensed under the Apache License, Version 2.0 (the "License");
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // you may not use this file except in compliance with the License.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // You may obtain a copy of the License at
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // http://www.apache.org/licenses/LICENSE-2.0
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Unless required by applicable law or agreed to in writing, software
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // distributed under the License is distributed on an "AS IS" BASIS,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // See the License for the specific language governing permissions and
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // limitations under the License.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 
+L package storage
+T 7 source.go keyword.package.go
+T 8 source.go
+T 15 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"context"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 9 source.go string.quoted.double.go entity.name.import.go
+T 10 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"errors"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"fmt"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 5 source.go string.quoted.double.go entity.name.import.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 
+L 	"github.com/prometheus/prometheus/model/exemplar"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 49 source.go string.quoted.double.go entity.name.import.go
+T 50 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/model/histogram"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 50 source.go string.quoted.double.go entity.name.import.go
+T 51 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/model/labels"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 47 source.go string.quoted.double.go entity.name.import.go
+T 48 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/model/metadata"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 49 source.go string.quoted.double.go entity.name.import.go
+T 50 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/tsdb/chunkenc"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 48 source.go string.quoted.double.go entity.name.import.go
+T 49 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/tsdb/chunks"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 46 source.go string.quoted.double.go entity.name.import.go
+T 47 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"github.com/prometheus/prometheus/util/annotations"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 51 source.go string.quoted.double.go entity.name.import.go
+T 52 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L // The errors exposed.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 22 source.go comment.line.double-slash.go
+L var (
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+L 	ErrNotFound = errors.New("not found")
+T 1 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.period.go
+T 25 source.go entity.name.function.support.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 36 source.go string.quoted.double.go
+T 37 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+L 	// ErrCostSamplingUnsupported means the requested window cannot be sampled incrementally.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 90 source.go comment.line.double-slash.go
+L 	// It must not be returned with other failures, including failures closing rejected readers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 93 source.go comment.line.double-slash.go
+L 	ErrCostSamplingUnsupported = errors.New("bounded query cost sampling is unavailable")
+T 1 source.go
+T 27 source.go variable.other.assignment.go
+T 28 source.go
+T 29 source.go keyword.operator.assignment.go
+T 30 source.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.other.period.go
+T 40 source.go entity.name.function.support.go
+T 41 source.go punctuation.definition.begin.bracket.round.go
+T 42 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 84 source.go string.quoted.double.go
+T 85 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 86 source.go punctuation.definition.end.bracket.round.go
+L 	// ErrOutOfOrderSample is when out of order support is disabled and the sample is out of order.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 96 source.go comment.line.double-slash.go
+L 	ErrOutOfOrderSample = errors.New("out of order sample")
+T 1 source.go
+T 20 source.go variable.other.assignment.go
+T 21 source.go
+T 22 source.go keyword.operator.assignment.go
+T 23 source.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.other.period.go
+T 33 source.go entity.name.function.support.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 54 source.go string.quoted.double.go
+T 55 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+L 	// ErrOutOfBounds is when out of order support is disabled and the sample is older than the min valid time for the append.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 123 source.go comment.line.double-slash.go
+L 	ErrOutOfBounds = errors.New("out of bounds")
+T 1 source.go
+T 15 source.go variable.other.assignment.go
+T 16 source.go
+T 17 source.go keyword.operator.assignment.go
+T 18 source.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.other.period.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 43 source.go string.quoted.double.go
+T 44 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+L 	// ErrTooOldSample is when out of order support is enabled but the sample is outside the time window allowed.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 110 source.go comment.line.double-slash.go
+L 	ErrTooOldSample = errors.New("too old sample")
+T 1 source.go
+T 16 source.go variable.other.assignment.go
+T 17 source.go
+T 18 source.go keyword.operator.assignment.go
+T 19 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.period.go
+T 29 source.go entity.name.function.support.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 45 source.go string.quoted.double.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+L 	// ErrDuplicateSampleForTimestamp is when the sample has same timestamp but different value.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 93 source.go comment.line.double-slash.go
+L 	ErrDuplicateSampleForTimestamp = errDuplicateSampleForTimestamp{}
+T 1 source.go
+T 31 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.definition.begin.bracket.curly.go
+T 66 source.go punctuation.definition.end.bracket.curly.go
+L 	ErrOutOfOrderExemplar          = errors.New("out of order exemplar")
+T 1 source.go
+T 22 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 67 source.go string.quoted.double.go
+T 68 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 69 source.go punctuation.definition.end.bracket.round.go
+L 	ErrDuplicateExemplar           = errors.New("duplicate exemplar")
+T 1 source.go
+T 21 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 64 source.go string.quoted.double.go
+T 65 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 66 source.go punctuation.definition.end.bracket.round.go
+L 	ErrExemplarLabelLength         = fmt.Errorf("label length for exemplar exceeds maximum of %d UTF-8 characters", exemplar.ExemplarMaxLabelSetLength)
+T 1 source.go
+T 23 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 91 source.go string.quoted.double.go
+T 93 source.go string.quoted.double.go constant.other.placeholder.go
+T 110 source.go string.quoted.double.go
+T 111 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 112 source.go punctuation.other.comma.go
+T 113 source.go
+T 121 source.go variable.other.go
+T 122 source.go punctuation.other.period.go
+T 147 source.go variable.other.go
+T 148 source.go punctuation.definition.end.bracket.round.go
+L 	ErrExemplarsDisabled           = errors.New("exemplar storage is disabled or max exemplars is less than or equal to 0")
+T 1 source.go
+T 21 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 118 source.go string.quoted.double.go
+T 119 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 120 source.go punctuation.definition.end.bracket.round.go
+L 	ErrNativeHistogramsDisabled    = errors.New("native histograms are disabled")
+T 1 source.go
+T 28 source.go variable.other.assignment.go
+T 32 source.go
+T 33 source.go keyword.operator.assignment.go
+T 34 source.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 76 source.go string.quoted.double.go
+T 77 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// ErrOutOfOrderST indicates failed append of ST to the storage
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	// due to ST being older the then newer sample.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	// NOTE(bwplotka): This can be both an instrumentation failure or commonly expected
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L 	// behaviour, and we currently don't have a way to determine this. As a result
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L 	// it's recommended to ignore this error for now.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L 	// TODO(bwplotka): Remove with appender v1 flow; not used in v2.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	ErrOutOfOrderST      = errors.New("start timestamp out of order, ignoring")
+T 1 source.go
+T 16 source.go variable.other.assignment.go
+T 22 source.go
+T 23 source.go keyword.operator.assignment.go
+T 24 source.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.period.go
+T 34 source.go entity.name.function.support.go
+T 35 source.go punctuation.definition.begin.bracket.round.go
+T 36 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 74 source.go string.quoted.double.go
+T 75 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 76 source.go punctuation.definition.end.bracket.round.go
+L 	ErrSTNewerThanSample = errors.New("ST is newer or the same as sample's timestamp, ignoring")
+T 1 source.go
+T 21 source.go variable.other.assignment.go
+T 22 source.go
+T 23 source.go keyword.operator.assignment.go
+T 24 source.go
+T 30 source.go variable.other.go
+T 31 source.go punctuation.other.period.go
+T 34 source.go entity.name.function.support.go
+T 35 source.go punctuation.definition.begin.bracket.round.go
+T 36 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 91 source.go string.quoted.double.go
+T 92 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 93 source.go punctuation.definition.end.bracket.round.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L // SeriesRef is a generic series reference. In prometheus it is either a
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // HeadSeriesRef or BlockSeriesRef, though other implementations may have
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L // their own reference types.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L type SeriesRef uint64
+T 4 source.go keyword.type.go
+T 5 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go
+T 21 source.go storage.type.numeric.go
+L 
+L // Appendable allows creating Appender.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 39 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // Appendable will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L type Appendable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go
+T 25 source.go keyword.interface.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Appender returns a new appender for the storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// Implementations CAN choose whether to use the context e.g. for deadlines,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// but it's not mandatory.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 	Appender(ctx context.Context) Appender
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.period.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 39 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SampleAndChunkQueryable allows retrieving samples as well as encoded samples in form of chunks.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 98 source.go comment.line.double-slash.go
+L type SampleAndChunkQueryable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go
+T 38 source.go keyword.interface.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	Queryable
+T 1 source.go
+T 10 source.go entity.name.type.go
+L 	ChunkQueryable
+T 1 source.go
+T 15 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Storage ingests and manages samples, along with various indexes. All methods
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // are goroutine-safe.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 22 source.go comment.line.double-slash.go
+L type Storage interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go
+T 22 source.go keyword.interface.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 	SampleAndChunkQueryable
+T 1 source.go
+T 24 source.go entity.name.type.go
+L 
+L 	// Appendable allows appending to storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L 	// WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 117 source.go comment.line.double-slash.go
+L 	// Appendable will be removed soon (ETA: Q2 2026).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L 	Appendable
+T 1 source.go
+T 11 source.go entity.name.type.go
+L 	// AppendableV2 allows appending to storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L 	AppendableV2
+T 1 source.go
+T 13 source.go entity.name.type.go
+L 
+L 	// StartTime returns the oldest timestamp stored in the storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	StartTime() (int64, error)
+T 1 source.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 26 source.go storage.type.error.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// Close closes the storage and all its underlying resources.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	Close() error
+T 1 source.go
+T 6 source.go entity.name.function.support.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go
+T 14 source.go storage.type.error.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ExemplarStorage ingests and manages exemplars, along with various indexes. All methods are
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 93 source.go comment.line.double-slash.go
+L // goroutine-safe. ExemplarStorage implements storage.ExemplarAppender and storage.ExemplarQuerier.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 99 source.go comment.line.double-slash.go
+L type ExemplarStorage interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go
+T 30 source.go keyword.interface.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	ExemplarQueryable
+T 1 source.go
+T 18 source.go entity.name.type.go
+L 	ExemplarAppender
+T 1 source.go
+T 17 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // A Queryable handles queries against a storage.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L // Use it when you need to have access to all samples without chunk encoding abstraction e.g promQL.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 100 source.go comment.line.double-slash.go
+L type Queryable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go
+T 24 source.go keyword.interface.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Querier returns a new Querier on the storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// mint and maxt are inclusive time bounds in milliseconds. The returned
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// Querier is scoped to this range and its methods only consider series
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L 	// data within [mint, maxt].
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L 	Querier(mint, maxt int64) (Querier, error)
+T 1 source.go
+T 8 source.go entity.name.function.support.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.parameter.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 25 source.go storage.type.numeric.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 42 source.go storage.type.error.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // A MockQueryable is used for testing purposes so that a mock Querier can be used.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L type MockQueryable struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go
+T 25 source.go keyword.struct.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	MockQuerier Querier
+T 1 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go
+T 20 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (q *MockQueryable) Querier(int64, int64) (Querier, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go storage.type.numeric.go
+T 38 source.go punctuation.other.comma.go
+T 39 source.go
+T 44 source.go storage.type.numeric.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go
+T 47 source.go punctuation.definition.begin.bracket.round.go
+T 54 source.go entity.name.type.go
+T 55 source.go punctuation.other.comma.go
+T 56 source.go
+T 61 source.go storage.type.error.go
+T 62 source.go punctuation.definition.end.bracket.round.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+L 	return q.MockQuerier, nil
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.comma.go
+T 23 source.go
+T 26 source.go constant.language.null.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Querier provides querying access over time series data of a fixed time range.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L type Querier interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go
+T 22 source.go keyword.interface.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 	LabelQuerier
+T 1 source.go
+T 13 source.go entity.name.type.go
+L 
+L 	// Select returns a set of series that matches the given label matchers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// Results are not checked whether they match. Results that do not match
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// may cause undefined behavior.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 	// Caller can specify if it requires returned series to be sorted. Prefer not requiring sorting for better performance.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 120 source.go comment.line.double-slash.go
+L 	// It allows passing hints that can help in optimising select, but it's up to implementation how this is used if used at all.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 126 source.go comment.line.double-slash.go
+L 	Select(ctx context.Context, sortSeries bool, hints *SelectHints, matchers ...*labels.Matcher) SeriesSet
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.period.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 44 source.go storage.type.boolean.go
+T 45 source.go punctuation.other.comma.go
+T 46 source.go
+T 51 source.go variable.parameter.go
+T 52 source.go
+T 53 source.go keyword.operator.address.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.comma.go
+T 66 source.go
+T 74 source.go variable.parameter.go
+T 75 source.go
+T 78 source.go keyword.operator.ellipsis.go
+T 79 source.go keyword.operator.address.go
+T 85 source.go entity.name.type.go
+T 86 source.go punctuation.other.period.go
+T 93 source.go entity.name.type.go
+T 94 source.go punctuation.definition.end.bracket.round.go
+T 95 source.go
+T 104 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // MockQuerier is used for test purposes to mock the selected series that is returned.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L type MockQuerier struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go
+T 23 source.go keyword.struct.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	SelectMockFunction func(sortSeries bool, hints *SelectHints, matchers ...*labels.Matcher) SeriesSet
+T 1 source.go
+T 19 source.go variable.other.property.go
+T 20 source.go
+T 24 source.go keyword.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.parameter.go
+T 36 source.go
+T 40 source.go storage.type.boolean.go
+T 41 source.go punctuation.other.comma.go
+T 42 source.go
+T 47 source.go variable.parameter.go
+T 48 source.go
+T 49 source.go keyword.operator.address.go
+T 60 source.go entity.name.type.go
+T 61 source.go punctuation.other.comma.go
+T 62 source.go
+T 70 source.go variable.parameter.go
+T 71 source.go
+T 74 source.go keyword.operator.ellipsis.go
+T 75 source.go keyword.operator.address.go
+T 81 source.go entity.name.type.go
+T 82 source.go punctuation.other.period.go
+T 89 source.go entity.name.type.go
+T 90 source.go punctuation.definition.end.bracket.round.go
+T 91 source.go
+T 100 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (*MockQuerier) LabelValues(context.Context, string, *LabelHints, ...*labels.Matcher) ([]string, annotations.Annotations, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go keyword.operator.address.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.other.period.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.other.comma.go
+T 49 source.go
+T 55 source.go storage.type.string.go
+T 56 source.go punctuation.other.comma.go
+T 57 source.go
+T 58 source.go keyword.operator.address.go
+T 68 source.go entity.name.type.go
+T 69 source.go punctuation.other.comma.go
+T 70 source.go
+T 73 source.go keyword.operator.ellipsis.go
+T 74 source.go keyword.operator.address.go
+T 80 source.go entity.name.type.go
+T 81 source.go punctuation.other.period.go
+T 88 source.go entity.name.type.go
+T 89 source.go punctuation.definition.end.bracket.round.go
+T 90 source.go
+T 91 source.go punctuation.definition.begin.bracket.round.go
+T 92 source.go punctuation.definition.begin.bracket.square.go
+T 93 source.go punctuation.definition.end.bracket.square.go
+T 99 source.go storage.type.string.go
+T 100 source.go punctuation.other.comma.go
+T 101 source.go
+T 112 source.go entity.name.type.go
+T 113 source.go punctuation.other.period.go
+T 124 source.go entity.name.type.go
+T 125 source.go punctuation.other.comma.go
+T 126 source.go
+T 131 source.go storage.type.error.go
+T 132 source.go punctuation.definition.end.bracket.round.go
+T 133 source.go
+T 134 source.go punctuation.definition.begin.bracket.curly.go
+L 	return nil, nil, nil
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go constant.language.null.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 16 source.go constant.language.null.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 21 source.go constant.language.null.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (*MockQuerier) LabelNames(context.Context, *LabelHints, ...*labels.Matcher) ([]string, annotations.Annotations, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go keyword.operator.address.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 49 source.go keyword.operator.address.go
+T 59 source.go entity.name.type.go
+T 60 source.go punctuation.other.comma.go
+T 61 source.go
+T 64 source.go keyword.operator.ellipsis.go
+T 65 source.go keyword.operator.address.go
+T 71 source.go entity.name.type.go
+T 72 source.go punctuation.other.period.go
+T 79 source.go entity.name.type.go
+T 80 source.go punctuation.definition.end.bracket.round.go
+T 81 source.go
+T 82 source.go punctuation.definition.begin.bracket.round.go
+T 83 source.go punctuation.definition.begin.bracket.square.go
+T 84 source.go punctuation.definition.end.bracket.square.go
+T 90 source.go storage.type.string.go
+T 91 source.go punctuation.other.comma.go
+T 92 source.go
+T 103 source.go entity.name.type.go
+T 104 source.go punctuation.other.period.go
+T 115 source.go entity.name.type.go
+T 116 source.go punctuation.other.comma.go
+T 117 source.go
+T 122 source.go storage.type.error.go
+T 123 source.go punctuation.definition.end.bracket.round.go
+T 124 source.go
+T 125 source.go punctuation.definition.begin.bracket.curly.go
+L 	return nil, nil, nil
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go constant.language.null.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 16 source.go constant.language.null.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 21 source.go constant.language.null.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (*MockQuerier) Close() error {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go keyword.operator.address.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 33 source.go storage.type.error.go
+T 34 source.go
+T 35 source.go punctuation.definition.begin.bracket.curly.go
+L 	return nil
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go constant.language.null.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (q *MockQuerier) Select(_ context.Context, sortSeries bool, hints *SelectHints, matchers ...*labels.Matcher) SeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 28 source.go entity.name.function.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 58 source.go variable.parameter.go
+T 59 source.go
+T 63 source.go storage.type.boolean.go
+T 64 source.go punctuation.other.comma.go
+T 65 source.go
+T 70 source.go variable.parameter.go
+T 71 source.go
+T 72 source.go keyword.operator.address.go
+T 83 source.go entity.name.type.go
+T 84 source.go punctuation.other.comma.go
+T 85 source.go
+T 93 source.go variable.parameter.go
+T 94 source.go
+T 97 source.go keyword.operator.ellipsis.go
+T 98 source.go keyword.operator.address.go
+T 104 source.go entity.name.type.go
+T 105 source.go punctuation.other.period.go
+T 112 source.go entity.name.type.go
+T 113 source.go punctuation.definition.end.bracket.round.go
+T 114 source.go
+T 123 source.go entity.name.type.go
+T 124 source.go
+T 125 source.go punctuation.definition.begin.bracket.curly.go
+L 	return q.SelectMockFunction(sortSeries, hints, matchers...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 39 source.go variable.other.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 46 source.go variable.other.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 56 source.go variable.other.go
+T 59 source.go keyword.operator.ellipsis.go
+T 60 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // A ChunkQueryable handles queries against a storage.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use it when you need to have access to samples in encoded format.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L type ChunkQueryable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go
+T 29 source.go keyword.interface.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 	// ChunkQuerier returns a new ChunkQuerier on the storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	ChunkQuerier(mint, maxt int64) (ChunkQuerier, error)
+T 1 source.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.parameter.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 30 source.go storage.type.numeric.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.other.comma.go
+T 47 source.go
+T 52 source.go storage.type.error.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // CostSamplingQueryable optionally provides incremental density and point-size sampling.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 89 source.go comment.line.double-slash.go
+L // The source must retain its selected backends across reloads and must not eagerly
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L // encode a whole series or window. Unsupported windows return ErrCostSamplingUnsupported
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 89 source.go comment.line.double-slash.go
+L // after closing any opened readers; other failures remain errors.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // False means unsupported; nil with true means a definitively empty backend.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // Callers own each returned querier, but not the source itself.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L type CostSamplingQueryable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 26 source.go entity.name.type.go
+T 27 source.go
+T 36 source.go keyword.interface.go
+T 37 source.go
+T 38 source.go punctuation.definition.begin.bracket.curly.go
+L 	CostSamplingQueryable() (SampleAndChunkQueryable, bool)
+T 1 source.go
+T 22 source.go entity.name.function.support.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 49 source.go entity.name.type.go
+T 50 source.go punctuation.other.comma.go
+T 51 source.go
+T 55 source.go storage.type.boolean.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ChunkQuerier provides querying access over time series data of a fixed time range.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 85 source.go comment.line.double-slash.go
+L type ChunkQuerier interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go
+T 27 source.go keyword.interface.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	LabelQuerier
+T 1 source.go
+T 13 source.go entity.name.type.go
+L 
+L 	// Select returns a set of series that matches the given label matchers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// Results are not checked whether they match. Results that do not match
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// may cause undefined behavior.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 33 source.go comment.line.double-slash.go
+L 	// Caller can specify if it requires returned series to be sorted. Prefer not requiring sorting for better performance.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 120 source.go comment.line.double-slash.go
+L 	// It allows passing hints that can help in optimising select, but it's up to implementation how this is used if used at all.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 126 source.go comment.line.double-slash.go
+L 	Select(ctx context.Context, sortSeries bool, hints *SelectHints, matchers ...*labels.Matcher) ChunkSeriesSet
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.period.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 44 source.go storage.type.boolean.go
+T 45 source.go punctuation.other.comma.go
+T 46 source.go
+T 51 source.go variable.parameter.go
+T 52 source.go
+T 53 source.go keyword.operator.address.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.comma.go
+T 66 source.go
+T 74 source.go variable.parameter.go
+T 75 source.go
+T 78 source.go keyword.operator.ellipsis.go
+T 79 source.go keyword.operator.address.go
+T 85 source.go entity.name.type.go
+T 86 source.go punctuation.other.period.go
+T 93 source.go entity.name.type.go
+T 94 source.go punctuation.definition.end.bracket.round.go
+T 95 source.go
+T 109 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // LabelQuerier provides querying access over labels.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L type LabelQuerier interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go
+T 27 source.go keyword.interface.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	// LabelValues returns all potential values for a label name in sorted order.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L 	// It is not safe to use the strings beyond the lifetime of the querier.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// If matchers are specified the returned result set is reduced
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	// to label values of metrics matching the matchers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L 	LabelValues(ctx context.Context, name string, hints *LabelHints, matchers ...*labels.Matcher) ([]string, annotations.Annotations, error)
+T 1 source.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.other.period.go
+T 32 source.go entity.name.type.go
+T 33 source.go punctuation.other.comma.go
+T 34 source.go
+T 38 source.go variable.parameter.go
+T 39 source.go
+T 45 source.go storage.type.string.go
+T 46 source.go punctuation.other.comma.go
+T 47 source.go
+T 52 source.go variable.parameter.go
+T 53 source.go
+T 54 source.go keyword.operator.address.go
+T 64 source.go entity.name.type.go
+T 65 source.go punctuation.other.comma.go
+T 66 source.go
+T 74 source.go variable.parameter.go
+T 75 source.go
+T 78 source.go keyword.operator.ellipsis.go
+T 79 source.go keyword.operator.address.go
+T 85 source.go entity.name.type.go
+T 86 source.go punctuation.other.period.go
+T 93 source.go entity.name.type.go
+T 94 source.go punctuation.definition.end.bracket.round.go
+T 95 source.go
+T 96 source.go punctuation.definition.begin.bracket.round.go
+T 97 source.go punctuation.definition.begin.bracket.square.go
+T 98 source.go punctuation.definition.end.bracket.square.go
+T 104 source.go storage.type.string.go
+T 105 source.go punctuation.other.comma.go
+T 106 source.go
+T 117 source.go entity.name.type.go
+T 118 source.go punctuation.other.period.go
+T 129 source.go entity.name.type.go
+T 130 source.go punctuation.other.comma.go
+T 131 source.go
+T 136 source.go storage.type.error.go
+T 137 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// LabelNames returns all the unique label names present in the block in sorted order.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 87 source.go comment.line.double-slash.go
+L 	// If matchers are specified the returned result set is reduced
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	// to label names of metrics matching the matchers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 52 source.go comment.line.double-slash.go
+L 	LabelNames(ctx context.Context, hints *LabelHints, matchers ...*labels.Matcher) ([]string, annotations.Annotations, error)
+T 1 source.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.period.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 38 source.go variable.parameter.go
+T 39 source.go
+T 40 source.go keyword.operator.address.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.comma.go
+T 52 source.go
+T 60 source.go variable.parameter.go
+T 61 source.go
+T 64 source.go keyword.operator.ellipsis.go
+T 65 source.go keyword.operator.address.go
+T 71 source.go entity.name.type.go
+T 72 source.go punctuation.other.period.go
+T 79 source.go entity.name.type.go
+T 80 source.go punctuation.definition.end.bracket.round.go
+T 81 source.go
+T 82 source.go punctuation.definition.begin.bracket.round.go
+T 83 source.go punctuation.definition.begin.bracket.square.go
+T 84 source.go punctuation.definition.end.bracket.square.go
+T 90 source.go storage.type.string.go
+T 91 source.go punctuation.other.comma.go
+T 92 source.go
+T 103 source.go entity.name.type.go
+T 104 source.go punctuation.other.period.go
+T 115 source.go entity.name.type.go
+T 116 source.go punctuation.other.comma.go
+T 117 source.go
+T 122 source.go storage.type.error.go
+T 123 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// Close releases the resources of the Querier.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	Close() error
+T 1 source.go
+T 6 source.go entity.name.function.support.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go
+T 14 source.go storage.type.error.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type ExemplarQueryable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 22 source.go entity.name.type.go
+T 23 source.go
+T 32 source.go keyword.interface.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	// ExemplarQuerier returns a new ExemplarQuerier on the storage.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	ExemplarQuerier(ctx context.Context) (ExemplarQuerier, error)
+T 1 source.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.period.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.round.go
+T 54 source.go entity.name.type.go
+T 55 source.go punctuation.other.comma.go
+T 56 source.go
+T 61 source.go storage.type.error.go
+T 62 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ExemplarQuerier provides reading access to time series data.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L type ExemplarQuerier interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go
+T 30 source.go keyword.interface.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Select all the exemplars that match the matchers.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L 	// Within a single slice of matchers, it is an intersection. Between the slices, it is a union.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 96 source.go comment.line.double-slash.go
+L 	Select(start, end int64, matchers ...[]*labels.Matcher) ([]exemplar.QueryResult, error)
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.parameter.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 18 source.go variable.parameter.go
+T 19 source.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 34 source.go variable.parameter.go
+T 35 source.go
+T 38 source.go keyword.operator.ellipsis.go
+T 39 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go punctuation.definition.end.bracket.square.go
+T 41 source.go keyword.operator.address.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.other.period.go
+T 55 source.go entity.name.type.go
+T 56 source.go punctuation.definition.end.bracket.round.go
+T 57 source.go
+T 58 source.go punctuation.definition.begin.bracket.round.go
+T 59 source.go punctuation.definition.begin.bracket.square.go
+T 60 source.go punctuation.definition.end.bracket.square.go
+T 68 source.go entity.name.type.go
+T 69 source.go punctuation.other.period.go
+T 80 source.go entity.name.type.go
+T 81 source.go punctuation.other.comma.go
+T 82 source.go
+T 87 source.go storage.type.error.go
+T 88 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SelectHints specifies hints passed for data selections.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L // This is used only as an option for implementation to use.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L type SelectHints struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go
+T 23 source.go keyword.struct.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	Start int64 // Start time in milliseconds for this select.
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 12 source.go storage.type.numeric.go
+T 13 source.go
+T 15 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	End   int64 // End time in milliseconds for this select.
+T 1 source.go
+T 4 source.go variable.other.property.go
+T 7 source.go
+T 12 source.go storage.type.numeric.go
+T 13 source.go
+T 15 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 
+L 	// Maximum number of results returned. Use a value of 0 to disable.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	Limit int
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 10 source.go storage.type.numeric.go
+L 
+L 	Step int64  // Query step size in milliseconds.
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go
+T 11 source.go storage.type.numeric.go
+T 13 source.go
+T 15 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	Func string // String representation of surrounding function or aggregation.
+T 1 source.go
+T 5 source.go variable.other.property.go
+T 6 source.go
+T 12 source.go storage.type.string.go
+T 13 source.go
+T 15 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 
+L 	Grouping []string // List of label names used in aggregation.
+T 1 source.go
+T 9 source.go variable.other.property.go
+T 10 source.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go storage.type.string.go
+T 19 source.go
+T 21 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	By       bool     // Indicate whether it is without or by.
+T 1 source.go
+T 3 source.go variable.other.property.go
+T 10 source.go
+T 14 source.go storage.type.boolean.go
+T 19 source.go
+T 21 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	Range    int64    // Range vector selector range in milliseconds.
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 10 source.go
+T 15 source.go storage.type.numeric.go
+T 19 source.go
+T 21 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 
+L 	// ShardCount is the total number of shards that series should be split into
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// at query time. Then, only series in the ShardIndex shard will be returned
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// by the query.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 17 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// ShardCount equal to 0 means that sharding is disabled.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	ShardCount uint64
+T 1 source.go
+T 11 source.go variable.other.property.go
+T 12 source.go
+T 18 source.go storage.type.numeric.go
+L 
+L 	// ShardIndex is the series shard index to query. The index must be between 0 and ShardCount-1.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 96 source.go comment.line.double-slash.go
+L 	// When ShardCount is set to a value > 0, then a query will only process series within the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 91 source.go comment.line.double-slash.go
+L 	// ShardIndex's shard.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 23 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// Series are sharded by "labels stable hash" mod "ShardCount".
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	ShardIndex uint64
+T 1 source.go
+T 11 source.go variable.other.property.go
+T 12 source.go
+T 18 source.go storage.type.numeric.go
+L 
+L 	// DisableTrimming allows to disable trimming of matching series chunks based on query Start and End time.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 107 source.go comment.line.double-slash.go
+L 	// When disabled, the result may contain samples outside the queried time range but Select() performances
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 106 source.go comment.line.double-slash.go
+L 	// may be improved.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L 	DisableTrimming bool
+T 1 source.go
+T 16 source.go variable.other.property.go
+T 17 source.go
+T 21 source.go storage.type.boolean.go
+L 
+L 	// Projection hints. They are currently unused in the Prometheus promql engine but can be used by different
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 108 source.go comment.line.double-slash.go
+L 	// implementations of the Queryable interface and engines.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	// These hints are useful for queries like `sum by (label) (rate(metric[5m]))` - we can safely evaluate it
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 107 source.go comment.line.double-slash.go
+L 	// even if we only fetch the `label` label. For some storage implementations this is beneficial.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 97 source.go comment.line.double-slash.go
+L 
+L 	// ProjectionLabels are the minimum amount of labels required to be fetched for this Select call
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 97 source.go comment.line.double-slash.go
+L 	// When honored it is required to add an __series_hash__ label containing the hash of all labels
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 97 source.go comment.line.double-slash.go
+L 	// of a particular series so that the engine can still perform horizontal joins.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 81 source.go comment.line.double-slash.go
+L 	ProjectionLabels []string
+T 1 source.go
+T 17 source.go variable.other.property.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go storage.type.string.go
+L 
+L 	// ProjectionInclude defines if we have to include or exclude the labels from the ProjectLabels field.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 103 source.go comment.line.double-slash.go
+L 	ProjectionInclude bool
+T 1 source.go
+T 18 source.go variable.other.property.go
+T 19 source.go
+T 23 source.go storage.type.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Filter determines whether a value should be included in results.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // Returns (accepted, score) where score is used for relevance ranking.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // Score should be in range [0.0, 1.0] where 1.0 is perfect match.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L type Filter interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	Accept(value string) (accepted bool, score float64)
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 20 source.go storage.type.string.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 36 source.go storage.type.boolean.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 51 source.go storage.type.numeric.go
+T 52 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Ordering is a closed set of result orderings that searchers may natively
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // produce and that the merge layer can exploit for streaming k-way merges.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // New orderings must be added explicitly here so that wire protocols,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L // downstream implementations, and merge strategies stay in sync.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L type Ordering uint8
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 19 source.go storage.type.numeric.go
+L 
+L const (
+T 5 source.go keyword.const.go
+T 6 source.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+L 	// OrderByValueAsc orders results ascending by Value. This matches the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	// natural index order and is the zero value of Ordering.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	OrderByValueAsc Ordering = iota
+T 1 source.go
+T 16 source.go variable.other.constant.go
+T 17 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go
+T 27 source.go keyword.operator.assignment.go
+T 28 source.go
+T 32 source.go constant.language.iota.go
+L 	// OrderByValueDesc orders results descending by Value.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L 	OrderByValueDesc
+T 1 source.go
+T 17 source.go variable.other.constant.go
+L 	// OrderByScoreDesc orders results descending by Score, breaking ties
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	// ascending by Value for determinism.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 39 source.go comment.line.double-slash.go
+L 	OrderByScoreDesc
+T 1 source.go
+T 17 source.go variable.other.constant.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L // SearchResultSet is an iterator over search results.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Callers must call Close when done, regardless of whether all results were consumed.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L type SearchResultSet interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go
+T 30 source.go keyword.interface.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Next advances the iterator. Returns false when exhausted or on error.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	Next() bool
+T 1 source.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+T 8 source.go
+T 12 source.go storage.type.boolean.go
+L 	// At returns the current search result. Must only be called after a successful Next.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L 	At() SearchResult
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+T 6 source.go
+T 18 source.go entity.name.type.go
+L 	// Warnings returns warnings accumulated so far.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	Warnings() annotations.Annotations
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+L 	// Err returns any error that caused iteration to stop.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L 	Err() error
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 12 source.go storage.type.error.go
+L 	// Close releases resources associated with this result set.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L 	Close() error
+T 1 source.go
+T 6 source.go entity.name.function.support.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go
+T 14 source.go storage.type.error.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type emptySearchResultSet struct{}
+T 4 source.go keyword.type.go
+T 5 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go
+T 32 source.go keyword.struct.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+T 34 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (emptySearchResultSet) Next() bool                        { return false }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 32 source.go entity.name.function.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 39 source.go storage.type.boolean.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 77 source.go constant.language.boolean.go
+T 78 source.go
+T 79 source.go punctuation.definition.end.bracket.curly.go
+L func (emptySearchResultSet) At() SearchResult                  { return SearchResult{} }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 45 source.go entity.name.type.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 84 source.go entity.name.type.go
+T 85 source.go punctuation.definition.begin.bracket.curly.go
+T 86 source.go punctuation.definition.end.bracket.curly.go
+T 87 source.go
+T 88 source.go punctuation.definition.end.bracket.curly.go
+L func (emptySearchResultSet) Warnings() annotations.Annotations { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 36 source.go entity.name.function.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.period.go
+T 62 source.go entity.name.type.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 75 source.go constant.language.null.go
+T 76 source.go
+T 77 source.go punctuation.definition.end.bracket.curly.go
+L func (emptySearchResultSet) Err() error                        { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 39 source.go storage.type.error.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 75 source.go constant.language.null.go
+T 76 source.go
+T 77 source.go punctuation.definition.end.bracket.curly.go
+L func (emptySearchResultSet) Close() error                      { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 33 source.go entity.name.function.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 41 source.go storage.type.error.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 75 source.go constant.language.null.go
+T 76 source.go
+T 77 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // EmptySearchResultSet returns a SearchResultSet that contains no results.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L func EmptySearchResultSet() SearchResultSet { return emptySearchResultSet{} }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+T 46 source.go
+T 52 source.go keyword.control.go
+T 53 source.go
+T 73 source.go entity.name.type.go
+T 74 source.go punctuation.definition.begin.bracket.curly.go
+T 75 source.go punctuation.definition.end.bracket.curly.go
+T 76 source.go
+T 77 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type errSearchResultSet struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go
+T 30 source.go keyword.struct.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	err      error
+T 1 source.go
+T 4 source.go variable.other.property.go
+T 10 source.go
+T 15 source.go storage.type.error.go
+L 	warnings annotations.Annotations
+T 1 source.go
+T 9 source.go variable.other.property.go
+T 10 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.period.go
+T 33 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (errSearchResultSet) Next() bool                          { return false }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 37 source.go storage.type.boolean.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 77 source.go constant.language.boolean.go
+T 78 source.go
+T 79 source.go punctuation.definition.end.bracket.curly.go
+L func (errSearchResultSet) At() SearchResult                    { return SearchResult{} }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 28 source.go entity.name.function.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 43 source.go entity.name.type.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 84 source.go entity.name.type.go
+T 85 source.go punctuation.definition.begin.bracket.curly.go
+T 86 source.go punctuation.definition.end.bracket.curly.go
+T 87 source.go
+T 88 source.go punctuation.definition.end.bracket.curly.go
+L func (s errSearchResultSet) Warnings() annotations.Annotations { return s.warnings }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 36 source.go entity.name.function.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.period.go
+T 62 source.go entity.name.type.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 73 source.go variable.other.go
+T 74 source.go punctuation.other.period.go
+T 82 source.go variable.other.go
+T 83 source.go
+T 84 source.go punctuation.definition.end.bracket.curly.go
+L func (s errSearchResultSet) Err() error                        { return s.err }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 39 source.go storage.type.error.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 73 source.go variable.other.go
+T 74 source.go punctuation.other.period.go
+T 77 source.go variable.other.go
+T 78 source.go
+T 79 source.go punctuation.definition.end.bracket.curly.go
+L func (errSearchResultSet) Close() error                        { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 39 source.go storage.type.error.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.curly.go
+T 65 source.go
+T 71 source.go keyword.control.go
+T 72 source.go
+T 75 source.go constant.language.null.go
+T 76 source.go
+T 77 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ErrSearchResultSet returns a SearchResultSet that immediately returns the given error.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 89 source.go comment.line.double-slash.go
+L // Any supplied annotations.Annotations are merged and exposed via Warnings, allowing
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 85 source.go comment.line.double-slash.go
+L // callers to surface warnings accumulated before the error occurred.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L func ErrSearchResultSet(err error, warnings ...annotations.Annotations) SearchResultSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 23 source.go entity.name.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 33 source.go storage.type.error.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 58 source.go entity.name.type.go
+T 59 source.go punctuation.other.period.go
+T 70 source.go entity.name.type.go
+T 71 source.go punctuation.definition.end.bracket.round.go
+T 72 source.go
+T 87 source.go entity.name.type.go
+T 88 source.go
+T 89 source.go punctuation.definition.begin.bracket.curly.go
+L 	var warns annotations.Annotations
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.other.period.go
+T 34 source.go entity.name.type.go
+L 	for _, w := range warnings {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 18 source.go keyword.control.go
+T 19 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		warns.Merge(w)
+T 2 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return errSearchResultSet{err: err, warnings: warns}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+T 30 source.go variable.other.property.go
+T 31 source.go punctuation.other.colon.go
+T 32 source.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 45 source.go variable.other.property.go
+T 46 source.go punctuation.other.colon.go
+T 47 source.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // LabelHints specifies hints passed for label reads.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // This is used only as an option for implementation to use.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L // Results are returned in natural (alphabetical) order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L type LabelHints struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go
+T 22 source.go keyword.struct.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Maximum number of results returned. Use a value of 0 to disable.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	Limit int
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 10 source.go storage.type.numeric.go
+L 
+L 	// LimitSmallest requires Limit and will select the lexically smallest N
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// values of the full set.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L 	LimitSmallest bool
+T 1 source.go
+T 14 source.go variable.other.property.go
+T 15 source.go
+T 19 source.go storage.type.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // AllowsEarlyStop reports whether a read may stop as soon as it holds Limit
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L // values. It will return false when no Limit is set or LimitSmallest is true.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 78 source.go comment.line.double-slash.go
+L func (h *LabelHints) AllowsEarlyStop() bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 36 source.go entity.name.function.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 43 source.go storage.type.boolean.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+L 	return h != nil && h.Limit > 0 && !h.LimitSmallest
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 16 source.go constant.language.null.go
+T 17 source.go
+T 19 source.go keyword.operator.logical.go
+T 20 source.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.other.period.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go keyword.operator.comparison.go
+T 30 source.go
+T 31 source.go constant.numeric.decimal.go
+T 32 source.go
+T 34 source.go keyword.operator.logical.go
+T 35 source.go
+T 36 source.go keyword.operator.logical.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.other.period.go
+T 51 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ApplyLimit reduces values to at most Limit entries. It keeps the lexically
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // smallest values when LimitSmallest is set, and otherwise the leading ones. A
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // nil receiver, and a Limit of zero or less, both leave values unchanged.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The limited result set is returned, along with a bool which indicates if the result
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L // has re-used the same input slice or if a newly allocated slice has been created.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Do not mutate the returned slice if the returned allocated=false.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func (h *LabelHints) ApplyLimit(values []string) (limited []string, allocated bool) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 31 source.go entity.name.function.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 38 source.go variable.parameter.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.square.go
+T 41 source.go punctuation.definition.end.bracket.square.go
+T 47 source.go storage.type.string.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.round.go
+T 57 source.go variable.parameter.go
+T 58 source.go
+T 59 source.go punctuation.definition.begin.bracket.square.go
+T 60 source.go punctuation.definition.end.bracket.square.go
+T 66 source.go storage.type.string.go
+T 67 source.go punctuation.other.comma.go
+T 68 source.go
+T 77 source.go variable.parameter.go
+T 78 source.go
+T 82 source.go storage.type.boolean.go
+T 83 source.go punctuation.definition.end.bracket.round.go
+T 84 source.go
+T 85 source.go punctuation.definition.begin.bracket.curly.go
+L 	if h == nil || h.Limit <= 0 || len(values) <= h.Limit {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go
+T 8 source.go keyword.operator.comparison.go
+T 9 source.go
+T 12 source.go constant.language.null.go
+T 13 source.go
+T 15 source.go keyword.operator.logical.go
+T 16 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+T 24 source.go
+T 26 source.go keyword.operator.comparison.go
+T 27 source.go
+T 28 source.go constant.numeric.decimal.go
+T 29 source.go
+T 31 source.go keyword.operator.logical.go
+T 32 source.go
+T 35 source.go entity.name.function.support.builtin.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+T 44 source.go
+T 46 source.go keyword.operator.comparison.go
+T 47 source.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.other.period.go
+T 54 source.go variable.other.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 		return values, false
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.other.comma.go
+T 17 source.go
+T 22 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	if h.LimitSmallest {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 19 source.go variable.other.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 		return smallestNValues(values, h.Limit), true
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 24 source.go entity.name.function.support.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.other.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.other.period.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 47 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return values[:h.Limit], false
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go punctuation.other.colon.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 31 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SearchHints configures search operations with filtering and scoring.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // Unlike LabelHints, SearchHints is specifically designed for search APIs
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L // that need relevance scoring and ranking.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L type SearchHints struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go
+T 23 source.go keyword.struct.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Filter determines which values to include and their relevance scores.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// A nil Filter accepts all values and each result has a score of 1.0.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	Filter Filter
+T 1 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go
+T 14 source.go entity.name.type.go
+L 
+L 	// Limit is the maximum number of results to return.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L 	// Use 0 to disable limiting.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L 	Limit int
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 10 source.go storage.type.numeric.go
+L 
+L 	// OrderBy selects the ordering of results. The zero value is
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	// OrderByValueAsc, which matches the natural index order.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	OrderBy Ordering
+T 1 source.go
+T 8 source.go variable.other.property.go
+T 9 source.go
+T 17 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SearchResult represents a single search result with its relevance score.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L type SearchResult struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go
+T 24 source.go keyword.struct.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Value is the label name or label value.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L 	Value string
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 13 source.go storage.type.string.go
+L 
+L 	// Score represents relevance, with 1.0 being a perfect match.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L 	// Score range is [0.0, 1.0].
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L 	Score float64
+T 1 source.go
+T 6 source.go variable.other.property.go
+T 7 source.go
+T 14 source.go storage.type.numeric.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Searcher provides search capabilities with relevance scoring.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L // This interface is designed for autocomplete and search UIs that need
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L // to rank results by relevance rather than just filter them.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // For a given Value and SearchHints.Filter, Score must be deterministic
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // and identical across Searcher implementations.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L type Searcher interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 23 source.go keyword.interface.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	// SearchLabelNames returns an iterator over label names matching the search criteria.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 87 source.go comment.line.double-slash.go
+L 	// Results include relevance scores based on the Filter.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 	// The caller must call Close on the returned SearchResultSet when done.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	SearchLabelNames(ctx context.Context, hints *SearchHints, matchers ...*labels.Matcher) SearchResultSet
+T 1 source.go
+T 17 source.go entity.name.function.support.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.other.period.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.other.comma.go
+T 39 source.go
+T 44 source.go variable.parameter.go
+T 45 source.go
+T 46 source.go keyword.operator.address.go
+T 57 source.go entity.name.type.go
+T 58 source.go punctuation.other.comma.go
+T 59 source.go
+T 67 source.go variable.parameter.go
+T 68 source.go
+T 71 source.go keyword.operator.ellipsis.go
+T 72 source.go keyword.operator.address.go
+T 78 source.go entity.name.type.go
+T 79 source.go punctuation.other.period.go
+T 86 source.go entity.name.type.go
+T 87 source.go punctuation.definition.end.bracket.round.go
+T 88 source.go
+T 103 source.go entity.name.type.go
+L 
+L 	// SearchLabelValues returns an iterator over label values for the given label name.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 85 source.go comment.line.double-slash.go
+L 	// Results include relevance scores based on the Filter.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 	// The caller must call Close on the returned SearchResultSet when done.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	SearchLabelValues(ctx context.Context, name string, hints *SearchHints, matchers ...*labels.Matcher) SearchResultSet
+T 1 source.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.period.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.other.comma.go
+T 40 source.go
+T 44 source.go variable.parameter.go
+T 45 source.go
+T 51 source.go storage.type.string.go
+T 52 source.go punctuation.other.comma.go
+T 53 source.go
+T 58 source.go variable.parameter.go
+T 59 source.go
+T 60 source.go keyword.operator.address.go
+T 71 source.go entity.name.type.go
+T 72 source.go punctuation.other.comma.go
+T 73 source.go
+T 81 source.go variable.parameter.go
+T 82 source.go
+T 85 source.go keyword.operator.ellipsis.go
+T 86 source.go keyword.operator.address.go
+T 92 source.go entity.name.type.go
+T 93 source.go punctuation.other.period.go
+T 100 source.go entity.name.type.go
+T 101 source.go punctuation.definition.end.bracket.round.go
+T 102 source.go
+T 117 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // QueryableFunc is an adapter to allow the use of ordinary functions as
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // Queryables. It follows the idea of http.HandlerFunc.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L // TODO(bwplotka): Move to promql/engine_test.go?
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L type QueryableFunc func(mint, maxt int64) (Querier, error)
+T 4 source.go keyword.type.go
+T 5 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go
+T 23 source.go keyword.function.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 34 source.go variable.parameter.go
+T 35 source.go
+T 40 source.go storage.type.numeric.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.round.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.comma.go
+T 52 source.go
+T 57 source.go storage.type.error.go
+T 58 source.go punctuation.definition.end.bracket.round.go
+L 
+L // Querier calls f() with the given parameters.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L func (f QueryableFunc) Querier(mint, maxt int64) (Querier, error) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go variable.parameter.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 41 source.go variable.parameter.go
+T 42 source.go
+T 47 source.go storage.type.numeric.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.round.go
+T 57 source.go entity.name.type.go
+T 58 source.go punctuation.other.comma.go
+T 59 source.go
+T 64 source.go storage.type.error.go
+T 65 source.go punctuation.definition.end.bracket.round.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+L 	return f(mint, maxt)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // AppendOptions provides options for implementations of the Appender interface.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // AppendOptions will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L type AppendOptions struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go
+T 25 source.go keyword.struct.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	// DiscardOutOfOrder tells implementation that this append should not be out
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// of order. An OOO append MUST be rejected with storage.ErrOutOfOrderSample
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// error.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 10 source.go comment.line.double-slash.go
+L 	DiscardOutOfOrder bool
+T 1 source.go
+T 18 source.go variable.other.property.go
+T 19 source.go
+T 23 source.go storage.type.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Appender provides batched appends against a storage.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L // It must be completed with a call to Commit or Rollback and must not be reused afterwards.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 92 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // Operations on the Appender interface are not goroutine-safe.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // The order of samples appended via the Appender is preserved within each series.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 82 source.go comment.line.double-slash.go
+L // I.e. timestamp order within batch is not validated, samples are not reordered per timestamp or by float/histogram
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // type.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 8 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // Appender will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L type Appender interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 23 source.go keyword.interface.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	AppenderTransaction
+T 1 source.go
+T 20 source.go entity.name.type.go
+L 
+L 	// Append adds a sample pair for the given series.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L 	// An optional series reference can be provided to accelerate calls.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L 	// A series reference number is returned which can be used to add further
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L 	// samples to the given series in the same or later transactions.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 	// Returned reference numbers are ephemeral and may be rejected in calls
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// to Append() at any point. Adding the sample via Append() returns a new
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L 	// reference number.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 21 source.go comment.line.double-slash.go
+L 	// If the reference is 0 it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	Append(ref SeriesRef, l labels.Labels, t int64, v float64) (SeriesRef, error)
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.other.comma.go
+T 23 source.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.other.period.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.other.comma.go
+T 40 source.go
+T 41 source.go variable.parameter.go
+T 42 source.go
+T 47 source.go storage.type.numeric.go
+T 48 source.go punctuation.other.comma.go
+T 49 source.go
+T 50 source.go variable.parameter.go
+T 51 source.go
+T 58 source.go storage.type.numeric.go
+T 59 source.go punctuation.definition.end.bracket.round.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.round.go
+T 70 source.go entity.name.type.go
+T 71 source.go punctuation.other.comma.go
+T 72 source.go
+T 77 source.go storage.type.error.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	// SetOptions configures the appender with specific append options such as
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L 	// discarding out-of-order samples even if out-of-order is enabled in the TSDB.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L 	SetOptions(opts *AppendOptions)
+T 1 source.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 18 source.go keyword.operator.address.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+L 
+L 	ExemplarAppender
+T 1 source.go
+T 17 source.go entity.name.type.go
+L 	HistogramAppender
+T 1 source.go
+T 18 source.go entity.name.type.go
+L 	MetadataUpdater
+T 1 source.go
+T 16 source.go entity.name.type.go
+L 	StartTimestampAppender
+T 1 source.go
+T 23 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // GetRef is an extra interface on Appenders used by downstream projects
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 72 source.go comment.line.double-slash.go
+L // (e.g. Cortex) to avoid maintaining a parallel set of references.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L type GetRef interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	// GetRef returns a reference number that can be used to pass to AppenderV2.Append(),
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L 	// and a set of labels that will not cause another copy when passed to AppenderV2.Append().
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 92 source.go comment.line.double-slash.go
+L 	// 0 means the appender does not have a reference to this series.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L 	// hash should be a hash of lset.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L 	GetRef(lset labels.Labels, hash uint64) (SeriesRef, labels.Labels)
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.other.period.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.other.comma.go
+T 28 source.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 39 source.go storage.type.numeric.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.round.go
+T 51 source.go entity.name.type.go
+T 52 source.go punctuation.other.comma.go
+T 53 source.go
+T 59 source.go entity.name.type.go
+T 60 source.go punctuation.other.period.go
+T 66 source.go entity.name.type.go
+T 67 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ExemplarAppender provides an interface for adding samples to exemplar storage, which
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 87 source.go comment.line.double-slash.go
+L // within Prometheus is in-memory only.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 39 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // ExemplarAppender will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L type ExemplarAppender interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go
+T 31 source.go keyword.interface.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 	// AppendExemplar adds an exemplar for the given series labels.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	// An optional reference number can be provided to accelerate calls.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L 	// A reference number is returned which can be used to add further
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// exemplars in the same or later transactions.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L 	// Returned reference numbers are ephemeral and may be rejected in calls
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// to Append() at any point. Adding the sample via Append() returns a new
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 74 source.go comment.line.double-slash.go
+L 	// reference number.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 21 source.go comment.line.double-slash.go
+L 	// If the reference is 0 it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	// Note that in our current implementation of Prometheus' exemplar storage
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L 	// calls to Append should generate the reference numbers, AppendExemplar
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// generating a new reference number should be considered possible erroneous behaviour and be logged.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 102 source.go comment.line.double-slash.go
+L 	AppendExemplar(ref SeriesRef, l labels.Labels, e exemplar.Exemplar) (SeriesRef, error)
+T 1 source.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 49 source.go variable.parameter.go
+T 50 source.go
+T 58 source.go entity.name.type.go
+T 59 source.go punctuation.other.period.go
+T 67 source.go entity.name.type.go
+T 68 source.go punctuation.definition.end.bracket.round.go
+T 69 source.go
+T 70 source.go punctuation.definition.begin.bracket.round.go
+T 79 source.go entity.name.type.go
+T 80 source.go punctuation.other.comma.go
+T 81 source.go
+T 86 source.go storage.type.error.go
+T 87 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // HistogramAppender provides an interface for appending histograms to the storage.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // HistogramAppender will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L type HistogramAppender interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 22 source.go entity.name.type.go
+T 23 source.go
+T 32 source.go keyword.interface.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	// AppendHistogram adds a histogram for the given series labels. An
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	// optional reference number can be provided to accelerate calls. A
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	// reference number is returned which can be used to add further
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L 	// histograms in the same or later transactions. Returned reference
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	// numbers are ephemeral and may be rejected in calls to Append() at any
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// point. Adding the sample via Append() returns a new reference number.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// If the reference is 0, it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// For efficiency reasons, the histogram is passed as a
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 56 source.go comment.line.double-slash.go
+L 	// pointer. AppendHistogram won't mutate the histogram, but in turn
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L 	// depends on the caller to not mutate it either.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L 	AppendHistogram(ref SeriesRef, l labels.Labels, t int64, h *histogram.Histogram, fh *histogram.FloatHistogram) (SeriesRef, error)
+T 1 source.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.comma.go
+T 32 source.go
+T 33 source.go variable.parameter.go
+T 34 source.go
+T 40 source.go entity.name.type.go
+T 41 source.go punctuation.other.period.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.other.comma.go
+T 49 source.go
+T 50 source.go variable.parameter.go
+T 51 source.go
+T 56 source.go storage.type.numeric.go
+T 57 source.go punctuation.other.comma.go
+T 58 source.go
+T 59 source.go variable.parameter.go
+T 60 source.go
+T 61 source.go keyword.operator.address.go
+T 70 source.go entity.name.type.go
+T 71 source.go punctuation.other.period.go
+T 80 source.go entity.name.type.go
+T 81 source.go punctuation.other.comma.go
+T 82 source.go
+T 84 source.go variable.parameter.go
+T 85 source.go
+T 86 source.go keyword.operator.address.go
+T 95 source.go entity.name.type.go
+T 96 source.go punctuation.other.period.go
+T 110 source.go entity.name.type.go
+T 111 source.go punctuation.definition.end.bracket.round.go
+T 112 source.go
+T 113 source.go punctuation.definition.begin.bracket.round.go
+T 122 source.go entity.name.type.go
+T 123 source.go punctuation.other.comma.go
+T 124 source.go
+T 129 source.go storage.type.error.go
+T 130 source.go punctuation.definition.end.bracket.round.go
+L 	// AppendHistogramSTZeroSample adds synthetic zero sample for the given st timestamp,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 86 source.go comment.line.double-slash.go
+L 	// which will be associated with given series, labels and the incoming
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	// sample's t (timestamp). AppendHistogramSTZeroSample returns error if zero sample can't be
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 93 source.go comment.line.double-slash.go
+L 	// appended, for example when st is too old, or when it would collide with
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L 	// incoming sample (sample has priority).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// AppendHistogramSTZeroSample has to be called before the corresponding histogram AppendHistogram.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 100 source.go comment.line.double-slash.go
+L 	// A series reference number is returned which can be used to modify the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// ST for the given series in the same or later transactions.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	// Returned reference numbers are ephemeral and may be rejected in calls
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// to AppendHistogramSTZeroSample() at any point.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// If the reference is 0 it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	AppendHistogramSTZeroSample(ref SeriesRef, l labels.Labels, t, st int64, h *histogram.Histogram, fh *histogram.FloatHistogram) (SeriesRef, error)
+T 1 source.go
+T 28 source.go entity.name.function.support.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.other.comma.go
+T 44 source.go
+T 45 source.go variable.parameter.go
+T 46 source.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.other.period.go
+T 59 source.go entity.name.type.go
+T 60 source.go punctuation.other.comma.go
+T 61 source.go
+T 62 source.go variable.parameter.go
+T 63 source.go punctuation.other.comma.go
+T 64 source.go
+T 66 source.go variable.parameter.go
+T 67 source.go
+T 72 source.go storage.type.numeric.go
+T 73 source.go punctuation.other.comma.go
+T 74 source.go
+T 75 source.go variable.parameter.go
+T 76 source.go
+T 77 source.go keyword.operator.address.go
+T 86 source.go entity.name.type.go
+T 87 source.go punctuation.other.period.go
+T 96 source.go entity.name.type.go
+T 97 source.go punctuation.other.comma.go
+T 98 source.go
+T 100 source.go variable.parameter.go
+T 101 source.go
+T 102 source.go keyword.operator.address.go
+T 111 source.go entity.name.type.go
+T 112 source.go punctuation.other.period.go
+T 126 source.go entity.name.type.go
+T 127 source.go punctuation.definition.end.bracket.round.go
+T 128 source.go
+T 129 source.go punctuation.definition.begin.bracket.round.go
+T 138 source.go entity.name.type.go
+T 139 source.go punctuation.other.comma.go
+T 140 source.go
+T 145 source.go storage.type.error.go
+T 146 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // MetadataUpdater provides an interface for associating metadata to stored series.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 83 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // MetadataUpdater will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L type MetadataUpdater interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go
+T 30 source.go keyword.interface.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	// UpdateMetadata updates a metadata entry for the given series and labels.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L 	// A series reference number is returned which can be used to modify the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// metadata of the given series in the same or later transactions.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// Returned reference numbers are ephemeral and may be rejected in calls
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// to UpdateMetadata() at any point. If the series does not exist,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L 	// UpdateMetadata returns an error.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 36 source.go comment.line.double-slash.go
+L 	// If the reference is 0 it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	UpdateMetadata(ref SeriesRef, l labels.Labels, m metadata.Metadata) (SeriesRef, error)
+T 1 source.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.parameter.go
+T 20 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.other.comma.go
+T 31 source.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.other.comma.go
+T 48 source.go
+T 49 source.go variable.parameter.go
+T 50 source.go
+T 58 source.go entity.name.type.go
+T 59 source.go punctuation.other.period.go
+T 67 source.go entity.name.type.go
+T 68 source.go punctuation.definition.end.bracket.round.go
+T 69 source.go
+T 70 source.go punctuation.definition.begin.bracket.round.go
+T 79 source.go entity.name.type.go
+T 80 source.go punctuation.other.comma.go
+T 81 source.go
+T 86 source.go storage.type.error.go
+T 87 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // StartTimestampAppender provides an interface for appending ST to storage.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 76 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // WARNING(bwplotka): Switch to AppendableV2 is in progress (https://github.com/prometheus/prometheus/issues/17632).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 116 source.go comment.line.double-slash.go
+L // StartTimestampAppender will be removed soon (ETA: Q2 2026).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L type StartTimestampAppender interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 27 source.go entity.name.type.go
+T 28 source.go
+T 37 source.go keyword.interface.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+L 	// AppendSTZeroSample adds synthetic zero sample for the given st timestamp,
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L 	// which will be associated with given series, labels and the incoming
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 71 source.go comment.line.double-slash.go
+L 	// sample's t (timestamp). AppendSTZeroSample returns error if zero sample can't be
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 84 source.go comment.line.double-slash.go
+L 	// appended, for example when st is too old, or when it would collide with
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L 	// incoming sample (sample has priority).
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// AppendSTZeroSample has to be called before the corresponding sample Append.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L 	// A series reference number is returned which can be used to modify the
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// ST for the given series in the same or later transactions.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	// Returned reference numbers are ephemeral and may be rejected in calls
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L 	// to AppendSTZeroSample() at any point.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L 	//
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L 	// If the reference is 0 it must not be used for caching.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L 	AppendSTZeroSample(ref SeriesRef, l labels.Labels, t, st int64) (SeriesRef, error)
+T 1 source.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go variable.parameter.go
+T 24 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.comma.go
+T 35 source.go
+T 36 source.go variable.parameter.go
+T 37 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.other.period.go
+T 50 source.go entity.name.type.go
+T 51 source.go punctuation.other.comma.go
+T 52 source.go
+T 53 source.go variable.parameter.go
+T 54 source.go punctuation.other.comma.go
+T 55 source.go
+T 57 source.go variable.parameter.go
+T 58 source.go
+T 63 source.go storage.type.numeric.go
+T 64 source.go punctuation.definition.end.bracket.round.go
+T 65 source.go
+T 66 source.go punctuation.definition.begin.bracket.round.go
+T 75 source.go entity.name.type.go
+T 76 source.go punctuation.other.comma.go
+T 77 source.go
+T 82 source.go storage.type.error.go
+T 83 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SeriesSet contains a set of series.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 38 source.go comment.line.double-slash.go
+L type SeriesSet interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go
+T 24 source.go keyword.interface.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	Next() bool
+T 1 source.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+T 8 source.go
+T 12 source.go storage.type.boolean.go
+L 	// At returns full series. Returned series should be iterable even after Next is called.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 89 source.go comment.line.double-slash.go
+L 	At() Series
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+T 6 source.go
+T 12 source.go entity.name.type.go
+L 	// Err returns the error that iteration has failed with.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 	// When an error occurs, set cannot continue to iterate.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 	Err() error
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 12 source.go storage.type.error.go
+L 	// Warnings returns a collection of warnings for the whole set.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L 	// Warnings could be return even iteration has not failed with error.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	Warnings() annotations.Annotations
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L var emptySeriesSet = errSeriesSet{}
+T 3 source.go keyword.var.go
+T 4 source.go
+T 18 source.go variable.other.assignment.go
+T 19 source.go
+T 20 source.go keyword.operator.assignment.go
+T 21 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+T 35 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // EmptySeriesSet returns a series set that's always empty.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L func EmptySeriesSet() SeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go
+T 33 source.go punctuation.definition.begin.bracket.curly.go
+L 	return emptySeriesSet
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 22 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type testSeriesSet struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go
+T 25 source.go keyword.struct.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	series Series
+T 1 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go
+T 14 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (testSeriesSet) Next() bool                        { return true }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 32 source.go storage.type.boolean.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+T 58 source.go
+T 64 source.go keyword.control.go
+T 65 source.go
+T 69 source.go constant.language.boolean.go
+T 70 source.go
+T 71 source.go punctuation.definition.end.bracket.curly.go
+L func (s testSeriesSet) At() Series                      { return s.series }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 34 source.go entity.name.type.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+T 58 source.go
+T 64 source.go keyword.control.go
+T 65 source.go
+T 66 source.go variable.other.go
+T 67 source.go punctuation.other.period.go
+T 73 source.go variable.other.go
+T 74 source.go
+T 75 source.go punctuation.definition.end.bracket.curly.go
+L func (testSeriesSet) Err() error                        { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 32 source.go storage.type.error.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+T 58 source.go
+T 64 source.go keyword.control.go
+T 65 source.go
+T 68 source.go constant.language.null.go
+T 69 source.go
+T 70 source.go punctuation.definition.end.bracket.curly.go
+L func (testSeriesSet) Warnings() annotations.Annotations { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+T 21 source.go
+T 29 source.go entity.name.function.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.other.period.go
+T 55 source.go entity.name.type.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+T 58 source.go
+T 64 source.go keyword.control.go
+T 65 source.go
+T 68 source.go constant.language.null.go
+T 69 source.go
+T 70 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // TestSeriesSet returns a mock series set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L func TestSeriesSet(series Series) SeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 32 source.go entity.name.type.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+L 	return testSeriesSet{series: series}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+T 28 source.go variable.other.property.go
+T 29 source.go punctuation.other.colon.go
+T 30 source.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type errSeriesSet struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go
+T 24 source.go keyword.struct.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	err error
+T 1 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 10 source.go storage.type.error.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (errSeriesSet) Next() bool                        { return false }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 31 source.go storage.type.boolean.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+T 57 source.go
+T 63 source.go keyword.control.go
+T 64 source.go
+T 69 source.go constant.language.boolean.go
+T 70 source.go
+T 71 source.go punctuation.definition.end.bracket.curly.go
+L func (errSeriesSet) At() Series                        { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 31 source.go entity.name.type.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+T 57 source.go
+T 63 source.go keyword.control.go
+T 64 source.go
+T 67 source.go constant.language.null.go
+T 68 source.go
+T 69 source.go punctuation.definition.end.bracket.curly.go
+L func (s errSeriesSet) Err() error                      { return s.err }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 25 source.go entity.name.function.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 33 source.go storage.type.error.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+T 57 source.go
+T 63 source.go keyword.control.go
+T 64 source.go
+T 65 source.go variable.other.go
+T 66 source.go punctuation.other.period.go
+T 69 source.go variable.other.go
+T 70 source.go
+T 71 source.go punctuation.definition.end.bracket.curly.go
+L func (errSeriesSet) Warnings() annotations.Annotations { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 28 source.go entity.name.function.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.other.period.go
+T 54 source.go entity.name.type.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+T 57 source.go
+T 63 source.go keyword.control.go
+T 64 source.go
+T 67 source.go constant.language.null.go
+T 68 source.go
+T 69 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ErrSeriesSet returns a series set that wraps an error.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L func ErrSeriesSet(err error) SeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 17 source.go entity.name.function.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 27 source.go storage.type.error.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	return errSeriesSet{err: err}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+T 24 source.go variable.other.property.go
+T 25 source.go punctuation.other.colon.go
+T 26 source.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L var emptyChunkSeriesSet = errChunkSeriesSet{}
+T 3 source.go keyword.var.go
+T 4 source.go
+T 23 source.go variable.other.assignment.go
+T 24 source.go
+T 25 source.go keyword.operator.assignment.go
+T 26 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.definition.begin.bracket.curly.go
+T 45 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // EmptyChunkSeriesSet returns a chunk series set that's always empty.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L func EmptyChunkSeriesSet() ChunkSeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 24 source.go entity.name.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 41 source.go entity.name.type.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	return emptyChunkSeriesSet
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 27 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type errChunkSeriesSet struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 22 source.go entity.name.type.go
+T 23 source.go
+T 29 source.go keyword.struct.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 	err error
+T 1 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 10 source.go storage.type.error.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (errChunkSeriesSet) Next() bool                        { return false }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 29 source.go entity.name.function.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go
+T 36 source.go storage.type.boolean.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.curly.go
+T 62 source.go
+T 68 source.go keyword.control.go
+T 69 source.go
+T 74 source.go constant.language.boolean.go
+T 75 source.go
+T 76 source.go punctuation.definition.end.bracket.curly.go
+L func (errChunkSeriesSet) At() ChunkSeries                   { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 27 source.go entity.name.function.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go
+T 41 source.go entity.name.type.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.curly.go
+T 62 source.go
+T 68 source.go keyword.control.go
+T 69 source.go
+T 72 source.go constant.language.null.go
+T 73 source.go
+T 74 source.go punctuation.definition.end.bracket.curly.go
+L func (s errChunkSeriesSet) Err() error                      { return s.err }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 25 source.go entity.name.type.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 30 source.go entity.name.function.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 38 source.go storage.type.error.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.curly.go
+T 62 source.go
+T 68 source.go keyword.control.go
+T 69 source.go
+T 70 source.go variable.other.go
+T 71 source.go punctuation.other.period.go
+T 74 source.go variable.other.go
+T 75 source.go
+T 76 source.go punctuation.definition.end.bracket.curly.go
+L func (errChunkSeriesSet) Warnings() annotations.Annotations { return nil }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 33 source.go entity.name.function.go
+T 34 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.other.period.go
+T 59 source.go entity.name.type.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.curly.go
+T 62 source.go
+T 68 source.go keyword.control.go
+T 69 source.go
+T 72 source.go constant.language.null.go
+T 73 source.go
+T 74 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ErrChunkSeriesSet returns a chunk series set that wraps an error.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L func ErrChunkSeriesSet(err error) ChunkSeriesSet {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 32 source.go storage.type.error.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 48 source.go entity.name.type.go
+T 49 source.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+L 	return errChunkSeriesSet{err: err}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+T 29 source.go variable.other.property.go
+T 30 source.go punctuation.other.colon.go
+T 31 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Series exposes a single time series and allows iterating over samples.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L type Series interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	Labels
+T 1 source.go
+T 7 source.go entity.name.type.go
+L 	SampleIterable
+T 1 source.go
+T 15 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type mockSeries struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go
+T 22 source.go keyword.struct.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 	startTimestamps []int64
+T 1 source.go
+T 16 source.go variable.other.property.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go storage.type.numeric.go
+L 	timestamps      []int64
+T 1 source.go
+T 11 source.go variable.other.property.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go storage.type.numeric.go
+L 	values          []float64
+T 1 source.go
+T 7 source.go variable.other.property.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go storage.type.numeric.go
+L 	labelSet        []string
+T 1 source.go
+T 9 source.go variable.other.property.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go storage.type.string.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (s mockSeries) Labels() labels.Labels {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 26 source.go entity.name.function.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.other.period.go
+T 42 source.go entity.name.type.go
+T 43 source.go
+T 44 source.go punctuation.definition.begin.bracket.curly.go
+L 	return labels.FromStrings(s.labelSet...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 26 source.go entity.name.function.support.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.other.period.go
+T 37 source.go variable.other.go
+T 40 source.go keyword.operator.ellipsis.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (s mockSeries) Iterator(chunkenc.Iterator) chunkenc.Iterator {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 28 source.go entity.name.function.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go
+T 56 source.go entity.name.type.go
+T 57 source.go punctuation.other.period.go
+T 65 source.go entity.name.type.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+L 	return chunkenc.MockSeriesIterator(s.startTimestamps, s.timestamps, s.values)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 35 source.go entity.name.function.support.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.other.go
+T 38 source.go punctuation.other.period.go
+T 53 source.go variable.other.go
+T 54 source.go punctuation.other.comma.go
+T 55 source.go
+T 56 source.go variable.other.go
+T 57 source.go punctuation.other.period.go
+T 67 source.go variable.other.go
+T 68 source.go punctuation.other.comma.go
+T 69 source.go
+T 70 source.go variable.other.go
+T 71 source.go punctuation.other.period.go
+T 77 source.go variable.other.go
+T 78 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // MockSeries returns a series with custom start timestamp, timestamps, values,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // and labelSet.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L // Start timestamps is optional, pass nil or empty slice to indicate no start
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L // timestamps.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 14 source.go comment.line.double-slash.go
+L func MockSeries(startTimestamps, timestamps []int64, values []float64, labelSet []string) Series {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.parameter.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.square.go
+T 46 source.go punctuation.definition.end.bracket.square.go
+T 51 source.go storage.type.numeric.go
+T 52 source.go punctuation.other.comma.go
+T 53 source.go
+T 59 source.go variable.parameter.go
+T 60 source.go
+T 61 source.go punctuation.definition.begin.bracket.square.go
+T 62 source.go punctuation.definition.end.bracket.square.go
+T 69 source.go storage.type.numeric.go
+T 70 source.go punctuation.other.comma.go
+T 71 source.go
+T 79 source.go variable.parameter.go
+T 80 source.go
+T 81 source.go punctuation.definition.begin.bracket.square.go
+T 82 source.go punctuation.definition.end.bracket.square.go
+T 88 source.go storage.type.string.go
+T 89 source.go punctuation.definition.end.bracket.round.go
+T 90 source.go
+T 96 source.go entity.name.type.go
+T 97 source.go
+T 98 source.go punctuation.definition.begin.bracket.curly.go
+L 	return mockSeries{
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 		startTimestamps: startTimestamps,
+T 2 source.go
+T 17 source.go variable.other.property.go
+T 18 source.go punctuation.other.colon.go
+T 19 source.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.other.comma.go
+L 		timestamps:      timestamps,
+T 2 source.go
+T 12 source.go variable.other.property.go
+T 13 source.go punctuation.other.colon.go
+T 19 source.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.other.comma.go
+L 		values:          values,
+T 2 source.go
+T 8 source.go variable.other.property.go
+T 9 source.go punctuation.other.colon.go
+T 19 source.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.other.comma.go
+L 		labelSet:        labelSet,
+T 2 source.go
+T 10 source.go variable.other.property.go
+T 11 source.go punctuation.other.colon.go
+T 19 source.go
+T 27 source.go variable.other.go
+T 28 source.go punctuation.other.comma.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ChunkSeriesSet contains a set of chunked series.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L type ChunkSeriesSet interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go
+T 29 source.go keyword.interface.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 	Next() bool
+T 1 source.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+T 8 source.go
+T 12 source.go storage.type.boolean.go
+L 	// At returns full chunk series. Returned series should be iterable even after Next is called.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 95 source.go comment.line.double-slash.go
+L 	At() ChunkSeries
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+T 6 source.go
+T 17 source.go entity.name.type.go
+L 	// The error that iteration has failed with.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L 	// When an error occurs, set cannot continue to iterate.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L 	Err() error
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 12 source.go storage.type.error.go
+L 	// A collection of warnings for the whole set.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 47 source.go comment.line.double-slash.go
+L 	// Warnings could be return even iteration has not failed with error.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 70 source.go comment.line.double-slash.go
+L 	Warnings() annotations.Annotations
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // ChunkSeries exposes a single time series and allows iterating over chunks.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L type ChunkSeries interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go
+T 26 source.go keyword.interface.go
+T 27 source.go
+T 28 source.go punctuation.definition.begin.bracket.curly.go
+L 	Labels
+T 1 source.go
+T 7 source.go entity.name.type.go
+L 	ChunkIterable
+T 1 source.go
+T 14 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Labels represents an item that has labels e.g. time series.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L type Labels interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Labels returns the complete set of labels. For series it means all labels identifying the series.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 101 source.go comment.line.double-slash.go
+L 	Labels() labels.Labels
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go punctuation.definition.end.bracket.round.go
+T 10 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.period.go
+T 23 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type SampleIterable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 19 source.go entity.name.type.go
+T 20 source.go
+T 29 source.go keyword.interface.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Iterator returns an iterator of the data of the series.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 	// The iterator passed as argument is for re-use, if not nil.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L 	// Depending on implementation, the iterator can
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 	// be re-used or a new iterator can be allocated.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 50 source.go comment.line.double-slash.go
+L 	Iterator(chunkenc.Iterator) chunkenc.Iterator
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.other.period.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.other.period.go
+T 46 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type ChunkIterable interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go
+T 28 source.go keyword.interface.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 	// Iterator returns an iterator that iterates over potentially overlapping
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L 	// chunks of the series, sorted by min time.
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L 	Iterator(chunks.Iterator) chunks.Iterator
+T 1 source.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.period.go
+T 25 source.go entity.name.type.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.other.period.go
+T 42 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 

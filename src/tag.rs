@@ -96,6 +96,9 @@ tags! {
     /// GraphQL.
     #[cfg(feature = "lang-graphql")]
     GRAPHQL = 0x2200,
+    /// Go.
+    #[cfg(feature = "lang-go")]
+    GO = 0x2300,
     /// CSS.
     #[cfg(feature = "lang-css")]
     CSS = 0x2600,

@@ -1,0 +1,1555 @@
+L /*
+T 2 source.go comment.block.go punctuation.definition.comment.go
+L Copyright 2022 The Kubernetes Authors.
+T 38 source.go comment.block.go
+L 
+L Licensed under the Apache License, Version 2.0 (the "License");
+T 63 source.go comment.block.go
+L you may not use this file except in compliance with the License.
+T 64 source.go comment.block.go
+L You may obtain a copy of the License at
+T 39 source.go comment.block.go
+L 
+L     http://www.apache.org/licenses/LICENSE-2.0
+T 46 source.go comment.block.go
+L 
+L Unless required by applicable law or agreed to in writing, software
+T 67 source.go comment.block.go
+L distributed under the License is distributed on an "AS IS" BASIS,
+T 65 source.go comment.block.go
+L WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+T 72 source.go comment.block.go
+L See the License for the specific language governing permissions and
+T 67 source.go comment.block.go
+L limitations under the License.
+T 30 source.go comment.block.go
+L */
+T 2 source.go comment.block.go punctuation.definition.comment.go
+L 
+L package sets
+T 7 source.go keyword.package.go
+T 8 source.go
+T 12 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"cmp"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 5 source.go string.quoted.double.go entity.name.import.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"slices"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L // Set is a set of the same type elements, implemented via map[comparable]struct{} for minimal memory consumption.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 114 source.go comment.line.double-slash.go
+L type Set[T comparable] map[T]Empty
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 21 source.go entity.name.type.comparable.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go
+T 26 source.go keyword.map.go
+T 27 source.go punctuation.definition.begin.bracket.square.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.definition.end.bracket.square.go
+T 34 source.go entity.name.type.go
+L 
+L // cast transforms specified set to generic Set[T].
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L func cast[T comparable](s map[T]Empty) Set[T] { return s }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 22 source.go entity.name.type.comparable.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 29 source.go keyword.map.go
+T 30 source.go punctuation.definition.begin.bracket.square.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.definition.begin.bracket.square.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.end.bracket.square.go
+T 46 source.go
+T 47 source.go punctuation.definition.begin.bracket.curly.go
+T 48 source.go
+T 54 source.go keyword.control.go
+T 55 source.go
+T 56 source.go variable.other.go
+T 57 source.go
+T 58 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // New creates a Set from a list of values.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L // NOTE: type param must be explicitly instantiated if given items are empty.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 77 source.go comment.line.double-slash.go
+L func New[T comparable](items ...T) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 8 source.go entity.name.function.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 21 source.go entity.name.type.comparable.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 32 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go entity.name.type.go
+T 41 source.go punctuation.definition.end.bracket.square.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	ss := make(Set[T], len(items))
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 23 source.go entity.name.function.support.builtin.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+L 	ss.Insert(items...)
+T 1 source.go
+T 3 source.go variable.other.go
+T 4 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 19 source.go keyword.operator.ellipsis.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 	return ss
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 10 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // KeySet creates a Set from a keys of a map[comparable](? extends interface{}).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L // If the value passed in is not actually a map, this will panic.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func KeySet[T comparable, V any](theMap map[T]V) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 24 source.go entity.name.type.comparable.go
+T 25 source.go punctuation.other.comma.go
+T 26 source.go
+T 27 source.go variable.parameter.go
+T 28 source.go
+T 31 source.go entity.name.type.any.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.begin.bracket.round.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 43 source.go keyword.map.go
+T 44 source.go punctuation.definition.begin.bracket.square.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.definition.end.bracket.square.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+T 49 source.go
+T 52 source.go entity.name.type.go
+T 53 source.go punctuation.definition.begin.bracket.square.go
+T 54 source.go entity.name.type.go
+T 55 source.go punctuation.definition.end.bracket.square.go
+T 56 source.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+L 	ret := make(Set[T], len(theMap))
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.other.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+L 	for keyValue := range theMap {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 13 source.go variable.other.assignment.go
+T 14 source.go
+T 16 source.go keyword.operator.assignment.go
+T 17 source.go
+T 22 source.go keyword.control.go
+T 23 source.go
+T 29 source.go variable.other.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.curly.go
+L 		ret.Insert(keyValue)
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.other.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return ret
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Insert adds items to the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L func (s Set[T]) Insert(items ...T) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 32 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go entity.name.type.go
+T 41 source.go punctuation.definition.end.bracket.square.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	for _, item := range items {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		s[item] = Empty{}
+T 2 source.go
+T 3 source.go variable.other.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.end.bracket.square.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+T 19 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func Insert[T comparable](set Set[T], items ...T) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 24 source.go entity.name.type.comparable.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.begin.bracket.square.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.definition.end.bracket.square.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 43 source.go variable.parameter.go
+T 44 source.go
+T 47 source.go keyword.operator.ellipsis.go
+T 48 source.go entity.name.type.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+T 50 source.go
+T 53 source.go entity.name.type.go
+T 54 source.go punctuation.definition.begin.bracket.square.go
+T 55 source.go entity.name.type.go
+T 56 source.go punctuation.definition.end.bracket.square.go
+T 57 source.go
+T 58 source.go punctuation.definition.begin.bracket.curly.go
+L 	return set.Insert(items...)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+T 12 source.go punctuation.other.period.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.other.go
+T 27 source.go keyword.operator.ellipsis.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Delete removes all items from the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 41 source.go comment.line.double-slash.go
+L func (s Set[T]) Delete(items ...T) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 32 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go entity.name.type.go
+T 41 source.go punctuation.definition.end.bracket.square.go
+T 42 source.go
+T 43 source.go punctuation.definition.begin.bracket.curly.go
+L 	for _, item := range items {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		delete(s, item)
+T 2 source.go
+T 8 source.go entity.name.function.support.builtin.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.comma.go
+T 12 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Clear empties the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 25 source.go comment.line.double-slash.go
+L // It is preferable to replace the set with a newly constructed set,
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 68 source.go comment.line.double-slash.go
+L // but not all callers can do that (when there are other references to the map).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L func (s Set[T]) Clear() Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.definition.begin.bracket.square.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	clear(s)
+T 1 source.go
+T 6 source.go entity.name.function.support.builtin.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.definition.end.bracket.round.go
+L 	return s
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Has returns true if and only if item is contained in the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L func (s Set[T]) Has(item T) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go
+T 32 source.go storage.type.boolean.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	_, contained := s[item]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go punctuation.other.comma.go
+T 4 source.go
+T 13 source.go variable.other.assignment.go
+T 14 source.go
+T 16 source.go keyword.operator.assignment.go
+T 17 source.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+L 	return contained
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 17 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // HasAll returns true if and only if all items are contained in the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 73 source.go comment.line.double-slash.go
+L func (s Set[T]) HasAll(items ...T) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 32 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 39 source.go storage.type.boolean.go
+T 40 source.go
+T 41 source.go punctuation.definition.begin.bracket.curly.go
+L 	for _, item := range items {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		if !s.Has(item) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go keyword.operator.logical.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 			return false
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 15 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return true
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // HasAny returns true if any items are contained in the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L func (s Set[T]) HasAny(items ...T) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.parameter.go
+T 29 source.go
+T 32 source.go keyword.operator.ellipsis.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 39 source.go storage.type.boolean.go
+T 40 source.go
+T 41 source.go punctuation.definition.begin.bracket.curly.go
+L 	for _, item := range items {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 		if s.Has(item) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 			return true
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 14 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return false
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 13 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Clone returns a new set which is a copy of the current set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L func (s Set[T]) Clone() Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.definition.begin.bracket.square.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L 	result := make(Set[T], len(s))
+T 1 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 15 source.go entity.name.function.support.builtin.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go punctuation.other.comma.go
+T 24 source.go
+T 27 source.go entity.name.function.support.builtin.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+L 	for key := range s {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 		result.Insert(key)
+T 2 source.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return result
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Difference returns a set of objects that are not in s2.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L // For example:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L // s1 = {a1, a2, a3}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L // s2 = {a1, a2, a4, a5}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 24 source.go comment.line.double-slash.go
+L // s1.Difference(s2) = {a3}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L // s2.Difference(s1) = {a4, a5}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 31 source.go comment.line.double-slash.go
+L func (s1 Set[T]) Difference(s2 Set[T]) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 27 source.go entity.name.function.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.end.bracket.square.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 42 source.go entity.name.type.go
+T 43 source.go punctuation.definition.begin.bracket.square.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.end.bracket.square.go
+T 46 source.go
+T 47 source.go punctuation.definition.begin.bracket.curly.go
+L 	result := New[T]()
+T 1 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+L 	for key := range s1 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 20 source.go variable.other.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 		if !s2.Has(key) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go keyword.operator.logical.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 			result.Insert(key)
+T 3 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return result
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // SymmetricDifference returns a set of elements which are in either of the sets, but not in their intersection.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 112 source.go comment.line.double-slash.go
+L // For example:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L // s1 = {a1, a2, a3}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 20 source.go comment.line.double-slash.go
+L // s2 = {a1, a2, a4, a5}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 24 source.go comment.line.double-slash.go
+L // s1.SymmetricDifference(s2) = {a3, a4, a5}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L // s2.SymmetricDifference(s1) = {a3, a4, a5}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 44 source.go comment.line.double-slash.go
+L func (s1 Set[T]) SymmetricDifference(s2 Set[T]) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 36 source.go entity.name.function.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.definition.begin.bracket.square.go
+T 45 source.go entity.name.type.go
+T 46 source.go punctuation.definition.end.bracket.square.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 48 source.go
+T 51 source.go entity.name.type.go
+T 52 source.go punctuation.definition.begin.bracket.square.go
+T 53 source.go entity.name.type.go
+T 54 source.go punctuation.definition.end.bracket.square.go
+T 55 source.go
+T 56 source.go punctuation.definition.begin.bracket.curly.go
+L 	return s1.Difference(s2).Union(s2.Difference(s1))
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go variable.other.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go punctuation.other.period.go
+T 31 source.go entity.name.function.support.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 34 source.go variable.other.go
+T 35 source.go punctuation.other.period.go
+T 45 source.go entity.name.function.support.go
+T 46 source.go punctuation.definition.begin.bracket.round.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+T 50 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Union returns a new set which includes items in either s1 or s2.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 67 source.go comment.line.double-slash.go
+L // For example:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L // s1 = {a1, a2}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L // s2 = {a3, a4}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L // s1.Union(s2) = {a1, a2, a3, a4}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L // s2.Union(s1) = {a1, a2, a3, a4}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 34 source.go comment.line.double-slash.go
+L func (s1 Set[T]) Union(s2 Set[T]) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.begin.bracket.square.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 37 source.go entity.name.type.go
+T 38 source.go punctuation.definition.begin.bracket.square.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.definition.end.bracket.square.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+L 	result := s1.Clone()
+T 1 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.other.period.go
+T 19 source.go entity.name.function.support.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	for key := range s2 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 20 source.go variable.other.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L 		result.Insert(key)
+T 2 source.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 15 source.go entity.name.function.support.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go variable.other.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return result
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Intersection returns a new set which includes the item in BOTH s1 and s2
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 75 source.go comment.line.double-slash.go
+L // For example:
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L // s1 = {a1, a2}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L // s2 = {a2, a3}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L // s1.Intersection(s2) = {a2}
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 29 source.go comment.line.double-slash.go
+L func (s1 Set[T]) Intersection(s2 Set[T]) Set[T] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 29 source.go entity.name.function.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.begin.bracket.square.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.end.bracket.square.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.begin.bracket.square.go
+T 46 source.go entity.name.type.go
+T 47 source.go punctuation.definition.end.bracket.square.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 	var walk, other Set[T]
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go punctuation.other.comma.go
+T 11 source.go
+T 16 source.go variable.other.assignment.go
+T 17 source.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+L 	result := New[T]()
+T 1 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+L 	if s1.Len() < s2.Len() {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 14 source.go keyword.operator.comparison.go
+T 15 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 		walk = s1
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 		other = s2
+T 2 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 12 source.go variable.other.go
+L 	} else {
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+T 3 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go punctuation.definition.begin.bracket.curly.go
+L 		walk = s2
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 11 source.go variable.other.go
+L 		other = s1
+T 2 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 12 source.go variable.other.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	for key := range walk {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 22 source.go variable.other.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		if other.Has(key) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 			result.Insert(key)
+T 3 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.other.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return result
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // IsSuperset returns true if and only if s1 is a superset of s2.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L func (s1 Set[T]) IsSuperset(s2 Set[T]) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 27 source.go entity.name.function.go
+T 28 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.end.bracket.square.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go
+T 43 source.go storage.type.boolean.go
+T 44 source.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+L 	for item := range s2 {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 18 source.go keyword.control.go
+T 19 source.go
+T 21 source.go variable.other.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 		if !s1.Has(item) {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go keyword.operator.logical.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 			return false
+T 3 source.go
+T 9 source.go keyword.control.go
+T 10 source.go
+T 15 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return true
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Equal returns true if and only if s1 is equal (as a set) to s2.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // Two sets are equal if their membership is identical.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L // (In practice, this means same elements, order doesn't matter)
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L func (s1 Set[T]) Equal(s2 Set[T]) bool {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 29 source.go entity.name.type.go
+T 30 source.go punctuation.definition.begin.bracket.square.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 38 source.go storage.type.boolean.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	return len(s1) == len(s2) && s1.IsSuperset(s2)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go keyword.operator.comparison.go
+T 19 source.go
+T 22 source.go entity.name.function.support.builtin.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.other.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 29 source.go keyword.operator.logical.go
+T 30 source.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.other.period.go
+T 43 source.go entity.name.function.support.go
+T 44 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go variable.other.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // List returns the contents as a sorted T slice.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L //
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+L // This is a separate function and not a method because not all types supported
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 79 source.go comment.line.double-slash.go
+L // by Generic are ordered and only those can be sorted.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 55 source.go comment.line.double-slash.go
+L func List[T cmp.Ordered](s Set[T]) []T {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.other.period.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.definition.begin.bracket.square.go
+T 32 source.go entity.name.type.go
+T 33 source.go punctuation.definition.end.bracket.square.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.square.go
+T 37 source.go punctuation.definition.end.bracket.square.go
+T 38 source.go entity.name.type.go
+T 39 source.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+L 	res := s.UnsortedList()
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 22 source.go entity.name.function.support.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L 	slices.Sort(res)
+T 1 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+L 	return res
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // UnsortedList returns the slice with contents in random order.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 64 source.go comment.line.double-slash.go
+L func (s Set[T]) UnsortedList() []T {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 28 source.go entity.name.function.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go punctuation.definition.end.bracket.round.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.square.go
+T 33 source.go punctuation.definition.end.bracket.square.go
+T 34 source.go entity.name.type.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 	res := make([]T, 0, len(s))
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 5 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.function.support.builtin.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go constant.numeric.decimal.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.other.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+L 	for key := range s {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 		res = append(res, key)
+T 2 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 14 source.go entity.name.function.support.builtin.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 23 source.go variable.other.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return res
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // PopAny returns a single element from the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L func (s Set[T]) PopAny() (T, bool) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 22 source.go entity.name.function.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 33 source.go storage.type.boolean.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go punctuation.definition.begin.bracket.curly.go
+L 	for key := range s {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 8 source.go variable.other.assignment.go
+T 9 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 17 source.go keyword.control.go
+T 18 source.go
+T 19 source.go variable.other.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 		s.Delete(key)
+T 2 source.go
+T 3 source.go variable.other.go
+T 4 source.go punctuation.other.period.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 		return key, true
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 18 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	var zeroValue T
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 14 source.go variable.other.assignment.go
+T 15 source.go
+T 16 source.go entity.name.type.go
+L 	return zeroValue, false
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.comma.go
+T 19 source.go
+T 24 source.go constant.language.boolean.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Len returns the size of the set.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 35 source.go comment.line.double-slash.go
+L func (s Set[T]) Len() int {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 25 source.go storage.type.numeric.go
+T 26 source.go
+T 27 source.go punctuation.definition.begin.bracket.curly.go
+L 	return len(s)
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 11 source.go entity.name.function.support.builtin.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go variable.other.go
+T 14 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
