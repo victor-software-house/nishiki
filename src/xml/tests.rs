@@ -1,45 +1,13 @@
+use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
 use crate::{Highlighter, Language, Limits, State};
 
-/// One lexed line: each token's text and its innermost scope name.
-type Row = Vec<(String, String)>;
-
-fn lex_in(highlighter: &mut Highlighter, state: &mut State, line: &str) -> Row {
-    let mut tokens = Vec::new();
-    let report = highlighter.line(line, state, &mut tokens);
-    assert!(report.is_complete(), "{line:?} reached a limit");
-    let mut start = 0;
-    let mut row = Row::new();
-    for token in &tokens {
-        let innermost = highlighter
-            .scopes(token.stack())
-            .next()
-            .unwrap_or_default()
-            .to_owned();
-        let text = &line[start..token.end()];
-        match row.last_mut() {
-            Some((last, scope)) if *scope == innermost => last.push_str(text),
-            _ => row.push((text.to_owned(), innermost)),
-        }
-        start = token.end();
-    }
-    assert_eq!(start, line.len(), "the tokens cover the line {line:?}");
-    row
+/// Lexes `lines` in order from one start state.
+fn lex_lines(lines: &[&str]) -> Vec<LeafRow> {
+    merge_by_leaf(test_support::lex(Language::Xml, &lines.join("\n")))
 }
 
-fn lex(line: &str) -> Row {
-    lex_in(
-        &mut Highlighter::new(Language::Xml),
-        &mut State::default(),
-        line,
-    )
-}
-
-/// A row from `(text, innermost scope)` pairs.
-fn row(parts: &[(&str, &str)]) -> Row {
-    parts
-        .iter()
-        .map(|&(text, scope)| (text.to_owned(), scope.to_owned()))
-        .collect()
+fn lex(line: &str) -> LeafRow {
+    lex_lines(&[line]).remove(0)
 }
 
 const TAG: &str = "punctuation.definition.tag.xml";
@@ -47,21 +15,16 @@ const META_TAG: &str = "meta.tag.xml";
 
 #[test]
 fn an_empty_line_leaves_the_state_alone() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
-    lex_in(&mut highlighter, &mut state, "<!-- a");
-    assert_eq!(lex_in(&mut highlighter, &mut state, ""), Row::new());
-    assert_eq!(
-        lex_in(&mut highlighter, &mut state, "b"),
-        row(&[("b", "comment.block.xml")])
-    );
+    let rows = lex_lines(&["<!-- a", "", "b"]);
+    assert_eq!(rows[1], LeafRow::new());
+    assert_eq!(rows[2], leaf_row(&[("b", "comment.block.xml")]));
 }
 
 #[test]
 fn a_tag_has_a_name_attributes_and_strings() {
     assert_eq!(
         lex("<a:b c:d='e&amp;'/>"),
-        row(&[
+        leaf_row(&[
             ("<", TAG),
             ("a", "entity.name.tag.namespace.xml"),
             (":", "punctuation.separator.namespace.xml"),
@@ -86,7 +49,7 @@ fn a_tag_has_a_name_attributes_and_strings() {
 fn an_attribute_needs_white_space_before_it() {
     assert_eq!(
         lex("<a b=\"c\"d=\"e\">"),
-        row(&[
+        leaf_row(&[
             ("<", TAG),
             ("a", "entity.name.tag.localname.xml"),
             (" ", META_TAG),
@@ -111,7 +74,7 @@ fn an_element_with_no_content_is_one_rule() {
     let no_content = "meta.tag.no-content.xml";
     assert_eq!(
         lex("<a b=\"c\"></a>"),
-        row(&[
+        leaf_row(&[
             ("<", TAG),
             ("a", "entity.name.tag.localname.xml"),
             (" ", no_content),
@@ -131,55 +94,46 @@ fn an_element_with_no_content_is_one_rule() {
 
 #[test]
 fn a_dash_in_a_comment_opens_a_rule_that_never_ends() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
+    let rows = lex_lines(&["<!-- a -- b -->", "<a>"]);
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<!-- a -- b -->"),
-        row(&[
+        rows[0],
+        leaf_row(&[
             ("<!--", "punctuation.definition.comment.xml"),
             (" a ", "comment.block.xml"),
             ("--", "invalid.illegal.bad-comments-or-CDATA.xml"),
             (" b -->", "comment.block.xml"),
         ])
     );
-    assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<a>"),
-        row(&[("<a>", "comment.block.xml")])
-    );
+    assert_eq!(rows[1], leaf_row(&[("<a>", "comment.block.xml")]));
 }
 
 #[test]
 fn a_jsp_comment_has_no_end_and_no_scope() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
+    let rows = lex_lines(&["<%-- a --%>", "<a>"]);
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<%-- a --%>"),
-        row(&[
+        rows[0],
+        leaf_row(&[
             ("<%--", "punctuation.definition.comment.xml"),
             (" a --%>", "text.xml"),
         ])
     );
-    assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<a>"),
-        row(&[("<a>", "text.xml")])
-    );
+    assert_eq!(rows[1], leaf_row(&[("<a>", "text.xml")]));
 }
 
 #[test]
 fn a_cdata_section_runs_across_lines() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
+    let rows = lex_lines(&["<![CDATA[ <a> &", "]] ]]>x"]);
     let cdata = "string.unquoted.cdata.xml";
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<![CDATA[ <a> &"),
-        row(&[
+        rows[0],
+        leaf_row(&[
             ("<![CDATA[", "punctuation.definition.string.begin.xml"),
             (" <a> &", cdata),
         ])
     );
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "]] ]]>x"),
-        row(&[
+        rows[1],
+        leaf_row(&[
             ("]] ", cdata),
             ("]]>", "punctuation.definition.string.end.xml"),
             ("x", "text.xml"),
@@ -189,12 +143,11 @@ fn a_cdata_section_runs_across_lines() {
 
 #[test]
 fn a_doctype_holds_an_internal_subset_across_lines() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
+    let rows = lex_lines(&["<!DOCTYPE a [", "<!ENTITY % e SYSTEM \"u\"> %p;", "]> <b>"]);
     let doctype = "meta.tag.sgml.doctype.xml";
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "<!DOCTYPE a ["),
-        row(&[
+        rows[0],
+        leaf_row(&[
             ("<!", TAG),
             ("DOCTYPE", "keyword.other.doctype.xml"),
             (" ", doctype),
@@ -205,12 +158,8 @@ fn a_doctype_holds_an_internal_subset_across_lines() {
     );
     let subset = "meta.internalsubset.xml";
     assert_eq!(
-        lex_in(
-            &mut highlighter,
-            &mut state,
-            "<!ENTITY % e SYSTEM \"u\"> %p;"
-        ),
-        row(&[
+        rows[1],
+        leaf_row(&[
             ("<!", TAG),
             ("ENTITY", "keyword.other.entity.xml"),
             (" ", subset),
@@ -228,8 +177,8 @@ fn a_doctype_holds_an_internal_subset_across_lines() {
         ])
     );
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "]> <b>"),
-        row(&[
+        rows[2],
+        leaf_row(&[
             ("]", "punctuation.definition.constant.xml"),
             (">", TAG),
             (" ", "text.xml"),
@@ -242,12 +191,10 @@ fn a_doctype_holds_an_internal_subset_across_lines() {
 
 #[test]
 fn a_string_runs_across_lines() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
-    lex_in(&mut highlighter, &mut state, "<a b=\"c");
+    let rows = lex_lines(&["<a b=\"c", "d\" e='f'>"]);
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "d\" e='f'>"),
-        row(&[
+        rows[1],
+        leaf_row(&[
             ("d", "string.quoted.double.xml"),
             ("\"", "punctuation.definition.string.end.xml"),
             (" ", META_TAG),
@@ -265,7 +212,7 @@ fn a_string_runs_across_lines() {
 fn an_ampersand_that_starts_no_entity_is_illegal() {
     assert_eq!(
         lex("a & &b &#x1G; &#9;"),
-        row(&[
+        leaf_row(&[
             ("a ", "text.xml"),
             ("&", "invalid.illegal.bad-ampersand.xml"),
             (" ", "text.xml"),
@@ -296,7 +243,7 @@ fn a_processing_instruction_reads_names_after_a_space() {
     let pi = "meta.tag.preprocessor.xml";
     assert_eq!(
         lex("<?xml version='1' x-y?>"),
-        row(&[
+        leaf_row(&[
             ("<?", TAG),
             ("xml", "entity.name.tag.xml"),
             (" version", "entity.other.attribute-name.xml"),
@@ -314,14 +261,14 @@ fn a_processing_instruction_reads_names_after_a_space() {
 /// Java and so does the text after it.
 #[test]
 fn java_in_a_page_runs_up_to_a_closing_mark_that_java_is_not_inside() {
-    let mut highlighter = Highlighter::new(Language::Xml);
-    let mut state = State::default();
-    let first = lex_in(&mut highlighter, &mut state, "<% if (a) { %> b");
+    let rows = lex_lines(&["<% if (a) { %> b", "} %> c"]);
+    let [first, second] = &rows[..] else {
+        panic!("two rows, not {rows:?}");
+    };
     assert!(
         first.iter().all(|(_, scope)| scope != "text.xml"),
         "{first:?}"
     );
-    let second = lex_in(&mut highlighter, &mut state, "} %> c");
     assert_eq!(
         second.last(),
         Some(&(" c".to_owned(), "text.xml".to_owned()))
@@ -346,13 +293,7 @@ fn a_closing_mark_inside_a_java_string_or_line_comment_belongs_to_java() {
         (&["<% // %> x", "y"][..], 0),
         (&["<% if (a) { %>", "// %> x <% } %> y"][..], 0),
     ] {
-        let mut highlighter = Highlighter::new(Language::Xml);
-        let mut state = State::default();
-        let mut rows = Vec::new();
-        for line in lines {
-            rows.push(lex_in(&mut highlighter, &mut state, line));
-        }
-        let ends: usize = rows
+        let ends: usize = lex_lines(lines)
             .iter()
             .flatten()
             .filter(|(_, scope)| scope == "punctuation.section.embedded.end.xml")
@@ -365,7 +306,7 @@ fn a_closing_mark_inside_a_java_string_or_line_comment_belongs_to_java() {
 fn a_page_directive_names_its_properties() {
     assert_eq!(
         lex("<%@ page lang %>"),
-        row(&[
+        leaf_row(&[
             ("<%@", "punctuation.section.embedded.begin.xml"),
             (" ", "source.java-props.embedded.xml"),
             ("page", "keyword.other.page-props.xml"),

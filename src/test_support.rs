@@ -93,6 +93,15 @@ pub(crate) fn merge_by_leaf(rows: Vec<Row>) -> Vec<LeafRow> {
         .collect()
 }
 
+/// A [`LeafRow`] from `(text, innermost scope)` pairs, to compare a lexed one
+/// with.
+pub(crate) fn leaf_row(parts: &[(&str, &str)]) -> LeafRow {
+    parts
+        .iter()
+        .map(|&(text, scope)| (text.to_owned(), scope.to_owned()))
+        .collect()
+}
+
 /// The innermost scope of the merged token in `row` whose text is `token`.
 pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
     row.iter()

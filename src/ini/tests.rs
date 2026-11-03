@@ -1,45 +1,13 @@
+use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
 use crate::{Highlighter, Language, Limits, State, Work};
 
-/// One lexed line: each token's text and its innermost scope name.
-type Row = Vec<(String, String)>;
-
-fn lex_in(highlighter: &mut Highlighter, state: &mut State, line: &str) -> Row {
-    let mut tokens = Vec::new();
-    let report = highlighter.line(line, state, &mut tokens);
-    assert!(report.is_complete(), "{line:?} reached a limit");
-    let mut start = 0;
-    let mut row = Row::new();
-    for token in &tokens {
-        let innermost = highlighter
-            .scopes(token.stack())
-            .next()
-            .unwrap_or_default()
-            .to_owned();
-        let text = &line[start..token.end()];
-        match row.last_mut() {
-            Some((last, scope)) if *scope == innermost => last.push_str(text),
-            _ => row.push((text.to_owned(), innermost)),
-        }
-        start = token.end();
-    }
-    assert_eq!(start, line.len(), "the tokens cover the line {line:?}");
-    row
+/// Lexes `lines` in order from one start state.
+fn lex_lines(lines: &[&str]) -> Vec<LeafRow> {
+    merge_by_leaf(test_support::lex(Language::Ini, &lines.join("\n")))
 }
 
-fn lex(line: &str) -> Row {
-    lex_in(
-        &mut Highlighter::new(Language::Ini),
-        &mut State::default(),
-        line,
-    )
-}
-
-/// A row from `(text, innermost scope)` pairs.
-fn row(parts: &[(&str, &str)]) -> Row {
-    parts
-        .iter()
-        .map(|&(text, scope)| (text.to_owned(), scope.to_owned()))
-        .collect()
+fn lex(line: &str) -> LeafRow {
+    lex_lines(&[line]).remove(0)
 }
 
 const SOURCE: &str = "source.ini";
@@ -59,14 +27,14 @@ const ESCAPE: &str = "constant.character.escape.ini";
 
 #[test]
 fn an_empty_line_has_no_tokens() {
-    assert_eq!(lex(""), Row::new());
+    assert_eq!(lex(""), LeafRow::new());
 }
 
 #[test]
 fn a_key_and_its_equals_sign_are_found_anywhere() {
     assert_eq!(
         lex("name = value"),
-        row(&[
+        leaf_row(&[
             ("name", KEY),
             (" ", SOURCE),
             ("=", EQUALS),
@@ -75,7 +43,7 @@ fn a_key_and_its_equals_sign_are_found_anywhere() {
     );
     assert_eq!(
         lex("a=b=c"),
-        row(&[
+        leaf_row(&[
             ("a", KEY),
             ("=", EQUALS),
             ("b", KEY),
@@ -87,15 +55,15 @@ fn a_key_and_its_equals_sign_are_found_anywhere() {
 
 #[test]
 fn a_key_needs_a_word_character_last_and_a_boundary_first() {
-    assert_eq!(lex("a-=1"), row(&[("a-=1", SOURCE)]));
+    assert_eq!(lex("a-=1"), leaf_row(&[("a-=1", SOURCE)]));
     assert_eq!(
         lex("-x=1"),
-        row(&[("-", SOURCE), ("x", KEY), ("=", EQUALS), ("1", SOURCE)])
+        leaf_row(&[("-", SOURCE), ("x", KEY), ("=", EQUALS), ("1", SOURCE)])
     );
-    assert_eq!(lex("\u{e9}a=1"), row(&[("\u{e9}a=1", SOURCE)]));
+    assert_eq!(lex("\u{e9}a=1"), leaf_row(&[("\u{e9}a=1", SOURCE)]));
     assert_eq!(
         lex("\u{e9}-x=1"),
-        row(&[
+        leaf_row(&[
             ("\u{e9}", SOURCE),
             ("-x", KEY),
             ("=", EQUALS),
@@ -108,7 +76,7 @@ fn a_key_needs_a_word_character_last_and_a_boundary_first() {
 fn a_section_is_read_only_at_the_start_of_a_line() {
     assert_eq!(
         lex("[core] ; x"),
-        row(&[
+        leaf_row(&[
             ("[", ENTITY),
             ("core", SECTION),
             ("]", ENTITY),
@@ -117,19 +85,19 @@ fn a_section_is_read_only_at_the_start_of_a_line() {
             (" x", SEMICOLON),
         ])
     );
-    assert_eq!(lex(" [core]"), row(&[(" [core]", SOURCE)]));
-    assert_eq!(lex("[core"), row(&[("[core", SOURCE)]));
+    assert_eq!(lex(" [core]"), leaf_row(&[(" [core]", SOURCE)]));
+    assert_eq!(lex("[core"), leaf_row(&[("[core", SOURCE)]));
 }
 
 #[test]
 fn a_comment_starts_at_its_mark_anywhere_and_keeps_leading_blanks() {
     assert_eq!(
         lex("\t# note"),
-        row(&[("\t", LEADING), ("#", MARK), (" note", HASH)])
+        leaf_row(&[("\t", LEADING), ("#", MARK), (" note", HASH)])
     );
     assert_eq!(
         lex("a = b # c"),
-        row(&[
+        leaf_row(&[
             ("a", KEY),
             (" ", SOURCE),
             ("=", EQUALS),
@@ -140,17 +108,16 @@ fn a_comment_starts_at_its_mark_anywhere_and_keeps_leading_blanks() {
     );
     assert_eq!(
         lex("x ; a # b"),
-        row(&[("x ", SOURCE), (";", MARK), (" a # b", SEMICOLON)])
+        leaf_row(&[("x ", SOURCE), (";", MARK), (" a # b", SEMICOLON)])
     );
 }
 
 #[test]
 fn a_string_runs_across_lines_and_hides_comments_and_keys() {
-    let mut highlighter = Highlighter::new(Language::Ini);
-    let mut state = State::default();
+    let rows = lex_lines(&["a = \"x", "# b = c \\\" \" d"]);
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "a = \"x"),
-        row(&[
+        rows[0],
+        leaf_row(&[
             ("a", KEY),
             (" ", SOURCE),
             ("=", EQUALS),
@@ -160,8 +127,8 @@ fn a_string_runs_across_lines_and_hides_comments_and_keys() {
         ])
     );
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, "# b = c \\\" \" d"),
-        row(&[
+        rows[1],
+        leaf_row(&[
             ("# b = c \\", DOUBLE),
             ("\"", END),
             (" ", SOURCE),
@@ -175,7 +142,7 @@ fn a_string_runs_across_lines_and_hides_comments_and_keys() {
 fn only_a_single_quoted_string_has_escapes() {
     assert_eq!(
         lex("'a\\'b' \"c\\\" d"),
-        row(&[
+        leaf_row(&[
             ("'", BEGIN),
             ("a", SINGLE),
             ("\\'", ESCAPE),
@@ -193,12 +160,13 @@ fn only_a_single_quoted_string_has_escapes() {
 #[test]
 #[cfg(feature = "lang-markdown")]
 fn a_fence_inside_a_quote_loses_its_line_start_anchors() {
-    let mut highlighter = Highlighter::new(Language::Markdown);
-    let mut state = State::default();
-    lex_in(&mut highlighter, &mut state, "> ```ini");
+    let rows = merge_by_leaf(test_support::lex(
+        Language::Markdown,
+        &["> ```ini", ">   [a]"].join("\n"),
+    ));
     assert_eq!(
-        lex_in(&mut highlighter, &mut state, ">   [a]"),
-        row(&[
+        rows[1],
+        leaf_row(&[
             (">", "punctuation.definition.quote.begin.markdown"),
             (" ", "markup.quote.markdown"),
             ("  [a]", "meta.embedded.block.ini"),
