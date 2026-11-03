@@ -70,6 +70,12 @@ impl Lexer<'_> {
     }
 
     /// Whether a word starts at `i`: a word character after a non-word one.
+    ///
+    /// `#[inline]`: the keyword matchers, in another module, ask it at most
+    /// positions, and at the default sixteen codegen units a generic method
+    /// that is not `#[inline]` is called out of line across them
+    /// (`bench/AGENTS.md` rule 13).
+    #[inline]
     pub(super) fn word_start(&self, i: usize) -> bool {
         word_width(self.s, i) > 0 && !word_before(self.s, i)
     }
@@ -162,6 +168,12 @@ impl Lexer<'_> {
 
     /// The first position from `p` where `rule` can match: the bytes in
     /// between start none of its patterns and end it nowhere.
+    ///
+    /// `#[inline]`: the scan in the engine module calls it after every miss,
+    /// and at the default sixteen codegen units a generic method that is not
+    /// `#[inline]` is called out of line across them (`bench/AGENTS.md` rule
+    /// 13).
+    #[inline]
     pub(super) fn skip_to(&self, rule: Rule, p: usize) -> usize {
         let text = &self.s[p.min(self.lim())..self.lim()];
         let found = match rule {
@@ -276,6 +288,12 @@ impl Lexer<'_> {
     // Patterns.
 
     /// The match of `pat` at `p`.
+    ///
+    /// `#[inline]`: `hit`, in the engine module, calls it for every candidate
+    /// pattern, and at the default sixteen codegen units a generic method that
+    /// is not `#[inline]` is called out of line across them (`bench/AGENTS.md`
+    /// rule 13).
+    #[inline]
     pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
         match pat {
             Pat::Variable => self.variable(p),

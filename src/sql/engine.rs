@@ -116,6 +116,11 @@ impl Lexer<'_> {
 
     /// Tries `pat` at `p` and, on a match, records its capture groups as
     /// spans and returns where it ends.
+    ///
+    /// `#[inline]`, as `pat_at` is, so that the scan's whole dispatch for a
+    /// candidate pattern inlines at the default sixteen codegen units
+    /// (`bench/AGENTS.md` rule 13).
+    #[inline]
     fn hit(&mut self, pat: Pat, p: usize) -> Option<usize> {
         let hit = self.pat_at(pat, p)?;
         self.x.start = hit.start;
