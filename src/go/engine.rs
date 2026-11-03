@@ -57,6 +57,7 @@ impl Grammar for Go {
     type Pat = Pat;
     type Nested = Rule;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "Go";
     const ROOT: Rule = Rule::Root;

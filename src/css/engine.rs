@@ -54,6 +54,7 @@ impl Grammar for Css {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "CSS";
     const ROOT: Rule = Rule::Root;

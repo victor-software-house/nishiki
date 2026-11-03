@@ -97,6 +97,7 @@ impl Grammar for Java {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "Java";
     const ROOT: Rule = Rule::Root;

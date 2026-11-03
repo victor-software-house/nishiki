@@ -32,6 +32,7 @@ impl Grammar for CSharp {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "C#";
     const ROOT: Rule = Rule::Root;

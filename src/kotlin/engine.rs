@@ -38,6 +38,7 @@ impl Grammar for Kotlin {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "Kotlin";
     const ROOT: Rule = Rule::Root;

@@ -44,6 +44,10 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     type Nested: Copy + Debug + 'static;
     /// What the language's matchers remember about the line being lexed.
     type Extra: Default;
+    /// What the matchers keep from one line to the next, such as a buffer
+    /// whose capacity is worth keeping. The highlighter's scratch holds it,
+    /// so it is `Send` and `Sync` as the highlighter is.
+    type Kept: Default + Debug + Send + Sync;
 
     /// The language's name, for diagnostics.
     const NAME: &'static str;
@@ -64,6 +68,16 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
 
     /// The scope in the crate's shared numbering.
     fn scope(scope: Self::Scope) -> Scope;
+    /// The matchers' memory for a line, given what the last line kept.
+    fn extra(kept: Self::Kept) -> Self::Extra {
+        drop(kept);
+        Self::Extra::default()
+    }
+    /// What a line's memory leaves for the next line.
+    fn keep(extra: Self::Extra) -> Self::Kept {
+        drop(extra);
+        Self::Kept::default()
+    }
     /// The rule as a frame stores it.
     fn rule_code(rule: Self::Rule) -> u16;
     /// The rule a frame's code names; [`Grammar::ROOT`] for a code that is

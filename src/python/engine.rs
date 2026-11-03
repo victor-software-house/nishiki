@@ -128,6 +128,7 @@ impl Grammar for Python {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "Python";
     const ROOT: Rule = Rule::Root;

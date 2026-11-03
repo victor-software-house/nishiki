@@ -147,6 +147,7 @@ impl Grammar for Make {
     type Pat = Pat;
     type Nested = Nested;
     type Extra = Extra;
+    type Kept = ();
 
     const NAME: &'static str = "Makefile";
     const ROOT: Rule = Rule::Root;

@@ -103,6 +103,8 @@ pub(crate) struct Scratch<G: Grammar> {
     resume_frames: Vec<Frame<G>>,
     paths: Vec<Option<PathEntry>>,
     pushes: Vec<Option<PushEntry>>,
+    /// What the matchers kept from the last line ([`Grammar::Kept`]).
+    kept: G::Kept,
 }
 
 impl<G: Grammar> Default for Scratch<G> {
@@ -118,6 +120,7 @@ impl<G: Grammar> Default for Scratch<G> {
             resume_frames: Vec::new(),
             paths: Vec::new(),
             pushes: Vec::new(),
+            kept: G::Kept::default(),
         }
     }
 }
@@ -226,6 +229,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         if scratch.pushes.is_empty() {
             scratch.pushes.resize(PUSH_ENTRIES, None);
         }
+        let x = G::extra(std::mem::take(&mut scratch.kept));
         Lexer {
             s,
             nl: true,
@@ -248,7 +252,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             scratch,
             flags: Flags::default(),
             state,
-            x: G::Extra::default(),
+            x,
         }
     }
 
@@ -349,6 +353,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.scratch.frames = self.frames;
         self.scratch.spans = self.spans;
         self.scratch.caps = self.caps;
+        self.scratch.kept = G::keep(self.x);
         state
     }
 
@@ -1167,6 +1172,7 @@ mod tests {
         type Pat = Pat;
         type Nested = Inside;
         type Extra = ();
+        type Kept = ();
 
         const NAME: &'static str = "brackets";
         const ROOT: Root = Root;
