@@ -62,4 +62,7 @@ pub(crate) struct Scratch {
     /// The SQL lexer's, for SQL documents and Markdown SQL fences.
     #[cfg(feature = "lang-sql")]
     pub(crate) sql: crate::sql::Scratch,
+    /// The GraphQL lexer's, for GraphQL documents.
+    #[cfg(feature = "lang-graphql")]
+    pub(crate) graphql: crate::graphql::Scratch,
 }

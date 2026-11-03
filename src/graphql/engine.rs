@@ -19,7 +19,6 @@ use super::state::Rule;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
-use crate::scratch::Scratch;
 use crate::utf8::char_len;
 use crate::{Stack, Token, typescript};
 
@@ -74,6 +73,13 @@ impl Hit {
     }
 }
 
+/// The open rules of the last line, kept so the next line reuses their
+/// buffer.
+#[derive(Debug, Default)]
+pub(crate) struct Scratch {
+    frames: Vec<Frame>,
+}
+
 /// An open rule.
 #[derive(Clone, Copy, Debug)]
 struct Frame {
@@ -101,7 +107,7 @@ pub(super) struct Lexer<'a> {
     pub(super) s: &'a [u8],
     /// The same text, for the JavaScript lexer.
     text: &'a str,
-    scratch: &'a mut Scratch,
+    scratch: &'a mut crate::scratch::Scratch,
     /// The text ends here; the line feed after it is one more character.
     pub(super) lim: usize,
     out: &'a mut Vec<Token>,
@@ -126,9 +132,16 @@ pub(super) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
+    /// The lexer for `line` from `state`, with the open rules of `state` in
+    /// the frame buffer the scratch keeps: they are collected from the top
+    /// up to the root and turned so the root comes first, and then each
+    /// rule's begin and end scopes are interned from the root down, on its
+    /// parent's content scopes.
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
         let (s, start) = (line.text.as_bytes(), line.start);
         let budget = cx.limits.work.map_or(u64::MAX, |work| work.steps(s.len()));
+        let mut frames = std::mem::take(&mut cx.scratch.graphql.frames);
+        frames.clear();
         let mut lexer = Lexer {
             s,
             text: line.text,
@@ -142,42 +155,33 @@ impl<'a> Lexer<'a> {
             budget,
             last: start,
             pos: start,
-            frames: Vec::new(),
+            frames,
             space_run: Cell::new((0, 0)),
             word_run: Cell::new((0, 0)),
         };
-        // The open rules of `state`, from its root down.
-        let mut chain = Vec::new();
         let mut id = state;
         loop {
             let frame = lexer.arena.frame(id);
-            chain.push((id, frame));
-            if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+            let rule = Rule::from_code(frame.kind);
+            let root = rule == Rule::Root || frame.parent == ROOT;
+            lexer.frames.push(Frame {
+                rule: if root { Rule::Root } else { rule },
+                enter: None,
+                name: frame.stack,
+                content: frame.stack,
+                state: id,
+            });
+            if root {
                 break;
             }
             id = frame.parent;
         }
-        for (index, &(id, frame)) in chain.iter().rev().enumerate() {
-            if index == 0 {
-                lexer.frames.push(Frame {
-                    rule: Rule::Root,
-                    enter: None,
-                    name: frame.stack,
-                    content: frame.stack,
-                    state: id,
-                });
-                continue;
-            }
-            let rule = Rule::from_code(frame.kind);
-            let parent = lexer.top().content;
+        lexer.frames.reverse();
+        for index in 1..lexer.frames.len() {
+            let parent = lexer.frames[index - 1].content;
+            let rule = lexer.frames[index].rule;
             let name = lexer.path(parent, rule.name());
-            lexer.frames.push(Frame {
-                rule,
-                enter: None,
-                name,
-                content: frame.stack,
-                state: id,
-            });
+            lexer.frames[index].name = name;
         }
         lexer
     }
@@ -185,7 +189,9 @@ impl<'a> Lexer<'a> {
     /// Lexes the line and returns the state after it.
     pub(super) fn run(mut self) -> u32 {
         self.tokenize();
-        self.top().state
+        let state = self.top().state;
+        self.scratch.graphql.frames = std::mem::take(&mut self.frames);
+        state
     }
 
     // Bytes.

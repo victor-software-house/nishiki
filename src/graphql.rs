@@ -20,6 +20,7 @@ mod rules;
 mod scope;
 mod state;
 
+pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
 use state::Rule;
