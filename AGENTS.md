@@ -142,3 +142,5 @@ The decisions that created nishiki live in a private planning repository:
 1. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
 2. Defaults may follow the resources the caller has, such as memory or a time budget.
    A caller that pins the limits gets the same output on every machine.
+3. A language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language until the next minor release (operator, 2026-11-03).
+   Adding them to `Limits` and `Limit` breaks the public API, so that release does it once: it marks both `#[non_exhaustive]`, adds a builder and moves every language bound into `Limits`, together with the `feat/non-exhaustive-next-minor` branch.
