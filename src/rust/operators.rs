@@ -1,7 +1,8 @@
 //! Keywords and operators: the grammar's `keywords` group.
 
-use super::lexer::{Lexer, is_ident};
+use super::lexer::Lexer;
 use super::scope::S;
+use crate::classes::is_ascii_word;
 
 /// The scopes of a word keyword, or none when the word is not one.
 fn keyword(word: &[u8]) -> Option<&'static [S]> {
@@ -34,7 +35,7 @@ fn is_blank(b: u8) -> bool {
 
 impl Lexer<'_> {
     pub(crate) fn keywords(&mut self, p: usize, b: u8) -> Option<usize> {
-        if is_ident(b) {
+        if is_ascii_word(b) {
             if !self.word_start(p) {
                 return None;
             }

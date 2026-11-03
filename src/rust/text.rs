@@ -6,15 +6,7 @@ use memchr::{memchr, memchr2, memchr3};
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Kind;
-
-fn utf8_len(lead: u8) -> usize {
-    match lead {
-        0xf0.. => 4,
-        0xe0.. => 3,
-        0xc0.. => 2,
-        _ => 1,
-    }
-}
+use crate::utf8;
 
 impl Lexer<'_> {
     // Rules that open a context or a single-line comment.
@@ -203,7 +195,7 @@ impl Lexer<'_> {
         if q + 1 >= self.s.len() {
             return None;
         }
-        let end = q + 1 + utf8_len(c1);
+        let end = q + 1 + utf8::char_len(c1);
         self.gap(q);
         self.tok(q + 1, &[S::Escape, S::EscBackslash]);
         self.tok(end.min(self.s.len()), &[S::Escape]);

@@ -34,4 +34,16 @@ mod tests {
             assert_eq!(len(bytes), expected, "{c:?}");
         }
     }
+
+    /// This byte match and the measured `\s` table in `classes` spell the
+    /// same set; the match stays because the lexers call it per byte.
+    #[cfg(feature = "_classes")]
+    #[test]
+    fn it_agrees_with_the_measured_space_table() {
+        for c in (0x80..0x11_0000).filter_map(char::from_u32) {
+            let mut buffer = [0; 4];
+            let bytes = c.encode_utf8(&mut buffer).as_bytes();
+            assert_eq!(len(bytes) > 0, crate::classes::is_space(c), "{c:?}");
+        }
+    }
 }

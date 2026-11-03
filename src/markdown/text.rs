@@ -3,6 +3,9 @@
 
 use std::cell::Cell;
 
+use crate::classes::{self, is_space, is_word};
+use crate::utf8;
+
 /// A window on one line, as the `TextMate` engine presents it to a regular
 /// expression.
 ///
@@ -22,34 +25,6 @@ pub(crate) struct Cx<'a> {
     pub(crate) steps: &'a Cell<u64>,
     /// The steps the line may spend, `u64::MAX` for no limit.
     pub(crate) budget: u64,
-}
-
-/// `\s` for a character: ASCII whitespace and Unicode's `White_Space`, which
-/// Oniguruma's `\s` takes in a UTF-8 pattern.
-fn is_space_char(c: char) -> bool {
-    c.is_whitespace()
-}
-
-/// `\w` for a character: letters and digits (as [`char::is_alphanumeric`]
-/// counts them), the combining marks of the common blocks, and `_` with the
-/// other connector punctuation.
-fn is_word_char(c: char) -> bool {
-    c.is_alphanumeric()
-        || matches!(
-            c,
-            '_' | '\u{203f}'
-                | '\u{2040}'
-                | '\u{2054}'
-                | '\u{fe33}'
-                | '\u{fe34}'
-                | '\u{fe4d}'..='\u{fe4f}'
-                | '\u{ff3f}'
-                | '\u{0300}'..='\u{036f}'
-                | '\u{1ab0}'..='\u{1aff}'
-                | '\u{1dc0}'..='\u{1dff}'
-                | '\u{20d0}'..='\u{20ff}'
-                | '\u{fe20}'..='\u{fe2f}'
-        )
 }
 
 impl Cx<'_> {
@@ -119,12 +94,7 @@ impl Cx<'_> {
         if first < 0x80 {
             return Some(char::from(first));
         }
-        let len = match first {
-            0xc0..=0xdf => 2,
-            0xe0..=0xef => 3,
-            _ => 4,
-        };
-        let bytes = self.line.get(p..p + len)?;
+        let bytes = self.line.get(p..p + utf8::char_len(first))?;
         std::str::from_utf8(bytes).ok()?.chars().next()
     }
 
@@ -149,10 +119,10 @@ impl Cx<'_> {
     #[inline]
     pub(crate) fn space_at(&self, p: usize) -> usize {
         if let Some(b) = self.get(p).filter(u8::is_ascii) {
-            return usize::from(matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r'));
+            return usize::from(classes::is_ascii_space(b));
         }
         self.char_at(p)
-            .filter(|&c| is_space_char(c))
+            .filter(|&c| is_space(c))
             .map_or(0, char::len_utf8)
     }
 
@@ -160,20 +130,20 @@ impl Cx<'_> {
     #[inline]
     pub(crate) fn space_before(&self, p: usize) -> usize {
         self.char_before(p)
-            .filter(|&c| is_space_char(c))
+            .filter(|&c| is_space(c))
             .map_or(0, char::len_utf8)
     }
 
     /// `\S` at `p`: a character that is not whitespace.
     #[inline]
     pub(crate) fn non_space_at(&self, p: usize) -> bool {
-        self.char_at(p).is_some_and(|c| !is_space_char(c))
+        self.char_at(p).is_some_and(|c| !is_space(c))
     }
 
     /// `(?<=\S)` at `p`.
     #[inline]
     pub(crate) fn non_space_before(&self, p: usize) -> bool {
-        self.char_before(p).is_some_and(|c| !is_space_char(c))
+        self.char_before(p).is_some_and(|c| !is_space(c))
     }
 
     /// The offset after the whitespace that starts at `p`.
@@ -191,13 +161,13 @@ impl Cx<'_> {
     /// `\w` at `p`.
     #[inline]
     pub(crate) fn word_at(&self, p: usize) -> bool {
-        self.char_at(p).is_some_and(is_word_char)
+        self.char_at(p).is_some_and(is_word)
     }
 
     /// `(?<=\w)` at `p`.
     #[inline]
     pub(crate) fn word_before(&self, p: usize) -> bool {
-        self.char_before(p).is_some_and(is_word_char)
+        self.char_before(p).is_some_and(is_word)
     }
 
     /// The byte length of the character at `p`, which is 1 for an invalid one.

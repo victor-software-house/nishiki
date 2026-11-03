@@ -7,6 +7,7 @@ use memchr::memmem;
 use super::scope::S;
 use super::state::Kind;
 use crate::arena::{Arena, Frame};
+use crate::classes::{is_ascii_space, is_ascii_word};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Stack, Token};
 
@@ -35,20 +36,11 @@ pub(crate) struct Lexer<'a> {
     pub(crate) word_end: usize,
 }
 
-pub(crate) fn is_ws(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\r' | 0x0b | 0x0c)
-}
-
-/// ASCII letters, digits and `_`: the character class the grammar spells out.
-pub(crate) fn is_ident(b: u8) -> bool {
-    b.is_ascii_alphanumeric() || b == b'_'
-}
-
 /// The regex `\w`, with non-ASCII bytes counted as word characters. A
 /// Unicode space is not one: [`Lexer::word_at`] and [`Lexer::word_before`]
 /// tell it apart.
 pub(crate) fn is_word(b: u8) -> bool {
-    is_ident(b) || b >= 0x80
+    is_ascii_word(b) || b >= 0x80
 }
 
 impl<'a> Lexer<'a> {
@@ -128,7 +120,7 @@ impl<'a> Lexer<'a> {
     pub(crate) fn blanks(&self, mut i: usize) -> usize {
         let from = i;
         while i < self.s.len() {
-            if is_ws(self.s[i]) {
+            if is_ascii_space(self.s[i]) {
                 i += 1;
             } else if self.s[i] >= 0xc2 && crate::space::len(&self.s[i..]) > 0 {
                 i += crate::space::len(&self.s[i..]);
@@ -187,7 +179,7 @@ impl<'a> Lexer<'a> {
     pub(crate) fn word_before(&self, i: usize) -> bool {
         match i.checked_sub(1).map(|j| self.s[j]) {
             None => false,
-            Some(b) if b < 0x80 => is_ident(b),
+            Some(b) if b < 0x80 => is_ascii_word(b),
             Some(_) => !self.space_before(i),
         }
     }
@@ -215,7 +207,7 @@ impl<'a> Lexer<'a> {
 
     /// Records the identifier and word runs starting at `p`.
     pub(crate) fn scan_word(&mut self, p: usize) {
-        self.ident_end = self.skip(p, is_ident);
+        self.ident_end = self.skip(p, is_ascii_word);
         self.word_end = if self.at(self.ident_end) >= 0x80 {
             self.word_run(self.ident_end)
         } else {
@@ -321,13 +313,13 @@ impl<'a> Lexer<'a> {
 
     fn in_code(&mut self, p: usize) -> usize {
         let b = self.s[p];
-        if is_ws(b) || (b >= 0xc2 && crate::space::len(&self.s[p..]) > 0) {
+        if is_ascii_space(b) || (b >= 0xc2 && crate::space::len(&self.s[p..]) > 0) {
             return self.whitespace(p);
         }
         if let Some(end) = self.end_of_context(p, b) {
             return end;
         }
-        if is_ident(b) {
+        if is_ascii_word(b) {
             self.scan_word(p);
         }
         let kind = self.top();

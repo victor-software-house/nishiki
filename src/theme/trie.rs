@@ -37,8 +37,7 @@ impl Rule {
 
     /// Whether the enclosing scopes, innermost first, satisfy the rule's
     /// parent selectors.
-    fn matches(&self, enclosing: &[&str]) -> bool {
-        let mut scopes = enclosing.iter();
+    fn matches<'a>(&self, mut scopes: impl Iterator<Item = &'a str>) -> bool {
         let mut selectors = self.parents.iter();
         while let Some(selector) = selectors.next() {
             let (selector, direct) = if selector == ">" {
@@ -290,8 +289,11 @@ impl Trie {
                 None => break,
             }
         }
-        let enclosing: Vec<&str> = outer.iter().rev().copied().collect();
-        if let Some(rule) = node.ordered.iter().find(|rule| rule.matches(&enclosing)) {
+        if let Some(rule) = node
+            .ordered
+            .iter()
+            .find(|rule| rule.matches(outer.iter().rev().copied()))
+        {
             style.font = rule.font_style.unwrap_or(style.font);
             style.foreground = rule.foreground.unwrap_or(style.foreground);
             style.background = rule.background.unwrap_or(style.background);

@@ -66,10 +66,7 @@
 //!    a heading's closing `#` run, a table cell's trailing blanks and a
 //!    reference definition's destination and title. It does not follow every
 //!    one, such as an escaped `>` that ends an angle-bracket destination.
-//! 2. `\w` is a letter or digit as Rust's `char::is_alphanumeric` counts them,
-//!    a combining mark of the common blocks, or `_`; `\s` is Unicode white
-//!    space.
-//! 3. A fence of more than 255 characters, or indented with a tab by more than
+//! 2. A fence of more than 255 characters, or indented with a tab by more than
 //!    three characters, is never closed by a fence of the same kind.
 
 mod block;

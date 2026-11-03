@@ -33,6 +33,12 @@ pub(crate) fn is_digit(c: char) -> bool {
     }
 }
 
+/// The regex `\w` for an ASCII byte: a letter, a digit or `_`.
+#[inline]
+pub(crate) fn is_ascii_word(b: u8) -> bool {
+    b.is_ascii_alphanumeric() || b == b'_'
+}
+
 /// The regex `\s` for an ASCII byte.
 ///
 /// Unlike [`u8::is_ascii_whitespace`] it includes the vertical tab, 0x0b, as

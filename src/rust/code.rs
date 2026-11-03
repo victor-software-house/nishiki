@@ -1,9 +1,10 @@
 //! The rule groups of the grammar, and which contexts use which, in order.
 
-use super::lexer::{Lexer, is_ident};
+use super::lexer::Lexer;
 use super::numbers::NUMERIC;
 use super::scope::S;
 use super::state::Kind;
+use crate::classes::is_ascii_word;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Group {
@@ -38,7 +39,7 @@ impl Group {
             BlockComments | Comments => b == b'/',
             Attributes => b == b'#',
             Lvariables | Constants | Gtypes | Functions | Types | Namespaces | Variables => {
-                is_ident(b)
+                is_ascii_word(b)
             }
             Macros => b.is_ascii_alphabetic() || b == b'_',
             Lifetimes => matches!(b, b'\'' | b'&'),
@@ -284,7 +285,7 @@ impl Lexer<'_> {
         if !self.at(start).is_ascii_lowercase() {
             return None;
         }
-        let end = self.skip(start, is_ident);
+        let end = self.skip(start, is_ascii_word);
         self.gap(p);
         self.tok(p + 3, &[S::StorageType]);
         self.tok(name, &[]);
@@ -334,17 +335,17 @@ impl Lexer<'_> {
     /// The end of `(r#)?[0-9A-Za-z_]+` at `i`.
     fn ident_at(&self, i: usize) -> Option<usize> {
         if self.raw_prefix(i) {
-            let end = self.skip(i + 2, is_ident);
+            let end = self.skip(i + 2, is_ascii_word);
             if end > i + 2 {
                 return Some(end);
             }
         }
-        let end = self.skip(i, is_ident);
+        let end = self.skip(i, is_ascii_word);
         (end > i).then_some(end)
     }
 
     fn language_variable(&mut self, p: usize) -> Option<usize> {
-        if !is_ident(self.s[p]) || !self.word_start(p) {
+        if !is_ascii_word(self.s[p]) || !self.word_start(p) {
             return None;
         }
         if !matches!(self.word_end - p, 4 | 5) || !matches!(self.s[p], b's' | b'S') {
@@ -363,7 +364,7 @@ impl Lexer<'_> {
     }
 
     fn gtypes(&mut self, p: usize) -> Option<usize> {
-        if !is_ident(self.s[p]) || !self.word_start(p) {
+        if !is_ascii_word(self.s[p]) || !self.word_start(p) {
             return None;
         }
         if !matches!(self.s[p], b'S' | b'N' | b'O' | b'E') || self.word_end - p > 4 {
@@ -380,7 +381,7 @@ impl Lexer<'_> {
     }
 
     fn variable(&mut self, p: usize, b: u8) -> Option<usize> {
-        if !is_ident(b) || !self.word_start(p) {
+        if !is_ascii_word(b) || !self.word_start(p) {
             return None;
         }
         if p > 0 && self.s[p - 1] == b'.' && !(p > 1 && self.s[p - 2] == b'.') {
@@ -414,7 +415,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        let end = self.skip(quote + 1, is_ident);
+        let end = self.skip(quote + 1, is_ascii_word);
         if self.at(end) == b'\'' || !self.boundary(end) {
             return None;
         }
@@ -442,7 +443,7 @@ impl Lexer<'_> {
     }
 
     fn namespace(&mut self, p: usize, b: u8) -> Option<usize> {
-        if !is_ident(b) || (p > 0 && is_ident(self.s[p - 1])) {
+        if !is_ascii_word(b) || (p > 0 && is_ascii_word(self.s[p - 1])) {
             return None;
         }
         let end = self.ident_end;
@@ -490,7 +491,7 @@ impl Lexer<'_> {
     // Constants and numbers.
 
     fn constants(&mut self, p: usize, b: u8) -> Option<usize> {
-        if !is_ident(b) || !self.word_start(p) {
+        if !is_ascii_word(b) || !self.word_start(p) {
             return None;
         }
         let upper = |b: u8| b.is_ascii_digit() || b.is_ascii_uppercase() || b == b'_';
@@ -505,7 +506,7 @@ impl Lexer<'_> {
         if self.word_is(p, b"const") {
             let name = self.blanks(p + 5);
             if name > p + 5 && self.at(name).is_ascii_uppercase() {
-                let end = self.skip(name, is_ident);
+                let end = self.skip(name, is_ascii_word);
                 if self.boundary(end) {
                     self.gap(p);
                     self.tok(p + 5, &[S::StorageType]);
@@ -529,7 +530,7 @@ impl Lexer<'_> {
     // Functions.
 
     fn functions(&mut self, p: usize, b: u8) -> Option<usize> {
-        if !is_ident(b) {
+        if !is_ascii_word(b) {
             return None;
         }
         if self.word_start(p) && self.word_is(p, b"pub") {
@@ -577,7 +578,7 @@ impl Lexer<'_> {
     // Types.
 
     fn types(&mut self, p: usize, b: u8) -> Option<usize> {
-        if !is_ident(b) {
+        if !is_ascii_word(b) {
             return None;
         }
         if matches!(b, b'f' | b'i' | b'u')
@@ -595,7 +596,7 @@ impl Lexer<'_> {
         }
         let start = p + usize::from(b == b'_');
         if self.at(start).is_ascii_uppercase() {
-            let end = self.skip(start, is_ident);
+            let end = self.skip(start, is_ascii_word);
             if self.at(end) == b'<' && self.boundary(end) {
                 self.gap(p);
                 self.push(Kind::Generic).then_some(())?;
@@ -624,7 +625,7 @@ impl Lexer<'_> {
             let name = self.blanks(self.word_end);
             let n = name + usize::from(self.at(name) == b'_');
             if name > self.word_end && self.at(n).is_ascii_uppercase() {
-                let end = self.skip(n, is_ident);
+                let end = self.skip(n, is_ascii_word);
                 if self.boundary(end) {
                     self.gap(p);
                     self.tok(self.word_end, &[kw, S::StorageType]);
@@ -641,7 +642,7 @@ impl Lexer<'_> {
     /// A capitalised name that is not a macro call.
     fn type_name(&mut self, p: usize, start: usize) -> Option<usize> {
         if self.at(start).is_ascii_uppercase() {
-            let end = self.skip(start, is_ident);
+            let end = self.skip(start, is_ascii_word);
             if self.boundary(end) && self.at(end) != b'!' {
                 self.gap(p);
                 self.tok(end, &[S::EntType]);

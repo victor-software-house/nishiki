@@ -76,8 +76,8 @@ systems = ["lang-rust", "lang-c", "lang-shell", "lang-java", "lang-kotlin"]
 docs = ["lang-markdown", "config"]
 
 # One feature per lexer module. A language that embeds another needs it.
-lang-rust = ["_space"]
-lang-markdown = []
+lang-rust = ["_classes", "_space", "_utf8"]
+lang-markdown = ["_classes", "_utf8"]
 # One module lexes the four dialects, each a copy of the lexer.
 lang-typescript = []
 lang-javascript = []

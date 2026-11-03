@@ -900,3 +900,18 @@ fn a_fence_line_that_runs_out_of_nodes_resumes_the_same_on_a_cache_hit_and_miss(
     }
     assert!(hits > 0, "no node limit stops the fence's push alone");
 }
+
+#[test]
+fn word_characters_are_the_ones_shiki_measures() {
+    let italic = |text: &str| {
+        lex(text)
+            .iter()
+            .flatten()
+            .any(|(_, scopes)| scopes.iter().any(|scope| scope == "markup.italic.markdown"))
+    };
+    assert!(italic("_a_ b"));
+    assert!(italic("_a_. b"));
+    for mark in ['\u{93c}', '\u{951}', '\u{300}', 'x'] {
+        assert!(!italic(&format!("_a_{mark} b")), "{mark:?} is \\w");
+    }
+}
