@@ -634,3 +634,33 @@ fn an_interpolation_carries_its_state_to_the_next_line() {
     assert_eq!(rows[1].0, None);
     assert_eq!(rows[2].0, Some(7));
 }
+
+#[test]
+fn a_field_key_before_a_brace_at_column_zero_keeps_the_field_open() {
+    let text = indoc! {"
+        interface I {
+          a: 1
+          c }
+         x
+    "};
+    let (lines, _) = lex(text);
+    let field = [
+        "source.ts",
+        "meta.interface.ts",
+        "meta.field.declaration.ts",
+    ]
+    .map(str::to_owned);
+    assert_eq!(lines[2], vec![("  c }".to_owned(), field.to_vec())]);
+    assert_eq!(lines[3][1].1[..3], field, "the field is still open");
+    assert_eq!(lines[3][1].1[4], "variable.object.property.ts");
+}
+
+#[test]
+fn a_modifier_without_a_name_after_it_is_the_parameter_name() {
+    let text = "function f(readonly 1) {}";
+    assert_eq!(scope_of(text, "readonly"), "variable.parameter.ts");
+    assert_eq!(
+        scope_of("function f(readonly x) {}", "readonly"),
+        "storage.modifier.ts"
+    );
+}

@@ -513,17 +513,25 @@ impl<const D: u8> Lexer<'_, D> {
         Some(j)
     }
 
-    /// `\s*(KEY)\s*(?:(?:(\?)|(!))\s*)?([,:;=}]|$)`.
+    /// `\s*(KEY)\s*(?:(?:(\?)|(!))\s*)?([,:;=}]|$)`, the lookahead of a
+    /// field's begin.
     pub(crate) fn field_ahead(&self, i: usize) -> bool {
-        let k = self.ws(i);
-        let Some(e) = self.field_key_end(k) else {
-            return false;
-        };
+        self.field_tail(i)
+            .is_some_and(|m| matches!(self.b(m), b',' | b':' | b';' | b'=' | b'}') || self.eol(m))
+    }
+
+    /// `\s*(KEY)\s*(?:(?:(\?)|(!))\s*)?`: where the character after a field
+    /// key sits. The begin accepts `}` there and the end's `^` branch does
+    /// not, so a line such as `  c }` opens a field at column 0 and closes it
+    /// there at once; `TextMate` then gives the rest of the line to the field
+    /// and keeps it open.
+    pub(crate) fn field_tail(&self, i: usize) -> Option<usize> {
+        let e = self.field_key_end(self.ws(i))?;
         let mut m = self.ws(e);
         if matches!(self.b(m), b'?' | b'!') {
             m = self.ws(m + 1);
         }
-        matches!(self.b(m), b',' | b':' | b';' | b'=' | b'}') || self.eol(m)
+        Some(m)
     }
 
     /// A field key: a number, `#?` name, string or computed name.

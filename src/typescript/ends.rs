@@ -443,7 +443,10 @@ impl<const D: u8> Lexer<'_, D> {
         {
             return true;
         }
-        self.bol(p) && !self.field_ahead(0)
+        self.bol(p)
+            && !self
+                .field_tail(0)
+                .is_some_and(|m| matches!(self.b(m), b',' | b':' | b';' | b'=') || self.eol(m))
     }
 
     fn end_indexer(&mut self, kind: Kind, p: usize) -> Option<usize> {
