@@ -1,6 +1,11 @@
-//! Lexes every oracle fixture of one language once, line by line from a
-//! fresh highlighter, and prints nothing: the program `mise run callgrind`
-//! counts instructions of, at a pull request's base and head.
+//! Lexes every oracle fixture of one language twice, line by line from a
+//! fresh highlighter each time, and prints nothing: the program
+//! `mise run callgrind` counts instructions of, at a pull request's base and
+//! head.
+//!
+//! The first pass fills what a process builds once, such as each rule's
+//! pattern tables; callgrind counts only [`measured`], the second pass, so
+//! a change to that one-time work does not read as a change to lexing.
 //!
 //! Usage: `lex <fixtures> <language>`, such as `lex tests/oracle python`.
 
@@ -11,7 +16,7 @@ use std::path::Path;
 use std::process::ExitCode;
 use std::{env, fs};
 
-use nishiki::{Highlighter, Language, State};
+use nishiki::{Highlighter, Language, State, Token};
 
 fn main() -> ExitCode {
     let args: Vec<String> = env::args().skip(1).collect();
@@ -33,11 +38,27 @@ fn main() -> ExitCode {
         .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
         .collect();
     files.sort();
+    let documents: Vec<String> = files
+        .iter()
+        .filter_map(|file| fs::read_to_string(file).ok())
+        .collect();
     let mut tokens = Vec::new();
-    for file in files {
-        let Ok(content) = fs::read_to_string(&file) else {
-            continue;
-        };
+    lex(language, &documents, &mut tokens);
+    measured(language, &documents, &mut tokens);
+    black_box(&tokens);
+    ExitCode::SUCCESS
+}
+
+/// The pass callgrind counts (`--toggle-collect`); kept out of line so that
+/// it has a symbol of its own.
+#[inline(never)]
+fn measured(language: Language, documents: &[String], tokens: &mut Vec<Token>) {
+    lex(language, documents, tokens);
+}
+
+/// Lexes each document's `L` lines from a fresh highlighter.
+fn lex(language: Language, documents: &[String], tokens: &mut Vec<Token>) {
+    for content in documents {
         let mut highlighter = Highlighter::new(language);
         let mut state = State::default();
         for line in content
@@ -45,10 +66,8 @@ fn main() -> ExitCode {
             .filter_map(|record| record.strip_prefix("L "))
         {
             tokens.clear();
-            let report = highlighter.line(line, &mut state, &mut tokens);
+            let report = highlighter.line(line, &mut state, tokens);
             black_box(&report);
         }
     }
-    black_box(&tokens);
-    ExitCode::SUCCESS
 }

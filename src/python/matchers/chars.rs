@@ -1,9 +1,9 @@
 //! The character classes of the grammar's expressions.
 
-use std::collections::HashMap;
 use std::sync::OnceLock;
 
 use crate::classes::is_alpha;
+use crate::fnv::FnvMap;
 use crate::python::engine::Lexer;
 use crate::python::words;
 use crate::rules::Chars;
@@ -75,10 +75,10 @@ pub(in crate::python) const MAGIC_FUNCTION: u8 = 16;
 pub(in crate::python) const MAGIC_VARIABLE: u8 = 32;
 
 /// Which of the big word lists have each word, built on first use.
-fn word_masks() -> &'static HashMap<&'static [u8], u8> {
-    static MASKS: OnceLock<HashMap<&'static [u8], u8>> = OnceLock::new();
+fn word_masks() -> &'static FnvMap<&'static [u8], u8> {
+    static MASKS: OnceLock<FnvMap<&'static [u8], u8>> = OnceLock::new();
     MASKS.get_or_init(|| {
-        let mut masks: HashMap<&'static [u8], u8> = HashMap::new();
+        let mut masks: FnvMap<&'static [u8], u8> = FnvMap::default();
         for (list, bit) in [
             (words::BUILTIN_FUNCTIONS, FUNCTION),
             (words::LEGACY_BUILTINS, LEGACY),

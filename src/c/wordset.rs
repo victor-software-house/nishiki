@@ -2,11 +2,10 @@
 //! the dozen patterns that test a word against a list do not each search.
 //! Every test of a word against a list goes through it.
 
-use std::collections::HashMap;
-use std::hash::{BuildHasherDefault, Hasher};
 use std::sync::OnceLock;
 
 use super::words;
+use crate::fnv::FnvMap;
 
 pub(super) const CONTROL: u32 = 1;
 pub(super) const MODIFIER: u32 = 1 << 1;
@@ -30,29 +29,7 @@ pub(super) const DEFINE_EXCL: u32 = 1 << 16;
 const TAG_TYPES: &[&str] = &["enum", "struct", "union"];
 const ASMS: &[&str] = &["__asm__", "asm"];
 
-/// FNV-1a over the bytes of a word.
-#[derive(Default)]
-struct Fnv(u64);
-
-impl Hasher for Fnv {
-    fn finish(&self) -> u64 {
-        self.0
-    }
-
-    fn write(&mut self, bytes: &[u8]) {
-        let mut hash = if self.0 == 0 {
-            0xcbf2_9ce4_8422_2325
-        } else {
-            self.0
-        };
-        for &byte in bytes {
-            hash = (hash ^ u64::from(byte)).wrapping_mul(0x0100_0000_01b3);
-        }
-        self.0 = hash;
-    }
-}
-
-type Map = HashMap<&'static [u8], u32, BuildHasherDefault<Fnv>>;
+type Map = FnvMap<&'static [u8], u32>;
 
 fn map() -> &'static Map {
     static MAP: OnceLock<Map> = OnceLock::new();

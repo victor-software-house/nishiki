@@ -66,6 +66,8 @@ mod diff;
 mod dockerfile;
 #[cfg(any(feature = "lang-json", feature = "lang-toml", feature = "lang-yaml"))]
 mod emit;
+#[cfg(any(feature = "lang-c", feature = "lang-python"))]
+mod fnv;
 #[cfg(feature = "lang-go")]
 mod go;
 #[cfg(feature = "lang-graphql")]
