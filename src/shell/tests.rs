@@ -166,6 +166,10 @@ fn a_long_delimiter_is_a_here_document() {
     assert_eq!(states[1], State::default());
 }
 
+/// Each line lexed again from its state gives the same tokens and state.
+/// The lines run backwards first, so that each starts from a state the last
+/// line did not end in and the open rules are rebuilt from the arena, and
+/// then forwards, so that each resumes the rules the line before left.
 #[test]
 fn a_state_resumes_the_line_after_it() {
     let text = indoc! {"
@@ -184,7 +188,7 @@ fn a_state_resumes_the_line_after_it() {
         let _ = highlighter.line(line, &mut state, &mut tokens);
         lines.push((line, before, tokens, state));
     }
-    for (line, before, tokens, after) in &lines {
+    for (line, before, tokens, after) in lines.iter().rev().chain(&lines) {
         let mut again = *before;
         let mut second = Vec::new();
         let _ = highlighter.line(line, &mut again, &mut second);

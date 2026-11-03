@@ -14,6 +14,9 @@ pub(crate) struct Scratch {
     /// The shell lexer's, for shell documents and Markdown shell fences.
     #[cfg(feature = "lang-shell")]
     pub(crate) shell: crate::shell::Scratch,
+    /// The C lexer's, for C documents and Markdown C fences.
+    #[cfg(feature = "lang-c")]
+    pub(crate) c: crate::c::Scratch,
     /// The Python lexer's, for Python documents and Markdown Python fences.
     #[cfg(feature = "lang-python")]
     pub(crate) python: crate::python::Scratch,

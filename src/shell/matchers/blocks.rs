@@ -276,12 +276,25 @@ impl Lexer<'_> {
         )
     }
 
+    /// The end of the function-name characters from `i`. The run is
+    /// remembered, so a search from inside it, as a pattern tried at every
+    /// byte of a long word makes, does not scan it again.
+    fn function_name_end(&self, i: usize) -> usize {
+        let (start, end, lim) = self.function_name_run.get();
+        if lim == self.lim && start <= i && i < end {
+            return end;
+        }
+        let e = self.skip(i, Self::is_function_name);
+        self.function_name_run.set((i, e, self.lim));
+        e
+    }
+
     /// `function_definition`'s begin.
     pub(in crate::shell) fn m_function(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if self.starts(j, b"function") && self.not_after_word(j) && !self.word_at(j + 8) {
             let n0 = self.blanks(j + 8);
-            let n1 = self.run_end(n0, Self::is_function_name);
+            let n1 = self.function_name_end(n0);
             if n1 > n0 {
                 self.span(j, j + 8, &[S::StorageTypeFunction]);
                 self.span(n0, n1, &[S::EntityNameFunction]);
@@ -297,7 +310,7 @@ impl Lexer<'_> {
             }
         }
         self.clear_spans();
-        let n1 = self.run_end(j, Self::is_function_name);
+        let n1 = self.function_name_end(j);
         if n1 == j {
             return None;
         }

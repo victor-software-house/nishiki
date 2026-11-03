@@ -342,7 +342,19 @@ fn contexts_past_the_depth_limit_are_not_opened() {
         ..Limits::default()
     };
     let mut highlighter = Highlighter::new_with_limits(Language::C, limits);
+    let mut state = State::default();
     let mut tokens = Vec::new();
-    let report = highlighter.line("((((((x))))))", &mut State::default(), &mut tokens);
+    let line = "((((((x))))))";
+    let report = highlighter.line(line, &mut state, &mut tokens);
     assert!(report.reached(Limit::Depth));
+    assert_eq!(
+        tokens.last().map(|token| token.end()),
+        Some(line.len()),
+        "the tokens cover the line"
+    );
+    tokens.clear();
+    let next = "int y;";
+    let report = highlighter.line(next, &mut state, &mut tokens);
+    assert!(report.is_complete(), "the state after the limit lexes on");
+    assert_eq!(tokens.last().map(|token| token.end()), Some(next.len()));
 }

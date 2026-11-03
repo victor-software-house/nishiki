@@ -99,6 +99,17 @@ struct Open {
     anchor: Option<usize>,
 }
 
+/// The buffers a C line works in, which the highlighter keeps from line to
+/// line, so that a line allocates nothing once they have grown.
+#[derive(Debug, Default)]
+pub(crate) struct Scratch {
+    open: Vec<Open>,
+    sp: Vec<Span>,
+    local: Vec<(u32, usize)>,
+    name: String,
+    ends: Vec<usize>,
+}
+
 /// Lexes one line.
 pub(super) struct Lexer<'a> {
     pub(super) s: &'a [u8],
@@ -156,6 +167,7 @@ impl<'a> Lexer<'a> {
         out: &'a mut Vec<Token>,
         state: u32,
         report: &'a mut LineReport,
+        scratch: &mut Scratch,
     ) -> Self {
         let s = text.bytes;
         let frame = arena.frame(state);
@@ -181,20 +193,20 @@ impl<'a> Lexer<'a> {
             start: text.start,
             state,
             frame,
-            open: Vec::new(),
+            open: cleared(&mut scratch.open),
             anchor,
-            sp: Vec::new(),
+            sp: cleared(&mut scratch.sp),
             span_base: 0,
             hit: Hit {
                 start: 0,
                 end: 0,
                 act: Act::End,
             },
-            local: Vec::new(),
-            name: String::new(),
+            local: cleared(&mut scratch.local),
+            name: std::mem::take(&mut scratch.name),
             tables: Tables::get(),
             stopped: false,
-            ends: Vec::new(),
+            ends: cleared(&mut scratch.ends),
             runs: [const { std::cell::Cell::new((usize::MAX, 0)) }; 4],
             scoped: std::cell::Cell::new((usize::MAX, 0)),
             mask: std::cell::Cell::new((usize::MAX, 0, 0)),
@@ -202,7 +214,13 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    pub(super) fn into_state(self) -> u32 {
+    /// The state after the line, with the buffers given back to `scratch`.
+    pub(super) fn into_state(self, scratch: &mut Scratch) -> u32 {
+        scratch.open = self.open;
+        scratch.sp = self.sp;
+        scratch.local = self.local;
+        scratch.name = self.name;
+        scratch.ends = self.ends;
         self.state
     }
 
@@ -675,4 +693,11 @@ impl<'a> Lexer<'a> {
             _ => 1,
         }
     }
+}
+
+/// Takes `buffer` out of the scratch, emptied but with its capacity.
+fn cleared<T>(buffer: &mut Vec<T>) -> Vec<T> {
+    let mut taken = std::mem::take(buffer);
+    taken.clear();
+    taken
 }

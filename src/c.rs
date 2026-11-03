@@ -26,6 +26,7 @@ mod text;
 mod words;
 mod wordset;
 
+pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
 use state::R;
@@ -80,13 +81,14 @@ pub(crate) fn line(
     state: u32,
     out: &mut Vec<Token>,
     report: &mut LineReport,
+    scratch: &mut Scratch,
 ) -> u32 {
     if line.bytes.is_empty() {
         return state;
     }
-    let mut lexer = engine::Lexer::new(arena, limits, line, out, state, report);
+    let mut lexer = engine::Lexer::new(arena, limits, line, out, state, report, scratch);
     lexer.run();
-    lexer.into_state()
+    lexer.into_state(scratch)
 }
 
 #[cfg(test)]
@@ -106,5 +108,13 @@ pub(crate) fn lex(
         start: line.start,
         anchored: line.embedded,
     };
-    self::line(cx.arena, cx.limits, text, state, cx.out, cx.report)
+    self::line(
+        cx.arena,
+        cx.limits,
+        text,
+        state,
+        cx.out,
+        cx.report,
+        &mut cx.scratch.c,
+    )
 }

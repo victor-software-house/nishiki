@@ -201,7 +201,7 @@ pub(crate) struct Lexer<'a> {
     /// The last run of function-name characters found: where it starts and
     /// ends, and the end of the text. A search from inside it ends where it
     /// does.
-    name_run: Cell<(usize, usize, usize)>,
+    pub(crate) function_name_run: Cell<(usize, usize, usize)>,
     /// The last [`Lexer::name_run`] answer: where it was asked, the end of
     /// the text, and the answer. Several rules ask about the same word.
     pub(crate) names: Cell<(usize, usize, Option<usize>)>,
@@ -263,7 +263,7 @@ impl<'a> Lexer<'a> {
                     valid: false,
                 })
             }; FINDS],
-            name_run: Cell::new((0, 0, 0)),
+            function_name_run: Cell::new((0, 0, 0)),
             names: Cell::new((usize::MAX, 0, None)),
         };
         if resume {
@@ -456,19 +456,6 @@ impl<'a> Lexer<'a> {
         answer
     }
 
-    /// The end of the run of `class` bytes from `i`, remembering the run so
-    /// that a search from inside it, as a pattern tried at every byte of a long
-    /// word makes, does not scan it again. One class only.
-    pub(crate) fn run_end(&self, i: usize, class: impl Fn(u8) -> bool) -> usize {
-        let (start, end, lim) = self.name_run.get();
-        if lim == self.lim && start <= i && i < end {
-            return end;
-        }
-        let e = self.skip(i, class);
-        self.name_run.set((i, e, self.lim));
-        e
-    }
-
     /// The end of the character at `i`, which is a whole UTF-8 sequence.
     pub(crate) fn char_end(&self, i: usize) -> usize {
         let len = match self.s[i] {
@@ -555,7 +542,10 @@ impl<'a> Lexer<'a> {
 
     /// The stack `base` with `scopes` on top. A scope the node limit keeps
     /// from being made is left out.
-    fn path(&mut self, base: u32, scopes: &[S]) -> u32 {
+    ///
+    /// The cache keys a list by its address, which names one list only
+    /// because every list is a static of the grammar's tables.
+    fn path(&mut self, base: u32, scopes: &'static [S]) -> u32 {
         if scopes.is_empty() {
             return base;
         }
@@ -596,11 +586,17 @@ impl<'a> Lexer<'a> {
     /// the text are dropped, as a `TextMate` engine does for the text of a
     /// capture.
     fn dynamic_path(&mut self, base: u32, prefix: &str, text: &str, suffix: &str) -> u32 {
-        let mut name = std::mem::take(&mut self.name);
-        name.clear();
-        name.push_str(prefix);
-        name.push_str(text.trim_start_matches('.'));
-        name.push_str(suffix);
+        self.name.clear();
+        self.name.push_str(prefix);
+        self.name.push_str(text.trim_start_matches('.'));
+        self.name.push_str(suffix);
+        self.spelled_path(base)
+    }
+
+    /// The stack `base` with the scopes the name in `self.name` spells out
+    /// on top, a scope per word.
+    fn spelled_path(&mut self, base: u32) -> u32 {
+        let name = std::mem::take(&mut self.name);
         let mut stack = base;
         for part in name.split(' ') {
             let child = self
@@ -660,8 +656,11 @@ impl<'a> Lexer<'a> {
         let name = self.path(parent, info.name);
         let content = match info.content_delimiter {
             Some(prefix) => {
-                let delimiter = self.arena.string(payload).to_owned();
-                self.dynamic_path(name, prefix, &delimiter, "")
+                self.name.clear();
+                self.name.push_str(prefix);
+                self.name
+                    .push_str(self.arena.string(payload).trim_start_matches('.'));
+                self.spelled_path(name)
             }
             None => self.path(name, info.content),
         };
