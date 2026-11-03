@@ -24,7 +24,7 @@
 // pattern's regular expression and capture groups, one JSON object per line,
 // for the matcher probe.
 import csharp from "@shikijs/langs@4.6.0/csharp";
-import { arms, groupsCheck, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -613,6 +613,7 @@ for (const [source, id] of hand) g += `    /// \`${docs(source).replaceAll("`", 
 g += `}\n`;
 
 g += startTable(patList);
+g += ruleCodes("CSharp", "CSHARP");
 g += groupsCheck("CSharp", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
 await Bun.write(`${root_dir}src/csharp/grammar.rs`, g);

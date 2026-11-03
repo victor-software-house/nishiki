@@ -1,11 +1,10 @@
 //! C# on the shared rule engine ([`crate::rules`]): the grammar's types.
 
 use std::cell::Cell;
-use std::sync::OnceLock;
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, Start, Tabled, Tables, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
 
 /// The C# lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, CSharp>;
@@ -36,6 +35,8 @@ impl Grammar for CSharp {
 
     const NAME: &'static str = "C#";
     const ROOT: Rule = Rule::Root;
+    const MARKS_FIRST_LINE: bool = true;
+    const SOURCE: S = S::Source;
     const GROUPS: usize = 13;
     const CAPTURED_EOL: bool = true;
 
@@ -91,22 +92,5 @@ impl Grammar for CSharp {
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
         lexer.retokenise(kind.rule(), from, to, base);
-    }
-}
-
-impl Tabled for CSharp {
-    fn pat_start(pat: Pat) -> Start {
-        pat.start()
-    }
-
-    fn tables(rule: Rule) -> &'static Tables<Self> {
-        static TABLES: [OnceLock<Tables<CSharp>>; Rule::ALL.len()] =
-            [const { OnceLock::new() }; Rule::ALL.len()];
-        #[expect(
-            clippy::as_conversions,
-            reason = "a fieldless `repr(u8)` enum has no `From` impl"
-        )]
-        let index = rule as usize;
-        TABLES[index].get_or_init(|| Tables::build(rule.data()))
     }
 }

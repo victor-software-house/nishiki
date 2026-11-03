@@ -1180,6 +1180,7 @@ mod tests {
 
         const NAME: &'static str = "brackets";
         const ROOT: Root = Root;
+        const SOURCE: Scope = OPEN;
         const GROUPS: usize = 4;
 
         fn scope(scope: Scope) -> Scope {

@@ -189,10 +189,11 @@ The release rules in `AGENTS.md` decide its version.
   It follows the contract in 1.1 to 1.6 and needs nothing from `src/rules.rs`.
 - A language lexed from a TextMate grammar's generated tables uses `src/rules.rs`.
   - The per-line loop, `\G`, capture groups, frames, budget checks and the candidate tables for each byte exist once there.
-  - The language supplies a `Grammar` implementation: its generated tables, its scope type and its hand-written matchers.
+  - The language supplies a `Grammar` implementation: its generated tables, its scope type, its `SOURCE` scope and its hand-written matchers.
+  - Its module's `start`, `start_embedded` and `lex` call `rules::start`, `rules::start_embedded` and `rules::lex`, which hold the contract of 1.1 once.
   - It also supplies an `Extra`, for what its matchers remember about a line.
   - It sets `Grammar::GROUPS` to one more than the highest capture group its patterns record, and its `lang-*` feature enables `_rule-tables` when it scans with `table_scan`.
-  - Its generator, `oracle/<language>-grammar.ts`, takes the first-byte analysis, the start table, the scope file and the `GROUPS` check from `oracle/rule-grammar.ts`; the generated grammar fails to compile when `GROUPS` is short of a group its tables name.
+  - Its generator, `oracle/<language>-grammar.ts`, takes the first-byte analysis, the start table, the rule codes with the `Tabled` implementation, the scope file and the `GROUPS` check from `oracle/rule-grammar.ts`; the generated grammar fails to compile when `GROUPS` is short of a group its tables name.
   - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.

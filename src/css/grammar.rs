@@ -5919,6 +5919,47 @@ impl Pat {
     }
 }
 
+impl Rule {
+    /// The rule as a frame stores it: the language's tag in the high byte, the
+    /// position in [`Rule::ALL`] in the low one.
+    #[expect(
+        clippy::as_conversions,
+        reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
+    )]
+    pub(crate) const fn code(self) -> u16 {
+        crate::tag::CSS | self as u16
+    }
+
+    /// The rule a frame's code names; [`Rule::Root`] for a code that is
+    /// not the language's, such as the empty state's.
+    pub(crate) fn from_code(code: u16) -> Rule {
+        if code & 0xff00 != crate::tag::CSS {
+            return Rule::Root;
+        }
+        Rule::ALL
+            .get(usize::from(code & 0xff))
+            .copied()
+            .unwrap_or(Rule::Root)
+    }
+}
+
+impl rules::Tabled for Css {
+    fn pat_start(pat: Pat) -> rules::Start {
+        pat.start()
+    }
+
+    fn tables(rule: Rule) -> &'static rules::Tables<Self> {
+        static TABLES: [std::sync::OnceLock<rules::Tables<Css>>; Rule::ALL.len()] =
+            [const { std::sync::OnceLock::new() }; Rule::ALL.len()];
+        #[expect(
+            clippy::as_conversions,
+            reason = "a fieldless `repr(u8)` enum has no `From` impl"
+        )]
+        let index = rule as usize;
+        TABLES[index].get_or_init(|| rules::Tables::build(rule.data()))
+    }
+}
+
 const _: () = assert!(
     8 <= <super::engine::Css as crate::rules::Grammar>::GROUPS,
     "a pattern's table names a capture group past the grammar's GROUPS"

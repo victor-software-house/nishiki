@@ -490,6 +490,56 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
   return starts;
 }
 
+/** How a `Rule` of the grammar `engine` (such as `Css`) is stored as a frame
+ * of the interned state: its language's tag, the constant `tag` of
+ * `src/tag.rs`, in the high byte, and its position in `Rule::ALL` in the low
+ * one. Then its `Tabled` implementation, which serves the pattern tables
+ * above to `rules::table_scan`. */
+export function ruleCodes(engine: string, tag: string): string {
+  return `
+impl Rule {
+    /// The rule as a frame stores it: the language's tag in the high byte, the
+    /// position in [\`Rule::ALL\`] in the low one.
+    #[expect(
+        clippy::as_conversions,
+        reason = "a fieldless \`repr(u8)\` enum has no \`From\` impl for its discriminant"
+    )]
+    pub(crate) const fn code(self) -> u16 {
+        crate::tag::${tag} | self as u16
+    }
+
+    /// The rule a frame's code names; [\`Rule::Root\`] for a code that is
+    /// not the language's, such as the empty state's.
+    pub(crate) fn from_code(code: u16) -> Rule {
+        if code & 0xff00 != crate::tag::${tag} {
+            return Rule::Root;
+        }
+        Rule::ALL
+            .get(usize::from(code & 0xff))
+            .copied()
+            .unwrap_or(Rule::Root)
+    }
+}
+
+impl rules::Tabled for ${engine} {
+    fn pat_start(pat: Pat) -> rules::Start {
+        pat.start()
+    }
+
+    fn tables(rule: Rule) -> &'static rules::Tables<Self> {
+        static TABLES: [std::sync::OnceLock<rules::Tables<${engine}>>; Rule::ALL.len()] =
+            [const { std::sync::OnceLock::new() }; Rule::ALL.len()];
+        #[expect(
+            clippy::as_conversions,
+            reason = "a fieldless \`repr(u8)\` enum has no \`From\` impl"
+        )]
+        let index = rule as usize;
+        TABLES[index].get_or_init(|| rules::Tables::build(rule.data()))
+    }
+}
+`;
+}
+
 /** A compile-time check that `GROUPS` of the grammar `engine` (such as
  * `Css`) holds the highest capture group its tables name: an index past it
  * would panic when the engine records or reads the group. */

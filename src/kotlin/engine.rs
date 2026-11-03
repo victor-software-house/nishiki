@@ -1,11 +1,10 @@
 //! Kotlin on the shared rule engine ([`crate::rules`]): the grammar's types.
 
 use std::cell::{Cell, OnceCell};
-use std::sync::OnceLock;
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, Start, Tabled, Tables, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
 
 /// The Kotlin lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Kotlin>;
@@ -42,6 +41,7 @@ impl Grammar for Kotlin {
 
     const NAME: &'static str = "Kotlin";
     const ROOT: Rule = Rule::Root;
+    const SOURCE: S = S::Source;
     const GROUPS: usize = 6;
     const CAPTURED_EOL: bool = true;
 
@@ -93,22 +93,5 @@ impl Grammar for Kotlin {
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
         lexer.tokenize_capture(kind, from, to, base);
-    }
-}
-
-impl Tabled for Kotlin {
-    fn pat_start(pat: Pat) -> Start {
-        pat.start()
-    }
-
-    fn tables(rule: Rule) -> &'static Tables<Self> {
-        static TABLES: [OnceLock<Tables<Kotlin>>; Rule::ALL.len()] =
-            [const { OnceLock::new() }; Rule::ALL.len()];
-        #[expect(
-            clippy::as_conversions,
-            reason = "a fieldless `repr(u8)` enum has no `From` impl"
-        )]
-        let index = rule as usize;
-        TABLES[index].get_or_init(|| Tables::build(rule.data()))
     }
 }

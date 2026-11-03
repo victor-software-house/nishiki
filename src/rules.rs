@@ -18,8 +18,7 @@ use std::fmt::Debug;
 
 #[cfg(feature = "_rule-tables")]
 pub(crate) use chars::Chars;
-#[cfg(any(feature = "lang-css", feature = "lang-csharp"))]
-pub(crate) use lexer::FIRST_LINE;
+use lexer::FIRST_LINE;
 pub(crate) use lexer::{Lexer, Scratch};
 #[cfg(any(feature = "lang-go", feature = "lang-ruby"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
@@ -27,6 +26,8 @@ pub(crate) use tables::Tables;
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::table_scan;
 
+use crate::arena::{Arena, ROOT};
+use crate::language::{Context, Line};
 use crate::scope::Scope;
 
 /// One language's grammar: its rules and patterns, by type, and the
@@ -55,6 +56,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// Whether a begin match that takes the line feed leaves `\G` at the
     /// start of the next line, as vscode-textmate does.
     const CAPTURED_EOL: bool = false;
+    /// Whether a pattern of the grammar reads `\A`, so that the state at the
+    /// start of a document marks its first line.
+    const MARKS_FIRST_LINE: bool = false;
+    /// The scope that names a whole document, such as `source.python`.
+    const SOURCE: Self::Scope;
 
     /// The scope in the crate's shared numbering.
     fn scope(scope: Self::Scope) -> Scope;
@@ -111,6 +117,50 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn skip_retok(_rule: Self::Rule, _text: &[u8]) -> bool {
         false
     }
+}
+
+/// The state at the start of a document of grammar `G` whose scopes sit on
+/// the stack `base`: the root rule with [`Grammar::SOURCE`] on top of it.
+pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena.child(base, G::scope(G::SOURCE)).unwrap_or(base);
+    let payload = if G::MARKS_FIRST_LINE { FIRST_LINE } else { 0 };
+    arena
+        .push(ROOT, G::rule_code(G::ROOT), payload, stack)
+        .unwrap_or(ROOT)
+}
+
+/// The state at the start of the lines of grammar `G` in a fenced code block,
+/// whose text sits on the stack `base` with no source scope of its own, as in
+/// Shiki's embedding.
+pub(crate) fn start_embedded<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
+    arena
+        .push(ROOT, G::rule_code(G::ROOT), 0, base)
+        .unwrap_or(ROOT)
+}
+
+/// Lexes `line` from `state` with grammar `G` under the crate's one lexer
+/// contract ([`Language::lex`](crate::Language)), with the buffers `scratch`
+/// picks out of the highlighter's, and returns the state after it.
+///
+/// An empty line leaves the state as it is, because Shiki does not tokenize
+/// empty lines.
+#[inline]
+pub(crate) fn lex<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+) -> u32 {
+    if line.text.is_empty() {
+        return state;
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+    };
+    let scratch = scratch(cx.scratch);
+    Lexer::new(cx.arena, cx.limits, text, cx.out, state, cx.report, scratch).run()
 }
 
 /// The scopes of a pattern's capture groups by group number, and the groups

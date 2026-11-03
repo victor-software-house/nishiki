@@ -575,6 +575,40 @@ fn go_state_continues_across_the_lines_of_a_fence() {
     assert_eq!(stack_of(text, "b ")[3], "comment.block.go");
 }
 
+/// `\G` holds where the list's indent ends, so `\G()$` keeps the continuation
+/// open there on a line of nothing but the indent; it closes at the end of that
+/// line, and the quote after it opens a string, as in Shiki.
+#[test]
+fn a_python_continuation_in_a_list_fence_closes_after_a_line_of_indent() {
+    let text = formatdoc! {"
+        - a
+
+          ```python
+          x = \\
+          {nothing}
+          'a'
+          ```
+    ", nothing = ""};
+    let lines = lex(&text);
+    assert_eq!(lines[4].len(), 1, "{:?}", lines[4]);
+    let (quote, scopes) = &lines[5][1];
+    assert_eq!(quote, "'");
+    assert_eq!(scopes[4], "string.quoted.single.python");
+}
+
+/// The comment's outer rule ends at `(?!\G)` at the end of the comment's line,
+/// before the anchor of the next line could keep it open, as in Shiki.
+#[test]
+fn a_java_fence_line_after_a_line_comment_starts_a_definition() {
+    let text = indoc! {"
+        ```java
+        // a
+        int x;
+        ```
+    "};
+    assert_eq!(scope_of(text, "int"), "storage.type.primitive.java");
+}
+
 #[test]
 fn java_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"

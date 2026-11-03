@@ -12,74 +12,32 @@ mod engine;
 mod grammar;
 mod matchers;
 mod scope;
-mod state;
 mod words;
 
+use engine::Python;
 pub(crate) use engine::Scratch;
-use grammar::Rule;
 pub(crate) use scope::NAMES;
-use scope::S;
 
-use crate::Token;
-use crate::arena::{Arena, ROOT};
-use crate::limits::{Limits, LineReport};
-use crate::rules::Text;
+use crate::arena::Arena;
+use crate::language::{Context, Line};
+use crate::rules;
 
 /// The state at the start of a Python document whose scopes sit on the stack
-/// `base`: one rule with `source.python` on top of it.
+/// `base`.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
-    let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena
-        .push(ROOT, Rule::Root.code(), 0, stack)
-        .unwrap_or(ROOT)
+    rules::start::<Python>(arena, base)
 }
 
-/// The state at the start of the Python lines of a fenced code block, whose
-/// text sits on the stack `base` with no `source.python` of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the Python lines of a fenced code block.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
+    rules::start_embedded::<Python>(arena, base)
 }
 
-/// Lexes one line from `state`, appending its tokens, and returns the state
-/// after it.
-///
-/// An empty line leaves the state as it is, because Shiki does not tokenize
-/// empty lines.
-pub(crate) fn line(
-    scratch: &mut crate::scratch::Scratch,
-    arena: &mut Arena,
-    limits: &Limits,
-    line: Text<'_>,
-    state: u32,
-    out: &mut Vec<Token>,
-    report: &mut LineReport,
-) -> u32 {
-    if line.bytes.is_empty() {
-        return state;
-    }
-    let lexer = engine::Lexer::new(arena, limits, line, out, state, report, &mut scratch.python);
-    lexer.run()
+/// Lexes one line under the crate's lexer contract.
+#[inline]
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
+    rules::lex::<Python>(cx, line, state, |scratch| &mut scratch.python)
 }
 
 #[cfg(test)]
 mod tests;
-
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
-#[inline]
-pub(crate) fn lex(
-    cx: &mut crate::language::Context<'_>,
-    line: crate::language::Line<'_>,
-    state: u32,
-) -> u32 {
-    let text = Text {
-        bytes: line.text.as_bytes(),
-        start: line.start,
-        anchored: false,
-    };
-    self::line(
-        cx.scratch, cx.arena, cx.limits, text, state, cx.out, cx.report,
-    )
-}

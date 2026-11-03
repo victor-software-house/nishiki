@@ -3,13 +3,10 @@
 //! line stays linear.
 
 use std::cell::Cell;
-use std::sync::OnceLock;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{
-    self, Act, Captures, Grammar, HasRuns, Payload, Runs, Start, Tabled, Tables, table_scan,
-};
+use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, table_scan};
 
 /// The Go lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Go>;
@@ -63,6 +60,7 @@ impl Grammar for Go {
 
     const NAME: &'static str = "Go";
     const ROOT: Rule = Rule::Root;
+    const SOURCE: S = S::Source;
     const GROUPS: usize = 54;
     const CAPTURED_EOL: bool = true;
 
@@ -114,22 +112,5 @@ impl Grammar for Go {
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
         lexer.tokenize_capture(kind, from, to, base);
-    }
-}
-
-impl Tabled for Go {
-    fn pat_start(pat: Pat) -> Start {
-        pat.start()
-    }
-
-    fn tables(rule: Rule) -> &'static Tables<Self> {
-        static TABLES: [OnceLock<Tables<Go>>; Rule::ALL.len()] =
-            [const { OnceLock::new() }; Rule::ALL.len()];
-        #[expect(
-            clippy::as_conversions,
-            reason = "a fieldless `repr(u8)` enum has no `From` impl"
-        )]
-        let index = rule as usize;
-        TABLES[index].get_or_init(|| Tables::build(rule.data()))
     }
 }

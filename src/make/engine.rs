@@ -150,6 +150,7 @@ impl Grammar for Make {
 
     const NAME: &'static str = "Makefile";
     const ROOT: Rule = Rule::Root;
+    const SOURCE: S = S::Source;
 
     fn scope(scope: S) -> crate::scope::Scope {
         scope.scope()

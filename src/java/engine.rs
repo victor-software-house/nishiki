@@ -3,11 +3,10 @@
 //! line stays linear.
 
 use std::cell::Cell;
-use std::sync::OnceLock;
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, Start, Tabled, Tables, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, Payload, table_scan};
 
 /// The Java lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Java>;
@@ -101,6 +100,7 @@ impl Grammar for Java {
 
     const NAME: &'static str = "Java";
     const ROOT: Rule = Rule::Root;
+    const SOURCE: S = S::Source;
     const GROUPS: usize = 7;
 
     fn scope(scope: S) -> crate::scope::Scope {
@@ -151,22 +151,5 @@ impl Grammar for Java {
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
         lexer.tokenize_capture(kind, from, to, base);
-    }
-}
-
-impl Tabled for Java {
-    fn pat_start(pat: Pat) -> Start {
-        pat.start()
-    }
-
-    fn tables(rule: Rule) -> &'static Tables<Self> {
-        static TABLES: [OnceLock<Tables<Java>>; Rule::ALL.len()] =
-            [const { OnceLock::new() }; Rule::ALL.len()];
-        #[expect(
-            clippy::as_conversions,
-            reason = "a fieldless `repr(u8)` enum has no `From` impl"
-        )]
-        let index = rule as usize;
-        TABLES[index].get_or_init(|| Tables::build(rule.data()))
     }
 }

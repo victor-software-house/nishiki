@@ -7,7 +7,7 @@
 // Run with `bun run oracle/css-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import css from "@shikijs/langs@4.6.0/css";
-import { arms, groupsCheck, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
+import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -371,6 +371,7 @@ g += `        }\n    }\n}\n`;
 
 
 g += startTable(patList);
+g += ruleCodes("Css", "CSS");
 g += groupsCheck("Css", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
 await Bun.write(`${root_dir}src/css/grammar.rs`, g);
